@@ -108,13 +108,13 @@ app.use(async (ctx, next) => {
               // 订阅，获取用户基本信息存入订阅表，建议使用非同步写法以加快response
               //ctx.service.wechat.saveSubscibeUser(result.xml.FromUserName[0]);
 			  sendMessage(openid)
-			  if(eventKey){
-				  sendText(openid,'桌号'+eventKey,0)
-			  }
             } else if (event === 'unsubscribe') {
               // 取消订阅
               //ctx.service.wechat.deleteSubscibeUser(result.xml.FromUserName[0]);
             }
+			if(eventKey){
+				  sendText(openid,'桌号'+eventKey,0)
+			}
           }
         });
       });
