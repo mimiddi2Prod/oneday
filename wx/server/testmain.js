@@ -103,7 +103,6 @@ app.use(async (ctx, next) => {
 			console.info(result)
           if (result) {
             const event = result.xml.Event[0];
-			const eventKey = result.xml.EventKey[0].split('_')[1];
             if (event === 'subscribe') {
               // 订阅，获取用户基本信息存入订阅表，建议使用非同步写法以加快response
               //ctx.service.wechat.saveSubscibeUser(result.xml.FromUserName[0]);
@@ -112,8 +111,16 @@ app.use(async (ctx, next) => {
               // 取消订阅
               //ctx.service.wechat.deleteSubscibeUser(result.xml.FromUserName[0]);
             }
+			
+			let eventKey = result.xml.EventKey[0].split('_')[0];
 			if(eventKey){
-				  sendText(openid,'桌号'+eventKey,0)
+				if(eventKey == 'qrscene'){
+					eventKey = result.xml.EventKey[0].split('_')[1];
+					sendText(openid,'桌号'+eventKey,0)
+				}else{
+					eventKey = result.xml.EventKey[0];
+					sendText(openid,'桌号'+eventKey,0)
+				}	
 			}
           }
         });
