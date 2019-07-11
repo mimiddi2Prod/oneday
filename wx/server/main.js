@@ -17,27 +17,17 @@ let acceesToken = new WXAccessToken()
 acceesToken.Run().then(function(res){
 	// console.info(res)
 	let createMenu = new WXCreateMenu()
-	createMenu.Run(res).then(function(resa){
-		console.info(resa)
-	})
+	createMenu.Run(res)
+	// createMenu.Run(res).then(function(resa){
+		// console.info(resa)
+	// })
 })
-// console.info(t)
-// console.info(accessToken.Run)
-// acceesToken.then(function(res){
-	// console.info(res)
-// })
-// acceesToken.Run(function(res){
-	// console.info(res)
-// })
-// var accessToken = new WXAccessToken
-// console.info(accessToken)
-// var CreateMenu = require('./apis/wx_create_manu')
-// CreateMenu()
+
 http.createServer(function (req, res) {
     // if (req.url === '/images/favicon.ico') {
     //     return
     // }
-	//console.info(res)
+	console.info(res)
 	console.info(req.url)
 	
     var reqUrl = req.url;
