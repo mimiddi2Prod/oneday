@@ -27,7 +27,7 @@ http.createServer(function (req, res) {
     // if (req.url === '/images/favicon.ico') {
     //     return
     // }
-	console.info(res)
+	console.info(req)
 	console.info(req.url)
 	
     var reqUrl = req.url;
