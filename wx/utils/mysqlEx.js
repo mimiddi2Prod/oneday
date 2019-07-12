@@ -4,7 +4,7 @@ const pool = mysql.createPool({
     port:3306,
     user:"root",
     password:"",
-    database:""
+    database:"oneday_wechat"
 });
 
 let query = function(sql, arr){

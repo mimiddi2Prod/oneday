@@ -1,15 +1,18 @@
-// const http = require('http');
 const Cmd = require('./../utils/CuteCmd.js');
 var Koa = require('koa');
 var Url = require('url');
 const config = require('./config/wxConfig.js')
 var WechatAPI = require('wechat-api');
-
 const XMLJS = require('xml2js');
 const sha1 = require('js-sha1');
 
+var Router = require("./router.js");
+var router = new Router;
+// router.Run(type);
+
 var api = new WechatAPI(config.appid, config.secret);
-let menu = {
+
+var menu = {
 	"button": [
 		{
 			"name": "JOLLY", 
@@ -71,13 +74,26 @@ let menu = {
 	]
 }
 menu = JSON.stringify(menu)
-api.createMenu(menu,function(err,result){
-	console.info(result)
-})
+// 创建菜单
+// api.createMenu(menu,function(err,result){
+	// console.info(result)
+// })
 
-api.createLimitQRCode(100, function(err,result){
-	console.info(result.url)
-});
+// 创建长期二维码
+// api.createLimitQRCode(100, function(err,result){
+	// console.info(result.url)
+// });
+
+// createMenu()
+function createMenu(){
+	router.Run('create_menu', menu);
+}
+// createLimitQRCode()
+function createLimitQRCode(){
+	let codeList = [100,101]
+	codeList = JSON.stringify(codeList)
+	router.Run('create_limit_qr_code',codeList);
+}
 
 var app = new Koa();
 
@@ -106,21 +122,29 @@ app.use(async (ctx, next) => {
             if (event === 'subscribe') {
               // 订阅，获取用户基本信息存入订阅表，建议使用非同步写法以加快response
               //ctx.service.wechat.saveSubscibeUser(result.xml.FromUserName[0]);
-			  sendMessage(openid)
+			  // sendMessage(openid)
+			  router.Run('subscribe_message',openid);
             } else if (event === 'unsubscribe') {
               // 取消订阅
               //ctx.service.wechat.deleteSubscibeUser(result.xml.FromUserName[0]);
             }
-			
-			let eventKey = result.xml.EventKey[0].split('_')[0];
-			if(eventKey){
-				if(eventKey == 'qrscene'){
-					eventKey = result.xml.EventKey[0].split('_')[1];
-					sendText(openid,'桌号'+eventKey,0)
-				}else{
-					eventKey = result.xml.EventKey[0];
-					sendText(openid,'桌号'+eventKey,0)
-				}	
+			// 扫描二维码进入
+			if(event === 'SCAN'){
+				let eventKey = result.xml.EventKey[0].split('_')[0];
+				if(eventKey){
+					if(eventKey == 'qrscene'){
+						eventKey = result.xml.EventKey[0].split('_')[1];
+						sendText(openid,'桌号'+eventKey,0)
+					}else{
+						eventKey = result.xml.EventKey[0];
+						sendText(openid,'桌号'+eventKey,0)
+					}	
+				}
+			}
+			// 菜单栏点击进入
+			if(event === 'CLICK'){
+				let eventKey = result.xml.EventKey[0];
+				// 根据key进行处理
 			}
           }
         });
@@ -160,34 +184,5 @@ app.use(async (ctx, next) => {
 	}
 });
 
-// 在端口3000监听:
+// 在端口监听:
 app.listen(Cmd.GetCmd("--port", 5463));
-
-/* http.createServer(function (req, res) {
-	// console.info(signature)
-	// console.info(req.url)
-	// let openid = req.url.split('&')[3].split('=')[1]
-	// var message = '欢迎您关注oneday'
-	// let index = 1
-	// sendText(openid,message,index)
-	
-	// function sendText(openid,message,index){
-		// api.sendText(openid, message, function(err,result){
-			// if(result.errcode == 0){
-				// if(index > 0){
-					// message = '这里有各种精彩内容等你发现'
-					// sendText(openid,message,index-1)
-				// }else{
-					
-				// }
-			// }
-		// });
-	// }
-	
-	// function getMedia(filepath,type){
-		// api.getMedia(filepath, type, function(err,result){
-			// console.info(result)
-		// });
-	// }
-}).listen(Cmd.GetCmd("--port", 5463));
-*/
