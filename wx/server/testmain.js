@@ -69,12 +69,6 @@ var menu = {
 					"key": "item3_3",
 					"sub_button": []
 				},
-				{
-					"type": "click",
-					"name": "试一试菜单栏长度限制",
-					"key": "item3_4",
-					"sub_button": []
-				},
 			]
 		}
 	]

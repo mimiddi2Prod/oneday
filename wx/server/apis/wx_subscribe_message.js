@@ -14,8 +14,12 @@ function WXSubscribeMessage() {
 		sql = "select message from subscribe_message order by sort"
 		row = await query(sql)
 		// console.info(row)
-		let i = 0
-		sendText(param,row,i);
+		if(row.length > 0){
+			let i = 0
+			sendText(param,row,i);
+		}else{
+			sendImage(param)
+		}
 	}
 }
 	
@@ -38,6 +42,16 @@ function sendText(param,messages,index){
 			}
 		}
 	}
+}
+
+function sendImage(param){
+	api.uploadMedia('./images/subscribe.jpg', 'image', function(err,result){
+		console.info(err)
+		console.info(result)
+		api.sendImage(JSON.parse(param).openid, result.media_id, function(err,result){
+			console.info(result)
+		});
+	});
 }
 
 module.exports = WXSubscribeMessage;
