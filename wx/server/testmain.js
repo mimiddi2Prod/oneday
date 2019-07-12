@@ -69,6 +69,12 @@ var menu = {
 					"key": "item3_3",
 					"sub_button": []
 				},
+				{
+					"type": "click",
+					"name": "试一试菜单栏长度限制",
+					"key": "item3_4",
+					"sub_button": []
+				},
 			]
 		}
 	]
@@ -123,29 +129,45 @@ app.use(async (ctx, next) => {
               // 订阅，获取用户基本信息存入订阅表，建议使用非同步写法以加快response
               //ctx.service.wechat.saveSubscibeUser(result.xml.FromUserName[0]);
 			  // sendMessage(openid)
-			  router.Run('subscribe_message',openid);
+			  let param = {
+				  openid:openid,
+				  eventkey:result.xml.EventKey[0] // 扫描带参二维码并关注,否则为空
+			  }
+			  param = JSON.stringify(param)
+			  router.Run('subscribe_message',param);
             } else if (event === 'unsubscribe') {
               // 取消订阅
               //ctx.service.wechat.deleteSubscibeUser(result.xml.FromUserName[0]);
-            }
-			// 扫描二维码进入
-			if(event === 'SCAN'){
-				let eventKey = result.xml.EventKey[0].split('_')[0];
-				if(eventKey){
-					if(eventKey == 'qrscene'){
-						eventKey = result.xml.EventKey[0].split('_')[1];
-						sendText(openid,'桌号'+eventKey,0)
-					}else{
-						eventKey = result.xml.EventKey[0];
-						sendText(openid,'桌号'+eventKey,0)
-					}	
-				}
+            } else if(event === 'SCAN'){
+			  // 扫描二维码进入
+			  let param = {
+				  openid:openid,
+				  eventkey:result.xml.EventKey[0] // 扫描带参二维码且已关注,否则为空
+			  }
+			  param = JSON.stringify(param)
+			  router.Run('scan',param);
+			} else if(event === 'CLICK'){
+			  // 菜单栏点击进入
+			  let param = {
+				  openid:openid,
+				  eventkey:result.xml.EventKey[0] // 点击菜单栏CLICK事件
+			  }
+			  param = JSON.stringify(param)
+			  router.Run('click_menu',param);
 			}
-			// 菜单栏点击进入
-			if(event === 'CLICK'){
-				let eventKey = result.xml.EventKey[0];
-				// 根据key进行处理
-			}
+			
+			// if(event === 'SCAN'){
+				// let eventKey = result.xml.EventKey[0].split('_')[0];
+				// if(eventKey){
+					// if(eventKey == 'qrscene'){
+						// eventKey = result.xml.EventKey[0].split('_')[1];
+						// sendText(openid,'桌号'+eventKey,0)
+					// }else{
+						// eventKey = result.xml.EventKey[0];
+						// sendText(openid,'桌号'+eventKey,0)
+					// }	
+				// }
+			// }
           }
         });
       });
@@ -158,30 +180,24 @@ app.use(async (ctx, next) => {
       ctx.body = '';
     }
 	
-	function sendMessage(openid){
-		var message = '欢迎您关注oneday'
-		let index = 1
-		sendText(openid,message,index)
-	}
+	// function sendMessage(openid){
+		// var message = '欢迎您关注oneday'
+		// let index = 1
+		// sendText(openid,message,index)
+	// }
 	
-	function sendText(openid,message,index){
-		api.sendText(openid, message, function(err,result){
-			if(result.errcode == 0){
-				if(index > 0){
-					message = '这里有各种精彩内容等你发现'
-					sendText(openid,message,index-1)
-				}else{
+	// function sendText(openid,message,index){
+		// api.sendText(openid, message, function(err,result){
+			// if(result.errcode == 0){
+				// if(index > 0){
+					// message = '这里有各种精彩内容等你发现'
+					// sendText(openid,message,index-1)
+				// }else{
 					
-				}
-			}
-		});
-	}
-	
-	function getMedia(filepath,type){
-		api.getMedia(filepath, type, function(err,result){
-			console.info(result)
-		});
-	}
+				// }
+			// }
+		// });
+	// }
 });
 
 // 在端口监听:

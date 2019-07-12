@@ -24,6 +24,16 @@ function Router() {
 					work = new WXSubscribeMessage;
 					break;
 				}
+				case "scan": {
+					var WXScan = require("./apis/wx_scan.js");
+					work = new WXScan;
+					break;
+				}
+				case "click_menu": {
+					var WXClickMenu = require("./apis/wx_click_menu.js");
+					work = new WXClickMenu;
+					break;
+				}
 				default:
 					break;
 			}
