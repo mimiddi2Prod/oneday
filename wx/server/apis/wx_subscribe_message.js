@@ -3,7 +3,7 @@ const config = require('./../config/wxConfig.js')
 var WechatAPI = require('wechat-api');
 var api = new WechatAPI(config.appid, config.secret);
 
-function WXCreateLimitQRCode() {
+function WXSubscribeMessage() {
 	var tool = new tools;
 	var query = tool.query;
     this.Run = async function (type, param){
@@ -14,17 +14,21 @@ function WXCreateLimitQRCode() {
 		sql = "select message from subscribe_message order by sort"
 		row = await query(sql)
 		console.info(row)
-		for(let i = 0;)
-		sendText(param,row[i]['message'],i)
+		let i = 0
+		sendText(param,row,i);
 	}
 }
 	
-async function sendText(openid,message,index){
-	api.sendText(openid, message, function(err,result){
-		if(result.errcode == 0){
-			
-		}
-	});
+function sendText(openid,messages,index){
+	if(index < messages.length){
+		let message = messages[index].message
+		api.sendText(openid, message, function(err,result){
+			console.info(result)
+			if(result.errcode == 0){
+				sendText(openid,messages,index+1)
+			}
+		});
+	}
 }
 
-module.exports = WXCreateLimitQRCode;
+module.exports = WXSubscribeMessage;
