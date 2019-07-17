@@ -1,19 +1,28 @@
 const http = require('http');
 const Cmd = require('./utils/CuteCmd.js');
 var FBLog = require("./utils/log.js");
-var db = require("./utils/mysqlEx");
+const pool = require('./config/dbConfig.js').pool;
+var db = require("./utils/mysqlEx.js");
 const url = require('url');
 const path = require('path');
 var router = require("./router.js");
 
 var log = new FBLog;
 const contentType = {"content-type": "text/html;charset=utf-8"};
-db.query("select id from test_connection").then(function (row) {
-    log.info(row[0].id);
-});
 
-var checkStock = require('./apis/shop_checkStock')
-checkStock()
+db.Init()
+db.SetName(pool)
+console.info(db)
+let query = db.GetName()
+query("select id,test from test").then(function (row) {
+    console.info(row)
+})
+// db.query("select id from test_connection").then(function (row) {
+//     log.info(row[0].id);
+// });
+
+// var checkStock = require('./apis/shop_checkStock')
+// checkStock()
 
 http.createServer(function (req, res) {
     var reqUrl = req.url;
