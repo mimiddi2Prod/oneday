@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-07-17 16:34:34
+Date: 2019-07-17 17:17:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,18 +21,20 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `restaurant_goods`;
 CREATE TABLE `restaurant_goods` (
   `id` int(12) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `img` varchar(255) NOT NULL,
-  `describe` varchar(255) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `img` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `describe` varchar(255) CHARACTER SET utf8 NOT NULL,
   `price` decimal(10,2) NOT NULL,
+  `location_code` varchar(255) CHARACTER SET utf8 NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods
 -- ----------------------------
+INSERT INTO `restaurant_goods` VALUES ('1', '???', '', '', '0.00', 'xmspw', '2019-07-17 17:14:50', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_order
@@ -57,7 +59,7 @@ CREATE TABLE `restaurant_goods_order` (
 DROP TABLE IF EXISTS `restaurant_goods_param`;
 CREATE TABLE `restaurant_goods_param` (
   `id` int(12) NOT NULL AUTO_INCREMENT,
-  `param_list` varchar(1000) NOT NULL,
+  `param_list` varchar(1000) CHARACTER SET utf8 NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
@@ -107,6 +109,21 @@ CREATE TABLE `restaurant_user` (
 -- ----------------------------
 -- Records of restaurant_user
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for test
+-- ----------------------------
+DROP TABLE IF EXISTS `test`;
+CREATE TABLE `test` (
+  `id` int(12) NOT NULL,
+  `test` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of test
+-- ----------------------------
+INSERT INTO `test` VALUES ('1', 'success');
 
 -- ----------------------------
 -- Table structure for user

@@ -2,6 +2,7 @@ const rootUrl = "http://127.0.0.1:9001/apis/"
 // const rootUrl = "https://notwastingapi.minidope.com/apis/"
 
 module.exports = {
+  getMenuByLocationCode: rootUrl + 'restaurant_get_menu_by_location_code',
   getOpenid: rootUrl + 'get_openid',
   register: rootUrl + 'register',
   login: rootUrl + 'login',
