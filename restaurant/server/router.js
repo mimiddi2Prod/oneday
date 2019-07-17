@@ -12,9 +12,9 @@ function FBRouter(){
         }else {
             var work = null;
             switch(arr[2]){
-                case "restaurant_get_menu_by_location_code":{
-                    var RestaurantGetMenuByLocationCode = require("./apis/restaurant_get_menu_by_location_code");
-                    work = new RestaurantGetMenuByLocationCode;
+                case "restaurant_get_category_by_location_code":{
+                    var RestaurantGetCategoryByLocationCode = require("./apis/restaurant_get_category_by_location_code");
+                    work = new RestaurantGetCategoryByLocationCode;
                     break;
                 }
                 default:

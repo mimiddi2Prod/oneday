@@ -10,15 +10,15 @@
 </view>
 <!-- 内容 -->
 <view class="content">
-  <scroll-view class="left" scroll-y="true" scroll-into-view="{{categoryToView}}">
-    <block wx:for="{{categories}}" wx:key="id">
-      <view class="category-item {{categorySelected==item.scrollId?'category-item-active':''}}" data-id='{{item.scrollId}}' id='{{item.scrollId}}' bindtap='onCategoryClick'>
+  <scroll-view class="left" scroll-y="true">
+    <block wx:for="{{categories}}" wx:key="*this">
+      <view class="category-item {{activeId==item.id?'category-item-active':''}}" data-id='{{item.scrollId}}' id='{{item.scrollId}}' bindtap='onCategoryClick'>
         <text>{{item.name}}</text>
       </view>
     </block>
   </scroll-view>
-  <scroll-view class='right' scroll-y="true" scroll-into-view="{{goodsToView}}" enable-back-to-top="true">
-    <view wx:for="{{goodsWrap}}" wx:key="id" wx:if="{{item.scrollId == goodsToView}}" style='min-height:{{winHeight}}rpx'>
+  <scroll-view class='right' scroll-y="true" enable-back-to-top="true">
+    <view wx:for="{{goods}}" wx:key="*this" style='min-height:{{winHeight}}rpx'>
       <view class="goodsWrap-category" id='{{item.scrollId}}'>
         <text>{{item.name}}</text>
       </view>

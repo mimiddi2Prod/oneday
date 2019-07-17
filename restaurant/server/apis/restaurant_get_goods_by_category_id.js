@@ -1,18 +1,18 @@
 var tools = require("./../tool");
 
-function RestaurantGetMenuByLocationCode() {
+function RestaurantGetCategoryByLocationCode() {
     var tool = new tools;
     var log = tool.log;
     var query = tool.query;
 
     this.Run = async function (ver, param, res) {
-        var name = "RestaurantGetMenuByLocationCode::Run";
-        log.debug("RestaurantGetMenuByLocationCode::Run.in");
+        var name = "RestaurantGetCategoryByLocationCode::Run";
+        log.debug("RestaurantGetCategoryByLocationCode::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
         try {
-            sql = "select id,`name` from restaurant_menu where location_code = ? order by sort";
+            sql = "select id,`name` from restaurant_category where location_code = ? order by sort";
             row = await query(sql, param['location_code']);
             if (row.length > 0) {
                 data = row
@@ -35,10 +35,10 @@ function RestaurantGetMenuByLocationCode() {
             {
                 res: response,
                 data: data,
-                action: "get_menu_by_location_code",
+                action: "get_category_by_location_code",
             }, res);
-        tool.log.debug("RestaurantGetMenuByLocationCode::Run.out");
+        tool.log.debug("RestaurantGetCategoryByLocationCode::Run.out");
     }
 }
 
-module.exports = RestaurantGetMenuByLocationCode;
+module.exports = RestaurantGetCategoryByLocationCode;

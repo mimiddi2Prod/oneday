@@ -5,6 +5,9 @@ const app = getApp()
 
 Page({
   data: {
+    activeId: '',
+    categories: [],
+    goods: [],
     isTimeOut: false,
   },
   onLoad: function(options) {
@@ -20,14 +23,25 @@ Page({
       // 超时
     }
     let locationCode = 'xmspw'
-    this.getMenu(locationCode)
+    this.getCategory(locationCode)
   },
 
-  getMenu: function(locationCode) {
-    server.request(api.getMenuByLocationCode, {
+  getCategory: function(locationCode) {
+    let self = this
+    server.request(api.getCategoryByLocationCode, {
       'location_code': locationCode
     }, 'post').then(function(res) {
       console.info(res)
+      if (res.length > 0) {
+        self.setData({
+          categories: res
+        })
+      }
+      if (self.data.activeId.length <= 0) {
+        self.setData({
+          activeId: res[0].id
+        })
+      }
     })
   },
 
