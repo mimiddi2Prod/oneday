@@ -18,8 +18,8 @@ function WXScan() {
 	}
 }
 	
-function sendText(param){	
-	let message = '桌号:' + JSON.parse(param).eventkey
+function sendText(param){
+	let message = '<a data-miniprogram-appid="'+ config.restaurant_mini_appid +'" data-miniprogram-path="pages/index/index?id='+ JSON.parse(param).eventkey +'" href="">你选择了:'+ JSON.parse(param).eventkey +'桌，点击进入菜单</a>'
 	api.sendText(JSON.parse(param).openid, message, function(err,result){
 		// console.info(result)
 		if(result.errcode == 0){

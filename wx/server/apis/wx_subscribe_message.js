@@ -34,12 +34,13 @@ function sendText(param,messages,index){
 		});
 	}else{
 		if(JSON.parse(param).eventkey.length > 0){
-			let message = '桌号:' + JSON.parse(param).eventkey.split('_')[1]
-			if(message.length > 0){
-				api.sendText(JSON.parse(param).openid, message, function(err,result){
-					// console.info(result)
-				});
-			}
+			let message = '<a data-miniprogram-appid="'+ config.restaurant_mini_appid +'" data-miniprogram-path="pages/index/index?id='+ JSON.parse(param).eventkey.split('_')[1] +'" href="">你选择了:'+ JSON.parse(param).eventkey.split('_')[1] +'桌，点击进入菜单</a>'
+			api.sendText(JSON.parse(param).openid, message, function(err,result){
+				// console.info(result)
+				if(result.errcode == 0){
+					
+				}
+			});
 		}
 	}
 }
@@ -50,7 +51,20 @@ function sendImage(param){
 		console.info(result)
 		api.sendImage(JSON.parse(param).openid, result.media_id, function(err,result){
 			console.info(result)
+			if(result.errcode == 0){
+				sendMiniProgram(param)
+			}
 		});
+	});
+}
+
+function sendMiniProgram(param){
+	let message = '<a data-miniprogram-appid="'+ config.restaurant_mini_appid +'" data-miniprogram-path="pages/index/index?id='+ JSON.parse(param).eventkey.split('_')[1] +'" href="">你选择了:'+ JSON.parse(param).eventkey.split('_')[1] +'桌，点击进入菜单</a>'
+	api.sendText(JSON.parse(param).openid, message, function(err,result){
+		// console.info(result)
+		if(result.errcode == 0){
+			
+		}
 	});
 }
 
