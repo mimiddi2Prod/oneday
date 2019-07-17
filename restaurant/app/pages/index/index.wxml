@@ -1,0 +1,36 @@
+<!--index.wxml-->
+<!-- 标题栏 -->
+<view class="header">
+  <view class="header_left">
+    桌号:
+  </view>
+  <view class="header_right">
+    订单
+  </view>
+</view>
+<!-- 内容 -->
+<view class="content">
+  <scroll-view class="left" scroll-y="true" scroll-into-view="{{categoryToView}}">
+    <block wx:for="{{categories}}" wx:key="id">
+      <view class="category-item {{categorySelected==item.scrollId?'category-item-active':''}}" data-id='{{item.scrollId}}' id='{{item.scrollId}}' bindtap='onCategoryClick'>
+        <text>{{item.name}}</text>
+      </view>
+    </block>
+  </scroll-view>
+  <scroll-view class='right' scroll-y="true" scroll-into-view="{{goodsToView}}" enable-back-to-top="true">
+    <view wx:for="{{goodsWrap}}" wx:key="id" wx:if="{{item.scrollId == goodsToView}}" style='min-height:{{winHeight}}rpx'>
+      <view class="goodsWrap-category" id='{{item.scrollId}}'>
+        <text>{{item.name}}</text>
+      </view>
+      <block wx:for="{{item.goods}}" wx:for-item="goods" wx:key="id">
+        <view class='goods-item' bindtap="toDetailsTap" data-id="{{goods.id}}">
+          <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.pic}}_m"></image>
+          <view class='goods-info'>
+            <text class='goodsName'>{{goods.name}}</text>
+            <text class='goodsPrice'>￥{{goods.minPrice}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>
