@@ -1,23 +1,29 @@
 const http = require('http');
 const Cmd = require('./utils/CuteCmd.js');
 var FBLog = require("./utils/log.js");
-//var db = require("./utils/mysqlEx");
+const pool = require('./config/dbConfig.js').pool;
+var db = require("./utils/mysqlEx.js");
 const url = require('url');
-//const path = require('path');
-var Router = require("./router.js");
+const path = require('path');
+var router = require("./router.js");
 
 var log = new FBLog;
 const contentType = {"content-type": "text/html;charset=utf-8"};
-// db.query("select id from test_connection").then(function (row) {
-//     log.info(row[0].id);
-// });
 
+db.Init()
+db.SetName(pool)
+let query = db.GetName()
+let row = query("select id,test from test").then(function (row) {
+    console.info(row)
+    return row
+})
+console.info(row)
 // var checkStock = require('./apis/shop_checkStock')
 // checkStock()
 
 http.createServer(function (req, res) {
-    console.info(3)
     var reqUrl = req.url;
+    console.info(reqUrl)
     var path = url.parse(reqUrl).pathname;
     if (path.indexOf("favicon.ico") != -1) {
         res.writeHead(404, contentType);
@@ -36,7 +42,7 @@ http.createServer(function (req, res) {
             console.info(reqUrl);
             console.info(params);
             res.writeHead(200, contentType);
-            var router = new Router;
+            var router = new FBRouter;
             router.Run(path, params, res);
             log.info("deal request over");
         } catch (err) {
