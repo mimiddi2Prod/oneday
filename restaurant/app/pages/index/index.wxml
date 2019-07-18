@@ -9,25 +9,25 @@
   </view>
 </view>
 <!-- 内容 -->
-<view class="content">
+<view class="content" style="height:{{winHeight}}rpx">
   <scroll-view class="left" scroll-y="true">
     <block wx:for="{{categories}}" wx:key="*this">
-      <view class="category-item {{activeId==item.id?'category-item-active':''}}" data-id='{{item.scrollId}}' id='{{item.scrollId}}' bindtap='onCategoryClick'>
+      <view class="category-item {{activeId==item.id?'category-item-active':''}}" data-id='{{item.id}}' data-name='{{item.name}}' bindtap='onCategoryClick'>
         <text>{{item.name}}</text>
       </view>
     </block>
   </scroll-view>
   <scroll-view class='right' scroll-y="true" enable-back-to-top="true">
-    <view wx:for="{{goods}}" wx:key="*this" style='min-height:{{winHeight}}rpx'>
-      <view class="goodsWrap-category" id='{{item.scrollId}}'>
-        <text>{{item.name}}</text>
-      </view>
-      <block wx:for="{{item.goods}}" wx:for-item="goods" wx:key="id">
+    <view class="goodsWrap-category">
+      <text>{{activeName}}</text>
+    </view>
+    <view class="goods" wx:for="{{selectGoods}}" wx:key="*this">
+      <block wx:for="{{item.list}}" wx:for-item="goods" wx:key="id">
         <view class='goods-item' bindtap="toDetailsTap" data-id="{{goods.id}}">
-          <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.pic}}_m"></image>
+          <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}"></image>
           <view class='goods-info'>
             <text class='goodsName'>{{goods.name}}</text>
-            <text class='goodsPrice'>￥{{goods.minPrice}}</text>
+            <text class='goodsPrice'>￥{{goods.min_price}}</text>
           </view>
         </view>
       </block>

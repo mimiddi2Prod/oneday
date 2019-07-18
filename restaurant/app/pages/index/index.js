@@ -6,11 +6,32 @@ const app = getApp()
 Page({
   data: {
     activeId: '',
+    activeName: '',
     categories: [],
     goods: [],
+    selectGoods: [],
     isTimeOut: false,
+    winHeight: '',
   },
+  setWinHeight: function() {
+    var self = this;
+    // 导航栏标识线
+    wx.getSystemInfo({
+      success: function(res) {
+        var clientHeight = res.windowHeight,
+          clientWidth = res.windowWidth,
+          rpxR = 750 / clientWidth;
+        var calc = clientHeight * rpxR;
+        self.setData(self.data)
+        self.setData({
+          winHeight: calc - 90,
+        });
+      }
+    });
+  },
+
   onLoad: function(options) {
+    this.setWinHeight()
     // 公众号进入
     console.info(options)
     let current_time = new Date()
@@ -31,27 +52,43 @@ Page({
     server.request(api.getCategoryByLocationCode, {
       'location_code': locationCode
     }, 'post').then(function(res) {
-      console.info(res)
-      if (res.length > 0) {
-        self.setData({
-          categories: res
-        })
-      }
+    if (res.category.length > 0) {
+      self.data.categories = res.category
       if (self.data.activeId.length <= 0) {
-        self.setData({
-          activeId: res[0].id
+        self.data.activeId = res.category[0].id
+        self.data.activeName = res.category[0].name
+      }
+    }
+    if (res.goods.length > 0) {
+      let goods = []
+      for (let i in self.data.categories) {
+        goods.push({
+          category_id: self.data.categories[i].id,
+          list: res.goods.filter(function(e) {
+            return e.category_id == self.data.categories[i].id
+          })
         })
       }
+      self.data.goods = goods
+      self.data.selectGoods = goods.filter(function(e) {
+        return self.data.activeId == e.category_id
+      })
+    }
+    self.setData(self.data)
+    console.info(self.data.selectGoods)
     })
   },
 
   onCategoryClick: function(e) {
-    let id = e.currentTarget.dataset.id;
-    this.categoryClick = true;
-    this.setData({
-      goodsToView: id,
-      categorySelected: id,
+    let self = this
+    let id = e.currentTarget.dataset.id,
+      name = e.currentTarget.dataset.name;
+    self.data.activeId = id
+    self.data.activeName = name
+    self.data.selectGoods = self.data.goods.filter(function(e) {
+      return self.data.activeId == e.category_id
     })
+    self.setData(self.data)
   },
 
   // scroll: function(e) {
