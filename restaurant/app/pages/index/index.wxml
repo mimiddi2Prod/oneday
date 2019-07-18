@@ -13,7 +13,15 @@
         </view>
         <view class="goods-param-c">
           <view>￥{{goodsPrice}}</view>
-          <view class="goods-add-cart" bindtap="addMoreParamCart">加入购物车</view>
+          <!-- <view wx:for="{{selectGoods[0].list}}">
+            {{item.cartNumber}}
+          </view> -->
+          <view class="goods-add-cart" wx:if="{{selectGoods[0].list[0].cartNumber <= 0}}" bindtap="addMoreParamCart">加入购物车</view>
+          <view class="goods-add-cart" wx:else>
+            <view>-</view>
+            <view>{{selectGoods[0].list[0].cartNumber}}</view>
+            <view bindtap="addMoreParamCart">+</view>
+          </view>
         </view>
       </view>
     </view>
@@ -62,8 +70,10 @@
             <text class='goodsPrice'>￥{{goods.min_price}}</text>
           </view>
           <view class="goods-add">
-            <view wx:if="{{goods.sku.length <= 0}}" bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}">
-              <view>+</view>
+            <view wx:if="{{goods.sku.length <= 0}}">
+              <view bindtap="cutSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}">-</view>
+              <view>{{goods.cartNumber}}</view>
+              <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}">+</view>
             </view>
             <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}">
               选择

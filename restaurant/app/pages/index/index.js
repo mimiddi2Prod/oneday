@@ -70,6 +70,9 @@ Page({
         }
       }
       if (res.goods.length > 0) {
+        for (let i in res.goods) {
+          res.goods[i].cartNumber = 0
+        }
         let goods = []
         for (let i in self.data.categories) {
           goods.push({
@@ -169,7 +172,21 @@ Page({
       })
       self.data.cart = cart
     }
-    console.info(cart)
+
+    // for (let i in self.data.goods.list) {
+    //   if (self.data.goods.list[i].id == goodsId) {
+    //     self.data.goods.list[i].cartNumber++
+    //   }
+    // }
+
+    for (let i in self.data.selectGoods[0].list) {
+      // console.info(self.data.selectGoods[0].list[i].id)
+      // console.info(goodsId)
+      if (self.data.selectGoods[0].list[i].id == goodsId) {
+        self.data.selectGoods[0].list[i].cartNumber++
+      }
+    }
+    // console.info(cart)
     self.setData(self.data)
   },
 
