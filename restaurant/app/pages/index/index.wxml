@@ -18,7 +18,7 @@
           </view> -->
           <view class="goods-add-cart" wx:if="{{selectGoods[0].list[0].cartNumber <= 0}}" bindtap="addMoreParamCart">加入购物车</view>
           <view class="goods-add-cart-have" wx:else>
-            <view>-</view>
+            <view bindtap="cutMoreParamCart">-</view>
             <view>{{selectGoods[0].list[0].cartNumber}}</view>
             <view bindtap="addMoreParamCart">+</view>
           </view>

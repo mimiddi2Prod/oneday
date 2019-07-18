@@ -154,6 +154,14 @@ Page({
     self.addCart(goodsId, price, paramId)
   },
 
+  cutMoreParamCart:function(){
+    let self = this
+    let goodsId = self.data.goodsId
+    let price = self.data.goodsPrice
+    let paramId = self.data.goodsParamId
+    self.cutCart(goodsId, price, paramId)
+  },
+
   cutCart: function(goodsId, price, paramId) {
     let self = this
     let cart = self.data.cart
