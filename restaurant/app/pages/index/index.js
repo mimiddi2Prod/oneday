@@ -17,6 +17,8 @@ Page({
     showModal: false,
     goodsId: '',
     goodsName: '',
+    goodsPrice: '',
+    goodsParamId: '',
     goodsDescribe: '',
     selectGoodsSKU: [],
     showParam: {}, // 展示要选择的数组
@@ -104,7 +106,7 @@ Page({
     // console.info(e)
     let self = this
     let goodsId = e.currentTarget.dataset.id,
-      paramId = e.currentTarget.dataset.paramid,
+      paramId = Number(e.currentTarget.dataset.paramid),
       price = e.currentTarget.dataset.price
 
     self.addCart(goodsId, price, paramId)
@@ -113,32 +115,31 @@ Page({
   // 多属性 添加购物车
   addMoreParamCart: function(e) {
     let self = this
+    // let goodsId = self.data.goodsId
+    // let length = self.data.showParam.length
+    // let selectGoodsSKU = self.data.selectGoodsSKU
+    // let selectParamArray = {}
+    // for (let j = 0; j < length; j++) {
+    //   let key = self.data.showParam[j].text
+    //   let value = self.data.showParam[j].param.filter(function(eData) {
+    //     if (eData.select) {
+    //       return eData
+    //     }
+    //   })[0].text
+    //   selectParamArray[key] = value
+    // }
+    // selectParamArray = JSON.stringify(selectParamArray)
+    // let price = '',
+    //   paramId = ''
+    // for (let i in selectGoodsSKU) {
+    //   if (selectParamArray == JSON.stringify(selectGoodsSKU[i].param_list.param)) {
+    //     price = selectGoodsSKU[i].price
+    //     paramId = selectGoodsSKU[i].param_list.id
+    //   }
+    // }
     let goodsId = self.data.goodsId
-    let length = self.data.showParam.length
-    let selectGoodsSKU = self.data.selectGoodsSKU
-    let selectParamArray = {}
-    for (let j = 0; j < length; j++) {
-      let key = self.data.showParam[j].text
-      let value = self.data.showParam[j].param.filter(function(eData) {
-        if (eData.select) {
-          return eData
-        }
-      })[0].text
-      selectParamArray[key] = value
-    }
-    selectParamArray = JSON.stringify(selectParamArray)
-    let price = '',
-      paramId = ''
-    for (let i in selectGoodsSKU) {
-      if (selectParamArray == JSON.stringify(selectGoodsSKU[i].param_list.param)) {
-        // console.info(JSON.stringify(selectGoodsSKU[i].param_list.param))
-        price = selectGoodsSKU[i].price
-        paramId = selectGoodsSKU[i].param_list.id
-      }
-    }
-    // console.info(goodsId)
-    // console.info(price)
-    // console.info(paramId)
+    let price = self.data.goodsPrice
+    let paramId = self.data.goodsParamId
     self.addCart(goodsId, price, paramId)
   },
 
@@ -147,7 +148,6 @@ Page({
     let cart = self.data.cart
 
     let haveGoods = cart.some(function(eData) {
-      console.info(eData)
       if (goodsId == eData.goodsId && paramId == eData.paramId) {
         return true
       }
@@ -180,6 +180,7 @@ Page({
       selectText = e.currentTarget.dataset.selecttext
     for (let i in self.data.showParam) {
       if (self.data.showParam[i].id == selectParamId) {
+        console.info(selectParamId)
         self.data.showParam[i].param = self.data.showParam[i].param.map(function(eData) {
           if (eData.text == selectText) {
             eData.select = true
@@ -190,8 +191,35 @@ Page({
         })
       }
     }
+
+    // 筛选id和价格
+    // let goodsId = self.data.goodsId
+    let length = self.data.showParam.length
+    let selectGoodsSKU = self.data.selectGoodsSKU
+    let selectParamArray = {}
+    for (let j = 0; j < length; j++) {
+      let key = self.data.showParam[j].text
+      let value = self.data.showParam[j].param.filter(function(eData) {
+        if (eData.select) {
+          return eData
+        }
+      })[0].text
+      selectParamArray[key] = value
+    }
+    selectParamArray = JSON.stringify(selectParamArray)
+    let price = '',
+      paramId = ''
+    for (let i in selectGoodsSKU) {
+      if (selectParamArray == JSON.stringify(selectGoodsSKU[i].param_list.param)) {
+        // console.info(JSON.stringify(selectGoodsSKU[i].param_list.param))
+        price = selectGoodsSKU[i].price
+        paramId = selectGoodsSKU[i].param_list.id
+      }
+    }
+    self.data.goodsPrice = price
+    self.data.goodsParamId = paramId
+
     self.setData(self.data)
-    // console.info(self.data)
   },
 
   getGoodsParam: function(e) {
@@ -205,6 +233,7 @@ Page({
     self.data.goodsId = goodsId
     self.data.goodsName = goodsName
     self.data.goodsDescribe = goodsDescribe
+    self.data.goodsPrice = goodsInfo[0].price
 
     let param = []
     // 根据参数数量生成对应参数组{[],[]}

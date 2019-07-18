@@ -12,7 +12,7 @@
           {{goodsName}}
         </view>
         <view class="goods-param-c">
-          <view>￥23/杯</view>
+          <view>￥{{goodsPrice}}</view>
           <view class="goods-add-cart" bindtap="addMoreParamCart">加入购物车</view>
         </view>
       </view>
