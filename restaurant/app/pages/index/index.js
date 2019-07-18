@@ -83,7 +83,7 @@ Page({
         })
       }
       self.setData(self.data)
-      console.info(self.data.selectGoods)
+      // console.info(self.data.selectGoods)
     })
   },
 
@@ -101,23 +101,61 @@ Page({
 
   // 单属性 添加购物车
   addSingleParamCart: function(e) {
-    console.info(e)
+    // console.info(e)
     let self = this
     let goodsId = e.currentTarget.dataset.id,
       paramId = e.currentTarget.dataset.paramid,
       price = e.currentTarget.dataset.price
+
+    self.addCart(goodsId, price, paramId)
+  },
+
+  // 多属性 添加购物车
+  addMoreParamCart: function(e) {
+    let self = this
+    let goodsId = self.data.goodsId
+    let length = self.data.showParam.length
+    let selectGoodsSKU = self.data.selectGoodsSKU
+    let selectParamArray = {}
+    for (let j = 0; j < length; j++) {
+      let key = self.data.showParam[j].text
+      let value = self.data.showParam[j].param.filter(function(eData) {
+        if (eData.select) {
+          return eData
+        }
+      })[0].text
+      selectParamArray[key] = value
+    }
+    selectParamArray = JSON.stringify(selectParamArray)
+    let price = '',
+      paramId = ''
+    for (let i in selectGoodsSKU) {
+      if (selectParamArray == JSON.stringify(selectGoodsSKU[i].param_list.param)) {
+        // console.info(JSON.stringify(selectGoodsSKU[i].param_list.param))
+        price = selectGoodsSKU[i].price
+        paramId = selectGoodsSKU[i].param_list.id
+      }
+    }
+    // console.info(goodsId)
+    // console.info(price)
+    // console.info(paramId)
+    self.addCart(goodsId, price, paramId)
+  },
+
+  addCart: function(goodsId, price, paramId) {
+    let self = this
     let cart = self.data.cart
 
     let haveGoods = cart.some(function(eData) {
       console.info(eData)
-      if (goodsId == eData.goodsId) {
+      if (goodsId == eData.goodsId && paramId == eData.paramId) {
         return true
       }
       return false
     })
     if (haveGoods) {
       cart = cart.map(function(eData) {
-        if (goodsId == eData.goodsId) {
+        if (goodsId == eData.goodsId && paramId == eData.paramId) {
           eData.number++
         }
         return eData
@@ -133,35 +171,6 @@ Page({
     }
     console.info(cart)
     self.setData(self.data)
-  },
-
-  // 多属性 添加购物车
-  addMoreParamCart: function(e) {
-    let self = this
-    let goodsId = self.data.goodsId
-    let length = self.data.showParam.length
-    let selectGoodsSKU = self.data.selectGoodsSKU
-    // let selectParamArray = self.data.showParam[j].param.filter(function(eData) {
-    //   if (eData.select) {
-    //     return eData.text
-    //   }
-    // })
-    let selectParamArray = {}
-    for (let j = 0; j < length; j++) {
-      let key = self.data.showParam[j].text
-      let value = self.data.showParam[j].param.filter(function(eData) {
-        if (eData.select) {
-          return eData
-        }
-      })[0].text
-      selectParamArray[key] = value
-    }
-    selectParamArray = JSON.stringify(selectParamArray)
-    for (let i in selectGoodsSKU) {
-      if (selectParamArray == JSON.stringify(selectGoodsSKU[i].param_list.param)) {
-        console.info(JSON.stringify(selectGoodsSKU[i].param_list.param))
-      }
-    }
   },
 
   // 选择商品规格 多属性
@@ -182,7 +191,7 @@ Page({
       }
     }
     self.setData(self.data)
-    console.info(self.data)
+    // console.info(self.data)
   },
 
   getGoodsParam: function(e) {
@@ -212,7 +221,7 @@ Page({
         param[k].param.push(Object.values(goodsInfo[j].param_list.param)[k])
       }
     }
-    console.info(param)
+    // console.info(param)
     for (let i in param) {
       param[i].param = this.unique(param[i].param)
     }
@@ -225,7 +234,7 @@ Page({
         return temp
       })
     }
-    console.info(param)
+    // console.info(param)
     self.data.selectGoodsSKU = goodsInfo
     self.data.showParam = param
     self.data.showModal = true
