@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-07-17 19:37:34
+Date: 2019-07-18 17:12:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,13 +27,19 @@ CREATE TABLE `restaurant_category` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of restaurant_category
 -- ----------------------------
 INSERT INTO `restaurant_category` VALUES ('1', '汤面', 'xmspw', '0', '2019-07-17 17:20:24', '1');
 INSERT INTO `restaurant_category` VALUES ('2', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48:13', '1');
+INSERT INTO `restaurant_category` VALUES ('3', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48:13', '1');
+INSERT INTO `restaurant_category` VALUES ('4', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48:13', '1');
+INSERT INTO `restaurant_category` VALUES ('5', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48:13', '1');
+INSERT INTO `restaurant_category` VALUES ('6', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48:13', '1');
+INSERT INTO `restaurant_category` VALUES ('7', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48:13', '1');
+INSERT INTO `restaurant_category` VALUES ('8', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48:13', '1');
 
 -- ----------------------------
 -- Table structure for restaurant_goods
@@ -44,21 +50,27 @@ CREATE TABLE `restaurant_goods` (
   `name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `img` varchar(255) CHARACTER SET utf8 NOT NULL,
   `describe` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `price` decimal(10,2) NOT NULL,
+  `min_price` decimal(10,2) NOT NULL,
   `location_code` varchar(255) CHARACTER SET utf8 NOT NULL,
   `category_id` int(12) NOT NULL,
   `sort` int(12) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods
 -- ----------------------------
-INSERT INTO `restaurant_goods` VALUES ('1', '鸡蛋盖浇饭', 'pages/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
-INSERT INTO `restaurant_goods` VALUES ('2', '炒肉盖浇饭', 'pages/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '1', '2019-07-17 17:14:50', '1');
-INSERT INTO `restaurant_goods` VALUES ('3', '西红柿鸡蛋面', 'pages/images/A.png', '营养丰富', '20.00', 'xmspw', '1', '0', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('1', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('2', '炒肉盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '1', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('3', '西红柿鸡蛋面', '/images/A.png', '营养丰富', '20.00', 'xmspw', '1', '0', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('4', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('5', '鸡蛋盖浇饭带大家是大家', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('6', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('7', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('8', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('9', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_order
@@ -83,17 +95,17 @@ CREATE TABLE `restaurant_goods_order` (
 DROP TABLE IF EXISTS `restaurant_goods_param`;
 CREATE TABLE `restaurant_goods_param` (
   `id` int(12) NOT NULL AUTO_INCREMENT,
-  `param_list` varchar(1000) CHARACTER SET utf8 NOT NULL,
+  `param` varchar(1000) CHARACTER SET utf8 NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_param
 -- ----------------------------
-INSERT INTO `restaurant_goods_param` VALUES ('1', '[\"冰\",\"半糖\"]', '2019-07-17 19:21:56', '0');
-INSERT INTO `restaurant_goods_param` VALUES ('2', '[\"冰\",\"无糖\"]', '2019-07-17 19:21:56', '0');
+INSERT INTO `restaurant_goods_param` VALUES ('1', '{\"冰度\":\"冰\",\"甜度\":\"半糖\"}', '2019-07-17 19:21:56', '0');
+INSERT INTO `restaurant_goods_param` VALUES ('2', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '2019-07-17 19:21:56', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_sku
@@ -108,7 +120,7 @@ CREATE TABLE `restaurant_goods_sku` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_sku
