@@ -88,7 +88,6 @@ Page({
         })
       }
       self.setData(self.data)
-      // console.info(self.data.selectGoods)
     })
   },
 
@@ -113,6 +112,15 @@ Page({
       price = e.currentTarget.dataset.price
 
     self.addCart(goodsId, price, paramId)
+  },
+
+  cutSingleParamCart: function(e) {
+    let self = this
+    let goodsId = e.currentTarget.dataset.id,
+      paramId = Number(e.currentTarget.dataset.paramid),
+      price = e.currentTarget.dataset.price
+
+    self.cutCart(goodsId, price, paramId)
   },
 
   // 多属性 添加购物车
@@ -146,6 +154,45 @@ Page({
     self.addCart(goodsId, price, paramId)
   },
 
+  cutCart: function(goodsId, price, paramId) {
+    let self = this
+    let cart = self.data.cart
+
+    let haveGoods = cart.some(function(eData) {
+      if (goodsId == eData.goodsId && paramId == eData.paramId) {
+        return true
+      }
+      return false
+    })
+    if (haveGoods) {
+      cart = cart.map(function(eData) {
+        if (goodsId == eData.goodsId && paramId == eData.paramId) {
+          eData.number--
+        }
+        return eData
+      })
+      cart = cart.filter(function (eData) {
+        return (eData.number > 0)
+      })
+    }
+    //  else {
+    //   cart.push({
+    //     goodsId: goodsId,
+    //     paramId: paramId,
+    //     price: price,
+    //     number: 1
+    //   })
+    //   self.data.cart = cart
+    // }
+
+    for (let i in self.data.selectGoods[0].list) {
+      if (self.data.selectGoods[0].list[i].id == goodsId) {
+        self.data.selectGoods[0].list[i].cartNumber--
+      }
+    }
+    self.setData(self.data)
+  },
+
   addCart: function(goodsId, price, paramId) {
     let self = this
     let cart = self.data.cart
@@ -173,20 +220,11 @@ Page({
       self.data.cart = cart
     }
 
-    // for (let i in self.data.goods.list) {
-    //   if (self.data.goods.list[i].id == goodsId) {
-    //     self.data.goods.list[i].cartNumber++
-    //   }
-    // }
-
     for (let i in self.data.selectGoods[0].list) {
-      // console.info(self.data.selectGoods[0].list[i].id)
-      // console.info(goodsId)
       if (self.data.selectGoods[0].list[i].id == goodsId) {
         self.data.selectGoods[0].list[i].cartNumber++
       }
     }
-    // console.info(cart)
     self.setData(self.data)
   },
 

@@ -183,6 +183,11 @@
   text-align: end
 }
 
+.goods-add-cart-have{
+  display: flex;
+  flex-direction: row
+}
+
 .param-select{
   color:red
 }
