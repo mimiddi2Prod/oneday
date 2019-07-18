@@ -149,6 +149,13 @@
   display: none;
 }
 
+.goods-param-close{
+  position: absolute;
+  right: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+}
+
 .goods-param-header {
   display: flex;
   flex-direction: row;

@@ -57,6 +57,12 @@ Page({
     this.getCategory(locationCode)
   },
 
+  closeModal: function() {
+    this.setData({
+      showModal: false
+    })
+  },
+
   getCategory: function(locationCode) {
     let self = this
     server.request(api.getCategoryByLocationCode, {
@@ -154,7 +160,7 @@ Page({
     self.addCart(goodsId, price, paramId)
   },
 
-  cutMoreParamCart:function(){
+  cutMoreParamCart: function() {
     let self = this
     let goodsId = self.data.goodsId
     let price = self.data.goodsPrice
@@ -179,7 +185,7 @@ Page({
         }
         return eData
       })
-      cart = cart.filter(function (eData) {
+      cart = cart.filter(function(eData) {
         return (eData.number > 0)
       })
     }
