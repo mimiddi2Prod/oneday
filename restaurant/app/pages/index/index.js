@@ -18,7 +18,7 @@ Page({
     goodsId: '',
     goodsName: '',
     goodsDescribe: '',
-    // selectParam: [],
+    selectGoodsSKU: [],
     showParam: {}, // 展示要选择的数组
   },
   setWinHeight: function() {
@@ -99,7 +99,8 @@ Page({
     self.setData(self.data)
   },
 
-  addCart: function(e) {
+  // 单属性 添加购物车
+  addSingleParamCart: function(e) {
     console.info(e)
     let self = this
     let goodsId = e.currentTarget.dataset.id,
@@ -134,6 +135,35 @@ Page({
     self.setData(self.data)
   },
 
+  // 多属性 添加购物车
+  addMoreParamCart: function(e) {
+    let self = this
+    let goodsId = self.data.goodsId
+    let length = self.data.showParam.length
+    let selectGoodsSKU = self.data.selectGoodsSKU
+    // let selectParamArray = self.data.showParam[j].param.filter(function(eData) {
+    //   if (eData.select) {
+    //     return eData.text
+    //   }
+    // })
+    let selectParamArray = {}
+    for (let j = 0; j < length; j++) {
+      let key = self.data.showParam[j].text
+      let value = self.data.showParam[j].param.filter(function(eData) {
+        if (eData.select) {
+          return eData
+        }
+      })[0].text
+      selectParamArray[key] = value
+    }
+    selectParamArray = JSON.stringify(selectParamArray)
+    for (let i in selectGoodsSKU) {
+      if (selectParamArray == JSON.stringify(selectGoodsSKU[i].param_list.param)) {
+        console.info(JSON.stringify(selectGoodsSKU[i].param_list.param))
+      }
+    }
+  },
+
   // 选择商品规格 多属性
   selectParam: function(e) {
     let self = this
@@ -152,6 +182,7 @@ Page({
       }
     }
     self.setData(self.data)
+    console.info(self.data)
   },
 
   getGoodsParam: function(e) {
@@ -195,6 +226,7 @@ Page({
       })
     }
     console.info(param)
+    self.data.selectGoodsSKU = goodsInfo
     self.data.showParam = param
     self.data.showModal = true
     self.setData(self.data)
