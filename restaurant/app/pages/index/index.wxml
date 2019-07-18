@@ -87,7 +87,9 @@
 </view>
 
 <view class="footer">
+  <image src="/images/A.png"></image>
   <view>
 
   </view>
+  <view></view>
 </view>
