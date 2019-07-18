@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f740c969-a70b-424b-8eb9-8ea63f319cfa" name="默认更改列表" comment="">
-      <change beforePath="$PROJECT_DIR$/apis/restaurant_get_category_by_location_code.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/restaurant_get_category_by_location_code.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../oneday.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../oneday.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/pages/index/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/pages/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/pages/index/index.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/pages/index/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/../app/pages/index/index.wxss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,8 +86,8 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="480" />
-    <option name="y" value="150" />
+    <option name="x" value="6" />
+    <option name="y" value="478" />
     <option name="width" value="1549" />
     <option name="height" value="959" />
   </component>
@@ -161,12 +164,12 @@
       <option name="presentableId" value="Default" />
       <updated>1563352650859</updated>
       <workItem from="1563352652100" duration="10718000" />
-      <workItem from="1563416255748" duration="1689000" />
+      <workItem from="1563416255748" duration="2287000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12407000" />
+    <option name="totallyTimeSpent" value="13005000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="480" y="150" width="1549" height="959" extended-state="0" />

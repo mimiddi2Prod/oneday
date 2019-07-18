@@ -38,6 +38,7 @@ function RestaurantGetCategoryByLocationCode() {
                         if (row.length > 0) {
                             data.goods[i].sku[j].param_list = row[0]
                             data.goods[i].sku[j].param_list.param = JSON.parse(data.goods[i].sku[j].param_list.param)
+                            console.info(data.goods[i].sku[j].param_list)
                         }
                     }
                 }

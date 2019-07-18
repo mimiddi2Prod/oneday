@@ -96,6 +96,8 @@
   flex-direction: column;
   padding: 0px 5px 0px 5px;
   height: 80px;
+  width: 300rpx;
+  /* max-width: 300rpx */
 }
 
 .goodsName {
@@ -104,4 +106,83 @@
 
 .goodsPrice {
   color: #e64340;
+}
+
+.goods-add {
+  width: 80rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer {
+  position: fixed;
+  bottom: 50rpx;
+  width: 100%;
+  padding: 0 50rpx;
+}
+
+.goods-param {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+}
+
+.goods-param-bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  opacity: 0.6;
+}
+
+.goods-param-container {
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+  border-top: 1rpx solid rgb(199, 192, 241);
+  padding: 20rpx;
+  width: 710rpx;
+}
+
+.hide {
+  display: none;
+}
+
+.goods-param-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.goods-param-a {
+  width: 240rpx;
+}
+
+.goods-param-pic {
+  width: 240rpx;
+  height: 240rpx;
+  flex-shrink: 0;
+}
+
+.goods-param-b {
+  margin: 20rpx 0 20rpx 10rpx;
+  width: 470rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.goods-param-c {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 0 20rpx 0;
+}
+
+.goods-add-cart {
+  text-align: end
+}
+
+.param-select{
+  color:red
 }
