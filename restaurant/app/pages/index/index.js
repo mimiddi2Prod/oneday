@@ -217,6 +217,10 @@ Page({
         self.data.selectGoods[0].list[i].cartNumber--
       }
     }
+
+    if (self.data.cart.length <= 0) {
+      self.data.showCart = false
+    }
     self.setData(self.data)
   },
 
@@ -251,7 +255,7 @@ Page({
     }
 
     let totelGoodsPrice = 0
-    for(let i in cart){
+    for (let i in cart) {
       totelGoodsPrice = totelGoodsPrice + (cart[i].price * cart[i].number)
     }
     self.data.totalGoodsPrice = totelGoodsPrice
