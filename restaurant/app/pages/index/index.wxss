@@ -255,8 +255,36 @@
   margin-bottom: 170rpx;
 }
 
-.cart-item{
+.cart-item {
   display: flex;
   flex-direction: row;
-  align-content: center
+  align-content: center;
+  justify-content: space-between;
+}
+
+.cart-item > .item {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  max-width: 500rpx;
+}
+
+.cart-item > .item > .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-grow: 1;
+}
+
+.cart-item > .item > .param {
+  flex-shrink: 0;
+}
+
+.cart-item > .goods-add {
+  width: 120rpx;
+}
+
+.goods-add > .price {
+  margin-right: 20rpx;
 }

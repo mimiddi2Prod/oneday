@@ -202,10 +202,15 @@ Page({
         return eData
       })
     }
-    let checkCart = cart.filter(function (eData) {
+    let totelGoodsPrice = 0
+    let checkCart = cart.filter(function(eData) {
+      if (eData.number > 0) {
+        totelGoodsPrice = totelGoodsPrice + (eData.price * eData.number)
+      }
       return (eData.number > 0)
     })
-    self.data.cart = checkCart 
+    self.data.cart = checkCart
+    self.data.totalGoodsPrice = totelGoodsPrice
     // 主界面商品添加购物车的数量展示
     for (let i in self.data.selectGoods[0].list) {
       if (self.data.selectGoods[0].list[i].id == goodsId) {
@@ -245,6 +250,11 @@ Page({
       })
     }
 
+    let totelGoodsPrice = 0
+    for(let i in cart){
+      totelGoodsPrice = totelGoodsPrice + (cart[i].price * cart[i].number)
+    }
+    self.data.totalGoodsPrice = totelGoodsPrice
     // 主界面商品添加购物车的数量展示
     for (let i in self.data.selectGoods[0].list) {
       if (self.data.selectGoods[0].list[i].id == goodsId) {

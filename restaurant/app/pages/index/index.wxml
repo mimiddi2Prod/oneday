@@ -54,13 +54,21 @@
   <view class="cart-container">
     <!-- <image class="goods-param-close" src='/images/icon_close.png' bindtap='showCart'></image> -->
     <view class="cart-item" wx:for="{{cart}}" wx:key="*this">
-      {{item.goodsName}}
-      <view wx:if="{{item.goodsParam}}" wx:for="{{item.goodsParam}}" wx:for-item="param" wx:for-index="paramIndex">
-        {{paramIndex}}:{{param}}
+      <view class="item">
+        <view class="name">{{item.goodsName}}</view>
+        <view class="param" wx:if="{{item.goodsParam}}">
+          <!-- {{paramIndex}}: -->
+          <text wx:for="{{item.goodsParam}}" wx:for-item="param" wx:for-index="paramIndex">({{param}})</text>
+        </view>
       </view>
       <!-- 购物车列表商品数量增减 -->
-      <view>
-        {{item.number}}
+      <view class="goods-add">
+        <view class="price">
+          ￥{{item.price}}
+        </view>
+        <view bindtap="cutSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}">-</view>
+        <view>{{item.number}}</view>
+        <view bindtap="addSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" data-name="{{goods.goodsName}}" data-image="{{goods.img}}">+</view>
       </view>
     </view>
   </view>
