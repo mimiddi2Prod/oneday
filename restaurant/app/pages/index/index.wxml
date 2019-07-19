@@ -87,9 +87,13 @@
 </view>
 
 <view class="footer">
-  <image src="/images/A.png"></image>
-  <view>
-
+  <view class="footer-icon">
+    <image class="cart-icon" src="/images/gouwu.png"></image>
   </view>
-  <view></view>
+  <view class="footer-price">
+    <text>尚未购买</text>
+  </view>
+  <view class="footer-submit">
+    <text>选好了</text>
+  </view>
 </view>
