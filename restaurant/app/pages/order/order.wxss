@@ -61,8 +61,8 @@
 }
 
 .goods-image {
-  width: 120rpx;
-  height: 120rpx;
+  width: 140rpx;
+  height: 140rpx;
   flex-shrink: 0;
   margin-right: 10rpx;
 }
@@ -70,15 +70,23 @@
 .goods-detail {
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   padding: 10rpx;
 }
 
 .goods-name {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+}
+
+.font-key{
+  font-size: 24rpx;
+}
+
+.font-value{
+  font-size: 30rpx;
 }
 
 .line {
