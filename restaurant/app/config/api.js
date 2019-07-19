@@ -3,7 +3,7 @@ const rootUrl = "http://127.0.0.1:9001/apis/"
 
 module.exports = {
   getCategoryByLocationCode: rootUrl + 'restaurant_get_category_by_location_code',
-  getOpenid: rootUrl + 'get_openid',
+  getOpenid: rootUrl + 'restaurant_get_openid',
   register: rootUrl + 'register',
   login: rootUrl + 'login',
   

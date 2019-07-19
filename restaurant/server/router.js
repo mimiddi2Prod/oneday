@@ -12,6 +12,11 @@ function FBRouter(){
         }else {
             var work = null;
             switch(arr[2]){
+                case "restaurant_get_openid":{
+                    var RestaurantGetOpenid = require("./apis/restaurant_get_openid");
+                    work = new RestaurantGetOpenid;
+                    break;
+                }
                 case "restaurant_get_category_by_location_code":{
                     var RestaurantGetCategoryByLocationCode = require("./apis/restaurant_get_category_by_location_code");
                     work = new RestaurantGetCategoryByLocationCode;

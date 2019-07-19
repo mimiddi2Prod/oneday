@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-07-18 17:12:40
+Date: 2019-07-19 17:42:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -99,13 +99,16 @@ CREATE TABLE `restaurant_goods_param` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_param
 -- ----------------------------
 INSERT INTO `restaurant_goods_param` VALUES ('1', '{\"冰度\":\"冰\",\"甜度\":\"半糖\"}', '2019-07-17 19:21:56', '0');
 INSERT INTO `restaurant_goods_param` VALUES ('2', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '2019-07-17 19:21:56', '0');
+INSERT INTO `restaurant_goods_param` VALUES ('3', '{\"冰度\":\"冰\"}', '2019-07-17 19:21:56', '0');
+INSERT INTO `restaurant_goods_param` VALUES ('4', '{\"冰度\":\"正常冰\"}', '2019-07-17 19:21:56', '0');
+INSERT INTO `restaurant_goods_param` VALUES ('5', '{\"冰度\":\"热\"}', '2019-07-17 19:21:56', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_sku
@@ -120,13 +123,16 @@ CREATE TABLE `restaurant_goods_sku` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_sku
 -- ----------------------------
 INSERT INTO `restaurant_goods_sku` VALUES ('1', '999', '5.00', '1', '2', '0000-00-00 00:00:00', '0');
 INSERT INTO `restaurant_goods_sku` VALUES ('2', '999', '6.00', '2', '2', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('3', '999', '6.00', '3', '3', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('4', '999', '7.00', '4', '3', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('5', '999', '9.00', '5', '3', '0000-00-00 00:00:00', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_user
@@ -144,11 +150,12 @@ CREATE TABLE `restaurant_user` (
   `address_id` int(12) DEFAULT NULL,
   `integral` int(12) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of restaurant_user
 -- ----------------------------
+INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', 'QG7OVP96xyCWLkGo1ncfPA==', '2019-07-19 17:42:35', null, '0');
 
 -- ----------------------------
 -- Table structure for test
