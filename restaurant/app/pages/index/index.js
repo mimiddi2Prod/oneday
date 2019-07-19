@@ -24,7 +24,7 @@ Page({
     showParam: {}, // 展示要选择的数组
 
     // 购物车列表
-    showCart:true
+    showCart: false
   },
   setWinHeight: function() {
     var self = this;
@@ -66,7 +66,7 @@ Page({
     })
   },
 
-  showCart: function () {
+  showCart: function() {
     this.setData({
       showCart: !this.data.showCart
     })
@@ -240,7 +240,6 @@ Page({
         price: price,
         number: 1
       })
-      self.data.cart = cart
     }
 
     for (let i in self.data.selectGoods[0].list) {
@@ -248,6 +247,7 @@ Page({
         self.data.selectGoods[0].list[i].cartNumber++
       }
     }
+    console.info(cart)
     self.setData(self.data)
   },
 
@@ -312,7 +312,7 @@ Page({
     self.data.goodsName = goodsName
     self.data.goodsDescribe = goodsDescribe
     self.data.goodsPrice = goodsInfo[0].price
-
+    self.data.goodsParamId = goodsInfo[0].goods_param_id
     let param = []
     // 根据参数数量生成对应参数组{[],[]}
     let keyArray = Object.keys(goodsInfo[0].param_list.param)

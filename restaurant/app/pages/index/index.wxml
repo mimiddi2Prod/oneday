@@ -44,9 +44,9 @@
 <view class="goods-param {{showCart ? '' : 'hide'}}" catchtouchmove="ture">
   <view class="goods-param-bg"></view>
   <view class="cart-container">
-    <image class="goods-param-close" src='/images/icon_close.png' bindtap='showCart'></image>
-    <view>
-    sasda
+    <!-- <image class="goods-param-close" src='/images/icon_close.png' bindtap='showCart'></image> -->
+    <view wx:for="">
+
     </view>
   </view>
 </view>
