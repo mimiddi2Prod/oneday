@@ -81,7 +81,7 @@ Page({
 
   // 购物车弹窗切换
   showCart: function() {
-    console.info(this.data.cart)
+    // console.info(this.data.cart)
     this.setData({
       showCart: !this.data.showCart
     })
@@ -124,6 +124,13 @@ Page({
         })
       }
       self.setData(self.data)
+    })
+  },
+
+  toSubmitOrder: function() {
+    app.globalData.cart = this.data.cart
+    wx.navigateTo({
+      url: '../order/order',
     })
   },
 
@@ -265,7 +272,7 @@ Page({
         self.data.selectGoods[0].list[i].cartNumber++
       }
     }
-    console.info(cart)
+    // console.info(cart)
     self.setData(self.data)
   },
 
@@ -276,7 +283,7 @@ Page({
       selectText = e.currentTarget.dataset.selecttext
     for (let i in self.data.showParam) {
       if (self.data.showParam[i].id == selectParamId) {
-        console.info(selectParamId)
+        // console.info(selectParamId)
         self.data.showParam[i].param = self.data.showParam[i].param.map(function(eData) {
           if (eData.text == selectText) {
             eData.select = true

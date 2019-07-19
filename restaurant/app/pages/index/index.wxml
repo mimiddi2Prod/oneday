@@ -135,7 +135,7 @@
     <view class="footer-price">
       <text>￥{{totalGoodsPrice}}</text>
     </view>
-    <view class="footer-submit">
+    <view class="footer-submit" bindtap='toSubmitOrder'>
       <text>选好了</text>
     </view>
   </block>
