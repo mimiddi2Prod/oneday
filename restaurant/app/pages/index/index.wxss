@@ -1,4 +1,7 @@
 /**index.wxss**/
+page{
+  background-color: white;
+}
 
 .header {
   position: fixed;

@@ -1,1 +1,130 @@
 /* pages/order/order.wxss */
+
+.header {
+  position: fixed;
+  width: 670rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20rpx 40rpx;
+  background-color: white;
+}
+
+.header_left {
+}
+
+.header_right {
+}
+
+.content {
+  width: 100vw;
+  padding-top: 90rpx;
+}
+
+.card {
+  background-color: white;
+  border-radius: 6rpx;
+  margin: 30rpx;
+  padding: 30rpx;
+}
+
+.card:last-child{
+  margin-bottom: 140rpx;
+}
+
+.style {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.style-btn {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+
+.style-btn-active {
+  color: red;
+  margin-left: 20rpx;
+}
+
+.style-btn-none {
+  color: gray;
+  margin-left: 20rpx;
+}
+
+.goods-info {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+
+.goods-image {
+  width: 120rpx;
+  height: 120rpx;
+  flex-shrink: 0;
+  margin-right: 10rpx;
+}
+
+.goods-detail {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10rpx;
+}
+
+.goods-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.line {
+  border-top: 1rpx solid rgb(230, 230, 230);
+  width: 660rpx;
+  margin: 10rpx 0;
+}
+
+.sub-total-price{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.sub-total-price > text{
+  font-size: 40rpx;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  padding: 20rpx 30rpx;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  width: 690rpx;
+}
+
+.total-price {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.total-price > text {
+  font-size: 40rpx;
+  padding: 10rpx;
+}
+
+.topay {
+  background-color: salmon;
+  color: white;
+  font-size: 40rpx;
+  padding: 12rpx 30rpx;
+  border-radius: 50rpx;
+}
