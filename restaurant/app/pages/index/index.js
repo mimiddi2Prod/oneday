@@ -201,20 +201,11 @@ Page({
         }
         return eData
       })
-      cart = cart.filter(function(eData) {
-        return (eData.number > 0)
-      })
     }
-    //  else {
-    //   cart.push({
-    //     goodsId: goodsId,
-    //     paramId: paramId,
-    //     price: price,
-    //     number: 1
-    //   })
-    //   self.data.cart = cart
-    // }
-
+    let checkCart = cart.filter(function (eData) {
+      return (eData.number > 0)
+    })
+    self.data.cart = checkCart 
     // 主界面商品添加购物车的数量展示
     for (let i in self.data.selectGoods[0].list) {
       if (self.data.selectGoods[0].list[i].id == goodsId) {

@@ -125,7 +125,7 @@
   <!-- 购物车有商品 -->
   <block wx:if="{{cart.length > 0}}">
     <view class="footer-price">
-      <text>￥454</text>
+      <text>￥{{totalGoodsPrice}}</text>
     </view>
     <view class="footer-submit">
       <text>选好了</text>
