@@ -41,7 +41,7 @@
   </view>
 </view>
 <!-- 购物车列表 -->
-<view class="goods-param {{showCart ? '' : 'hide'}}" catchtouchmove="ture">
+<view class="goods-cart {{showCart ? '' : 'hide'}}" catchtouchmove="ture">
   <view class="goods-param-bg"></view>
   <view class="cart-container">
     <!-- <image class="goods-param-close" src='/images/icon_close.png' bindtap='showCart'></image> -->
