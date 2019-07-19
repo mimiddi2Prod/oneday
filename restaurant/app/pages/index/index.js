@@ -22,6 +22,9 @@ Page({
     goodsDescribe: '',
     selectGoodsSKU: [],
     showParam: {}, // 展示要选择的数组
+
+    // 购物车列表
+    showCart:true
   },
   setWinHeight: function() {
     var self = this;
@@ -60,6 +63,12 @@ Page({
   closeModal: function() {
     this.setData({
       showModal: false
+    })
+  },
+
+  showCart: function () {
+    this.setData({
+      showCart: !this.data.showCart
     })
   },
 

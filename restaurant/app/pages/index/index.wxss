@@ -85,6 +85,10 @@
   border-bottom: 1rpx solid #f2f2f2;
 }
 
+.goods-item:last-child{
+  margin-bottom: 170rpx
+}
+
 .goods-pic {
   width: 80px;
   height: 80px;
@@ -194,12 +198,13 @@
 
 .footer {
   position: fixed;
-  bottom: 50rpx;
+  bottom: 40rpx;
   width: 90%;
   height: 100rpx;
   margin: 0 5%;
   background-color: cadetblue;
   border-radius: 50rpx;
+  z-index: 4
 }
 
 .footer-icon {
@@ -232,3 +237,13 @@
   text-align: center;
 }
 
+.cart-container {
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+  border-top: 1rpx solid rgb(199, 192, 241);
+  border-bottom: 1rpx solid rgb(199, 192, 241);
+  padding: 20rpx;
+  width: 710rpx;
+  margin-bottom: 170rpx;
+}

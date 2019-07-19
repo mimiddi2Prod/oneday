@@ -40,6 +40,16 @@
     </view>
   </view>
 </view>
+<!-- 购物车列表 -->
+<view class="goods-param {{showCart ? '' : 'hide'}}" catchtouchmove="ture">
+  <view class="goods-param-bg"></view>
+  <view class="cart-container">
+    <image class="goods-param-close" src='/images/icon_close.png' bindtap='showCart'></image>
+    <view>
+    sasda
+    </view>
+  </view>
+</view>
 <!-- 标题栏 -->
 <view class="header">
   <view class="header_left">
@@ -87,7 +97,7 @@
 </view>
 
 <view class="footer">
-  <view class="footer-icon">
+  <view class="footer-icon" bindtap='showCart'>
     <image class="cart-icon" src="/images/gouwu.png"></image>
   </view>
   <view class="footer-price">
