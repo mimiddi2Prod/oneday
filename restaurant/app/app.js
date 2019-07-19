@@ -11,8 +11,6 @@ App({
           code: res.code
         }, "post").then(function(res) {
           self.globalData.openid = res
-          console.info(res)
-          // self.login(res)
         })
       }
     })
