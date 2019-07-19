@@ -254,3 +254,9 @@
   width: 710rpx;
   margin-bottom: 170rpx;
 }
+
+.cart-item{
+  display: flex;
+  flex-direction: row;
+  align-content: center
+}

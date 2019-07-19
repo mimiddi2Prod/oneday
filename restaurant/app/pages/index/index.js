@@ -5,32 +5,40 @@ const app = getApp()
 
 Page({
   data: {
+    // 主页面左侧类别栏选中id(自定义id 与数据库类别id无关)
     activeId: '',
+    // 选中类别的名字 在右侧商品列表上展示
     activeName: '',
     categories: [],
     goods: [],
     selectGoods: [],
+    // 之后需要做超时状态 跳转超时提醒 重新扫码
     isTimeOut: false,
     winHeight: '',
+    // 购物车列表
     cart: [],
+    // 商品总价格展示
+    totalGoodsPrice: 0,
 
+    // 弹窗的商品属性
     showModal: false,
     goodsId: '',
     goodsName: '',
     goodsPrice: '',
     goodsParamId: '',
-    goodsImage:'',
-    goodsParam:'',
+    goodsImage: '',
+    goodsParam: '',
     goodsDescribe: '',
     selectGoodsSKU: [],
     showParam: {}, // 展示要选择的数组
 
-    // 购物车列表
+    // 购物车列表是否展示
     showCart: false
   },
+
+  // 页面高度 scroll-view需要防止整个页面跟着拖动
   setWinHeight: function() {
     var self = this;
-    // 导航栏标识线
     wx.getSystemInfo({
       success: function(res) {
         var clientHeight = res.windowHeight,
@@ -46,6 +54,7 @@ Page({
   },
 
   onLoad: function(options) {
+    // 页面高度 scroll-view需要防止整个页面跟着拖动
     this.setWinHeight()
     // 公众号进入
     console.info(options)
@@ -59,21 +68,26 @@ Page({
       // 超时
     }
     let locationCode = 'xmspw'
+    // 获取商品列表 包括类别 和 商品
     this.getCategory(locationCode)
   },
 
+  // 关闭选择规格弹窗 
   closeModal: function() {
     this.setData({
       showModal: false
     })
   },
 
+  // 购物车弹窗切换
   showCart: function() {
+    console.info(this.data.cart)
     this.setData({
       showCart: !this.data.showCart
     })
   },
 
+  // 获取商品列表 包括类别 和 商品
   getCategory: function(locationCode) {
     let self = this
     server.request(api.getCategoryByLocationCode, {
@@ -81,16 +95,19 @@ Page({
     }, 'post').then(function(res) {
       if (res.category.length > 0) {
         self.data.categories = res.category
+        // 初始加载默认第一个类别为选中状态
         if (self.data.activeId.length <= 0) {
           self.data.activeId = res.category[0].id
           self.data.activeName = res.category[0].name
         }
       }
       if (res.goods.length > 0) {
+        // 每个商品加入购物车的数量
         for (let i in res.goods) {
           res.goods[i].cartNumber = 0
         }
         let goods = []
+        // 相同类别的商品放到筛选放一起
         for (let i in self.data.categories) {
           goods.push({
             category_id: self.data.categories[i].id,
@@ -99,7 +116,9 @@ Page({
             })
           })
         }
+        // 所有商品
         self.data.goods = goods
+        // 选中类别的商品展示
         self.data.selectGoods = goods.filter(function(e) {
           return self.data.activeId == e.category_id
         })
@@ -108,6 +127,7 @@ Page({
     })
   },
 
+  // 类别切换 对应的商品展示跟着类别切换
   onCategoryClick: function(e) {
     let self = this
     let id = e.currentTarget.dataset.id,
@@ -128,7 +148,7 @@ Page({
       paramId = Number(e.currentTarget.dataset.paramid),
       price = e.currentTarget.dataset.price,
       goodsImage = e.currentTarget.dataset.image,
-      goodsName = e.currentTarget.dataset.name
+      goodsName = e.currentTarget.dataset.name,
       goodsParam = ''
 
     self.addCart(goodsId, price, paramId, goodsName, goodsImage, goodsParam)
@@ -167,6 +187,7 @@ Page({
     let self = this
     let cart = self.data.cart
 
+    // 检查购物车是否有相同规格商品 有则减少
     let haveGoods = cart.some(function(eData) {
       if (goodsId == eData.goodsId && paramId == eData.paramId) {
         return true
@@ -194,6 +215,7 @@ Page({
     //   self.data.cart = cart
     // }
 
+    // 主界面商品添加购物车的数量展示
     for (let i in self.data.selectGoods[0].list) {
       if (self.data.selectGoods[0].list[i].id == goodsId) {
         self.data.selectGoods[0].list[i].cartNumber--
@@ -206,6 +228,7 @@ Page({
     let self = this
     let cart = self.data.cart
 
+    // 检查购物车是否有相同规格商品 有则增加数量 无则新增数组
     let haveGoods = cart.some(function(eData) {
       if (goodsId == eData.goodsId && paramId == eData.paramId) {
         return true
@@ -231,6 +254,7 @@ Page({
       })
     }
 
+    // 主界面商品添加购物车的数量展示
     for (let i in self.data.selectGoods[0].list) {
       if (self.data.selectGoods[0].list[i].id == goodsId) {
         self.data.selectGoods[0].list[i].cartNumber++
@@ -282,7 +306,8 @@ Page({
         // console.info(JSON.stringify(selectGoodsSKU[i].param_list.param))
         price = selectGoodsSKU[i].price
         paramId = selectGoodsSKU[i].param_list.id
-        param = JSON.stringify(selectGoodsSKU[i].param_list.param)
+        // param = JSON.stringify(selectGoodsSKU[i].param_list.param)
+        param = selectGoodsSKU[i].param_list.param
       }
     }
     self.data.goodsPrice = price
@@ -292,6 +317,7 @@ Page({
     self.setData(self.data)
   },
 
+  // 初始选择商品时 初始化规格分组
   getGoodsParam: function(e) {
     let self = this
     let goodsId = e.currentTarget.dataset.id
@@ -307,7 +333,8 @@ Page({
     self.data.goodsDescribe = goodsDescribe
     self.data.goodsPrice = goodsInfo[0].price
     self.data.goodsParamId = goodsInfo[0].goods_param_id
-    self.data.goodsParam = JSON.stringify(goodsInfo[0].param_list.param)
+    // self.data.goodsParam = JSON.stringify(goodsInfo[0].param_list.param)
+    self.data.goodsParam = goodsInfo[0].param_list.param
     let param = []
     // 根据参数数量生成对应参数组{[],[]}
     let keyArray = Object.keys(goodsInfo[0].param_list.param)
@@ -336,7 +363,7 @@ Page({
         return temp
       })
     }
-    console.info(param)
+    // console.info(param)
     self.data.selectGoodsSKU = goodsInfo
     self.data.showParam = param
     self.data.showModal = true
