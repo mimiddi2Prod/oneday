@@ -10,10 +10,51 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-07-19 17:42:47
+Date: 2019-07-20 17:44:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `id` int(12) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `register_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_login_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `type` varchar(255) NOT NULL DEFAULT '' COMMENT '0 god 1 admin',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', '2019-07-20 14:28:12', '2019-07-20 16:13:26', '0');
+
+-- ----------------------------
+-- Table structure for admin_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_menu`;
+CREATE TABLE `admin_menu` (
+  `id` int(12) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `image` varchar(255) DEFAULT NULL,
+  `sup_id` int(12) NOT NULL,
+  `sort` int(12) NOT NULL,
+  `tag` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin_menu
+-- ----------------------------
+INSERT INTO `admin_menu` VALUES ('1', '首页', '2019-07-20 17:06:49', '../images/logo.png', '0', '0', 'home');
+INSERT INTO `admin_menu` VALUES ('2', '商品', '2019-07-20 17:07:20', '../images/logo.png', '0', '0', 'goods');
+INSERT INTO `admin_menu` VALUES ('3', '商品列表', '2019-07-20 17:07:52', '', '2', '0', 'goods');
 
 -- ----------------------------
 -- Table structure for restaurant_category
@@ -78,16 +119,29 @@ INSERT INTO `restaurant_goods` VALUES ('9', '鸡蛋盖浇饭', '/images/A.png', 
 DROP TABLE IF EXISTS `restaurant_goods_order`;
 CREATE TABLE `restaurant_goods_order` (
   `id` int(12) NOT NULL AUTO_INCREMENT,
-  `goods_sku_id` int(12) NOT NULL,
+  `goods_sku_id` int(12) DEFAULT NULL,
   `goods_id` int(12) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_id` int(12) NOT NULL,
+  `open_id` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `number` int(10) NOT NULL,
+  `coupon` float(10,2) DEFAULT NULL,
+  `trade_id` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_order
 -- ----------------------------
+INSERT INTO `restaurant_goods_order` VALUES ('1', null, '3', '2019-07-20 12:06:19', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
+INSERT INTO `restaurant_goods_order` VALUES ('2', null, '1', '2019-07-20 12:06:19', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '20.00', '2', null, '231');
+INSERT INTO `restaurant_goods_order` VALUES ('3', null, '3', '2019-07-20 13:57:52', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
+INSERT INTO `restaurant_goods_order` VALUES ('4', null, '1', '2019-07-20 13:57:52', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '20.00', '2', null, '231');
+INSERT INTO `restaurant_goods_order` VALUES ('5', null, '3', '2019-07-20 13:58:23', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
+INSERT INTO `restaurant_goods_order` VALUES ('6', null, '1', '2019-07-20 13:58:23', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '20.00', '2', null, '231');
+INSERT INTO `restaurant_goods_order` VALUES ('7', null, '3', '2019-07-20 14:00:08', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
+INSERT INTO `restaurant_goods_order` VALUES ('8', null, '3', '2019-07-20 14:05:24', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
+INSERT INTO `restaurant_goods_order` VALUES ('9', null, '3', '2019-07-20 14:06:58', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_param
@@ -118,7 +172,7 @@ CREATE TABLE `restaurant_goods_sku` (
   `id` int(12) NOT NULL AUTO_INCREMENT,
   `stock` int(12) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `goods_param_id` int(12) NOT NULL,
+  `goods_param_id` int(10) NOT NULL,
   `goods_id` int(12) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
@@ -155,7 +209,7 @@ CREATE TABLE `restaurant_user` (
 -- ----------------------------
 -- Records of restaurant_user
 -- ----------------------------
-INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', 'QG7OVP96xyCWLkGo1ncfPA==', '2019-07-19 17:42:35', null, '0');
+INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', 'UyCnbZfBvgMPVu7bhu+4Pg==', '2019-07-20 14:16:06', null, '0');
 
 -- ----------------------------
 -- Table structure for test
