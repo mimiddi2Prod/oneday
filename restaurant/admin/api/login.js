@@ -1,12 +1,10 @@
-var tools = require("./tool");
+var db = require("./../utils/dba");
 
 const crypto = require('crypto')
 var fs = require('fs');
 const path = require('path')
 
 function shopLogin() {
-    var tool = new tools;
-    var query = tool.query;
     this.Service = async function (version, param, callback) {
         var sql = ""
         var data = {}
@@ -20,23 +18,23 @@ function shopLogin() {
                 const privateKey = fs.readFileSync(path.join(__dirname, '../rsa/pem/private.pem')).toString('utf-8')
                 const password = Decrypt(param['password'], privateKey)
                 // param['username'] = encodeURIComponent(param['username'])
-
-                sql = "select id,`type`,position_id from admin where username = ? and password = ?";
-                row = await query(sql, [param['username'], password]);
+                sql = "select id,`type` from admin where username = ? and password = ?";
+                row = await db.Query(sql, [param['username'], password]);
+                console.info(row)
                 if (row.length > 0) {
                     data.text = "login is success"
                     data.id = row[0].id
                     data.type = row[0].type
 
-                    if (data.type == 1 && row[0].position_id) {
-                        sql = "select * from `position` where id = ?"
-                        row = await query(sql, row[0].position_id)
-                        data.position = row
-                    }
-                    console.info(data)
+                    // if (data.type == 1 && row[0].position_id) {
+                    //     sql = "select * from `position` where id = ?"
+                    //     row = await db.query(sql, row[0].position_id)
+                    //     data.position = row
+                    // }
+                    // console.info(data)
 
                     sql = "update admin set last_login_time = CURRENT_TIMESTAMP where id = ?"
-                    row = await query(sql, data.id)
+                    row = await db.Query(sql, data.id)
                 } else {
                     data.text = 'login is fail'
                 }
