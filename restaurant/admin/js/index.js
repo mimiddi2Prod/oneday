@@ -55,19 +55,20 @@ function encryptKey(str) {
 }
 
 function login(username, password) {
-    const url = '../api/login'
-    let data = {}
-    data.username = username
-    data.password = password
-    server(url, data, "post", function (res) {
-        if (res.text == "login is success") {
-            sessionStorage.setItem("user_id", res.id);
-            sessionStorage.setItem("str", res.str);
-
-            // window.location.href = './html/main.html';
-            window.location.href = './main';
-        } else {
-            alert(res.text)
-        }
-    })
+    window.location.href = './main';
+    // const url = '../api/login'
+    // let data = {}
+    // data.username = username
+    // data.password = password
+    // server(url, data, "post", function (res) {
+    //     if (res.text == "login is success") {
+    //         sessionStorage.setItem("user_id", res.id);
+    //         sessionStorage.setItem("str", res.str);
+    //
+    //         // window.location.href = './html/main.html';
+    //         window.location.href = './main';
+    //     } else {
+    //         alert(res.text)
+    //     }
+    // })
 }

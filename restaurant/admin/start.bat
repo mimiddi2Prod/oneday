@@ -1,3 +1,3 @@
 :start
-node storeMain.js
+node main.js
 goto start
