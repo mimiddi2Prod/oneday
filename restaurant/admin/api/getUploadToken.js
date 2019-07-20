@@ -1,12 +1,12 @@
 // var qiniu = require("qiniu");
 // const qiniuConfig = require("./../config/qiniuConfig")
-var getUploadToken = require("./../utils/qiniuUploadToken")
+var getToken = require("./../utils/qiniuUploadToken")
 
-function shopGetUploadToken() {
+function getUploadToken() {
     this.Service = async function (version, param, callback) {
         var data = {}
         try {
-            let token = getUploadToken(param['key'])
+            let token = getToken(param['key'])
             data.uploadToken = token
             data.key = param['key']
             data.tempFilePath = param['tempFilePath']
@@ -33,4 +33,4 @@ function shopGetUploadToken() {
     }
 }
 
-module.exports = shopGetUploadToken;
+module.exports = getUploadToken;

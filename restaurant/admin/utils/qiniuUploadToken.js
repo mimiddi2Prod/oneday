@@ -1,7 +1,7 @@
 var qiniu = require("qiniu");
 const qiniuConfig = require("./../config/qiniuConfig")
 
-module.exports = function getUploadToken(key) {
+module.exports = function getToken(key) {
     var accessKey = qiniuConfig.accessKey;
     var secretKey = qiniuConfig.secretKey;
     var mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
