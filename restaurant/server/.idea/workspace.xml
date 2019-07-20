@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f740c969-a70b-424b-8eb9-8ea63f319cfa" name="默认更改列表" comment="">
-      <change afterPath="$PROJECT_DIR$/apis/restaurant_add_order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/config/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/config/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/pages/order/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/pages/order/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/pages/order/order.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/pages/order/order.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/router.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,26 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apis/restaurant_add_order.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="22" column="30" lean-forward="true" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apis/restaurant_get_openid.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="35" column="41" lean-forward="true" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -130,7 +106,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1563529879526" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
@@ -165,18 +141,17 @@
       <workItem from="1563352652100" duration="10718000" />
       <workItem from="1563416255748" duration="3106000" />
       <workItem from="1563503038205" duration="4245000" />
-      <workItem from="1563590827124" duration="5482000" />
+      <workItem from="1563590827124" duration="6514000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23551000" />
+    <option name="totallyTimeSpent" value="24583000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="346" y="0" width="1549" height="1100" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1988273" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2505037" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Learn" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -322,8 +297,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apis/restaurant_add_order.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="30" lean-forward="true" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+        <state relative-caret-position="360">
+          <caret line="29" column="17" lean-forward="true" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
         </state>
       </provider>
     </entry>
