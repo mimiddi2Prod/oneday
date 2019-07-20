@@ -52,6 +52,11 @@ Page({
     data.cart = self.data.cart 
     server.request(api.addOrder, data, "post").then(function(res) {
       console.info(res)
+      if(res.code == 0){
+        wx.navigateTo({
+          url: '../pay/pay_status?status=' + res.code,
+        })
+      }
     })
   },
 

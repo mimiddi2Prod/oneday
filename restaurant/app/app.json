@@ -5,7 +5,7 @@
     "pages/cart/cart",
     "pages/order/order",
     "pages/pay/pay",
-    "pages/pay/pay_success"
+    "pages/pay/pay_status"
   ],
   "window": {
     "backgroundTextStyle": "light",
