@@ -22,6 +22,11 @@ function FBRouter(){
                     work = new RestaurantGetCategoryByLocationCode;
                     break;
                 }
+                case "restaurant_add_order":{
+                    var RestaurantAddOrder = require("./apis/restaurant_add_order");
+                    work = new RestaurantAddOrder;
+                    break;
+                }
                 default:
                     break;
             }

@@ -1,4 +1,6 @@
 // pages/order/order.js
+const server = require('../../utils/server.js')
+const api = require('../../config/api.js');
 const app = getApp()
 
 Page({
@@ -38,6 +40,18 @@ Page({
   selectStyle: function(e) {
     this.setData({
       style: e.currentTarget.dataset.id
+    })
+  },
+
+  submitOrder: function() {
+    let self = this
+    console.info(this.data.cart)
+    let data = {}
+    data.openid = app.globalData.openid
+    data.tradeId = 231
+    data.cart = self.data.cart 
+    server.request(api.addOrder, data, "post").then(function(res) {
+      console.info(res)
     })
   },
 

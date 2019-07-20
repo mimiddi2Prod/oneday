@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f740c969-a70b-424b-8eb9-8ea63f319cfa" name="默认更改列表" comment="">
-      <change beforePath="$PROJECT_DIR$/../app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apis/restaurant_add_order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/config/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/config/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/pages/order/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/pages/order/order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/pages/order/order.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/pages/order/order.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/router.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,7 +16,26 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apis/restaurant_add_order.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="22" column="30" lean-forward="true" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apis/restaurant_get_openid.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="35" column="41" lean-forward="true" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -22,12 +46,14 @@
       <find>FBError</find>
       <find>error</find>
       <find>RestaurantGetMenuByLocationCode</find>
+      <find>RestaurantGetCategoryByLocationCode</find>
     </findStrings>
     <replaceStrings>
       <replace>RestaurantGetMenuByLocationCode</replace>
       <replace>Category</replace>
       <replace>RestaurantGetCategoryByLocationCode</replace>
       <replace>RestaurantGetOpenid</replace>
+      <replace>RestaurantAddOrder</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -44,11 +70,12 @@
         <option value="$PROJECT_DIR$/tool.js" />
         <option value="$PROJECT_DIR$/response.js" />
         <option value="$PROJECT_DIR$/error.js" />
-        <option value="$PROJECT_DIR$/router.js" />
         <option value="$PROJECT_DIR$/apis/restaurant_get_category_by_location_code.js" />
         <option value="$PROJECT_DIR$/utils/httpRequest.js" />
         <option value="$PROJECT_DIR$/config/wxConfig.js" />
+        <option value="$PROJECT_DIR$/router.js" />
         <option value="$PROJECT_DIR$/apis/restaurant_get_openid.js" />
+        <option value="$PROJECT_DIR$/apis/restaurant_add_order.js" />
       </list>
     </option>
   </component>
@@ -59,10 +86,9 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="452" />
-    <option name="y" value="89" />
+    <option name="x" value="346" />
     <option name="width" value="1549" />
-    <option name="height" value="994" />
+    <option name="height" value="1100" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -96,15 +122,15 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1563529335915" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1563529879526" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../admin" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
@@ -138,17 +164,19 @@
       <updated>1563352650859</updated>
       <workItem from="1563352652100" duration="10718000" />
       <workItem from="1563416255748" duration="3106000" />
-      <workItem from="1563503038205" duration="3873000" />
+      <workItem from="1563503038205" duration="4245000" />
+      <workItem from="1563590827124" duration="5482000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17697000" />
+    <option name="totallyTimeSpent" value="23551000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="452" y="89" width="1549" height="994" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16319677" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1988273" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Learn" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -255,13 +283,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apis/restaurant_get_goods_by_category_id.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/apis/restaurant_get_goods_by_category_id.js" />
     <entry file="file://$PROJECT_DIR$/apis/restaurant_get_category_by_location_code.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -269,6 +291,7 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/utils/httpRequest.js" />
     <entry file="file://$PROJECT_DIR$/config/dbConfig.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -276,31 +299,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/router.js">
+    <entry file="file://$PROJECT_DIR$/config/wxConfig.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="42" lean-forward="true" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
+        <state relative-caret-position="18">
+          <caret line="1" column="48" selection-start-line="1" selection-start-column="48" selection-end-line="1" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/httpRequest.js">
+    <entry file="file://$PROJECT_DIR$/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" selection-end-column="29" />
+        <state relative-caret-position="450">
+          <caret line="25" column="42" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apis/restaurant_get_openid.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="43" column="110" selection-start-line="43" selection-start-column="110" selection-end-line="43" selection-end-column="110" />
+        <state relative-caret-position="198">
+          <caret line="35" column="41" lean-forward="true" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/wxConfig.js">
+    <entry file="file://$PROJECT_DIR$/apis/restaurant_add_order.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="48" selection-start-line="1" selection-start-column="48" selection-end-line="1" selection-end-column="48" />
+        <state relative-caret-position="396">
+          <caret line="22" column="30" lean-forward="true" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
         </state>
       </provider>
     </entry>

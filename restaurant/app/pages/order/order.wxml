@@ -54,5 +54,5 @@
   <view class="total-price">￥
     <text>{{totalPrice}}</text>
   </view>
-  <view class="topay">去支付</view>
+  <view class="topay" bindtap='submitOrder'>去支付</view>
 </view>
