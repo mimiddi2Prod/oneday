@@ -33,6 +33,10 @@ function send(param){
 			message = '️☎详询更多，可致电客服：19859263629'
 			break;
 		}
+		case "item2_4":{
+			url = './images/traffic.jpg'
+			break;
+		}
 		case "item3_2":{
 			url = './images/join.jpg'
 			break;

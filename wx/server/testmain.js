@@ -59,7 +59,7 @@ var menu = {
 				},
 				{
 					"type": "click",
-					"name": "加入我们",
+					"name": "商务合作",
 					"key": "item3_2",
 					"sub_button": []
 				},
