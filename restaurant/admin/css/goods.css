@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    flex-direction: row;
+}
+
+.left{
+    position: fixed;
+    left: 0;
+    /*bottom: 0;*/
+    width: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.right{
+    margin-left: 200px;
+    flex-grow: 1;
+}

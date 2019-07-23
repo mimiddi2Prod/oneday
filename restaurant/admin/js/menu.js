@@ -1,28 +1,42 @@
+import ("./utils/http.js")
 var menuVM = new Vue({
     el: '#menu',
-    data: {},
-    methods: {},
-    created: {
-        // this.getMenu()
+    data: {
+        menu: [],
+        activeMenuTag: ''
     },
-})
-
-Vue.component('button-counter', {
-    data: function () {
-        return {
-            count: 0
+    methods: {
+        getMenu: function () {
+            let self = this
+            let url = '../api/get_menu', data = {}, async = false
+            server(url, data, async, "post", function (res) {
+                console.info(res)
+                self.menu = res.menu
+                if (self.activeMenuTag.length <= 0) {
+                    self.activeMenuTag = self.menu[0].tag
+                }
+            })
         }
     },
-    template: '<button class="container" v-on:click="count++">You clicked me {{ count }} times.</button>'
+    created: function () {
+        this.getMenu()
+    }
 })
 
-new Vue({el: '#components-demo'})
+Vue.component('load-menu', {
+    data: function () {
+        return {
+            menu: menuVM.menu,
+            activeMenuTag: menuVM.activeMenuTag
+        }
+    },
+    template: '<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">' +
+        '<ul class="nav sidebar-nav">' +
+        '<block>' +
+        '<li :class="(item.subMenu.length > 0 ? \'canSelect\' : \'noSelect\')" :class="(item.tag == activeMenuTag ? \'active\' : \'\')" id="home" v-for="item in menu"><a :href="item.tag"><img :src="item.image"/><span class="have-img">{{item.name}}</span></a></li>' +
+        '</block>' +
+        '</ul>' +
+        '</nav>'
+})
 
-function getMenu() {
-    let url = '../api/get_menu', async = false
-    server(url, data = {}, async, "post", function (res) {
-        console.info(res)
-    })
-}
-
-cr
+new Vue({el: '#LoadMenu'})
