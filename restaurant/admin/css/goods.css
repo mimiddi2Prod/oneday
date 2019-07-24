@@ -6,8 +6,9 @@
 .left{
     position: fixed;
     left: 0;
-    /*bottom: 0;*/
-    width: 200px;
+    bottom: 0;
+    height: 100%;
+    width: 190px;
     overflow-y: auto;
     overflow-x: hidden;
 }
