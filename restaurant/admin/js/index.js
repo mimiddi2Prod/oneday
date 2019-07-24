@@ -55,7 +55,7 @@ function encryptKey(str) {
 }
 
 function login(username, password) {
-    window.location.href = './main';
+    window.location.href = './home';
     // const url = '../api/login'
     // let data = {}
     // data.username = username

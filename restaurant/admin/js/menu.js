@@ -20,6 +20,12 @@ var menuVM = new Vue({
     },
     created: function () {
         this.getMenu()
+
+        let href = window.location.href
+        let arr = href.split('/')
+        let length = arr.length
+        this.activeMenuTag = arr[length - 1]
+        console.info(arr[length - 1])
     }
 })
 
@@ -33,13 +39,13 @@ Vue.component('load-menu', {
     template: '<nav>' +
         '<ul class="nav">' +
         '<li v-for="item in menu" :class="(item.tag == activeMenuTag ? \'active \' : \'\')+\'\'+(item.subMenu.length > 0 ? \'noSelect\' : \'canSelect\')">' +
-        '<a class="a-item" :href="(item.subMenu.length > 0 ? \'javascript:;\' : \'item.tag\')">' +
+        '<a class="a-item" :href="(item.subMenu.length > 0 ? \'javascript:;\' : item.tag)" :click="this.activeMenuTag = item.tag">' +
         '<img class="menu-logo" :src="item.image"/>' +
         '<span class="a-span" :class="(item.subMenu.length > 0 ? \'\' : \'have-img\')">{{item.name}}</span>' +
         '</a>' +
         '<ul class="nav" v-if="item.subMenu.length > 0">' +
-        '<li v-for="subItem in item.subMenu" class="canSelect">' +
-        '<a class="a-sub-item" :href="subItem.tag">' +
+        '<li v-for="subItem in item.subMenu" class="canSelect" :class="(subItem.tag == activeMenuTag ? \'active \' : \'\')">' +
+        '<a class="a-sub-item" :href="subItem.tag" :click="this.activeMenuTag = subItem.tag">' +
         '<span class="a-span">{{subItem.name}}</span>' +
         '</a>' +
         '</li></ul>' +

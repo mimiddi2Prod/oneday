@@ -19,6 +19,9 @@ nav > .nav > li > a {
 
 .active {
     background-color: #fff;
+}
+
+.active > a > span{
     color: #D91E2B;
 }
 
