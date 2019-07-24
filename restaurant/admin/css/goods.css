@@ -1,9 +1,9 @@
-.container{
+body {
     display: flex;
     flex-direction: row;
 }
 
-.left{
+.left {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -11,9 +11,17 @@
     width: 190px;
     overflow-y: auto;
     overflow-x: hidden;
+    z-index: 2;
 }
 
-.right{
-    margin-left: 200px;
-    flex-grow: 1;
+.right {
+    position: fixed;
+    padding-left: 240px;
+    padding-right: 50px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
