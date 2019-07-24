@@ -2,32 +2,61 @@ const Cmd = require('./../utils/CuteCmd.js');
 var Koa = require('koa');
 var Url = require('url');
 const config = require('./config/wxConfig.js')
-var WechatAPI = require('wechat-api');
+// var WechatAPI = require('wechat-api');
 const XMLJS = require('xml2js');
 const sha1 = require('js-sha1');
 
+// var fs = require('fs')
+
 var Router = require("./router.js");
 var router = new Router;
+
+const wechatApi = require('./wechat_api.js')
+wechatApi.Init()
 // router.Run(type);
 
-var api = new WechatAPI(config.appid, config.secret);
-
+// var api = new WechatAPI(config.appid, config.secret)
+// var api = new WechatAPI(config.appid, config.secret, function(callback){
+	// 传入一个获取全局token的方法
+	  // fs.readFile('access_token.txt', 'utf8', function (err, txt) {
+		  // console.info(err)
+		  // console.info(txt)
+		// if (err) {return callback(err);}
+		// callback(null, JSON.parse(txt));
+	  // });
+	// }, function (token, callback) {
+		// console.info(token)
+	  // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
+	  // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
+	  // fs.writeFile('access_token.txt', JSON.stringify(token), callback);
+// });
+// console.info(api)
 var menu = {
 	"button": [
+		// {
+			// "name": "JOLLY", 
+			// "type": "click",
+			// "key": "item1"
+		// }, 
 		{
-			"name": "JOLLY", 
-			"type": "click",
-			"key": "item1"
-		}, 
+			"name": "JOLLY",
+			"type": "view",
+			"url":"https://weibo.com/u/7208197320"
+		},
 		{
 			"name": "JOLLY UP",
 			"sub_button":[
 				{
-					"type": "click",
 					"name": "关于JOLLY",
-					"key": "item2_1",
-					"sub_button": []
+					"type": "view",
+					"url": "https://mp.weixin.qq.com/s/44MLQq5Sh4l824F_ht33DA"
 				},
+				// {
+					// "type": "click",
+					// "name": "关于JOLLY",
+					// "key": "item2_1",
+					// "sub_button": []
+				// },
 				{
 					"type": "click",
 					"name": "玩赏指南",
@@ -36,7 +65,7 @@ var menu = {
 				},
 				{
 					"type": "click",
-					"name": "JOLLY课程",
+					"name": "活动课程",
 					"key": "item2_3",
 					"sub_button": []
 				},
@@ -53,22 +82,34 @@ var menu = {
 			"sub_button":[
 				{
 					"type": "click",
+					"name": "即将开业",
+					"key": "item3_4",
+					"sub_button": []
+				},
+				{
+					"type": "click",
 					"name": "联系客服",
 					"key": "item3_1",
 					"sub_button": []
 				},
 				{
 					"type": "click",
-					"name": "商务合作",
+					"name": "JOLLY+",
 					"key": "item3_2",
 					"sub_button": []
 				},
-				{
-					"type": "click",
-					"name": "JOLLY互动",
-					"key": "item3_3",
-					"sub_button": []
-				},
+				// {
+					// "type": "click",
+					// "name": "商务合作",
+					// "key": "item3_2",
+					// "sub_button": []
+				// },
+				// {
+					// "type": "click",
+					// "name": "JOLLY互动",
+					// "key": "item3_3",
+					// "sub_button": []
+				// },
 			]
 		}
 	]

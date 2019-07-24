@@ -1,21 +1,16 @@
 // var tools = require("./../tool");
-const config = require('./../config/wxConfig.js')
-var WechatAPI = require('wechat-api');
-var api = new WechatAPI(config.appid, config.secret);
+// const config = require('./../config/wxConfig.js')
+// var WechatAPI = require('wechat-api');
+
+// var api = new WechatAPI(config.appid, config.secret);
+const wechatApi = require('./../wechat_api.js')
+// console.info(wechatApi)
 
 function WXClickMenu() {
 	// var tool = new tools;
 	// var query = tool.query;
     this.Run = async function (type, param){
-		// console.info(type)
-		// console.info(param)
-		// var row = ''
-		// var sql = ''
-		// sql = "select message from subscribe_message order by sort"
-		// row = await query(sql)
-		// console.info(row)
 		send(param)
-		//sendText(param);
 	}
 }
 
@@ -25,24 +20,36 @@ function send(param){
 	let message = ''
 	let url = ''
 	switch (key) {
-		case "item1":{
-			message = '跳转小程序'
+		// case "item1":{
+			// message = '微博链接：https://weibo.com/u/7208197320'
+			// break;
+		// }
+		case "item2_2":{
+			message = '🍉即将上线，敬请期待~'
 			break;
 		}
-		case "item3_1":{
-			message = '️☎详询更多，可致电客服：19859263629'
+		case "item2_3":{
+			message = '🍉即将上线，敬请期待~'
 			break;
 		}
 		case "item2_4":{
 			url = './images/traffic.jpg'
 			break;
 		}
+		case "item3_1":{
+			message = '️☎详询更多，可致电客服：19859263629'
+			break;
+		}
 		case "item3_2":{
 			url = './images/join.jpg'
 			break;
 		}
-		case "item3_3":{
-			url = './images/interaction.jpg'
+		// case "item3_3":{
+			// url = './images/interaction.jpg'
+			// break;
+		// }
+		case "item3_4":{
+			url = './images/load.jpg'
 			break;
 		}
 		default:
@@ -57,7 +64,7 @@ function send(param){
 }
 	
 function sendText(openid,message){	
-	api.sendText(openid, message, function(err,result){
+	wechatApi.api.sendText(openid, message, function(err,result){
 		// console.info(result)
 		if(result.errcode == 0){
 			
@@ -66,10 +73,10 @@ function sendText(openid,message){
 }
 
 function sendImage(url,openid){
-	api.uploadMedia(url, 'image', function(err,result){
+	wechatApi.api.uploadMedia(url, 'image', function(err,result){
 		console.info(err)
 		console.info(result)
-		api.sendImage(openid, result.media_id, function(err,result){
+		wechatApi.api.sendImage(openid, result.media_id, function(err,result){
 			console.info(result)
 		});
 	});

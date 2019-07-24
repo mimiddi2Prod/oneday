@@ -1,7 +1,9 @@
 var tools = require("./../tool");
-const config = require('./../config/wxConfig.js')
-var WechatAPI = require('wechat-api');
-var api = new WechatAPI(config.appid, config.secret);
+
+// const config = require('./../config/wxConfig.js')
+// var WechatAPI = require('wechat-api');
+// var api = new WechatAPI(config.appid, config.secret);
+const wechatApi = require('./../wechat_api.js')
 
 function WXSubscribeMessage() {
 	var tool = new tools;
@@ -26,7 +28,7 @@ function WXSubscribeMessage() {
 function sendText(param,messages,index){
 	if(index < messages.length){
 		let message = messages[index].message
-		api.sendText(JSON.parse(param).openid, message, function(err,result){
+		wechatApi.api.sendText(JSON.parse(param).openid, message, function(err,result){
 			// console.info(result)
 			if(result.errcode == 0){
 				sendText(param,messages,index+1)
@@ -35,7 +37,7 @@ function sendText(param,messages,index){
 	}else{
 		if(JSON.parse(param).eventkey.length > 0){
 			let message = '<a data-miniprogram-appid="'+ config.restaurant_mini_appid +'" data-miniprogram-path="pages/index/index?id='+ JSON.parse(param).eventkey.split('_')[1] +'" href="">你选择了:'+ JSON.parse(param).eventkey.split('_')[1] +'桌，点击进入菜单</a>'
-			api.sendText(JSON.parse(param).openid, message, function(err,result){
+			wechatApi.api.sendText(JSON.parse(param).openid, message, function(err,result){
 				// console.info(result)
 				if(result.errcode == 0){
 					
@@ -46,13 +48,15 @@ function sendText(param,messages,index){
 }
 
 function sendImage(param){
-	api.uploadMedia('./images/subscribe.jpg', 'image', function(err,result){
+	wechatApi.api.uploadMedia('./images/subscribe.jpg', 'image', function(err,result){
 		console.info(err)
 		console.info(result)
-		api.sendImage(JSON.parse(param).openid, result.media_id, function(err,result){
+		wechatApi.api.sendImage(JSON.parse(param).openid, result.media_id, function(err,result){
 			console.info(result)
 			if(result.errcode == 0){
-				sendMiniProgram(param)
+				if(JSON.parse(param).eventkey.length > 0){
+					sendMiniProgram(param)	
+				}
 			}
 		});
 	});
@@ -60,7 +64,7 @@ function sendImage(param){
 
 function sendMiniProgram(param){
 	let message = '<a data-miniprogram-appid="'+ config.restaurant_mini_appid +'" data-miniprogram-path="pages/index/index?id='+ JSON.parse(param).eventkey.split('_')[1] +'" href="">你选择了:'+ JSON.parse(param).eventkey.split('_')[1] +'桌，点击进入菜单</a>'
-	api.sendText(JSON.parse(param).openid, message, function(err,result){
+	wechatApi.api.sendText(JSON.parse(param).openid, message, function(err,result){
 		// console.info(result)
 		if(result.errcode == 0){
 			
