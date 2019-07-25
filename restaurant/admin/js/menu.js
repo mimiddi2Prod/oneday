@@ -10,22 +10,15 @@ var menuVM = new Vue({
             let self = this
             let url = '../api/get_menu', data = {}, async = false
             server(url, data, async, "post", function (res) {
-                console.info(res)
                 self.menu = res.menu
-                if (self.activeMenuTag.length <= 0) {
-                    self.activeMenuTag = self.menu[0].tag
-                }
             })
-        }
+        },
     },
     created: function () {
         this.getMenu()
-
         let href = window.location.href
         let arr = href.split('/')
-        let length = arr.length
-        this.activeMenuTag = arr[length - 1]
-        console.info(arr[length - 1])
+        this.activeMenuTag = arr[arr.length - 1]
     }
 })
 
@@ -39,15 +32,19 @@ Vue.component('load-menu', {
     template: '<nav>' +
         '<ul class="nav">' +
         '<li v-for="item in menu" :class="(item.tag == activeMenuTag ? \'active \' : \'\')+\'\'+(item.subMenu.length > 0 ? \'noSelect\' : \'canSelect\')">' +
-        '<a class="a-item" :href="(item.subMenu.length > 0 ? \'javascript:;\' : item.tag)" :click="this.activeMenuTag = item.tag">' +
+        '<div class="a-item" v-if="item.subMenu.length <= 0" v-on:click="window.location.href = item.tag">' +
         '<img class="menu-logo" :src="item.image"/>' +
         '<span class="a-span" :class="(item.subMenu.length > 0 ? \'\' : \'have-img\')">{{item.name}}</span>' +
-        '</a>' +
+        '</div>' +
+        '<div class="a-item" v-if="item.subMenu.length > 0">' +
+        '<img class="menu-logo" :src="item.image"/>' +
+        '<span class="a-span" :class="(item.subMenu.length > 0 ? \'\' : \'have-img\')">{{item.name}}</span>' +
+        '</div>' +
         '<ul class="nav" v-if="item.subMenu.length > 0">' +
-        '<li v-for="subItem in item.subMenu" class="canSelect" :class="(subItem.tag == activeMenuTag ? \'active \' : \'\')">' +
-        '<a class="a-sub-item" :href="subItem.tag" :click="this.activeMenuTag = subItem.tag">' +
+        '<li v-for="subItem in item.subMenu" class="canSelect" v-on:click="window.location.href = subItem.tag" :class="(subItem.tag == activeMenuTag ? \'active \' : \'\')">' +
+        '<div class="a-sub-item">' +
         '<span class="a-span">{{subItem.name}}</span>' +
-        '</a>' +
+        '</div>' +
         '</li></ul>' +
         '</li>' +
         '</ul></nav>'

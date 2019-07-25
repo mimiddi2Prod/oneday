@@ -38,13 +38,14 @@ $(document).keypress(function (e) {
 
 function getPublic() {
     const url = '../api/get_public'
-    let data = {}
-    server(url, data, "post", function (res) {
-        // console.info(res)
-        if (res.key) {
-            key = res.key
+    let data = {}, async = false
+    server(url, data, async, "post", function (res) {
+            // console.info(res)
+            if (res.key) {
+                key = res.key
+            }
         }
-    })
+    )
 }
 
 function encryptKey(str) {
