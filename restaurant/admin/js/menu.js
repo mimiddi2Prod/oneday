@@ -8,7 +8,7 @@ var menuVM = new Vue({
     methods: {
         getMenu: function () {
             let self = this
-            let url = '../api/get_menu', data = {}, async = false
+            let url = api.getMenu, data = {}, async = false
             server(url, data, async, "post", function (res) {
                 self.menu = res.menu
             })

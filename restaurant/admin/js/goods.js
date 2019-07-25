@@ -1,8 +1,8 @@
-var goodsManage = new Vue({
-    el: '#goodsManage',
+var goodsVM = new Vue({
+    el: '#goods',
     data: {
         last_id: 0,
-        goods_state: -1, // -1全部 / 0出售中 / 1出售完 / 2已下架
+        goods_status: 0, // 0全部 / 1出售中 / 2出售完 / 3已下架
         need_integral: 0,
         goodsList: [],
         checkboxAll: false,
@@ -12,7 +12,7 @@ var goodsManage = new Vue({
 
         navList: ['全部', '出售中', '已售完', '已下架'],
         nav_tow_List: ['普通商品', '积分商品'],
-        navId: 0,
+        // navId: 0,
         navTwoId: 0,
 
         // 批量分类
@@ -50,62 +50,45 @@ var goodsManage = new Vue({
 
     },
     methods: {
-        changePage: function (e, goods_id) {
-            if (e == 'goods-edit') {
-                let temp = this.goodsList.filter(function (res) {
-                    return res.id == goods_id
-                })
-                sessionStorage.setItem("editGoodsList", JSON.stringify(temp));
-            }
-            if (e == 'goods-review') {
-                let temp = this.goodsList.filter(function (res) {
-                    return res.id == goods_id
-                })
-                let info = {}
-                info.item_id = temp[0].id
-                info.name = temp[0].name
-                info.image = temp[0].image[0]
-                info.review_id = temp[0].review_id
-                sessionStorage.setItem("goods_review", JSON.stringify(info));
-            }
-            var href = './' + e + '.html'
-            $("#container").load(href);
-            sessionStorage.setItem("href", href);
-        },
-        changeNav: function (index) {
-            this.navId = index
-            this.last_id = 0
-            // state -1全部 0在售 1售罄 2下架
-            console.info(index)
-            if (index == 0) {
-                this.goods_state = -1
-            } else if (index == 1) {
-                this.goods_state = 0
-            } else if (index == 2) {
-                this.goods_state = 1
-            } else if (index == 3) {
-                this.goods_state = 2
-            }
-            getGoods()
-        },
-        changeNavTwo: function (index) {
-            this.navTwoId = index
-            this.last_id = 0
-            // state -1全部 0在售 1售罄 2下架
-            console.info(index)
-            if (index == 0) {
-                this.need_integral = 0
-            } else if (index == 1) {
-                this.need_integral = 1
-            }
-            getGoods()
-        },
-        // checkAll: function (e) {
-        //     var checkboxAll = $("input[name='checkbox-all']")[0].checked
-        //     var check = $("input[name='checkGoods']")
-        //     for (var i in check) {
-        //         check[i].checked = checkboxAll
+        // changePage: function (e, goods_id) {
+        //     if (e == 'goods-edit') {
+        //         let temp = this.goodsList.filter(function (res) {
+        //             return res.id == goods_id
+        //         })
+        //         sessionStorage.setItem("editGoodsList", JSON.stringify(temp));
         //     }
+        //     if (e == 'goods-review') {
+        //         let temp = this.goodsList.filter(function (res) {
+        //             return res.id == goods_id
+        //         })
+        //         let info = {}
+        //         info.item_id = temp[0].id
+        //         info.name = temp[0].name
+        //         info.image = temp[0].image[0]
+        //         info.review_id = temp[0].review_id
+        //         sessionStorage.setItem("goods_review", JSON.stringify(info));
+        //     }
+        //     var href = './' + e + '.html'
+        //     $("#container").load(href);
+        //     sessionStorage.setItem("href", href);
+        // },
+        changeNav: function (index) {
+            // this.navId = index
+            this.last_id = 0
+            this.goods_status = index
+            getGoods()
+        },
+        // changeNavTwo: function (index) {
+        //     this.navTwoId = index
+        //     this.last_id = 0
+        //     // state -1全部 0在售 1售罄 2下架
+        //     console.info(index)
+        //     if (index == 0) {
+        //         this.need_integral = 0
+        //     } else if (index == 1) {
+        //         this.need_integral = 1
+        //     }
+        //     getGoods()
         // },
         checkAll: function () {
             if (this.checkboxAll) {
@@ -135,7 +118,6 @@ var goodsManage = new Vue({
             this.last_id = index
             getGoods()
         },
-
         changeGoodsState: function (id, nowState) {
             let state = ''
             if (nowState == 0) {
@@ -148,7 +130,6 @@ var goodsManage = new Vue({
             id_list = JSON.stringify(id_list)
             updateGoodsState(id_list, state)
         },
-
         showMoreParam: function (id) {
             this.goodsList.map(function (res) {
                 if (res.id == id) {
@@ -446,11 +427,11 @@ var goodsManage = new Vue({
 
 function updateGoodsState(id_list, state) {
     const url = '../api/update_goodsState'
-    let data = {}
+    let data = {}, async = true
     data.goods_id_list = id_list
     data.state = state
     console.info(data)
-    server(url, data, "post", function (res) {
+    server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res == '更新商品状态成功') {
             getGoods()
@@ -468,15 +449,15 @@ $(document).ready(function () {
 })
 
 function getGoods() {
-    goodsManage.pageList = []
-    goodsManage.goodsList = []
+    goodsVM.pageList = []
+    goodsVM.goodsList = []
     // -1全部 / 0出售中 / 1出售完 / 2已下架
-    const url = '../api/get_goods'
-    let data = {}
-    data.last_id = goodsManage.last_id
-    data.state = goodsManage.goods_state
-    data.need_integral = goodsManage.need_integral
-    server(url, data, "post", function (res) {
+    const url = api.getGoods
+    let data = {}, async = true
+    data.last_id = goodsVM.last_id
+    data.status = goodsVM.goods_status
+    // data.need_integral = goodsVM.need_integral
+    server(url, data, async, "post", function (res) {
         console.info(res)
         if (res.number > 0) {
             res.list = res.list.map(function (resData) {
@@ -493,11 +474,11 @@ function getGoods() {
                 return resData
             })
             // console.info(res)
-            goodsManage.goodsList = res.list
+            goodsVM.goodsList = res.list
 
             // 分页栏
             for (let i = 0; i < res.number / 5; i++) {
-                goodsManage.pageList.push(i + 1)
+                goodsVM.pageList.push(i + 1)
             }
         }
     })
@@ -506,16 +487,16 @@ function getGoods() {
 // 批量分类
 function getCategory(type, parent_id) {
     const url = '../api/get_category'
-    let data = {}
+    let data = {}, async = true
     data.type = type
     data.parent_id = parent_id
-    server(url, data, "post", function (res) {
+    server(url, data, async, "post", function (res) {
         // console.info(res)
         // if (res.length > 0) {
         if (type == 0) {
-            goodsManage.category_parent = res
+            goodsVM.category_parent = res
         } else if (type == 1) {
-            goodsManage.category = res
+            goodsVM.category = res
         }
         // }
     })
@@ -544,12 +525,12 @@ function updateGoodsPrice(goods_list) {
         console.info(res)
         if (res.text == '编辑成功') {
             getGoods()
-            goodsManage.checkboxAll = false
-            goodsManage.choose_type = 1
-            goodsManage.calc_type = 1
-            goodsManage.calc_number_one = ''
-            goodsManage.calc_number_two = ''
-            goodsManage.previewGoodsPrice = []
+            goodsVM.checkboxAll = false
+            goodsVM.choose_type = 1
+            goodsVM.calc_type = 1
+            goodsVM.calc_number_one = ''
+            goodsVM.calc_number_two = ''
+            goodsVM.previewGoodsPrice = []
             $('#priceModal').modal('hide')
         }
     })

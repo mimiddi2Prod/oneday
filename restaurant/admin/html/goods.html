@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css"
           href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/utils/apis.js"></script>
     <script type="text/javascript" src="../js/utils/http.js"></script> <!--封装接口请求-->
     <script type="text/javascript" src="../js/utils/formatTime.js"></script> <!--时间格式化-->
     <link href="../css/style.css" rel="stylesheet">
@@ -28,7 +29,7 @@
 
 
 <div class="right">
-    <div class="jumbotron" id="goodsManage">
+    <div class="jumbotron" id="goods">
         <!-- 类目 搜索栏 -->
         <div class="title item">
             <h4>商品管理</h4>
@@ -51,51 +52,36 @@
         <!-- 商品状态 -->
         <div class="nav-1">
             <ul class="nav nav-tabs">
-                <li v-bind:class="(index == navId ? 'active' : '')" v-for="item,index in navList"
+                <li v-bind:class="(index == goods_status ? 'active' : '')" v-for="item,index in navList"
                     v-on:click="changeNav(index)"><a href="#">{{item}}</a></li>
             </ul>
-            <!--<ul class="nav nav-tabs">-->
-            <!--<li class="active"><a href="#">全部</a></li>-->
-            <!--<li><a href="#">出售中</a></li>-->
-            <!--<li><a href="#">已售完</a></li>-->
-            <!--<li><a href="#">已下架</a></li>-->
-            <!--</ul>-->
             <div class="row-center">
                 <button type="button" class="btn btn-secondary" v-on:click="down('tableExcel')">批量导出商品</button>
-                <button type="button" class="btn btn-danger" v-on:click="changePage('goods-add')">添加商品</button>
+                <!--<button type="button" class="btn btn-danger" v-on:click="changePage('goods-add')">添加商品</button>-->
+                <button type="button" class="btn btn-danger" v-on:click="window.location.href = 'addGoods'">添加商品</button>
             </div>
         </div>
 
         <!-- 积分 -->
-        <div class="nav-1">
-            <ul class="nav nav-tabs">
-                <li v-bind:class="(index == navTwoId ? 'active' : '')" v-for="item,index in nav_tow_List"
-                    v-on:click="changeNavTwo(index)"><a href="#">{{item}}</a></li>
-            </ul>
+        <!--<div class="nav-1">-->
             <!--<ul class="nav nav-tabs">-->
-            <!--<li class="active"><a href="#">全部</a></li>-->
-            <!--<li><a href="#">出售中</a></li>-->
-            <!--<li><a href="#">已售完</a></li>-->
-            <!--<li><a href="#">已下架</a></li>-->
+                <!--<li v-bind:class="(index == navTwoId ? 'active' : '')" v-for="item,index in nav_tow_List"-->
+                    <!--v-on:click="changeNavTwo(index)"><a href="#">{{item}}</a></li>-->
             <!--</ul>-->
-            <!--<div class="row-center">-->
-            <!--<button type="button" class="btn btn-secondary" v-on:click="down('tableExcel')">批量导出商品</button>-->
-            <!--<button type="button" class="btn btn-danger" v-on:click="changePage('goods-add')">添加商品</button>-->
-            <!--</div>-->
-        </div>
+        <!--</div>-->
 
         <!-- 排序 -->
         <div class="nav-2">
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="#">排序</a>
+                        <a class="navbar-brand" href="">排序</a>
                     </div>
                     <div>
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">创建时间</a></li>
-                            <li><a href="#">库存</a></li>
-                            <li><a href="#">销量</a></li>
+                            <li class="active"><a href="">创建时间</a></li>
+                            <li><a href="">库存</a></li>
+                            <li><a href="">销量</a></li>
                         </ul>
                     </div>
                 </div>
@@ -220,12 +206,12 @@
         <!--<li><a href="#">&raquo;</a></li>-->
         <!--</ul>-->
         <ul class="pagination">
-            <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="#">&laquo;</a></li>
+            <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="">&laquo;</a></li>
             <li v-for="item,index in pageList" v-on:click="getPage(index)"
                 v-bind:class="(item == last_id+1 ? 'active' : '')"><a
-                    href="#">{{item}}</a></li>
+                    href="">{{item}}</a></li>
             <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a
-                    href="#">&raquo;</a>
+                    href="">&raquo;</a>
             </li>
         </ul>
 

@@ -1,5 +1,7 @@
 var homeVM = new Vue({
     el: '#home',
-    data: {},
+    data: {
+        waitShipNum: 0,
+    },
     methods: {}
 })
