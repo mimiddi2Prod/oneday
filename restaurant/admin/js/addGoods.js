@@ -8,14 +8,22 @@ var addGoodsVM = new Vue({
         select_category_id: '',
 
         //默认的尺寸选择 不应进行改变 是固定值
-        classList: [],
+        classList: ['糖度', '冰度'],
+        classSubmitList: [],
         paramList: [{
-            name: '颜色',
-            size: ['蓝色', '黄色', '红色']
+            name: '糖度',
+            param: ['半糖', '多糖', '单糖']
         }, {
-            name: '尺寸',
-            size: ['170cm', '175cm', '180cm']
+            name: '冰度',
+            param: ['0度', '50度', '100度']
         }],
+        tempParamModal: {},
+
+        classModalText: '',
+        paramModalText: '',
+
+
+        // 前方就是地狱
         selectIndex: '',
         sizeModalList: [],
         paramImgList: [],
@@ -25,8 +33,8 @@ var addGoodsVM = new Vue({
         // goodsInfoImgList: [],
         state: '',
 
-        classModalText: '',
-        sizeModalText: '',
+
+        // sizeModalText: '',
         sizeIndex: '',
         selectText: '',
     },
@@ -74,15 +82,112 @@ var addGoodsVM = new Vue({
         },
         // <----- 商品图片存储七牛云前的处理
 
-        
-        // 弹窗
-        addClass: function () {
+
+        // 弹窗 添加分类
+        showClassModal: function () {
             var text = '添加分类'
             $('#classModal').on('show.bs.modal', function () {
                 var modal = $(this)
                 modal.find('#classModalLabel').text(text)
             })
         },
+        addClass: function () {
+            // 添加分类数组
+            let self = this
+            if (this.classModalText != '') {
+                let haveSameClass = this.classList.some(function (eData) {
+                    return self.classModalText == eData
+                })
+                if (!haveSameClass) {
+                    this.classList.push(this.classModalText)
+                    this.paramList.push({
+                        name: this.classModalText,
+                        param: []
+                    })
+                    $('#classModal').modal('hide')
+                } else {
+                    alert('你添加了相同的分类了！')
+                }
+            } else {
+                alert('输入不能为空！')
+            }
+        },
+
+        // -----> class option的选择创建
+        createClassList: function () {
+            this.classSubmitList.push({
+                select: '',
+                haveParamImg: false,
+                size: [],
+            })
+            console.info(this.classSubmitList)
+        },
+        delClassItem: function (index) {
+            this.classSubmitList.splice(index, 1)
+        },
+        // class获取选择的option
+        selectClass: function (index) {
+            let classId = 'classId' + index
+            let classValue = document.getElementById(classId).value
+            for (let i in this.classSubmitList) {
+                // 不能选择相同类型的 选择了就警告 并且选项置空
+                if (this.classSubmitList[i].select == classValue) {
+                    document.getElementById(classId).value = ''
+                    classValue = ''
+                    this.classSubmitList[index].size = []
+                    // 警告框展示隐藏
+                    var alertId = '#alert' + index
+                    $(alertId).addClass('inline-block')
+                    setTimeout(function () {
+                        $(alertId).addClass('none')
+                        $(alertId).removeClass('inline-block')
+                    }, 2000)
+                }
+            }
+            this.classSubmitList[index].select = classValue
+            this.classSubmitList[index].size = []
+        },
+        // <----- class option的创建选择
+
+        // -----> param 的创建选择
+        showParamModal: function (selectText, selectIndex) {
+            console.info(selectText)
+            this.tempParamModal = this.paramList.filter(function (eData) {
+                return eData.name == selectText
+            })[0]
+            console.info(this.tempParamModal)
+        },
+        createParamToParamList: function () {
+            let self = this
+            if (self.paramModalText != '') {
+                let haveSameParam = this.tempParamModal.param.some(function (eData) {
+                    return self.paramModalText == eData
+                })
+                if (!haveSameParam) {
+                    this.tempParamModal.param.push(self.paramModalText)
+                    for (let i in this.paramList) {
+                        if (this.paramList[i].name == this.tempParamModal.name) {
+                            this.paramList[i].param = this.tempParamModal.param
+                        }
+                    }
+                    // $('#classModal').modal('hide')
+                } else {
+                    alert('你添加了相同的参数了！')
+                }
+            } else {
+                alert('输入不能为空！')
+            }
+        },
+        // <----- param 的创建选择
+
+        // 添加参数的Modal
+        addParam: function () {
+            var check = document.getElementsByName('sizeCheckbox')
+            console.info(check)
+        },
+
+
+        // 前方就是地狱 是否前行 》 1.yes! 2.yes!!!
         // 第一步 添加型号栏 商品的多重属性设置
         addSortItem: function () {
             // this.testList2 = this.testList1 改变2 1也跟着改变
@@ -102,44 +207,6 @@ var addGoodsVM = new Vue({
             for (let i in this.SortItem) {
                 let sortId = 'sortId' + i
                 document.getElementById(sortId).value = this.SortItem[i].select_id
-            }
-        },
-
-        // 类别
-        // 获取选择的option
-        getSelectSort: function (index) {
-            // console.info(this.SortItem)
-            var sortId = 'sortId' + index
-            var select_id = document.getElementById(sortId).value
-            var select = ''
-            for (let i in this.classList) {
-                if (select_id == this.classList[i].id) {
-                    select = this.classList[i].name
-                }
-            }
-            for (let i in this.SortItem) {
-                // 不能选择相同类型的 选择了就警告 并且选项置空
-                if (this.SortItem[i].select == select) {
-                    document.getElementById(sortId).value = ''
-                    select = ''
-                    this.SortItem[index].size = []
-                    // 警告框展示隐藏
-                    var alertId = '#alert' + index
-                    $(alertId).addClass('inline-block')
-                    setTimeout(function () {
-                        $(alertId).addClass('none')
-                        $(alertId).removeClass('inline-block')
-                    }, 2000)
-                }
-            }
-            this.SortItem[index].select = select
-            this.SortItem[index].select_id = select_id
-            this.SortItem[index].size = []
-        },
-        submitClassBtn: function () {
-            // 直接添加到数据库 然后刷新
-            if (this.sortModalText != '') {
-                console.info(this.classModalText)
             }
         },
 

@@ -25,3 +25,10 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.btn-secondary {
+    color: #292b2c;
+    background-color: #fff;
+    border-color: #ccc;
+    margin-left: 20px;
+}
