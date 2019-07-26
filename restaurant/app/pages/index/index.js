@@ -314,12 +314,12 @@ Page({
       paramId = '',
       param = ''
     for (let i in selectGoodsSKU) {
-      if (selectParamArray == JSON.stringify(selectGoodsSKU[i].param_list.param)) {
+      if (selectParamArray == JSON.stringify(selectGoodsSKU[i].param)) {
         // console.info(JSON.stringify(selectGoodsSKU[i].param_list.param))
         price = selectGoodsSKU[i].price
-        paramId = selectGoodsSKU[i].param_list.id
+        paramId = selectGoodsSKU[i].id
         // param = JSON.stringify(selectGoodsSKU[i].param_list.param)
-        param = selectGoodsSKU[i].param_list.param
+        param = selectGoodsSKU[i].param
       }
     }
     self.data.goodsPrice = price
@@ -344,12 +344,11 @@ Page({
     self.data.goodsImage = goodsImage
     self.data.goodsDescribe = goodsDescribe
     self.data.goodsPrice = goodsInfo[0].price
-    self.data.goodsParamId = goodsInfo[0].goods_param_id
-    // self.data.goodsParam = JSON.stringify(goodsInfo[0].param_list.param)
-    self.data.goodsParam = goodsInfo[0].param_list.param
+    // self.data.goodsParamId = goodsInfo[0].goods_param_id
+    self.data.goodsParam = goodsInfo[0].param
     let param = []
     // 根据参数数量生成对应参数组{[],[]}
-    let keyArray = Object.keys(goodsInfo[0].param_list.param)
+    let keyArray = Object.keys(goodsInfo[0].param)
     let length = keyArray.length
     for (let i = 0; i < length; i++) param.push({
       id: i,
@@ -359,7 +358,7 @@ Page({
     // 给参数分组
     for (let j in goodsInfo) {
       for (let k = 0; k < length; k++) {
-        param[k].param.push(Object.values(goodsInfo[j].param_list.param)[k])
+        param[k].param.push(Object.values(goodsInfo[j].param)[k])
       }
     }
     // console.info(param)
