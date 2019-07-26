@@ -339,12 +339,13 @@ Page({
     let goodsInfo = self.data.selectGoods[0].list.filter(function(item) {
       return (item.id == goodsId)
     })[0].sku
+    console.info(goodsInfo)
     self.data.goodsId = goodsId
     self.data.goodsName = goodsName
     self.data.goodsImage = goodsImage
     self.data.goodsDescribe = goodsDescribe
     self.data.goodsPrice = goodsInfo[0].price
-    // self.data.goodsParamId = goodsInfo[0].goods_param_id
+    self.data.goodsParamId = goodsInfo[0].id
     self.data.goodsParam = goodsInfo[0].param
     let param = []
     // 根据参数数量生成对应参数组{[],[]}
