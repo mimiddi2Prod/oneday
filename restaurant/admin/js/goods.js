@@ -115,6 +115,7 @@ var goodsVM = new Vue({
             }
         },
         getPage: function (index) {
+            console.info(index)
             this.last_id = index
             getGoods()
         },
@@ -441,7 +442,7 @@ function updateGoodsState(id_list, state) {
 
 $(document).ready(function () {
     getGoods()
-    getCategory(0, 0)
+    getCategory()
 
     // $("#calc_number").bind("input propertychange",function(event){
     //     //     console.info($("#calc_number").val())
@@ -451,31 +452,30 @@ $(document).ready(function () {
 function getGoods() {
     goodsVM.pageList = []
     goodsVM.goodsList = []
-    // -1全部 / 0出售中 / 1出售完 / 2已下架
+    // 0全部 / 1出售中 / 2出售完 / 3已下架
     const url = api.getGoods
     let data = {}, async = true
     data.last_id = goodsVM.last_id
     data.status = goodsVM.goods_status
-    // data.need_integral = goodsVM.need_integral
     server(url, data, async, "post", function (res) {
         console.info(res)
         if (res.number > 0) {
-            res.list = res.list.map(function (resData) {
-                resData.price = Number(resData.price).toFixed(2)
-                resData.create_time = formatTime(new Date(resData.create_time))
-                resData.showMoreParam = false
-                let total_stock = 0
-                for (let i in resData.param) {
-                    total_stock = total_stock + resData.param[i].stock
-                    resData.param[i].price = Number(resData.param[i].price).toFixed(2)
+            res.list = res.list.map(function (eData) {
+                eData.min_price = Number(eData.min_price).toFixed(2)
+                eData.create_time = formatTime(new Date(eData.create_time))
+                eData.showMoreParam = false
+                // let total_stock = 0
+                for (let i in eData.param) {
+                //     total_stock = total_stock + eData.param[i].stock
+                    eData.param[i].price = Number(eData.param[i].price).toFixed(2)
+                    // eData.param[i].param = JSON.parse(eData.param[i].param)
                 }
-                resData.total_stock = total_stock
-                resData.checked = false
-                return resData
+                // eData.total_stock = total_stock
+                eData.checked = false
+                return eData
             })
-            // console.info(res)
+            console.info(res.list)
             goodsVM.goodsList = res.list
-
             // 分页栏
             for (let i = 0; i < res.number / 5; i++) {
                 goodsVM.pageList.push(i + 1)
@@ -485,20 +485,12 @@ function getGoods() {
 }
 
 // 批量分类
-function getCategory(type, parent_id) {
-    const url = '../api/get_category'
+function getCategory() {
+    const url = api.getCategory
     let data = {}, async = true
-    data.type = type
-    data.parent_id = parent_id
     server(url, data, async, "post", function (res) {
-        // console.info(res)
-        // if (res.length > 0) {
-        if (type == 0) {
-            goodsVM.category_parent = res
-        } else if (type == 1) {
-            goodsVM.category = res
-        }
-        // }
+        console.info(res)
+        goodsVM.category = res
     })
 }
 

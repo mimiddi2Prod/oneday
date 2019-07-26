@@ -58,16 +58,17 @@
             <div class="row-center">
                 <button type="button" class="btn btn-secondary" v-on:click="down('tableExcel')">批量导出商品</button>
                 <!--<button type="button" class="btn btn-danger" v-on:click="changePage('goods-add')">添加商品</button>-->
-                <button type="button" class="btn btn-danger" v-on:click="window.location.href = 'addGoods'">添加商品</button>
+                <button type="button" class="btn btn-danger" v-on:click="window.location.href = 'addGoods'">添加商品
+                </button>
             </div>
         </div>
 
         <!-- 积分 -->
         <!--<div class="nav-1">-->
-            <!--<ul class="nav nav-tabs">-->
-                <!--<li v-bind:class="(index == navTwoId ? 'active' : '')" v-for="item,index in nav_tow_List"-->
-                    <!--v-on:click="changeNavTwo(index)"><a href="#">{{item}}</a></li>-->
-            <!--</ul>-->
+        <!--<ul class="nav nav-tabs">-->
+        <!--<li v-bind:class="(index == navTwoId ? 'active' : '')" v-for="item,index in nav_tow_List"-->
+        <!--v-on:click="changeNavTwo(index)"><a href="#">{{item}}</a></li>-->
+        <!--</ul>-->
         <!--</div>-->
 
         <!-- 排序 -->
@@ -130,7 +131,7 @@
                         <label class="form-check-label row-center">
                             <div class="a" v-on:change="checkOne()">
                                 <input type="checkbox" name="checkGoods" v-model="item.checked">
-                                <img :src="item.image[0]">
+                                <img :src="item.img">
                             </div>
                             <div class="b">
                                 <span>{{item.name}}</span>
@@ -138,13 +139,13 @@
                         </label>
                     </div>
                     <div class="second-title column-center">
-                        {{item.price}}
+                        {{item.min_price}}
                     </div>
                     <div class="second-title column-center">
                         {{item.volume}}
                     </div>
                     <div class="second-title column-center">
-                        {{item.total_stock}}
+                        {{item.stock}}
                     </div>
                     <div class="second-title column-center" v-if="navTwoId == 0">
                         {{item.category_name_1}}
@@ -160,8 +161,8 @@
                         </button>
                         <button type="button" class="btn btn-link" v-on:click="changePage('goods-review',item.id)">评价
                         </button>
-                        <button type="button" class="btn btn-link" v-on:click="changeGoodsState(item.id,item.state)">
-                            {{item.state == 0 ? '下架' : '上架'}}
+                        <button type="button" class="btn btn-link" v-on:click="changeGoodsState(item.id,item.status)">
+                            {{item.status == 0 ? '下架' : '上架'}}
                         </button>
                         <!--<button type="button" class="btn btn-link">删除</button>-->
                     </div>
@@ -170,7 +171,7 @@
                     <div class="param" v-for="paramItem,paramIndex in item.param"
                          :class="(paramIndex >= 2 && !item.showMoreParam ? 'none' : '')">
                         <div style="text-align: end;flex:2">
-                            <span style="padding-right: 20px">{{paramItem.param_1}}，{{paramItem.param_2}}</span>
+                            <span style="padding-right: 20px">{{paramItem.param}}</span>
                         </div>
                         <div class="column-center" style="flex:1">
                             {{paramItem.price}}
@@ -206,12 +207,12 @@
         <!--<li><a href="#">&raquo;</a></li>-->
         <!--</ul>-->
         <ul class="pagination">
-            <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="">&laquo;</a></li>
+            <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li>
             <li v-for="item,index in pageList" v-on:click="getPage(index)"
                 v-bind:class="(item == last_id+1 ? 'active' : '')"><a
-                    href="">{{item}}</a></li>
+                    href="javascript:;">{{item}}</a></li>
             <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a
-                    href="">&raquo;</a>
+                    href="javascript:;">&raquo;</a>
             </li>
         </ul>
 
@@ -228,12 +229,12 @@
             </tr>
             <tr v-for="item in goodsList">
                 <td>{{item.name}}</td>
-                <td>{{item.price}}</td>
+                <td>{{item.min_price}}</td>
                 <td>{{item.volume}}</td>
-                <td>{{item.total_stock}}</td>
-                <td>{{item.category_name_1}}</td>
+                <td>{{item.stock}}</td>
+                <td>{{item.category_name}}</td>
                 <td>{{item.create_time}}</td>
-                <td><img :src='item.image[0]'/></td>
+                <td><img :src='item.img'/></td>
             </tr>
         </table>
 

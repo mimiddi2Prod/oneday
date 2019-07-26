@@ -1,4 +1,5 @@
 var api = {
     getMenu: '../api/get_menu',
-    getGoods: '../api/get_goods'
+    getGoods: '../api/get_goods',
+    getCategory: '../api/get_category'
 }
