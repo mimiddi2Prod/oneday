@@ -8,13 +8,7 @@ var addGoodsVM = new Vue({
         select_category_id: '',
 
         //默认的尺寸选择 不应进行改变 是固定值
-        specificationList: [{
-            id: '',
-            name: '颜色',
-        }, {
-            id: '',
-            name: '尺寸',
-        }],
+        classList: [],
         paramList: [{
             name: '颜色',
             size: ['蓝色', '黄色', '红色']
@@ -28,20 +22,16 @@ var addGoodsVM = new Vue({
 
         SortItem: [],
         sizeAndPrice: [],
-        goodsInfoImgList: [],
+        // goodsInfoImgList: [],
         state: '',
 
-        sortModalText: '',
+        classModalText: '',
         sizeModalText: '',
         sizeIndex: '',
         selectText: '',
     },
     methods: {
-        // changePage: function (e) {
-        //     var href = './' + e + '.html'
-        //     $("#container").load(href);
-        //     sessionStorage.setItem("href", href);
-        // },
+        // -----> 商品图片存储七牛云前的处理
         getImg: function (id) {
             let imgUploadList = []
             const self = this, type = 'goods_'
@@ -82,62 +72,15 @@ var addGoodsVM = new Vue({
                 })
             }
         },
-        // 商品详情图片 -->
-        getInfoImg: function (id) {
-            let imgUploadList = []
-            const self = this, type = 'goodsInfo_'
-            // 图片blob 用于上传
-            let imgFiles = document.getElementById(id).files  //多张图上传
-            // 多张图上传
-            for (let i = 0; i < imgFiles.length; i++) {
-                imgUploadList.push({
-                    key: '',
-                    tempFilePath: window.URL.createObjectURL(imgFiles[i]),
-                    uploadToken: '',
-                    imgFile: imgFiles[i]
-                })
-            }
-            qiniuUpload(imgUploadList, type, function (res) {
-                self.goodsInfoImgList = self.goodsInfoImgList.concat(res)
-                // console.info(self.imgList)
-            })
+        // <----- 商品图片存储七牛云前的处理
 
-        },
-        delInfoImg: function (index) {
-            this.goodsInfoImgList.splice(index, 1)
-        },
-        replaceInfoImg: function (index) {
-            let imgUploadList = []
-            const self = this, type = 'goodsInfo_'
-            let imgId = 'replaceInfoImg' + index
-            // 图片blob 用于上传
-            let imgFile = document.getElementById(imgId).files[0]
-            if (imgFile) {
-                imgUploadList[0] = {
-                    key: '',
-                    tempFilePath: window.URL.createObjectURL(imgFile),
-                    uploadToken: '',
-                    imgFile: imgFile
-                }
-                qiniuUpload(imgUploadList, type, function (res) {
-                    self.goodsInfoImgList.splice(index, 1, res[0])
-                    // console.info(self.imgList)
-                })
-            }
-        },
-        // <-- 商品详情图片
-
-        haveCategoryParent: function (id) {
-            let type = 1, parent_id = id
-            this.category_id_select = ''
-            getCategory(type, parent_id)
-        },
+        
         // 弹窗
-        addSort: function () {
+        addClass: function () {
             var text = '添加分类'
-            $('#sortModal').on('show.bs.modal', function () {
+            $('#classModal').on('show.bs.modal', function () {
                 var modal = $(this)
-                modal.find('#sortModalLabel').text(text)
+                modal.find('#classModalLabel').text(text)
             })
         },
         // 第一步 添加型号栏 商品的多重属性设置
@@ -149,14 +92,8 @@ var addGoodsVM = new Vue({
                 select_id: '',
                 haveParamImg: false,
                 size: [],
-                specificationList: this.specificationList
+                classList: this.classList
             })
-            // this.SortItem[this.SortItem.length - 1].select = ''
-            // this.SortItem[this.SortItem.length - 1].select_id = ''
-            // this.SortItem[this.SortItem.length - 1].haveParamImg = false
-            // this.SortItem[this.SortItem.length - 1].size = []
-            // this.SortItem[this.SortItem.length - 1].specificationList = []
-            // this.SortItem[this.SortItem.length - 1].specificationList = this.specificationList
 
         },
         // 删除型号栏
@@ -175,9 +112,9 @@ var addGoodsVM = new Vue({
             var sortId = 'sortId' + index
             var select_id = document.getElementById(sortId).value
             var select = ''
-            for (let i in this.specificationList) {
-                if (select_id == this.specificationList[i].id) {
-                    select = this.specificationList[i].name
+            for (let i in this.classList) {
+                if (select_id == this.classList[i].id) {
+                    select = this.classList[i].name
                 }
             }
             for (let i in this.SortItem) {
@@ -198,29 +135,12 @@ var addGoodsVM = new Vue({
             this.SortItem[index].select = select
             this.SortItem[index].select_id = select_id
             this.SortItem[index].size = []
-            // console.info(this.SortItem)
-            // 大概是vue的bug 对SortItem内的对象的元素进行添加 数组有值 但页面不会触发改变
-            // 直接对数组进行更改才会触发改变
-            // html页面 v-if="item.select" 无法触发
-            // 所以加了下面两句
-            // this.SortItem.push(null)
-            // this.SortItem.pop()
         },
-        submitSortBtn: function () {
+        submitClassBtn: function () {
             // 直接添加到数据库 然后刷新
             if (this.sortModalText != '') {
-                addSpecification(this.sortModalText)
+                console.info(this.classModalText)
             }
-            // if (this.sortModalText != '') {
-            //     this.specificationList.push(this.sortModalText)
-            //     if (this.specificationList.length > this.paramList.length) {
-            //         this.paramList.push([])
-            //     }
-            //     this.paramList[this.paramList.length - 1].name = this.sortModalText
-            //     this.paramList[this.paramList.length - 1].size = []
-            //     this.sortModalText = ''
-            //     $('#sortModal').modal('hide')
-            // }
         },
 
         // 尺寸
@@ -258,9 +178,6 @@ var addGoodsVM = new Vue({
                     // break
                 }
             }
-            // 添加下面两句 理由如上
-            // this.SortItem.push(null)
-            // this.SortItem.pop()
 
             let key = 'param_' + Number(index + 1)
             this.sizeAndPrice = this.sizeAndPrice.filter(function (res) {
@@ -274,8 +191,6 @@ var addGoodsVM = new Vue({
                 return res
             })
             this.SortItem[index].haveParamImg = true
-            // this.SortItem.push(null)
-            // this.SortItem.pop()
         },
 
         // 参数图片
@@ -296,9 +211,6 @@ var addGoodsVM = new Vue({
             }
             qiniuUpload(imgUploadList, type, function (res) {
                 self.SortItem[index].size[id].img = res
-                // self.SortItem.push(null)
-                // self.SortItem.pop()
-                // console.info(self.imgList)
             })
         },
         replaceParamImg: function (index, id) {
@@ -316,15 +228,9 @@ var addGoodsVM = new Vue({
                 }
                 qiniuUpload(imgUploadList, type, function (res) {
                     self.SortItem[index].size[id].img = res
-                    // self.SortItem.push(null)
-                    // self.SortItem.pop()
                 })
             }
         },
-        // delParamImg: function (id) {
-        //
-        // },
-
         addOneSize: function () {
             if (this.sizeModalText != '') {
                 let self = this,
@@ -632,20 +538,8 @@ var addGoodsVM = new Vue({
 
 $(document).ready(function () {
     // check_login()
-
     getCategory()
-    // getSpecification()
 })
-
-function getBrand() {
-    const url = '../api/get_brand'
-    let data = {}
-    server(url, data, "post", function (res) {
-        if (res.length > 0) {
-            addGoodsVM.brandList = res
-        }
-    })
-}
 
 // 批量分类
 function getCategory() {
@@ -657,39 +551,19 @@ function getCategory() {
     })
 }
 
-function getSpecification() {
-    const url = '../api/get_specification'
-    let data = {}
-    server(url, data, "post", function (res) {
-        // console.info(res)
-        if (res.specification.length > 0) {
-            addGoodsVM.specificationList = res.specification
-            if (addGoodsVM.SortItem.length > 0) {
-                addGoodsVM.SortItem = addGoodsVM.SortItem.map(function (s) {
-                    s.specificationList = res.specification
-                    return s
-                })
-            }
-        }
-        if (res.paramList.length > 0) {
-            addGoodsVM.paramList = res.paramList
-        }
-    })
-}
-
-function addSpecification(name) {
-    const url = '../api/add_specification'
-    let data = {}
-    data.name = name
-    data.user_id = sessionStorage.getItem('user_id')
-    server(url, data, "post", function (res) {
-        // console.info(res)
-        if (res.text == '添加成功') {
-            getSpecification()
-            $('#sortModal').modal('hide')
-        }
-    })
-}
+// function addSpecification(name) {
+//     const url = '../api/add_specification'
+//     let data = {}
+//     data.name = name
+//     data.user_id = sessionStorage.getItem('user_id')
+//     server(url, data, "post", function (res) {
+//         // console.info(res)
+//         if (res.text == '添加成功') {
+//             getSpecification()
+//             $('#sortModal').modal('hide')
+//         }
+//     })
+// }
 
 function addGoods() {
     // console.info(addGoodsVM.imgList)
@@ -753,8 +627,8 @@ function addGoods() {
 }
 
 // 时间控件
-laydate.render({
-    elem: '#test5'
-    , type: 'datetime'
-    , calendar: true
-});
+// laydate.render({
+//     elem: '#test5'
+//     , type: 'datetime'
+//     , calendar: true
+// });
