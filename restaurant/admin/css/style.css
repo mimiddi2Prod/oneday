@@ -15,7 +15,7 @@ body {
 }
 
 .right {
-    position: fixed;
+    /*position: fixed;*/
     padding-left: 240px;
     padding-right: 50px;
     width: 100%;

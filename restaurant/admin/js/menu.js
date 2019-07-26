@@ -18,7 +18,11 @@ var menuVM = new Vue({
         this.getMenu()
         let href = window.location.href
         let arr = href.split('/')
-        this.activeMenuTag = arr[arr.length - 1]
+        let tag = arr[arr.length - 1]
+        if (tag == 'addGoods') {
+            tag = 'goods'
+        }
+        this.activeMenuTag = tag
     }
 })
 

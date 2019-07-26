@@ -53,7 +53,7 @@
         <div class="nav-1">
             <ul class="nav nav-tabs">
                 <li v-bind:class="(index == goods_status ? 'active' : '')" v-for="item,index in navList"
-                    v-on:click="changeNav(index)"><a href="#">{{item}}</a></li>
+                    v-on:click="changeNav(index)"><a href="javascript:;">{{item}}</a></li>
             </ul>
             <div class="row-center">
                 <button type="button" class="btn btn-secondary" v-on:click="down('tableExcel')">批量导出商品</button>
