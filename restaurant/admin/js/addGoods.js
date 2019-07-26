@@ -183,7 +183,14 @@ var addGoodsVM = new Vue({
         // 添加参数的Modal
         addParam: function () {
             var check = document.getElementsByName('sizeCheckbox')
-            console.info(check)
+            let selectParamList = []
+            for (let i in check) {
+                if (check[i].checked) {
+                    selectParamList.push(this.tempParamModal.param[i])
+                }
+            }
+            console.info(this.classSubmitList)
+            console.info(selectParamList)
         },
 
 
