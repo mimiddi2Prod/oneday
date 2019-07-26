@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-07-20 17:44:45
+Date: 2019-07-26 14:08:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,9 +52,14 @@ CREATE TABLE `admin_menu` (
 -- ----------------------------
 -- Records of admin_menu
 -- ----------------------------
-INSERT INTO `admin_menu` VALUES ('1', '首页', '2019-07-20 17:06:49', '../images/logo.png', '0', '0', 'home');
-INSERT INTO `admin_menu` VALUES ('2', '商品', '2019-07-20 17:07:20', '../images/logo.png', '0', '0', 'goods');
-INSERT INTO `admin_menu` VALUES ('3', '商品列表', '2019-07-20 17:07:52', '', '2', '0', 'goods');
+INSERT INTO `admin_menu` VALUES ('1', '首页', '2019-07-23 13:54:08', '../../images/logo.png', '0', '0', 'home');
+INSERT INTO `admin_menu` VALUES ('2', '商品', '2019-07-24 17:53:47', '../../images/logo.png', '0', '0', '');
+INSERT INTO `admin_menu` VALUES ('3', '商品管理', '2019-07-24 17:53:51', '', '2', '0', 'goods');
+INSERT INTO `admin_menu` VALUES ('4', '分类管理', '2019-07-24 17:54:11', '', '2', '0', 'category');
+INSERT INTO `admin_menu` VALUES ('5', '订单', '2019-07-24 17:54:14', '../../images/logo.png', '0', '0', 'order');
+INSERT INTO `admin_menu` VALUES ('6', '品牌管理', '2019-07-24 17:54:43', '../../images/logo.png', '0', '0', '');
+INSERT INTO `admin_menu` VALUES ('7', '品牌管理', '2019-07-24 17:54:44', '../../images/logo.png', '0', '0', '');
+INSERT INTO `admin_menu` VALUES ('8', '品牌管理', '2019-07-24 17:54:45', '../../images/logo.png', '0', '0', '');
 
 -- ----------------------------
 -- Table structure for restaurant_category
@@ -97,21 +102,22 @@ CREATE TABLE `restaurant_goods` (
   `sort` int(12) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(12) NOT NULL,
+  `status` int(2) NOT NULL COMMENT '0 下架 1 上架',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods
 -- ----------------------------
-INSERT INTO `restaurant_goods` VALUES ('1', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
-INSERT INTO `restaurant_goods` VALUES ('2', '炒肉盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '1', '2019-07-17 17:14:50', '1');
-INSERT INTO `restaurant_goods` VALUES ('3', '西红柿鸡蛋面', '/images/A.png', '营养丰富', '20.00', 'xmspw', '1', '0', '2019-07-17 17:14:50', '1');
-INSERT INTO `restaurant_goods` VALUES ('4', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
-INSERT INTO `restaurant_goods` VALUES ('5', '鸡蛋盖浇饭带大家是大家', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
-INSERT INTO `restaurant_goods` VALUES ('6', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
-INSERT INTO `restaurant_goods` VALUES ('7', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
-INSERT INTO `restaurant_goods` VALUES ('8', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
-INSERT INTO `restaurant_goods` VALUES ('9', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('1', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
+INSERT INTO `restaurant_goods` VALUES ('2', '炒肉盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '1', '2019-07-17 17:14:50', '1', '0');
+INSERT INTO `restaurant_goods` VALUES ('3', '西红柿鸡蛋面', '/images/A.png', '营养丰富', '20.00', 'xmspw', '1', '0', '2019-07-17 17:14:50', '1', '0');
+INSERT INTO `restaurant_goods` VALUES ('4', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
+INSERT INTO `restaurant_goods` VALUES ('5', '鸡蛋盖浇饭带大家是大家', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
+INSERT INTO `restaurant_goods` VALUES ('6', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
+INSERT INTO `restaurant_goods` VALUES ('7', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
+INSERT INTO `restaurant_goods` VALUES ('8', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
+INSERT INTO `restaurant_goods` VALUES ('9', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_order
@@ -119,50 +125,28 @@ INSERT INTO `restaurant_goods` VALUES ('9', '鸡蛋盖浇饭', '/images/A.png', 
 DROP TABLE IF EXISTS `restaurant_goods_order`;
 CREATE TABLE `restaurant_goods_order` (
   `id` int(12) NOT NULL AUTO_INCREMENT,
+  `open_id` varchar(32) CHARACTER SET utf8 NOT NULL,
   `goods_sku_id` int(12) DEFAULT NULL,
   `goods_id` int(12) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `open_id` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `param` varchar(1000) CHARACTER SET utf8 DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `number` int(10) NOT NULL,
   `coupon` float(10,2) DEFAULT NULL,
   `trade_id` varchar(30) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_order
 -- ----------------------------
-INSERT INTO `restaurant_goods_order` VALUES ('1', null, '3', '2019-07-20 12:06:19', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
-INSERT INTO `restaurant_goods_order` VALUES ('2', null, '1', '2019-07-20 12:06:19', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '20.00', '2', null, '231');
-INSERT INTO `restaurant_goods_order` VALUES ('3', null, '3', '2019-07-20 13:57:52', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
-INSERT INTO `restaurant_goods_order` VALUES ('4', null, '1', '2019-07-20 13:57:52', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '20.00', '2', null, '231');
-INSERT INTO `restaurant_goods_order` VALUES ('5', null, '3', '2019-07-20 13:58:23', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
-INSERT INTO `restaurant_goods_order` VALUES ('6', null, '1', '2019-07-20 13:58:23', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '20.00', '2', null, '231');
-INSERT INTO `restaurant_goods_order` VALUES ('7', null, '3', '2019-07-20 14:00:08', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
-INSERT INTO `restaurant_goods_order` VALUES ('8', null, '3', '2019-07-20 14:05:24', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
-INSERT INTO `restaurant_goods_order` VALUES ('9', null, '3', '2019-07-20 14:06:58', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6.00', '1', null, '231');
-
--- ----------------------------
--- Table structure for restaurant_goods_param
--- ----------------------------
-DROP TABLE IF EXISTS `restaurant_goods_param`;
-CREATE TABLE `restaurant_goods_param` (
-  `id` int(12) NOT NULL AUTO_INCREMENT,
-  `param` varchar(1000) CHARACTER SET utf8 NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_id` int(12) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of restaurant_goods_param
--- ----------------------------
-INSERT INTO `restaurant_goods_param` VALUES ('1', '{\"冰度\":\"冰\",\"甜度\":\"半糖\"}', '2019-07-17 19:21:56', '0');
-INSERT INTO `restaurant_goods_param` VALUES ('2', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '2019-07-17 19:21:56', '0');
-INSERT INTO `restaurant_goods_param` VALUES ('3', '{\"冰度\":\"冰\"}', '2019-07-17 19:21:56', '0');
-INSERT INTO `restaurant_goods_param` VALUES ('4', '{\"冰度\":\"正常冰\"}', '2019-07-17 19:21:56', '0');
-INSERT INTO `restaurant_goods_param` VALUES ('5', '{\"冰度\":\"热\"}', '2019-07-17 19:21:56', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('10', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '3', '3', '{\"冰度\":\"冰\"}', '6.00', '2', null, '231', '2019-07-26 11:09:23');
+INSERT INTO `restaurant_goods_order` VALUES ('11', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '1', '\"\"', '20.00', '1', null, '231', '2019-07-26 11:09:23');
+INSERT INTO `restaurant_goods_order` VALUES ('12', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '2', '2', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '6.00', '1', null, '231', '2019-07-26 11:09:23');
+INSERT INTO `restaurant_goods_order` VALUES ('13', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '3', '3', '{\"冰度\":\"冰\"}', '6.00', '2', null, '231', '2019-07-26 11:09:23');
+INSERT INTO `restaurant_goods_order` VALUES ('14', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '1', '\"\"', '20.00', '1', null, '231', '2019-07-26 11:09:23');
+INSERT INTO `restaurant_goods_order` VALUES ('15', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '3', '3', '{\"冰度\":\"冰\"}', '6.00', '3', null, '231', '2019-07-26 13:53:24');
+INSERT INTO `restaurant_goods_order` VALUES ('16', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '2', '2', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '6.00', '2', null, '231', '2019-07-26 13:53:24');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_sku
@@ -172,8 +156,8 @@ CREATE TABLE `restaurant_goods_sku` (
   `id` int(12) NOT NULL AUTO_INCREMENT,
   `stock` int(12) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `goods_param_id` int(10) NOT NULL,
   `goods_id` int(12) NOT NULL,
+  `param` varchar(1000) CHARACTER SET utf8 NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
@@ -182,11 +166,11 @@ CREATE TABLE `restaurant_goods_sku` (
 -- ----------------------------
 -- Records of restaurant_goods_sku
 -- ----------------------------
-INSERT INTO `restaurant_goods_sku` VALUES ('1', '999', '5.00', '1', '2', '0000-00-00 00:00:00', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('2', '999', '6.00', '2', '2', '0000-00-00 00:00:00', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('3', '999', '6.00', '3', '3', '0000-00-00 00:00:00', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('4', '999', '7.00', '4', '3', '0000-00-00 00:00:00', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('5', '999', '9.00', '5', '3', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('1', '999', '5.00', '2', '{\"冰度\":\"冰\",\"甜度\":\"半糖\"}', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('2', '999', '6.00', '2', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('3', '999', '6.00', '3', '{\"冰度\":\"冰\"}', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('4', '999', '7.00', '3', '{\"冰度\":\"正常冰\"}', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('5', '999', '9.00', '3', '{\"冰度\":\"热\"}', '0000-00-00 00:00:00', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_user
@@ -209,7 +193,7 @@ CREATE TABLE `restaurant_user` (
 -- ----------------------------
 -- Records of restaurant_user
 -- ----------------------------
-INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', 'UyCnbZfBvgMPVu7bhu+4Pg==', '2019-07-20 14:16:06', null, '0');
+INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', 'zGaHMXKSE8JbAkvyIK75rQ==', '2019-07-26 13:52:49', null, '0');
 
 -- ----------------------------
 -- Table structure for test
