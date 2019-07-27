@@ -22,6 +22,8 @@ var addGoodsVM = new Vue({
         classModalText: '',
         paramModalText: '',
 
+        seleceClassIndex: '', // 标记是往哪个class里面加param
+
 
         // 前方就是地狱
         selectIndex: '',
@@ -118,7 +120,7 @@ var addGoodsVM = new Vue({
             this.classSubmitList.push({
                 select: '',
                 haveParamImg: false,
-                size: [],
+                param: [],
             })
             console.info(this.classSubmitList)
         },
@@ -134,7 +136,7 @@ var addGoodsVM = new Vue({
                 if (this.classSubmitList[i].select == classValue) {
                     document.getElementById(classId).value = ''
                     classValue = ''
-                    this.classSubmitList[index].size = []
+                    this.classSubmitList[index].param = []
                     // 警告框展示隐藏
                     var alertId = '#alert' + index
                     $(alertId).addClass('inline-block')
@@ -145,17 +147,20 @@ var addGoodsVM = new Vue({
                 }
             }
             this.classSubmitList[index].select = classValue
-            this.classSubmitList[index].size = []
+            this.classSubmitList[index].param = []
         },
         // <----- class option的创建选择
 
         // -----> param 的创建选择
         showParamModal: function (selectText, selectIndex) {
-            console.info(selectText)
+            let self = this
+            this.seleceClassIndex = selectIndex
             this.tempParamModal = this.paramList.filter(function (eData) {
                 return eData.name == selectText
             })[0]
-            console.info(this.tempParamModal)
+            this.tempParamModal.param = this.tempParamModal.param.filter(function (eData) {
+                return (self.classSubmitList[self.seleceClassIndex].param.indexOf(eData) == -1)
+            })
         },
         createParamToParamList: function () {
             let self = this
@@ -187,10 +192,11 @@ var addGoodsVM = new Vue({
             for (let i in check) {
                 if (check[i].checked) {
                     selectParamList.push(this.tempParamModal.param[i])
+                    check[i].checked = false
                 }
             }
-            console.info(this.classSubmitList)
-            console.info(selectParamList)
+            this.classSubmitList[this.seleceClassIndex].param = this.classSubmitList[this.seleceClassIndex].param.concat(selectParamList)
+            $('#paramModal').modal('hide')
         },
 
 
