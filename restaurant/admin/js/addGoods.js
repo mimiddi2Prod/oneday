@@ -11,6 +11,15 @@ var addGoodsVM = new Vue({
         category: [],
         // 选中的类型id
         select_category_id: '',
+        priceTypeList: [{
+            id: 0,
+            name: '否'
+        }, {
+            id: 1,
+            name: '是'
+        }],
+        priceTypeId: 0,
+        goods_price: '',
 
         // 类别 option使用
         classList: ['糖度', '冰度'],
@@ -127,6 +136,8 @@ var addGoodsVM = new Vue({
                 let classId = 'classId' + i
                 document.getElementById(classId).value = this.classSubmitList[i].select
             }
+
+            this.getTable()
         },
         // class获取选择的option
         selectClass: function (index) {
@@ -200,68 +211,54 @@ var addGoodsVM = new Vue({
             $('#paramModal').modal('hide')
             console.info(this.classSubmitList)
 
-            let len = this.classSubmitList.length
-            let y = []
-            for (let i = 0; i < len; i++) {
-                y.push(this.classSubmitList[i].param)
-            }
-            var models = y
-            let paramGroup = digui(models)
-            let temp = {}
-            this.table = []
-            for (let i in paramGroup) {
-                let arr = paramGroup[i].split(',')
-                // temp.push({})
-                for (let j in arr) {
-                    // console.info(j)
-                    let key = addGoodsVM.classSubmitList[j].select
-                    let value = arr[j]
-                    temp[key] = value
-                }
-                this.table.push({
-                    param: JSON.stringify(temp),
-                    stock: '',
-                    price: '',
-                })
-            }
-            // console.info(addGoodsVM.table)
+            this.getTable()
         },
         delParam: function (index, param) {
-            console.info(index)
+            // console.info(index)
             // console.info(sizeName)
-            console.info(this.classSubmitList)
+            // console.info(this.classSubmitList)
             this.classSubmitList[index].param = this.classSubmitList[index].param.filter(function (eData) {
                 return (param != eData)
             })
 
-            let len = this.classSubmitList.length
-            let y = []
-            for (let i = 0; i < len; i++) {
-                y.push(this.classSubmitList[i].param)
-            }
-            var models = y
-            let paramGroup = digui(models)
-            let temp = {}
-            this.table = []
-            for (let i in paramGroup) {
-                let arr = paramGroup[i].split(',')
-                // temp.push({})
-                for (let j in arr) {
-                    // console.info(j)
-                    let key = addGoodsVM.classSubmitList[j].select
-                    let value = arr[j]
-                    temp[key] = value
+            this.getTable()
+        },
+
+        getTable: function () {
+            let tempList = this.classSubmitList.filter(function (eData) {
+                return eData.param.length > 0
+            })
+            let len = tempList.length
+            if (len > 0) {
+                let y = []
+                for (let i = 0; i < len; i++) {
+                    y.push(tempList[i].param)
                 }
-                this.table.push({
-                    param: JSON.stringify(temp),
-                    stock: '',
-                    price: '',
-                })
+                var models = y
+                let paramGroup = digui(models)
+                let temp = {}
+                this.table = []
+                for (let i in paramGroup) {
+                    let arr = paramGroup[i].split(',')
+                    // temp.push({})
+                    for (let j in arr) {
+                        // console.info(j)
+                        let key = tempList[j].select
+                        let value = arr[j]
+                        temp[key] = value
+                    }
+                    this.table.push({
+                        param: JSON.stringify(temp),
+                        stock: '',
+                        price: '',
+                    })
+                }
+                console.info(this.table)
             }
         },
+
         // 商品提交
         submitGoods: function (status) {
-            console.info(this.table)
             this.goodsStatus = status
             if (this.imgList.length <= 0) {
                 alert('请选择商品图片')
@@ -271,39 +268,49 @@ var addGoodsVM = new Vue({
                 alert('请填写商品标题')
                 return
             }
-            if (this.goods_brand_id == '') {
-                alert('请选择商品品牌')
+            if (this.goods_desc == '') {
+                alert('请填写商品标题')
                 return
             }
-            if (this.qcl_id == '') {
-                alert('请选择商品品级')
+            if (this.select_category_id == '') {
+                alert('请选择商品类目')
                 return
             }
-            if (this.category_parent_id_select == '') {
-                alert('请选择大分类')
-                return
-            }
-            if (this.category_id_select == '') {
-                alert('请选择小分类')
-                return
-            }
-            if (this.integralSelect == 0) {
-                if (this.typeValue === '') {
-                    alert('请选择商品推荐')
+            let price = ''
+            if (this.priceTypeId == 0) {
+                if (this.goods_price == '') {
+                    alert('请填写商品价格')
                     return
+                } else {
+                    price = this.goods_price
+                }
+            } else if (this.priceTypeId == 1) {
+                if (this.table.length <= 0) {
+                    alert('请填写型号分类')
+                    return
+                } else {
+                    let havePriceAndStock = this.table.every(function (eData) {
+                        return eData.price != '' && eData.stock != ''
+                    })
+                    if (!havePriceAndStock) {
+                        alert('请填写好型号和价格')
+                    } else {
+                        let self = this
+                        price = function () {
+                            var min = self.table[0].price;
+                            var len = self.table.length;
+                            for (let i = 1; i < len; i++) {
+                                if (Number(self.table[i].price) < Number(min)) {
+                                    min = self.table[i].price;
+                                }
+                            }
+                            return min;
+                        }()
+                    }
                 }
             }
-            if (this.integralSelect == 1) {
-                if (this.integralValue == '') {
-                    alert('请填写购买商品所需积分')
-                    return
-                }
-                if (this.integralValue == 0) {
-                    alert('请购买商品所需积分不能为0')
-                    return
-                }
-            }
-            if (this.SortItem.length <= 0) {
+            return
+            if (this.length <= 0) {
                 alert('请选择商品型号')
                 return
             } else if (this.SortItem.length == 1) {
@@ -415,33 +422,6 @@ var addGoodsVM = new Vue({
 $(document).ready(function () {
     // check_login()
     getCategory()
-
-    // let len = addGoodsVM.classSubmitList.length
-    // let y = []
-    // for (let i = 0; i < len; i++) {
-    //     y.push(addGoodsVM.classSubmitList[i].param)
-    // }
-    // var models = y
-    // let paramGroup = digui(models)
-    // let temp = {}
-    // for (let i in paramGroup) {
-    //     let arr = paramGroup[i].split(',')
-    //     // temp.push({})
-    //     for (let j in arr) {
-    //         // console.info(j)
-    //         let key = addGoodsVM.classSubmitList[j].select
-    //         let value = arr[j]
-    //         temp[key] = value
-    //     }
-    //     addGoodsVM.table.push({
-    //         param: JSON.stringify(temp),
-    //         stock: '',
-    //         price: '',
-    //     })
-    // }
-    // console.info(addGoodsVM.table)
-
-
 })
 
 // 批量分类
@@ -453,20 +433,6 @@ function getCategory() {
         addGoodsVM.category = res
     })
 }
-
-// function addSpecification(name) {
-//     const url = '../api/add_specification'
-//     let data = {}
-//     data.name = name
-//     data.user_id = sessionStorage.getItem('user_id')
-//     server(url, data, "post", function (res) {
-//         // console.info(res)
-//         if (res.text == '添加成功') {
-//             getSpecification()
-//             $('#sortModal').modal('hide')
-//         }
-//     })
-// }
 
 function addGoods() {
     // console.info(addGoodsVM.imgList)

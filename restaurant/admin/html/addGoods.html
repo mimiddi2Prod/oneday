@@ -97,7 +97,28 @@
         <div class="subtitle">
             <div>型号/价格</div>
 
-            <div class="sort row-center" style="align-items: unset">
+            <div class="sort row-center">
+                <div class="index">价格类型</div>
+                <div class="item">
+                    是否需要添加参数
+                    <label class="form-check-label" v-for="item in priceTypeList">
+                        <input class="form-check-input" type="radio" name="pricetype" v-bind:value="item.id"
+                               v-model="priceTypeId">
+                        {{item.name}}
+                    </label>
+                </div>
+            </div>
+
+            <!--不需要参数-->
+            <div class="sort row-center" style="align-items: unset" v-if="priceTypeId == 0">
+                <div class="index">商品价格</div>
+                <div class="item">
+                    <input v-model="goods_price" type="text" class="form-control" name=""
+                           oninput="value=value.replace(/[^\d.]/g,'')"/>
+                </div>
+            </div>
+            <!--需要参数-->
+            <div class="sort row-center" style="align-items: unset" v-if="priceTypeId == 1">
                 <div class="index">商品型号</div>
                 <div class="item">
                     <!--添加商品型号-->
@@ -186,10 +207,10 @@
                                     <div style="padding: 10px 0;">{{item}}</div>
                                 </div>
                                 <div class="second-title row-center" style="width: 16%;justify-content: space-around">
-                                    <input class="form-control" v-model="item.price" style="width: 45%"/>
+                                    <input class="form-control" v-model="item.price"
+                                           oninput="value=value.replace(/[^\d.]/g,'')" style="width: 45%"/>
                                     <input class="form-control" v-model="item.stock"
-                                           oninput="value=value.replace(/[^\d]/g,'')"
-                                           style="width: 45%"/>
+                                           oninput="value=value.replace(/[^\d]/g,'')" style="width: 45%"/>
                                 </div>
 
                             </div>
