@@ -121,11 +121,6 @@
                                             </select>
                                         </div>
                                     </form>
-                                    <!--<label class="form-check-label">-->
-                                        <!--<input class="form-check-input" type="radio" name="sortsImg"-->
-                                               <!--v-on:change="getParamImgIndex(index)">-->
-                                        <!--图片-->
-                                    <!--</label>-->
                                     <!--错误提示-->
                                     <div class="alert alert-danger none" :id="'alert'+index"
                                          style="margin-bottom: 0;position: absolute;z-index: 9;transform: translate(-10%,50%)">
@@ -147,25 +142,6 @@
                                         <span style="width: 80px; display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;overflow: hidden;text-overflow: ellipsis;">{{paramItem}}</span>
                                         <img src="/images/del.png" v-on:click="delSize(index,sizeItem.name)">
                                     </div>
-                                    <!--参数图片-->
-                                    <div class="row-center" v-if="item.haveParamImg" style="margin-bottom: 6px">
-                                        <div class="goods-img" v-if="sizeItem.img.length <= 0">
-                                            <input :id="'paramImg'+sizeIndex" class="getImg" type="file"
-                                                   accept="image/*"
-                                                   v-on:change="getParamImg(index,sizeIndex)"/>
-                                            <!-- multiple能够选择多张图片 -->
-                                            <em class="img-r abs">&nbsp;</em>
-                                            <em class="img-c abs">&nbsp;</em>
-                                        </div>
-                                        <div class="imgShow" v-if="sizeItem.img.length > 0"
-                                             v-for="paramItem,paramIndex in sizeItem.img">
-                                            <input :id="'reParamImg'+sizeIndex" class="getImg" type="file"
-                                                   accept="image/*"
-                                                   v-on:change="replaceParamImg(index,sizeIndex)"/>
-                                            <img class="imgSrc" :src='paramItem.tempFilePath' style="margin-left: 0">
-                                            <!--<img class="imgDel" src="/images/del.png" v-on:click="delParamImg(index,sizeIndex)">-->
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <button v-if="item.select" type="button" class="btn btn-link" style="margin-left: 0"
@@ -180,83 +156,6 @@
                     <nav class="navbar navbar-default row-center" role="navigation">
                         <button type="button" class="btn btn-secondary" v-on:click="createClassList()">添加型号分类</button>
                     </nav>
-                    <!--<div class="sort-title1">-->
-                    <!--&lt;!&ndash;型号选择标题&ndash;&gt;-->
-                    <!--<div v-for="item,index in SortItem">-->
-                    <!--<nav class="navbar navbar-default row-center" role="navigation"-->
-                    <!--style="justify-content: space-between">-->
-                    <!--<div class="select" style="width: 50%">-->
-                    <!--<form role="form" class="formWidth">-->
-                    <!--<div class="form-group">-->
-                    <!--<select class="form-control" :id="'sortId'+index"-->
-                    <!--v-on:change="getSelectSort(index)">-->
-                    <!--<option disabled="" value="" selected="selected">请选择型号分类</option>-->
-                    <!--<option v-for="typeItem,typeIndex in item.classList"-->
-                    <!--v-bind:value="typeItem.id">{{typeItem.name}}-->
-                    <!--</option>-->
-                    <!--</select>-->
-                    <!--</div>-->
-                    <!--</form>-->
-                    <!--<label class="form-check-label">-->
-                    <!--<input class="form-check-input" type="radio" name="sortsImg"-->
-                    <!--v-on:change="getParamImgIndex(index)">-->
-                    <!--图片-->
-                    <!--</label>-->
-                    <!--&lt;!&ndash;错误提示&ndash;&gt;-->
-                    <!--<div class="alert alert-danger none" :id="'alert'+index"-->
-                    <!--style="margin-bottom: 0;position: absolute;z-index: 9;transform: translate(-10%,50%)">-->
-                    <!--<span href="#" class="alert-link">错误！商品型号不能重复。</span>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--<div style="width: 50%;text-align: end;cursor: pointer">-->
-                    <!--<img class="imgDel" src="/images/del.png" v-on:click="delSortItem(index)">-->
-                    <!--</div>-->
-                    <!--</nav>-->
-                    <!--&lt;!&ndash;添加型号&ndash;&gt;-->
-                    <!--<nav class="navbar navbar-default" role="navigation"-->
-                    <!--style="background-color: #fff;border: 1px solid #F7F7F7;display: flex;flex-direction: row;flex-wrap:wrap;">-->
-                    <!--&lt;!&ndash;展示选择的尺寸&ndash;&gt;-->
-                    <!--<div v-for="sizeItem,sizeIndex in item.size"-->
-                    <!--style="display: flex;flex-direction: column;align-items: center">-->
-                    <!--&lt;!&ndash;参数&ndash;&gt;-->
-                    <!--<div class="sizeCard">-->
-                    <!--<span style="width: 80px; display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;overflow: hidden;text-overflow: ellipsis;">{{sizeItem.name}}</span>-->
-                    <!--<img src="/images/del.png" v-on:click="delSize(index,sizeItem.name)">-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash;参数图片&ndash;&gt;-->
-                    <!--<div class="row-center" v-if="item.haveParamImg" style="margin-bottom: 6px">-->
-                    <!--<div class="goods-img" v-if="sizeItem.img.length <= 0">-->
-                    <!--<input :id="'paramImg'+sizeIndex" class="getImg" type="file"-->
-                    <!--accept="image/*"-->
-                    <!--v-on:change="getParamImg(index,sizeIndex)"/>-->
-                    <!--&lt;!&ndash; multiple能够选择多张图片 &ndash;&gt;-->
-                    <!--<em class="img-r abs">&nbsp;</em>-->
-                    <!--<em class="img-c abs">&nbsp;</em>-->
-                    <!--</div>-->
-                    <!--<div class="imgShow" v-if="sizeItem.img.length > 0"-->
-                    <!--v-for="paramItem,paramIndex in sizeItem.img">-->
-                    <!--<input :id="'reParamImg'+sizeIndex" class="getImg" type="file"-->
-                    <!--accept="image/*"-->
-                    <!--v-on:change="replaceParamImg(index,sizeIndex)"/>-->
-                    <!--<img class="imgSrc" :src='paramItem.tempFilePath' style="margin-left: 0">-->
-                    <!--&lt;!&ndash;<img class="imgDel" src="/images/del.png" v-on:click="delParamImg(index,sizeIndex)">&ndash;&gt;-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<button v-if="item.select" type="button" class="btn btn-link" style="margin-left: 0"-->
-                    <!--data-toggle="modal"-->
-                    <!--data-target="#paramModal" v-on:click="addSize(item.select,index)">+添加型号-->
-                    <!--</button>-->
-                    <!--</nav>-->
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;添加分类&ndash;&gt;-->
-                    <!--&lt;!&ndash; 限制参数选择 最多为2 &ndash;&gt;-->
-                    <!--<nav class="navbar navbar-default row-center" role="navigation" v-if="SortItem.length <= 1">-->
-                    <!--<button type="button" class="btn btn-secondary" v-on:click="addClassItem()">添加型号分类</button>-->
-                    <!--</nav>-->
-                    <!--</div>-->
                 </div>
             </div>
 
