@@ -126,6 +126,10 @@ var addGoodsVM = new Vue({
         },
         delClassItem: function (index) {
             this.classSubmitList.splice(index, 1)
+            for (let i in this.classSubmitList) {
+                let classId = 'classId' + i
+                document.getElementById(classId).value = this.classSubmitList[i].select
+            }
         },
         // class获取选择的option
         selectClass: function (index) {
