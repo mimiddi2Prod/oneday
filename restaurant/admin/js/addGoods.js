@@ -1,36 +1,24 @@
 var addGoodsVM = new Vue({
     el: '#addGoods',
     data: {
+        // 商品图片
         imgList: [],
+        // 商品名
         goods_title: '',
+        // 商品补充说明
         goods_desc: '',
+        // 商品所有类型加载
         category: [],
+        // 选中的类型id
         select_category_id: '',
 
-        //默认的尺寸选择 不应进行改变 是固定值
+        // 类别 option使用
         classList: ['糖度', '冰度'],
-        classSubmitList: [
-            // {
-            //     param: ['多糖', '单糖'],
-            //     select: '糖度'
-            // },
-            // {
-            //     param: ['0度', '50度', '100度'],
-            //     select: '冰度'
-            // },
-            // {
-            //     param: ['0度', '50度', '100度'],
-            //     select: '冰度1'
-            // }
-        ],
+        // 商品型号 选中的 类型 和 参数
+        classSubmitList: [],
+        // key - value - price - stock
         table: [],
-        // style: {
-        //     'height': '372px',
-        //     'line-height': '372px',
-        //     'display':'flex',
-        //     'flex-direction':'column',
-        //     'justify-content': 'space-around',
-        // },
+        // 弹窗时要筛选出对应的param 到 tempParamModal 以供选择
         paramList: [{
             name: '糖度',
             param: ['半糖', '多糖', '单糖']
@@ -38,28 +26,16 @@ var addGoodsVM = new Vue({
             name: '冰度',
             param: ['0度', '50度', '100度']
         }],
+        // 弹窗时获取当前的参数 临时使用
         tempParamModal: {},
-
+        // 类别 和 参数 弹窗填写的字段
         classModalText: '',
         paramModalText: '',
+        // 标记是往哪个class里面加param
+        seleceClassIndex: '',
 
-        seleceClassIndex: '', // 标记是往哪个class里面加param
-
-
-        // 前方就是地狱
-        selectIndex: '',
-        sizeModalList: [],
-        paramImgList: [],
-
-        SortItem: [],
-        sizeAndPrice: [],
-        // goodsInfoImgList: [],
-        state: '',
-
-
-        // sizeModalText: '',
-        sizeIndex: '',
-        selectText: '',
+        // 最后提交时 商品的状态 0下架 / 1上架
+        goodsStatus: '',
     },
     methods: {
         // -----> 商品图片存储七牛云前的处理
@@ -283,279 +259,10 @@ var addGoodsVM = new Vue({
                 })
             }
         },
-
-
-        // 前方就是地狱 是否前行 》 1.yes! 2.yes!!!
-        // 第一步 添加型号栏 商品的多重属性设置
-        addSortItem: function () {
-            // this.testList2 = this.testList1 改变2 1也跟着改变
-            // this.testList2 = this.testList2.concat(this.testList1) 改变2 1不变
-            this.SortItem.push({
-                select: '',
-                select_id: '',
-                haveParamImg: false,
-                size: [],
-                classList: this.classList
-            })
-
-        },
-        // 删除型号栏
-        delSortItem: function (index) {
-            this.SortItem.splice(index, 1)
-            for (let i in this.SortItem) {
-                let sortId = 'sortId' + i
-                document.getElementById(sortId).value = this.SortItem[i].select_id
-            }
-        },
-
-        // 尺寸
-        addSize: function (selectText, selectIndex) {
-            this.selectIndex = selectIndex
-            for (var j in this.paramList) {
-                if (this.paramList[j].name == selectText) {
-                    var title = this.paramList[j].name
-                    this.sizeIndex = j
-                    this.selectText = selectText
-                    this.sizeModalList = []
-                    this.sizeModalList = this.sizeModalList.concat(this.paramList[j].size)
-                }
-            }
-            for (var i = this.sizeModalList.length - 1; i >= 0; i--) {
-                for (var k in this.SortItem) {
-                    for (var y in this.SortItem[k].size) {
-                        if (this.SortItem[k].size[y].name == this.sizeModalList[i]) {
-                            this.sizeModalList.splice(i, 1)
-                        }
-                    }
-                }
-            }
-
-            $('#sizeModal').on('show.bs.modal', function () {
-                var modal = $(this)
-                modal.find('#sizeModalLabel').text(title)
-            })
-        },
-        delSize: function (index, sizeName) {
-            console.info(index)
-            console.info(sizeName)
-            return
-            for (var f = this.SortItem[index].size.length - 1; f >= 0; f--) {
-                // console.info(f)
-                if (this.SortItem[index].size[f].name == sizeName) {
-                    this.SortItem[index].size.splice(f, 1)
-                    // break
-                }
-            }
-
-            let key = 'param_' + Number(index + 1)
-            this.sizeAndPrice = this.sizeAndPrice.filter(function (res) {
-                return res[key] != sizeName
-            })
-        },
-        // 只有一个参数需要图片
-        getParamImgIndex: function (index) {
-            this.SortItem = this.SortItem.map(function (res) {
-                res.haveParamImg = false
-                return res
-            })
-            this.SortItem[index].haveParamImg = true
-        },
-
-        // 参数图片
-        getParamImg: function (index, id) {
-            let paramImg_id = 'paramImg' + id
-            let imgUploadList = []
-            const self = this, type = 'goods_param_'
-            // 图片blob 用于上传
-            let imgFiles = document.getElementById(paramImg_id).files  //多张图上传
-            // 多张图上传
-            for (let i = 0; i < imgFiles.length; i++) {
-                imgUploadList.push({
-                    key: '',
-                    tempFilePath: window.URL.createObjectURL(imgFiles[i]),
-                    uploadToken: '',
-                    imgFile: imgFiles[i]
-                })
-            }
-            qiniuUpload(imgUploadList, type, function (res) {
-                self.SortItem[index].size[id].img = res
-            })
-        },
-        replaceParamImg: function (index, id) {
-            let imgUploadList = []
-            const self = this, type = 'goods_param_'
-            let imgId = 'reParamImg' + id
-            // 图片blob 用于上传
-            let imgFile = document.getElementById(imgId).files[0]
-            if (imgFile) {
-                imgUploadList[0] = {
-                    key: '',
-                    tempFilePath: window.URL.createObjectURL(imgFile),
-                    uploadToken: '',
-                    imgFile: imgFile
-                }
-                qiniuUpload(imgUploadList, type, function (res) {
-                    self.SortItem[index].size[id].img = res
-                })
-            }
-        },
-        addOneSize: function () {
-            if (this.sizeModalText != '') {
-                let self = this,
-                    isadd1 = this.sizeModalList.every(function (res) {
-                        if (res == self.sizeModalText) {
-                            return false
-                        }
-                        return true
-                    }),
-                    isadd2 = this.SortItem[this.selectIndex].size.every(function (res) {
-                        if (res.name == self.sizeModalText) {
-                            return false
-                        }
-                        return true
-                    })
-                if (isadd1 && isadd2) {
-                    this.sizeModalList.push(this.sizeModalText)
-                    this.sizeModalText = ''
-                    this.paramList[this.sizeIndex].size = []
-                    this.paramList[this.sizeIndex].size = this.paramList[this.sizeIndex].size.concat(this.sizeModalList)
-                } else {
-                    alert('已经有相同参数了！！！')
-                }
-            }
-        },
-        submitSizeBtn: function () {
-            var check = document.getElementsByName('sizeCheckbox')
-            var index = ''
-            for (var k in this.SortItem) {
-                if (this.SortItem[k].select == this.selectText) {
-                    index = k
-                }
-            }
-            var addList = []
-            for (var i in check) {
-                if (check[i].checked) {
-                    addList.push({
-                        name: this.sizeModalList[i],
-                        img: []
-                    })
-                    // this.SortItem[index].size.push({
-                    //     name: this.sizeModalList[i],
-                    //     img: []
-                    // })
-                    check[i].checked = false
-                }
-            }
-            this.SortItem[index].size = this.SortItem[index].size.concat(addList)
-            // console.info(addList)
-            this.sizeModalList = []
-            // 添加下面两句 理由如上
-            // this.SortItem.push(null)
-            // this.SortItem.pop()
-            $('#sizeModal').modal('hide')
-
-            // 价格库存数组
-            let tempList = []
-            tempList = this.SortItem.map(function (res) {
-                return res.size
-            })
-            if (this.sizeAndPrice.length <= 0) {
-                if (tempList.length == 2) {
-                    let num = 0
-                    for (let i = 0; i < tempList[0].length; i++) {
-                        for (let j = 0; j < tempList[1].length; j++) {
-                            let key1 = 'param_1', key2 = 'param_2'
-                            this.sizeAndPrice.push({})
-                            this.sizeAndPrice[num][key1] = tempList[0][i].name
-                            this.sizeAndPrice[num][key2] = tempList[1][j].name
-                            this.sizeAndPrice[num]['price'] = ''
-                            this.sizeAndPrice[num]['stock'] = ''
-                            // if (tempList[0][i].img.length > 0) {
-                            //     this.sizeAndPrice[num]['image'] = tempList[0][i].img[0].key
-                            // }
-                            // if (tempList[1][j].img.length > 0) {
-                            //     this.sizeAndPrice[num]['image'] = tempList[1][j].img[0].key
-                            // }
-                            num++
-                        }
-                    }
-                }
-            } else {
-                if (tempList.length == 2) {
-                    let num = this.sizeAndPrice.length
-                    if (index == 0) {
-                        for (let i = 0; i < addList.length; i++) {
-                            for (let j = 0; j < tempList[1].length; j++) {
-                                let key1 = 'param_1', key2 = 'param_2'
-                                this.sizeAndPrice.push({})
-                                this.sizeAndPrice[num][key1] = addList[i].name
-                                this.sizeAndPrice[num][key2] = tempList[1][j].name
-                                this.sizeAndPrice[num]['price'] = ''
-                                this.sizeAndPrice[num]['stock'] = ''
-                                // if (addList[i].img.length > 0) {
-                                //     this.sizeAndPrice[num]['image'] = addList[i].img[0].key
-                                // }
-                                // if (tempList[1][j].img.length > 0) {
-                                //     this.sizeAndPrice[num]['image'] = tempList[1][j].img[0].key
-                                // }
-                                num++
-                            }
-                        }
-                    } else if (index == 1) {
-                        for (let i = 0; i < tempList[0].length; i++) {
-                            for (let j = 0; j < addList.length; j++) {
-                                let key1 = 'param_1', key2 = 'param_2'
-                                this.sizeAndPrice.push({})
-                                this.sizeAndPrice[num][key1] = tempList[0][i].name
-                                this.sizeAndPrice[num][key2] = addList[j].name
-                                this.sizeAndPrice[num]['price'] = ''
-                                this.sizeAndPrice[num]['stock'] = ''
-                                // if (tempList[0][i].img.length > 0) {
-                                //     this.sizeAndPrice[num]['image'] = tempList[0][i].img[0].key
-                                // }
-                                // if (addList[j].img.length > 0) {
-                                //     this.sizeAndPrice[num]['image'] = addList[j].img[0].key
-                                // }
-                                num++
-                            }
-
-                        }
-                    }
-                }
-            }
-
-            // console.info(this.sizeAndPrice)
-        },
-
-        // 价格和库存
-        getParamPriceAndPrice: function (tag, index1, index2, param_1, param_2) {
-            let id = tag + index1 + '_' + index2
-            let value = document.getElementById(id).value
-            if (this.SortItem.length == 2) {
-                if (tag == 'paramPrice') {
-                    this.sizeAndPrice = this.sizeAndPrice.map(function (res) {
-                        if (res.param_1 == param_1 && res.param_2 == param_2) {
-                            res.price = value
-                        }
-                        return res
-                    })
-                } else if (tag == 'paramStock') {
-                    this.sizeAndPrice = this.sizeAndPrice.map(function (res) {
-                        if (res.param_1 == param_1 && res.param_2 == param_2) {
-                            res.stock = value
-                        }
-                        return res
-                    })
-                }
-
-            }
-            // console.info(this.sizeAndPrice)
-        },
-
         // 商品提交
-        submitGoods: function (state) {
+        submitGoods: function (status) {
             console.info(this.table)
-            this.state = state
+            this.goodsStatus = status
             if (this.imgList.length <= 0) {
                 alert('请选择商品图片')
                 return
