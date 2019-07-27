@@ -159,6 +159,67 @@
                 </div>
             </div>
 
+            <!--价格和库存-->
+            <div class="sort row-center" style="align-items: unset" v-if="classSubmitList.length > 0">
+                <div class="index">价格与库存</div>
+                <div class="item">
+                    <div class="sort-title" style="margin-top: 0">
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="item">
+                                <span class="first-title column-center" v-if="classSubmitList.length <= 0"></span>
+                                <span class="first-title column-center" v-else
+                                      v-for="item in classSubmitList" v-if="item.param.length>0">{{item.select}}</span>
+                                <span class="second-title column-center">价格</span>
+                                <span class="second-title column-center">库存</span>
+                                <!--<span class="second-title column-center">商品编号</span>-->
+                            </div>
+                        </nav>
+                    </div>
+
+                    <div class="sort-title" style="margin-top: 0">
+                        <nav class="navbar navbar-default" role="navigation"
+                             style="background-color: #fff;border-left: 1px solid #F7F7F7;border-right: 1px solid #F7F7F7;margin-bottom:0;">
+                            <div class="item" style="height: auto;border-bottom:1px solid #f3f3f3;"
+                                 v-for="item in table">
+                                <div class="first-title column-center" v-for="item in JSON.parse(item.param)"
+                                     style="border-right: 1px solid #f3f3f3;">
+                                    <div style="padding: 10px 0;">{{item}}</div>
+                                </div>
+                                <div class="second-title row-center" style="width: 16%;justify-content: space-around">
+                                    <input class="form-control" v-model="item.price" style="width: 45%"/>
+                                    <input class="form-control" v-model="item.stock" oninput="value=value.replace(/[^\d]/g,'')"
+                                           style="width: 45%"/>
+                                </div>
+
+                            </div>
+                        </nav>
+                    </div>
+
+                    <div class="sort-title" style="margin-top: 0">
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="item">
+                                <span class="first-title column-center">批量修改价格</span>
+                                <span class="second-title column-center">
+                                    <input class="form-control" style="width: 90%"/></span>
+                                <span class="second-title column-center">
+                                    <input class="form-control" oninput="value=value.replace(/[^\d]/g,'')"
+                                           style="width: 90%"/></span>
+                                <!--<span class="second-title column-center"><input class="form-control" style="width: 90%"/></span>-->
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <!--<div v-for="item,index in classSubmitList">-->
+                <!--<div v-for="timeItem in index+1">-->
+                <!--<div v-for="paramItem,paramIndex in item.param">-->
+                <!--{{paramIndex}}-->
+                <!--{{paramItem}}-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+
+
             <!--<div class="sort row-center" style="align-items: unset" v-if="SortItem.length > 0">-->
             <!--<div class="index">价格与库存</div>-->
             <!--<div class="item">-->
@@ -166,9 +227,9 @@
             <!--<div class="sort-title" style="margin-top: 0">-->
             <!--<nav class="navbar navbar-default" role="navigation">-->
             <!--<div class="item">-->
-            <!--<span class="first-title column-center" v-if="SortItem.length <= 0"></span>-->
+            <!--<span class="first-title column-center" v-if="classSubmitList.length <= 0"></span>-->
             <!--<span class="first-title column-center" v-else-->
-            <!--v-for="item in SortItem" v-if="item.size.length>0">{{item.select}}</span>-->
+            <!--v-for="item in classSubmitList" v-if="item.param.length>0">{{item.select}}</span>-->
             <!--<span class="second-title column-center">价格</span>-->
             <!--<span class="second-title column-center">库存</span>-->
             <!--<span class="second-title column-center">商品编号</span>-->
@@ -183,20 +244,20 @@
             <!--&lt;!&ndash;尺寸 两两相配 填写价位&ndash;&gt;-->
             <!--<div class="first-title row-center" style="justify-content: space-around;">-->
             <!--<div class="first-title column-center" style="width: 100%"-->
-            <!--v-if="SortItem.length >= 1">-->
+            <!--v-if="classSubmitList.length >= 1">-->
             <!--&lt;!&ndash; 里面开始是内容 &ndash;&gt;-->
-            <!--<div class="row-center a" v-for="item in SortItem[0].size">-->
+            <!--<div class="row-center a" v-for="item in classSubmitList[0].param">-->
             <!--&lt;!&ndash;1-1&ndash;&gt;-->
             <!--<span>{{item.name}}</span>-->
             <!--<div class="column-center" style="width: 100%"-->
             <!--v-bind:style="{ flex: SortItem.length-1 }"-->
-            <!--v-if="SortItem.length >= 2 && SortItem[1].size.length > 0">-->
+            <!--v-if="classSubmitList.length >= 2 && classSubmitList[1].param.length > 0">-->
             <!--&lt;!&ndash;1-1-1&ndash;&gt;-->
-            <!--<div class="row-center b" v-for="item1 in SortItem[1].size">-->
+            <!--<div class="row-center b" v-for="item1 in classSubmitList[1].param">-->
             <!--<span>{{item1.name}}</span>-->
             <!--<div class="column-center" style="flex:1;width: 100%"-->
-            <!--v-if="SortItem.length >= 3 && SortItem[2].size.length > 0">-->
-            <!--<div class="row-center c" v-for="item2 in SortItem[2].size">-->
+            <!--v-if="classSubmitList.length >= 3 && classSubmitList[2].param.length > 0">-->
+            <!--<div class="row-center c" v-for="item2 in classSubmitList[2].param">-->
             <!--<span>{{item2.name}}</span>-->
             <!--</div>-->
             <!--</div>-->

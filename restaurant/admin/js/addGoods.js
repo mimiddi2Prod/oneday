@@ -9,7 +9,28 @@ var addGoodsVM = new Vue({
 
         //默认的尺寸选择 不应进行改变 是固定值
         classList: ['糖度', '冰度'],
-        classSubmitList: [],
+        classSubmitList: [
+            {
+                param: ['多糖', '单糖'],
+                select: '糖度'
+            },
+            {
+                param: ['0度', '50度', '100度'],
+                select: '冰度'
+            },
+            {
+                param: ['0度', '50度', '100度'],
+                select: '冰度1'
+            }
+        ],
+        table: [],
+        // style: {
+        //     'height': '372px',
+        //     'line-height': '372px',
+        //     'display':'flex',
+        //     'flex-direction':'column',
+        //     'justify-content': 'space-around',
+        // },
         paramList: [{
             name: '糖度',
             param: ['半糖', '多糖', '单糖']
@@ -41,6 +62,9 @@ var addGoodsVM = new Vue({
         selectText: '',
     },
     methods: {
+        ss:function(){
+            console.info(this.table)
+        },
         // -----> 商品图片存储七牛云前的处理
         getImg: function (id) {
             let imgUploadList = []
@@ -119,10 +143,10 @@ var addGoodsVM = new Vue({
         createClassList: function () {
             this.classSubmitList.push({
                 select: '',
-                haveParamImg: false,
+                // haveParamImg: false,
                 param: [],
             })
-            console.info(this.classSubmitList)
+            // console.info(this.classSubmitList)
         },
         delClassItem: function (index) {
             this.classSubmitList.splice(index, 1)
@@ -201,6 +225,40 @@ var addGoodsVM = new Vue({
             }
             this.classSubmitList[this.seleceClassIndex].param = this.classSubmitList[this.seleceClassIndex].param.concat(selectParamList)
             $('#paramModal').modal('hide')
+            console.info(this.classSubmitList)
+
+            let len = this.classSubmitList.length
+            let y = []
+            for (let i = 0; i < len; i++) {
+                y.push(this.classSubmitList[i].param)
+            }
+            var models = y
+            // var models = [['BMW X1', 'BMW X3', 'BMW X5', 'BMW X6'], ['RED', 'BLUE', 'GREEN'], ['低配', '中配', '高配'], ['进口', '国产']];
+            var mLen = models.length;
+            var index = 0;
+
+            var digui = function (arr1, arr2) {
+                // console.log("enter digui",arr1,arr2);
+                var res = [];
+                arr1.forEach(function (m) {
+                    arr2.forEach(function (n) {
+                        res.push(m + " - " + n);
+                    })
+                });
+                index++;
+                if (index <= mLen - 1) {
+                    return digui(res, models[index])
+                } else {
+                    return res;
+                }
+            };
+            var resultArr = [];
+            if (mLen >= 2) {
+                resultArr = digui(models[index], models[++index]);
+            } else {
+                resultArr = models[0];
+            }
+            console.log(resultArr);
         },
 
 
@@ -623,6 +681,33 @@ var addGoodsVM = new Vue({
 $(document).ready(function () {
     // check_login()
     getCategory()
+
+    let len = addGoodsVM.classSubmitList.length
+    let y = []
+    for (let i = 0; i < len; i++) {
+        y.push(addGoodsVM.classSubmitList[i].param)
+    }
+    var models = y
+    let paramGroup = digui(models)
+    let temp = {}
+    for (let i in paramGroup) {
+        let arr = paramGroup[i].split(',')
+        // temp.push({})
+        for (let j in arr) {
+            // console.info(j)
+            let key = addGoodsVM.classSubmitList[j].select
+            let value = arr[j]
+            temp[key] = value
+        }
+        addGoodsVM.table.push({
+            param: JSON.stringify(temp),
+            stock: '',
+            price: '',
+        })
+    }
+    console.info(addGoodsVM.table)
+
+
 })
 
 // 批量分类
@@ -716,3 +801,33 @@ function addGoods() {
 //     , type: 'datetime'
 //     , calendar: true
 // });
+
+function digui(models) {
+    // var models = [['BMW X1', 'BMW X3', 'BMW X5', 'BMW X6'], ['RED', 'BLUE', 'GREEN'], ['低配', '中配', '高配'], ['进口', '国产']];
+    var mLen = models.length;
+    var index = 0;
+
+    var digui = function (arr1, arr2) {
+        // console.log("enter digui",arr1,arr2);
+        var res = [];
+        arr1.forEach(function (m) {
+            arr2.forEach(function (n) {
+                res.push(m + "," + n);
+            })
+        });
+        index++;
+        if (index <= mLen - 1) {
+            return digui(res, models[index])
+        } else {
+            return res;
+        }
+    };
+    var resultArr = [];
+    if (mLen >= 2) {
+        resultArr = digui(models[index], models[++index]);
+    } else {
+        resultArr = models[0];
+    }
+    console.log(resultArr);
+    return resultArr
+}
