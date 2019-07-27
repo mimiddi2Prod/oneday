@@ -171,8 +171,17 @@ var addGoodsVM = new Vue({
                 return eData.name == selectText
             })[0]
             this.tempParamModal.param = this.tempParamModal.param.filter(function (eData) {
-                return (self.classSubmitList[self.seleceClassIndex].param.indexOf(eData) == -1)
+                // return (self.classSubmitList[self.seleceClassIndex].param.indexOf(eData) == -1)
+                // let i = self.classSubmitList.every(function (eData2) {
+                //     return (eData2.param == eData)
+                // })
+                // console.info(i)
+                // 记得修改 ----- 
+                return (!self.classSubmitList.every(function (eData2) {
+                    return (eData2.param == eData)
+                }))
             })
+            console.info(this.tempParamModal)
         },
         createParamToParamList: function () {
             let self = this
@@ -209,18 +218,14 @@ var addGoodsVM = new Vue({
             }
             this.classSubmitList[this.seleceClassIndex].param = this.classSubmitList[this.seleceClassIndex].param.concat(selectParamList)
             $('#paramModal').modal('hide')
-            console.info(this.classSubmitList)
+            // console.info(this.classSubmitList)
 
             this.getTable()
         },
         delParam: function (index, param) {
-            // console.info(index)
-            // console.info(sizeName)
-            // console.info(this.classSubmitList)
             this.classSubmitList[index].param = this.classSubmitList[index].param.filter(function (eData) {
                 return (param != eData)
             })
-
             this.getTable()
         },
 
@@ -253,7 +258,7 @@ var addGoodsVM = new Vue({
                         price: '',
                     })
                 }
-                console.info(this.table)
+                // console.info(this.table)
             }
         },
 
@@ -429,7 +434,7 @@ function getCategory() {
     const url = api.getCategory
     let data = {}, async = true
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         addGoodsVM.category = res
     })
 }
