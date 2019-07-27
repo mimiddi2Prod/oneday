@@ -10,18 +10,18 @@ var addGoodsVM = new Vue({
         //默认的尺寸选择 不应进行改变 是固定值
         classList: ['糖度', '冰度'],
         classSubmitList: [
-            {
-                param: ['多糖', '单糖'],
-                select: '糖度'
-            },
-            {
-                param: ['0度', '50度', '100度'],
-                select: '冰度'
-            },
-            {
-                param: ['0度', '50度', '100度'],
-                select: '冰度1'
-            }
+            // {
+            //     param: ['多糖', '单糖'],
+            //     select: '糖度'
+            // },
+            // {
+            //     param: ['0度', '50度', '100度'],
+            //     select: '冰度'
+            // },
+            // {
+            //     param: ['0度', '50度', '100度'],
+            //     select: '冰度1'
+            // }
         ],
         table: [],
         // style: {
@@ -62,9 +62,6 @@ var addGoodsVM = new Vue({
         selectText: '',
     },
     methods: {
-        ss:function(){
-            console.info(this.table)
-        },
         // -----> 商品图片存储七牛云前的处理
         getImg: function (id) {
             let imgUploadList = []
@@ -233,32 +230,58 @@ var addGoodsVM = new Vue({
                 y.push(this.classSubmitList[i].param)
             }
             var models = y
-            // var models = [['BMW X1', 'BMW X3', 'BMW X5', 'BMW X6'], ['RED', 'BLUE', 'GREEN'], ['低配', '中配', '高配'], ['进口', '国产']];
-            var mLen = models.length;
-            var index = 0;
-
-            var digui = function (arr1, arr2) {
-                // console.log("enter digui",arr1,arr2);
-                var res = [];
-                arr1.forEach(function (m) {
-                    arr2.forEach(function (n) {
-                        res.push(m + " - " + n);
-                    })
-                });
-                index++;
-                if (index <= mLen - 1) {
-                    return digui(res, models[index])
-                } else {
-                    return res;
+            let paramGroup = digui(models)
+            let temp = {}
+            this.table = []
+            for (let i in paramGroup) {
+                let arr = paramGroup[i].split(',')
+                // temp.push({})
+                for (let j in arr) {
+                    // console.info(j)
+                    let key = addGoodsVM.classSubmitList[j].select
+                    let value = arr[j]
+                    temp[key] = value
                 }
-            };
-            var resultArr = [];
-            if (mLen >= 2) {
-                resultArr = digui(models[index], models[++index]);
-            } else {
-                resultArr = models[0];
+                this.table.push({
+                    param: JSON.stringify(temp),
+                    stock: '',
+                    price: '',
+                })
             }
-            console.log(resultArr);
+            // console.info(addGoodsVM.table)
+        },
+        delParam: function (index, param) {
+            console.info(index)
+            // console.info(sizeName)
+            console.info(this.classSubmitList)
+            this.classSubmitList[index].param = this.classSubmitList[index].param.filter(function (eData) {
+                return (param != eData)
+            })
+
+            let len = this.classSubmitList.length
+            let y = []
+            for (let i = 0; i < len; i++) {
+                y.push(this.classSubmitList[i].param)
+            }
+            var models = y
+            let paramGroup = digui(models)
+            let temp = {}
+            this.table = []
+            for (let i in paramGroup) {
+                let arr = paramGroup[i].split(',')
+                // temp.push({})
+                for (let j in arr) {
+                    // console.info(j)
+                    let key = addGoodsVM.classSubmitList[j].select
+                    let value = arr[j]
+                    temp[key] = value
+                }
+                this.table.push({
+                    param: JSON.stringify(temp),
+                    stock: '',
+                    price: '',
+                })
+            }
         },
 
 
@@ -313,6 +336,9 @@ var addGoodsVM = new Vue({
             })
         },
         delSize: function (index, sizeName) {
+            console.info(index)
+            console.info(sizeName)
+            return
             for (var f = this.SortItem[index].size.length - 1; f >= 0; f--) {
                 // console.info(f)
                 if (this.SortItem[index].size[f].name == sizeName) {
@@ -528,6 +554,7 @@ var addGoodsVM = new Vue({
 
         // 商品提交
         submitGoods: function (state) {
+            console.info(this.table)
             this.state = state
             if (this.imgList.length <= 0) {
                 alert('请选择商品图片')
@@ -682,30 +709,30 @@ $(document).ready(function () {
     // check_login()
     getCategory()
 
-    let len = addGoodsVM.classSubmitList.length
-    let y = []
-    for (let i = 0; i < len; i++) {
-        y.push(addGoodsVM.classSubmitList[i].param)
-    }
-    var models = y
-    let paramGroup = digui(models)
-    let temp = {}
-    for (let i in paramGroup) {
-        let arr = paramGroup[i].split(',')
-        // temp.push({})
-        for (let j in arr) {
-            // console.info(j)
-            let key = addGoodsVM.classSubmitList[j].select
-            let value = arr[j]
-            temp[key] = value
-        }
-        addGoodsVM.table.push({
-            param: JSON.stringify(temp),
-            stock: '',
-            price: '',
-        })
-    }
-    console.info(addGoodsVM.table)
+    // let len = addGoodsVM.classSubmitList.length
+    // let y = []
+    // for (let i = 0; i < len; i++) {
+    //     y.push(addGoodsVM.classSubmitList[i].param)
+    // }
+    // var models = y
+    // let paramGroup = digui(models)
+    // let temp = {}
+    // for (let i in paramGroup) {
+    //     let arr = paramGroup[i].split(',')
+    //     // temp.push({})
+    //     for (let j in arr) {
+    //         // console.info(j)
+    //         let key = addGoodsVM.classSubmitList[j].select
+    //         let value = arr[j]
+    //         temp[key] = value
+    //     }
+    //     addGoodsVM.table.push({
+    //         param: JSON.stringify(temp),
+    //         stock: '',
+    //         price: '',
+    //     })
+    // }
+    // console.info(addGoodsVM.table)
 
 
 })
