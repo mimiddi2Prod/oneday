@@ -6,7 +6,7 @@ function getUploadToken() {
     this.Service = async function (version, param, callback) {
         var data = {}
         try {
-            let token = getToken(param['key'])
+            let token = await getToken(param['key'])
             data.uploadToken = token
             data.key = param['key']
             data.tempFilePath = param['tempFilePath']
@@ -25,7 +25,6 @@ function getUploadToken() {
             // data.uploadToken = uploadToken
             // data.key = param['key']
             // data.tempFilePath = param['tempFilePath']
-
             return callback(data);
         } catch (e) {
             console.info('boom!!!!!!!!!!!!!')

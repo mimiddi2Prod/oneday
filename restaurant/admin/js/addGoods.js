@@ -64,6 +64,7 @@ var addGoodsVM = new Vue({
             }
             qiniuUpload(imgUploadList, type, function (res) {
                 self.imgList = self.imgList.concat(res)
+                console.info(self.imgList)
             })
         },
         delImg: function (index) {
@@ -176,11 +177,17 @@ var addGoodsVM = new Vue({
                 //     return (eData2.param == eData)
                 // })
                 // console.info(i)
-                // 记得修改 ----- 
-                return (!self.classSubmitList.every(function (eData2) {
-                    return (eData2.param == eData)
-                }))
+                // 记得修改 -----
+                let flag = true
+                for (let i in self.classSubmitList[self.seleceClassIndex].param) {
+                    console.info(self.classSubmitList[self.seleceClassIndex].param[i])
+                    if (self.classSubmitList[self.seleceClassIndex].param[i] == eData) {
+                        flag = false
+                    }
+                }
+                return flag
             })
+            console.info(this.paramList)
             console.info(this.tempParamModal)
         },
         createParamToParamList: function () {
@@ -274,14 +281,14 @@ var addGoodsVM = new Vue({
                 return
             }
             if (this.goods_desc == '') {
-                alert('请填写商品标题')
+                alert('请填写商品描述')
                 return
             }
             if (this.select_category_id == '') {
                 alert('请选择商品类目')
                 return
             }
-            let price = ''
+            // let price = ''
             if (this.priceTypeId == 0) {
                 if (this.goods_price == '') {
                     alert('请填写商品价格')
@@ -301,7 +308,7 @@ var addGoodsVM = new Vue({
                         alert('请填写好型号和价格')
                     } else {
                         let self = this
-                        price = function () {
+                        this.goods_price = function () {
                             var min = self.table[0].price;
                             var len = self.table.length;
                             for (let i = 1; i < len; i++) {
@@ -314,59 +321,6 @@ var addGoodsVM = new Vue({
                     }
                 }
             }
-            return
-            if (this.length <= 0) {
-                alert('请选择商品型号')
-                return
-            } else if (this.SortItem.length == 1) {
-                alert('请选择商品型号第二个参数')
-                return
-            }
-            for (let i in this.SortItem) {
-                if (this.SortItem[i].size.length <= 0) {
-                    let text = '请添加第' + (i == 0 ? '一' : '二') + '个规格的参数'
-                    alert(text)
-                    return
-                }
-            }
-            let haveParamImg = this.SortItem.some(function (res) {
-                if (res.haveParamImg) {
-                    return true
-                }
-                return false
-            })
-            if (!haveParamImg) {
-                alert('请选择商品型号图片')
-                return
-            }
-            for (let i in this.SortItem) {
-                if (this.SortItem[i].haveParamImg) {
-                    haveParamImg = this.SortItem[i].size.every(function (res) {
-                        if (res.img.length == '') {
-                            return false
-                        }
-                        return true
-                    })
-                    if (!haveParamImg) {
-                        alert('请给选中的商品型号添加完图片')
-                        return
-                    }
-                }
-            }
-            let havePriceAndStock = this.sizeAndPrice.every(function (res) {
-                if (res.price == '' || res.stock == '') {
-                    return false
-                }
-                return true
-            })
-            if (!havePriceAndStock) {
-                alert('请补充完价格库存量')
-                return
-            }
-            if (this.goodsInfoImgList.length <= 0) {
-                alert('请选择商品详情图片')
-                return
-            }
 
             // 开始上传 需要loading 图标 防误触
 
@@ -374,48 +328,33 @@ var addGoodsVM = new Vue({
             // 全部验证完毕 开始上传图片 有图片的地方分别是 1.imgList 2.SortItem>size>img 3.goodsInfoImgList
             if (this.imgList.length > 0) {
                 let self = this, flag = 0
-                for (let i in this.imgList) {
-                    uploadImg(this.imgList[i].key, this.imgList[i].uploadToken, this.imgList[i].imgFile, function (res) {
+                // for (let i = 0; i < 1; i++) {
+                    uploadImg(this.imgList[0].key, this.imgList[0].uploadToken, this.imgList[0].imgFile, function (res) {
                         // flag 图片上传完毕之后才提交
-                        flag++
-                        if (flag == self.imgList.length) {
+                        // flag++
+                        // if (flag == self.imgList.length) {
                             // console.info('上传完毕')
                             imgUploadIsOkNum = imgUploadIsOkNum + 1
-                        }
+                        // }
                     })
-                }
+                // }
             }
-            for (let i in this.SortItem) {
-                if (this.SortItem[i].haveParamImg) {
-                    let self = this, flag = 0
-                    for (let j in this.SortItem[i].size) {
-                        uploadImg(this.SortItem[i].size[j].img[0].key, this.SortItem[i].size[j].img[0].uploadToken, this.SortItem[i].size[j].img[0].imgFile, function (res) {
-                            // flag 图片上传完毕之后才提交
-                            flag++
-                            if (flag == self.SortItem[i].size.length) {
-                                // console.info('上传完毕')
-                                imgUploadIsOkNum = imgUploadIsOkNum + 1
-                            }
-                        })
-                    }
-                }
-            }
-            if (this.goodsInfoImgList.length > 0) {
-                let self = this, flag = 0
-                for (let i in this.goodsInfoImgList) {
-                    uploadImg(this.goodsInfoImgList[i].key, this.goodsInfoImgList[i].uploadToken, this.goodsInfoImgList[i].imgFile, function (res) {
-                        // flag 图片上传完毕之后才提交
-                        flag++
-                        if (flag == self.goodsInfoImgList.length) {
-                            // console.info('上传完毕')
-                            imgUploadIsOkNum = imgUploadIsOkNum + 1
-                        }
-                    })
-                }
-            }
+            // if (this.imgList.length > 0) {
+            //     let self = this, flag = 0
+            //     for (let i in this.goodsInfoImgList) {
+            //         uploadImg(this.goodsInfoImgList[i].key, this.goodsInfoImgList[i].uploadToken, this.goodsInfoImgList[i].imgFile, function (res) {
+            //             // flag 图片上传完毕之后才提交
+            //             flag++
+            //             if (flag == self.goodsInfoImgList.length) {
+            //                 // console.info('上传完毕')
+            //                 imgUploadIsOkNum = imgUploadIsOkNum + 1
+            //             }
+            //         })
+            //     }
+            // }
 
             let scroll = setInterval(function () {
-                if (imgUploadIsOkNum == 3) {
+                if (imgUploadIsOkNum == 1) {
                     addGoods()
                     clearInterval(scroll)
                 }
@@ -440,16 +379,14 @@ function getCategory() {
 }
 
 function addGoods() {
-    // console.info(addGoodsVM.imgList)
-    // console.info(addGoodsVM.goods_title)
-    // console.info(addGoodsVM.goods_brand_id)
-    // console.info(addGoodsVM.qcl_id)
-    // console.info(addGoodsVM.category_parent_id_select)
-    // console.info(addGoodsVM.category_id_select)
-    // console.info(addGoodsVM.SortItem)
-    // console.info(addGoodsVM.sizeAndPrice)
-    // console.info(addGoodsVM.goodsInfoImgList)
-    // console.info(addGoodsVM.state)
+    console.info(this.goodsStatus)
+    console.info(this.imgList)
+    console.info(this.goods_title)
+    console.info(this.goods_desc)
+    console.info(this.select_category_id)
+    console.info(this.goods_price)
+    console.info(this.table)
+    return
 
     const url = '../api/add_goods'
     let data = {}

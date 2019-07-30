@@ -34,7 +34,7 @@ function getUploadToken(index, key, imgsrc, callback) {
     data.key = key
     data.tempFilePath = imgsrc
     data = JSON.stringify(data)
-    const url = '../api/getUploadToken'
+    const url = '../api/get_uploadToken'
     $.ajax({
         url: url,
         type: 'post',
@@ -43,6 +43,7 @@ function getUploadToken(index, key, imgsrc, callback) {
         data: data,
         async: false,
         success: function (res) {
+            console.info(res)
             // for (let i in imgUploadList) {
             //     if (imgUploadList[i].key == key) {
             //         imgUploadList[]

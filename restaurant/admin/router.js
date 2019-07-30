@@ -22,6 +22,10 @@ function Router() {
                 var getCategory = require("./api/get_category.js");
                 baseApi = new getCategory;
                 break;
+            case "get_uploadToken":
+                var getUploadToken = require("./api/get_uploadToken.js");
+                baseApi = new getUploadToken;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;
