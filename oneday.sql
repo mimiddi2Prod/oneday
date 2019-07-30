@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-07-26 14:08:23
+Date: 2019-07-30 18:26:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -99,25 +99,29 @@ CREATE TABLE `restaurant_goods` (
   `min_price` decimal(10,2) NOT NULL,
   `location_code` varchar(255) CHARACTER SET utf8 NOT NULL,
   `category_id` int(12) NOT NULL,
+  `stock` int(12) DEFAULT NULL,
+  `status` int(2) NOT NULL COMMENT '0 下架 1 上架',
   `sort` int(12) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(12) NOT NULL,
-  `status` int(2) NOT NULL COMMENT '0 下架 1 上架',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods
 -- ----------------------------
-INSERT INTO `restaurant_goods` VALUES ('1', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
-INSERT INTO `restaurant_goods` VALUES ('2', '炒肉盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '1', '2019-07-17 17:14:50', '1', '0');
-INSERT INTO `restaurant_goods` VALUES ('3', '西红柿鸡蛋面', '/images/A.png', '营养丰富', '20.00', 'xmspw', '1', '0', '2019-07-17 17:14:50', '1', '0');
-INSERT INTO `restaurant_goods` VALUES ('4', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
-INSERT INTO `restaurant_goods` VALUES ('5', '鸡蛋盖浇饭带大家是大家', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
-INSERT INTO `restaurant_goods` VALUES ('6', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
-INSERT INTO `restaurant_goods` VALUES ('7', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
-INSERT INTO `restaurant_goods` VALUES ('8', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
-INSERT INTO `restaurant_goods` VALUES ('9', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '2', '2019-07-17 17:14:50', '1', '0');
+INSERT INTO `restaurant_goods` VALUES ('1', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '999', '1', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('2', '炒肉盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '999', '1', '1', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('3', '西红柿鸡蛋面', '/images/A.png', '营养丰富', '20.00', 'xmspw', '1', '999', '1', '0', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('4', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '999', '1', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('5', '鸡蛋盖浇饭带大家是大家', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '999', '1', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('6', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '999', '1', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('7', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '999', '1', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('8', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '999', '1', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('9', '鸡蛋盖浇饭', '/images/A.png', '营养丰富', '20.00', 'xmspw', '2', '999', '0', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `restaurant_goods` VALUES ('10', '阿文', 'http://notwastingqiniu.minidope.com/goods_2019_7_30_18_10_7_0.png', '32', '23.00', 'xmspw', '3', '324', '1', '43', '2019-07-30 18:10:19', '1');
+INSERT INTO `restaurant_goods` VALUES ('11', '阿文', 'http://notwastingqiniu.minidope.com/goods_2019_7_30_18_10_7_0.png', '32', '3.00', 'xmspw', '3', '45', '1', '43', '2019-07-30 18:16:02', '1');
+INSERT INTO `restaurant_goods` VALUES ('12', '他说他', 'http://notwastingqiniu.minidope.com/goods_2019_7_30_18_19_12_0.png', '特舒服', '3.00', 'xmspw', '3', '2443', '1', '3', '2019-07-30 18:19:45', '1');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_order
@@ -161,7 +165,7 @@ CREATE TABLE `restaurant_goods_sku` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_sku
@@ -171,6 +175,10 @@ INSERT INTO `restaurant_goods_sku` VALUES ('2', '999', '6.00', '2', '{\"冰度\"
 INSERT INTO `restaurant_goods_sku` VALUES ('3', '999', '6.00', '3', '{\"冰度\":\"冰\"}', '0000-00-00 00:00:00', '0');
 INSERT INTO `restaurant_goods_sku` VALUES ('4', '999', '7.00', '3', '{\"冰度\":\"正常冰\"}', '0000-00-00 00:00:00', '0');
 INSERT INTO `restaurant_goods_sku` VALUES ('5', '999', '9.00', '3', '{\"冰度\":\"热\"}', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('6', '2', '34.00', '12', '{\"糖度\":\"多糖\",\"冰度\":\"50度\"}', '2019-07-30 18:19:45', '1');
+INSERT INTO `restaurant_goods_sku` VALUES ('7', '4', '23.00', '12', '{\"糖度\":\"多糖\",\"冰度\":\"100度\"}', '2019-07-30 18:19:45', '1');
+INSERT INTO `restaurant_goods_sku` VALUES ('8', '4', '3.00', '12', '{\"糖度\":\"单糖\",\"冰度\":\"50度\"}', '2019-07-30 18:19:45', '1');
+INSERT INTO `restaurant_goods_sku` VALUES ('9', '3', '22.00', '12', '{\"糖度\":\"单糖\",\"冰度\":\"100度\"}', '2019-07-30 18:19:45', '1');
 
 -- ----------------------------
 -- Table structure for restaurant_user
@@ -193,7 +201,7 @@ CREATE TABLE `restaurant_user` (
 -- ----------------------------
 -- Records of restaurant_user
 -- ----------------------------
-INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', 'zGaHMXKSE8JbAkvyIK75rQ==', '2019-07-26 13:52:49', null, '0');
+INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', 'CCbWVagq8fig2Us2cXDDxQ==', '2019-07-30 18:23:07', null, '0');
 
 -- ----------------------------
 -- Table structure for test
