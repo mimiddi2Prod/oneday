@@ -26,6 +26,10 @@ function Router() {
                 var getUploadToken = require("./api/get_uploadToken.js");
                 baseApi = new getUploadToken;
                 break;
+            case "add_goods":
+                var addGoods = require("./api/add_goods.js");
+                baseApi = new addGoods;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

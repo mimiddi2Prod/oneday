@@ -2,11 +2,13 @@ var addGoodsVM = new Vue({
     el: '#addGoods',
     data: {
         // 商品图片
-        imgList: [],
+        img_list: [],
         // 商品名
         goods_title: '',
         // 商品补充说明
         goods_desc: '',
+        goods_stock: '',
+        sort: '',
         // 商品所有类型加载
         category: [],
         // 选中的类型id
@@ -44,7 +46,7 @@ var addGoodsVM = new Vue({
         seleceClassIndex: '',
 
         // 最后提交时 商品的状态 0下架 / 1上架
-        goodsStatus: '',
+        goods_status: '',
     },
     methods: {
         // -----> 商品图片存储七牛云前的处理
@@ -63,12 +65,11 @@ var addGoodsVM = new Vue({
                 })
             }
             qiniuUpload(imgUploadList, type, function (res) {
-                self.imgList = self.imgList.concat(res)
-                console.info(self.imgList)
+                self.img_list = self.img_list.concat(res)
             })
         },
         delImg: function (index) {
-            this.imgList.splice(index, 1)
+            this.img_list.splice(index, 1)
         },
         replaceImg: function (index) {
             let imgUploadList = []
@@ -84,8 +85,8 @@ var addGoodsVM = new Vue({
                     imgFile: imgFile
                 }
                 qiniuUpload(imgUploadList, type, function (res) {
-                    self.imgList.splice(index, 1, res[0])
-                    // console.info(self.imgList)
+                    self.img_list.splice(index, 1, res[0])
+                    // console.info(self.img_list)
                 })
             }
         },
@@ -271,8 +272,8 @@ var addGoodsVM = new Vue({
 
         // 商品提交
         submitGoods: function (status) {
-            this.goodsStatus = status
-            if (this.imgList.length <= 0) {
+            this.goods_status = status
+            if (this.img_list.length <= 0) {
                 alert('请选择商品图片')
                 return
             }
@@ -288,13 +289,19 @@ var addGoodsVM = new Vue({
                 alert('请选择商品类目')
                 return
             }
+            if (this.sort == '') {
+                alert('请填写商品排序')
+                return
+            }
             // let price = ''
             if (this.priceTypeId == 0) {
                 if (this.goods_price == '') {
                     alert('请填写商品价格')
                     return
-                } else {
-                    price = this.goods_price
+                }
+                if (this.goods_stock == '') {
+                    alert('请填写商品库存')
+                    return
                 }
             } else if (this.priceTypeId == 1) {
                 if (this.table.length <= 0) {
@@ -306,17 +313,26 @@ var addGoodsVM = new Vue({
                     })
                     if (!havePriceAndStock) {
                         alert('请填写好型号和价格')
+                        return
                     } else {
                         let self = this
                         this.goods_price = function () {
-                            var min = self.table[0].price;
-                            var len = self.table.length;
+                            let min = self.table[0].price;
+                            let len = self.table.length;
                             for (let i = 1; i < len; i++) {
                                 if (Number(self.table[i].price) < Number(min)) {
                                     min = self.table[i].price;
                                 }
                             }
                             return min;
+                        }()
+                        this.goods_stock = function () {
+                            let stock = 0
+                            let len = self.table.length;
+                            for (let i = 0; i < len; i++) {
+                                stock = stock + self.table[i].stock;
+                            }
+                            return stock;
                         }()
                     }
                 }
@@ -325,21 +341,21 @@ var addGoodsVM = new Vue({
             // 开始上传 需要loading 图标 防误触
 
             let imgUploadIsOkNum = 0
-            // 全部验证完毕 开始上传图片 有图片的地方分别是 1.imgList 2.SortItem>size>img 3.goodsInfoImgList
-            if (this.imgList.length > 0) {
+            // 全部验证完毕 开始上传图片 有图片的地方分别是 1.img_list 2.SortItem>size>img 3.goodsInfoImgList
+            if (this.img_list.length > 0) {
                 let self = this, flag = 0
                 // for (let i = 0; i < 1; i++) {
-                    uploadImg(this.imgList[0].key, this.imgList[0].uploadToken, this.imgList[0].imgFile, function (res) {
-                        // flag 图片上传完毕之后才提交
-                        // flag++
-                        // if (flag == self.imgList.length) {
-                            // console.info('上传完毕')
-                            imgUploadIsOkNum = imgUploadIsOkNum + 1
-                        // }
-                    })
+                uploadImg(this.img_list[0].key, this.img_list[0].uploadToken, this.img_list[0].imgFile, function (res) {
+                    // flag 图片上传完毕之后才提交
+                    // flag++
+                    // if (flag == self.img_list.length) {
+                    // console.info('上传完毕')
+                    imgUploadIsOkNum = imgUploadIsOkNum + 1
+                    // }
+                })
                 // }
             }
-            // if (this.imgList.length > 0) {
+            // if (this.img_list.length > 0) {
             //     let self = this, flag = 0
             //     for (let i in this.goodsInfoImgList) {
             //         uploadImg(this.goodsInfoImgList[i].key, this.goodsInfoImgList[i].uploadToken, this.goodsInfoImgList[i].imgFile, function (res) {
@@ -379,57 +395,64 @@ function getCategory() {
 }
 
 function addGoods() {
-    console.info(this.goodsStatus)
-    console.info(this.imgList)
-    console.info(this.goods_title)
-    console.info(this.goods_desc)
-    console.info(this.select_category_id)
-    console.info(this.goods_price)
-    console.info(this.table)
-    return
+    // console.info(addGoodsVM.goodsStatus)
+    // console.info(addGoodsVM.img_list)
+    // console.info(addGoodsVM.goods_title)
+    // console.info(addGoodsVM.goods_desc)
+    // console.info(addGoodsVM.select_category_id)
+    // console.info(addGoodsVM.goods_price)
+    // console.info(addGoodsVM.table)
+    // return
 
-    const url = '../api/add_goods'
+    const url = '../api/add_goods', async = true
     let data = {}
-    data.user_id = sessionStorage.getItem('user_id')
-    data.imgList = addGoodsVM.imgList.map(function (res) {
-        return res.key
-    })
+    // data.user_id = sessionStorage.getItem('user_id')
+    data.user_id = 1
+    // data.img_list = addGoodsVM.img_list.map(function (res) {
+    //     return res.key
+    // })
+    data.img_list = addGoodsVM.img_list[0].key
     data.goods_title = addGoodsVM.goods_title
     data.goods_desc = addGoodsVM.goods_desc
-    data.goods_brand_id = addGoodsVM.goods_brand_id
-    data.qcl_id = addGoodsVM.qcl_id
-    if (addGoodsVM.integralSelect == 0) {
-        data.type = addGoodsVM.typeValue
-        data.integralValue = 0
-    } else {
-        data.type = 2
-        data.integralValue = addGoodsVM.integralValue
-    }
+    data.select_category_id = addGoodsVM.select_category_id
+    data.goods_min_price = addGoodsVM.goods_price
+    data.param_list = addGoodsVM.table
+    data.goods_status = addGoodsVM.goods_status
+    data.stock = addGoodsVM.goods_stock
+    data.location_code = "xmspw"
+    data.sort = addGoodsVM.sort
+    // if (addGoodsVM.integralSelect == 0) {
+    //     data.type = addGoodsVM.typeValue
+    //     data.integralValue = 0
+    // } else {
+    //     data.type = 2
+    //     data.integralValue = addGoodsVM.integralValue
+    // }
     // data.category_parent_id_select = addGoodsVM.category_parent_id_select
-    data.category_id_select = addGoodsVM.category_id_select
-    data.paramItem = addGoodsVM.SortItem
-    for (let i in data.paramItem) {
-        if (data.paramItem[i].haveParamImg) {
-            for (let j in data.paramItem[i].size) {
-                let tempImg = data.paramItem[i].size[j].img[0].key
-                data.paramItem[i].size[j].img[0] = ''
-                data.paramItem[i].size[j].img[0] = tempImg
-            }
-        }
-    }
-    data.paramAndPrice = addGoodsVM.sizeAndPrice
-    data.price = data.paramAndPrice.sort(function (a, b) {
-        return Number(a.price - b.price)
-    })
-    data.price = data.price[0].price
-    data.goodsInfoImgList = addGoodsVM.goodsInfoImgList.map(function (res) {
-        return res.key
-    })
-    data.state = addGoodsVM.state
+    // data.category_id_select = addGoodsVM.category_id_select
+    // data.paramItem = addGoodsVM.SortItem
+    // for (let i in data.paramItem) {
+    //     if (data.paramItem[i].haveParamImg) {
+    //         for (let j in data.paramItem[i].size) {
+    //             let tempImg = data.paramItem[i].size[j].img[0].key
+    //             data.paramItem[i].size[j].img[0] = ''
+    //             data.paramItem[i].size[j].img[0] = tempImg
+    //         }
+    //     }
+    // }
+    // data.paramAndPrice = addGoodsVM.sizeAndPrice
+    // data.price = data.paramAndPrice.sort(function (a, b) {
+    //     return Number(a.price - b.price)
+    // })
+    // data.price = data.price[0].price
+    // data.goodsInfoImgList = addGoodsVM.goodsInfoImgList.map(function (res) {
+    //     return res.key
+    // })
+    // data.state = addGoodsVM.state
 
-    server(url, data, "post", function (res) {
-        // console.info(res)
-        if (res.text == '添加成功') {
+    server(url, data, async, "post", function (res) {
+        console.info(res)
+        if (res.code == 0) {
             alert('添加成功')
             location.reload()
         }
