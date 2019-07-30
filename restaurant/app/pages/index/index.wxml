@@ -68,7 +68,7 @@
         </view>
         <view bindtap="cutSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}">-</view>
         <view>{{item.number}}</view>
-        <view bindtap="addSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" data-name="{{goods.goodsName}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}">+{{goods}}</view>
+        <view bindtap="addSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" data-name="{{goods.goodsName}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}">+</view>
       </view>
     </view>
   </view>

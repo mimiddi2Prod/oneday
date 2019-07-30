@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-07-30 18:49:17
+Date: 2019-07-30 18:53:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -132,9 +132,9 @@ CREATE TABLE `restaurant_goods_order` (
   `open_id` varchar(32) CHARACTER SET utf8 NOT NULL,
   `goods_sku_id` int(12) DEFAULT NULL,
   `goods_id` int(12) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `describe` varchar(255) NOT NULL,
-  `img` varchar(255) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `describe` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `img` varchar(255) CHARACTER SET utf8 NOT NULL,
   `param` varchar(1000) CHARACTER SET utf8 DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `number` int(10) NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE `restaurant_goods_order` (
   `trade_id` varchar(30) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_order
@@ -159,6 +159,9 @@ INSERT INTO `restaurant_goods_order` VALUES ('18', 'oTapG43y69Y_L_RWRDESkAgzBy4Y
 INSERT INTO `restaurant_goods_order` VALUES ('19', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '3', '3', '', '', '', '{\"冰度\":\"冰\"}', '6.00', '1', null, '231', '2019-07-30 18:46:06');
 INSERT INTO `restaurant_goods_order` VALUES ('20', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '3', '3', '', '', '', '{\"冰度\":\"冰\"}', '6.00', '1', null, '231', '2019-07-30 18:46:20');
 INSERT INTO `restaurant_goods_order` VALUES ('21', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '1', '', '', '', '\"\"', '20.00', '1', null, '231', '2019-07-30 18:46:20');
+INSERT INTO `restaurant_goods_order` VALUES ('25', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6', '12', '他说他', '特舒服', 'http://notwastingqiniu.minidope.com/goods_2019_7_30_18_19_12_0.png', '{\"糖度\":\"多糖\",\"冰度\":\"50度\"}', '34.00', '3', null, '231', '2019-07-30 18:52:18');
+INSERT INTO `restaurant_goods_order` VALUES ('26', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '10', '阿文', '32', 'http://notwastingqiniu.minidope.com/goods_2019_7_30_18_10_7_0.png', '\"\"', '23.00', '3', null, '231', '2019-07-30 18:52:18');
+INSERT INTO `restaurant_goods_order` VALUES ('27', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '11', '阿文', '32', 'http://notwastingqiniu.minidope.com/goods_2019_7_30_18_10_7_0.png', '\"\"', '3.00', '3', null, '231', '2019-07-30 18:52:18');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_sku
@@ -209,7 +212,7 @@ CREATE TABLE `restaurant_user` (
 -- ----------------------------
 -- Records of restaurant_user
 -- ----------------------------
-INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', 'WnjDbD8Kw8xrTn+piMPWOA==', '2019-07-30 18:45:59', null, '0');
+INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', 'jBYuICexYXZ3RQdn5AJSkw==', '2019-07-30 18:51:06', null, '0');
 
 -- ----------------------------
 -- Table structure for test
