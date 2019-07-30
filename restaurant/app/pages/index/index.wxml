@@ -68,7 +68,7 @@
         </view>
         <view bindtap="cutSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}">-</view>
         <view>{{item.number}}</view>
-        <view bindtap="addSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" data-name="{{goods.goodsName}}" data-image="{{goods.img}}">+</view>
+        <view bindtap="addSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" data-name="{{goods.goodsName}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}">+{{goods}}</view>
       </view>
     </view>
   </view>
@@ -112,10 +112,10 @@
             <view class='goods-add-cart-have' wx:if="{{goods.sku.length <= 0}}">
               <view bindtap="cutSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" wx:if="{{goods.cartNumber > 0}}">-</view>
               <view wx:if="{{goods.cartNumber > 0}}">{{goods.cartNumber}}</view>
-              <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}">+</view>
+              <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}">+</view>
             </view>
             <!-- 有规格 -->
-            <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}">
+            <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}">
               选择
             </view>
           </view>

@@ -156,9 +156,10 @@ Page({
       price = e.currentTarget.dataset.price,
       goodsImage = e.currentTarget.dataset.image,
       goodsName = e.currentTarget.dataset.name,
-      goodsParam = ''
+      goodsParam = '',
+      goodsDescribe = e.currentTarget.dataset.desc
 
-    self.addCart(goodsId, price, paramId, goodsName, goodsImage, goodsParam)
+    self.addCart(goodsId, price, paramId, goodsName, goodsDescribe, goodsImage, goodsParam)
   },
 
   cutSingleParamCart: function(e) {
@@ -179,7 +180,8 @@ Page({
     let goodsName = self.data.goodsName
     let goodsImage = self.data.goodsImage
     let goodsParam = self.data.goodsParam
-    self.addCart(goodsId, price, paramId, goodsName, goodsImage, goodsParam)
+    let goodsDescribe = self.data.goodsDescribe
+    self.addCart(goodsId, price, paramId, goodsName, goodsDescribe, goodsImage, goodsParam)
   },
 
   cutMoreParamCart: function() {
@@ -231,7 +233,7 @@ Page({
     self.setData(self.data)
   },
 
-  addCart: function(goodsId, price, paramId, goodsName, goodsImage, goodsParam) {
+  addCart: function(goodsId, price, paramId, goodsName, goodsDesc, goodsImage, goodsParam) {
     let self = this
     let cart = self.data.cart
 
@@ -255,6 +257,7 @@ Page({
         paramId: paramId,
         price: price,
         goodsName: goodsName,
+        goodsDesc: goodsDesc,
         goodsImage: goodsImage,
         goodsParam: goodsParam,
         number: 1
