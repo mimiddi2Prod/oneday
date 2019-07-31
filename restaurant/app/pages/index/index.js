@@ -130,7 +130,7 @@ Page({
   toSubmitOrder: function() {
     app.globalData.cart = this.data.cart
     wx.navigateTo({
-      url: '../order/order',
+      url: '../cart/cart',
     })
   },
 

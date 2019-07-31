@@ -23,8 +23,8 @@ function RestaurantAddOrder() {
                 let length = cart.length, flag = 0
                 for (let i in cart) {
                     cart[i].goodsParam = JSON.stringify(cart[i].goodsParam)
-                    sql = "insert into restaurant_goods_order (`name`,`describe`,img,goods_id,open_id,param,goods_sku_id,`number`,trade_id,price,create_time) values (?,?,?,?,?,?,?,?,?,?,current_timestamp)";
-                    row = await query(sql, [cart[i].goodsName,cart[i].goodsDesc,cart[i].goodsImage,cart[i].goodsId, param['openid'], cart[i].goodsParam, cart[i].paramId, cart[i].number, param['tradeId'], cart[i].price]);
+                    sql = "insert into restaurant_goods_order (`name`,`describe`,img,goods_id,open_id,param,goods_sku_id,`number`,trade_id,price,style,create_time) values (?,?,?,?,?,?,?,?,?,?,?,current_timestamp)";
+                    row = await query(sql, [cart[i].goodsName, cart[i].goodsDesc, cart[i].goodsImage, cart[i].goodsId, param['openid'], cart[i].goodsParam, cart[i].paramId, cart[i].number, param['tradeId'], param['style'], cart[i].price]);
                     if (row.insertId) {
                         flag++
                     }

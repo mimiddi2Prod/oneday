@@ -4,8 +4,7 @@
     "pages/index/timeout",
     "pages/cart/cart",
     "pages/order/order",
-    "pages/pay/pay",
-    "pages/pay/pay_status"
+    "pages/pay_status/pay_status"
   ],
   "window": {
     "backgroundTextStyle": "light",

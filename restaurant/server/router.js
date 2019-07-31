@@ -27,6 +27,16 @@ function FBRouter(){
                     work = new RestaurantAddOrder;
                     break;
                 }
+                case "restaurant_get_order_by_openid":{
+                    var RestaurantGetOrderByOpenid = require("./apis/restaurant_get_order_by_openid");
+                    work = new RestaurantGetOrderByOpenid;
+                    break;
+                }
+                case "restaurant_get_order_detail_by_tradeid":{
+                    var RestaurantGetOrderDetailByTradeid = require("./apis/restaurant_get_order_detail_by_tradeid");
+                    work = new RestaurantGetOrderDetailByTradeid;
+                    break;
+                }
                 default:
                     break;
             }

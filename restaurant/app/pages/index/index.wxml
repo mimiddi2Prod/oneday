@@ -81,7 +81,7 @@
     桌号:
   </view>
   <view class="header_right">
-    订单
+    <navigator url="../order/order" hover-class='none'>订单</navigator>
   </view>
 </view>
 <!-- 内容 -->

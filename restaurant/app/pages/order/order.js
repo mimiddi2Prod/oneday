@@ -1,6 +1,7 @@
 // pages/order/order.js
 const server = require('../../utils/server.js')
 const api = require('../../config/api.js');
+const util = require('../../utils/util.js')
 const app = getApp()
 
 Page({
@@ -9,54 +10,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cart: [],
-    totalPrice: 0,
-    styleList: ['堂食', '外带'],
-    style: 0,
+    order: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getCart()
+    this.getOrder()
   },
 
-  getCart: function() {
-    let cart = app.globalData.cart
-    let totalPrice = 0
-    cart = cart.map(function(eData) {
-      eData.subTotalPrice = eData.price * eData.number
-      totalPrice = totalPrice + eData.subTotalPrice
-      return eData
-    })
-    this.setData({
-      cart: cart,
-      totalPrice: totalPrice
-    })
-    console.info(this.data.cart)
-  },
-
-  selectStyle: function(e) {
-    this.setData({
-      style: e.currentTarget.dataset.id
-    })
-  },
-
-  submitOrder: function() {
+  getOrder: function() {
     let self = this
-    console.info(this.data.cart)
-    let data = {}
-    data.openid = app.globalData.openid
-    data.tradeId = 231
-    data.cart = self.data.cart 
-    server.request(api.addOrder, data, "post").then(function(res) {
+    server.request(api.getOrderByOpenid, {
+      'openid': app.globalData.openid
+    }, 'post').then(function(res) {
       console.info(res)
-      if(res.code == 0){
-        wx.navigateTo({
-          url: '../pay/pay_status?status=' + res.code,
-        })
-      }
+      self.data.order = res.order_list.map(function(eData) {
+        eData.total_price = 0
+        eData.total_number = 0
+        let arr_price = eData['group_concat(price)'].split(','),
+          arr_number = eData['group_concat(number)'].split(',')
+        for (let i in arr_price) {
+          eData.total_price += Number(arr_price[i])
+        }
+        for (let i in arr_number) {
+          eData.total_number += Number(arr_number[i])
+        }
+        eData.create_time = util.formatTime(new Date(eData.create_time))
+        return eData
+      })
+      self.setData(self.data)
+      console.info(self.data.order)
     })
   },
 
