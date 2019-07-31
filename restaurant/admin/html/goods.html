@@ -80,7 +80,8 @@
                     </div>
                     <div>
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="">创建时间</a></li>
+                            <li class="active"><a href="">商品排序</a></li>
+                            <li><a href="">创建时间</a></li>
                             <li><a href="">库存</a></li>
                             <li><a href="">销量</a></li>
                         </ul>
@@ -131,6 +132,7 @@
                         <label class="form-check-label row-center">
                             <div class="a" v-on:change="checkOne()">
                                 <input type="checkbox" name="checkGoods" v-model="item.checked">
+                                {{item.sort}}
                                 <img :src="item.img">
                             </div>
                             <div class="b">
@@ -157,7 +159,8 @@
                         {{item.create_time}}
                     </div>
                     <div class="second-title column-center">
-                        <button type="button" class="btn btn-link">编辑
+                        <button type="button" class="btn btn-link" v-on:click="editGoods(item.id)">
+                            编辑
                         </button>
                         <!--<button type="button" class="btn btn-link" v-on:click="changePage('goods-review',item.id)">评价-->
                         <!--</button>-->

@@ -19,7 +19,7 @@ var menuVM = new Vue({
         let href = window.location.href
         let arr = href.split('/')
         let tag = arr[arr.length - 1]
-        if (tag == 'addGoods') {
+        if (tag == 'addGoods' || tag == 'editGoods') {
             tag = 'goods'
         }
         this.activeMenuTag = tag

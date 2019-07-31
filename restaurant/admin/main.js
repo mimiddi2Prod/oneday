@@ -94,6 +94,8 @@ app.use(function (req, res, next) {
             showPaper('html/goods.html');
         } else if (type[1] == 'addGoods') {
             showPaper('html/addGoods.html');
+        } else if (type[1] == 'editGoods') {
+            showPaper('html/editGoods.html');
         } else if (type[1] == 'category') {
             showPaper('html/category.html');
         } else if (type[1] == 'order') {

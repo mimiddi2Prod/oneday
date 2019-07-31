@@ -14,7 +14,7 @@ function getGoods() {
                 row = await db.Query(sql);
                 data.number = row[0]['count(id)']
 
-                sql = "select id,`name`,img,`describe`,min_price,stock,location_code,category_id,sort,status,create_time from restaurant_goods ORDER BY sort desc limit ?,?";
+                sql = "select id,`name`,img,`describe`,min_price,stock,location_code,category_id,sort,status,create_time from restaurant_goods ORDER BY sort limit ?,?";
                 row = await db.Query(sql, [param['last_id'] * 5, 5]);
             } else if (status == 1) {
                 // 出售中
@@ -22,7 +22,7 @@ function getGoods() {
                 row = await db.Query(sql, 1);
                 data.number = row[0]['count(id)']
 
-                sql = "select id,`name`,img,`describe`,min_price,stock,location_code,category_id,sort,status,create_time from restaurant_goods where status = ? ORDER BY sort desc limit ?,?";
+                sql = "select id,`name`,img,`describe`,min_price,stock,location_code,category_id,sort,status,create_time from restaurant_goods where status = ? ORDER BY sort limit ?,?";
                 row = await db.Query(sql, [1, param['last_id'] * 5, 5]);
             } else if (status == 2) {
                 // 售罄
@@ -30,7 +30,7 @@ function getGoods() {
                 row = await db.Query(sql, [0, 1]);
                 data.number = row[0]['count(id)']
 
-                sql = "select id,`name`,img,`describe`,min_price,stock,location_code,category_id,sort,status,create_time from restaurant_goods where stock = ? and status = ? ORDER BY sort desc limit ?,?";
+                sql = "select id,`name`,img,`describe`,min_price,stock,location_code,category_id,sort,status,create_time from restaurant_goods where stock = ? and status = ? ORDER BY sort limit ?,?";
                 row = await db.Query(sql, [0, 1, param['last_id'] * 5, 5]);
                 // sql = "select goods_id from restaurant_goods_sku where (case when stock = 0 then 0 else 1 end) = 0 and goods_id not in (select goods_id from restaurant_goods_sku where (case when stock > 0 then 1 else 0 end) = 1 GROUP BY goods_id) GROUP BY goods_id";
                 // row = await db.Query(sql);
@@ -53,7 +53,7 @@ function getGoods() {
                 row = await db.Query(sql, 0);
                 data.number = row[0]['count(id)']
 
-                sql = "select id,`name`,img,`describe`,min_price,stock,location_code,category_id,sort,status,create_time from restaurant_goods where status = ? ORDER BY sort desc limit ?,?";
+                sql = "select id,`name`,img,`describe`,min_price,stock,location_code,category_id,sort,status,create_time from restaurant_goods where status = ? ORDER BY sort limit ?,?";
                 row = await db.Query(sql, [0, param['last_id'] * 5, 5]);
             }
             data.list = row

@@ -60,6 +60,14 @@ var goodsVM = new Vue({
             will_change_status_id_list = JSON.stringify(will_change_status_id_list)
             updateGoodsStatus(will_change_status_id_list, status)
         },
+        // 跳转编辑页面
+        editGoods: function (id) {
+            let temp = this.goodsList.filter(function (eData) {
+                return eData.id == id
+            })
+            sessionStorage.setItem("editGoods", JSON.stringify(temp[0]));
+            window.location.href = "editGoods"
+        },
 
         // changePage: function (e, goods_id) {
         //     if (e == 'goods-edit') {
