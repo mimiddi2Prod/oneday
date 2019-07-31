@@ -30,6 +30,10 @@ function Router() {
                 var addGoods = require("./api/add_goods.js");
                 baseApi = new addGoods;
                 break;
+            case "update_goodsStatus":
+                var updateGoodsStatus = require("./api/update_goodsStatus.js");
+                baseApi = new updateGoodsStatus;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

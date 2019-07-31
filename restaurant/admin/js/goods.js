@@ -50,6 +50,17 @@ var goodsVM = new Vue({
 
     },
     methods: {
+        // 上下架
+        changeGoodsStatus: function (id, nowStatus) {
+            console.info(id)
+            console.info(nowStatus)
+            let status = nowStatus == 0 ? 1 : 0
+            let will_change_status_id_list = []
+            will_change_status_id_list[0] = id
+            will_change_status_id_list = JSON.stringify(will_change_status_id_list)
+            updateGoodsStatus(will_change_status_id_list, status)
+        },
+
         // changePage: function (e, goods_id) {
         //     if (e == 'goods-edit') {
         //         let temp = this.goodsList.filter(function (res) {
@@ -119,18 +130,7 @@ var goodsVM = new Vue({
             this.last_id = index
             getGoods()
         },
-        changeGoodsState: function (id, nowState) {
-            let state = ''
-            if (nowState == 0) {
-                state = 1
-            } else if (nowState == 1) {
-                state = 0
-            }
-            let id_list = []
-            id_list[0] = id
-            id_list = JSON.stringify(id_list)
-            updateGoodsState(id_list, state)
-        },
+
         showMoreParam: function (id) {
             this.goodsList.map(function (res) {
                 if (res.id == id) {
@@ -426,15 +426,13 @@ var goodsVM = new Vue({
     }
 })
 
-function updateGoodsState(id_list, state) {
-    const url = '../api/update_goodsState'
+function updateGoodsStatus(will_change_status_id_list, status) {
+    const url = api.updateGoodsStatus
     let data = {}, async = true
-    data.goods_id_list = id_list
-    data.state = state
-    console.info(data)
+    data.will_change_status_id_list = will_change_status_id_list
+    data.status = status
     server(url, data, async, "post", function (res) {
-        // console.info(res)
-        if (res == '更新商品状态成功') {
+        if (res.code == 0) {
             getGoods()
         }
     })
@@ -442,7 +440,7 @@ function updateGoodsState(id_list, state) {
 
 $(document).ready(function () {
     getGoods()
-    getCategory()
+    // getCategory()
 
     // $("#calc_number").bind("input propertychange",function(event){
     //     //     console.info($("#calc_number").val())
@@ -466,7 +464,7 @@ function getGoods() {
                 eData.showMoreParam = false
                 // let total_stock = 0
                 for (let i in eData.param) {
-                //     total_stock = total_stock + eData.param[i].stock
+                    //     total_stock = total_stock + eData.param[i].stock
                     eData.param[i].price = Number(eData.param[i].price).toFixed(2)
                     // eData.param[i].param = JSON.parse(eData.param[i].param)
                 }

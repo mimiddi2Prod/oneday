@@ -148,7 +148,7 @@
                         {{item.stock}}
                     </div>
                     <div class="second-title column-center" v-if="navTwoId == 0">
-                        {{item.category_name_1}}
+                        {{item.category_name}}
                     </div>
                     <div class="second-title column-center" v-if="navTwoId == 1">
                         {{item.integral_price}}
@@ -157,12 +157,12 @@
                         {{item.create_time}}
                     </div>
                     <div class="second-title column-center">
-                        <button type="button" class="btn btn-link" v-on:click="changePage('goods-edit',item.id)">编辑
+                        <button type="button" class="btn btn-link">编辑
                         </button>
-                        <button type="button" class="btn btn-link" v-on:click="changePage('goods-review',item.id)">评价
-                        </button>
-                        <button type="button" class="btn btn-link" v-on:click="changeGoodsState(item.id,item.status)">
-                            {{item.status == 0 ? '下架' : '上架'}}
+                        <!--<button type="button" class="btn btn-link" v-on:click="changePage('goods-review',item.id)">评价-->
+                        <!--</button>-->
+                        <button type="button" class="btn btn-link" v-on:click="changeGoodsStatus(item.id,item.status)">
+                            {{item.status == 0 ? '上架' : '下架'}}
                         </button>
                         <!--<button type="button" class="btn btn-link">删除</button>-->
                     </div>

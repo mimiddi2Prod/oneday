@@ -1,5 +1,6 @@
 var api = {
     getMenu: '../api/get_menu',
     getGoods: '../api/get_goods',
-    getCategory: '../api/get_category'
+    getCategory: '../api/get_category',
+    updateGoodsStatus: '../api/update_goodsStatus',
 }
