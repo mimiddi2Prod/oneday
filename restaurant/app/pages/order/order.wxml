@@ -50,6 +50,10 @@
   </view>
 </view>
 
+<view class="footer-1">
+  <view class="foot-info">订单支付后大厨就开始制作啦</view>
+</view>
+
 <view class="footer">
   <view class="total-price">￥
     <text>{{totalPrice}}</text>
