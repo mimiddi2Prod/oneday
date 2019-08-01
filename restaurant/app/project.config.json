@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -14,7 +14,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.4",
-	"appid": "wx927fb42fce286329",
+	"appid": "wx3a3f97ca688ddcea",
 	"projectname": "onedayRestaurant",
 	"debugOptions": {
 		"hidedInDevtools": []

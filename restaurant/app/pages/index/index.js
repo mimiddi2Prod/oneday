@@ -33,7 +33,10 @@ Page({
     showParam: {}, // 展示要选择的数组
 
     // 购物车列表是否展示
-    showCart: false
+    showCart: false,
+    // 商品详情
+    showDetail: false,
+    goods_detail: '',
   },
 
   // 页面高度 scroll-view需要防止整个页面跟着拖动
@@ -98,6 +101,33 @@ Page({
       showCart: !this.data.showCart
     })
   },
+
+  showGoodsDetail: function(e) {
+    if (this.data.showDetail) {
+      this.setData({
+        showDetail: false
+      })
+    } else {
+      let goods_id = e.currentTarget.dataset.id
+      let goods_detail = this.data.selectGoods[0].list.filter(function(eData) {
+        return eData.id == goods_id
+      })[0]
+      this.setData({
+        goods_detail: goods_detail,
+        showDetail: true
+      })
+      // console.info(goods_detail)
+    }
+
+  },
+
+  // getGoodsDetail:function(e){
+  //   this.setData({
+  //     showDetail: !this.data.showDetail
+  //   })
+  //   let goods_id = e.currentTarget.dataset.id
+  //   console.info(e)
+  // },
 
   // 获取商品列表 包括类别 和 商品
   getCategory: function(locationCode) {
@@ -169,7 +199,7 @@ Page({
       goodsImage = e.currentTarget.dataset.image,
       goodsName = e.currentTarget.dataset.name,
       goodsParam = '',
-      goodsDescribe = e.currentTarget.dataset.desc
+      goodsDescribe = e.currentTarget.dataset.describe
 
     self.addCart(goodsId, price, paramId, goodsName, goodsDescribe, goodsImage, goodsParam)
   },
@@ -346,6 +376,9 @@ Page({
 
   // 初始选择商品时 初始化规格分组
   getGoodsParam: function(e) {
+    this.setData({
+      showDetail: false
+    })
     let self = this
     let goodsId = e.currentTarget.dataset.id
     let goodsName = e.currentTarget.dataset.name

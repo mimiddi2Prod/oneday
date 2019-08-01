@@ -1,5 +1,5 @@
-const appid = 'wx927fb42fce286329'
-const secret = '45cfc25941ead7841670f2ad39790b51'
+const appid = 'wx3a3f97ca688ddcea'
+const secret = '5cfbffbaeaedefb495f107a5e529d89f'
 
 module.exports = {
     appid: appid,

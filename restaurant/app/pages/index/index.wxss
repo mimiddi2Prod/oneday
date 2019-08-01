@@ -63,8 +63,9 @@ page {
 
 .goodsWrap-category {
   position: fixed;
-  width: 580rpx;
-  margin-left: 20rpx;
+  width: 600rpx;
+  /* margin-left: 20rpx; */
+  padding-left: 20rpx;
   margin-bottom: 20rpx;
   height: 80rpx;
   line-height: 80rpx;
@@ -72,6 +73,7 @@ page {
   align-items: center;
   justify-content: flex-start;
   border-bottom: 1rpx solid #eee0c0;
+  background-color: white;
 }
 
 .goods {
@@ -303,4 +305,36 @@ page {
 
 .goods-add > .price {
   margin-right: 20rpx;
+}
+
+/* 商品详情弹窗 */
+
+.goods-detail {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 4;
+}
+
+.detail-container {
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+  border-top: 1rpx solid rgb(199, 192, 241);
+  /* border-bottom: 1rpx solid rgb(199, 192, 241); */
+  /* padding: 20rpx; */
+  width: 750rpx;
+  padding-bottom: 170rpx;
+}
+
+.detail-img{
+  width: 750rpx;
+}
+
+.detail-ju{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  padding: 20rpx;
 }

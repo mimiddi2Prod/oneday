@@ -76,6 +76,36 @@
   </view>
 </view>
 
+<!-- 商品详情 -->
+<view class="goods-detail {{showDetail ? '' : 'hide'}}" catchtouchmove="ture">
+  <!-- 模糊背景 -->
+  <view class="goods-param-bg"></view>
+  <!-- 弹窗内容 -->
+  <view class="detail-container">
+    <image class="goods-param-close" src='/images/icon_close.png' bindtap='showGoodsDetail'></image>
+    <image class="detail-img" src='{{goods_detail.img}}'></image>
+    <view class="detail-ju">
+      <view>
+        ￥{{goods_detail.min_price}}
+      </view>
+      <view>
+        <!-- 没有规格 -->
+        <view class='goods-add-cart-have' wx:if="{{goods_detail.sku.length <= 0}}">
+          <view bindtap="cutSingleParamCart" data-id="{{goods_detail.id}}" data-paramid="0" data-price="{{goods_detail.min_price}}" wx:if="{{goods_detail.cartNumber > 0}}">-</view>
+          <view wx:if="{{goods_detail.cartNumber > 0}}">{{goods_detail.cartNumber}}</view>
+          <view bindtap="addSingleParamCart" data-id="{{goods_detail.id}}" data-paramid="0" data-price="{{goods_detail.min_price}}" data-name="{{goods_detail.name}}" data-image="{{goods_detail.img}}" data-describe="{{goods_detail.describe}}">+</view>
+        </view>
+        <!-- 有规格 -->
+        <view wx:else bindtap='getGoodsParam' data-id='{{goods_detail.id}}' data-name='{{goods_detail.name}}' data-describe="{{goods_detail.describe}}" data-image="{{goods_detail.img}}">
+          选择
+        </view>
+      </view>
+    </view>
+    <view>{{goods_detail.name}}</view>
+    <view>{{goods_detail.describe}}</view>
+  </view>
+</view>
+
 <!-- 主页面 -->
 <!-- 标题栏 -->
 <view class="header">
@@ -104,7 +134,8 @@
     <view class="goods" wx:for="{{selectGoods}}" wx:key="*this">
       <block wx:for="{{item.list}}" wx:for-item="goods" wx:key="id">
         <view class='goods-item' bindtap="toDetailsTap" data-id="{{goods.id}}">
-          <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}"></image>
+          <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}"></image>
+          <!-- <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='getGoodsDetail' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}" wx:if="{{goods.sku.length > 0}}"></image> -->
           <view class='goods-info'>
             <text class='goodsName'>{{goods.name}}</text>
             <text class='goodsPrice'>￥{{goods.min_price}}</text>
@@ -114,10 +145,10 @@
             <view class='goods-add-cart-have' wx:if="{{goods.sku.length <= 0}}">
               <view bindtap="cutSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" wx:if="{{goods.cartNumber > 0}}">-</view>
               <view wx:if="{{goods.cartNumber > 0}}">{{goods.cartNumber}}</view>
-              <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}">+</view>
+              <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-describe="{{goods.describe}}">+</view>
             </view>
             <!-- 有规格 -->
-            <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}">
+            <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}">
               选择
             </view>
           </view>
