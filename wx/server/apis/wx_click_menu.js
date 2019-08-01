@@ -50,6 +50,7 @@ function send(param){
 		// }
 		case "item3_4":{
 			url = './images/load.jpg'
+			// url = './images/load.png'
 			break;
 		}
 		default:

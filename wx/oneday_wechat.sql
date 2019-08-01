@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100132
 File Encoding         : 65001
 
-Date: 2019-07-12 12:19:19
+Date: 2019-07-23 16:52:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,8 +30,6 @@ CREATE TABLE `subscribe_message` (
 -- ----------------------------
 -- Records of subscribe_message
 -- ----------------------------
-INSERT INTO `subscribe_message` VALUES ('1', '欢迎关注oneday', '0', '2019-07-12 11:25:49');
-INSERT INTO `subscribe_message` VALUES ('2', '这里有很多好玩的事物等你发现', '1', '2019-07-12 11:25:49');
 
 -- ----------------------------
 -- Table structure for wechat_qrcode
