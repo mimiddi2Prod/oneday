@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-07-30 18:53:08
+Date: 2019-08-01 15:57:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -141,27 +141,13 @@ CREATE TABLE `restaurant_goods_order` (
   `coupon` float(10,2) DEFAULT NULL,
   `trade_id` varchar(30) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `style` int(11) NOT NULL COMMENT '0 堂食 1 外带',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_order
 -- ----------------------------
-INSERT INTO `restaurant_goods_order` VALUES ('10', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '3', '3', '', '', '', '{\"冰度\":\"冰\"}', '6.00', '2', null, '231', '2019-07-26 11:09:23');
-INSERT INTO `restaurant_goods_order` VALUES ('11', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '1', '', '', '', '\"\"', '20.00', '1', null, '231', '2019-07-26 11:09:23');
-INSERT INTO `restaurant_goods_order` VALUES ('12', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '2', '2', '', '', '', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '6.00', '1', null, '231', '2019-07-26 11:09:23');
-INSERT INTO `restaurant_goods_order` VALUES ('13', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '3', '3', '', '', '', '{\"冰度\":\"冰\"}', '6.00', '2', null, '231', '2019-07-26 11:09:23');
-INSERT INTO `restaurant_goods_order` VALUES ('14', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '1', '', '', '', '\"\"', '20.00', '1', null, '231', '2019-07-26 11:09:23');
-INSERT INTO `restaurant_goods_order` VALUES ('15', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '3', '3', '', '', '', '{\"冰度\":\"冰\"}', '6.00', '3', null, '231', '2019-07-26 13:53:24');
-INSERT INTO `restaurant_goods_order` VALUES ('16', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '2', '2', '', '', '', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '6.00', '2', null, '231', '2019-07-26 13:53:24');
-INSERT INTO `restaurant_goods_order` VALUES ('17', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '7', '12', '', '', '', '{\"糖度\":\"多糖\",\"冰度\":\"100度\"}', '23.00', '1', null, '231', '2019-07-30 18:28:50');
-INSERT INTO `restaurant_goods_order` VALUES ('18', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '10', '', '', '', '\"\"', '23.00', '1', null, '231', '2019-07-30 18:28:50');
-INSERT INTO `restaurant_goods_order` VALUES ('19', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '3', '3', '', '', '', '{\"冰度\":\"冰\"}', '6.00', '1', null, '231', '2019-07-30 18:46:06');
-INSERT INTO `restaurant_goods_order` VALUES ('20', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '3', '3', '', '', '', '{\"冰度\":\"冰\"}', '6.00', '1', null, '231', '2019-07-30 18:46:20');
-INSERT INTO `restaurant_goods_order` VALUES ('21', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '1', '', '', '', '\"\"', '20.00', '1', null, '231', '2019-07-30 18:46:20');
-INSERT INTO `restaurant_goods_order` VALUES ('25', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '6', '12', '他说他', '特舒服', 'http://notwastingqiniu.minidope.com/goods_2019_7_30_18_19_12_0.png', '{\"糖度\":\"多糖\",\"冰度\":\"50度\"}', '34.00', '3', null, '231', '2019-07-30 18:52:18');
-INSERT INTO `restaurant_goods_order` VALUES ('26', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '10', '阿文', '32', 'http://notwastingqiniu.minidope.com/goods_2019_7_30_18_10_7_0.png', '\"\"', '23.00', '3', null, '231', '2019-07-30 18:52:18');
-INSERT INTO `restaurant_goods_order` VALUES ('27', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '0', '11', '阿文', '32', 'http://notwastingqiniu.minidope.com/goods_2019_7_30_18_10_7_0.png', '\"\"', '3.00', '3', null, '231', '2019-07-30 18:52:18');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_sku
@@ -176,7 +162,7 @@ CREATE TABLE `restaurant_goods_sku` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_sku
@@ -190,6 +176,12 @@ INSERT INTO `restaurant_goods_sku` VALUES ('6', '2', '34.00', '12', '{\"糖度\"
 INSERT INTO `restaurant_goods_sku` VALUES ('7', '4', '23.00', '12', '{\"糖度\":\"多糖\",\"冰度\":\"100度\"}', '2019-07-30 18:19:45', '1');
 INSERT INTO `restaurant_goods_sku` VALUES ('8', '4', '3.00', '12', '{\"糖度\":\"单糖\",\"冰度\":\"50度\"}', '2019-07-30 18:19:45', '1');
 INSERT INTO `restaurant_goods_sku` VALUES ('9', '3', '22.00', '12', '{\"糖度\":\"单糖\",\"冰度\":\"100度\"}', '2019-07-30 18:19:45', '1');
+INSERT INTO `restaurant_goods_sku` VALUES ('10', '999', '9.00', '3', '{\"冰度\":\"热3432\"}', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('11', '999', '9.00', '3', '{\"冰度\":\"热34343\"}', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('12', '999', '9.00', '3', '{\"冰度\":\"热344\"}', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('13', '999', '9.00', '3', '{\"冰度\":\"热wewe5\"}', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('14', '999', '9.00', '3', '{\"冰度\":\"热346\"}', '0000-00-00 00:00:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('15', '15', '15.00', '3', '{\"冰度\":\"热7\"}', '0000-00-00 00:00:00', '15');
 
 -- ----------------------------
 -- Table structure for restaurant_user
@@ -212,7 +204,7 @@ CREATE TABLE `restaurant_user` (
 -- ----------------------------
 -- Records of restaurant_user
 -- ----------------------------
-INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', 'jBYuICexYXZ3RQdn5AJSkw==', '2019-07-30 18:51:06', null, '0');
+INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', '7Xa0Lt0bYxhdbHt8XusZTw==', '2019-08-01 15:52:43', null, '0');
 
 -- ----------------------------
 -- Table structure for test
