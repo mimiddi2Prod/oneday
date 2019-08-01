@@ -1,0 +1,74 @@
+<!--pages/pay_status/pay_status.wxml-->
+<view class="header">
+  <view class="header_left">
+    桌号:
+  </view>
+  <view class="header_right">
+    <navigator url="../order/order" hover-class='none'>订单</navigator>
+  </view>
+</view>
+
+<view class="content">
+  <view class="card">
+    <view>
+      已支付
+    </view>
+    <view>
+      支付成功，祝您用餐愉快
+    </view>
+    <view class="dashed"></view>
+    <!-- <image src></image> -->
+    取餐号：7
+  </view>
+
+  <view class="card">
+    <block wx:for="{{order}}">
+      <view class="goods-info">
+        <image class="goods-image" src="{{item.img}}"></image>
+        <view class="goods-detail">
+          <view class="goods-name">
+            <view>{{item.name}}</view>
+            <view wx:if="{{item.param}}">
+              <block wx:for="{{item.param}}" wx:for-item="param" wx:for-index="paramIndex">
+                <text class="font-key">{{paramIndex}}:</text>
+                <text class="font-value">{{param}}</text> </block>
+            </view>
+            <view>
+              <text class="font-key">数量:</text>
+              <text class="font-value">{{item.number}}</text>
+            </view>
+          </view>
+          <view>￥{{item.price}}</view>
+        </view>
+      </view>
+      <view class="{{index == order.length-1 ? '' : 'dashed'}}"></view>
+    </block>
+    <view class="line"></view>
+    <view class="sub-total-price">
+      <!-- <text style="margin-right:20rpx">共 {{item.length}} 份</text>  -->
+      小计￥
+      <text>{{total_price}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view>
+      订单信息
+    </view>
+    <view>
+      订单编号：{{trade_id}}
+    </view>
+    <view>
+      下单时间：{{create_time}}
+    </view>
+    <view>
+      就餐方式：{{style == 0 ? '堂食' : '外带'}}
+    </view>
+    <view>
+      订单份数：{{order.length}}
+    </view>
+    <view>
+      订单总计：￥{{total_price}}
+    </view>
+  </view>
+</view>
