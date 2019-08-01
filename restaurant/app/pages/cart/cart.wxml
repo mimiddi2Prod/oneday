@@ -17,35 +17,38 @@
     </view>
   </view>
 
-  <view class="card" wx:for="{{cart}}">
-    <view class="goods-info">
-      <image class="goods-image" src="{{item.goodsImage}}"></image>
-      <!-- <view class="goods-detail">
+  <view class="card">
+    <block wx:for="{{cart}}">
+      <view class="goods-info">
+        <image class="goods-image" src="{{item.goodsImage}}"></image>
+        <!-- <view class="goods-detail">
         <view class="goods-name">
           <view>{{item.goodsName}}</view>
           <view>￥{{item.price}}</view>
         </view>
         <view>数量：{{item.number}}</view>
       </view> -->
-      <view class="goods-detail">
-        <view class="goods-name">
-          <view>{{item.goodsName}}</view>
-          <view wx:if="{{item.goodsParam}}">
-            <block wx:for="{{item.goodsParam}}" wx:for-item="param" wx:for-index="paramIndex">
-              <text class="font-key">{{paramIndex}}:</text>
-              <text class="font-value">{{param}}</text> </block>
+        <view class="goods-detail">
+          <view class="goods-name">
+            <view>{{item.goodsName}}</view>
+            <view wx:if="{{item.goodsParam}}">
+              <block wx:for="{{item.goodsParam}}" wx:for-item="param" wx:for-index="paramIndex">
+                <text class="font-key">{{paramIndex}}:</text>
+                <text class="font-value">{{param}}</text> </block>
+            </view>
+            <view>
+              <text class="font-key">数量:</text>
+              <text class="font-value">{{item.number}}</text>
+            </view>
           </view>
-          <view>
-            <text class="font-key">数量:</text>
-            <text class="font-value">{{item.number}}</text>
-          </view>
+          <view>￥{{item.price}}</view>
         </view>
-        <view>￥{{item.price}}</view>
       </view>
-    </view>
+      <view class="{{index == cart.length-1 ? '' : 'dashed'}}"></view>
+    </block>
     <view class="line"></view>
     <view class="sub-total-price">小计￥
-      <text>{{item.subTotalPrice}}</text>
+      <text>{{totalPrice}}</text>
     </view>
   </view>
 </view>

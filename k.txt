@@ -29,8 +29,21 @@ wxa0869cd59ebaaa06
 wx768a827128cc90f8
 d99eda228b95793b08563a5141f6449c
 
+小程序：餐饮
+wx3a3f97ca688ddcea
+5cfbffbaeaedefb495f107a5e529d89f
+
 商户号关联：
 	1.商户号： 厦门市思明区玖栗久鲤服装店 jolly-啾哩女装 1545776151
 	  小程序： wxa0869cd59ebaaa06  3a5fa1f990812a7cc9aa1a832fbc1f86
 
 	2.
+
+
+餐饮： 小程序 brunch.minidope.com 后台 onedayb.minidope.com
+购物： 小程序 shop.minidope.com 后台 onedays.minidope.com
+
+
+微信开放平台
+z18344986457@163.com
+youyue123

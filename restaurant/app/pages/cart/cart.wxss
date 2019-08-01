@@ -28,7 +28,7 @@
   padding: 30rpx;
 }
 
-.card:last-child{
+.card:last-child {
   margin-bottom: 240rpx;
 }
 
@@ -81,12 +81,18 @@
   justify-content: space-between;
 }
 
-.font-key{
+.font-key {
   font-size: 24rpx;
 }
 
-.font-value{
+.font-value {
   font-size: 30rpx;
+}
+
+.dashed {
+  border-top: 1rpx dashed rgb(230, 230, 230);
+  width: 660rpx;
+  margin: 20rpx 0;
 }
 
 .line {
@@ -95,14 +101,14 @@
   margin: 10rpx 0;
 }
 
-.sub-total-price{
+.sub-total-price {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
 }
 
-.sub-total-price > text{
+.sub-total-price > text {
   font-size: 40rpx;
 }
 
@@ -110,20 +116,16 @@
   position: fixed;
   bottom: 140rpx;
   padding: 0 60rpx;
-  /* background-color: whitesmoke; */
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* align-content: center; */
-  /* justify-content: space-between; */
+  /* background-color: whitesmoke; *//* display: flex; *//* flex-direction: row; *//* align-content: center; *//* justify-content: space-between; */
   width: 630rpx;
 }
 
-.foot-info{
+.foot-info {
   border-radius: 100rpx;
   background-color: rgb(238, 238, 173);
   width: 100%;
   padding: 20rpx 0;
-  text-align: center
+  text-align: center;
 }
 
 .footer-1:after, .footer-1:before {
