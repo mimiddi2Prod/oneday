@@ -40,8 +40,10 @@
     <!-- 商品规格 -->
     <view wx:for="{{showParam}}" wx:key="*this">
       <view>{{item.text}}</view>
-      <view class="{{param.select ? 'param-select' : ''}}" wx:for="{{item.param}}" wx:for-item="param" data-selectparamid='{{item.id}}' data-selecttext="{{param.text}}" bindtap='selectParam'>
-        {{param.text}}
+      <view class="row">
+        <view class="{{param.select ? 'param-select' : ''}}" wx:for="{{item.param}}" wx:for-item="param" data-selectparamid='{{item.id}}' data-selecttext="{{param.text}}" bindtap='selectParam'>
+          {{param.text}}
+        </view>
       </view>
     </view>
   </view>

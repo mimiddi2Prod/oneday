@@ -1,5 +1,6 @@
 /**index.wxss**/
-page{
+
+page {
   background-color: white;
 }
 
@@ -197,6 +198,18 @@ page{
 
 .param-select {
   color: red;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin: 6rpx 0;
+  width: 710rpx;
+  flex-wrap: wrap;
+}
+
+.row > view {
+  margin-right: 10rpx;
 }
 
 .footer {

@@ -1,6 +1,7 @@
 // pages/cart/cart.js
 const server = require('../../utils/server.js')
 const api = require('../../config/api.js');
+const util = require('../../utils/util.js')
 const app = getApp()
 
 Page({
@@ -49,11 +50,12 @@ Page({
     let data = {}
     data.openid = app.globalData.openid
     data.style = self.data.style
-    data.tradeId = 1236
+    data.tradeId = util.formatTime(new Date()).toString()
     data.cart = self.data.cart
     server.request(api.addOrder, data, "post").then(function (res) {
       console.info(res)
       if (res.code == 0) {
+        app.globalData.cart = []
         wx.redirectTo({
           url: '../pay_status/pay_status?tradeid=' + data.tradeId,
         })

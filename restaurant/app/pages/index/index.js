@@ -72,6 +72,18 @@ Page({
     this.getCategory(locationCode)
   },
 
+  onShow: function() {
+    if (app.globalData.cart.length <= 0) {
+      this.setData({
+        cart: [],
+        selectGoodsSKU: [],
+        totalGoodsPrice: 0
+      })
+      let locationCode = 'xmspw'
+      // 获取商品列表 包括类别 和 商品
+      this.getCategory(locationCode)
+    }
+  },
   // 关闭选择规格弹窗 
   closeModal: function() {
     this.setData({
