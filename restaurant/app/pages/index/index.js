@@ -1,6 +1,7 @@
 //index.js
 const server = require('../../utils/server.js')
 const api = require('../../config/api.js');
+const pinyin = require('../../utils/pinyin.js')
 const app = getApp()
 
 Page({
@@ -37,6 +38,9 @@ Page({
     // 商品详情
     showDetail: false,
     goods_detail: '',
+    // showSearch: false,
+    // initGoodsList: [],
+    // searchList: [],
   },
 
   // 页面高度 scroll-view需要防止整个页面跟着拖动
@@ -118,8 +122,58 @@ Page({
       })
       // console.info(goods_detail)
     }
-
   },
+
+  showSearch: function(e) {
+    let self = this
+    if (this.data.showSearch) {
+      self.data.showSearch = false
+      self.data.selectGoods = self.data.goods.filter(function(e) {
+        return self.data.activeId == e.category_id
+      })
+      self.setData(self.data)
+    } else {
+      self.setData({
+        showSearch: true,
+        selectGoods: self.data.searchList
+      })
+    }
+  },
+
+  // searchInput: function(e) {
+  //   let char = e.detail.value
+  //   const reg = /^[A-Za-z]+$/;
+  //   let isEng = reg.test(char)
+  //   // this.data.searchList = []
+  //   this.data.selectGoods = []
+  //   if (this.data.goods.length > 0 && char.length > 0) {
+  //     for (let i in this.data.goods) {
+  //       this.data.selectGoods.push({
+  //         category_id: this.data.goods[i].category_id,
+  //         list: []
+  //       })
+  //       for (let j in this.data.goods[i].list) {
+  //         if (isEng) {
+  //           // 字母搜索
+  //           let zimu = pinyin.pinyin(this.data.goods[i].list[j].name)
+  //           if (zimu.indexOf(char) != -1) {
+  //             this.data.selectGoods[i].list.push(this.data.goods[i].list[j])
+  //           }
+  //         } else {
+  //           // 汉字搜索
+  //           if (this.data.goods[i].list[j].name.indexOf(char) != -1) {
+  //             this.data.selectGoods[i].list.push(this.data.goods[i].list[j])
+  //           }
+  //         }
+  //       }
+  //       // this.data.selectGoods = this.data.searchList
+  //     }
+  //   } else {
+  //     this.data.selectGoods = []
+  //   }
+  //   this.setData(this.data)
+  //   console.info(this.data.selectGoods)
+  // },
 
   // getGoodsDetail:function(e){
   //   this.setData({
@@ -135,6 +189,8 @@ Page({
     server.request(api.getCategoryByLocationCode, {
       'location_code': locationCode
     }, 'post').then(function(res) {
+      // console.info(res)
+      // self.data.initGoodsList = res.goods
       if (res.category.length > 0) {
         self.data.categories = res.category
         // 初始加载默认第一个类别为选中状态
