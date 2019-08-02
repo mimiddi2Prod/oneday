@@ -14,11 +14,12 @@
     <link rel="stylesheet" type="text/css"
           href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/utils/apis.js"></script>
     <script type="text/javascript" src="../js/utils/http.js"></script> <!--封装接口请求-->
     <script type="text/javascript" src="../js/utils/formatTime.js"></script> <!--时间格式化-->
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/menu.css" rel="stylesheet">
-    <link href="../css/goods.css" rel="stylesheet">
+    <link href="../css/category.css" rel="stylesheet">
 </head>
 
 <body>
@@ -28,10 +29,174 @@
 
 
 <div class="right">
+    <div class="jumbotron" id="category">
+        <!-- 类目 添加分类 -->
+        <div class="title item">
+            <h4>分类管理</h4>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"
+                    v-on:click="addCategoryModal()">添加分类
+            </button>
 
+        </div>
+
+        <!-- 标题 -->
+        <div class="sort-title">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="item">
+                    <!--<span class="second-title column-center">图片</span>-->
+                    <span class="second-title column-center">分类名称</span>
+                    <span class="second-title column-center">排序</span>
+                    <!--<span class="first-title column-center">描述</span>-->
+                    <span class="second-title column-center">创建时间</span>
+                    <span class="second-title column-center">商品数量</span>
+                    <span class="second-title column-center">操作</span>
+                    <!--<span class="second-title column-center"></span>-->
+                </div>
+            </nav>
+        </div>
+
+        <!-- 分类名称item -->
+        <div class="sort" v-for="item,index in categoryList">
+            <nav class="navbar navbar-default row-center" role="navigation">
+                <span class="second-title column-center">{{item.name}}</span>
+                <span class="second-title column-center">{{item.sort}}</span>
+                <span class="second-title column-center">{{item.create_time}}</span>
+                <span class="second-title column-center">{{item.goods_number}}</span>
+                <span class="second-title column-center">
+                    <span v-on:click="editCategoryModal(item.id,item.name,item.sort)" data-toggle="modal" data-target="#myModal">编辑</span>
+                    <span v-if="item.goods_number <= 0">删除</span>
+                </span>
+            </nav>
+            <!--<nav class="navbar navbar-default" role="navigation">-->
+            <!--<div class="item">-->
+            <!--&lt;!&ndash;<span class="second-title column-center"><img :src="item.image" style="width: 137.5px;height: 50px"></span>&ndash;&gt;-->
+            <!--<span class="second-title column-center">-->
+            <!--<span class="row-center pointer" v-on:click="changeCaret(index)">{{item.name}}<span-->
+            <!--:id="'collapse'+index" class="caret-right"></span></span>-->
+            <!--</span>-->
+            <!--<span class="second-title column-center">{{item.sort}}</span>-->
+            <!--&lt;!&ndash;<span class="first-title column-center">{{item.describe}}</span>&ndash;&gt;-->
+            <!--<span class="second-title column-center">{{item.create_time}}</span>-->
+            <!--<span class="second-title column-center">{{item.number}}</span>-->
+            <!--<span class="second-title column-center">-->
+            <!--<button type="button" class="btn btn-link" v-if="item.menu.length <= 0"-->
+            <!--v-on:click="delSort(item.parent_id,item.id,item.name)" data-toggle="modal"-->
+            <!--data-target="#myModal">删除分类</button>-->
+            <!--<button type="button" class="btn btn-link">-->
+            <!--&lt;!&ndash;修改名称&ndash;&gt;-->
+            <!--</button>-->
+            <!--</span>-->
+            <!--<span class="second-title column-center">-->
+            <!--<button type="button" class="btn btn-link" v-if="item.menu.length <= 0">管理商品</button>-->
+            <!--</span>-->
+            <!--</div>-->
+            <!--</nav>-->
+            <!--<div :id="'collapse-container'+index" class="none">-->
+            <!--<div class="goods-sort-container" v-for="menuItem,menuIndex in item.menu">-->
+            <!--<span class="second-title column-center"><img :src="menuItem.image"-->
+            <!--style="width: 50px;height: 50px"></span>-->
+            <!--<span class="second-title column-center">{{menuItem.name}}{{menuItem.home_nav == 0 ? '(首页展示中)' : ''}}</span>-->
+            <!--<span class="second-title column-center">{{menuItem.sort}}</span>-->
+            <!--<span class="first-title column-center">{{menuItem.url}}</span>-->
+            <!--<span class="second-title column-center">{{menuItem.create_time}}</span>-->
+            <!--<span class="second-title column-center">{{menuItem.number}}</span>-->
+            <!--<span class="second-title column-center">-->
+            <!--<button type="button" class="btn btn-link" v-if="menuItem.number <= 0"-->
+            <!--v-on:click="delSort(item.id,menuItem.id,menuItem.name)" data-toggle="modal"-->
+            <!--data-target="#myModal">删除分类</button>-->
+            <!--<button type="button" class="btn btn-link">-->
+            <!--&lt;!&ndash;修改名称&ndash;&gt;-->
+            <!--</button>-->
+            <!--</span>-->
+            <!--<span class="second-title column-center">-->
+            <!--<button type="button" class="btn btn-link">-->
+            <!--&lt;!&ndash;管理商品&ndash;&gt;-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-link">-->
+            <!--&lt;!&ndash;变为一级&ndash;&gt;-->
+            <!--</button>-->
+            <!--</span>-->
+            <!--</div>-->
+
+            <!--<div class="goods-sort-container">-->
+            <!--<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal"-->
+            <!--v-on:click="addSort(index)">+添加子分类-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+
+        <!-- 分页栏 -->
+        <!--<ul class="pagination">-->
+        <!--<li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="#">&laquo;</a></li>-->
+        <!--<li v-for="item,index in pageList" v-on:click="getPage(index)"-->
+        <!--v-bind:class="(item == last_id+1 ? 'active' : '')"><a-->
+        <!--href="#">{{item}}</a></li>-->
+        <!--<li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a-->
+        <!--href="#">&raquo;</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+
+        <!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">开始演示模态框</button> -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+                    </div>
+                    <div class="modal-body" v-if="modalType == 0">
+                        <input type="text" class="form-control" id="submitName" type="text" name=""
+                               v-model="submitName" style="margin-bottom: 6px" placeholder="分类名"/>
+                        <input type="text" class="form-control" id="submitSort" type="text" name=""
+                               v-model="submitSort" style="margin-bottom: 6px" oninput="value=value.replace(/[^\d]/g,'')" placeholder="排序"/>
+                        <!--<input type="text" class="form-control" id="sortModalDesc" type="text" name=""-->
+                        <!--v-model="sortModalDesc" style="margin-bottom: 6px" placeholder="描述" v-if="index == -1"/>-->
+                        <!--<form role="form" v-if="index != -1">-->
+                        <!--<div class="form-group">-->
+                        <!--<select class="form-control" v-model="sortModalUrl">-->
+                        <!--<option disabled="" value="" selected="selected">请选择跳转路径</option>-->
+                        <!--<option>/pages/category/category</option>-->
+                        <!--</select>-->
+                        <!--</div>-->
+                        <!--</form>-->
+                        <!--<input type="text" class="form-control" id="sortModalUrl" type="text" name=""-->
+                        <!--v-model="sortModalUrl" style="margin-bottom: 6px" placeholder="页面路径，目前统一填：/pages/category/category" v-if="index != -1"/>-->
+                        <!--<div class="item">-->
+                        <!--<div class="row-center">-->
+                        <!--<div class="goods-img">-->
+                        <!--<input id="inputImg" class="getImg" type="file" accept="image/*"-->
+                        <!--v-on:change="getImg('inputImg')"/> &lt;!&ndash; multiple能够选择多张图片 &ndash;&gt;-->
+                        <!--<em class="img-r abs">&nbsp;</em>-->
+                        <!--<em class="img-c abs">&nbsp;</em>-->
+                        <!--</div>-->
+                        <!--<div class="imgShow" v-if="sortModalImg.length > 0" v-for="item,index in sortModalImg">-->
+                        <!--&lt;!&ndash;<input class="getImg" type="file" accept="image/*"/>&ndash;&gt;-->
+                        <!--<img class="imgSrc" :src='item.tempFilePath'>-->
+                        <!--<img class="imgDel" src="/images/del.png" v-on:click="delImg(index)">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="text">-->
+                        <!--<div>建议尺寸：</div>-->
+                        <!--<div v-if="index == -1">264 x 96 (2.75:1)。</div>-->
+                        <!--<div v-if="index != -1">(72 x 72) (1:1)。</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" v-on:click="submitCategory()">确定</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+    </div>
 </div>
 
 <script type="text/javascript" src="../js/menu.js"></script>
-<script type="text/javascript" src="../js/goods.js"></script>
+<script type="text/javascript" src="../js/category.js"></script>
 </body>
 </html>

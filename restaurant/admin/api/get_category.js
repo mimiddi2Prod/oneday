@@ -6,9 +6,21 @@ function getCategory() {
         var data = {}
         var row = []
         try {
-            sql = "select id,`name`,location_code from restaurant_category";
+            sql = "select id,`name`,location_code,sort,create_time from restaurant_category order by sort";
             row = await db.Query(sql);
             data = row
+            if (data.length > 0) {
+                for (let i in data) {
+                    sql = "select sum(category_id) from restaurant_goods where category_id = ?";
+                    row = await db.Query(sql, data[i].id);
+                    if (row[0]['sum(category_id)'] != null) {
+                        data[i].goods_number = row[0]['sum(category_id)']
+                    } else {
+                        data[i].goods_number = 0
+                    }
+                    console.info(row)
+                }
+            }
 
             return callback(data);
         } catch (e) {
