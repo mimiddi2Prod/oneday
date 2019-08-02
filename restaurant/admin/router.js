@@ -42,6 +42,10 @@ function Router() {
                 var updateCategory = require("./api/update_category.js");
                 baseApi = new updateCategory;
                 break;
+            case "del_category":
+                var delCategory = require("./api/del_category.js");
+                baseApi = new delCategory;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

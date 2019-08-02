@@ -6,4 +6,5 @@ var api = {
 
     addCategory: '../api/add_category',
     updateCategory: '../api/update_category',
+    delCategory: '../api/del_category',
 }

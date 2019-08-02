@@ -4,7 +4,7 @@ var categoryVM = new Vue({
         categoryList: [],
         submitName: '',
         submitSort: '',
-        edit_id: 0,
+        choose_id: 0,
         // 前方是地狱
 
 
@@ -27,7 +27,7 @@ var categoryVM = new Vue({
     },
     methods: {
         addCategoryModal: function () {
-            this.edit_id = 0
+            this.choose_id = 0
             this.submitName = ''
             this.submitSort = ''
             $('#myModal').on('show.bs.modal', function () {
@@ -37,7 +37,7 @@ var categoryVM = new Vue({
         },
         // 编辑类别
         editCategoryModal: function (category_id, category_name, category_sort) {
-            this.edit_id = category_id
+            this.choose_id = category_id
             this.submitName = category_name
             this.submitSort = category_sort
             $('#myModal').on('show.bs.modal', function () {
@@ -45,34 +45,36 @@ var categoryVM = new Vue({
                 modal.find('.modal-title').text('编辑分类')
             })
         },
+        // 删除
+        showObtainedModal: function (category_id) {
+            this.choose_id = category_id
+            $('#obtained').addClass('inline-block')
+        },
+        hideObtainedModal: function () {
+            $('#obtained').removeClass('inline-block')
+        },
+        submitObtained: function () {
+
+            delCategory()
+        },
         submitCategory: function () {
-            if (this.modalType == 0) {
-                // 添加分类
-                // let type = 0, parent_id = 0
-                if (this.submitName == '') {
-                    alert('请填写分类名称')
-                    return
-                }
-                if (this.submitSort == '') {
-                    alert('请填写分类排序')
-                    return
-                }
-                if (this.edit_id == 0) {
-                    addCategory()
-                } else {
-                    editCategory()
-                }
-                // let self = this, flag = 0
-                // for (let i in this.sortModalImg) {
-                //     uploadImg(this.sortModalImg[i].key, this.sortModalImg[i].uploadToken, this.sortModalImg[i].imgFile, function (res) {
-                //         // flag 图片上传完毕之后才提交
-                //         flag++
-                //         if (flag == self.sortModalImg.length) {
-                //             // console.info('上传完毕')
-                //             addCategory(type, parent_id)
-                //         }
-                //     })
-                // }
+            // if (this.modalType == 0) {
+            // 添加分类
+            // let type = 0, parent_id = 0
+            console.info(this.submitSort)
+            console.info(this.submitName)
+            if (this.submitName == '') {
+                alert('请填写分类名称')
+                return
+            }
+            if (this.submitSort.length <= 0) {
+                alert('请填写分类排序')
+                return
+            }
+            if (this.choose_id == 0) {
+                addCategory()
+            } else {
+                editCategory()
             }
         },
     }
@@ -115,7 +117,7 @@ function addCategory() {
 function editCategory() {
     const url = api.updateCategory, async = true
     let data = {}
-    data.id = categoryVM.edit_id
+    data.id = categoryVM.choose_id
     data.name = categoryVM.submitName
     data.sort = categoryVM.submitSort
     data.location_code = 'xmspw'
@@ -129,13 +131,15 @@ function editCategory() {
     })
 }
 
-function delCategory(parent_id, id) {
-    const url = '../api/del_category'
+function delCategory() {
+    const url = api.delCategory, async = true
     let data = {}
-    data.parent_id = parent_id
-    data.id = id
-    server(url, data, "post", function (res) {
-        if (res.text == '删除成功') {
+    // data.parent_id = parent_id
+    data.id = categoryVM.choose_id
+    console.info(data.id)
+    server(url, data, async, "post", function (res) {
+        if (res.code == 0) {
+            $('#obtained').removeClass('inline-block')
             getCategory()
         }
     })
