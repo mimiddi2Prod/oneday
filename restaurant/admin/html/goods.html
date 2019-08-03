@@ -118,8 +118,8 @@
                     <span class="second-title have-border column-center">价格</span>
                     <span class="second-title have-border column-center">销量</span>
                     <span class="second-title have-border column-center">库存</span>
-                    <span class="second-title have-border column-center" v-if="navTwoId == 0">分类</span>
-                    <span class="second-title have-border column-center" v-if="navTwoId == 1">购买积分</span>
+                    <!--<span class="second-title have-border column-center" v-if="navTwoId == 0">分类</span>-->
+                    <!--<span class="second-title have-border column-center" v-if="navTwoId == 1">购买积分</span>-->
                     <span class="second-title have-border column-center">创建时间</span>
                     <span class="second-title column-center">操作</span>
                 </div>
@@ -127,7 +127,7 @@
 
             <!-- 商品详情 -->
             <div class="goods-container" v-for="item,index in goodsList">
-                <div class="m">
+                <div class="m" :class="item.param.length <= 0 ? 'border-bottom' : ''">
                     <div class="first-title">
                         <label class="form-check-label row-center">
                             <div class="a" v-on:change="checkOne()">
