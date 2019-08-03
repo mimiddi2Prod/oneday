@@ -54,6 +54,10 @@ function Router() {
                 var getOrderBySearch = require("./api/get_order_by_search.js");
                 baseApi = new getOrderBySearch;
                 break;
+            case "update_goods":
+                var updateGoods = require("./api/update_goods.js");
+                baseApi = new updateGoods;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

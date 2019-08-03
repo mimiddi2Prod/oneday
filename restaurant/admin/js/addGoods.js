@@ -279,14 +279,14 @@ var addGoodsVM = new Vue({
         batchChangePrice: function () {
             let self = this
             self.table = self.table.map(function (eData) {
-                eData.price = self.batchPrice
+                eData.price = Number(self.batchPrice)
                 return eData
             })
         },
         batchChangeStock: function () {
             let self = this
             self.table = self.table.map(function (eData) {
-                eData.stock = self.batchStock
+                eData.stock = Number(self.batchStock)
                 return eData
             })
         },

@@ -48,8 +48,11 @@ var editGoodsVM = new Vue({
         // 标记是往哪个class里面加param
         seleceClassIndex: '',
 
+        location_code: '',
+
         // 最后提交时 商品的状态 0下架 / 1上架
         goods_status: '',
+        paramIsChange: false,
 
         // 批量改价
         batchPrice: '',
@@ -246,6 +249,7 @@ var editGoodsVM = new Vue({
         },
 
         getTable: function () {
+            this.paramIsChange = true
             let tempList = this.classSubmitList.filter(function (eData) {
                 return eData.param.length > 0
             })
@@ -282,14 +286,14 @@ var editGoodsVM = new Vue({
         batchChangePrice: function () {
             let self = this
             self.table = self.table.map(function (eData) {
-                eData.price = self.batchPrice
+                eData.price = Number(self.batchPrice)
                 return eData
             })
         },
         batchChangeStock: function () {
             let self = this
             self.table = self.table.map(function (eData) {
-                eData.stock = self.batchStock
+                eData.stock = Number(self.batchStock)
                 return eData
             })
         },
@@ -368,16 +372,21 @@ var editGoodsVM = new Vue({
             // 全部验证完毕 开始上传图片 有图片的地方分别是 1.img_list 2.SortItem>size>img 3.goodsInfoImgList
             if (this.img_list.length > 0) {
                 let self = this, flag = 0
-                // for (let i = 0; i < 1; i++) {
-                uploadImg(this.img_list[0].key, this.img_list[0].uploadToken, this.img_list[0].imgFile, function (res) {
-                    // flag 图片上传完毕之后才提交
-                    // flag++
-                    // if (flag == self.img_list.length) {
-                    // console.info('上传完毕')
-                    imgUploadIsOkNum = imgUploadIsOkNum + 1
+                if (this.img_list[0].key) {
+                    // for (let i = 0; i < 1; i++) {
+                    uploadImg(this.img_list[0].key, this.img_list[0].uploadToken, this.img_list[0].imgFile, function (res) {
+                        // flag 图片上传完毕之后才提交
+                        // flag++
+                        // if (flag == self.img_list.length) {
+                        // console.info('上传完毕')
+                        imgUploadIsOkNum = imgUploadIsOkNum + 1
+                        // }
+                    })
                     // }
-                })
-                // }
+                } else {
+                    imgUploadIsOkNum = imgUploadIsOkNum + 1
+                }
+
             }
             // if (this.img_list.length > 0) {
             //     let self = this, flag = 0
@@ -395,7 +404,7 @@ var editGoodsVM = new Vue({
 
             let scroll = setInterval(function () {
                 if (imgUploadIsOkNum == 1) {
-                    addGoods()
+                    updateGoods()
                     clearInterval(scroll)
                 }
             }, 500)
@@ -420,6 +429,7 @@ function getCurrentGoodsInfo() {
     editGoodsVM.goods_desc = current_goods_info.describe
     editGoodsVM.sort = current_goods_info.sort
     editGoodsVM.select_category_id = current_goods_info.category_id
+    editGoodsVM.location_code = current_goods_info.location_code
     editGoodsVM.priceTypeId = current_goods_info.param.length > 0 ? 1 : 0
     if (current_goods_info.param.length <= 0) {
         editGoodsVM.goods_price = current_goods_info.min_price
@@ -440,13 +450,6 @@ function getCurrentGoodsInfo() {
                 param: [],
             })
         }
-
-        // console.info(document.getElementsByName('classOptions').values())
-        // console.info(document.getElementById('classId0'))
-        // for (let i = 0; i < key_list.length; i++) {
-        //     let id = 'classId' + i
-        //     console.info(document.getElementById(id))
-        // }
         let str = ''
         for (let i in current_goods_info.param) {
             let param_list = JSON.parse(current_goods_info.param[i].param)
@@ -480,23 +483,20 @@ function getCurrentGoodsInfo() {
 
 // 批量分类
 function getCategory() {
-    const url = api.getCategory
-    let data = {}, async = true
+    const url = api.getCategory, async = true
+    let data = {}
     server(url, data, async, "post", function (res) {
         // console.info(res)
         editGoodsVM.category = res
     })
 }
 
-function addGoods() {
-    const url = '../api/add_goods', async = true
+function updateGoods() {
+    const url = api.updateGoods, async = true
     let data = {}
-    // data.user_id = sessionStorage.getItem('user_id')
     data.user_id = 1
-    // data.img_list = editGoodsVM.img_list.map(function (res) {
-    //     return res.key
-    // })
-    data.img_list = editGoodsVM.img_list[0].key
+    data.img_list = (editGoodsVM.img_list[0].key ? editGoodsVM.img_list[0].key : editGoodsVM.img_list[0].tempFilePath)
+    data.goods_id = editGoodsVM.goods_id
     data.goods_title = editGoodsVM.goods_title
     data.goods_desc = editGoodsVM.goods_desc
     data.select_category_id = editGoodsVM.select_category_id
@@ -504,36 +504,9 @@ function addGoods() {
     data.param_list = editGoodsVM.table
     data.goods_status = editGoodsVM.goods_status
     data.stock = editGoodsVM.goods_stock
-    data.location_code = "xmspw"
+    data.location_code = editGoodsVM.location_code
     data.sort = editGoodsVM.sort
-    // if (editGoodsVM.integralSelect == 0) {
-    //     data.type = editGoodsVM.typeValue
-    //     data.integralValue = 0
-    // } else {
-    //     data.type = 2
-    //     data.integralValue = editGoodsVM.integralValue
-    // }
-    // data.category_parent_id_select = editGoodsVM.category_parent_id_select
-    // data.category_id_select = editGoodsVM.category_id_select
-    // data.paramItem = editGoodsVM.SortItem
-    // for (let i in data.paramItem) {
-    //     if (data.paramItem[i].haveParamImg) {
-    //         for (let j in data.paramItem[i].size) {
-    //             let tempImg = data.paramItem[i].size[j].img[0].key
-    //             data.paramItem[i].size[j].img[0] = ''
-    //             data.paramItem[i].size[j].img[0] = tempImg
-    //         }
-    //     }
-    // }
-    // data.paramAndPrice = editGoodsVM.sizeAndPrice
-    // data.price = data.paramAndPrice.sort(function (a, b) {
-    //     return Number(a.price - b.price)
-    // })
-    // data.price = data.price[0].price
-    // data.goodsInfoImgList = editGoodsVM.goodsInfoImgList.map(function (res) {
-    //     return res.key
-    // })
-    // data.state = editGoodsVM.state
+    data.paramIsChange = editGoodsVM.paramIsChange
 
     server(url, data, async, "post", function (res) {
         console.info(res)
