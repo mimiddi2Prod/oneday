@@ -47,6 +47,10 @@ var addGoodsVM = new Vue({
 
         // 最后提交时 商品的状态 0下架 / 1上架
         goods_status: '',
+
+        // 批量改价
+        batchPrice: '',
+        batchStock: '',
     },
     methods: {
         // -----> 商品图片存储七牛云前的处理
@@ -268,6 +272,22 @@ var addGoodsVM = new Vue({
                 }
                 // console.info(this.table)
             }
+        },
+
+        // 批量改价
+        batchChangePrice: function () {
+            let self = this
+            self.table = self.table.map(function (eData) {
+                eData.price = self.batchPrice
+                return eData
+            })
+        },
+        batchChangeStock: function () {
+            let self = this
+            self.table = self.table.map(function (eData) {
+                eData.stock = self.batchStock
+                return eData
+            })
         },
 
         // 商品提交

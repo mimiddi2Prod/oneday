@@ -64,8 +64,8 @@
                 <span class="second-title column-center">{{item.goods_number}}</span>
                 <span class="second-title column-center">
                     <span v-on:click="editCategoryModal(item.id,item.name,item.sort)" data-toggle="modal"
-                          data-target="#myModal">编辑</span>
-                    <span v-if="item.goods_number <= 0" v-on:click="showObtainedModal(item.id)">删除</span>
+                          data-target="#myModal" style="cursor: pointer;color: #1598e3">编辑</span>
+                    <span v-if="item.goods_number <= 0" v-on:click="showObtainedModal(item.id)" style="cursor: pointer;color:#d9534f">删除</span>
                 </span>
             </nav>
         </div>
