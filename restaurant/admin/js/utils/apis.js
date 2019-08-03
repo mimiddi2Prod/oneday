@@ -7,4 +7,6 @@ var api = {
     addCategory: '../api/add_category',
     updateCategory: '../api/update_category',
     delCategory: '../api/del_category',
+    getOrder: '../api/get_order',
+    getOrderBySearch: '../api/get_order_by_search'
 }

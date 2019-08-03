@@ -46,6 +46,14 @@ function Router() {
                 var delCategory = require("./api/del_category.js");
                 baseApi = new delCategory;
                 break;
+            case "get_order":
+                var getOrder = require("./api/get_order.js");
+                baseApi = new getOrder;
+                break;
+            case "get_order_by_search":
+                var getOrderBySearch = require("./api/get_order_by_search.js");
+                baseApi = new getOrderBySearch;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

@@ -330,7 +330,7 @@ var addGoodsVM = new Vue({
                             let stock = 0
                             let len = self.table.length;
                             for (let i = 0; i < len; i++) {
-                                stock = stock + self.table[i].stock;
+                                stock = stock + Number(self.table[i].stock);
                             }
                             return stock;
                         }()
