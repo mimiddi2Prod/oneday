@@ -25,19 +25,21 @@ var editGoodsVM = new Vue({
         goods_price: '',
 
         // 类别 option使用
-        classList: ['糖度', '冰度'],
+        classList: [],
+        // classList: ['糖度', '冰度'],
         // 商品型号 选中的 类型 和 参数
         classSubmitList: [],
         // key - value - price - stock
         table: [],
         // 弹窗时要筛选出对应的param 到 tempParamModal 以供选择
-        paramList: [{
-            name: '糖度',
-            param: ['半糖', '多糖', '单糖']
-        }, {
-            name: '冰度',
-            param: ['0度', '50度', '100度']
-        }],
+        paramList: [],
+        // paramList: [{
+        //     name: '糖度',
+        //     param: ['半糖', '多糖', '单糖']
+        // }, {
+        //     name: '冰度',
+        //     param: ['0度', '50度', '100度']
+        // }],
         // 弹窗时获取当前的参数 临时使用
         tempParamModal: {},
         // 类别 和 参数 弹窗填写的字段
@@ -48,6 +50,10 @@ var editGoodsVM = new Vue({
 
         // 最后提交时 商品的状态 0下架 / 1上架
         goods_status: '',
+
+        // 批量改价
+        batchPrice: '',
+        batchStock: '',
     },
     methods: {
         // -----> 商品图片存储七牛云前的处理
@@ -152,6 +158,7 @@ var editGoodsVM = new Vue({
                     document.getElementById(classId).value = ''
                     classValue = ''
                     this.classSubmitList[index].param = []
+                    this.getTable()
                     // 警告框展示隐藏
                     var alertId = '#alert' + index
                     $(alertId).addClass('inline-block')
@@ -269,6 +276,22 @@ var editGoodsVM = new Vue({
                 }
                 // console.info(this.table)
             }
+        },
+
+        // 批量改价
+        batchChangePrice: function () {
+            let self = this
+            self.table = self.table.map(function (eData) {
+                eData.price = self.batchPrice
+                return eData
+            })
+        },
+        batchChangeStock: function () {
+            let self = this
+            self.table = self.table.map(function (eData) {
+                eData.stock = self.batchStock
+                return eData
+            })
         },
 
         // 商品提交
@@ -405,11 +428,19 @@ function getCurrentGoodsInfo() {
         let param = JSON.parse(current_goods_info.param[0].param)
         let key_list = Object.keys(param)
         for (let i in key_list) {
+            // -----> 初始化选择目录
+            editGoodsVM.classList.push(key_list[i])
+            editGoodsVM.paramList.push({
+                name: key_list[i],
+                param: []
+            })
+            // <----- 初始化选择目录
             editGoodsVM.classSubmitList.push({
                 select: key_list[i],
                 param: [],
             })
         }
+
         // console.info(document.getElementsByName('classOptions').values())
         // console.info(document.getElementById('classId0'))
         // for (let i = 0; i < key_list.length; i++) {
@@ -422,6 +453,9 @@ function getCurrentGoodsInfo() {
             for (let j in param_list) {
                 for (let k in editGoodsVM.classSubmitList) {
                     if (editGoodsVM.classSubmitList[k].select == j && str.indexOf(param_list[j]) == -1) {
+                        // -----> 初始化选择目录
+                        editGoodsVM.paramList[k].param.push(param_list[j])
+                        // <----- 初始化选择目录
                         editGoodsVM.classSubmitList[k].param.push(param_list[j])
                         str = str + param_list[j]
                     }
@@ -429,6 +463,17 @@ function getCurrentGoodsInfo() {
             }
         }
         editGoodsVM.table = current_goods_info.param
+
+        let scroll = setInterval(function () {
+            if (document.getElementsByName('classOptions').length > 0) {
+                for (let i in key_list) {
+                    let idName = 'classId' + i
+                    let select = document.getElementById(idName)
+                    select.value = key_list[i]
+                }
+                clearInterval(scroll)
+            }
+        }, 500)
     }
 
 }
@@ -444,15 +489,6 @@ function getCategory() {
 }
 
 function addGoods() {
-    // console.info(editGoodsVM.goodsStatus)
-    // console.info(editGoodsVM.img_list)
-    // console.info(editGoodsVM.goods_title)
-    // console.info(editGoodsVM.goods_desc)
-    // console.info(editGoodsVM.select_category_id)
-    // console.info(editGoodsVM.goods_price)
-    // console.info(editGoodsVM.table)
-    // return
-
     const url = '../api/add_goods', async = true
     let data = {}
     // data.user_id = sessionStorage.getItem('user_id')

@@ -155,6 +155,7 @@ var addGoodsVM = new Vue({
                     document.getElementById(classId).value = ''
                     classValue = ''
                     this.classSubmitList[index].param = []
+                    this.getTable()
                     // 警告框展示隐藏
                     var alertId = '#alert' + index
                     $(alertId).addClass('inline-block')

@@ -236,10 +236,13 @@
                             <div class="item">
                                 <span class="first-title column-center">批量修改价格</span>
                                 <span class="second-title column-center">
-                                    <input class="form-control" style="width: 90%"/></span>
+                                    <input class="form-control" v-model="batchPrice"
+                                           oninput="value=value.replace(/[^\d.]/g,'')" style="width: 90%"
+                                           v-on:keyUp.enter="batchChangePrice"/></span>
                                 <span class="second-title column-center">
-                                    <input class="form-control" oninput="value=value.replace(/[^\d]/g,'')"
-                                           style="width: 90%"/></span>
+                                    <input class="form-control" v-model="batchStock"
+                                           oninput="value=value.replace(/[^\d]/g,'')" style="width: 90%"
+                                           v-on:keyUp.enter="batchChangeStock"/></span>
                                 <!--<span class="second-title column-center"><input class="form-control" style="width: 90%"/></span>-->
                             </div>
                         </nav>
