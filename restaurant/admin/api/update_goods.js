@@ -19,6 +19,11 @@ function updateGoods() {
             // sql = "select id,`name`,image,tag from admin_menu where sup_id = ?";
             row = await db.Query(sql, [param["goods_title"], img, param["goods_desc"], param["goods_min_price"], param["location_code"], param["select_category_id"], param["stock"], param["goods_status"], param["sort"], param["user_id"], param["goods_id"]]);
             console.info(row)
+            if (param["haveParam"] == 0) {
+                // 不需要参数 删除旧的 重新设置
+                sql = "delete from restaurant_goods_sku where goods_id = ?"
+                row = await db.Query(sql, param["goods_id"])
+            }
             if (param["paramIsChange"]) {
                 // 参数有改动 删除旧的 重新设置
                 sql = "delete from restaurant_goods_sku where goods_id = ?"

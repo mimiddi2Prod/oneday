@@ -310,7 +310,7 @@ var addGoodsVM = new Vue({
                 alert('请选择商品类目')
                 return
             }
-            if (this.sort == '') {
+            if (this.sort.length > 0) {
                 alert('请填写商品排序')
                 return
             }

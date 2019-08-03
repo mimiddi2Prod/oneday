@@ -317,7 +317,7 @@ var editGoodsVM = new Vue({
                 alert('请选择商品类目')
                 return
             }
-            if (this.sort == '') {
+            if (this.sort.length > 0) {
                 alert('请填写商品排序')
                 return
             }
@@ -502,6 +502,7 @@ function updateGoods() {
     data.select_category_id = editGoodsVM.select_category_id
     data.goods_min_price = editGoodsVM.goods_price
     data.param_list = (editGoodsVM.priceTypeId == 1 ? editGoodsVM.table : [])
+    data.haveParam = editGoodsVM.priceTypeId
     data.goods_status = editGoodsVM.goods_status
     data.stock = editGoodsVM.goods_stock
     data.location_code = editGoodsVM.location_code
