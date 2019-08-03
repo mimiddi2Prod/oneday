@@ -98,13 +98,19 @@
                         <input type="checkbox" name="checkbox-all" v-model="checkboxAll">
                         <span>全选</span>
                     </label>
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#categoryModal">
+                    <button type="button" class="btn btn-secondary" v-on:click="no()">
                         批量分类
                     </button>
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#priceModal"
-                            v-on:click="showPriceModal()">批量改价
+                    <button type="button" class="btn btn-secondary" v-on:click="no()">批量改价
                     </button>
-                    <button type="button" class="btn btn-secondary" v-on:click="showObtainedModal()">批量下架</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="no()">批量下架</button>
+                    <!--<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#categoryModal">-->
+                    <!--批量分类-->
+                    <!--</button>-->
+                    <!--<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#priceModal"-->
+                    <!--v-on:click="showPriceModal()">批量改价-->
+                    <!--</button>-->
+                    <!--<button type="button" class="btn btn-secondary" v-on:click="showObtainedModal()">批量下架</button>-->
                     <!--<button type="button" class="btn btn-secondary">批量删除</button>-->
                 </div>
             </nav>

@@ -154,6 +154,11 @@ var goodsVM = new Vue({
         hideObtainedModal: function () {
             $('#obtained').removeClass('inline-block')
         },
+
+        no: function () {
+            alert('功能未完善，后续更新，敬请期待')
+            return
+        },
         // 批量分类用
         haveCategoryParent: function (id) {
             let type = 1, parent_id = id
