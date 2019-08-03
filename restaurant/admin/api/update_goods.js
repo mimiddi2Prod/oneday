@@ -9,7 +9,8 @@ function updateGoods() {
         try {
             console.info(param)
             let img = ''
-            if (img.indexOf('qiniuRootUrl') != -1) {
+            console.info()
+            if (param["img_list"].indexOf(qiniuRootUrl) != -1) {
                 img = param["img_list"]
             } else {
                 img = qiniuRootUrl + param["img_list"]

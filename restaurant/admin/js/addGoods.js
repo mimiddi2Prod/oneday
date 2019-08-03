@@ -437,7 +437,7 @@ function addGoods() {
     data.goods_desc = addGoodsVM.goods_desc
     data.select_category_id = addGoodsVM.select_category_id
     data.goods_min_price = addGoodsVM.goods_price
-    data.param_list = addGoodsVM.table
+    data.param_list = (addGoodsVM.priceTypeId == 1 ? addGoodsVM.table : [])
     data.goods_status = addGoodsVM.goods_status
     data.stock = addGoodsVM.goods_stock
     data.location_code = "xmspw"

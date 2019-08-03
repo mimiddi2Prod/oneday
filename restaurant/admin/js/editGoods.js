@@ -501,7 +501,7 @@ function updateGoods() {
     data.goods_desc = editGoodsVM.goods_desc
     data.select_category_id = editGoodsVM.select_category_id
     data.goods_min_price = editGoodsVM.goods_price
-    data.param_list = editGoodsVM.table
+    data.param_list = (editGoodsVM.priceTypeId == 1 ? editGoodsVM.table : [])
     data.goods_status = editGoodsVM.goods_status
     data.stock = editGoodsVM.goods_stock
     data.location_code = editGoodsVM.location_code
@@ -511,8 +511,8 @@ function updateGoods() {
     server(url, data, async, "post", function (res) {
         console.info(res)
         if (res.code == 0) {
-            alert('添加成功')
-            location.reload()
+            alert('编辑成功')
+            window.location.href = "goods"
         }
     })
 

@@ -36,7 +36,7 @@
         <!-- 类目 添加分类 -->
         <div class="title row-center">
             <h4><span v-on:click="window.location.href = 'goods'">商品管理</span><span
-                    class="glyphicon glyphicon-menu-right"></span><span>编辑商品</span></h4>(该页面未完善)
+                    class="glyphicon glyphicon-menu-right"></span><span>编辑商品</span></h4>
         </div>
 
         <!-- 添加商品信息分栏 -->
@@ -195,7 +195,7 @@
             </div>
 
             <!--价格和库存-->
-            <div class="sort row-center" style="align-items: unset" v-if="classSubmitList.length > 0">
+            <div class="sort row-center" style="align-items: unset" v-if="classSubmitList.length > 0 && priceTypeId == 1">
                 <div class="index">价格与库存</div>
                 <div class="item">
                     <div class="sort-title" style="margin-top: 0">
