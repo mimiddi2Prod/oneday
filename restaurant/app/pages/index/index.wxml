@@ -111,15 +111,15 @@
 <view class="search {{showSearch ? '' : 'hide'}}" catchtouchmove="ture">
   <view class="search-container">
     <image class="goods-param-close" src='/images/icon_close.png' bindtap='showSearch'></image>
-    <input placeholder='请输入商品名称' bindinput='searchInput'></input>
-    <view>
+    <input placeholder='请输入商品名称' bindinput='searchInput' value="{{char}}"></input>
+    <!-- <view>
       历史搜索
-    </view>
+    </view> -->
     <scroll-view class="search-view" scroll-y="true">
-      <view wx:for="{{searchList}}">
-        <block wx:for="{{item.list}}" wx:for-item="goods" wx:key="id">
+      <view wx:for="{{goods}}">
+        <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex" wx:key="id" wx:if="{{goods.isSearch}}">
           <view class='goods-item' bindtap="toDetailsTap" data-id="{{goods.id}}">
-            <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}"></image>
+            <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}" data-index="{{index}}"></image>
             <view class='goods-info' style='width:440rpx;'>
               <text class='goodsName'>{{goods.name}}</text>
               <text class='goodsPrice'>￥{{goods.min_price}}</text>

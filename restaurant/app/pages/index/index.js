@@ -42,7 +42,7 @@ Page({
     goods_detail: '',
     showSearch: false,
     // initGoodsList: [],
-    searchList: [],
+    // searchList: [],
   },
 
   // 页面高度 scroll-view需要防止整个页面跟着拖动
@@ -131,53 +131,71 @@ Page({
 
   showSearch: function(e) {
     let self = this
-    if (this.data.showSearch) {
+    if (self.data.showSearch) {
       self.data.showSearch = false
       // self.data.searchList = self.data.goods.filter(function(e) {
       //   return self.data.activeId == e.category_id
       // })
       self.setData(self.data)
     } else {
-      self.setData({
-        showSearch: true,
-        // selectGoods: self.data.searchList
-      })
+      for (let i in self.data.goods) {
+        for (let j in self.data.goods[i].list) {
+          self.data.goods[i].list[j].isSearch = false
+        }
+      }
+      self.data.showSearch = true
+      self.data.char = ''
+      self.setData(self.data)
+      // self.setData({
+      //   showSearch: true,
+      //   char:'',
+      //   // selectGoods: self.data.searchList
+      // })
     }
   },
 
   searchInput: function(e) {
     let char = e.detail.value
+    this.data.char = char
     const reg = /^[A-Za-z]+$/;
     let isEng = reg.test(char)
     // this.data.searchList = []
-    this.data.searchList = []
     if (this.data.goods.length > 0 && char.length > 0) {
       for (let i in this.data.goods) {
-        this.data.searchList.push({
-          category_id: this.data.goods[i].category_id,
-          list: []
-        })
+        // this.data.searchList.push({
+        //   category_id: this.data.goods[i].category_id,
+        //   list: []
+        // })
         for (let j in this.data.goods[i].list) {
+          this.data.goods[i].list[j].isSearch = false
           if (isEng) {
             // 字母搜索
             let zimu = pinyin.pinyin(this.data.goods[i].list[j].name)
             if (zimu.indexOf(char) != -1) {
-              this.data.searchList[i].list.push(this.data.goods[i].list[j])
+              this.data.goods[i].list[j].isSearch = true
+              // this.data.searchList[i].list.push(this.data.goods[i].list[j])
             }
           } else {
             // 汉字搜索
             if (this.data.goods[i].list[j].name.indexOf(char) != -1) {
-              this.data.searchList[i].list.push(this.data.goods[i].list[j])
+              this.data.goods[i].list[j].isSearch = true
+              // this.data.searchList[i].list.push(this.data.goods[i].list[j])
             }
           }
         }
         // this.data.selectGoods = this.data.searchList
       }
     } else {
-      this.data.searchList = []
+      for (let i in this.data.goods) {
+        for (let j in this.data.goods[i].list) {
+          this.data.goods[i].list[j].isSearch = false
+        }
+        // this.data.selectGoods = this.data.searchList
+      }
+      // this.data.searchList = []
     }
     this.setData(this.data)
-    console.info(this.data.searchList)
+    // console.info(this.data.searchList)
   },
 
   getGoodsDetail:function(e){
@@ -211,6 +229,7 @@ Page({
         // 每个商品加入购物车的数量
         for (let i in res.goods) {
           res.goods[i].cartNumber = 0
+          res.goods[i].isSearch = false
         }
         let goods = []
         // 相同类别的商品放到筛选放一起
@@ -224,6 +243,7 @@ Page({
             })
           })
         }
+        console.info(goods)
         // 所有商品
         self.data.goods = goods
         // 选中类别的商品展示
@@ -563,15 +583,15 @@ Page({
     let offset = 0;
     let isBreak = false;
 
-    for (let g = 0; g < this.data.selectGoods.length; g++) {
-      let goodWrap = this.data.selectGoods[g];
+    for (let g = 0; g < this.data.goods.length; g++) {
+      let goodWrap = this.data.goods[g];
       offset += 40;
 
       if (scrollTop <= offset) {
-        if (this.data.categoryToView != goodWrap.scrollId) {
+        if (this.data.goodsToView != goodWrap.scrollId) {
           this.setData({
             activeId: goodWrap.scrollId,
-            categoryToView: goodWrap.scrollId,
+            goodsToView: goodWrap.scrollId,
           })
         }
         break;
@@ -580,10 +600,10 @@ Page({
       for (let i = 0; i < goodWrap.list.length; i++) {
         offset += 90;
         if (scrollTop <= offset) {
-          if (this.data.categoryToView != goodWrap.scrollId) {
+          if (this.data.goodsToView != goodWrap.scrollId) {
             this.setData({
               activeId: goodWrap.scrollId,
-              categoryToView: goodWrap.scrollId,
+              goodsToView: goodWrap.scrollId,
             })
           }
           isBreak = true;
