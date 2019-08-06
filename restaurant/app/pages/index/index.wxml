@@ -1,6 +1,7 @@
 <!--index.wxml-->
 <!-- 1.选择规格 -->
-<view class="goods-param {{showModal ? '' : 'hide'}}" catchtouchmove="ture">
+<view class="goods-param {{showModal ? '' : 'hide'}}">
+<!-- catchtouchmove="ture" -->
   <!-- 模糊背景 -->
   <view class="goods-param-bg"></view>
   <!-- 弹窗内容 -->
@@ -21,10 +22,10 @@
           <!-- 商品价格 -->
           <view>￥{{goodsPrice}}</view>
           <!-- 购买数量选择 -->
-          <view class="goods-add-cart" wx:if="{{selectGoods[0].list[0].cartNumber <= 0}}" bindtap="addMoreParamCart">加入购物车</view>
+          <view class="goods-add-cart" wx:if="{{selectGoods.cartNumber <= 0}}" bindtap="addMoreParamCart">加入购物车</view>
           <view class="goods-add-cart-have" wx:else>
             <view bindtap="cutMoreParamCart">-</view>
-            <view>{{selectGoods[0].list[0].cartNumber}}</view>
+            <view>{{selectGoods.cartNumber}}</view>
             <view bindtap="addMoreParamCart">+</view>
           </view>
         </view>
@@ -96,7 +97,7 @@
           <view bindtap="addSingleParamCart" data-id="{{goods_detail.id}}" data-paramid="0" data-price="{{goods_detail.min_price}}" data-name="{{goods_detail.name}}" data-image="{{goods_detail.img}}" data-describe="{{goods_detail.describe}}">+</view>
         </view>
         <!-- 有规格 -->
-        <view wx:else bindtap='getGoodsParam' data-id='{{goods_detail.id}}' data-name='{{goods_detail.name}}' data-describe="{{goods_detail.describe}}" data-image="{{goods_detail.img}}">
+        <view wx:else bindtap='getGoodsParam' data-id='{{goods_detail.id}}' data-name='{{goods_detail.name}}' data-describe="{{goods_detail.describe}}" data-image="{{goods_detail.img}}" data-index="{{goods_detail.index}}">
           选择
         </view>
       </view>
@@ -124,14 +125,14 @@
               <text class='goodsPrice'>￥{{goods.min_price}}</text>
             </view>
             <view class="goods-add"> -->
-              <!-- 没有规格 -->
-              <!-- <view class='goods-add-cart-have' wx:if="{{goods.sku.length <= 0}}">
+<!-- 没有规格 -->
+<!-- <view class='goods-add-cart-have' wx:if="{{goods.sku.length <= 0}}">
                 <view bindtap="cutSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" wx:if="{{goods.cartNumber > 0}}">-</view>
                 <view wx:if="{{goods.cartNumber > 0}}">{{goods.cartNumber}}</view>
                 <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-describe="{{goods.describe}}">+</view>
               </view> -->
-              <!-- 有规格 -->
-              <!-- <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}">
+<!-- 有规格 -->
+<!-- <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}">
                 选择
               </view>
             </view>
@@ -157,23 +158,26 @@
 <!-- 内容 -->
 <view class="content" style="height:{{winHeight}}rpx">
   <!-- 左边商品类型选择 -->
-  <scroll-view class="left" scroll-y="true">
+  <scroll-view class="left" scroll-y="true" scroll-into-view="{{activeId}}">
     <block wx:for="{{categories}}" wx:key="*this">
-      <view class="category-item {{activeId==item.id?'category-item-active':''}}" data-id='{{item.id}}' data-name='{{item.name}}' bindtap='onCategoryClick'>
+      <view class="category-item {{activeId==item.scrollId?'category-item-active':''}}" data-id='{{item.scrollId}}' data-name='{{item.name}}' bindtap='onCategoryClick'>
         <text>{{item.name}}</text>
       </view>
     </block>
     <view style="height:170rpx;opacity: 0">1</view>
   </scroll-view>
   <!-- 右边商品列表 -->
-  <scroll-view class='right' scroll-y="true" enable-back-to-top="true">
-    <view class="goodsWrap-category">
+  <scroll-view class='right' scroll-y="true" scroll-into-view="{{goodsToView}}" enable-back-to-top="true" bindscroll="scroll">
+    <!-- <view class="goodsWrap-category">
       <text>{{activeName}}</text>
-    </view>
-    <view class="goods" wx:for="{{selectGoods}}" wx:key="*this">
-      <block wx:for="{{item.list}}" wx:for-item="goods" wx:key="id">
+    </view> -->
+    <view class="goods" wx:for="{{goods}}" wx:key="*this">
+      <view class="goodsWrap-category" id='{{item.scrollId}}'>
+        <text>{{item.category_name}}</text>
+      </view>
+      <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex" wx:key="id">
         <view class='goods-item' bindtap="toDetailsTap" data-id="{{goods.id}}">
-          <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}"></image>
+          <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}" data-index="{{index}}"></image>
           <!-- <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='getGoodsDetail' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}" wx:if="{{goods.sku.length > 0}}"></image> -->
           <view class='goods-info'>
             <text class='goodsName'>{{goods.name}}</text>
@@ -187,14 +191,15 @@
               <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-describe="{{goods.describe}}">+</view>
             </view>
             <!-- 有规格 -->
-            <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}">
+            <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-index="{{index}}" data-image="{{goods.img}}">
               选择
             </view>
           </view>
         </view>
       </block>
-      <view style="height:170rpx;opacity: 0">1</view>
+      <!-- <view style="height:170rpx;opacity: 0">1</view> -->
     </view>
+    <view style="height:170rpx;opacity: 0">1</view>
   </scroll-view>
 </view>
 

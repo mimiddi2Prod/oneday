@@ -8,6 +8,8 @@ Page({
   data: {
     // 主页面左侧类别栏选中id(自定义id 与数据库类别id无关)
     activeId: '',
+    goodsToView: '',
+    index: '',
     // 选中类别的名字 在右侧商品列表上展示
     activeName: '',
     categories: [],
@@ -113,9 +115,12 @@ Page({
       })
     } else {
       let goods_id = e.currentTarget.dataset.id
-      let goods_detail = this.data.selectGoods[0].list.filter(function(eData) {
+      let index = e.currentTarget.dataset.index
+      let goods_detail = this.data.goods[index].list.filter(function(eData) {
         return eData.id == goods_id
       })[0]
+      goods_detail.index = index
+      console.info(goods_detail)
       this.setData({
         goods_detail: goods_detail,
         showDetail: true
@@ -189,14 +194,17 @@ Page({
     server.request(api.getCategoryByLocationCode, {
       'location_code': locationCode
     }, 'post').then(function(res) {
-      // console.info(res)
+      console.info(res)
       // self.data.initGoodsList = res.goods
       if (res.category.length > 0) {
-        self.data.categories = res.category
+        self.data.categories = res.category.map(function(eData) {
+          eData.scrollId = 's' + eData.id
+          return eData
+        })
         // 初始加载默认第一个类别为选中状态
         if (self.data.activeId.length <= 0) {
-          self.data.activeId = res.category[0].id
-          self.data.activeName = res.category[0].name
+          self.data.activeId = 's' + res.category[0].id
+          // self.data.activeName = res.category[0].name
         }
       }
       if (res.goods.length > 0) {
@@ -209,6 +217,8 @@ Page({
         for (let i in self.data.categories) {
           goods.push({
             category_id: self.data.categories[i].id,
+            scrollId: 's' + self.data.categories[i].id,
+            category_name: self.data.categories[i].name,
             list: res.goods.filter(function(e) {
               return e.category_id == self.data.categories[i].id
             })
@@ -217,9 +227,11 @@ Page({
         // 所有商品
         self.data.goods = goods
         // 选中类别的商品展示
-        self.data.selectGoods = goods.filter(function(e) {
-          return self.data.activeId == e.category_id
-        })
+        // self.data.selectGoods = goods.filter(function(e) {
+        //   return self.data.activeId == e.category_id
+        // })
+        // self.data.selectGoods = goods
+        // console.info(self.data.selectGoods)
       }
       self.setData(self.data)
     })
@@ -234,15 +246,25 @@ Page({
 
   // 类别切换 对应的商品展示跟着类别切换
   onCategoryClick: function(e) {
-    let self = this
-    let id = e.currentTarget.dataset.id,
-      name = e.currentTarget.dataset.name;
-    self.data.activeId = id
-    self.data.activeName = name
-    self.data.selectGoods = self.data.goods.filter(function(e) {
-      return self.data.activeId == e.category_id
+    // let self = this
+    // let id = e.currentTarget.dataset.id,
+    //   name = e.currentTarget.dataset.name;
+    // self.data.activeId = id
+    // self.data.activeName = name
+    // self.data.selectGoods = self.data.goods.filter(function(e) {
+    //   return self.data.activeId == e.category_id
+    // })
+    // self.data.selectGoods = self.data.goods.filter(function (e) {
+    //   return self.data.activeId == e.category_id
+    // })
+    // self.setData(self.data)
+
+    let id = e.currentTarget.dataset.id;
+    // this.categoryClick = true;
+    this.setData({
+      goodsToView: id,
+      activeId: id,
     })
-    self.setData(self.data)
   },
 
   // 单属性 添加购物车
@@ -319,9 +341,11 @@ Page({
     self.data.cart = checkCart
     self.data.totalGoodsPrice = totelGoodsPrice
     // 主界面商品添加购物车的数量展示
-    for (let i in self.data.selectGoods[0].list) {
-      if (self.data.selectGoods[0].list[i].id == goodsId) {
-        self.data.selectGoods[0].list[i].cartNumber--
+    for (let i in self.data.goods) {
+      for (let j in self.data.goods[i].list) {
+        if (self.data.goods[i].list[j].id == goodsId) {
+          self.data.goods[i].list[j].cartNumber--
+        }
       }
     }
 
@@ -368,11 +392,21 @@ Page({
     }
     self.data.totalGoodsPrice = totelGoodsPrice
     // 主界面商品添加购物车的数量展示
-    for (let i in self.data.selectGoods[0].list) {
-      if (self.data.selectGoods[0].list[i].id == goodsId) {
-        self.data.selectGoods[0].list[i].cartNumber++
+    // for (let i in self.data.selectGoods) {
+    //   for (let j in self.data.selectGoods[i].list) {
+    //     if (self.data.selectGoods[i].list[j].id == goodsId) {
+    //       self.data.selectGoods[i].list[j].cartNumber++
+    //     }
+    //   }
+    // }
+    for (let i in self.data.goods) {
+      for (let j in self.data.goods[i].list) {
+        if (self.data.goods[i].list[j].id == goodsId) {
+          self.data.goods[i].list[j].cartNumber++
+        }
       }
     }
+
     // console.info(cart)
     self.setData(self.data)
   },
@@ -432,6 +466,7 @@ Page({
 
   // 初始选择商品时 初始化规格分组
   getGoodsParam: function(e) {
+    console.info(e)
     this.setData({
       showDetail: false
     })
@@ -440,10 +475,14 @@ Page({
     let goodsName = e.currentTarget.dataset.name
     let goodsImage = e.currentTarget.dataset.image
     let goodsDescribe = e.currentTarget.dataset.describe
-    let goodsInfo = self.data.selectGoods[0].list.filter(function(item) {
+    let index = e.currentTarget.dataset.index
+    let goodsInfo = self.data.goods[index].list.filter(function(item) {
       return (item.id == goodsId)
     })[0].sku
-    console.info(goodsInfo)
+    self.data.selectGoods = self.data.goods[index].list.filter(function (item) {
+      return (item.id == goodsId)
+    })[0]
+    self.data.index = index
     self.data.goodsId = goodsId
     self.data.goodsName = goodsName
     self.data.goodsImage = goodsImage
@@ -503,4 +542,58 @@ Page({
   onReachBottom: function() {
 
   },
+
+  // onCategoryClick: function(e) {
+  //   let id = e.currentTarget.dataset.id;
+  //   this.categoryClick = true;
+  //   this.setData({
+  //     goodsToView: id,
+  //     categorySelected: id,
+  //   })
+  // },
+
+  scroll: function(e) {
+    // if (this.categoryClick) {
+    //   this.categoryClick = false;
+    //   return;
+    // }
+    console.info(e)
+    let scrollTop = e.detail.scrollTop;
+    let that = this;
+    let offset = 0;
+    let isBreak = false;
+
+    for (let g = 0; g < this.data.selectGoods.length; g++) {
+      let goodWrap = this.data.selectGoods[g];
+      offset += 40;
+
+      if (scrollTop <= offset) {
+        if (this.data.categoryToView != goodWrap.scrollId) {
+          this.setData({
+            activeId: goodWrap.scrollId,
+            categoryToView: goodWrap.scrollId,
+          })
+        }
+        break;
+      }
+
+      for (let i = 0; i < goodWrap.list.length; i++) {
+        offset += 90;
+        if (scrollTop <= offset) {
+          if (this.data.categoryToView != goodWrap.scrollId) {
+            this.setData({
+              activeId: goodWrap.scrollId,
+              categoryToView: goodWrap.scrollId,
+            })
+          }
+          isBreak = true;
+          break;
+        }
+      }
+
+      if (isBreak) {
+        break;
+      }
+    }
+  }
 })
