@@ -203,7 +203,7 @@ Page({
       showDetail: !this.data.showDetail
     })
     let goods_id = e.currentTarget.dataset.id
-    console.info(e)
+    // console.info(e)
   },
 
   // 获取商品列表 包括类别 和 商品
@@ -243,7 +243,7 @@ Page({
             })
           })
         }
-        console.info(goods)
+        // console.info(goods)
         // 所有商品
         self.data.goods = goods
         // 选中类别的商品展示
