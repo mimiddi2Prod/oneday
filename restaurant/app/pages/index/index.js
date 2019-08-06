@@ -40,9 +40,9 @@ Page({
     // 商品详情
     showDetail: false,
     goods_detail: '',
-    // showSearch: false,
+    showSearch: false,
     // initGoodsList: [],
-    // searchList: [],
+    searchList: [],
   },
 
   // 页面高度 scroll-view需要防止整个页面跟着拖动
@@ -120,7 +120,7 @@ Page({
         return eData.id == goods_id
       })[0]
       goods_detail.index = index
-      console.info(goods_detail)
+      // console.info(goods_detail)
       this.setData({
         goods_detail: goods_detail,
         showDetail: true
@@ -133,60 +133,60 @@ Page({
     let self = this
     if (this.data.showSearch) {
       self.data.showSearch = false
-      self.data.selectGoods = self.data.goods.filter(function(e) {
-        return self.data.activeId == e.category_id
-      })
+      // self.data.searchList = self.data.goods.filter(function(e) {
+      //   return self.data.activeId == e.category_id
+      // })
       self.setData(self.data)
     } else {
       self.setData({
         showSearch: true,
-        selectGoods: self.data.searchList
+        // selectGoods: self.data.searchList
       })
     }
   },
 
-  // searchInput: function(e) {
-  //   let char = e.detail.value
-  //   const reg = /^[A-Za-z]+$/;
-  //   let isEng = reg.test(char)
-  //   // this.data.searchList = []
-  //   this.data.selectGoods = []
-  //   if (this.data.goods.length > 0 && char.length > 0) {
-  //     for (let i in this.data.goods) {
-  //       this.data.selectGoods.push({
-  //         category_id: this.data.goods[i].category_id,
-  //         list: []
-  //       })
-  //       for (let j in this.data.goods[i].list) {
-  //         if (isEng) {
-  //           // 字母搜索
-  //           let zimu = pinyin.pinyin(this.data.goods[i].list[j].name)
-  //           if (zimu.indexOf(char) != -1) {
-  //             this.data.selectGoods[i].list.push(this.data.goods[i].list[j])
-  //           }
-  //         } else {
-  //           // 汉字搜索
-  //           if (this.data.goods[i].list[j].name.indexOf(char) != -1) {
-  //             this.data.selectGoods[i].list.push(this.data.goods[i].list[j])
-  //           }
-  //         }
-  //       }
-  //       // this.data.selectGoods = this.data.searchList
-  //     }
-  //   } else {
-  //     this.data.selectGoods = []
-  //   }
-  //   this.setData(this.data)
-  //   console.info(this.data.selectGoods)
-  // },
+  searchInput: function(e) {
+    let char = e.detail.value
+    const reg = /^[A-Za-z]+$/;
+    let isEng = reg.test(char)
+    // this.data.searchList = []
+    this.data.searchList = []
+    if (this.data.goods.length > 0 && char.length > 0) {
+      for (let i in this.data.goods) {
+        this.data.searchList.push({
+          category_id: this.data.goods[i].category_id,
+          list: []
+        })
+        for (let j in this.data.goods[i].list) {
+          if (isEng) {
+            // 字母搜索
+            let zimu = pinyin.pinyin(this.data.goods[i].list[j].name)
+            if (zimu.indexOf(char) != -1) {
+              this.data.searchList[i].list.push(this.data.goods[i].list[j])
+            }
+          } else {
+            // 汉字搜索
+            if (this.data.goods[i].list[j].name.indexOf(char) != -1) {
+              this.data.searchList[i].list.push(this.data.goods[i].list[j])
+            }
+          }
+        }
+        // this.data.selectGoods = this.data.searchList
+      }
+    } else {
+      this.data.searchList = []
+    }
+    this.setData(this.data)
+    console.info(this.data.searchList)
+  },
 
-  // getGoodsDetail:function(e){
-  //   this.setData({
-  //     showDetail: !this.data.showDetail
-  //   })
-  //   let goods_id = e.currentTarget.dataset.id
-  //   console.info(e)
-  // },
+  getGoodsDetail:function(e){
+    this.setData({
+      showDetail: !this.data.showDetail
+    })
+    let goods_id = e.currentTarget.dataset.id
+    console.info(e)
+  },
 
   // 获取商品列表 包括类别 和 商品
   getCategory: function(locationCode) {
@@ -194,7 +194,7 @@ Page({
     server.request(api.getCategoryByLocationCode, {
       'location_code': locationCode
     }, 'post').then(function(res) {
-      console.info(res)
+      // console.info(res)
       // self.data.initGoodsList = res.goods
       if (res.category.length > 0) {
         self.data.categories = res.category.map(function(eData) {
@@ -466,7 +466,7 @@ Page({
 
   // 初始选择商品时 初始化规格分组
   getGoodsParam: function(e) {
-    console.info(e)
+    // console.info(e)
     this.setData({
       showDetail: false
     })
@@ -557,7 +557,7 @@ Page({
     //   this.categoryClick = false;
     //   return;
     // }
-    console.info(e)
+    // console.info(e)
     let scrollTop = e.detail.scrollTop;
     let that = this;
     let offset = 0;

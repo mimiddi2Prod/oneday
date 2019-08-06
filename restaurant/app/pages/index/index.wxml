@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <!-- 1.选择规格 -->
 <view class="goods-param {{showModal ? '' : 'hide'}}">
-<!-- catchtouchmove="ture" -->
+  <!-- catchtouchmove="ture" -->
   <!-- 模糊背景 -->
   <view class="goods-param-bg"></view>
   <!-- 弹窗内容 -->
@@ -108,7 +108,7 @@
 </view>
 
 <!-- 4.商品搜索 -->
-<!-- <view class="search {{showSearch ? '' : 'hide'}}" catchtouchmove="ture">
+<view class="search {{showSearch ? '' : 'hide'}}" catchtouchmove="ture">
   <view class="search-container">
     <image class="goods-param-close" src='/images/icon_close.png' bindtap='showSearch'></image>
     <input placeholder='请输入商品名称' bindinput='searchInput'></input>
@@ -116,7 +116,7 @@
       历史搜索
     </view>
     <scroll-view class="search-view" scroll-y="true">
-      <block wx:for="{{selectGoods}}">
+      <block wx:for="{{searchList}}">
         <block wx:for="{{item.list}}" wx:for-item="goods" wx:key="id">
           <view class='goods-item' bindtap="toDetailsTap" data-id="{{goods.id}}">
             <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}"></image>
@@ -124,15 +124,15 @@
               <text class='goodsName'>{{goods.name}}</text>
               <text class='goodsPrice'>￥{{goods.min_price}}</text>
             </view>
-            <view class="goods-add"> -->
-<!-- 没有规格 -->
-<!-- <view class='goods-add-cart-have' wx:if="{{goods.sku.length <= 0}}">
+            <view class="goods-add">
+              <!-- 没有规格 -->
+              <view class='goods-add-cart-have' wx:if="{{goods.sku.length <= 0}}">
                 <view bindtap="cutSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" wx:if="{{goods.cartNumber > 0}}">-</view>
                 <view wx:if="{{goods.cartNumber > 0}}">{{goods.cartNumber}}</view>
                 <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-describe="{{goods.describe}}">+</view>
-              </view> -->
-<!-- 有规格 -->
-<!-- <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}">
+              </view>
+              <!-- 有规格 -->
+              <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-index="{{index}}" data-image="{{goods.img}}">
                 选择
               </view>
             </view>
@@ -142,7 +142,7 @@
       <view style="height:170rpx;opacity: 0">1</view>
     </scroll-view>
   </view>
-</view> -->
+</view>
 
 <!-- 主页面 -->
 <!-- 标题栏 -->
@@ -151,7 +151,7 @@
     桌号:
   </view>
   <view class="header_right">
-    <!-- <view bindtap='showSearch'>搜索</view> -->
+    <view bindtap='showSearch'>搜索</view>
     <navigator url="../order/order" hover-class='none'>订单</navigator>
   </view>
 </view>

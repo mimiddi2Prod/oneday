@@ -232,7 +232,7 @@ page {
   margin: 0 5%;
   background-color: cadetblue;
   border-radius: 50rpx;
-  z-index: 4;
+  z-index: 5;
 }
 
 .footer-icon {
@@ -269,7 +269,7 @@ page {
   position: fixed;
   height: 100%;
   width: 100%;
-  z-index: 4;
+  z-index: 5;
 }
 
 .cart-container {
