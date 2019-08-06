@@ -1,5 +1,8 @@
 var db = require("./../utils/dba");
 var https = require('https');
+var fm = require('./../utils/formatTime')
+const md5 = require('blueimp-md5')
+
 
 function yinbao() {
     this.Service = async function (version, param, callback) {
@@ -7,68 +10,62 @@ function yinbao() {
         var data = {}
         var row = []
         try {
-            let postData = JSON.stringify({
-                // access_token: access_token,
-                "appId": "abcdefghijklmn",
+            let appId = "0C581113F5EF82EC48A4563EDF4CF4A9"
+            let current_time = fm(new Date())
+            let postData = {
+                "appId": appId,
                 "payMethod": "Cash",
-                "customerNumber": "001",
+                // "customerNumber": "001",
+                "customerNum":"001",
                 "shippingFee":15.00,
                 "orderRemark": "addOnLineOrder",
-                "orderDateTime": "2015-12-04 10:05:01",
+                "orderDateTime": current_time,
                 "contactAddress": "测试测试。。。。",
                 "contactName": "张三",
                 "contactTel": "1360097865",
-                "deliveryType": 1,
-                "dinnersNumber": 5,
-                "restaurantAreaName": "一楼",
-                "restaurantTableName": "11",
-                "reservationTime": "2018-01-12 12:30:00",
+                // "deliveryType": 1,
+                // "dinnersNumber": 5,
+                // "restaurantAreaName": "一楼",
+                // "restaurantTableName": "11",
+                // "reservationTime": current_time,
                 "items": [
                     {
-                        "productUid": 102066793346170331,
+                        "productUid": 1908061724233,
                         "comment": "测试添加",
-                        "quantity": 1.2,
-                        "manualSellPrice":30.2
+                        "quantity": 1,
+                        // "manualSellPrice":30.2
                     }
                 ]
-            })
-
+            }
+            let postDataJson = JSON.stringify(postData)
+            let appKey = '718070985931782035'
+            let sign = md5(appKey + postDataJson).toUpperCase()
+            console.info(sign)
+            var timeStamp = new Date().getTime()
             var options = {
-                host: 'pospal.cn',
-                path: '/pospal-api2/openapi/v1/orderOpenApi/addOnLineOrder',
+                host: 'area8-win.pospal.cn',
+                port: 443,
+                path: '/pospal-api2/openapi/v1/customerOpenApi/queryByNumber',
                 method: 'POST',
-                form: postData,
+                form: postDataJson,
                 headers: {
                     'User-Agent': 'openApi',
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                    'Content-Type': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json;charset=utf-8',
                     'accept-encoding': 'gzip,deflate',
-                    'time-stamp': 1437528688233,
-                    'data-signature': 'BF706E6AC693BA3B1BABD32E6713431D'
-                    // 'Content-Length': postData.length,
+                    'time-stamp': timeStamp,
+                    'data-signature': sign,
                 },
-                // encoding: 'binary'
             }
+            console.info(options)
+            console.info(postDataJson)
+            console.info(sign)
 
             async function Call() {
-                var e = await HttpsPost(options,postData)
-                // let openid = JSON.parse(e).openid
-                // let sessionkey = JSON.parse(e).session_key
+                var e = await HttpsPost(options, postDataJson, sign)
                 console.info(e)
-                // var sql = 'select id from `user` where open_id = ?'
-                // var row = await query(sql, openid)
-                // console.info(1)
-                // console.info(row)
-                // if (row.length <= 0) {
-                //     sql = 'insert into `user` (open_id,session_key)values(?,?)'
-                //     row = await query(sql, [openid, sessionkey])
-                //     console.info(row)
-                // } else {
-                //     sql = 'update `user` set session_key = ? where open_id = ?'
-                //     row = await query(sql, [sessionkey, openid])
-                // }
                 data = e
             }
+
             Call()
 
             return callback(data);
@@ -92,11 +89,16 @@ async function HttpsGet(option) {
     })
 }
 
-async function HttpsPost(option, postData) {
+async function HttpsPost(option, postData, sign) {
     return new Promise(function (resolve, reject) {
         var req = https.request(option, function (res) {
-            let data = ''
-            // res.setEncoding('binary')
+            let data = '';
+            res.headers = {
+                'data-signature': sign,
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+            // console.info(res)
+            res.setEncoding('utf8');
             res.on('data', function (chunk) {
                 data += chunk;
                 // console.info(data)
