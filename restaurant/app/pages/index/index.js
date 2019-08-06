@@ -280,7 +280,7 @@ Page({
     // self.setData(self.data)
 
     let id = e.currentTarget.dataset.id;
-    // this.categoryClick = true;
+    this.categoryClick = true;
     this.setData({
       goodsToView: id,
       activeId: id,
@@ -573,10 +573,10 @@ Page({
   // },
 
   scroll: function(e) {
-    // if (this.categoryClick) {
-    //   this.categoryClick = false;
-    //   return;
-    // }
+    if (this.categoryClick) {
+      this.categoryClick = false;
+      return;
+    }
     // console.info(e)
     let scrollTop = e.detail.scrollTop;
     let that = this;
