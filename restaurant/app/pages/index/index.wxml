@@ -111,7 +111,7 @@
 <view class="search {{showSearch ? '' : 'hide'}}" catchtouchmove="ture">
   <view class="search-container">
     <image class="goods-param-close" src='/images/icon_close.png' bindtap='showSearch'></image>
-    <input placeholder='请输入商品名称' bindinput='searchInput' value="{{char}}"></input>
+    <input placeholder='请输入商品名称/商品首字母' bindinput='searchInput' value="{{char}}"></input>
     <!-- <view>
       历史搜索
     </view> -->
