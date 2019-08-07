@@ -1,7 +1,7 @@
 var db = require("./../utils/dba");
 var fm = require('./../utils/formatTime') // 按银豹请求数据要求格式化时间
 var appId = require('./../config/yinbaoConfig').appId
-var request = require('./../utils/yinbaoHttpsPost')
+var request = require('../utils/yinbaoRequest')
 
 
 function yinbao() {
