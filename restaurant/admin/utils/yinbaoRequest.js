@@ -6,12 +6,11 @@ const https = require('https');
 const yinbaoConfig = require('./../config/yinbaoConfig')
 
 module.exports = async function request(router, postDataJson) {
-    console.info(router)
-    console.info(postDataJson)
+    // console.info(router)
+    // console.info(postDataJson)
     const appKey = yinbaoConfig.appKey
     let timeStamp = new Date().getTime()
 
-    // let postDataJson = JSON.stringify(postData)
     let sign = md5(appKey + postDataJson).toUpperCase()
 
     let path = await getPath(router)
@@ -38,17 +37,26 @@ module.exports = async function request(router, postDataJson) {
 async function getPath(router) {
     let path = '/pospal-api2/openapi/v1/'
     switch (router) {
-        case "addOnLineOrder":
-            path += 'orderOpenApi/addOnLineOrder'
-            break;
-        case "queryAllCashier":
-            path += 'cashierOpenApi/queryAllCashier'
+        case "queryProductCategoryPages":
+            path += 'productOpenApi/queryProductCategoryPages'; // 分页查询全部商品分类
             break;
         case "queryProductImagePages":
-            path += 'productOpenApi/queryProductImagePages'
+            path += 'productOpenApi/queryProductImagePages'; // 分页查询全部商品图片
+            break;
+        case "queryProductImagesByProductUid":
+            path += 'productOpenApi/queryProductImagesByProductUid'; // 商品查询商品图片
+            break;
+        case "addOnLineOrder":
+            path += 'orderOpenApi/addOnLineOrder'; // 新增在线订单
+            break;
+        case "queryAllCashier":
+            path += 'cashierOpenApi/queryAllCashier';
+            break;
+        case "queryProductPages":
+            path += 'productOpenApi/queryProductPages';
             break;
         case "queryProductByUid":
-            path += 'productOpenApi/queryProductByUid'
+            path += 'productOpenApi/queryProductByUid';
             break;
         default:
             console.info('没有发现能够匹配的path')

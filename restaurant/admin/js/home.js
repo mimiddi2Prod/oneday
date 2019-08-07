@@ -5,7 +5,7 @@ var homeVM = new Vue({
     },
     methods: {
         click:function () {
-            const url = '../api/yinbao', async = true
+            const url = '../api/yinbao_get_goodsInfo', async = true
             let data = {}
             server(url, data, async, "post", function (res) {
                 console.info(res)

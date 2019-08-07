@@ -58,9 +58,9 @@ function Router() {
                 var updateGoods = require("./api/update_goods.js");
                 baseApi = new updateGoods;
                 break;
-            case "yinbao":
-                var yinbao = require("./api/yinbao.js");
-                baseApi = new yinbao;
+            case "yinbao_get_goodsInfo":
+                var yinbaoGetGoodsInfo = require("./api/yinbao_get_goodsInfo.js");
+                baseApi = new yinbaoGetGoodsInfo;
                 break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
