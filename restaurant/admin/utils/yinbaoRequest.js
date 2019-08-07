@@ -1,3 +1,6 @@
+// 银豹收银机文档地址
+// http://pospal.cn/openplatform/productorderapi.html
+
 const md5 = require('blueimp-md5') // 银豹组合appkey加密
 const https = require('https');
 const yinbaoConfig = require('./../config/yinbaoConfig')
