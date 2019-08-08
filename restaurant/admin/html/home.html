@@ -37,7 +37,6 @@
 
         <div class="home-title">
             <nav role="navigation" class="navbar navbar-default">
-                <div v-on:click="click">银豹测试</div>
                 <div class="item">
                     <div class="column-center" v-on:click="changePage('order',0)" style="cursor: pointer">
                         <div><h1>{{waitShipNum}}</h1></div>
@@ -116,6 +115,17 @@
                     </div>
                 </div>
             </nav>
+        </div>
+
+        <div class="title row-center">
+            <!--<div>-->
+                <h4>更新银豹收银后台数据到服务器</h4>
+            <!--</div>-->
+        </div>
+
+        <div class="zhishu">
+            <button class="btn btn-secondary" v-on:click="yinbaoGetGoodsToUpdate">更新商品列表</button>
+            <!--<button class="btn btn-secondary">更新商品列表</button>-->
         </div>
 
     </div>

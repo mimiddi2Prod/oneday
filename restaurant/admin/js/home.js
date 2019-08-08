@@ -4,8 +4,8 @@ var homeVM = new Vue({
         waitShipNum: 0,
     },
     methods: {
-        click:function () {
-            const url = '../api/yinbao_get_goodsInfo', async = true
+        yinbaoGetGoodsToUpdate: function () {
+            const url = '../api/yinbao_update_data', async = true
             let data = {}
             server(url, data, async, "post", function (res) {
                 console.info(res)

@@ -40,6 +40,9 @@ async function getPath(router) {
         case "queryProductCategoryPages":
             path += 'productOpenApi/queryProductCategoryPages'; // 分页查询全部商品分类
             break;
+        case "queryProductPages":
+            path += 'productOpenApi/queryProductPages'; // 分页查询全部商品 根据分类id
+            break;
         case "queryProductImagePages":
             path += 'productOpenApi/queryProductImagePages'; // 分页查询全部商品图片
             break;
@@ -52,11 +55,11 @@ async function getPath(router) {
         case "queryAllCashier":
             path += 'cashierOpenApi/queryAllCashier';
             break;
-        case "queryProductPages":
-            path += 'productOpenApi/queryProductPages';
-            break;
         case "queryProductByUid":
             path += 'productOpenApi/queryProductByUid';
+            break;
+        case "queryProductByBarcode":
+            path += 'productOpenApi/queryProductByBarcode';
             break;
         default:
             console.info('没有发现能够匹配的path')
