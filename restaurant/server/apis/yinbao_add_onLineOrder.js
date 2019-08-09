@@ -24,13 +24,13 @@ async function yinbaoAddOnLineOrder(data = {}) {
         "appId": appId,
         "payMethod": "Wxpay",
         "payOnLine": 1,
-        "orderRemark": "",
+        "orderRemark": "这是订单备注",
         "orderDateTime": current_time,
-        "contactAddress": "无",
-        "contactName": "无",
-        "contactTel": "无",
+        "contactAddress": "这是地址",
+        "contactName": "这是姓名",
+        "contactTel": "这是电话",
         "deliveryType": deliveryType,
-        "restaurantTableName": 7, //桌号
+        // "restaurantTableName": 7, //桌号
         "items": items
     }
     console.info(postData)

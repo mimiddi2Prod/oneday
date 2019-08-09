@@ -11,6 +11,7 @@ page {
   flex-direction: row;
   justify-content: space-between;
   padding: 20rpx 40rpx;
+  background-color: #fff
 }
 
 .header_left {
@@ -25,12 +26,17 @@ page {
   margin-right: 20rpx;
 }
 
+.banner{
+  width: 100%;
+  padding-top: 90rpx;
+}
+
 .content {
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: row;
-  padding-top: 90rpx;
+  /* padding-top: 90rpx; */
 }
 
 .left {

@@ -8,6 +8,7 @@ Page({
   data: {
     // 主页面左侧类别栏选中id(自定义id 与数据库类别id无关)
     activeId: '',
+    categoryToView:'',
     goodsToView: '',
     index: '',
     // 选中类别的名字 在右侧商品列表上展示
@@ -405,30 +406,30 @@ Page({
         number: 1
       })
     }
-
-    let totelGoodsPrice = 0
+    this.setData({
+      cart: cart
+    })
+    let totalGoodsPrice = 0
     for (let i in cart) {
-      totelGoodsPrice = totelGoodsPrice + (cart[i].price * cart[i].number)
+      totalGoodsPrice = totalGoodsPrice + (cart[i].price * cart[i].number)
     }
-    self.data.totalGoodsPrice = totelGoodsPrice
+    // self.data.totalGoodsPrice = totalGoodsPrice
+    this.setData({
+      totalGoodsPrice: totalGoodsPrice
+    })
+    let goods = self.data.goods
     // 主界面商品添加购物车的数量展示
-    // for (let i in self.data.selectGoods) {
-    //   for (let j in self.data.selectGoods[i].list) {
-    //     if (self.data.selectGoods[i].list[j].id == goodsId) {
-    //       self.data.selectGoods[i].list[j].cartNumber++
-    //     }
-    //   }
-    // }
-    for (let i in self.data.goods) {
-      for (let j in self.data.goods[i].list) {
-        if (self.data.goods[i].list[j].id == goodsId) {
-          self.data.goods[i].list[j].cartNumber++
+    for (let i in goods) {
+      for (let j in goods[i].list) {
+        if (goods[i].list[j].id == goodsId) {
+          goods[i].list[j].cartNumber++
         }
       }
     }
-
-    // console.info(cart)
-    self.setData(self.data)
+    this.setData({
+      goods: goods
+    })
+    // self.setData(self.data)
   },
 
   // 选择商品规格 多属性
@@ -579,7 +580,7 @@ Page({
     }
     // console.info(e)
     let scrollTop = e.detail.scrollTop;
-    let that = this;
+    // let that = this;
     let offset = 0;
     let isBreak = false;
 
@@ -588,10 +589,10 @@ Page({
       offset += 40;
 
       if (scrollTop <= offset) {
-        if (this.data.goodsToView != goodWrap.scrollId) {
+        if (this.data.categoryToView != goodWrap.scrollId) {
           this.setData({
             activeId: goodWrap.scrollId,
-            goodsToView: goodWrap.scrollId,
+            categoryToView: goodWrap.scrollId,
           })
         }
         break;
@@ -600,10 +601,10 @@ Page({
       for (let i = 0; i < goodWrap.list.length; i++) {
         offset += 90;
         if (scrollTop <= offset) {
-          if (this.data.goodsToView != goodWrap.scrollId) {
+          if (this.data.categoryToView != goodWrap.scrollId) {
             this.setData({
               activeId: goodWrap.scrollId,
-              goodsToView: goodWrap.scrollId,
+              categoryToView: goodWrap.scrollId,
             })
           }
           isBreak = true;

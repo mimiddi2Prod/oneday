@@ -117,22 +117,22 @@
     </view> -->
     <scroll-view class="search-view" scroll-y="true">
       <view wx:for="{{goods}}">
-        <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex" wx:key="id" wx:if="{{goods.isSearch}}">
-          <view class='goods-item' bindtap="toDetailsTap" data-id="{{goods.id}}">
-            <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}" data-index="{{index}}"></image>
+        <block wx:for="{{item.list}}" wx:for-item="goodsSearch" wx:for-index="goodsSearchIndex" wx:if="{{goodsSearch.isSearch}}">
+          <view class='goods-item' bindtap="toDetailsTap" data-id="{{goodsSearch.id}}">
+            <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goodsSearch.img}}" bindtap='showGoodsDetail' data-id="{{goodsSearch.id}}" data-index="{{index}}"></image>
             <view class='goods-info' style='width:440rpx;'>
-              <text class='goodsName'>{{goods.name}}</text>
-              <text class='goodsPrice'>￥{{goods.min_price}}</text>
+              <text class='goodsName'>{{goodsSearch.name}}</text>
+              <text class='goodsPrice'>￥{{goodsSearch.min_price}}</text>
             </view>
             <view class="goods-add">
               <!-- 没有规格 -->
-              <view class='goods-add-cart-have' wx:if="{{goods.sku.length <= 0}}">
-                <view bindtap="cutSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" wx:if="{{goods.cartNumber > 0}}">-</view>
-                <view wx:if="{{goods.cartNumber > 0}}">{{goods.cartNumber}}</view>
-                <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-describe="{{goods.describe}}">+</view>
+              <view class='goods-add-cart-have' wx:if="{{goodsSearch.sku.length <= 0}}">
+                <view bindtap="cutSingleParamCart" data-id="{{goodsSearch.id}}" data-paramid="0" data-price="{{goodsSearch.min_price}}" wx:if="{{goodsSearch.cartNumber > 0}}">-</view>
+                <view wx:if="{{goodsSearch.cartNumber > 0}}">{{goodsSearch.cartNumber}}</view>
+                <view bindtap="addSingleParamCart" data-id="{{goodsSearch.id}}" data-paramid="0" data-price="{{goodsSearch.min_price}}" data-name="{{goodsSearch.name}}" data-image="{{goodsSearch.img}}" data-describe="{{goodsSearch.describe}}">+</view>
               </view>
               <!-- 有规格 -->
-              <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-index="{{index}}" data-image="{{goods.img}}">
+              <view wx:else bindtap='getGoodsParam' data-id='{{goodsSearch.id}}' data-name='{{goodsSearch.name}}' data-describe="{{goodsSearch.describe}}" data-index="{{index}}" data-image="{{goodsSearch.img}}">
                 选择
               </view>
             </view>
@@ -155,11 +155,12 @@
     <navigator url="../order/order" hover-class='none'>订单</navigator>
   </view>
 </view>
+<image class="banner" src="/images/banner.png"></image>
 <!-- 内容 -->
 <view class="content" style="height:{{winHeight}}rpx">
   <!-- 左边商品类型选择 -->
-  <scroll-view class="left" scroll-y="true" scroll-into-view="{{activeId}}">
-    <block wx:for="{{categories}}" wx:key="*this">
+  <scroll-view class="left" scroll-y="true" scroll-into-view="{{categoryToView}}">
+    <block wx:for="{{categories}}" wx:key="id">
       <view class="category-item {{activeId==item.scrollId?'category-item-active':''}}" data-id='{{item.scrollId}}' data-name='{{item.name}}' bindtap='onCategoryClick'>
         <text>{{item.name}}</text>
       </view>
@@ -167,16 +168,16 @@
     <view style="height:170rpx;opacity: 0">1</view>
   </scroll-view>
   <!-- 右边商品列表 -->
-  <scroll-view class='right' scroll-y="true" scroll-into-view="{{goodsToView}}" enable-back-to-top="true" bindscroll="scroll">
+  <scroll-view class='right' scroll-y="true" scroll-into-view="{{goodsToView}}" bindscroll="scroll">
     <!-- <view class="goodsWrap-category">
       <text>{{activeName}}</text>
     </view> -->
-    <view class="goods" wx:for="{{goods}}" wx:key="*this">
+    <view class="goods" wx:for="{{goods}}" wx:key="id">
       <view class="goodsWrap-category" id='{{item.scrollId}}'>
         <text>{{item.category_name}}</text>
       </view>
-      <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex" wx:key="id">
-        <view class='goods-item' bindtap="toDetailsTap" data-id="{{goods.id}}">
+      <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex">
+        <view class='goods-item' data-id="{{goods.id}}">
           <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}" data-index="{{index}}"></image>
           <!-- <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='getGoodsDetail' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}" wx:if="{{goods.sku.length > 0}}"></image> -->
           <view class='goods-info'>
