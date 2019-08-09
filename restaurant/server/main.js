@@ -16,7 +16,6 @@ const contentType = {"content-type": "text/html;charset=utf-8"};
 // checkStock()
 
 http.createServer(function (req, res) {
-    console.info(3)
     var reqUrl = req.url;
     var path = url.parse(reqUrl).pathname;
     if (path.indexOf("favicon.ico") != -1) {

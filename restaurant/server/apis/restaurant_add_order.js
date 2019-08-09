@@ -18,6 +18,8 @@ function RestaurantAddOrder() {
         } else if (param['openid'].length <= 0) {
             console.info('没有收到用户的openid')
         } else {
+            var yinbaoAddOrder = require("./yinbao_add_onLineOrder")
+            await yinbaoAddOrder(param)
             try {
                 let cart = param['cart']
                 let length = cart.length, flag = 0
