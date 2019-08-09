@@ -47,13 +47,13 @@ function yinbaoUpdateData() {
             postDataJson = JSON.stringify(postData)
             router = "queryProductPages"
             e = await request(router, postDataJson)
-
+            console.info("获得商品数据：")
+            console.info(e)
             e = e.replace(/\"uid\":/g, "\"uid\":\"")
             e = e.replace(/,\"categoryUid\"/g, "\",\"categoryUid\"")
             e = e.replace(/\"categoryUid\":/g, "\"categoryUid\":\"")
             e = e.replace(/,\"name\"/g, "\",\"name\"")
-            console.info("获得商品数据：")
-            console.info(e)
+
             e = JSON.parse(e)
 
             if (e.status == "success" && e.data.result.length > 0) {
@@ -78,13 +78,13 @@ function yinbaoUpdateData() {
             postDataJson = JSON.stringify(postData)
             router = "queryProductImagePages"
             e = await request(router, postDataJson)
-
+            console.info("获得商品数据：")
+            console.info(e)
             e = e.replace(/\"productUid\":/g, "\"productUid\":\"")
             e = e.replace(/,\"productName\"/g, "\",\"productName\"")
             // e = e.replace(/\"categoryUid\":/g, "\"categoryUid\":\"")
             // e = e.replace(/,\"name\"/g, "\",\"name\"")
-            console.info("获得商品数据：")
-            console.info(e)
+
             e = JSON.parse(e)
 
             if (e.status == "success" && e.data.result.length > 0) {
