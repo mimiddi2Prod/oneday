@@ -6,10 +6,11 @@ var fm = require('./../utils/formatTime')
 
 
 async function yinbaoAddOnLineOrder(data = {}) {
-    // console.info(data)
+    console.info(data)
     // 推送在线订单
     let current_time = fm(new Date())
     let items = []
+    let deliveryType = data.style == 1 ? 0 : 1
     for (let i in data.cart) {
         items.push({
             "productUid": data.cart[i].goodsId,
@@ -25,10 +26,10 @@ async function yinbaoAddOnLineOrder(data = {}) {
         "payOnLine": 1,
         "orderRemark": "",
         "orderDateTime": current_time,
-        "contactAddress": "",
+        "contactAddress": "无",
         "contactName": "无",
         "contactTel": "无",
-        "deliveryType": 1,
+        "deliveryType": deliveryType,
         "restaurantTableName": 7, //桌号
         "items": items
     }
