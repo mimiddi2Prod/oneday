@@ -61,6 +61,7 @@ function Router() {
             case "yinbao_update_data":
                 var yinbaoUpdateData = require("./api/yinbao_update_data.js");
                 baseApi = new yinbaoUpdateData;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;
