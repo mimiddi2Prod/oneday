@@ -41,25 +41,10 @@ async function getPath(router) {
             path += 'productOpenApi/queryProductCategoryPages'; // 分页查询全部商品分类
             break;
         case "queryProductPages":
-            path += 'productOpenApi/queryProductPages'; // 分页查询全部商品 根据分类id
+            path += 'productOpenApi/queryProductPages'; // 分页查询全部商品 (可根据分类id)
             break;
         case "queryProductImagePages":
-            path += 'productOpenApi/queryProductImagePages'; // 分页查询全部商品图片
-            break;
-        case "queryProductImagesByProductUid":
-            path += 'productOpenApi/queryProductImagesByProductUid'; // 商品查询商品图片
-            break;
-        case "addOnLineOrder":
-            path += 'orderOpenApi/addOnLineOrder'; // 新增在线订单
-            break;
-        case "queryAllCashier":
-            path += 'cashierOpenApi/queryAllCashier';
-            break;
-        case "queryProductByUid":
-            path += 'productOpenApi/queryProductByUid';
-            break;
-        case "queryProductByBarcode":
-            path += 'productOpenApi/queryProductByBarcode';
+            path += 'productOpenApi/queryProductImagePages'; // 分页查询全部商品图片 （只会查询有图片的，请确保商品有图片可查）
             break;
         default:
             console.info('没有发现能够匹配的path')
