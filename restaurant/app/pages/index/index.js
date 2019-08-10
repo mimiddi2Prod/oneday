@@ -428,8 +428,10 @@ Page({
         }
       }
     }
+    let selectGoods = this.data.selectGoods
     this.setData({
-      goods: goods
+      goods: goods,
+      selectGoods: selectGoods
     })
     // self.setData(self.data)
   },
