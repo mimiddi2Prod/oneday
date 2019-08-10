@@ -65,13 +65,13 @@
         </view>
       </view>
       <!-- 购物车列表商品数量增减 -->
-      <view class="goods-add">
+      <view class="goods-add" style='align-items: center'>
         <view class="price">
           ￥{{item.price}}
         </view>
-        <view bindtap="cutSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}">-</view>
+        <view bindtap="cutSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" style='font-size:40rpx;padding:0 6rpx'>-</view>
         <view>{{item.number}}</view>
-        <view bindtap="addSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" data-name="{{goods.goodsName}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}">+</view>
+        <view bindtap="addSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" data-name="{{goods.goodsName}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}" style='font-size:40rpx;padding:0 6rpx'>+</view>
       </view>
     </view>
   </view>
@@ -124,7 +124,7 @@
               <text class='goodsName'>{{goodsSearch.name}}</text>
               <text class='goodsPrice'>￥{{goodsSearch.min_price}}</text>
             </view>
-            <view class="goods-add">
+            <view class="goods-add" style='padding-right:0'>
               <!-- 没有规格 -->
               <view class='goods-add-cart-have' wx:if="{{goodsSearch.sku.length <= 0}}">
                 <view bindtap="cutSingleParamCart" data-id="{{goodsSearch.id}}" data-paramid="0" data-price="{{goodsSearch.min_price}}" wx:if="{{goodsSearch.cartNumber > 0}}">-</view>
