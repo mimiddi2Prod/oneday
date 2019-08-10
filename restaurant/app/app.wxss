@@ -13,3 +13,8 @@
 page {
   background-color: whitesmoke;
 }
+
+.header-icon{
+  width: 40rpx;
+  height: 40rpx;
+}

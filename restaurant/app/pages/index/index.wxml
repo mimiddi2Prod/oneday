@@ -148,11 +148,15 @@
 <!-- 标题栏 -->
 <view class="header">
   <view class="header_left">
-    桌号:
+    桌号：7
   </view>
   <view class="header_right">
-    <view bindtap='showSearch'>搜索</view>
-    <navigator url="../order/order" hover-class='none'>订单</navigator>
+    <view bindtap='showSearch'>
+      <image class="header-icon" src="/images/search.png"></image>
+    </view>
+    <navigator url="../order/order" hover-class='none'>
+      <image class="header-icon" src="/images/order.png"></image>
+    </navigator>
   </view>
 </view>
 <image class="banner" src="/images/banner.png" mode="widthFix"></image>

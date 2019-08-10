@@ -289,9 +289,9 @@ page {
 }
 
 .cart-icon {
-  width: 100rpx;
-  height: 100rpx;
-  padding: 15rpx;
+  width: 70rpx;
+  height: 70rpx;
+  padding: 30rpx;
   background-color: #e5b6b5;
   border-radius: 50%;
   transform: translateY(-15rpx);
@@ -314,6 +314,10 @@ page {
   width: 145rpx;
   text-align: center;
   transform: translateX(5rpx);
+}
+
+.footer-submit > text{
+  color: white
 }
 
 .goods-cart {

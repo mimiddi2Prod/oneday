@@ -5,7 +5,9 @@
     桌号:
   </view>
   <view class="header_right">
-    <navigator url="../order/order" hover-class='none'>订单</navigator>
+    <navigator url="../order/order" hover-class='none'>
+      <image class="header-icon" src="/images/order.png"></image>
+    </navigator>
   </view>
 </view>
 
