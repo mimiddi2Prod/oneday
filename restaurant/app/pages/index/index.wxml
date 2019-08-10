@@ -155,7 +155,7 @@
     <navigator url="../order/order" hover-class='none'>订单</navigator>
   </view>
 </view>
-<image class="banner" src="/images/banner.png"></image>
+<image class="banner" src="/images/banner.png" mode="widthFix"></image>
 <!-- 内容 -->
 <view class="content" style="height:{{winHeight}}rpx">
   <!-- 左边商品类型选择 -->
