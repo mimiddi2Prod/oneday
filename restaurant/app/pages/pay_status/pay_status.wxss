@@ -18,6 +18,7 @@
 .content {
   width: 100vw;
   padding-top: 90rpx;
+  padding-bottom: 40rpx;
 }
 
 .card {
