@@ -346,7 +346,8 @@ page {
   align-content: center;
   justify-content: space-between;
   padding: 6rpx 0;
-  align-items: center
+  align-items: center;
+  height: 70rpx;
 }
 
 .cart-item > .item {

@@ -113,7 +113,7 @@ Page({
     this.setData({
       showCart: !this.data.showCart
     })
-    let winCartHeight = this.data.cart.length * 64
+    let winCartHeight = this.data.cart.length * 82
     if (winCartHeight > this.data.winCartHeightInit){
       winCartHeight = this.data.winCartHeightInit
     }
