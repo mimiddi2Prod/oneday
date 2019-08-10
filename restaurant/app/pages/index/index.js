@@ -19,6 +19,7 @@ Page({
     // 之后需要做超时状态 跳转超时提醒 重新扫码
     isTimeOut: false,
     winHeight: '',
+    winCartHeightInit:'',
     winCartHeight:'',
     // winWidth: '',
     // 购物车列表
@@ -60,7 +61,7 @@ Page({
         self.setData(self.data)
         self.setData({
           winHeight: calc - 90,
-          winCartHeight:calc - 170,
+          winCartHeightInit:calc - 170,
           winWidth: clientWidth
         });
       }
@@ -112,6 +113,15 @@ Page({
     this.setData({
       showCart: !this.data.showCart
     })
+    let winCartHeight = this.data.cart.length * 64
+    if (winCartHeight > this.data.winCartHeightInit){
+      winCartHeight = this.data.winCartHeightInit
+    }
+    this.setData({
+      winCartHeight: winCartHeight
+    })
+// console.info(this.data.cart)
+    // if (this.data.winCartHeight)
   },
 
   showGoodsDetail: function(e) {

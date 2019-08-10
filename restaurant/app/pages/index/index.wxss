@@ -335,7 +335,7 @@ page {
   background-color: #fff;
   border-top: 1rpx solid rgb(199, 192, 241);
   border-bottom: 1rpx solid rgb(199, 192, 241);
-  padding: 20rpx 0 0 20rpx;
+  padding: 0 0 0 20rpx;
   width: 730rpx;
   margin-bottom: 170rpx;
 }
