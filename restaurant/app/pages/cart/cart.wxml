@@ -10,9 +10,9 @@
 </view>
 
 <view class="content">
-  <view class="card style">
-    选中就餐方式
-    <view class="style-btn">
+  <view class="card">
+    <!-- 选中就餐方式 -->
+    <view class="style-btn style">
       <view class="{{style == index ? 'style-btn-active' : 'style-btn-none'}}" wx:for="{{styleList}}" data-id='{{index}}' bindtap='selectStyle'>{{item}}</view>
     </view>
   </view>

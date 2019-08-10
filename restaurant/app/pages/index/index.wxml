@@ -97,7 +97,7 @@
           <view bindtap="addSingleParamCart" data-id="{{goods_detail.id}}" data-paramid="0" data-price="{{goods_detail.min_price}}" data-name="{{goods_detail.name}}" data-image="{{goods_detail.img}}" data-describe="{{goods_detail.describe}}">+</view>
         </view>
         <!-- 有规格 -->
-        <view wx:else bindtap='getGoodsParam' data-id='{{goods_detail.id}}' data-name='{{goods_detail.name}}' data-describe="{{goods_detail.describe}}" data-image="{{goods_detail.img}}" data-index="{{goods_detail.index}}">
+        <view class='goods-add-cart-nor' wx:else bindtap='getGoodsParam' data-id='{{goods_detail.id}}' data-name='{{goods_detail.name}}' data-describe="{{goods_detail.describe}}" data-image="{{goods_detail.img}}" data-index="{{goods_detail.index}}">
           选择
         </view>
       </view>
@@ -118,9 +118,9 @@
     <scroll-view class="search-view" scroll-y="true">
       <view wx:for="{{goods}}">
         <block wx:for="{{item.list}}" wx:for-item="goodsSearch" wx:for-index="goodsSearchIndex" wx:if="{{goodsSearch.isSearch}}">
-          <view class='goods-item' bindtap="toDetailsTap" data-id="{{goodsSearch.id}}">
+          <view class='goods-item' bindtap="toDetailsTap" data-id="{{goodsSearch.id}}" style='width:700rpx'>
             <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goodsSearch.img}}" bindtap='showGoodsDetail' data-id="{{goodsSearch.id}}" data-index="{{index}}"></image>
-            <view class='goods-info' style='width:440rpx;'>
+            <view class='goods-info'>
               <text class='goodsName'>{{goodsSearch.name}}</text>
               <text class='goodsPrice'>￥{{goodsSearch.min_price}}</text>
             </view>
@@ -192,7 +192,7 @@
               <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-describe="{{goods.describe}}">+</view>
             </view>
             <!-- 有规格 -->
-            <view wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-index="{{index}}" data-image="{{goods.img}}">
+            <view class='goods-add-cart-nor' wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-index="{{index}}" data-image="{{goods.img}}">
               选择
             </view>
           </view>

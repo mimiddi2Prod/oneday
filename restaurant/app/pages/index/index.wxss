@@ -135,9 +135,10 @@ page {
 }
 
 .goods-add {
-  width: 100rpx;
+  /* width: 110rpx; */
   display: flex;
   justify-content: flex-end;
+  flex-grow: 1
 }
 
 .goods-param {
@@ -212,7 +213,7 @@ page {
 .goods-add-cart-have {
   display: flex;
   flex-direction: row;
-  align-items: center
+  align-items: flex-end
 }
 
 .goods-add-cart-have > view{
@@ -222,6 +223,11 @@ page {
 .goods-add-cart-have > view:first-child, .goods-add-cart-have > view:last-child{
   font-size: 40rpx;
   padding: 0 10rpx;
+}
+
+.goods-add-cart-nor{
+  margin: 10rpx;
+  font-size: 32rpx;
 }
 
 .param-select {
@@ -280,6 +286,7 @@ page {
   line-height: 100rpx;
   width: 145rpx;
   text-align: center;
+  transform: translateX(5rpx)
 }
 
 .goods-cart {

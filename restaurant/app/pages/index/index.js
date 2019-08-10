@@ -429,9 +429,11 @@ Page({
       }
     }
     let selectGoods = this.data.selectGoods
+    let goods_detail = this.data.goods_detail
     this.setData({
       goods: goods,
-      selectGoods: selectGoods
+      selectGoods: selectGoods,
+      goods_detail: goods_detail
     })
     // self.setData(self.data)
   },
