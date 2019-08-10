@@ -8,7 +8,7 @@ Page({
   data: {
     // 主页面左侧类别栏选中id(自定义id 与数据库类别id无关)
     activeId: '',
-    categoryToView:'',
+    categoryToView: '',
     goodsToView: '',
     index: '',
     // 选中类别的名字 在右侧商品列表上展示
@@ -19,6 +19,7 @@ Page({
     // 之后需要做超时状态 跳转超时提醒 重新扫码
     isTimeOut: false,
     winHeight: '',
+    winWidth: '',
     // 购物车列表
     cart: [],
     // 商品总价格展示
@@ -58,6 +59,7 @@ Page({
         self.setData(self.data)
         self.setData({
           winHeight: calc - 90,
+          winWidth: clientWidth
         });
       }
     });
@@ -199,7 +201,7 @@ Page({
     // console.info(this.data.searchList)
   },
 
-  getGoodsDetail:function(e){
+  getGoodsDetail: function(e) {
     this.setData({
       showDetail: !this.data.showDetail
     })
@@ -500,7 +502,7 @@ Page({
     let goodsInfo = self.data.goods[index].list.filter(function(item) {
       return (item.id == goodsId)
     })[0].sku
-    self.data.selectGoods = self.data.goods[index].list.filter(function (item) {
+    self.data.selectGoods = self.data.goods[index].list.filter(function(item) {
       return (item.id == goodsId)
     })[0]
     self.data.index = index
@@ -578,11 +580,22 @@ Page({
       this.categoryClick = false;
       return;
     }
-    // console.info(e)
+    console.info(e)
     let scrollTop = e.detail.scrollTop;
-    // let that = this;
     let offset = 0;
     let isBreak = false;
+    if (scrollTop > 0 && e.detail.deltaY < 0) {
+      wx.pageScrollTo({
+        scrollTop: 290,
+        duration: 0
+      })
+    }
+    if (scrollTop <= 6 && e.detail.deltaY > 0) {
+      wx.pageScrollTo({
+        scrollTop: 0,
+        // duration: 0
+      })
+    }
 
     for (let g = 0; g < this.data.goods.length; g++) {
       let goodWrap = this.data.goods[g];
