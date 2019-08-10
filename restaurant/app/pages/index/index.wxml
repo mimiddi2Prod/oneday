@@ -11,7 +11,7 @@
     <view class="goods-param-header">
       <!-- 商品图片 -->
       <view class="goods-param-a">
-        <image class="goods-param-pic" src='/images/A.png'></image>
+        <image class="goods-param-pic" src='{{goodsImage}}'></image>
       </view>
       <view class="goods-param-b">
         <!-- 商品名 -->
@@ -33,13 +33,13 @@
     </view>
 
     <!-- 商品描述 -->
-    <view class="goods-param-describe">
-      <view>菜单信息</view>
-      <view>{{goodsDescribe}}</view>
+    <view class="goods-param-detail">
+      <view class="font34">菜单信息</view>
+      <view class="font26">{{goodsDescribe}}</view>
     </view>
 
     <!-- 商品规格 -->
-    <view wx:for="{{showParam}}" wx:key="*this">
+    <view class="param-list" wx:for="{{showParam}}" wx:key="*this">
       <view>{{item.text}}</view>
       <view class="row">
         <view class="{{param.select ? 'param-select' : ''}}" wx:for="{{item.param}}" wx:for-item="param" data-selectparamid='{{item.id}}' data-selecttext="{{param.text}}" bindtap='selectParam'>
@@ -84,7 +84,7 @@
   <!-- 弹窗内容 -->
   <view class="detail-container">
     <image class="goods-param-close" src='/images/icon_close.png' bindtap='showGoodsDetail'></image>
-    <image class="detail-img" src='{{goods_detail.img}}'></image>
+    <image class="detail-img" src='{{goods_detail.img}}' mode="widthFix"></image>
     <view class="detail-ju">
       <view>
         ￥{{goods_detail.min_price}}
@@ -102,8 +102,8 @@
         </view>
       </view>
     </view>
-    <view>{{goods_detail.name}}</view>
-    <view>{{goods_detail.describe}}</view>
+    <view class="detail-title">{{goods_detail.name}}</view>
+    <view class="detail-desc">{{goods_detail.describe}}</view>
   </view>
 </view>
 
