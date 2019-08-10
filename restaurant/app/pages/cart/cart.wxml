@@ -53,6 +53,7 @@
       <text>{{totalPrice}}</text>
     </view>
   </view>
+  <view style="height:240rpx;opacity: 0">1</view>
 </view>
 
 <view class="footer-1">

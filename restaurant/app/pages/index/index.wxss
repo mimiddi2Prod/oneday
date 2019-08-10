@@ -10,6 +10,7 @@ page {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding: 20rpx 40rpx;
   background-color: #fff;
 }
@@ -23,7 +24,7 @@ page {
 }
 
 .header_right view:first-child {
-  margin-right: 20rpx;
+  margin-right: 40rpx;
 }
 
 .banner {
@@ -201,6 +202,7 @@ page {
 .goods-param-c {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
   padding: 0 0 20rpx 0;
 }
@@ -248,7 +250,7 @@ page {
 
 .goods-add-cart-have > view:first-child, .goods-add-cart-have > view:last-child {
   font-size: 40rpx;
-  padding: 0 10rpx;
+  padding: 10rpx 20rpx;
 }
 
 .goods-add-cart-nor {
