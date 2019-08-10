@@ -89,7 +89,8 @@ Page({
       this.setData({
         cart: [],
         selectGoodsSKU: [],
-        totalGoodsPrice: 0
+        totalGoodsPrice: 0,
+        showCart:false
       })
       let locationCode = 'xmspw'
       // 获取商品列表 包括类别 和 商品
