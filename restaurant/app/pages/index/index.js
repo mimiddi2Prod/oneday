@@ -19,7 +19,8 @@ Page({
     // 之后需要做超时状态 跳转超时提醒 重新扫码
     isTimeOut: false,
     winHeight: '',
-    winWidth: '',
+    winCartHeight:'',
+    // winWidth: '',
     // 购物车列表
     cart: [],
     // 商品总价格展示
@@ -59,6 +60,7 @@ Page({
         self.setData(self.data)
         self.setData({
           winHeight: calc - 90,
+          winCartHeight:calc - 170,
           winWidth: clientWidth
         });
       }
