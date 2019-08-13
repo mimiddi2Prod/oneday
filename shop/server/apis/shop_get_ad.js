@@ -12,7 +12,7 @@ function SHOPGetAd() {
         var response = tool.error.OK;
         var row = [];
         try {
-            var sql = "select  url,image,text from advertisement where state = 0 and type = ? ORDER BY sort";
+            var sql = "select  url,image,text from shop_ad where status = 0 and `type` = ? ORDER BY sort";
             row = await query(sql, 0);
             if (row.length == 0) {
                 data.push({})

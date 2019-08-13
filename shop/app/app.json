@@ -1,12 +1,76 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/brandDetail/brandDetail",
+    "pages/catalog/catalog",
+    "pages/category/category",
+    "pages/cart/cart",
+    "pages/cart/goodsToCart",
+    "pages/my/my",
+    "pages/my/order/order",
+    "pages/my/order/orderDetail",
+    "pages/my/logistics",
+    "pages/my/address",
+    "pages/my/review",
+    "pages/my/inform",
+    "pages/my/integral",
+    "pages/my/afterSale/afterSale",
+    "pages/my/afterSale/goodsDetail",
+    "pages/my/afterSale/saleType",
+    "pages/my/afterSale/saleDesc",
+    "pages/my/afterSale/waitResult",
+    "pages/my/afterSale/policy",
+    "pages/payResult/payResult",
+    "pages/my/userAgreement",
+    "pages/goods/goods",
+    "pages/group_buy/group_buy",
+    "pages/search/search",
+    "pages/reviewList/reviewList",
+    "pages/shopping/checkout/checkout"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTitleText": "不浪费",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
   },
+  "tabBar": {
+    "backgroundColor": "#fafafa",
+    "borderStyle": "white",
+    "selectedColor": "#000",
+    "color": "#ccc",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/shouye-nor.png",
+        "selectedIconPath": "images/shouye-active.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/catalog/catalog",
+        "iconPath": "images/fenlei-nor.png",
+        "selectedIconPath": "images/fenlei-active.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "iconPath": "images/shop-nor.png",
+        "selectedIconPath": "images/shop-active.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "images/wode-nor.png",
+        "selectedIconPath": "images/wode-active.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true,
   "sitemapLocation": "sitemap.json"
 }

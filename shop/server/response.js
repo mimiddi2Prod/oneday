@@ -2,8 +2,8 @@ var SHOPError = require("./error");
 var SHOPLog = require("./utils/log")
 
 function MakeResponse(code, obj, res){
-    var error = new FBError;
-    var log = new FBLog;
+    var error = new SHOPError;
+    var log = new SHOPLog;
     log.info("MakeResponse::MakeResponse.in");
     res.writeHead(code, {"content-type":"text/html;charset=utf-8"});
 

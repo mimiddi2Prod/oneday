@@ -1,7 +1,8 @@
 var tools = require("./../tool");
 var https = require('https');
-const appid = 'wx14dd6120d4882a81';
-const secret = 'b77ba947d1168d6eff00816ea2f0cf5d';
+var wxConfig = require("./../config/wxConfig")
+var appid = wxConfig.appid
+var secret = wxConfig.secret
 
 function SHOPGetOpenId() {
     var tool = new tools;

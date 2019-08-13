@@ -4,7 +4,7 @@ const pool = mysql.createPool({
     port:3306,
     user:"root",
     password:"",
-    database:"oneday_shop"
+    database:"oneday"
 });
 
 let query = function(sql, arr){

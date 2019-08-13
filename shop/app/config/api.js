@@ -5,7 +5,10 @@ module.exports = {
   getOpenid: rootUrl + 'get_openid',
   register: rootUrl + 'register',
   login: rootUrl + 'login',
-  
+
+  // 二维码
+  getwxacodeunlimit: rootUrl +'get_wxacodeunlimit',
+
   // 首页
   ad: rootUrl + 'get_ad',
   subCategory: rootUrl + 'get_subCategory',

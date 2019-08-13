@@ -12,7 +12,7 @@ function SHOPGetSubCategory() {
         var response = tool.error.OK;
         var row = [];
         try {
-            row = await query("select name,image,url,id,parent_id from category where home_nav = 0 ORDER BY sort");
+            row = await query("select `name`,image,url,id,parent_id from shop_category where home_nav = 0 ORDER BY sort");
             if (row.length == 0) {
                 // response = tool.error.ErrorNotFoundUser;
                 log.warn('subCategory is not found')

@@ -1,16 +1,16 @@
 const http = require('http');
 const Cmd = require('./utils/CuteCmd.js');
 var FBLog = require("./utils/log.js");
-var db = require("./utils/mysqlEx");
+// var db = require("./utils/mysqlEx");
 const url = require('url');
-const path = require('path');
-var router = require("./router.js");
+// const path = require('path');
+var Router = require("./router.js");
 
 var log = new FBLog;
 const contentType = {"content-type": "text/html;charset=utf-8"};
-db.query("select id from test_connection").then(function (row) {
-    log.info(row[0].id);
-});
+// db.query("select id from test_connection").then(function (row) {
+//     log.info(row[0].id);
+// });
 
 var checkStock = require('./apis/shop_checkStock')
 checkStock()
@@ -35,7 +35,7 @@ http.createServer(function (req, res) {
             console.info(reqUrl);
             console.info(params);
             res.writeHead(200, contentType);
-            var router = new FBRouter;
+            var router = new Router;
             router.Run(path, params, res);
             log.info("deal request over");
         } catch (err) {

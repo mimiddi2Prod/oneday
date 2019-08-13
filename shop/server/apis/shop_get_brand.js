@@ -12,7 +12,7 @@ function SHOPGetBrand() {
         var response = tool.error.OK;
         var row = [];
         try {
-            row = await query("select name,image,url,id,`desc` from brand where state = ? ORDER BY sort limit 4",0);
+            row = await query("select `name`,image,url,id,`describe` from shop_brand where status = ? ORDER BY sort limit 4",0);
             if (row.length == 0) {
                 // response = tool.error.ErrorNotFoundUser;
                 log.warn('brand is not found')

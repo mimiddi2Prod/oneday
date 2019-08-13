@@ -19,8 +19,8 @@ function SHOPRegister() {
                     log.warn('注册没有头像')
                     // response = tool.error.ErrorNotNickName;
                 } else {
-                    sql = "insert into user(open_id, user_name, type, avatar,state)values(?,?,?,?,0)"
-                    row = await tool.query(sql, [param["op_id"], param["nick_name"], param["type"], param["avatar"]]);
+                    sql = "insert into shop_user(open_id,user_name,avatar,register_time,last_login_time)values(?,?,?,current_timestamp,current_timestamp)"
+                    row = await tool.query(sql, [param["op_id"], param["nick_name"], param["avatar"]]);
                     data.user_id = row.insertId
 
                 }
