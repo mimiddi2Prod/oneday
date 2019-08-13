@@ -597,7 +597,7 @@ Page({
       this.categoryClick = false;
       return;
     }
-    console.info(e)
+    // console.info(e)
     let scrollTop = e.detail.scrollTop;
     let offset = 0;
     let isBreak = false;
