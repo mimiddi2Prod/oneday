@@ -26,6 +26,8 @@ AKeMgvz7ClhsADp9G5lcPeo6poSEnFdgusoFiC4b
 JOQMdSpS7FGqUtpV47CAKwn-JdRIPEuozE63X9sp
 
 啾哩好物:
+onedayjolly@sohu.com
+youyue123
 wxa0869cd59ebaaa06
 3a5fa1f990812a7cc9aa1a832fbc1f86
 
@@ -34,7 +36,8 @@ wx768a827128cc90f8
 d99eda228b95793b08563a5141f6449c
 
 小程序：餐饮
-
+onedayjolly@sina.com
+youyue123
 wx3a3f97ca688ddcea
 5cfbffbaeaedefb495f107a5e529d89f
 
@@ -52,3 +55,13 @@ wx3a3f97ca688ddcea
 微信开放平台
 z18344986457@163.com
 youyue123
+
+
+帐号密码newdeli/777777
+account:newdeli
+company:oneday
+industry:餐饮行业
+userArea:8区
+接口地址前缀（host:port）:https://area8-win.pospal.cn:443/
+appID:0C581113F5EF82EC48A4563EDF4CF4A9
+appKey:718070985931782035
