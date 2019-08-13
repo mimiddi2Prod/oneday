@@ -10,29 +10,81 @@ async function yinbaoAddOnLineOrder(data = {}) {
     // 推送在线订单
     let current_time = fm(new Date())
     let items = []
-    let deliveryType = data.style == 1 ? 0 : 1
+    // data.style 0 堂食 1 外带
+    // let deliveryType = data.style == 1 ? 0 : 1
+    let deliveryType = 1
+    let cart = []
     for (let i in data.cart) {
-        items.push({
-            "productUid": data.cart[i].goodsId,
-            "comment": "这是口味的备注",
-            "quantity": data.cart[i].number,
-            "manualSellPrice": data.cart[i].price
+        let valueList = Object.values(data.cart[i].goodsParam)
+        let comment = (valueList.length > 0 ? data.cart[i].number + '份' + function () {
+            let temp = ''
+            for (let j in valueList) {
+                temp += valueList[j] + (j < valueList.length - 1 ? "/" : ' ')
+            }
+            return temp
+        }() : '')
+        cart.push({
+            goodsId: data.cart[i].goodsId,
+            goodsNumber: data.cart[i].number,
+            goodsPrice: data.cart[i].price,
+            comment: comment
         })
     }
-    // console.info(items)
-    let postData = {
-        "appId": appId,
-        "payMethod": "Wxpay",
-        "payOnLine": 1,
-        "orderRemark": "这是订单备注",
-        "orderDateTime": current_time,
-        "contactAddress": "这是地址",
-        "contactName": "这是姓名",
-        "contactTel": "这是电话",
-        "deliveryType": deliveryType,
-        // "restaurantTableName": 7, //桌号
-        "items": items
+    let newArr = []
+    cart.forEach(el=>{
+        const result = newArr.findIndex(ol=>{return el.goodsId === ol.goodsId})
+        if(result!== -1){
+            newArr[result].comment = newArr[result].comment + el.comment
+            newArr[result].goodsNumber = newArr[result].goodsNumber + el.goodsNumber
+        }else{
+            newArr.push(el)
+        }
+    })
+    for (let i in newArr) {
+        // let value = Object.values(data.cart[i].goodsParam)
+        // value = (value.length > 0 ? JSON.stringify(value) : '')
+        items.push({
+            "productUid": newArr[i].goodsId,
+            "comment": newArr[i].comment,
+            "quantity": newArr[i].goodsNumber,
+            "manualSellPrice": newArr[i].goodsPrice
+        })
     }
+
+    let postData = {}
+    // deliveryType 0 外卖单 1 店内单
+    // if (deliveryType == 0) {
+    //     postData = {
+    //         "appId": appId,
+    //         "payMethod": "Wxpay",
+    //         "payOnLine": 1,
+    //         "orderRemark": "这是订单备注",
+    //         "orderDateTime": current_time,
+    //         "contactAddress": "这是地址",
+    //         "contactName": "这是姓名",
+    //         "contactTel": "这是电话",
+    //         "deliveryType": deliveryType,
+    //         // "restaurantTableName": 7, //桌号
+    //         "items": items
+    //     }
+    // } else
+    if (deliveryType == 1) {
+        postData = {
+            "appId": appId,
+            "payMethod": "Wxpay",
+            "payOnLine": 1,
+            "orderRemark": (data.style == 0 ? "堂食" : "外带"),
+            "orderDateTime": current_time,
+            "deliveryType": deliveryType,
+            "restaurantTableName": 7, //桌号
+            "contactName": "这是姓名",
+            "contactTel": "这是电话",
+            "items": items
+        }
+    }
+    // return
+    // console.info(items)
+
     console.info(postData)
     let postDataJson = JSON.stringify(postData)
     let router = "addOnLineOrder"
