@@ -75,7 +75,7 @@ function yinbaoUpdateData() {
 
                 // 插入现有的银豹商品数据（没有图片，需另外获取）
                 for (let i in ProductResult) {
-                    let tempList = ProductResult[i].description
+                    let tempList = ProductResult[i].attribute2
                     if (tempList.length > 0) {
                         tempList = JSON.parse(tempList)
                         if (typeof tempList == "object") {
