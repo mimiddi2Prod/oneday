@@ -67,6 +67,53 @@ function yinbaoUpdateData() {
                     sql = "insert into restaurant_goods(`name`,id,`describe`,min_price,category_id,stock,status,location_code,create_time) values (?,?,?,?,?,?,?,?,current_timestamp )"
                     row = await db.Query(sql, [ProductResult[i].name, ProductResult[i].uid, ProductResult[i].description, ProductResult[i].sellPrice, ProductResult[i].categoryUid, ProductResult[i].stock, ProductResult[i].enable, "xmspw"])
                 }
+
+                // 将备注里的数据格式 放到参数表上
+                // 先清除原有的数据
+                sql = "delete from restaurant_goods_sku"
+                row = await db.Query(sql)
+
+                // 插入现有的银豹商品数据（没有图片，需另外获取）
+                for (let i in ProductResult) {
+                    let tempList = ProductResult[i].description
+                    if (tempList.length > 0) {
+                        tempList = JSON.parse(tempList)
+                        if (typeof tempList == "object") {
+                            let goods_id = ProductResult[i].uid
+                            let stock = ProductResult[i].stock
+                            let price = ProductResult[i].sellPrice
+                            let len = tempList.length
+                            if (len > 0) {
+                                let y = []
+                                for (let i = 0; i < len; i++) {
+                                    y.push(tempList[i].text)
+                                }
+                                var models = y
+                                let paramGroup = digui(models)
+                                let temp = {}
+                                let list = []
+                                for (let i in paramGroup) {
+                                    let arr = paramGroup[i].split(',')
+                                    for (let j in arr) {
+                                        let key = tempList[j].name
+                                        let value = arr[j]
+                                        temp[key] = value
+                                    }
+                                    list.push({
+                                        param: JSON.stringify(temp)
+                                    })
+                                }
+                                for (let j in list) {
+                                    sql = "insert into restaurant_goods_sku(stock,price,goods_id,param,create_time,user_id)values(?,?,?,?,current_timestamp,?)"
+                                    row = await db.Query(sql, [stock, price, goods_id, list[j].param, 0])
+                                }
+                                // console.info(this.table)
+                            }
+                        }
+
+                    }
+
+                }
             }
 
             // 2.更新商品列表图片
@@ -106,3 +153,33 @@ function yinbaoUpdateData() {
 }
 
 module.exports = yinbaoUpdateData;
+
+function digui(models) {
+    // var models = [['BMW X1', 'BMW X3', 'BMW X5', 'BMW X6'], ['RED', 'BLUE', 'GREEN'], ['低配', '中配', '高配'], ['进口', '国产']];
+    var mLen = models.length;
+    var index = 0;
+
+    var digui = function (arr1, arr2) {
+        // console.log("enter digui",arr1,arr2);
+        var res = [];
+        arr1.forEach(function (m) {
+            arr2.forEach(function (n) {
+                res.push(m + "," + n);
+            })
+        });
+        index++;
+        if (index <= mLen - 1) {
+            return digui(res, models[index])
+        } else {
+            return res;
+        }
+    };
+    var resultArr = [];
+    if (mLen >= 2) {
+        resultArr = digui(models[index], models[++index]);
+    } else {
+        resultArr = models[0];
+    }
+    console.log(resultArr);
+    return resultArr
+}
