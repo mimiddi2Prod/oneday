@@ -712,9 +712,9 @@ $(document).ready(function () {
 })
 
 function getBrand() {
-    const url = '../api/get_brand'
+    const url = api.getBrand, async = true
     let data = {}
-    server(url, data, "post", function (res) {
+    server(url, data, async, "post", function (res) {
         if (res.length > 0) {
             addGoodsVM.brandList = res
         }
@@ -722,11 +722,11 @@ function getBrand() {
 }
 
 function getCategory(type, parent_id) {
-    const url = '../api/get_category'
+    const url = api.getCategory, async = true
     let data = {}
     data.type = type
     data.parent_id = parent_id
-    server(url, data, "post", function (res) {
+    server(url, data, async, "post", function (res) {
         // console.info(res)
         // if (res.length > 0) {
         if (type == 0) {
@@ -739,9 +739,9 @@ function getCategory(type, parent_id) {
 }
 
 function getSpecification() {
-    const url = '../api/get_specification'
+    const url = api.getSpecification, async = true
     let data = {}
-    server(url, data, "post", function (res) {
+    server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.specification.length > 0) {
             addGoodsVM.specificationList = res.specification
@@ -759,11 +759,11 @@ function getSpecification() {
 }
 
 function addSpecification(name) {
-    const url = '../api/add_specification'
+    const url = api.addSpecification, async = true
     let data = {}
     data.name = name
     data.user_id = sessionStorage.getItem('user_id')
-    server(url, data, "post", function (res) {
+    server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.text == '添加成功') {
             getSpecification()
@@ -784,7 +784,7 @@ function addGoods() {
     // console.info(addGoodsVM.goodsInfoImgList)
     // console.info(addGoodsVM.state)
 
-    const url = '../api/add_goods'
+    const url = api.addGoods, async = true
     let data = {}
     data.user_id = sessionStorage.getItem('user_id')
     data.imgList = addGoodsVM.imgList.map(function (res) {
@@ -823,7 +823,7 @@ function addGoods() {
     })
     data.state = addGoodsVM.state
 
-    server(url, data, "post", function (res) {
+    server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.text == '添加成功') {
             alert('添加成功')

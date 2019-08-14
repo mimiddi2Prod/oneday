@@ -50,28 +50,28 @@ var goodsVM = new Vue({
 
     },
     methods: {
-        changePage: function (e, goods_id) {
-            if (e == 'goods-edit') {
-                let temp = this.goodsList.filter(function (res) {
-                    return res.id == goods_id
-                })
-                sessionStorage.setItem("editGoodsList", JSON.stringify(temp));
-            }
-            if (e == 'goods-review') {
-                let temp = this.goodsList.filter(function (res) {
-                    return res.id == goods_id
-                })
-                let info = {}
-                info.item_id = temp[0].id
-                info.name = temp[0].name
-                info.image = temp[0].image[0]
-                info.review_id = temp[0].review_id
-                sessionStorage.setItem("goods_review", JSON.stringify(info));
-            }
-            var href = './' + e + '.html'
-            $("#container").load(href);
-            sessionStorage.setItem("href", href);
-        },
+        // changePage: function (e, goods_id) {
+        //     if (e == 'goods-edit') {
+        //         let temp = this.goodsList.filter(function (res) {
+        //             return res.id == goods_id
+        //         })
+        //         sessionStorage.setItem("editGoodsList", JSON.stringify(temp));
+        //     }
+        //     if (e == 'goods-review') {
+        //         let temp = this.goodsList.filter(function (res) {
+        //             return res.id == goods_id
+        //         })
+        //         let info = {}
+        //         info.item_id = temp[0].id
+        //         info.name = temp[0].name
+        //         info.image = temp[0].image[0]
+        //         info.review_id = temp[0].review_id
+        //         sessionStorage.setItem("goods_review", JSON.stringify(info));
+        //     }
+        //     var href = './' + e + '.html'
+        //     $("#container").load(href);
+        //     sessionStorage.setItem("href", href);
+        // },
         changeNav: function (index) {
             this.navId = index
             this.last_id = 0
