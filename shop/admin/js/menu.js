@@ -23,6 +23,9 @@ var menuVM = new Vue({
         if (tag == 'addGoods' || tag == 'editGoods') {
             tag = 'goods'
         }
+        if(tag == 'addBrand' || tag == 'editBrand'){
+            tag = 'brand'
+        }
         this.activeMenuTag = tag
     }
 })
