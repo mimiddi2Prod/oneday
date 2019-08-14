@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-08-13 18:47:04
+Date: 2019-08-14 15:03:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -46,17 +46,30 @@ CREATE TABLE `admin_menu` (
   `sup_id` int(12) NOT NULL,
   `sort` int(12) NOT NULL,
   `tag` varchar(255) DEFAULT NULL,
+  `app` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin_menu
 -- ----------------------------
-INSERT INTO `admin_menu` VALUES ('1', '首页', '2019-07-23 13:54:08', '../../images/logo.png', '0', '0', 'home');
-INSERT INTO `admin_menu` VALUES ('2', '商品', '2019-08-08 14:00:49', '../../images/logo.png', '0', '0', '');
-INSERT INTO `admin_menu` VALUES ('3', '商品管理', '2019-08-08 14:00:50', '', '2', '0', 'goods');
-INSERT INTO `admin_menu` VALUES ('4', '分类管理', '2019-08-08 14:00:51', '', '2', '0', 'category');
-INSERT INTO `admin_menu` VALUES ('6', '订单', '2019-08-08 13:56:11', '../../images/logo.png', '0', '0', 'order');
+INSERT INTO `admin_menu` VALUES ('1', '首页', '2019-08-14 11:09:39', '../../images/logo.png', '0', '0', 'home', 'restaurant');
+INSERT INTO `admin_menu` VALUES ('2', '商品', '2019-08-14 11:09:50', '../../images/logo.png', '0', '0', '', 'restaurant');
+INSERT INTO `admin_menu` VALUES ('3', '商品管理', '2019-08-14 11:09:50', '', '2', '0', 'goods', 'restaurant');
+INSERT INTO `admin_menu` VALUES ('4', '分类管理', '2019-08-14 11:09:51', '', '2', '0', 'category', 'restaurant');
+INSERT INTO `admin_menu` VALUES ('6', '订单', '2019-08-14 11:09:51', '../../images/logo.png', '0', '0', 'order', 'restaurant');
+INSERT INTO `admin_menu` VALUES ('7', '首页', '2019-08-14 11:09:39', '../../images/logo.png', '0', '0', 'home', 'shop');
+INSERT INTO `admin_menu` VALUES ('8', '商品', '2019-08-14 11:09:50', '../../images/logo.png', '0', '0', '', 'shop');
+INSERT INTO `admin_menu` VALUES ('9', '商品管理', '2019-08-14 11:29:14', '', '8', '0', 'goods', 'shop');
+INSERT INTO `admin_menu` VALUES ('10', '分类管理', '2019-08-14 11:29:15', '', '8', '0', 'category', 'shop');
+INSERT INTO `admin_menu` VALUES ('11', '订单', '2019-08-14 11:09:51', '../../images/logo.png', '0', '0', 'order', 'shop');
+INSERT INTO `admin_menu` VALUES ('12', '品牌管理', '2019-08-14 11:49:21', '../../images/logo.png', '0', '0', 'brand', 'shop');
+INSERT INTO `admin_menu` VALUES ('13', '推荐位管理', '2019-08-14 11:49:50', '../../images/logo.png', '0', '0', 'recommend', 'shop');
+INSERT INTO `admin_menu` VALUES ('14', '导航管理', '2019-08-14 11:49:54', '../../images/logo.png', '0', '0', 'navigation', 'shop');
+INSERT INTO `admin_menu` VALUES ('15', '瀑布流管理', '2019-08-14 11:51:13', '../../images/logo.png', '0', '0', 'waterfall', 'shop');
+INSERT INTO `admin_menu` VALUES ('16', '客户管理', '2019-08-14 11:50:31', '../../images/logo.png', '0', '0', 'customer', 'shop');
+INSERT INTO `admin_menu` VALUES ('17', '设置', '2019-08-14 11:50:33', '../../images/logo.png', '0', '0', '', 'shop');
+INSERT INTO `admin_menu` VALUES ('18', '子账号管理', '2019-08-14 12:01:37', '../../images/logo.png', '17', '0', 'account', 'shop');
 
 -- ----------------------------
 -- Table structure for restaurant_category
@@ -74,8 +87,8 @@ CREATE TABLE `restaurant_category` (
 -- ----------------------------
 -- Records of restaurant_category
 -- ----------------------------
-INSERT INTO `restaurant_category` VALUES ('1565231722645370017', '测试分类', 'xmspw', '0', '2019-08-13 14:20:55', '0');
-INSERT INTO `restaurant_category` VALUES ('1565253909197998219', '仍然', 'xmspw', '0', '2019-08-13 14:20:55', '0');
+INSERT INTO `restaurant_category` VALUES ('1565231722645370017', '测试分类', 'xmspw', '0', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_category` VALUES ('1565253909197998219', '仍然', 'xmspw', '0', '2019-08-14 10:31:07', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_category_copy
@@ -127,11 +140,11 @@ CREATE TABLE `restaurant_goods` (
 -- ----------------------------
 -- Records of restaurant_goods
 -- ----------------------------
-INSERT INTO `restaurant_goods` VALUES ('244706959019475619', '测试商品', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '', '10.00', 'xmspw', '1565231722645370017', '0', '1', '0', '2019-08-13 14:20:55', '0');
-INSERT INTO `restaurant_goods` VALUES ('1024894850209216025', '柠檬苏打', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '111', '32.00', 'xmspw', '1565231722645370017', '0', '1', '0', '2019-08-13 14:20:55', '0');
-INSERT INTO `restaurant_goods` VALUES ('362325027959145552', '测试1', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/895a5f9b-93b0-4926-bf20-9df402ed83c4.jpg', '', '11.00', 'xmspw', '1565231722645370017', '0', '1', '0', '2019-08-13 14:20:55', '0');
-INSERT INTO `restaurant_goods` VALUES ('323862728586653407', '测试2', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/dd5be4a9-ef55-44e0-86a0-982b52dba5b0.jpg', '', '12.00', 'xmspw', '1565231722645370017', '0', '1', '0', '2019-08-13 14:20:55', '0');
-INSERT INTO `restaurant_goods` VALUES ('124760793601156781', '测试3', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/89ca8897-62ba-476b-afbb-8439a99c1fc5.jpg', '', '14.00', 'xmspw', '1565253909197998219', '0', '1', '0', '2019-08-13 14:20:55', '0');
+INSERT INTO `restaurant_goods` VALUES ('244706959019475619', '测试商品', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '', '10.00', 'xmspw', '1565231722645370017', '0', '1', '0', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods` VALUES ('1024894850209216025', '柠檬苏打', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '111', '32.00', 'xmspw', '1565231722645370017', '0', '1', '0', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods` VALUES ('362325027959145552', '测试1', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/895a5f9b-93b0-4926-bf20-9df402ed83c4.jpg', '', '11.00', 'xmspw', '1565231722645370017', '0', '1', '0', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods` VALUES ('323862728586653407', '测试2', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/dd5be4a9-ef55-44e0-86a0-982b52dba5b0.jpg', '', '12.00', 'xmspw', '1565231722645370017', '0', '1', '0', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods` VALUES ('124760793601156781', '测试3', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/89ca8897-62ba-476b-afbb-8439a99c1fc5.jpg', '', '14.00', 'xmspw', '1565253909197998219', '0', '1', '0', '2019-08-14 10:31:07', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_copy
@@ -191,11 +204,26 @@ CREATE TABLE `restaurant_goods_order` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `style` int(11) NOT NULL COMMENT '0 堂食 1 外带',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_order
 -- ----------------------------
+INSERT INTO `restaurant_goods_order` VALUES ('1', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '162', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '10.00', '1', null, '2019-08-14 10:20:50', '2019-08-14 10:20:54', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('2', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '165', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"三分糖\",\"温度\":\"正常冰\"}', '10.00', '2', null, '2019-08-14 10:20:50', '2019-08-14 10:20:54', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('3', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '166', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"三分糖\",\"温度\":\"常温\"}', '10.00', '1', null, '2019-08-14 10:20:50', '2019-08-14 10:20:54', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('4', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '167', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"三分糖\",\"温度\":\"100°C\"}', '10.00', '2', null, '2019-08-14 10:20:50', '2019-08-14 10:20:54', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('5', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '170', '1024894850209216025', '柠檬苏打', '111', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '{\"甜度\":\"三分糖\",\"温度\":\"正常冰\"}', '32.00', '1', null, '2019-08-14 10:20:50', '2019-08-14 10:20:54', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('6', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '171', '1024894850209216025', '柠檬苏打', '111', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '{\"甜度\":\"三分糖\",\"温度\":\"常温\"}', '32.00', '2', null, '2019-08-14 10:20:50', '2019-08-14 10:20:54', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('7', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '169', '1024894850209216025', '柠檬苏打', '111', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '{\"甜度\":\"无糖\",\"温度\":\"常温\"}', '32.00', '1', null, '2019-08-14 10:20:50', '2019-08-14 10:20:54', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('8', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '362325027959145552', '测试1', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/895a5f9b-93b0-4926-bf20-9df402ed83c4.jpg', '\"\"', '11.00', '1', null, '2019-08-14 10:20:50', '2019-08-14 10:20:54', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('9', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '178', '1024894850209216025', '柠檬苏打', '111', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\",\"大小\":\"中杯\"}', '32.00', '2', null, '2019-08-14 10:24:40', '2019-08-14 10:24:41', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('10', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '179', '1024894850209216025', '柠檬苏打', '111', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\",\"大小\":\"大杯\"}', '32.00', '2', null, '2019-08-14 10:24:40', '2019-08-14 10:24:41', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('11', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '181', '1024894850209216025', '柠檬苏打', '111', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '{\"甜度\":\"无糖\",\"温度\":\"常温\",\"大小\":\"大杯\"}', '32.00', '1', null, '2019-08-14 10:24:40', '2019-08-14 10:24:41', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('12', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '172', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '10.00', '1', null, '2019-08-14 10:24:40', '2019-08-14 10:24:41', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('13', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '175', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"三分糖\",\"温度\":\"正常冰\"}', '10.00', '2', null, '2019-08-14 10:24:40', '2019-08-14 10:24:41', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('14', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '362325027959145552', '测试1', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/895a5f9b-93b0-4926-bf20-9df402ed83c4.jpg', '\"\"', '11.00', '1', null, '2019-08-14 10:24:40', '2019-08-14 10:24:41', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('15', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '323862728586653407', '测试2', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/dd5be4a9-ef55-44e0-86a0-982b52dba5b0.jpg', '\"\"', '12.00', '2', null, '2019-08-14 10:24:40', '2019-08-14 10:24:41', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_sku
@@ -210,21 +238,21 @@ CREATE TABLE `restaurant_goods_sku` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_sku
 -- ----------------------------
-INSERT INTO `restaurant_goods_sku` VALUES ('162', '0', '10.00', '244706959019475619', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '2019-08-13 14:20:56', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('163', '0', '10.00', '244706959019475619', '{\"甜度\":\"无糖\",\"温度\":\"常温\"}', '2019-08-13 14:20:56', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('164', '0', '10.00', '244706959019475619', '{\"甜度\":\"无糖\",\"温度\":\"100°C\"}', '2019-08-13 14:20:56', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('165', '0', '10.00', '244706959019475619', '{\"甜度\":\"三分糖\",\"温度\":\"正常冰\"}', '2019-08-13 14:20:56', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('166', '0', '10.00', '244706959019475619', '{\"甜度\":\"三分糖\",\"温度\":\"常温\"}', '2019-08-13 14:20:56', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('167', '0', '10.00', '244706959019475619', '{\"甜度\":\"三分糖\",\"温度\":\"100°C\"}', '2019-08-13 14:20:56', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('168', '0', '32.00', '1024894850209216025', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '2019-08-13 14:20:56', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('169', '0', '32.00', '1024894850209216025', '{\"甜度\":\"无糖\",\"温度\":\"常温\"}', '2019-08-13 14:20:56', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('170', '0', '32.00', '1024894850209216025', '{\"甜度\":\"三分糖\",\"温度\":\"正常冰\"}', '2019-08-13 14:20:56', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('171', '0', '32.00', '1024894850209216025', '{\"甜度\":\"三分糖\",\"温度\":\"常温\"}', '2019-08-13 14:20:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('196', '0', '10.00', '244706959019475619', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('197', '0', '10.00', '244706959019475619', '{\"甜度\":\"无糖\",\"温度\":\"常温\"}', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('198', '0', '10.00', '244706959019475619', '{\"甜度\":\"无糖\",\"温度\":\"100°C\"}', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('199', '0', '10.00', '244706959019475619', '{\"甜度\":\"三分糖\",\"温度\":\"正常冰\"}', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('200', '0', '10.00', '244706959019475619', '{\"甜度\":\"三分糖\",\"温度\":\"常温\"}', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('201', '0', '10.00', '244706959019475619', '{\"甜度\":\"三分糖\",\"温度\":\"100°C\"}', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('202', '0', '32.00', '1024894850209216025', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('203', '0', '32.00', '1024894850209216025', '{\"甜度\":\"无糖\",\"温度\":\"常温\"}', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('204', '0', '32.00', '1024894850209216025', '{\"甜度\":\"三分糖\",\"温度\":\"正常冰\"}', '2019-08-14 10:31:07', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('205', '0', '32.00', '1024894850209216025', '{\"甜度\":\"三分糖\",\"温度\":\"常温\"}', '2019-08-14 10:31:07', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_search_history
@@ -264,7 +292,7 @@ CREATE TABLE `restaurant_user` (
 -- Records of restaurant_user
 -- ----------------------------
 INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', '7Xa0Lt0bYxhdbHt8XusZTw==', '2019-08-01 15:52:43', null, '0');
-INSERT INTO `restaurant_user` VALUES ('3', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '', null, null, '2019-08-02 14:58:46', 'S8BMGhE8DpDAyirUFhY6HA==', '2019-08-13 14:42:05', null, '0');
+INSERT INTO `restaurant_user` VALUES ('3', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '', null, null, '2019-08-02 14:58:46', '0CjHc1nbiv/IbHj87r5v+Q==', '2019-08-14 10:24:22', null, '0');
 
 -- ----------------------------
 -- Table structure for shop_ad
@@ -602,7 +630,7 @@ CREATE TABLE `shop_user` (
 -- ----------------------------
 -- Records of shop_user
 -- ----------------------------
-INSERT INTO `shop_user` VALUES ('0', '%E3%80%82%E3%80%82%E3%80%82', 'oHjV85X-ld1eKTRDPd3HjMW2_CxY', '2019-08-13 18:45:08', '2019-08-13 18:45:10', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKicggrszbOFRE5siciaIFjUAYWiacpClj4saVxfFuSp0hibQTOG2vPN3zAALibxOyuEibhAxntqS8uMUekQ/132', null, '0', '');
+INSERT INTO `shop_user` VALUES ('0', '%E3%80%82%E3%80%82%E3%80%82', 'oHjV85X-ld1eKTRDPd3HjMW2_CxY', '2019-08-13 18:45:08', '2019-08-14 10:37:09', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKicggrszbOFRE5siciaIFjUAYWiacpClj4saVxfFuSp0hibQTOG2vPN3zAALibxOyuEibhAxntqS8uMUekQ/132', null, '0', '');
 
 -- ----------------------------
 -- Table structure for test
