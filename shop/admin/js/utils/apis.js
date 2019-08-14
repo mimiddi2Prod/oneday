@@ -11,4 +11,5 @@ var api = {
     getBrand: '../api/get_brand',
     updateBrandState: '../api/update_brandState',
     addBrand: '../api/add_brand',
+    updateBrand: '../api/update_brand',
 }

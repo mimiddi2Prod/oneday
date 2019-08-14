@@ -10,15 +10,22 @@ var brandVM = new Vue({
     },
     methods: {
         // 跳转添加推荐位需要
-        changePage: function (e, brand_id) {
+        // changePage: function (e, brand_id) {
+        //     let temp = this.brandList.filter(function (res) {
+        //         return res.id == brand_id
+        //     })
+        //     sessionStorage.setItem("editBrandList", JSON.stringify(temp));
+        //
+        //     var href = './' + e + '.html'
+        //     $("#container").load(href);
+        //     sessionStorage.setItem("href", href);
+        // },
+        editBrand: function (brand_id) {
             let temp = this.brandList.filter(function (res) {
                 return res.id == brand_id
             })
-            sessionStorage.setItem("editBrandList", JSON.stringify(temp));
-
-            var href = './' + e + '.html'
-            $("#container").load(href);
-            sessionStorage.setItem("href", href);
+            sessionStorage.setItem("editBrand", JSON.stringify(temp));
+            window.location.href = "editBrand"
         },
         // 广告类型右箭头点击方向改变
         // changeCaret:function(id){
