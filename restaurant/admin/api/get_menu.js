@@ -6,14 +6,14 @@ function getMenu() {
         var data = {}
         var row = []
         try {
-            sql = "select id,`name`,image,tag from admin_menu where sup_id = ?";
-            row = await db.Query(sql, 0);
+            sql = "select id,`name`,image,tag from admin_menu where sup_id = ? and app = ?";
+            row = await db.Query(sql, [0, 'restaurant']);
             console.info(row)
             if (row.length > 0) {
                 data.menu = row
                 for (let i in data.menu) {
-                    sql = "select `name`,image,tag from admin_menu where sup_id = ?";
-                    row = await db.Query(sql, data.menu[i].id);
+                    sql = "select `name`,image,tag from admin_menu where sup_id = ? and app = ?";
+                    row = await db.Query(sql, [data.menu[i].id, 'restaurant']);
                     data.menu[i].subMenu = (row.length > 0 ? row : [])
                 }
             }
