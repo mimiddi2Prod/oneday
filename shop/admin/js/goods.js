@@ -198,7 +198,7 @@ var goodsVM = new Vue({
                 fn.price_latest = ''
                 fn.price_max = ''
                 fn.price_max_latest = ''
-                let temp = Number(fn.price)
+                let temp = Number(fn.min_price)
                 for (let i in fn.param) {
                     fn.param[i].price_latest = ''
                     if (temp < Number(fn.param[i].price)) {
@@ -208,6 +208,7 @@ var goodsVM = new Vue({
                 fn.price_max = temp
                 return fn.checked
             })
+            console.info(this.previewGoodsPrice)
         },
         submitPrice: function () {
             if ((this.choose_type == 1 && !this.calc_number_one) || (this.choose_type == 2 && !this.calc_number_two)) {
@@ -310,25 +311,25 @@ var goodsVM = new Vue({
                 this.previewGoodsPrice.map(function (fn) {
                     if (val) {
                         if (self.calc_type == 1) {
-                            fn.price_latest = Number(Number(fn.price) + Number(val)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) + Number(val)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) + Number(val)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) + Number(val))
                             }
                         } else if (self.calc_type == 2) {
-                            fn.price_latest = Number(Number(fn.price) - Number(val)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) - Number(val)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) - Number(val)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) - Number(val))
                             }
                         } else if (self.calc_type == 3) {
-                            fn.price_latest = Number(Number(fn.price) * Number(val)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) * Number(val)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) * Number(val)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) * Number(val))
                             }
                         } else if (self.calc_type == 4) {
-                            fn.price_latest = Number(Number(fn.price) / Number(val)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) / Number(val)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) / Number(val)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) / Number(val))
@@ -367,25 +368,25 @@ var goodsVM = new Vue({
                 this.previewGoodsPrice.map(function (fn) {
                     if (self.calc_number_two) {
                         if (self.calc_type == 1) {
-                            fn.price_latest = Number(Number(fn.price) + Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) + Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) + Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) + Number(self.calc_number_two))
                             }
                         } else if (self.calc_type == 2) {
-                            fn.price_latest = Number(Number(fn.price) - Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) - Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) - Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) - Number(self.calc_number_two))
                             }
                         } else if (self.calc_type == 3) {
-                            fn.price_latest = Number(Number(fn.price) * Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) * Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) * Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) * Number(self.calc_number_two))
                             }
                         } else if (self.calc_type == 4) {
-                            fn.price_latest = Number(Number(fn.price) / Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.mini_price) / Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) / Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) / Number(self.calc_number_two))
@@ -407,25 +408,25 @@ var goodsVM = new Vue({
                 this.previewGoodsPrice.map(function (fn) {
                     if (self.calc_number_two) {
                         if (val == 1) {
-                            fn.price_latest = Number(Number(fn.price) + Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) + Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) + Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) + Number(self.calc_number_two))
                             }
                         } else if (val == 2) {
-                            fn.price_latest = Number(Number(fn.price) - Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) - Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) - Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) - Number(self.calc_number_two))
                             }
                         } else if (val == 3) {
-                            fn.price_latest = Number(Number(fn.price) * Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) * Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) * Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) * Number(self.calc_number_two))
                             }
                         } else if (val == 4) {
-                            fn.price_latest = Number(Number(fn.price) / Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.min_price) / Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) / Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) / Number(self.calc_number_two))
@@ -521,11 +522,11 @@ function getCategory(type, parent_id) {
     })
 }
 
-function updateGoodsCategory(goods_id_list, category_id_1) {
+function updateGoodsCategory(goods_id_list, category_id) {
     const url = api.updateGoodsCategory, async = true
     let data = {}
     data.goods_id_list = goods_id_list
-    data.category_id_1 = category_id_1
+    data.category_id = category_id
     server(url, data, async, "post", function (res) {
         console.info(res)
         if (res.text == '编辑成功') {

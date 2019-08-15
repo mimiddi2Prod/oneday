@@ -239,7 +239,7 @@
             </tr>
             <tr v-for="item in goodsList">
                 <td>{{item.name}}</td>
-                <td>{{item.price}}</td>
+                <td>{{item.min_price}}</td>
                 <td>{{item.volume}}</td>
                 <td>{{item.total_stock}}</td>
                 <td>{{item.category_name_1}}</td>
@@ -250,7 +250,7 @@
 
         <!--下架-->
         <div id="obtained" class="none"
-             style="position: absolute;z-index: 9;width: 100%;height: 100%;top:0;left:0;font-size: 16px">
+             style="position: fixed;z-index: 9;width: 100%;height: 100%;top:0;left:0;font-size: 16px">
             <div style="z-index: 9;width: 100%;height: 100%;background-color: black;opacity: 0"></div>
             <div class="alert alert-danger"
                  style="position: absolute;transform: translate(-50%,50%);margin-left: 50%;top:30%;padding-bottom: 0">
@@ -333,7 +333,7 @@
                                         <span>{{item.name}}</span>
                                     </div>
                                     <div class="second-title column-center">
-                                        {{item.price}} ~ {{item.price_max}}
+                                        {{item.min_price}} ~ {{item.price_max}}
                                     </div>
                                     <div class="second-title column-center" v-if="choose_type == 1">
                                         {{item.price_latest}}
