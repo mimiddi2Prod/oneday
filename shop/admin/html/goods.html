@@ -173,7 +173,7 @@
                         <button type="button" class="btn btn-link" v-on:click="changePage('goods-review',item.id)">评价
                         </button>
                         <button type="button" class="btn btn-link" v-on:click="changeGoodsState(item.id,item.status)">
-                            {{item.status == 1 ? '下架' : '上架'}}
+                            {{item.status == 0 ? '下架' : '上架'}}
                         </button>
                         <!--<button type="button" class="btn btn-link">删除</button>-->
                     </div>

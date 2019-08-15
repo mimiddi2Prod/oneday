@@ -55,26 +55,29 @@ function shopGetGoods() {
                 let notStockItemList = row.map(function (res) {
                     return res.goods_id
                 })
-                // data.number = notStockItemList.length
-                if (param['need_integral'] == 0) {
-                    sql = "select count(id) from shop_goods where integral_price = ? and id in (?)";
-                } else if (param['need_integral'] == 1) {
-                    sql = "select count(id) from shop_goods where integral_price > ? and id in (?)";
-                }
-                row = await db.Query(sql, [0, notStockItemList.map(function (fn) {
-                    return fn
-                })]);
-                data.number = row[0]['count(id)']
+                data.number = 0
+                if(notStockItemList.length > 0){
+                    // data.number = notStockItemList.length
+                    if (param['need_integral'] == 0) {
+                        sql = "select count(id) from shop_goods where integral_price = ? and status = ? and id in (?)";
+                    } else if (param['need_integral'] == 1) {
+                        sql = "select count(id) from shop_goods where integral_price > ? and status = ? and id in (?)";
+                    }
+                    row = await db.Query(sql, [0, 0, notStockItemList.map(function (fn) {
+                        return fn
+                    })]);
+                    data.number = row[0]['count(id)']
 
-                if (param['need_integral'] == 0) {
-                    sql = "select id,`name`,image,url,min_price,`describe`,`type`,integral_price,sort,status,specification_id_1,specification_id_2,category_id,create_time,brand_id,review_id,goods_info from shop_goods where integral_price = ? and status = ? and id in (?) ORDER BY create_time desc limit ?,?";
-                } else if (param['need_integral'] == 1) {
-                    sql = "select id,`name`,image,url,min_price,`describe`,`type`,integral_price,sort,status,specification_id_1,specification_id_2,category_id,create_time,brand_id,review_id,goods_info from shop_goods where integral_price > ? and status = ? and id in (?) ORDER BY create_time desc limit ?,?";
+                    if (param['need_integral'] == 0) {
+                        sql = "select id,`name`,image,url,min_price,`describe`,`type`,integral_price,sort,status,specification_id_1,specification_id_2,category_id,create_time,brand_id,review_id,goods_info from shop_goods where integral_price = ? and status = ? and id in (?) ORDER BY create_time desc limit ?,?";
+                    } else if (param['need_integral'] == 1) {
+                        sql = "select id,`name`,image,url,min_price,`describe`,`type`,integral_price,sort,status,specification_id_1,specification_id_2,category_id,create_time,brand_id,review_id,goods_info from shop_goods where integral_price > ? and status = ? and id in (?) ORDER BY create_time desc limit ?,?";
+                    }
+                    row = await db.Query(sql, [0, 0, notStockItemList.map(function (fn) {
+                        return fn
+                    }), param['last_id'] * 5, 5]);
+                    console.info(row)
                 }
-                row = await db.Query(sql, [0, 1, notStockItemList.map(function (fn) {
-                    return fn
-                }), param['last_id'] * 5, 5]);
-                console.info(row)
             } else if (param['status'] == 2) {
                 // 下架
                 if (param['need_integral'] == 0) {
