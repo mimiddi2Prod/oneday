@@ -12,13 +12,13 @@ function shopUpdateGoodsCategory() {
             let update_goods_category_list = JSON.parse(param['goods_id_list'])
             if (update_goods_category_list.length <= 0) {
                 console.info('没有可更改分类的商品')
-            } else if (!param['category_id_1']) {
+            } else if (!param['category_id']) {
                 console.info('没有获取要更改的分类')
             } else {
                 let flag = 0
                 for (let i in update_goods_category_list) {
                     sql = "update item set category_id_1 = ? where id = ?";
-                    row = await db.Query(sql, [param['category_id_1'], update_goods_category_list[i]]);
+                    row = await db.Query(sql, [param['category_id'], update_goods_category_list[i]]);
                     if (row.changedRows == 1) {
                         flag++
                     }

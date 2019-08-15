@@ -19,9 +19,11 @@ function shopAddGoods() {
                 console.info('goods_desc没有获取到')
             } else if (!param['goods_brand_id']) {
                 console.info('goods_brand_id没有获取到')
-            } else if (!param['qcl_id']) {
-                console.info('qcl_id没有获取到')
-            } else if (!param['type'].toString()) {
+            }
+            // else if (!param['qcl_id']) {
+            //     console.info('qcl_id没有获取到')
+            // }
+            else if (!param['type'].toString()) {
                 console.info('type没有获取到')
             } else if (!param['integralValue'].toString()) {
                 console.info('integralValue没有获取到')
@@ -52,8 +54,10 @@ function shopAddGoods() {
                 let url = '../goods/goods'  // 之后如果需要别的路径，再行更改，目前默认写死
                 // type:0 item,1 topic,2
                 // state:0 上架 1 下架
+                // let qcl = param['qcl_id']
+                let qcl = 0
                 sql = "insert into item(`name`,image,url,qcl,price,`describe`,`type`,integral_price,state,specification_id_1,specification_id_2,user_id,category_id_1,category_id_2,category_id_3,create_time,brand_id,review_id,goods_info)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,?,?)";
-                row = await db.Query(sql, [param['goods_title'], goodsImg, url, param['qcl_id'], param['price'], param['goods_desc'], param['type'], param['integralValue'], param['state'], param['paramItem'][0].select_id, param['paramItem'][1].select_id, param['user_id'], param['category_id_select'], 0, 0, param['goods_brand_id'], 0, goodsInfo]);
+                row = await db.Query(sql, [param['goods_title'], goodsImg, url, qcl, param['price'], param['goods_desc'], param['type'], param['integralValue'], param['state'], param['paramItem'][0].select_id, param['paramItem'][1].select_id, param['user_id'], param['category_id_select'], 0, 0, param['goods_brand_id'], 0, goodsInfo]);
 
                 // item 添加完成
                 if (row.insertId) {
