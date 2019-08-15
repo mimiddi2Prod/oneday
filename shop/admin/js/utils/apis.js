@@ -3,6 +3,8 @@ var api = {
     updateGoodsState: '../api/update_goodsState',
     getGoods: '../api/get_goods',
     getCategory: '../api/get_category',
+    addCategory: '../api/add_category',
+    delCategory: '../api/del_category',
     updateGoodsCategory: '../api/update_goods_category',
     updateGoodsPrice: '../api/update_goods_price',
     addGoods: '../api/add_goods',
