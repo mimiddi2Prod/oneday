@@ -448,7 +448,7 @@ function updateGoodsState(id_list, state) {
     const url = api.updateGoodsState, async = true
     let data = {}
     data.goods_id_list = id_list
-    data.state = state
+    data.status = state
     console.info(data)
     server(url, data, async, "post", function (res) {
         // console.info(res)
@@ -480,7 +480,7 @@ function getGoods() {
         console.info(res)
         if (res.number > 0) {
             res.list = res.list.map(function (resData) {
-                resData.price = Number(resData.price).toFixed(2)
+                resData.min_price = Number(resData.min_price).toFixed(2)
                 resData.create_time = formatTime(new Date(resData.create_time))
                 resData.showMoreParam = false
                 let total_stock = 0

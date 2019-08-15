@@ -762,7 +762,8 @@ function addSpecification(name) {
     const url = api.addSpecification, async = true
     let data = {}
     data.name = name
-    data.user_id = sessionStorage.getItem('user_id')
+    // data.user_id = sessionStorage.getItem('user_id')
+    data.user_id = 0
     server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.text == '添加成功') {
@@ -786,7 +787,8 @@ function addGoods() {
 
     const url = api.addGoods, async = true
     let data = {}
-    data.user_id = sessionStorage.getItem('user_id')
+    // data.user_id = sessionStorage.getItem('user_id')
+    data.user_id = 0
     data.imgList = addGoodsVM.imgList.map(function (res) {
         return res.key
     })
@@ -821,7 +823,7 @@ function addGoods() {
     data.goodsInfoImgList = addGoodsVM.goodsInfoImgList.map(function (res) {
         return res.key
     })
-    data.state = addGoodsVM.state
+    data.status = addGoodsVM.state
 
     server(url, data, async, "post", function (res) {
         // console.info(res)
