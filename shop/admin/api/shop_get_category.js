@@ -1,3 +1,13 @@
+// var mysql  = require('mysql');
+// var connection = mysql.createConnection({
+//   host     : '127.0.0.1',
+//   user     : 'root',
+//   password : '',
+//   port: '3306',
+//   database: 'js_shop',
+// });
+// connection.connect();
+// var tools = require("./tool");
 var db = require("./../utils/dba");
 
 function shopGetCategory() {
@@ -10,7 +20,7 @@ function shopGetCategory() {
         try {
             if (param['type'] == 0 || param['type'] == 1) {
                 // 获取父/子分类 添加商品
-                sql = "select id,name,`type` from shop_category where `type` = ? and parent_id = ?"
+                sql = "select id,name,`type` from category where `type` = ? and parent_id = ?"
                 row = await db.Query(sql, [param['type'], param['parent_id']])
                 if (row.length > 0) {
                     data = row
@@ -19,22 +29,22 @@ function shopGetCategory() {
                 }
             } else {
                 // 分类管理
-                sql = "select count(id) from shop_category where `type` = ?";
+                sql = "select count(id) from category where `type` = ?";
                 row = await db.Query(sql, 0);
                 data.number = row[0]['count(id)']
                 // 全部拉取
-                sql = "select id,name,image,url,create_time,parent_id,`type`,home_nav,sort,`describe` from shop_category where `type` = ? ORDER BY sort limit ?,?";
+                sql = "select id,name,image,url,create_time,parent_id,`type`,home_nav,sort,`describe` from category where `type` = ? ORDER BY sort limit ?,?";
                 console.info(sql)
                 row = await db.Query(sql, [0, param['last_id'] * 5, 5]);
                 data.sortList = row
                 for (var i in data.sortList) {
-                    sql = "select id,name,image,url,create_time,`type`,home_nav,sort from shop_category where `type` = ? and parent_id = ? ORDER BY sort";
+                    sql = "select id,name,image,url,create_time,`type`,home_nav,sort from category where `type` = ? and parent_id = ? ORDER BY sort";
                     row = await db.Query(sql, [1, data.sortList[i].id])
                     data.sortList[i].menu = row
                     data.sortList[i].number = 0
                     if(data.sortList[i].menu.length > 0){
                         for(let j in data.sortList[i].menu){
-                            sql = "select count(id) from shop_goods where category_id = ?";
+                            sql = "select count(id) from item where category_id_1 = ?";
                             row = await db.Query(sql, data.sortList[i].menu[j].id)
                             data.sortList[i].menu[j].number = row[0]['count(id)']
                             data.sortList[i].number = data.sortList[i].number +  data.sortList[i].menu[j].number

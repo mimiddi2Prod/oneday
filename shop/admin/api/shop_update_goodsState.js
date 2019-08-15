@@ -1,5 +1,5 @@
-// var tools = require("./tool");
 var db = require("./../utils/dba");
+
 function shopUpdateGoodsState() {
     // var tool = new tools;
     // var query = tool.query;
@@ -14,8 +14,8 @@ function shopUpdateGoodsState() {
             } else {
                 let flag = 0
                 for (let i in goods_id_list) {
-                    sql = "update shop_goods set status = ? where id = ?"
-                    row = await db.Query(sql, [param["status"], goods_id_list[i]])
+                    sql = "update item set state = ? where id = ?"
+                    row = await db.Query(sql, [param["state"], goods_id_list[i]])
                     if (row.changedRows == 1) {
                         flag++
                     }

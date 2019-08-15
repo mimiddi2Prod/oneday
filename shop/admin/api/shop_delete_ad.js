@@ -1,7 +1,6 @@
-// var tools = require("./tool");
 var db = require("./../utils/dba");
 
-function shopAddSpecification() {
+function shopDeleteAd() {
     // var tool = new tools;
     // var query = tool.query;
     this.Service = async function (version, param, callback) {
@@ -9,13 +8,13 @@ function shopAddSpecification() {
         var data = {}
         var row = []
         try {
-            sql = "insert into specification(`name`,create_time,user_id)values(?,CURRENT_TIMESTAMP,?)";
-            row = await db.Query(sql, [param['name'], param['user_id']]);
+            sql = "delete from advertisement where id = ?";
+            row = await db.Query(sql, param['ad_id']);
             console.info(row)
-            if (row.insertId) {
-                data.text = '添加成功'
+            if (row.affectedRows == 1) {
+                data.text = '删除成功'
             } else {
-                data.text = '添加失败'
+                data.text = '删除失败'
             }
 
             return callback(data);
@@ -25,4 +24,4 @@ function shopAddSpecification() {
     }
 }
 
-module.exports = shopAddSpecification;
+module.exports = shopDeleteAd;

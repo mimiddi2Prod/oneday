@@ -1,19 +1,7 @@
-// var mysql  = require('mysql');
-// var connection = mysql.createConnection({
-//   host     : '127.0.0.1',
-//   user     : 'root',
-//   password : '',
-//   port: '3306',
-//   database: 'js_shop',
-// });
-// connection.connect();
-// var tools = require("./tool");
 var db = require("./../utils/dba");
 const qiniuRootUrl = require("./../config/qiniuConfig").qiniuRootUrl
 
 function shopAddCategory() {
-    // var tool = new tools;
-    // var query = tool.query;
     this.Service = async function (version, param, callback) {
         var sql = ""
         var data = {}
@@ -32,7 +20,7 @@ function shopAddCategory() {
             // 单张图上传
             var img = qiniuRootUrl + param['imgList'][0]
 
-            sql = "insert into shop_category(`name`,image,url,create_time,user_id,parent_id,`type`,home_nav,sort,`describe`)values(?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?)";
+            sql = "insert into category(`name`,image,url,create_time,user_id,parent_id,`type`,home_nav,sort,`describe`)values(?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?)";
             row = await db.Query(sql, [param['name'], img, param['url'], param['user_id'], param['parent_id'], param['type'], 1, param['sort'], param['describe']]);
             console.info(row)
             if (row.insertId) {

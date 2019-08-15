@@ -88,7 +88,7 @@ function getBrand() {
     const url = api.getBrand, async = true
     let data = {}
     data.last_id = brandVM.last_id
-    data.status = brandVM.navId
+    data.state = brandVM.navId
     // data.type = brandVM.navIdnavId
     server(url, data, async, "post", function (res) {
         console.info(res)
@@ -111,7 +111,7 @@ function changeBrandState(id, state) {
     const url = api.updateBrandState, async = true
     let data = {}
     data.id = id
-    data.status = state
+    data.state = state
     server(url, data, async, "post", function (res) {
         if (res.text == '更改成功') {
             brandVM.last_id = 0

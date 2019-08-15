@@ -956,7 +956,7 @@ function editGoods() {
     //     }
     //     return res.tempFilePath
     // })
-    data.status = editGoodsVM.state
+    data.state = editGoodsVM.state
 
     // console.info(data)
     server(url, data, async, "post", function (res) {

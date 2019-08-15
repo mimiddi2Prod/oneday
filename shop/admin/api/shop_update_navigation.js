@@ -1,27 +1,25 @@
 var db = require("./../utils/dba");
 
-function shopGetParam() {
+function shopUpdateNavigation() {
     // var tool = new tools;
     // var query = tool.query;
     this.Service = async function (version, param, callback) {
         var sql = ""
-        var data = []
+        var data = {}
         var row = []
         try {
-            if (param['specification_id'] && param['goods_id']) {
-                sql = "select param,image from item_param where `item_id` = ? and specification_id = ?"
-                row = await db.Query(sql, [param['goods_id'], param['specification_id']])
-                if (row.length > 0) {
-                    for (let i in row) {
-                        data.push({
-                            img: row[i].image,
-                            name: row[i].param
-                        })
-                    }
-                }
+            if (!param['home_nav'].toString()) {
+                console.info('home_nav没有获取到')
+            } else if (!param['id']) {
+                console.info('id没有获取到')
             } else {
-                console.info('specification 或者 goods_id 没有获取到')
+                sql = "update category set home_nav = ? where id = ?"
+                row = await db.Query(sql, [param['home_nav'], param['id']])
+                if (row.changedRows == 1) {
+                    data.text = '更改成功'
+                }
             }
+
             return callback(data);
         } catch (e) {
             console.info('boom!!!!!!!!!!!!!')
@@ -42,4 +40,4 @@ function shopGetParam() {
     }
 }
 
-module.exports = shopGetParam;
+module.exports = shopUpdateNavigation;

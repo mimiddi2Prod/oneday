@@ -1,7 +1,6 @@
-// var tools = require("./tool");
 var db = require("./../utils/dba");
 
-function shopAddSpecification() {
+function shopAddAccount() {
     // var tool = new tools;
     // var query = tool.query;
     this.Service = async function (version, param, callback) {
@@ -9,8 +8,8 @@ function shopAddSpecification() {
         var data = {}
         var row = []
         try {
-            sql = "insert into specification(`name`,create_time,user_id)values(?,CURRENT_TIMESTAMP,?)";
-            row = await db.Query(sql, [param['name'], param['user_id']]);
+            sql = "insert into admin(username,password,nick_name,register_time,last_login_time,`type`,position_id)values(?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?)";
+            row = await db.Query(sql, [param['login_name'], param['password'], param['nick_name'], 1, param['position_id']]);
             console.info(row)
             if (row.insertId) {
                 data.text = '添加成功'
@@ -25,4 +24,4 @@ function shopAddSpecification() {
     }
 }
 
-module.exports = shopAddSpecification;
+module.exports = shopAddAccount;

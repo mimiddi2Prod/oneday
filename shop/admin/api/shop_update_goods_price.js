@@ -1,5 +1,6 @@
-// var tools = require("./tool");
 var db = require("./../utils/dba");
+const qiniuRootUrl = require("./../config/qiniuConfig").qiniuRootUrl
+
 function shopUpdateGoodsPrice() {
     // var tool = new tools;
     // var query = tool.query;
@@ -10,14 +11,14 @@ function shopUpdateGoodsPrice() {
         try {
             let flag1 = 0, success1 = false, flag2 = 0, success2 = false
             for (let i in param['goods_list']) {
-                sql = "update shop_goods set min_price = ? where id = ?"
+                sql = "update item set price = ? where id = ?"
                 row = await db.Query(sql, [param["goods_list"][i].price, param["goods_list"][i].id])
                 if (row.changedRows == 1) {
                     flag1++
                 }
 
                 for (let j in param['goods_list'][i].param) {
-                    sql = "update shop_goods_price set price = ? where id = ?"
+                    sql = "update item_price set price = ? where id = ?"
                     row = await db.Query(sql, [param['goods_list'][i].param[j].price_latest, param['goods_list'][i].param[j].id])
 
                     if (row.changedRows == 1) {

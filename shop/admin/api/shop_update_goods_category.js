@@ -1,5 +1,5 @@
-// var tools = require("./tool");
 var db = require("./../utils/dba");
+// const qiniuRootUrl = require("./../config/qiniuConfig").qiniuRootUrl
 
 function shopUpdateGoodsCategory() {
     // var tool = new tools;
@@ -12,13 +12,13 @@ function shopUpdateGoodsCategory() {
             let update_goods_category_list = JSON.parse(param['goods_id_list'])
             if (update_goods_category_list.length <= 0) {
                 console.info('没有可更改分类的商品')
-            } else if (!param['category_id']) {
+            } else if (!param['category_id_1']) {
                 console.info('没有获取要更改的分类')
             } else {
                 let flag = 0
                 for (let i in update_goods_category_list) {
-                    sql = "update shop_goods set category_id = ? where id = ?";
-                    row = await db.Query(sql, [param['category_id'], update_goods_category_list[i]]);
+                    sql = "update item set category_id_1 = ? where id = ?";
+                    row = await db.Query(sql, [param['category_id_1'], update_goods_category_list[i]]);
                     if (row.changedRows == 1) {
                         flag++
                     }

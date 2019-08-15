@@ -1,4 +1,3 @@
-// var tools = require("./tool");
 var db = require("./../utils/dba");
 const qiniuRootUrl = require("./../config/qiniuConfig").qiniuRootUrl
 
@@ -10,7 +9,7 @@ function shopUpdateGoods() {
         var data = {}
         var row = []
         try {
-            if (!param['user_id'].toString()) {
+            if (!param['user_id']) {
                 console.info('user_id没有获取到')
             } else if (!param['goods_id']) {
                 console.info('商品Id没有获取到')
@@ -22,6 +21,8 @@ function shopUpdateGoods() {
                 console.info('goods_desc没有获取到')
             } else if (!param['goods_brand_id']) {
                 console.info('goods_brand_id没有获取到')
+            } else if (!param['qcl_id']) {
+                console.info('qcl_id没有获取到')
             } else if (!param['type'].toString()) {
                 console.info('type没有获取到')
             } else if (!param['integralValue'].toString()) {
@@ -36,8 +37,8 @@ function shopUpdateGoods() {
                 console.info('price没有获取到')
             } else if (!param['goodsInfoImgList']) {
                 console.info('goodsInfoImgList没有获取到')
-            } else if (!param['status'].toString()) {
-                console.info('status没有获取到')
+            } else if (!param['state'].toString()) {
+                console.info('state没有获取到')
             } else {
                 // var qiniuRootUrl = "http://notwastingqiniu.minidope.com/"
                 let goodsImg = param["imgList"].map(function (res) {
@@ -59,19 +60,19 @@ function shopUpdateGoods() {
                 let url = '../goods/goods'  // 之后如果需要别的路径，再行更改，目前默认写死
                 // type:0 item,1 topic,2
                 // state:0 上架 1 下架
-                sql = "update shop_goods set `name` = ?,image = ?,url = ?,min_price = ?,`describe` = ?,`type` = ?,integral_price = ?,status = ?,specification_id_1 = ?,specification_id_2 = ?,user_id = ?,category_id = ?,create_time = CURRENT_TIMESTAMP,brand_id = ?,review_id = ?,goods_info = ? where id = ?";
-                row = await db.Query(sql, [param['goods_title'], goodsImg, url, param['price'], param['goods_desc'], param['type'], param['integralValue'], param['status'], param['paramItem'][0].select_id, param['paramItem'][1].select_id, param['user_id'], param['category_id_select'], param['goods_brand_id'], 0, goodsInfo, param['goods_id']]);
+                sql = "update item set `name` = ?,image = ?,url = ?,qcl = ?,price = ?,`describe` = ?,`type` = ?,integral_price = ?,state = ?,specification_id_1 = ?,specification_id_2 = ?,user_id = ?,category_id_1 = ?,category_id_2 = ?,category_id_3 = ?,create_time = CURRENT_TIMESTAMP,brand_id = ?,review_id = ?,goods_info = ? where id = ?";
+                row = await db.Query(sql, [param['goods_title'], goodsImg, url, param['qcl_id'], param['price'], param['goods_desc'], param['type'], param['integralValue'], param['state'], param['paramItem'][0].select_id, param['paramItem'][1].select_id, param['user_id'], param['category_id_select'], 0, 0, param['goods_brand_id'], 0, goodsInfo, param['goods_id']]);
 
                 // item 更新完成
                 if (row.changedRows == 1) {
-                    let goods_id = param['goods_id']
+                    let item_id = param['goods_id']
                     let insert_param_list = []
 
-                    sql = "delete from shop_goods_param where goods_id = ?"
-                    row = await db.Query(sql, goods_id);
+                    sql = "delete from item_param where item_id = ?"
+                    row = await db.Query(sql, item_id);
 
-                    sql = "delete from shop_goods_price where goods_id = ?"
-                    row = await db.Query(sql, goods_id);
+                    sql = "delete from item_price where item_id = ?"
+                    row = await db.Query(sql, item_id);
 
                     for (let i in param['paramItem']) {
                         if (param['paramItem'][i].haveParamImg) {
@@ -91,8 +92,8 @@ function shopUpdateGoods() {
                         }
 
                         for (let j in param['paramItem'][i].size) {
-                            sql = "insert into shop_goods_param(goods_id,specification_id,param,image,user_id,create_time)values(?,?,?,?,?,CURRENT_TIMESTAMP)";
-                            row = await db.Query(sql, [goods_id, param['paramItem'][i].select_id, param['paramItem'][i].size[j].name, param['paramItem'][i].size[j].img, param['user_id']]);
+                            sql = "insert into item_param(item_id,specification_id,param,image,user_id,create_time)values(?,?,?,?,?,CURRENT_TIMESTAMP)";
+                            row = await db.Query(sql, [item_id, param['paramItem'][i].select_id, param['paramItem'][i].size[j].name, param['paramItem'][i].size[j].img, param['user_id']]);
                             if (row.insertId) {
                                 insert_param_list.push({
                                     name: param['paramItem'][i].size[j].name,
@@ -116,8 +117,8 @@ function shopUpdateGoods() {
                     console.info(paramAndPrice)
                     let flag = 0
                     for (let l in paramAndPrice) {
-                        sql = "insert into shop_goods_price(param_id_1,param_id_2,stock,price,goods_id,user_id,create_time)values(?,?,?,?,?,?,CURRENT_TIMESTAMP)";
-                        row = await db.Query(sql, [paramAndPrice[l].param_id_1, paramAndPrice[l].param_id_2, paramAndPrice[l].stock, paramAndPrice[l].price, goods_id, param['user_id']]);
+                        sql = "insert into item_price(param_id_1,param_id_2,stock,price,item_id,user_id,create_time)values(?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+                        row = await db.Query(sql, [paramAndPrice[l].param_id_1, paramAndPrice[l].param_id_2, paramAndPrice[l].stock, paramAndPrice[l].price, item_id, param['user_id']]);
                         if (row.insertId) {
                             flag++
                             if (flag == paramAndPrice.length) {

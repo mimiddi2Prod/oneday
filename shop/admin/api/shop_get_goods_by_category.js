@@ -1,7 +1,7 @@
 // var tools = require("./tool");
 var db = require("./../utils/dba");
 
-function shopAddSpecification() {
+function shopGetGoodsByCategory() {
     // var tool = new tools;
     // var query = tool.query;
     this.Service = async function (version, param, callback) {
@@ -9,13 +9,14 @@ function shopAddSpecification() {
         var data = {}
         var row = []
         try {
-            sql = "insert into specification(`name`,create_time,user_id)values(?,CURRENT_TIMESTAMP,?)";
-            row = await db.Query(sql, [param['name'], param['user_id']]);
-            console.info(row)
-            if (row.insertId) {
-                data.text = '添加成功'
+            if (param['category_id_1'].toString() == '') {
+                console.info('category_id_1没有获取到')
             } else {
-                data.text = '添加失败'
+                sql = "select id,name from item where category_id_1 = ?"
+                row = await db.Query(sql, param['category_id_1'])
+                if (row.length > 0) {
+                    data = row
+                }
             }
 
             return callback(data);
@@ -25,4 +26,4 @@ function shopAddSpecification() {
     }
 }
 
-module.exports = shopAddSpecification;
+module.exports = shopGetGoodsByCategory;

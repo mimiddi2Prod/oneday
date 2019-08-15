@@ -1,27 +1,24 @@
 var db = require("./../utils/dba");
 
-function shopGetParam() {
+function shopGetNavigation() {
     // var tool = new tools;
     // var query = tool.query;
     this.Service = async function (version, param, callback) {
         var sql = ""
-        var data = []
+        var data = {}
         var row = []
         try {
-            if (param['specification_id'] && param['goods_id']) {
-                sql = "select param,image from item_param where `item_id` = ? and specification_id = ?"
-                row = await db.Query(sql, [param['goods_id'], param['specification_id']])
-                if (row.length > 0) {
-                    for (let i in row) {
-                        data.push({
-                            img: row[i].image,
-                            name: row[i].param
-                        })
-                    }
-                }
-            } else {
-                console.info('specification 或者 goods_id 没有获取到')
+            // 总量
+            sql = "select count(id) from category where `type` = ? and home_nav = ?";
+            row = await db.Query(sql, [1, param['home_nav']]);
+            data.number = row[0]['count(id)']
+            // list
+            sql = "select id,name,image,url,create_time,sort,home_nav from category where `type` = ? and home_nav = ? order by sort limit ?,?"
+            row = await db.Query(sql, [1, param['home_nav'], param['last_id'] * 5, 5])
+            if (row.length > 0) {
+                data.goryList = row
             }
+
             return callback(data);
         } catch (e) {
             console.info('boom!!!!!!!!!!!!!')
@@ -42,4 +39,4 @@ function shopGetParam() {
     }
 }
 
-module.exports = shopGetParam;
+module.exports = shopGetNavigation;

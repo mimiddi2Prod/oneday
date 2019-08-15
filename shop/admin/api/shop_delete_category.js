@@ -1,13 +1,3 @@
-// var mysql  = require('mysql');
-// var connection = mysql.createConnection({
-//   host     : '127.0.0.1',
-//   user     : 'root',
-//   password : '',
-//   port: '3306',
-//   database: 'js_shop',
-// });
-// connection.connect();
-// var tools = require("./tool");
 var db = require("./../utils/dba");
 // const qiniuRootUrl = require("./../config/qiniuConfig").qiniuRootUrl
 
@@ -25,7 +15,7 @@ function shopDeleteCategory() {
             //     sql = "update category set where parent_id = ?"
             //     row = await query(sql, param['id']);
             // }
-            sql = "delete from shop_category where id = ?";
+            sql = "delete from category where id = ?";
             row = await db.Query(sql, param['id']);
             console.info(row)
             if (row.affectedRows == 1) {

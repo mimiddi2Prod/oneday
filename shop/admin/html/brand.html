@@ -116,7 +116,7 @@
                 <div class="first-title column-center">
                     <label class="form-check-label row-center">
                         <!--<div class="a">-->
-                            <span>{{item.describe}}</span>
+                            <span>{{item.desc}}</span>
                         <!--</div>-->
                     </label>
                 </div>
@@ -144,8 +144,8 @@
                 <!--</button>-->
                 <!--</div>-->
                 <div class="second-title column-center">
-                    <button type="button" class="btn " :class="item.status == 0 ? 'btn-danger' : 'btn-secondary'"
-                            v-on:click="changeStatus(item.id,item.status)">{{item.status == 0 ? "点击禁用" : "点击开启"}}
+                    <button type="button" class="btn " :class="item.state == 0 ? 'btn-danger' : 'btn-secondary'"
+                            v-on:click="changeStatus(item.id,item.state)">{{item.state == 0 ? "点击禁用" : "点击开启"}}
                     </button>
                     <button type="button" class="btn btn-link" v-on:click="editBrand(item.id)">编辑</button>
                     <button type="button" class="btn btn-link" v-on:click="delItem(index)" data-toggle="modal"

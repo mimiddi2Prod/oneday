@@ -1,6 +1,6 @@
 // var tools = require("./tool");
 var db = require("./../utils/dba");
-function shopAddBrand() {
+function shopAddAd() {
     // var tool = new tools;
     // var query = tool.query;
     this.Service = async function (version, param, callback) {
@@ -9,11 +9,20 @@ function shopAddBrand() {
         var row = []
         try {
             var qiniuRootUrl = "http://notwastingqiniu.minidope.com/"
+            // var qiniuRootUrl = "http://ppburep37.bkt.clouddn.com/"  //七牛云测试域名
+            // 多张图上传
+            // var img = []
+            // if (param["imgList"].length > 0) {
+            //     img = param["imgList"].map(function (res) {
+            //         return qiniuRootUrl + res
+            //     })
+            // }
+            // img = JSON.stringify(img_list)
             // 单张图上传
             var img = qiniuRootUrl + param['imgList'][0]
 
-            sql = "insert into brand(image,url,name,price,user_id,create_time,state,sort,`desc`)values(?,?,?,?,?,CURRENT_TIMESTAMP,?,?,?)";
-            row = await db.Query(sql, [img, param['url'], param['name'], param['price'], param['user_id'], param['state'], param['sort'], param['desc']]);
+            sql = "insert into advertisement(`type`,url,image,text,create_time,user_id,sort,state)values(?,?,?,?,CURRENT_TIMESTAMP,?,?,?)";
+            row = await db.Query(sql, [param['type'], param['url'], img, param['text'], param['user_id'], param['sort'], param['state']]);
             console.info(row)
             if (row.insertId) {
                 data.text = '添加成功'
@@ -28,4 +37,4 @@ function shopAddBrand() {
     }
 }
 
-module.exports = shopAddBrand;
+module.exports = shopAddAd;

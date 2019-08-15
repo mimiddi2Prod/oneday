@@ -10,11 +10,11 @@ var addBrandVM = new Vue({
         url_select: '',
     },
     methods: {
-        changePage: function (e) {
-            var href = './' + e + '.html'
-            $("#container").load(href);
-            sessionStorage.setItem("href", href);
-        },
+        // changePage: function (e) {
+        //     var href = './' + e + '.html'
+        //     $("#container").load(href);
+        //     sessionStorage.setItem("href", href);
+        // },
         getImg: function (id) {
             let imgUploadList = []
             const self = this, type = 'brand_'
@@ -101,7 +101,7 @@ var addBrandVM = new Vue({
 function addBrand(state) {
     const url = api.addBrand, async = true
     let data = {}
-    data.status = state
+    data.state = state
     data.name = addBrandVM.name
     data.desc = addBrandVM.desc
     data.sort = addBrandVM.sort

@@ -823,7 +823,7 @@ function addGoods() {
     data.goodsInfoImgList = addGoodsVM.goodsInfoImgList.map(function (res) {
         return res.key
     })
-    data.status = addGoodsVM.state
+    data.state = addGoodsVM.state
 
     server(url, data, async, "post", function (res) {
         // console.info(res)

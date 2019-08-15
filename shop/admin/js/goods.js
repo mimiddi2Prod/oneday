@@ -218,7 +218,7 @@ var goodsVM = new Vue({
                 fn.price_latest = ''
                 fn.price_max = ''
                 fn.price_max_latest = ''
-                let temp = Number(fn.min_price)
+                let temp = Number(fn.price)
                 for (let i in fn.param) {
                     fn.param[i].price_latest = ''
                     if (temp < Number(fn.param[i].price)) {
@@ -331,25 +331,25 @@ var goodsVM = new Vue({
                 this.previewGoodsPrice.map(function (fn) {
                     if (val) {
                         if (self.calc_type == 1) {
-                            fn.price_latest = Number(Number(fn.min_price) + Number(val)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) + Number(val)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) + Number(val)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) + Number(val))
                             }
                         } else if (self.calc_type == 2) {
-                            fn.price_latest = Number(Number(fn.min_price) - Number(val)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) - Number(val)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) - Number(val)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) - Number(val))
                             }
                         } else if (self.calc_type == 3) {
-                            fn.price_latest = Number(Number(fn.min_price) * Number(val)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) * Number(val)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) * Number(val)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) * Number(val))
                             }
                         } else if (self.calc_type == 4) {
-                            fn.price_latest = Number(Number(fn.min_price) / Number(val)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) / Number(val)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) / Number(val)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) / Number(val))
@@ -388,19 +388,19 @@ var goodsVM = new Vue({
                 this.previewGoodsPrice.map(function (fn) {
                     if (self.calc_number_two) {
                         if (self.calc_type == 1) {
-                            fn.price_latest = Number(Number(fn.min_price) + Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) + Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) + Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) + Number(self.calc_number_two))
                             }
                         } else if (self.calc_type == 2) {
-                            fn.price_latest = Number(Number(fn.min_price) - Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) - Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) - Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) - Number(self.calc_number_two))
                             }
                         } else if (self.calc_type == 3) {
-                            fn.price_latest = Number(Number(fn.min_price) * Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) * Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) * Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) * Number(self.calc_number_two))
@@ -428,25 +428,25 @@ var goodsVM = new Vue({
                 this.previewGoodsPrice.map(function (fn) {
                     if (self.calc_number_two) {
                         if (val == 1) {
-                            fn.price_latest = Number(Number(fn.min_price) + Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) + Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) + Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) + Number(self.calc_number_two))
                             }
                         } else if (val == 2) {
-                            fn.price_latest = Number(Number(fn.min_price) - Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) - Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) - Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) - Number(self.calc_number_two))
                             }
                         } else if (val == 3) {
-                            fn.price_latest = Number(Number(fn.min_price) * Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) * Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) * Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) * Number(self.calc_number_two))
                             }
                         } else if (val == 4) {
-                            fn.price_latest = Number(Number(fn.min_price) / Number(self.calc_number_two)).toFixed(2)
+                            fn.price_latest = Number(Number(fn.price) / Number(self.calc_number_two)).toFixed(2)
                             fn.price_max_latest = Number(Number(fn.price_max) / Number(self.calc_number_two)).toFixed(2)
                             for (let i in fn.param) {
                                 fn.param[i].price_latest = Number(Number(fn.param[i].price) / Number(self.calc_number_two))
@@ -469,7 +469,7 @@ function updateGoodsState(id_list, state) {
     const url = api.updateGoodsState, async = true
     let data = {}
     data.goods_id_list = id_list
-    data.status = state
+    data.state = state
     console.info(data)
     server(url, data, async, "post", function (res) {
         // console.info(res)
@@ -495,13 +495,13 @@ function getGoods() {
     const url = api.getGoods, async = true
     let data = {}
     data.last_id = goodsVM.last_id
-    data.status = goodsVM.goods_state
+    data.state = goodsVM.goods_state
     data.need_integral = goodsVM.need_integral
     server(url, data, async, "post", function (res) {
         console.info(res)
         if (res.number > 0) {
             res.list = res.list.map(function (resData) {
-                resData.min_price = Number(resData.min_price).toFixed(2)
+                resData.price = Number(resData.price).toFixed(2)
                 resData.create_time = formatTime(new Date(resData.create_time))
                 resData.showMoreParam = false
                 let total_stock = 0

@@ -107,7 +107,7 @@ function updateBrand(state) {
     const url = api.updateBrand, async = true
     let data = {}
     data.id = editBrandVM.brand_id
-    data.status = state
+    data.state = state
     data.name = editBrandVM.name
     data.desc = editBrandVM.desc
     data.sort = editBrandVM.sort
@@ -143,7 +143,7 @@ function getCurrentBrandInfo() {
     editBrandVM.name = current_brand_List.name
     editBrandVM.price = current_brand_List.price
     editBrandVM.sort = current_brand_List.sort
-    editBrandVM.desc = current_brand_List.describe
+    editBrandVM.desc = current_brand_List.desc
     editBrandVM.url_select = current_brand_List.url
 }
 
