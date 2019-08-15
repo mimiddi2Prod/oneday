@@ -169,8 +169,8 @@
                         {{item.create_time}}
                     </div>
                     <div class="second-title column-center">
-                        <button type="button" class="btn btn-link" v-on:click="changePage('goods-edit',item.id)">编辑</button>
-                        <button type="button" class="btn btn-link" v-on:click="changePage('goods-review',item.id)">评价
+                        <button type="button" class="btn btn-link" v-on:click="editGoods(item.id)">编辑</button>
+                        <button type="button" class="btn btn-link" v-on:click="reviewGoods(item.id)">评价
                         </button>
                         <button type="button" class="btn btn-link" v-on:click="changeGoodsState(item.id,item.status)">
                             {{item.status == 0 ? '下架' : '上架'}}
@@ -221,7 +221,7 @@
             <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li>
             <li v-for="item,index in pageList" v-on:click="getPage(index)"
                 v-bind:class="(item == last_id+1 ? 'active' : '')"><a
-                    href="#">{{item}}</a></li>
+                    href="javascript:;">{{item}}</a></li>
             <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="javascript:;">&raquo;</a>
             </li>
         </ul>

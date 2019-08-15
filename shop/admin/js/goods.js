@@ -72,6 +72,26 @@ var goodsVM = new Vue({
         //     $("#container").load(href);
         //     sessionStorage.setItem("href", href);
         // },
+        // 跳转编辑页面
+        editGoods: function (goods_id) {
+            let temp = this.goodsList.filter(function (eData) {
+                return eData.id == goods_id
+            })
+            sessionStorage.setItem("editGoods", JSON.stringify(temp));
+            window.location.href = "editGoods"
+        },
+        reviewGoods: function (goods_id) {
+            let temp = this.goodsList.filter(function (eData) {
+                return eData.id == goods_id
+            })
+            let info = {}
+            info.item_id = temp[0].id
+            info.name = temp[0].name
+            info.image = temp[0].image[0]
+            info.review_id = temp[0].review_id
+            sessionStorage.setItem("reviewGoods", JSON.stringify(info));
+            window.location.href = "reviewGoods"
+        },
         changeNav: function (index) {
             this.navId = index
             this.last_id = 0
