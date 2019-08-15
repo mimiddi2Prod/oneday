@@ -10,17 +10,17 @@ var addGoodsVM = new Vue({
         category: [],
         category_parent_id_select: '',
         category_id_select: '',
-        qcl: [{
-            id: 1,
-            name: 'A',
-        }, {
-            id: 2,
-            name: 'B',
-        }, {
-            id: 3,
-            name: 'C',
-        }],
-        qcl_id: '',
+        // qcl: [{
+        //     id: 1,
+        //     name: 'A',
+        // }, {
+        //     id: 2,
+        //     name: 'B',
+        // }, {
+        //     id: 3,
+        //     name: 'C',
+        // }],
+        // qcl_id: '',
         integralList: [{
             id: 0,
             name: '否'
@@ -110,11 +110,11 @@ var addGoodsVM = new Vue({
     //     }
     // },
     methods: {
-        changePage: function (e) {
-            var href = './' + e + '.html'
-            $("#container").load(href);
-            sessionStorage.setItem("href", href);
-        },
+        // changePage: function (e) {
+        //     var href = './' + e + '.html'
+        //     $("#container").load(href);
+        //     sessionStorage.setItem("href", href);
+        // },
         getImg: function (id) {
             let imgUploadList = []
             const self = this, type = 'goods_'
@@ -567,10 +567,10 @@ var addGoodsVM = new Vue({
                 alert('请选择商品品牌')
                 return
             }
-            if (this.qcl_id == '') {
-                alert('请选择商品品级')
-                return
-            }
+            // if (this.qcl_id == '') {
+            //     alert('请选择商品品级')
+            //     return
+            // }
             if (this.category_parent_id_select == '') {
                 alert('请选择大分类')
                 return
@@ -793,7 +793,7 @@ function addGoods() {
     data.goods_title = addGoodsVM.goods_title
     data.goods_desc = addGoodsVM.goods_desc
     data.goods_brand_id = addGoodsVM.goods_brand_id
-    data.qcl_id = addGoodsVM.qcl_id
+    // data.qcl_id = addGoodsVM.qcl_id
     if (addGoodsVM.integralSelect == 0) {
         data.type = addGoodsVM.typeValue
         data.integralValue = 0

@@ -36,7 +36,7 @@
         <div class="jumbotron">
             <!-- 类目 添加分类 -->
             <div class="title row-center">
-                <h4><span v-on:click="changePage('goods-manage')">商品管理</span><span
+                <h4><span v-on:click="window.location.href = 'goods'">商品管理</span><span
                         class="glyphicon glyphicon-menu-right"></span><span>添加商品</span></h4>
             </div>
 
@@ -112,23 +112,23 @@
                     </div>
                 </div>
 
-                <div class="sort row-center">
-                    <div class="index">商品等级</div>
-                    <div class="item">
-                        <div class="select">
-                            <form role="form">
-                                <div class="form-group">
-                                    <select class="form-control" v-model="qcl_id">
-                                        <option disabled="" value="" selected="selected">请选择级别</option>
-                                        <option v-for="item in qcl" v-bind:value="item.id">{{item.name}}</option>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
+                <!--<div class="sort row-center">-->
+                    <!--<div class="index">商品等级</div>-->
+                    <!--<div class="item">-->
+                        <!--<div class="select">-->
+                            <!--<form role="form">-->
+                                <!--<div class="form-group">-->
+                                    <!--<select class="form-control" v-model="qcl_id">-->
+                                        <!--<option disabled="" value="" selected="selected">请选择级别</option>-->
+                                        <!--<option v-for="item in qcl" v-bind:value="item.id">{{item.name}}</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</form>-->
+                        <!--</div>-->
 
-                        <div class="text">(质量等级：A,B,C A最佳,B次之,c最差)</div>
-                    </div>
-                </div>
+                        <!--<div class="text">(质量等级：A,B,C A最佳,B次之,c最差)</div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <div class="sort row-center">
                     <div class="index">商品类目</div>
@@ -463,64 +463,64 @@
                 </div>
             </div>
             <!-- 运费/其他 -->
-            <div class="subtitle">
-                <div>运费/其他（暂时不用选）</div>
+            <!--<div class="subtitle">-->
+                <!--<div>运费/其他（暂时不用选）</div>-->
 
-                <div class="sort row-center">
-                    <div class="index">商品分类</div>
-                    <div class="item">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name=""> 22
-                        </label>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name=""> 44
-                        </label>
-                    </div>
-                </div>
+                <!--<div class="sort row-center">-->
+                    <!--<div class="index">商品分类</div>-->
+                    <!--<div class="item">-->
+                        <!--<label class="form-check-label">-->
+                            <!--<input class="form-check-input" type="checkbox" name=""> 22-->
+                        <!--</label>-->
+                        <!--<label class="form-check-label">-->
+                            <!--<input class="form-check-input" type="checkbox" name=""> 44-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</div>-->
 
-                <div class="sort row-center">
-                    <div class="index">运费设置</div>
-                    <div class="item">
-                        <div class="select">
-                            <form role="form">
-                                <div class="form-group">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="sort row-center">-->
+                    <!--<div class="index">运费设置</div>-->
+                    <!--<div class="item">-->
+                        <!--<div class="select">-->
+                            <!--<form role="form">-->
+                                <!--<div class="form-group">-->
+                                    <!--<select class="form-control">-->
+                                        <!--<option>1</option>-->
+                                        <!--<option>2</option>-->
+                                        <!--<option>3</option>-->
+                                        <!--<option>4</option>-->
+                                        <!--<option>5</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</form>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
-                <div class="sort row-center">
-                    <div class="index">可配送区域</div>
-                    <div class="item">wwwwww</div>
-                </div>
+                <!--<div class="sort row-center">-->
+                    <!--<div class="index">可配送区域</div>-->
+                    <!--<div class="item">wwwwww</div>-->
+                <!--</div>-->
 
-                <div class="sort row-center">
-                    <div class="index">开售时间</div>
-                    <div class="item">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="Shelf"
-                                   id="exampleRadios3" value="option2">
-                            立刻开售
-                        </label>
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="Shelf"
-                                   id="exampleRadios4" value="option2">
-                            定时开售
-                            <input type="text" class="form-control" id="test5"
-                                   style="width: auto;display: inline-block;"
-                                   placeholder="选择开售时间">
-                        </label>
-                    </div>
-                </div>
-            </div>
+                <!--<div class="sort row-center">-->
+                    <!--<div class="index">开售时间</div>-->
+                    <!--<div class="item">-->
+                        <!--<label class="form-check-label">-->
+                            <!--<input class="form-check-input" type="radio" name="Shelf"-->
+                                   <!--id="exampleRadios3" value="option2">-->
+                            <!--立刻开售-->
+                        <!--</label>-->
+                        <!--<label class="form-check-label">-->
+                            <!--<input class="form-check-input" type="radio" name="Shelf"-->
+                                   <!--id="exampleRadios4" value="option2">-->
+                            <!--定时开售-->
+                            <!--<input type="text" class="form-control" id="test5"-->
+                                   <!--style="width: auto;display: inline-block;"-->
+                                   <!--placeholder="选择开售时间">-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
             <!-- 商品详情 -->
             <div class="subtitle">
                 <div class="row-center">
