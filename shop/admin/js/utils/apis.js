@@ -1,5 +1,6 @@
 var api = {
     getMenu: '../api/get_menu',
+    getWaitShip: '../api/get_waitShip',
     updateGoodsState: '../api/update_goodsState',
     getGoods: '../api/get_goods',
     getCategory: '../api/get_category',
@@ -32,5 +33,5 @@ var api = {
     getPosition: '../api/get_position',
     getAccount: '../api/get_account',
     addAccount: '../api/add_account',
-    getUser:'../api/get_user',
+    getUser: '../api/get_user',
 }

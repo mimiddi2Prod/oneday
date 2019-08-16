@@ -4,6 +4,12 @@ var homeVM = new Vue({
         waitShipNum: 0,
     },
     methods: {
+        toOrder: function (nav) {
+            if (nav.toString().length > 0) {
+                sessionStorage.setItem("orderNav", nav);
+                window.location.href = "order"
+            }
+        }
         // yinbaoGetGoodsToUpdate: function () {
         //     const url = '../api/yinbao_update_data', async = true
         //     let data = {}
@@ -14,3 +20,16 @@ var homeVM = new Vue({
         // }
     }
 })
+
+$(document).ready(function () {
+    getWaitShip()
+})
+
+function getWaitShip() {
+    const url = api.getWaitShip, async = true
+    let data = {}
+    server(url, data, async, "post", function (res) {
+        console.info(res)
+        homeVM.waitShipNum = res.number
+    })
+}
