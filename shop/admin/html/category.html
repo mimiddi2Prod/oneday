@@ -115,11 +115,11 @@
 
         <!-- 分页栏 -->
         <ul class="pagination">
-            <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="#">&laquo;</a></li>
+            <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li>
             <li v-for="item,index in pageList" v-on:click="getPage(index)"
                 v-bind:class="(item == last_id+1 ? 'active' : '')"><a
-                    href="#">{{item}}</a></li>
-            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="#">&raquo;</a>
+                    href="javascript:;">{{item}}</a></li>
+            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="javascript:;">&raquo;</a>
             </li>
         </ul>
 

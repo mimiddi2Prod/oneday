@@ -120,13 +120,7 @@
         <div class="nav-1">
             <ul class="nav nav-tabs">
                 <li v-bind:class="(index == navId+1 ? 'active' : '')" v-for="item,index in navList"
-                    v-on:click="changeNav(index)"><a href="#">{{item}}</a></li>
-                <!--<li><a href="#">待发货</a></li>-->
-                <!--<li><a href="#">待付款</a></li>-->
-                <!--<li><a href="#">已发货</a></li>-->
-                <!--<li><a href="#">退款|售后</a></li>-->
-                <!--<li><a href="#">已完成</a></li>-->
-                <!--<li><a href="#">已关闭</a></li>-->
+                    v-on:click="changeNav(index)"><a href="javascript:;">{{item}}</a></li>
             </ul>
             <div class="row-center">
                 <button type="button" class="btn btn-secondary btn-margin-left">打印订单</button>
@@ -165,7 +159,6 @@
                     <div class="first-title">
                         <label class="form-check-label row">
                             <div class="a">
-                                <!-- <input type="checkbox" name=""> -->
                                 <img :src="item.image">
                             </div>
                             <div class="b">
@@ -179,14 +172,12 @@
                     </div>
                     <div class="second-title column">
                         <div><span>{{item.receiver}}</span><span>{{item.tel}}</span></div>
-                        <!--<div><span>福建省</span><span>厦门市</span><span>集美区</span><span>金博水岸啥啥啥的</span></div>-->
                         <div>{{item.address_text}}</div>
                         <div><span>卖家备注：</span></div>
                     </div>
                     <div class="third-title column-center">
                         <div type="button" v-if="item.state == 0">{{item.waitPay ? '待付款' : '已取消'}}</div>
                         <div type="button" v-if="item.after_sale_state == 0">{{item.state == -1 ? '已取消' : ''}}
-                            <!--{{item.state == 1 ? '待发货' : ''}}-->
                             {{item.state == 2 ? '已发货' : ''}}
                             {{item.state == 3 ? '待评价' : ''}}
                             {{item.state == 4 ? '已完成' : ''}}
@@ -198,7 +189,6 @@
                             {{item.after_sale_state == 5 ? '已退货退款' : ''}}
                             {{item.after_sale_state == 6 ? '已换货' : ''}}
                         </div>
-                        <!--<button type="button" class="btn btn-link" v-if="item.after_sale_state == 0 && item.state == 1" v-on:click="updateOrderState(item.id,2)">待发货</button>-->
                         <button type="button" class="btn btn-link" v-if="item.after_sale_state == 0 && item.state == 1"
                                 data-toggle="modal" data-target="#myModal" v-on:click="getLogistics(item.id,item.tel)">待发货
                         </button>
@@ -216,17 +206,11 @@
 
         <!-- 分页栏 -->
         <ul class="pagination">
-            <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="#">&laquo;</a></li>
+            <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li>
             <li v-for="item,index in pageList" v-on:click="getPage(index)"
                 v-bind:class="(item == last_id+1 ? 'active' : '')"><a
-                    href="#">{{item}}</a></li>
-            <!--<li class="active"><a href="#">1</a></li>-->
-            <!--<li><a href="#" :bind="getPage()">3</a></li>-->
-            <!--<li class="disabled"><a href="#">2</a></li>-->
-            <!--<li><a href="#">3</a></li>-->
-            <!--<li><a href="#">4</a></li>-->
-            <!--<li><a href="#">5</a></li>-->
-            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="#">&raquo;</a>
+                    href="javascript:;">{{item}}</a></li>
+            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="javascript:;">&raquo;</a>
             </li>
         </ul>
 

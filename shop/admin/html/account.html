@@ -36,18 +36,13 @@
         <!-- 类目 搜索栏 -->
         <div class="title item">
             <h4>子账号管理</h4>
-            <!--<button type="button" class="btn btn-danger" v-on:click="changePage('account-add')">添加品牌</button>-->
         </div>
 
         <div class="nav-1">
             <ul class="nav nav-tabs">
                 <li v-bind:class="(index == navId ? 'active' : '')" v-for="item,index in navList"
-                    v-on:click="changeNav(index)"><a href="#">{{item}}</a></li>
+                    v-on:click="changeNav(index)"><a href="javascript:;">{{item}}</a></li>
             </ul>
-            <!--<div class="row-center">-->
-            <!--<button type="button" class="btn btn-danger" v-on:click="changePage('goods-add')" v-if="navId == 0">新建子账号</button>-->
-            <!--<button type="button" class="btn btn-danger" v-on:click="changePage('goods-add')" v-if="navId == 1">新建岗位</button>-->
-            <!--</div>-->
         </div>
 
         <div class="nav-1">
@@ -57,7 +52,6 @@
                         <form role="form" style="width: 30%">
                             <div class="form-group">
                                 <select class="form-control" v-model="position_id" v-on:change="getAccount()">
-                                    <!--<option value="" selected="selected">全部账号（1）</option>-->
                                     <option v-for="item in positionList" v-bind:value="item.id">{{item.name}}</option>
                                 </select>
                             </div>
@@ -154,21 +148,12 @@
         </div>
 
         <!-- 分页栏 -->
-        <!--<ul class="pagination">-->
-        <!--<li><a href="#">&laquo;</a></li>-->
-        <!--<li class="active"><a href="#">1</a></li>-->
-        <!--<li class="disabled"><a href="#">2</a></li>-->
-        <!--<li><a href="#">3</a></li>-->
-        <!--<li><a href="#">4</a></li>-->
-        <!--<li><a href="#">5</a></li>-->
-        <!--<li><a href="#">&raquo;</a></li>-->
-        <!--</ul>-->
         <ul class="pagination">
-            <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="#">&laquo;</a></li>
+            <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li>
             <li v-for="item,index in pageList" v-on:click="getPage(index)"
                 v-bind:class="(item == last_id+1 ? 'active' : '')"><a
-                    href="#">{{item}}</a></li>
-            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="#">&raquo;</a>
+                    href="javascript:;">{{item}}</a></li>
+            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="javascript:;">&raquo;</a>
             </li>
         </ul>
 
