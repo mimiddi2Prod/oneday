@@ -81,7 +81,7 @@ app.use(function (req, res, next) {
                 res.end();
             });
         });
-    } else if (type[1] == 'css' || type[1] == 'js' || type[1] == 'node_modules' || type[1] == 'jquery-3.3.1' || type[1] == 'bootstrap' || type[1] == 'layDate-v5.0.9') {
+    } else if (type[1] == 'css' || type[1] == 'js' || type[1] == 'node_modules' || type[1] == 'jquery-3.3.1' || type[1] == 'bootstrap' || type[1] == 'qiniu-js' || type[1] == 'layDate-v5.0.9') {
         showPaper(urlPath.substr(1))
     } else if (type[1] == 'images') {
         optfile.readImg('./' + req.url, res);
