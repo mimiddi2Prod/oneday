@@ -86,20 +86,20 @@ app.use(function (req, res, next) {
     } else if (type[1] == 'images') {
         optfile.readImg('./' + req.url, res);
     } else {
-        let check_login_status = require('./api/check_login_status')
-        let cookie = req.cookies
-        let isLogin = check_login_status(cookie)
+        // let check_login_status = require('./api/check_login_status')
+        // let cookie = req.cookies
+        // let isLogin = check_login_status(cookie)
         // if (!isLogin.text) {
         //     showPaper('index.html')
         //     return false
         // }
-        isLogin.then(function (eData) {
-            console.info(eData)
-            if (!eData.text) {
-                showPaper('index.html')
-                return false
-            }
-        })
+        // isLogin.then(function (eData) {
+        //     console.info(eData)
+        //     if (!eData.text) {
+        //         showPaper('index.html')
+        //         return false
+        //     }
+        // })
 
         if (type[1] == '') {
             showPaper('index.html')

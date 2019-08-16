@@ -16,7 +16,7 @@ module.exports = async function (cookie) {
         let sql = "select last_login_time from admin where id = ?";
         let row = await db.Query(sql, user_id);
         if (row.length > 0) {
-            let time = row[0].last_login_time
+            let time = new Date(row[0].last_login_time)
             console.info(time)
             console.info(idAddtimeString)
             if ((user_id + time.getTime().toString()) == idAddtimeString) {
