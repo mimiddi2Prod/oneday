@@ -1,4 +1,4 @@
-var vm = new Vue({
+var VM = new Vue({
     el: '#login',
     data: {
         username: '',
@@ -21,10 +21,6 @@ var vm = new Vue({
 })
 var key = ''
 $(document).ready(function () {
-    // cookie test
-    // document.cookie = "username=biill;expires=Sun, 31 Dec 2017 12:00:00 UTC;path=/"
-    // var x = document.cookie
-    // console.info(x)
     getPublic()
 })
 
@@ -32,12 +28,12 @@ $(document).keypress(function (e) {
     var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
     if (eCode == 13) {
         // alert('您按了回车键')
-        vm.submit()
+        VM.submit()
     }
 });
 
 function getPublic() {
-    const url = '../api/get_public'
+    const url = api.getPublic
     let data = {}, async = false
     server(url, data, async, "post", function (res) {
             // console.info(res)
@@ -56,20 +52,24 @@ function encryptKey(str) {
 }
 
 function login(username, password) {
-    window.location.href = './home';
-    // const url = '../api/login'
-    // let data = {}
-    // data.username = username
-    // data.password = password
-    // server(url, data, "post", function (res) {
-    //     if (res.text == "login is success") {
-    //         sessionStorage.setItem("user_id", res.id);
-    //         sessionStorage.setItem("str", res.str);
-    //
-    //         // window.location.href = './html/main.html';
-    //         window.location.href = './main';
-    //     } else {
-    //         alert(res.text)
-    //     }
-    // })
+    const url = api.login, async = true
+    let data = {}
+    data.username = username
+    data.password = password
+    server(url, data, async, "post", function (res) {
+        if (res.text == "login is success") {
+            console.info(res)
+            let current_time = new Date()
+            current_time.setTime(current_time.getTime() + 30 * 60 * 1000);
+            document.cookie = 'id' + "=" + res.id + ";expires=" + current_time.toGMTString() + ";path=/";
+            document.cookie = 'c_id' + "=" + res.c_id + ";expires=" + current_time.toGMTString() + ";path=/";
+
+            sessionStorage.setItem("user_id", res.id);
+            // sessionStorage.setItem("str", res.str);
+            //
+            window.location.href = './home';
+        } else {
+            alert(res.text)
+        }
+    })
 }

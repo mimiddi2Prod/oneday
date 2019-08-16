@@ -27,15 +27,20 @@ function shopLogin() {
                     data.id = row[0].id
                     data.type = row[0].type
 
-                    if (data.type == 1 && row[0].position_id) {
-                        sql = "select * from `position` where id = ?"
-                        row = await db.Query(sql, row[0].position_id)
-                        data.position = row
-                    }
-                    console.info(data)
+                    // if (data.type == 1 && row[0].position_id) {
+                    //     sql = "select * from `position` where id = ?"
+                    //     row = await db.Query(sql, row[0].position_id)
+                    //     data.position = row
+                    // }
+                    // console.info(data)
+                    let current_time = new Date()
 
-                    sql = "update admin set last_login_time = CURRENT_TIMESTAMP where id = ?"
-                    row = await db.Query(sql, data.id)
+                    sql = "update admin set last_login_time = ? where id = ?"
+                    row = await db.Query(sql, [current_time, data.id])
+
+                    // 用户id和时间戳加密 保存在前端cookie 用于验证
+                    const publicKey = fs.readFileSync(path.join(__dirname, '../rsa/pem/public.pem')).toString('utf-8')
+                    data.c_id = encryptKey(data.id + current_time.getTime().toString(), publicKey)
                 } else {
                     data.text = 'login is fail'
                 }
@@ -60,4 +65,10 @@ function Decrypt(src, privateKey) {
         buffer2
     )
     return decrypted.toString('utf-8')
+}
+
+function encryptKey(str, publicKey) {
+    let buffer = new Buffer(str)
+    let encrypted = crypto.publicEncrypt(publicKey, buffer)
+    return encrypted.toString('base64')
 }

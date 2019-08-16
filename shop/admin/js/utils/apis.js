@@ -1,5 +1,7 @@
 var api = {
     getMenu: '../api/get_menu',
+    getPublic: '../api/get_public',
+    login: '../api/login',
     getWaitShip: '../api/get_waitShip',
     updateGoodsState: '../api/update_goodsState',
     getGoods: '../api/get_goods',
