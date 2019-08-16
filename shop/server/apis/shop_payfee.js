@@ -28,7 +28,7 @@ function SHOPPayfee() {
                 payData.body = '不浪费商城'
                 payData.total_fee = money * 100
 
-                var payfee = require("./../wxpay");
+                var payfee = require("./../utils/wxpay");
                 async function Call() {
                     var e = await payfee(payData)
                     data = e
