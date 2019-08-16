@@ -114,12 +114,8 @@ app.use(function (req, res, next) {
             showPaper('html/editRecommend.html');
         } else if (type[1] == 'navigation') {
             showPaper('html/navigation.html');
-        } else if (type[1] == 'addNavigation') {
-            showPaper('html/addNavigation.html');
         } else if (type[1] == 'waterfall') {
             showPaper('html/waterfall.html');
-        } else if (type[1] == 'addWaterfall') {
-            showPaper('html/addWaterfall.html');
         } else if (type[1] == 'customer') {
             showPaper('html/customer.html');
         } else if (type[1] == 'account') {
