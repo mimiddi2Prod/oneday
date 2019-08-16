@@ -1,4 +1,6 @@
 var tools = require("./../tool");
+// var wxConfig = require('./../config/wxConfig.js')
+// var WXBizDataCrypt = require("./../utils/WXBizDataCrypt.js");
 
 function SHOPRegister() {
     var tool = new tools;
@@ -19,10 +21,30 @@ function SHOPRegister() {
                     log.warn('注册没有头像')
                     // response = tool.error.ErrorNotNickName;
                 } else {
-                    sql = "insert into shop_user(open_id,user_name,avatar,register_time,last_login_time)values(?,?,?,current_timestamp,current_timestamp)"
-                    row = await tool.query(sql, [param["op_id"], param["nick_name"], param["avatar"]]);
-                    data.user_id = row.insertId
+                    // sql = "insert into user(open_id, user_name, type, avatar,state)values(?,?,?,?,0)"
+                    // row = await tool.query(sql, [param["op_id"], param["nick_name"], param["type"], param["avatar"]]);
+                    // data.user_id = row.insertId
+                    sql = "update user set user_name = ?, avatar = ? where open_id = ?"
+                    row = await tool.query(sql, [param["nick_name"], param["avatar"], param["op_id"]]);
 
+                    sql = "select id from user where open_id = ?"
+                    row = await tool.query(sql, param["op_id"]);
+                    data.user_id = row[0].id
+
+                    // 获取uid
+                    // sql = "select id,session_key from `user` where open_id = ?"
+                    // row = await tool.query(sql, param["op_id"]);
+                    //
+                    // if(row.length > 0){
+                    //     let unionId = getUnionId(row[0].session_key, param['iv'], param['encryptedData'], wxConfig.appid)
+                    //     data.user_id = row[0].id
+                    //
+                    //     sql = "update `user` set user_name = ?, `type` = ?, avatar = ?, state = ?, union_id = ? where open_id = ?"
+                    //     row = await tool.query(sql, [param["nick_name"], param["type"], param["avatar"], 0, unionId, param["op_id"]]);
+                    //     sql = "update `user` set user_name = ?, `type` = ?, avatar = ?, state = ? where open_id = ?"
+                    //     row = await tool.query(sql, [param["nick_name"], param["type"], param["avatar"], 0, param["op_id"]]);
+                    //     console.info(row)
+                    // }
                 }
             } catch (err) {
                 response = tool.error.ErrorSQL;
@@ -44,5 +66,13 @@ function SHOPRegister() {
         tool.log.debug("FBRegister::Run.out");
     }
 }
+
+// function getUnionId(sessionKey, iv, encryptedData, appId) {
+//     let pc = new WXBizDataCrypt(appId, sessionKey)
+//     let data = pc.decryptData(encryptedData , iv)
+//
+//     console.log('解密后 data: ', data)
+//     return data.openId
+// }
 
 module.exports = SHOPRegister;

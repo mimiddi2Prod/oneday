@@ -8,26 +8,26 @@ function checkStock() {
     log.info('checkStock is start')
     var currentTime = new Date().getTime()
     setInterval(function () {
-        // log.info('10s已到，开始计算库存')
-        var sql = "select goods_price_id, sum(number), now(),create_time,status from shop_paid where create_time >= ? GROUP BY goods_price_id"
+        log.info('10s已到，开始计算库存')
+        var sql = "select item_price_id, sum(number), now(),create_time,state from paid where create_time >= ? GROUP BY item_price_id"
         var row = tool.query(sql,new Date(currentTime))
         row.then(function (paidRes) {
-            // console.info(paidRes)
+            console.info(paidRes)
             if (paidRes.length > 0) {
                 for (var i in paidRes) {
                     var create_time = new Date(paidRes[i].create_time).getTime()
                     // 对最新添加的数据进行处理
                     // if(currentTime < create_time){
                         // 新订单 且 已支付
-                        if(paidRes[i].status == 1){
+                        if(paidRes[i].state == 1){
                             // 查找所购物品 规格 的库存
-                            sql = 'select stock,id from shop_goods_price where id = ?'
-                            row = tool.query(sql,paidRes[i].goods_price_id)
+                            sql = 'select stock,id from item_price where id = ?'
+                            row = tool.query(sql,paidRes[i].item_price_id)
                             row.then(function (itemPriceRes) {
                                 // 库存大于等于支付订单所购数量
                                 if(itemPriceRes.length > 0 && itemPriceRes[0].stock >= paidRes[i]['sum(number)']){
                                     var updateNumber = itemPriceRes[0].stock - paidRes[i]['sum(number)']
-                                    sql = 'update shop_goods_price set stock = ? where id = ?'
+                                    sql = 'update item_price set stock = ? where id = ?'
                                     row = tool.query(sql,[updateNumber,itemPriceRes[0].id])
                                 }
                             })

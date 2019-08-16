@@ -16,10 +16,10 @@ function SHOPGetWaterfall() {
             // param['type'] 0 首页瀑布流 1 积分商城 2 团购
             if (param['type'] != 2) {
                 if (param['type'] == 0) {
-                    sql = "select `name`,image,url,qcl,price,`describe`,id from shop_goods where integral_price = ? and group_id = ? and `type` = ? and status = ? ORDER BY sort limit ?,?"
+                    sql = "select `name`,image,url,qcl,price,`describe`,id from item where integral_price = ? and group_id = ? and `type` = ? and state = ? ORDER BY sort limit ?,?"
                     row = await query(sql, [0, 0, 0, 0, param['item_last_id'] * 8, 8]);
                 } else if (param['type'] == 1) {
-                    sql = "select `name`,image,url,qcl,price,`describe`,id,integral_price from shop_goods where integral_price > ? and group_id = ? and status = ? ORDER BY sort limit ?,?"
+                    sql = "select `name`,image,url,qcl,price,`describe`,id,integral_price from item where integral_price > ? and group_id = ? and state = ? ORDER BY sort limit ?,?"
                     row = await query(sql, [0, 0, 0, param['item_last_id'] * 8, 8]);
                 }
 
@@ -37,7 +37,7 @@ function SHOPGetWaterfall() {
                 }
 
                 if (param['type'] == 0) {
-                    sql = "select `name`,image,url,qcl,price,`describe`,id from shop_goods where integral_price = ? and `type` = ? and status = ? ORDER BY sort limit ?,?"
+                    sql = "select `name`,image,url,qcl,price,`describe`,id from item where integral_price = ? and `type` = ? and state = ? ORDER BY sort limit ?,?"
                     row = await query(sql, [0, 1, 0, param['topic_last_id'], 1]);
                     console.info(row)
                     if (row.length == 0) {
@@ -54,13 +54,13 @@ function SHOPGetWaterfall() {
                 }
             } else if (param['type'] == 2) {
                 let current_time = new Date()
-                sql = "select item_id,start_time,end_time from shop_group_buy where start_time < ? and end_time > ? ORDER BY start_time limit ?,?";
+                sql = "select item_id,start_time,end_time from group_buy where start_time < ? and end_time > ? ORDER BY start_time limit ?,?";
                 row = await query(sql, [current_time, current_time, param['item_last_id'] * 8, 8]);
                 console.info(row)
                 let group_list = row
                 if (group_list.length > 0) {
                     for (let i in group_list) {
-                        sql = "select `name`,image,url,qcl,price,`describe`,id from shop_goods where id = ?"
+                        sql = "select `name`,image,url,qcl,price,`describe`,id from item where id = ?"
                         row = await query(sql, group_list[i].item_id)
                         row[0].image = JSON.parse(row[0].image)
                         group_list[i] = Object.assign(group_list[i], row[0])
