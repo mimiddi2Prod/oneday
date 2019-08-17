@@ -13,6 +13,10 @@ var port = 9010;
 var db = require("./utils/dba");
 db.Init()
 
+// 初始化数据库连接池
+var privateKey = require("./utils/getPrivateKey");
+privateKey.Init()
+
 var express = require('express');
 var cookieParser = require('cookie-parser');
 // var session = require('express-session');
@@ -86,62 +90,63 @@ app.use(function (req, res, next) {
     } else if (type[1] == 'images') {
         optfile.readImg('./' + req.url, res);
     } else {
-        // let check_login_status = require('./api/check_login_status')
-        // let cookie = req.cookies
-        // let isLogin = check_login_status(cookie)
+        let check_login_status = require('./api/check_login_status')
+        let cookie = req.cookies
+        let isLogin = check_login_status(cookie)
         // if (!isLogin.text) {
         //     showPaper('index.html')
         //     return false
         // }
-        // isLogin.then(function (eData) {
-        //     console.info(eData)
-        //     if (!eData.text) {
-        //         showPaper('index.html')
-        //         return false
-        //     }
-        // })
+        isLogin.then(function (eData) {
+            console.info(eData)
+            if (!eData.text) {
+                showPaper('index.html')
+            } else {
+                if (type[1] == '') {
+                    showPaper('index.html')
+                } else if (type[1] == 'home') {
+                    showPaper('html/home.html');
+                } else if (type[1] == 'goods') {
+                    showPaper('html/goods.html');
+                } else if (type[1] == 'addGoods') {
+                    showPaper('html/addGoods.html');
+                } else if (type[1] == 'editGoods') {
+                    showPaper('html/editGoods.html');
+                } else if (type[1] == 'category') {
+                    showPaper('html/category.html');
+                } else if (type[1] == 'order') {
+                    showPaper('html/order.html');
+                } else if (type[1] == 'brand') {
+                    showPaper('html/brand.html');
+                } else if (type[1] == 'addBrand') {
+                    showPaper('html/addBrand.html');
+                } else if (type[1] == 'editBrand') {
+                    showPaper('html/editBrand.html');
+                } else if (type[1] == 'recommend') {
+                    showPaper('html/recommend.html');
+                } else if (type[1] == 'addRecommend') {
+                    showPaper('html/addRecommend.html');
+                } else if (type[1] == 'editRecommend') {
+                    showPaper('html/editRecommend.html');
+                } else if (type[1] == 'navigation') {
+                    showPaper('html/navigation.html');
+                } else if (type[1] == 'waterfall') {
+                    showPaper('html/waterfall.html');
+                } else if (type[1] == 'customer') {
+                    showPaper('html/customer.html');
+                } else if (type[1] == 'account') {
+                    showPaper('html/account.html');
+                } else if (type[1] == 'addAccount') {
+                    showPaper('html/addAccount.html');
+                } else if (type[1] == 'editAccount') {
+                    showPaper('html/editAccount.html');
+                } else {
+                    showPaper('html/404.html')
+                }
+            }
+        })
 
-        if (type[1] == '') {
-            showPaper('index.html')
-        } else if (type[1] == 'home') {
-            showPaper('html/home.html');
-        } else if (type[1] == 'goods') {
-            showPaper('html/goods.html');
-        } else if (type[1] == 'addGoods') {
-            showPaper('html/addGoods.html');
-        } else if (type[1] == 'editGoods') {
-            showPaper('html/editGoods.html');
-        } else if (type[1] == 'category') {
-            showPaper('html/category.html');
-        } else if (type[1] == 'order') {
-            showPaper('html/order.html');
-        } else if (type[1] == 'brand') {
-            showPaper('html/brand.html');
-        } else if (type[1] == 'addBrand') {
-            showPaper('html/addBrand.html');
-        } else if (type[1] == 'editBrand') {
-            showPaper('html/editBrand.html');
-        } else if (type[1] == 'recommend') {
-            showPaper('html/recommend.html');
-        } else if (type[1] == 'addRecommend') {
-            showPaper('html/addRecommend.html');
-        } else if (type[1] == 'editRecommend') {
-            showPaper('html/editRecommend.html');
-        } else if (type[1] == 'navigation') {
-            showPaper('html/navigation.html');
-        } else if (type[1] == 'waterfall') {
-            showPaper('html/waterfall.html');
-        } else if (type[1] == 'customer') {
-            showPaper('html/customer.html');
-        } else if (type[1] == 'account') {
-            showPaper('html/account.html');
-        } else if (type[1] == 'addAccount') {
-            showPaper('html/addAccount.html');
-        } else if (type[1] == 'editAccount') {
-            showPaper('html/editAccount.html');
-        } else {
-            showPaper('html/404.html')
-        }
+
     }
 
     function showPaper(pathName) {

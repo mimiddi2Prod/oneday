@@ -62,7 +62,7 @@ function login(username, password) {
             let current_time = new Date()
             current_time.setTime(current_time.getTime() + 30 * 60 * 1000);
             document.cookie = 'id' + "=" + res.id + ";expires=" + current_time.toGMTString() + ";path=/";
-            document.cookie = 'c_id' + "=" + res.c_id + ";expires=" + current_time.toGMTString() + ";path=/";
+            document.cookie = 'token' + "=" + res.token + ";expires=" + current_time.toGMTString() + ";path=/";
 
             sessionStorage.setItem("user_id", res.id);
             // sessionStorage.setItem("str", res.str);
