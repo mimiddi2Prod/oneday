@@ -11,6 +11,14 @@ var homeVM = new Vue({
                 console.info(res)
                 // editGoodsVM.category = res
             })
+        },
+        yinbaoGetCustomerByTel:function () {
+            const url = '../api/yinbao_customer', async = true
+            let data = {}
+            server(url, data, async, "post", function (res) {
+                console.info(res)
+                // editGoodsVM.category = res
+            })
         }
     }
 })

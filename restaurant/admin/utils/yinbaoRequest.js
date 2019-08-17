@@ -46,6 +46,9 @@ async function getPath(router) {
         case "queryProductImagePages":
             path += 'productOpenApi/queryProductImagePages'; // 分页查询全部商品图片 （只会查询有图片的，请确保商品有图片可查）
             break;
+        case "queryBytel":
+            path += 'customerOpenapi/queryBytel'; // 根据手机号查会员
+            break;
         default:
             console.info('没有发现能够匹配的path')
             return;

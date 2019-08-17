@@ -2,8 +2,8 @@
 var db = require("./../utils/dba");
 
 const crypto = require('crypto')
-var fs = require('fs');
-const path = require('path')
+// var fs = require('fs');
+// const path = require('path')
 
 var uuid = require('node-uuid')
 const privateKey = require('./../utils/getPrivateKey').Get()
@@ -34,7 +34,7 @@ function shopLogin() {
                     data.expiredTime = new Date().getTime() + (12 * 1000 * 60 * 60)
                     let expiredTime = new Date(data.expiredTime)
 
-                    sql = "update admin set token = ?,token_expire = ? where id = ?"
+                    sql = "update admin set token = ?,token_expire = ?,last_login_time = CURRENT_TIMESTAMP where id = ?"
                     row = await db.Query(sql, [data.token, expiredTime, data.id])
 
                     // if (data.type == 1 && row[0].position_id) {

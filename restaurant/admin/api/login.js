@@ -1,8 +1,11 @@
 var db = require("./../utils/dba");
 
 const crypto = require('crypto')
-var fs = require('fs');
-const path = require('path')
+// var fs = require('fs');
+// const path = require('path')
+
+var uuid = require('node-uuid')
+const privateKey = require('./../utils/getPrivateKey').Get()
 
 function shopLogin() {
     this.Service = async function (version, param, callback) {
@@ -15,7 +18,7 @@ function shopLogin() {
             } else if (!param['password']) {
                 console.info('password is null')
             } else {
-                const privateKey = fs.readFileSync(path.join(__dirname, '../rsa/pem/private.pem')).toString('utf-8')
+                // const privateKey = fs.readFileSync(path.join(__dirname, '../rsa/pem/private.pem')).toString('utf-8')
                 const password = Decrypt(param['password'], privateKey)
                 // param['username'] = encodeURIComponent(param['username'])
                 sql = "select id,`type` from admin where username = ? and password = ?";
@@ -26,6 +29,12 @@ function shopLogin() {
                     data.id = row[0].id
                     data.type = row[0].type
 
+                    data.token = uuid.v4()
+                    data.expiredTime = new Date().getTime() + (12 * 1000 * 60 * 60)
+                    let expiredTime = new Date(data.expiredTime)
+
+                    sql = "update admin set token = ?,token_expire = ?,last_login_time = CURRENT_TIMESTAMP where id = ?"
+                    row = await db.Query(sql, [data.token, expiredTime, data.id])
                     // if (data.type == 1 && row[0].position_id) {
                     //     sql = "select * from `position` where id = ?"
                     //     row = await db.query(sql, row[0].position_id)
@@ -33,8 +42,8 @@ function shopLogin() {
                     // }
                     // console.info(data)
 
-                    sql = "update admin set last_login_time = CURRENT_TIMESTAMP where id = ?"
-                    row = await db.Query(sql, data.id)
+                    // sql = "update admin set last_login_time = CURRENT_TIMESTAMP where id = ?"
+                    // row = await db.Query(sql, data.id)
                 } else {
                     data.text = 'login is fail'
                 }

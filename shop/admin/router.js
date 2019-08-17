@@ -138,10 +138,6 @@ function Router() {
                 var shopUpdateAd = require("./api/shop_update_ad.js");
                 baseApi = new shopUpdateAd;
                 break;
-            case "login_check":
-                var loginCheck = require("./api/login_check.js");
-                baseApi = new loginCheck;
-                break;
             case "get_account":
                 var shopGetAccount = require("./api/shop_get_account.js");
                 baseApi = new shopGetAccount;
