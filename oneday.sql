@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-08-16 19:03:56
+Date: 2019-08-17 15:30:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,13 +51,15 @@ CREATE TABLE `admin` (
   `last_login_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `type` int(1) NOT NULL COMMENT '1:god 2:admin',
   `position_id` int(12) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
+  `token_expire` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2019-08-16 18:40:42', '0', null);
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2019-08-17 10:33:44', '0', null, 'c519ae92-363c-4965-adb7-a3ad5f9d13d9', '2019-08-18 03:29:51');
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -176,7 +178,7 @@ CREATE TABLE `cart` (
   `item_param_id_2` int(11) NOT NULL,
   `number` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cart
