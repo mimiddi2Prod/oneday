@@ -1,0 +1,58 @@
+/* pages/payResult/payResult.wxss */
+page{
+  background-color: #f9f9f9;
+}
+
+.bg{
+  background-color: #fff;
+}
+
+.result{
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+.title{
+  color: red;
+  font-size: 38rpx;
+  margin: 100rpx 0 40rpx 0;
+}
+
+.desc>text{
+  color: #9a9b94;
+}
+
+.desc .em{
+  color: red;
+}
+
+.btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 50%;
+  margin: 60rpx 0 100rpx 0
+}
+
+.btn button{
+  font-size: 24rpx;
+}
+
+.goods{
+  padding: 20rpx;
+}
+
+.goods>view{
+  display: flex;
+  flex-direction: row;
+  align-items: center
+}
+
+.goods>view:nth-child(2n-1)>view{
+  width: 20%;
+}
+
+.goods>view:last-child>view>text{
+  color: red
+}

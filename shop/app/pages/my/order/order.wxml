@@ -1,0 +1,267 @@
+<!--pages/my/order/order.wxml-->
+<view class="container">
+  <view class="catalog">
+    <view class="nav">
+      <view class="item {{ currentId == item.id ? 'active' : ''}}" wx:for="{{navList}}" data-id="{{item.id}}" data-index="{{index}}" bindtap="switchCate">{{item.name}}</view>
+    </view>
+  </view>
+  <!-- <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view> -->
+  <view class="weui-navbar__slider" style="margin-left: 2.5%; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+</view>
+
+<swiper style="min-height:{{winHeight}}rpx;" current="{{currentId}}" bindchange="swiper">
+  <swiper-item wx:for="{{orderList}}" style="overflow:scroll" wx:for-index="pageId">
+    <scroll-view scroll-y="true" class="container-list">
+      <view class="list" wx:for="{{item.list}}" wx:key="*this">
+        <view class="number">订单编号：{{item.tradeId}}</view>
+        <!-- 商品 -->
+        <view bindtap='toOrderDetail' data-pageid='{{pageId}}' data-orderid='{{index}}' hover-class='none'>
+          <!-- <view class="goods">
+            <view class="goods-info">
+              <image src="/images/tupian.png" mode="cover"></image>
+              <view>
+                <view>{{item.name}}</view>
+                <view>23cm X 45cm</view>
+              </view>
+            </view>
+            <view class="status">
+              <view>包裹{{index}}</view>
+              <view>待付款</view>
+            </view>
+          </view> -->
+          <view class="goods">
+            <view class="goods-info">
+              <image src="{{item.image}}" mode="cover"></image>
+              <view>
+                <view>{{item.name}}</view>
+                <view>{{item.param_1}}，{{item.param_2}}</view>
+              </view>
+            </view>
+            <view class="status">
+              <!-- <view>包裹{{index}}</view> -->
+              <view>x{{item.number}}</view>
+              <view wx:if="{{item.state == 0}}">{{item.payInterval ? '待付款' : '已取消'}}</view>
+              <view wx:if="{{item.after_sale_state == 0}}">{{item.state == -1 ? '已取消' : ''}}{{item.state == 1 ? '待发货' : ''}}{{item.state == 2 ? '待收货' : ''}}{{item.state == 3 ? '待评价' : ''}}{{item.state == 4 ? '已完成' : ''}}</view>
+              <view wx:if="{{item.after_sale_state != 0}}">{{item.after_sale_state == 1 ? '退款中' : ''}}{{item.after_sale_state == 2 ? '退货退款中' : ''}}{{item.after_sale_state == 3 ? '换货中' : ''}}{{item.after_sale_state == 4 ? '已退款' : ''}}{{item.after_sale_state == 5 ? '已退货退款' : ''}}{{item.after_sale_state
+                == 6 ? '已换货' : ''}}</view>
+            </view>
+          </view>
+        </view>
+        <!-- 商品 -->
+
+        <!-- 取消订单 || 付款时间已过 -->
+        <view class="settlement" wx:if="{{item.state == -1}}">
+          <view>
+            应付：￥{{item.total}}
+          </view>
+          <view>
+            <!-- <navigator url="" hover-class='none'>
+              <button>{{item.payInterval ? '取消订单' : ''}}</button>
+            </navigator> -->
+            <navigator url="" hover-class='none'>
+              <button>已取消</button>
+            </navigator>
+          </view>
+        </view>
+
+        <!-- 待付款 -->
+        <view class="settlement" wx:if="{{item.state == 0}}">
+          <view>
+            应付：￥{{item.total}}
+          </view>
+          <view>
+            <view class="btn" wx:if="{{item.payInterval}}">
+              <button bindtap='abandonOrder' data-orderid='{{item.id}}' data-itempriceid='{{item.item_price_id}}'>{{item.payInterval ? '取消订单' : ''}}</button>
+            </view>
+            <view class="btn" bindtap='toPayOrder' data-orderid="{{item.id}}" data-itempriceid='{{item.item_price_id}}' data-price="{{item.total}}" wx:if="{{item.payInterval}}">
+            <button>{{'付款'+item.payInterval}}</button>
+              <!-- <button>{{item.payInterval ? '付款'+item.payInterval : '已取消'}}</button> -->
+            </view>
+            <view class="btn" wx:else>
+              <button>已取消</button>
+            </view>
+          </view>
+        </view>
+
+        <!-- 待发货 -->
+        <view class="settlement" wx:if="{{item.state == 1}}">
+          <view>
+            总计：￥{{item.total}}
+          </view>
+          <view>
+            <!-- <view class="btn">
+              <button>取消订单</button>
+            </view> -->
+            <navigator url='../logistics?logistics_code={{item.logistics_code}}' hover-class='none'>
+              <button>查看物流</button>
+            </navigator>
+            <view class="btn">
+              <button>已付款</button>
+            </view>
+          </view>
+        </view>
+
+        <!-- 待收货 -->
+        <view class="settlement" wx:if="{{item.state == 2 && item.after_sale_state == 0}}">
+          <view>
+            总计：￥{{item.total}}
+          </view>
+          <view>
+            <navigator url='../logistics?logistics_code={{item.logistics_code}}' hover-class='none'>
+              <button>查看物流</button>
+            </navigator>
+            <!-- <navigator url='userAgreement' hover-class='none'>
+              <button>延长收货</button>
+            </navigator> -->
+            <view class="btn" bindtap='acceptOrder' data-orderid='{{item.id}}' data-itempriceid='{{item.item_price_id}}'>
+              <button>确认收货</button>
+            </view>
+          </view>
+        </view>
+
+        <!-- 待评价 -->
+        <view class="settlement" wx:if="{{item.state == 3 && item.after_sale_state == 0}}">
+          <view>
+            总计：￥{{item.total}}
+          </view>
+          <view>
+            <navigator url='../logistics?logistics_code={{item.logistics_code}}' hover-class='none'>
+              <button>查看物流</button>
+            </navigator>
+            <navigator url='../review?item_id={{item.item_id}}&image={{item.image}}&name={{item.name}}&param_id_1={{item.param_id_1}}&param_id_2={{item.param_id_2}}&param_1={{item.param_1}}&param_2={{item.param_2}}&orderId={{item.id}}' hover-class='none'>
+              <button>去评价</button>
+            </navigator>
+          </view>
+        </view>
+
+        <!-- 已评价 -->
+        <view class="settlement" wx:if="{{item.state == 4 && item.after_sale_state == 0}}">
+          <view>
+            总计：￥{{item.total}}
+          </view>
+          <view>
+            <navigator url='../logistics?logistics_code={{item.logistics_code}}' hover-class='none'>
+              <button>查看物流</button>
+            </navigator>
+            <view class="btn">
+              <button>已完成</button>
+            </view>
+          </view>
+        </view>
+
+        <!-- 售后中 -->
+        <view class="settlement" wx:if="{{item.after_sale_state != 0 && item.after_sale_state <= 3}}">
+          <view>
+            实付：￥{{item.total}}
+          </view>
+          <view>
+            <navigator url='../logistics?logistics_code={{item.logistics_code}}' hover-class='none'>
+              <button>查看物流</button>
+            </navigator>
+            <view class="btn" bindtap='changeAfterSale' data-pageid='{{pageId}}' data-orderid='{{index}}' hover-class='none'>
+              <button>售后中</button>
+            </view>
+          </view>
+        </view>
+
+          <!-- 售后完成 -->
+        <view class="settlement" wx:if="{{item.after_sale_state >= 4}}">
+          <view>
+            实付：￥{{item.total}}
+          </view>
+          <view>
+            <navigator url='../logistics?logistics_code={{item.logistics_code}}' hover-class='none'>
+              <button>查看物流</button>
+            </navigator>
+            <view class="btn" bindtap='changeAfterSale' data-pageid='{{pageId}}' data-orderid='{{index}}' hover-class='none'>
+              <button>售后完成</button>
+            </view>
+          </view>
+        </view>
+
+      </view>
+    </scroll-view>
+
+    <scroll-view wx:if="{{item.list.length<=0}}">
+      <view class="norList">
+        <image class="norListImg" src="/images/dingdan.png"></image>
+        <view>无记录</view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+
+
+  <!-- <swiper-item wx:for="{{orderList}}" style="overflow:scroll">
+    <scroll-view scroll-y="true" class="container-list">
+      <view class="list" wx:for="{{orderList}}" wx:key="*this" wx:if="{{currentId == item.status || currentId == 0}}">
+        <view class="number">订单编号：7569812</view>
+        <view class="goods">
+          <view class="goods-info">
+            <image src="../../images/tupian.png" mode="cover"></image>
+            <view>
+              <view>{{item.name}}</view>
+              <view>23cm X 45cm</view>
+            </view>
+          </view>
+          <view class="status">
+            <view>包裹1</view>
+            <view>待付款</view>
+          </view>
+        </view>
+        <view class="goods">
+          <view class="goods-info">
+            <image src="../../images/tupian.png" mode="cover"></image>
+            <view>
+              <view>{{item.name}}</view>
+              <view>23cm X 45cm</view>
+            </view>
+          </view>
+          <view class="status">
+            <view>包裹2</view>
+            <view>{{item.status == 1 ? '待付款' : ''}}{{item.status == 2 ? '待发货' : ''}}{{item.status == 3 ? '待收货' : ''}}{{item.status == 4 ? '待评价' : ''}}</view>
+          </view>
+        </view>
+        <view class="settlement" wx:if="{{item.status == 1}}">
+          <view>
+            应付：￥{{item.money}}
+          </view>
+          <view>
+            <button>取消订单</button>
+            <button>付款59:44</button>
+          </view>
+        </view>
+
+        <view class="settlement" wx:if="{{item.status == 2}}">
+          <view>
+            应付：￥{{item.money}}
+          </view>
+          <view>
+            <button>取消订单</button>
+            <button>已付款</button>
+          </view>
+        </view>
+
+        <view class="settlement" wx:if="{{item.status == 3}}">
+          <view>
+            总计：￥{{item.money}}
+          </view>
+          <view>
+            <button>查看物流</button>
+            <button>延长收货</button>
+            <button>确认收货</button>
+          </view>
+        </view>
+
+        <view class="settlement" wx:if="{{item.status == 4}}">
+          <view>
+            总计：￥{{item.money}}
+          </view>
+          <view>
+            <button>去评价</button>
+          </view>
+        </view>
+
+      </view>
+    </scroll-view>
+  </swiper-item> -->
+</swiper>
