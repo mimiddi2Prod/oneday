@@ -32,6 +32,11 @@ function FBRouter(){
                     work = new RestaurantGetOrderByOpenid;
                     break;
                 }
+                case "restaurant_get_user_phone":{
+                    var RestaurantGetUserPhone = require("./apis/restaurant_get_user_phone");
+                    work = new RestaurantGetUserPhone;
+                    break;
+                }
                 case "restaurant_get_order_detail_by_tradeid":{
                     var RestaurantGetOrderDetailByTradeid = require("./apis/restaurant_get_order_detail_by_tradeid");
                     work = new RestaurantGetOrderDetailByTradeid;

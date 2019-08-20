@@ -21,6 +21,8 @@ function RestaurantGetOpenid() {
             response = tool.error.ErrorNotCode;
         } else {
             try {
+                data.phone = ''
+
                 var options = {
                     host: 'api.weixin.qq.com',
                     path: '/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&js_code=' + param["code"] + '&grant_type=authorization_code',
@@ -43,8 +45,23 @@ function RestaurantGetOpenid() {
                     } else {
                         sql = 'update restaurant_user set session_key = ?,last_login_time = current_timestamp where open_id = ?'
                         row = await query(sql, [sessionkey, openid])
+
+                        sql = 'select phone from restaurant_user where open_id = ?'
+                        row = await query(sql, openid)
+                        if (row.length > 0) {
+                            if (row[0].phone.length > 0) {
+                                data.phone = row[0].phone
+                            }
+                        }
                     }
-                    data = openid
+                    data.openid = openid
+
+                    let getCustomer = require('./yinbao_get_customer')
+                    let callData = await getCustomer(data.phone)
+                    console.info(callData)
+                    if(callData.code == 0){
+                        data.customer = callData
+                    }
                 }
 
                 await Call()

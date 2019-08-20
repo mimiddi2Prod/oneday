@@ -19,8 +19,8 @@ Page({
     // 之后需要做超时状态 跳转超时提醒 重新扫码
     isTimeOut: false,
     winHeight: '',
-    winCartHeightInit:'',
-    winCartHeight:'',
+    winCartHeightInit: '',
+    winCartHeight: '',
     // winWidth: '',
     // 购物车列表
     cart: [],
@@ -47,6 +47,8 @@ Page({
     showSearch: false,
     // initGoodsList: [],
     // searchList: [],
+
+    isCustomer: false
   },
 
   // 页面高度 scroll-view需要防止整个页面跟着拖动
@@ -61,7 +63,7 @@ Page({
         self.setData(self.data)
         self.setData({
           winHeight: calc - 90,
-          winCartHeightInit:calc - 170,
+          winCartHeightInit: calc - 170,
           winWidth: clientWidth
         });
       }
@@ -93,7 +95,7 @@ Page({
         cart: [],
         selectGoodsSKU: [],
         totalGoodsPrice: 0,
-        showCart:false
+        showCart: false
       })
       let locationCode = 'xmspw'
       // 获取商品列表 包括类别 和 商品
@@ -114,13 +116,13 @@ Page({
       showCart: !this.data.showCart
     })
     let winCartHeight = this.data.cart.length * 82
-    if (winCartHeight > this.data.winCartHeightInit){
+    if (winCartHeight > this.data.winCartHeightInit) {
       winCartHeight = this.data.winCartHeightInit
     }
     this.setData({
       winCartHeight: winCartHeight
     })
-// console.info(this.data.cart)
+    // console.info(this.data.cart)
     // if (this.data.winCartHeight)
   },
 

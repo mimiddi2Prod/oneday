@@ -10,13 +10,26 @@ App({
         server.request(api.getOpenid, {
           code: res.code
         }, "post").then(function(res) {
-          self.globalData.openid = res
+          self.globalData.openid = res.openid
+          self.globalData.phone = res.phone
+          if (res.customer) {
+            self.globalData.isCustomer = true
+            self.globalData.point = res.customer.data.point
+            self.globalData.balance = res.customer.data.balance
+            self.globalData.discount = res.customer.data.discount
+          }
         })
       }
     })
   },
   globalData: {
     openid: '',
-    cart: []
+    phone: '',
+    cart: [],
+
+    point: 0,
+    balance: 0,
+    discount: 0,
+    isCustomer: false
   }
 })

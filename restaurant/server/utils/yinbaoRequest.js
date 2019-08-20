@@ -40,6 +40,12 @@ async function getPath(router) {
         case "addOnLineOrder":
             path += 'orderOpenApi/addOnLineOrder'; // 推送在线订单
             break;
+        case "queryBytel":
+            path += 'customerOpenapi/queryBytel'; // 根据手机号查会员
+            break;
+        case "add":
+            path += 'customerOpenapi/add'; // 根据手机号查会员
+            break;
         default:
             console.info('没有发现能够匹配的path')
             return;

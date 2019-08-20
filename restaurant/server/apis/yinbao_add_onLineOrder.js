@@ -71,6 +71,7 @@ async function yinbaoAddOnLineOrder(data = {}) {
     if (deliveryType == 1) {
         postData = {
             "appId": appId,
+            "customerNumber":13055257913, // 会员号
             "payMethod": "Wxpay",
             "payOnLine": 1,
             "orderRemark": (data.style == 0 ? "堂食" : "外带"),

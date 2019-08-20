@@ -150,6 +150,11 @@
   <view class="header_left">
     桌号：7
   </view>
+  <view class="header-middle">
+    <navigator url="../customer/customer" hover-class='none'>
+      会员
+    </navigator>
+  </view>
   <view class="header_right">
     <view bindtap='showSearch'>
       <image class="header-icon" src="/images/search.png"></image>
