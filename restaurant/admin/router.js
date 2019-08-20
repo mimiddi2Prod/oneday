@@ -6,6 +6,10 @@ function Router() {
         var apiFunction = arr[2];
 
         switch (apiFunction) {
+            case "get_public":
+                var shopGetPublic = require("./api/shop_get_public.js");
+                baseApi = new shopGetPublic;
+                break;
             case "login":
                 var shopLogin = require("./api/login.js");
                 baseApi = new shopLogin;
