@@ -48,7 +48,10 @@ Page({
     // initGoodsList: [],
     // searchList: [],
 
-    isCustomer: false
+    isCustomer: false,
+    point: 0,
+    balance: 0,
+    discount: 0
   },
 
   // 页面高度 scroll-view需要防止整个页面跟着拖动
@@ -101,6 +104,13 @@ Page({
       // 获取商品列表 包括类别 和 商品
       this.getCategory(locationCode)
     }
+
+    this.setData({
+      point: app.globalData.point,
+      balance: app.globalData.balance,
+      discount: app.globalData.discount,
+      isCustomer: false
+    })
   },
   // 关闭选择规格弹窗 
   closeModal: function() {
