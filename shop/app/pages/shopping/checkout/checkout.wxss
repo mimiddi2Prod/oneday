@@ -192,7 +192,7 @@ page{
 
 .goods-items{
     margin-top: 20rpx;
-    width: 100%;
+    /* width: 100%; */
     height: auto;
     overflow: hidden;
     background: #fff;
