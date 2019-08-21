@@ -32,6 +32,7 @@ App({
     server.api(api.login, {
       op_id: openid
     }, "post").then(function (res) {
+      console.info(res)
       if (res.length <= 0) {
 
       } else {

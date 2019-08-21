@@ -64,10 +64,10 @@ Page({
     });
     // });
 
-    // this.ad()
-    // this.subCategory()
-    // this.brand()
-    // this.waterfall()
+    this.ad()
+    this.subCategory()
+    this.brand()
+    this.waterfall()
 
     // this.getwxacodeunlimit()
   },

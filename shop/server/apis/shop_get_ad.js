@@ -15,28 +15,40 @@ function SHOPGetAd() {
             var sql = "select  url,image,text from advertisement where state = 0 and type = ? ORDER BY sort";
             row = await query(sql, 0);
             if (row.length == 0) {
-                data.push({})
-                data[0].type = "opening"
-                data[0].data = []
+                data.push({
+                    type: "opening",
+                    data: []
+                })
+                // data[0].type =
+                // data[0].data = []
                 // response = tool.error.ErrorNotFoundUser;
                 log.warn('opening ad is not found')
             } else {
-                data.push({})
-                data[0].type = "opening"
-                data[0].data = row
+                data.push({
+                    type: "opening",
+                    data: row
+                })
+                // data[0].type = "opening"
+                // data[0].data = row
                 log.debug(name, "get opening is succ");
             }
             row = await query(sql, 1);
             if (row.length == 0) {
-                data.push({})
-                data[0].type = "banner"
-                data[0].data = []
+                data.push({
+                    type: "banner",
+                    data: []
+                })
+                // data[0].type =
+                // data[0].data = []
                 // response = tool.error.ErrorNotFoundUser;
                 log.warn('banner ad is not found')
             } else {
-                data.push({})
-                data[1].type = "banner"
-                data[1].data = row
+                data.push({
+                    type: "banner",
+                    data: row
+                })
+                // data[1].type = "banner"
+                // data[1].data = row
                 log.debug(name, "get banner is succ");
             }
         } catch (err) {
