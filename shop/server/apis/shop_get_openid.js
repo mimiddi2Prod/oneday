@@ -1,7 +1,7 @@
 var tools = require("./../tool");
 var https = require('https');
-const appid = 'wx14dd6120d4882a81';
-const secret = 'b77ba947d1168d6eff00816ea2f0cf5d';
+const appid = require('./../config/wxConfig').appid;
+const secret = require('./../config/wxConfig').secret;
 
 function SHOPGetOpenId() {
     var tool = new tools;
@@ -44,7 +44,7 @@ function SHOPGetOpenId() {
                         sql = 'update `user` set session_key = ? where open_id = ?'
                         row = await query(sql, [sessionkey, openid])
                     }
-                    data = openid
+                    data.openid = openid
                 }
 
                 await Call()

@@ -5,9 +5,9 @@ function SHOPLogin(){
     var log = tool.log;
     var query = tool.query;
 
-    this.Run = async function(ver, param, res){        
-        var name = "FBLogin::Run";
-        log.debug("FBLogin::Run.in");
+    this.Run = async function(ver, param, res){
+        var name = "SHOPLogin::Run";
+        log.debug("SHOPLogin::Run.in");
         var data = [];
         var response = tool.error.OK;
         if(!param["op_id"]){
@@ -25,7 +25,7 @@ function SHOPLogin(){
                 if(row.length == 0 || row[0].avatar.length <= 0){
                     // response = tool.error.ErrorNotFoundUser;
                 }else{
-                    if(row[0]["state"] == 0){                        
+                    if(row[0]["state"] == 0){
                         var userType = row[0].type;
                         var user_id = row[0].id
                         data = {}
@@ -56,7 +56,7 @@ function SHOPLogin(){
                     }else{
                         response = tool.error.ErrorUserState;
                         log.warn(name, "op_id:[", param["op_id"], "] is forbidden login");
-                    }                    
+                    }
                 }
             }catch(err){
                 if(err.code){
@@ -66,20 +66,20 @@ function SHOPLogin(){
                     log.warn(name, JSON.stringify(response));
                     response = tool.error.ErrorCatch;
                 }
-            }            
+            }
         }
 
         if(response.code != tool.error.OKCode){
             log.warn(name, JSON.stringify(response));
         }
 
-        tool.MakeResponse(200, 
+        tool.MakeResponse(200,
             {
-                res: response, 
+                res: response,
                 data:data,
                 action:"login",
             }, res);
-        tool.log.debug("FBLogin::Run.out");
+        tool.log.debug("SHOPLogin::Run.out");
     }
 }
 
