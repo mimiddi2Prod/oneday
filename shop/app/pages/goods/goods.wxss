@@ -616,7 +616,7 @@
 }
 
 .attr-pop {
-  width: 100%;
+  /* width: 100%; */
   height: auto;
   max-height: 780rpx;
   padding: 31.25rpx;
