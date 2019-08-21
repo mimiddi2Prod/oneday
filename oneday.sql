@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-08-17 15:30:14
+Date: 2019-08-21 11:50:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,8 +35,6 @@ CREATE TABLE `address` (
 -- ----------------------------
 -- Records of address
 -- ----------------------------
-INSERT INTO `address` VALUES ('1', '张三', '020-81167888', '广东省', '广州市', '海珠区', '新港中路397号', '4', '2019-08-16 11:36:46');
-INSERT INTO `address` VALUES ('2', '张三', '020-8116788899', '广东省', '广州市', '海珠区', '新港中路397号', '13', '2019-08-16 18:46:23');
 
 -- ----------------------------
 -- Table structure for admin
@@ -59,7 +57,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2019-08-17 10:33:44', '0', null, 'c519ae92-363c-4965-adb7-a3ad5f9d13d9', '2019-08-18 03:29:51');
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2019-08-20 10:22:14', '0', null, '34214036-ea44-49ed-bb1c-b84f9674983e', '2019-08-20 22:22:14');
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -118,8 +116,8 @@ CREATE TABLE `advertisement` (
 -- ----------------------------
 -- Records of advertisement
 -- ----------------------------
-INSERT INTO `advertisement` VALUES ('3', '0', '../goods/goods?id=23', 'http://notwastingqiniu.minidope.com/ad_2019_8_16_18_44_2_0.jpg', '22', '2', '2019-08-16 18:44:12', '1', '0');
-INSERT INTO `advertisement` VALUES ('4', '1', '../goods/goods?id=23', 'http://notwastingqiniu.minidope.com/ad_2019_8_16_18_45_24_0.png', '2', '2', '2019-08-16 18:45:34', '1', '0');
+INSERT INTO `advertisement` VALUES ('3', '1', '../goods/goods?id=23', 'http://notwastingqiniu.minidope.com/ad_2019_8_16_18_44_2_0.jpg', '22', '2', '2019-08-16 18:44:12', '1', '0');
+INSERT INTO `advertisement` VALUES ('4', '0', '../goods/goods?id=23', 'http://notwastingqiniu.minidope.com/ad_2019_8_16_18_45_24_0.png', '2', '2', '2019-08-16 18:45:34', '1', '0');
 
 -- ----------------------------
 -- Table structure for aftersale
@@ -355,9 +353,6 @@ CREATE TABLE `order` (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', '13', '23', '177', '179', '绿色', '小', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_15_17_43_5_0.png', '1', '2019-08-16 14:09:49', '0', '0', '2019-08-16 14:09:49', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '26.00', '0.00', 'nw_156593578245644673', null, '0');
-INSERT INTO `order` VALUES ('2', '13', '23', '177', '179', '绿色', '小', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_15_17_43_5_0.png', '1', '2019-08-16 18:46:49', '0', '0', '2019-08-16 18:46:49', '广东省广州市海珠区新港中路397号', '020-8116788899', '张三', '26.00', '0.00', 'nw_156595240552366113', null, '0');
-INSERT INTO `order` VALUES ('3', '13', '23', '177', '179', '绿色', '小', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_15_17_43_5_0.png', '1', '2019-08-16 19:03:22', '0', '0', '2019-08-16 19:03:22', '广东省广州市海珠区新港中路397号', '020-8116788899', '张三', '26.00', '0.00', 'nw_156595339538780372', null, '0');
 
 -- ----------------------------
 -- Table structure for paid
@@ -377,9 +372,6 @@ CREATE TABLE `paid` (
 -- ----------------------------
 -- Records of paid
 -- ----------------------------
-INSERT INTO `paid` VALUES ('1', '168', '13', '2019-08-16 14:09:49', '1', '0', '1');
-INSERT INTO `paid` VALUES ('2', '168', '13', '2019-08-16 18:46:49', '1', '0', '2');
-INSERT INTO `paid` VALUES ('3', '168', '13', '2019-08-16 19:03:22', '1', '0', '3');
 
 -- ----------------------------
 -- Table structure for position
@@ -538,7 +530,7 @@ CREATE TABLE `restaurant_goods_order` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `style` int(11) NOT NULL COMMENT '0 堂食 1 外带',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_order
@@ -558,6 +550,23 @@ INSERT INTO `restaurant_goods_order` VALUES ('12', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI
 INSERT INTO `restaurant_goods_order` VALUES ('13', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '175', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"三分糖\",\"温度\":\"正常冰\"}', '10.00', '2', null, '2019-08-14 10:24:40', '2019-08-14 10:24:41', '0');
 INSERT INTO `restaurant_goods_order` VALUES ('14', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '362325027959145552', '测试1', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/895a5f9b-93b0-4926-bf20-9df402ed83c4.jpg', '\"\"', '11.00', '1', null, '2019-08-14 10:24:40', '2019-08-14 10:24:41', '0');
 INSERT INTO `restaurant_goods_order` VALUES ('15', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '323862728586653407', '测试2', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/dd5be4a9-ef55-44e0-86a0-982b52dba5b0.jpg', '\"\"', '12.00', '2', null, '2019-08-14 10:24:40', '2019-08-14 10:24:41', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('16', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '196', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '10.00', '1', null, '2019-08-20 10:29:26', '2019-08-20 10:29:30', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('17', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '198', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"无糖\",\"温度\":\"100°C\"}', '10.00', '1', null, '2019-08-20 10:29:26', '2019-08-20 10:29:30', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('18', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '362325027959145552', '测试1', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/895a5f9b-93b0-4926-bf20-9df402ed83c4.jpg', '\"\"', '11.00', '2', null, '2019-08-20 10:29:26', '2019-08-20 10:29:30', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('19', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '323862728586653407', '测试2', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/dd5be4a9-ef55-44e0-86a0-982b52dba5b0.jpg', '\"\"', '12.00', '1', null, '2019-08-20 10:29:26', '2019-08-20 10:29:30', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('20', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '196', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '10.00', '1', null, '2019-08-20 10:31:21', '2019-08-20 10:31:22', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('21', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '202', '1024894850209216025', '柠檬苏打', '111', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '32.00', '1', null, '2019-08-20 10:31:21', '2019-08-20 10:31:22', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('22', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '362325027959145552', '测试1', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/895a5f9b-93b0-4926-bf20-9df402ed83c4.jpg', '\"\"', '11.00', '2', null, '2019-08-20 10:31:21', '2019-08-20 10:31:22', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('23', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '323862728586653407', '测试2', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/dd5be4a9-ef55-44e0-86a0-982b52dba5b0.jpg', '\"\"', '12.00', '1', null, '2019-08-20 10:31:21', '2019-08-20 10:31:22', '0');
+INSERT INTO `restaurant_goods_order` VALUES ('24', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '196', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '10.00', '1', null, '2019-08-20 10:42:04', '2019-08-20 10:42:05', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('25', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '362325027959145552', '测试1', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/895a5f9b-93b0-4926-bf20-9df402ed83c4.jpg', '\"\"', '11.00', '1', null, '2019-08-20 10:42:04', '2019-08-20 10:42:05', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('26', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '202', '1024894850209216025', '柠檬苏打', '111', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '32.00', '1', null, '2019-08-20 10:42:34', '2019-08-20 10:42:35', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('27', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '362325027959145552', '测试1', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/895a5f9b-93b0-4926-bf20-9df402ed83c4.jpg', '\"\"', '11.00', '1', null, '2019-08-20 10:42:34', '2019-08-20 10:42:35', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('28', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '323862728586653407', '测试2', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/dd5be4a9-ef55-44e0-86a0-982b52dba5b0.jpg', '\"\"', '12.00', '1', null, '2019-08-20 10:42:34', '2019-08-20 10:42:35', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('29', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '196', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '10.00', '1', null, '2019-08-20 10:43:41', '2019-08-20 10:43:42', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('30', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '199', '244706959019475619', '测试商品', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2ade3d11-f220-4207-b9dc-9fe52c5b8374.jpg', '{\"甜度\":\"三分糖\",\"温度\":\"正常冰\"}', '10.00', '1', null, '2019-08-20 10:43:41', '2019-08-20 10:43:42', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('31', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '202', '1024894850209216025', '柠檬苏打', '111', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7a2f30eb-cd02-4640-8f9c-815d65cfec05.jpg', '{\"甜度\":\"无糖\",\"温度\":\"正常冰\"}', '32.00', '1', null, '2019-08-20 10:43:41', '2019-08-20 10:43:42', '1');
+INSERT INTO `restaurant_goods_order` VALUES ('32', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '0', '362325027959145552', '测试1', '', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/895a5f9b-93b0-4926-bf20-9df402ed83c4.jpg', '\"\"', '11.00', '2', null, '2019-08-20 10:43:41', '2019-08-20 10:43:42', '1');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_sku
@@ -619,14 +628,15 @@ CREATE TABLE `restaurant_user` (
   `last_login_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `address_id` int(12) DEFAULT NULL,
   `integral` int(12) NOT NULL DEFAULT '0',
+  `phone` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of restaurant_user
 -- ----------------------------
-INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', '7Xa0Lt0bYxhdbHt8XusZTw==', '2019-08-01 15:52:43', null, '0');
-INSERT INTO `restaurant_user` VALUES ('3', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '', null, null, '2019-08-02 14:58:46', '0CjHc1nbiv/IbHj87r5v+Q==', '2019-08-14 10:24:22', null, '0');
+INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', '7Xa0Lt0bYxhdbHt8XusZTw==', '2019-08-01 15:52:43', null, '0', null);
+INSERT INTO `restaurant_user` VALUES ('3', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '', null, null, '2019-08-02 14:58:46', 'NVRC8hNgEv22nUjH8mrN9w==', '2019-08-21 11:19:35', null, '0', '13055257913');
 
 -- ----------------------------
 -- Table structure for review
@@ -1098,12 +1108,12 @@ CREATE TABLE `user` (
   `integral` int(64) NOT NULL DEFAULT '0',
   `session_key` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('%E3%80%82%E3%80%82%E3%80%82', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '2019-08-16 13:43:07', '2019-08-16 18:49:30', '13', '0', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKkby2Ot8iakAfjC6HCdCWKxqBsXBb0oa4CFG6hCq2XWfKOicAM8pWxJgjQU1hDYBRdPuo8gFfRU6nA/132', '', '0', '2', '0', 'dPl5w4TFD5t4X271pzR2sA==');
+INSERT INTO `user` VALUES ('%E3%80%82%E3%80%82%E3%80%82', 'oHjV85X-ld1eKTRDPd3HjMW2_CxY', '2019-08-21 11:28:08', '2019-08-21 11:50:20', '14', '0', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKicggrszbOFRE5siciaIFjUAYWiacpClj4saVxfFuSp0hibQTOG2vPN3zAALibxOyuEibhAxntqS8uMUekQ/132', '', '0', null, '0', 's8SmCqhR2LzUUoE18EtfMA==');
 
 -- ----------------------------
 -- Table structure for wow_cat
