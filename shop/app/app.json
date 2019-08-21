@@ -26,7 +26,8 @@
     "pages/group_buy/group_buy",
     "pages/search/search",
     "pages/reviewList/reviewList",
-    "pages/shopping/checkout/checkout"
+    "pages/shopping/checkout/checkout",
+    "pages/shopping/addressAdd/addressAdd"
   ],
   "window": {
     "backgroundTextStyle": "light",
