@@ -1,2 +1,6 @@
 <!--pages/index/timeout.wxml-->
-<text>pages/index/timeout.wxml</text>
+<view>
+  消息已过期，请重新扫描桌面二维码
+</view>
+
+<image src="/images/ao.jpg"  mode="widthFix"></image>

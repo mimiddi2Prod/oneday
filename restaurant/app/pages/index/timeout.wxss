@@ -1,1 +1,19 @@
 /* pages/index/timeout.wxss */
+
+page {
+  background-color: #f0f0f0;
+}
+
+view {
+  position: absolute;
+  margin-top: 40%;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+}
+
+image {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}

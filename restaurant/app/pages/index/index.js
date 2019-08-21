@@ -6,6 +6,7 @@ const app = getApp()
 
 Page({
   data: {
+    number: '',
     // 主页面左侧类别栏选中id(自定义id 与数据库类别id无关)
     activeId: '',
     categoryToView: '',
@@ -74,22 +75,22 @@ Page({
   },
 
   onLoad: function(options) {
-    // 页面高度 scroll-view需要防止整个页面跟着拖动
-    this.setWinHeight()
     // 公众号进入
     console.info(options)
-    let currentTime = new Date()
-    if (options.time) {
-      console.info('已超时，请重新扫码进入')
-    }
     if (options.number) {
-      // 获取到桌号
-    } else {
-      // 超时
+      this.data.number = options.number // 获取到桌号
     }
-    let locationCode = 'xmspw'
+    if (options.expire_time) {
+      this.data.expire_time = options.expire_time  // 超时时间
+    }
+    if (options.locationCode) {
+      this.data.locationCode = options.locationCode  // 店址代号
+    }
+    this.setData(this.data)
+    // 页面高度 scroll-view需要防止整个页面跟着拖动
+    this.setWinHeight()
     // 获取商品列表 包括类别 和 商品
-    this.getCategory(locationCode)
+    this.getCategory(this.data.locationCode)
   },
 
   onShow: function() {
@@ -100,9 +101,8 @@ Page({
         totalGoodsPrice: 0,
         showCart: false
       })
-      let locationCode = 'xmspw'
       // 获取商品列表 包括类别 和 商品
-      this.getCategory(locationCode)
+      this.getCategory(this.data.locationCode)
     }
 
     this.setData({
