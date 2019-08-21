@@ -13,7 +13,7 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.4",
+	"libVersion": "2.0.4",
 	"appid": "wxa0869cd59ebaaa06",
 	"projectname": "onedayShopping",
 	"debugOptions": {

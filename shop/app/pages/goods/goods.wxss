@@ -13,7 +13,7 @@
 }
 
 .service-policy {
-  width: 750rpx;
+  /* width: 750rpx; */
   height: 73rpx;
   background: #f4f4f4;
   padding: 0 31.25rpx;
@@ -34,7 +34,7 @@
 }
 
 .goods-info {
-  width: 750rpx;
+  /* width: 750rpx; */
   /* height: 306rpx; *//* overflow: hidden; */
   background: #fff;
 }
@@ -42,7 +42,7 @@
 .goods-info .c {
   display: block;
   /* width: 718.75rpx; */
-  width: 750rpx;
+  /* width: 750rpx; */
   height: 100%;
   /* margin-left: 31.25rpx; *//* padding: 38rpx 31.25rpx 38rpx 0; */
   padding: 38rpx 30rpx;
@@ -99,7 +99,7 @@
 }
 
 .section-nav {
-  width: 750rpx;
+  /* width: 750rpx; */
   height: 108rpx;
   background: #fff;
   margin-bottom: 20rpx;
@@ -302,7 +302,7 @@
 }
 
 .goods-attr {
-  width: 750rpx;
+  /* width: 750rpx; */
   height: auto;
   overflow: hidden;
   /* padding: 0 31.25rpx 25rpx 31.25rpx; */
@@ -348,7 +348,7 @@
 }
 
 .detail {
-  width: 750rpx;
+  /* width: 750rpx; */
   height: auto;
   overflow: hidden;
 }
@@ -359,7 +359,7 @@
 }
 
 .common-problem {
-  width: 750rpx;
+  /* width: 750rpx; */
   height: auto;
   overflow: hidden;
 }
@@ -398,7 +398,7 @@
 }
 
 .common-problem .b {
-  width: 750rpx;
+  /* width: 750rpx; */
   height: auto;
   overflow: hidden;
   padding: 0rpx 30rpx;
