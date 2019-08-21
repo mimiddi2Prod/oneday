@@ -180,17 +180,30 @@ label{
 }
 
 .first-title>label .a{
-    width: 30%;
+    /*width: 30%;*/
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*flex-shrink: 0;*/
 }
 
 .first-title>label .b{
-    width: 68%;
+    padding:0 0 0 20px;
 }
+
+.first-title>label .b>span{
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+/*.first-title>label .b{*/
+    /*!*width: 68%;*!*/
+/*}*/
 
 .first-title>label .a>img{
     width: 100px;
     height: 100px;
-    margin-left: 50px;
+    margin-left: 20px;
 }
 
 .btn-link{
