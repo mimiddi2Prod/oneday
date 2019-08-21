@@ -82,6 +82,7 @@
   margin-top: 23rpx;
   min-height: 40rpx;
   text-align: center;
+  width: 690rpx;
 }
 
 .goods-info .brand text {
