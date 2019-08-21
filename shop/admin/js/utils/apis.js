@@ -36,4 +36,8 @@ var api = {
     getAccount: '../api/get_account',
     addAccount: '../api/add_account',
     getUser: '../api/get_user',
+    delReview: '../api/del_review',
+    updateReview: '../api/update_review',
+    updateBestReview: '../api/update_best_review',
+    getReview: '../api/get_review',
 }

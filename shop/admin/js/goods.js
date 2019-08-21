@@ -552,6 +552,7 @@ function updateGoodsCategory(goods_id_list, category_id) {
         if (res.text == '编辑成功') {
             getGoods()
             // getCategory(0, 0)
+            $('input[name = "checkbox-all"]')[0].checked = false
             $('#categoryModal').modal('hide')
         }
     })
@@ -571,6 +572,7 @@ function updateGoodsPrice(goods_list) {
             goodsVM.calc_number_one = ''
             goodsVM.calc_number_two = ''
             goodsVM.previewGoodsPrice = []
+            $('input[name = "checkbox-all"]')[0].checked = false
             $('#priceModal').modal('hide')
         }
     })
