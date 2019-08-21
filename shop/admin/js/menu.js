@@ -20,7 +20,7 @@ var menuVM = new Vue({
         let href = window.location.href
         let arr = href.split('/')
         let tag = arr[arr.length - 1]
-        if (tag == 'addGoods' || tag == 'editGoods') {
+        if (tag == 'addGoods' || tag == 'editGoods' || tag == 'reviewGoods') {
             tag = 'goods'
         }
         if(tag == 'addBrand' || tag == 'editBrand'){
