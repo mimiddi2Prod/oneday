@@ -11,7 +11,8 @@ const log = console.log.bind(console)
 
 var mch_id = '1508603281'//商户号
 var PAY_API_KEY = '81ef119935811ab9339b8c802a2ffc7B'
-var appid = 'wx14dd6120d4882a81'
+// var appid = 'wx14dd6120d4882a81'
+var appid = require('./../config/wxConfig').appid
 
 // 微信小程序支付入口
 async function payfee(data = {}) {
