@@ -56,12 +56,12 @@ function RestaurantGetOpenid() {
                     }
                     data.openid = openid
 
-                    let getCustomer = require('./yinbao_get_customer')
-                    let callData = await getCustomer(data.phone)
-                    console.info(callData)
-                    if(callData.code == 0){
-                        data.customer = callData
-                    }
+                    // let getCustomer = require('./yinbao_get_customer_copy')
+                    // let callData = await getCustomer(data.phone)
+                    // console.info(callData)
+                    // if(callData.code == 0){
+                    //     data.customer = callData
+                    // }
                 }
 
                 await Call()

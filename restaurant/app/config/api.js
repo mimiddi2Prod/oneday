@@ -10,5 +10,7 @@ module.exports = {
 
   getUserPhone: rootUrl + 'restaurant_get_user_phone',
 
+  getCustomerByPhone: rootUrl + 'yinbao_get_customer',
+
   // getUploadToken: rootUrl + 'get_uploadToken', // 图片上传七牛云前需要获取token
 }

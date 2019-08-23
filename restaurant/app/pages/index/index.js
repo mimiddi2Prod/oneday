@@ -81,16 +81,33 @@ Page({
       this.data.number = options.number // 获取到桌号
     }
     if (options.expire_time) {
-      this.data.expire_time = options.expire_time  // 超时时间
+      this.data.expire_time = options.expire_time // 超时时间
     }
     if (options.locationCode) {
-      this.data.locationCode = options.locationCode  // 店址代号
+      this.data.locationCode = options.locationCode // 店址代号
     }
     this.setData(this.data)
     // 页面高度 scroll-view需要防止整个页面跟着拖动
     this.setWinHeight()
     // 获取商品列表 包括类别 和 商品
     this.getCategory(this.data.locationCode)
+
+    this.getCustomerByPhone()
+  },
+
+  getCustomerByPhone: function() {
+    let self = this
+    let interval = setInterval(function() {
+      if (app.globalData.phone) {
+        clearInterval(interval)
+        server.request(api.getCustomerByPhone, {
+          'phone': app.globalData.phone
+        }, 'post').then(function(res) {
+          console.info(res)
+        })
+      }
+    },1000)
+
   },
 
   onShow: function() {
