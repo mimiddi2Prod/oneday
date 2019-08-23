@@ -151,8 +151,11 @@
     桌号：{{number}}
   </view>
   <view class="header-middle">
-    <navigator url="../customer/customer" hover-class='none'>
+    <navigator url="../customer/customer" hover-class='none' wx:if="{{!isCustomer}}">
       会员
+    </navigator>
+    <navigator url="../customer/customer" hover-class='none' wx:if="{{isCustomer}}" style="font-size:26rpx">
+      余额{{balance}}，积分{{point}}
     </navigator>
   </view>
   <view class="header_right">

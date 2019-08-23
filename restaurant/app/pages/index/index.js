@@ -104,10 +104,20 @@ Page({
           'phone': app.globalData.phone
         }, 'post').then(function(res) {
           console.info(res)
+          app.globalData.isCustomer = true
+          app.globalData.point = res.point
+          app.globalData.balance = res.balance
+          app.globalData.discount = res.discount
+
+          self.setData({
+            point: app.globalData.point,
+            balance: app.globalData.balance,
+            discount: app.globalData.discount,
+            isCustomer: app.globalData.isCustomer
+          })
         })
       }
-    },1000)
-
+    }, 500)
   },
 
   onShow: function() {
@@ -126,7 +136,7 @@ Page({
       point: app.globalData.point,
       balance: app.globalData.balance,
       discount: app.globalData.discount,
-      isCustomer: false
+      isCustomer: app.globalData.isCustomer
     })
   },
   // 关闭选择规格弹窗 
