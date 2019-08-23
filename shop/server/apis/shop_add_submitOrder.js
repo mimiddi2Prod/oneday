@@ -16,7 +16,7 @@ function SHOPAddSubmitOrder() {
             var sql = ""
             try {
                 sql = "insert into `order`(user_id,item_id,param_id_1,param_id_2,param_1,param_2,image,`number`,state,address_text,tel,receiver,single_price,postage,tradeId,have_cost_integral,create_time,update_time)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)"
-                row = await tool.query(sql, [param["user_id"], param["item_id"], param["param_id_1"], param["param_id_2"], param["param_1"],param["param_2"],param["image"], param["number"], param["state"], param["address_text"], param["tel"], param["receiver"], param["single_price"], param["postage"],param["tradeId"],param["have_cost_integral"]])
+                row = await tool.query(sql, [param["user_id"], param["item_id"], param["param_id_1"], param["param_id_2"], param["param_1"], param["param_2"], param["image"], param["number"], param["state"], param["address_text"], param["tel"], param["receiver"], param["single_price"], param["postage"], param["tradeId"], param["have_cost_integral"]])
                 console.info(row)
                 if (row.insertId) {
                     var order_id = row.insertId
@@ -30,6 +30,14 @@ function SHOPAddSubmitOrder() {
 
                     sql = "delete from cart where user_id = ? and item_param_id_1 = ? and item_param_id_2 = ?"
                     row = await tool.query(sql, [param['user_id'], param["param_id_1"], param["param_id_2"]])
+
+                    // 修改银豹会员余额积分
+                    // let getCustomer = require('./yinbao_get_customer_copy')
+                    // let callData = await getCustomer(data.phone)
+                    // console.info(callData)
+                    // if (callData.code == 0) {
+                    //     data.customer = callData
+                    // }
                 }
             } catch (err) {
                 response = tool.error.ErrorSQL;

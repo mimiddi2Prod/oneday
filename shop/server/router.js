@@ -182,6 +182,16 @@ function FBRouter(){
                     work = new SHOPGetWxacodeunlimit;
                     break;
                 }
+                case "get_user_phone":{
+                    var SHOPGetUserPhone = require("./apis/shop_get_user_phone");
+                    work = new SHOPGetUserPhone;
+                    break;
+                }
+                case "update_customer":{
+                    var SHOPUpdateCustomer = require("./apis/shop_update_customer");
+                    work = new SHOPUpdateCustomer;
+                    break;
+                }
                 default:
                     break;
             }

@@ -20,6 +20,9 @@ Page({
     couponId: 0,
     getIntegral: 0,
     costIntegral: 0,
+
+    showPayMethodDialog: false,
+    customerUid: '',
   },
   onLoad: function(options) {
 
@@ -43,6 +46,10 @@ Page({
     // 页面显示
     this.getOrderList()
     this.getAddress()
+
+    this.setData({
+      customerUid: app.globalData.customerUid
+    })
   },
 
   getOrderList() {
@@ -121,14 +128,10 @@ Page({
     }
 
     if (self.data.actualPrice > 0) {
-      // // 拉起支付
-      pay.pay(api.payfee, self.data.actualPrice, "post").then(function(res) {
-        // console.info(res)
-        self.addOrderByState(1, res)
-        self.updateIntegral()
-      }).catch(function(res) {
-        self.addOrderByState(0, res)
+      self.setData({
+        showPayMethodDialog: true
       })
+      // self.wxPay(self.data.actualPrice)
     } else if (self.data.actualPrice <= 0) {
       wx.showModal({
         title: '是否换购',
@@ -157,6 +160,54 @@ Page({
     // })
   },
 
+  payDialog: function() {
+    this.setData({
+      showPayMethodDialog: false
+    })
+  },
+
+  wxPay: function() {
+    let self = this
+    // // 拉起支付
+    pay.pay(api.payfee, self.data.actualPrice, "post").then(function(res) {
+      // console.info(res)
+      self.addOrderByState(1, res)
+      // self.updateIntegral()
+    }).catch(function(res) {
+      self.addOrderByState(0, res)
+    })
+  },
+
+  balancePay: function() {
+    let self = this
+    if (self.data.customerUid) {
+      // 根据银豹customerUid 更新对应余额和积分
+      let data = {}
+      data.customerUid = self.data.customerUid
+      data.balanceIncrement = self.data.actualPrice
+      data.pointIncrement = self.data.actualPrice
+      server.api(api.updateCustomerByCustomerUid, "post").then(function(res) {
+        console.info(res)
+      })
+    } else {
+      wx.showModal({
+        title: '支付失败',
+        content: '您还没有绑定/注册会员卡，是否前往绑定/注册',
+        success: function(e) {
+          if (e.confirm) {
+            wx.navigateTo({
+              url: '../../my/customer',
+            })
+          }
+        }
+      })
+    }
+
+    // server.api(api.updateIntegral, data, "post").then(function(res) {
+    //   console.info(res)
+    // })
+  },
+
   getTradeId: function() {
     var date = new Date().getTime().toString()
     var text = ""
@@ -169,14 +220,23 @@ Page({
     return tradeId
   },
 
-  updateIntegral: function() {
+  updatePoint: function() {
     let data = {}
-    data.integral = this.data.getIntegral - this.data.costIntegral
-    data.user_id = app.globalData.user_id
-    server.api(api.updateIntegral, data, "post").then(function(res) {
+    // data.integral = this.data.getIntegral - this.data.costIntegral
+    // data.user_id = app.globalData.user_id
+    server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
       console.info(res)
     })
   },
+
+  // updateIntegral: function() {
+  //   let data = {}
+  //   data.integral = this.data.getIntegral - this.data.costIntegral
+  //   data.user_id = app.globalData.user_id
+  //   server.api(api.updateIntegral, data, "post").then(function(res) {
+  //     console.info(res)
+  //   })
+  // },
 
   addOrderByState: function(state, tradeId) {
     // console.info(this.data.checkedGoodsList)
@@ -207,6 +267,7 @@ Page({
       } else if (orderList[i].integral_price > 0) {
         data.have_cost_integral = 1
       }
+
       server.api(api.submitOrder, data, "post").then(function(res) {
         // console.info(res)
         if (res.text == "添加订单成功") {

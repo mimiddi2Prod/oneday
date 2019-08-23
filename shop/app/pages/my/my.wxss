@@ -24,6 +24,13 @@ page{
   border: none
 }
 
+.profile-info>view{
+  text-align: left;
+  width: 100%;
+  border: none;
+  padding: 0 28rpx;
+}
+
 .avatar {
   display: flex;
   flex-direction: row;

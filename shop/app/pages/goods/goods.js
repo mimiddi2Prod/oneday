@@ -764,6 +764,18 @@ Page({
               self.setData({
                 showLoginDialog: false
               })
+
+              wx.showModal({
+                title: '注册会员',
+                content: '注册或绑定会员，可累积购物积分换好礼，更可享受线下充值送额度等其他权益，是否前往注册',
+                success: function (e) {
+                  if (e.confirm) {
+                    wx.navigateTo({
+                      url: '../my/customer',
+                    })
+                  }
+                }
+              })
               // console.info('---注册成功---')
             }
           })

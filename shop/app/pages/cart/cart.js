@@ -57,25 +57,32 @@ Page({
   },
 
   // 用户所余积分
-  getIntegral: function () {
-    let self = this
-    server.api(api.getIntegral, {
-      user_id: app.globalData.user_id,
-    }, "post").then(function (res) {
-      if (res.length > 0) {
-          app.globalData.integral = res[0].integral
-      }
-    })
-  },
+  // getIntegral: function () {
+  //   let self = this
+  //   server.api(api.getIntegral, {
+  //     user_id: app.globalData.user_id,
+  //   }, "post").then(function (res) {
+  //     if (res.length > 0) {
+  //         app.globalData.integral = res[0].integral
+  //     }
+  //   })
+  // },
 
   onReady: function() {
     // 页面渲染完成
 
   },
   onShow: function() {
+    let self = this
+    let interval = setInterval(function () {
+      if (app.globalData.user_id) {
+        clearInterval(interval)
+        self.getCartList();
+      }
+    }, 500)
     // 页面显示
-    this.getCartList();
-    this.getIntegral();
+    // this.getCartList();
+    // this.getIntegral();
   },
   onHide: function() {
     // 页面隐藏

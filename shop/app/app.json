@@ -7,6 +7,7 @@
     "pages/cart/cart",
     "pages/cart/goodsToCart",
     "pages/my/my",
+    "pages/my/customer",
     "pages/my/order/order",
     "pages/my/order/orderDetail",
     "pages/my/logistics",

@@ -32,17 +32,29 @@ function SHOPGetOpenId() {
                     let openid = JSON.parse(e).openid
                     let sessionkey = JSON.parse(e).session_key
                     console.info(e)
-                    var sql = 'select id from `user` where open_id = ?'
+                    var sql = 'select id,phone from `user` where open_id = ?'
                     var row = await query(sql, openid)
                     console.info(1)
                     console.info(row)
-                    if (row.length <= 0) {
+                    let rowData = row
+                    if (rowData.length <= 0) {
                         sql = 'insert into `user` (open_id,session_key)values(?,?)'
                         row = await query(sql, [openid, sessionkey])
                         console.info(row)
                     } else {
                         sql = 'update `user` set session_key = ? where open_id = ?'
                         row = await query(sql, [sessionkey, openid])
+
+                        if (rowData[0].phone) {
+                            data.phone = rowData[0].phone
+                            // 获得银豹会员信息
+                            let getCustomer = require('./yinbao_get_customer')
+                            let callData = await getCustomer(rowData[0].phone)
+                            console.info(callData)
+                            if (callData.code == 0) {
+                                data.customer = callData
+                            }
+                        }
                     }
                     data.openid = openid
                 }

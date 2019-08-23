@@ -38,18 +38,25 @@ Page({
       // }
     ],
     integral: 0,
+
+    // 银豹
+    point: 0,
+    balance: 0,
+    discount: 0,
+    isCustomer: false
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var self = this
-    if (app.globalData.userInfo) {
-      self.setData({
-        userInfo: app.globalData.userInfo
-      })
-    }
+    // var self = this
+    // if (app.globalData.userInfo) {
+    //   self.setData({
+    //     userInfo: app.globalData.userInfo
+    //   })
+    // }
     // console.info(this.data.userInfo)
     // wx.getStorage({
     //   key: 'userInfo',
@@ -171,7 +178,7 @@ Page({
     })
   },
 
-  register: function (avatar, nick_name, iv, encryptedData) {
+  register: function(avatar, nick_name, iv, encryptedData) {
     var self = this
     return new Promise(function(resolve, reject) {
       // wx.getStorage({
@@ -196,22 +203,36 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getIntegral()
+    // this.getIntegral()
+    let self = this
+    console.info(app.globalData)
+    let interval = setInterval(function () {
+      if (app.globalData.userInfo) {
+        clearInterval(interval)
+        self.setData({
+          userInfo: app.globalData.userInfo,
+          point: app.globalData.point,
+          balance: app.globalData.balance,
+          discount: app.globalData.discount,
+          isCustomer: app.globalData.isCustomer
+        })
+      }
+    }, 500)
   },
 
-  getIntegral: function() {
-    let self = this
-    server.api(api.getIntegral, {
-      user_id: app.globalData.user_id,
-    }, "post").then(function(res) {
-      if(res.length > 0){
-        self.setData({
-          integral: res[0].integral
-        })
-        app.globalData.integral = res[0].integral
-      }
-    })
-  },
+  // getIntegral: function() {
+  //   let self = this
+  //   server.api(api.getIntegral, {
+  //     user_id: app.globalData.user_id,
+  //   }, "post").then(function(res) {
+  //     if (res.length > 0) {
+  //       self.setData({
+  //         integral: res[0].integral
+  //       })
+  //       app.globalData.integral = res[0].integral
+  //     }
+  //   })
+  // },
 
   /**
    * 生命周期函数--监听页面隐藏

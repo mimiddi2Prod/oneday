@@ -2,7 +2,7 @@
 const server = require('/utils/server.js')
 const api = require('/config/api.js')
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     // 手机信息 适配tabbar
     // var self = this
     // wx.getSystemInfo({
@@ -16,22 +16,32 @@ App({
     // })
     var self = this
     wx.login({
-      success: function (res) {
+      success: function(res) {
         server.api(api.getOpenid, {
           code: res.code
-        }, "post").then(function (res) {
+        }, "post").then(function(res) {
           self.globalData.openid = res.openid
+          if (res.phone) {
+            self.globalData.phone = res.phone
+            if (res.customer) {
+              self.globalData.isCustomer = true
+              self.globalData.point = res.customer.data.point
+              self.globalData.balance = res.customer.data.balance
+              self.globalData.discount = res.customer.data.discount
+              self.globalData.customerUid = res.customer.data.customerUid
+            }
+          }
           self.login(res.openid)
         })
       }
     })
   },
 
-  login: function (openid) {
+  login: function(openid) {
     var self = this
     server.api(api.login, {
       op_id: openid
-    }, "post").then(function (res) {
+    }, "post").then(function(res) {
       console.info(res)
       if (res.length <= 0) {
 
@@ -69,5 +79,13 @@ App({
     payInfo: {},
 
     selectAddress: null,
+
+    phone:'',
+    // 银豹会员信息
+    customerUid:'',
+    point: 0,
+    balance: 0,
+    discount: 0,
+    isCustomer: false
   }
 })

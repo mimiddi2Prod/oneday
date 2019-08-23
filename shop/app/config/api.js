@@ -53,5 +53,12 @@ module.exports = {
   addAfterSale: rootUrl + 'add_afterSale',
   changeAfterSale: rootUrl + 'update_afterSaleState',
 
+  // 获取用户绑定微信手机号
+  getUserPhone: rootUrl + 'get_user_phone',
+  // 获取银豹会员信息
+  getCustomerByPhone: rootUrl + 'yinbao_get_customer',
+  // 更新银豹会员信息
+  updateCustomerByCustomerUid: rootUrl + 'update_customer',
+
   getUploadToken: rootUrl + 'get_uploadToken', // 图片上传七牛云前需要获取token
 }

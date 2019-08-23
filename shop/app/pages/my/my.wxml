@@ -5,16 +5,23 @@
       <image src="/images/avatar-default.png" style="border-radius:0"></image>
       <text>点击登录</text>
     </button>
-    <button class="avatar" wx:else hover-class='none' plain="true" style="justify-content: space-between">
+    <view class="avatar" wx:else hover-class='none' plain="true" style="justify-content: space-between">
       <view class="avatar">
         <image src="{{userInfo.avatarUrl}}"></image>
         <text>{{userInfo.nickName}}</text>
       </view>
       <view class="avatar">
-        <text>积分：</text>
-        <text style='margin-left:16rpx'>{{integral}}</text>
+        <navigator url="../my/customer" hover-class='none' wx:if="{{!isCustomer}}">
+          <text>绑定会员</text>
+        </navigator>
+        <navigator url="../my/customer" hover-class='none' wx:if="{{isCustomer}}" style="font-size:24rpx">
+          <text>余额：</text>
+          <text style='margin-left:16rpx'>{{balance}}</text>
+          <text>积分：</text>
+          <text style='margin-left:16rpx'>{{point}}</text>
+        </navigator>
       </view>
-    </button>
+    </view>
   </view>
 
   <view class="mid">
