@@ -25,7 +25,7 @@ function SHOPPayfee() {
                 // payData.key = '81ef119935811ab9339b8c802a2ffc7B'
                 // payData.appid = 'wx14dd6120d4882a81'
                 // payData.out_trade_no = new Date().getTime()
-                payData.body = '不浪费商城'
+                payData.body = '啾哩好物'
                 payData.total_fee = money * 100
 
                 var payfee = require("./../utils/wxpay");

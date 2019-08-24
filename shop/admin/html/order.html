@@ -194,7 +194,7 @@
                         <button type="button" class="btn btn-link" v-if="item.after_sale_state == 0 && item.state == 1"
                                 data-toggle="modal" data-target="#myModal" v-on:click="getLogistics(item.id,item.tel)">待发货
                         </button>
-                        <button type="button" class="btn btn-link" v-on:click="changePage('order-detail',item.id)">订单详情
+                        <button type="button" class="btn btn-link" v-on:click="orderDetail(item.id)">订单详情
                         </button>
                         <button type="button" class="btn btn-link">联系买家</button>
                     </div>

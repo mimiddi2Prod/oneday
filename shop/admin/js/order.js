@@ -22,6 +22,10 @@ var orderVM = new Vue({
         //     sessionStorage.setItem("href", href);
         //     sessionStorage.setItem("orderId", id);
         // },
+        orderDetail:function(id){
+            sessionStorage.setItem("orderId", id);
+            window.location.href = 'orderDetail'
+        },
         getPage: function (index) {
             this.last_id = index
             getOrder()

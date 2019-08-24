@@ -14,9 +14,10 @@ const xmlParser = new xml2js.Parser()
 // 一个方便的 log 方法
 const log = console.log.bind(console)
 
-var mch_id = '1508603281'//商户号
-var PAY_API_KEY = '81ef119935811ab9339b8c802a2ffc7B'
-var appid = 'wx14dd6120d4882a81'
+const wxConfig = require('./../config/wxConfig')
+var mch_id = wxConfig.mch_id//商户号
+var PAY_API_KEY = wxConfig.PAY_API_KEY
+var appid = wxConfig.appid
 
 // 微信小程序支付入口
 async function refund(data = {}) {

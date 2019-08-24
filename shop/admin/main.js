@@ -118,6 +118,8 @@ app.use(function (req, res, next) {
                     showPaper('html/category.html');
                 } else if (type[1] == 'order') {
                     showPaper('html/order.html');
+                } else if (type[1] == 'orderDetail') {
+                    showPaper('html/orderDetail.html');
                 } else if (type[1] == 'brand') {
                     showPaper('html/brand.html');
                 } else if (type[1] == 'addBrand') {
