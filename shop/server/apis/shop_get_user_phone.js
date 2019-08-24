@@ -39,8 +39,8 @@ function SHOPGetUserPhone() {
                 let rawData = wxParse(demo)
                 let phoneNumber = rawData.phoneNumber
 
-                sql = 'update `user` set phone = ? where open_id = ?'
-                row = await query(sql, [phoneNumber, param["openid"]])
+                // sql = 'update `user` set phone = ? where open_id = ?'
+                // row = await query(sql, [phoneNumber, param["openid"]])
 
                 // 1.获取会员
                 let postData = {
@@ -102,6 +102,9 @@ function SHOPGetUserPhone() {
                         }
                     }
                 }
+
+                sql = 'update `user` set phone = ?,customerUid = ? where open_id = ?'
+                row = await query(sql, [phoneNumber, data.data.customerUid, param["openid"]])
 
             } catch (err) {
                 if (err.code) {

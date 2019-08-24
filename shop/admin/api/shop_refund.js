@@ -17,10 +17,11 @@ function shopRefund() {
             var order_id = param['order_id']
             var after_sale_state = param['after_sale_state']
 
-            sql = "select single_price,`number`,postage from `order` where tradeid = ?"
+            sql = "select user_id,single_price,`number`,postage from `order` where tradeid = ?"
             row = await db.Query(sql, tradeId)
+            var user_id = row[0].user_id
             var total_fee = 0
-            for(let i in row){
+            for (let i in row) {
                 total_fee = total_fee + Number(row[i].single_price) * Number(row[i].number)
             }
             console.info(total_fee)
@@ -31,23 +32,47 @@ function shopRefund() {
             payData.tradeId = tradeId
             payData.total_fee = total_fee * 100
 
+            if (payData.tradeId.indexOf('yb') == -1) {
+                // 微信支付退款
+                async function Call() {
+                    var e = await refund(payData)
+                    data.code = -1
+                    if (e == '订单已全额退款' || e.indexOf('已部份退款') != -1) {
+                        data.code = 0
+                        after_sale_state = after_sale_state + 3
+                        sql = "update `order` set after_sale_state = ? where id = ?"
+                        row = await db.Query(sql, [after_sale_state, order_id])
+                        // 可能需要做一个数据验证，确保部份退款的情况下，确实修改了状态（全款退款，反正钱退完了再退管理后台会报错）
+                    } else {
+                        data.code = 1
+                    }
+                    data.text = e
+                }
 
-            async function Call() {
-                var e = await refund(payData)
-                data.code = -1
-                if (e == '订单已全额退款' || e.indexOf('已部份退款') != -1) {
-                    data.code = 0
+                await Call()
+            } else {
+                // 银豹支付退款
+                sql = "select customerUid from `user` where id = ?"
+                row = await db.Query(sql, user_id)
+
+                // 更新会员信息
+                let updateCustomer = require('./yinbao_update_customer')
+                let paramData = {
+                    balanceIncrement: refund_fee,
+                    pointIncrement: refund_fee,
+                    customerUid: row[0].customerUid
+                }
+                let callData = await updateCustomer(paramData)
+                console.info(callData)
+                if (callData.code == 0) {
+                    data = callData
                     after_sale_state = after_sale_state + 3
                     sql = "update `order` set after_sale_state = ? where id = ?"
                     row = await db.Query(sql, [after_sale_state, order_id])
-                    // 可能需要做一个数据验证，确保部份退款的情况下，确实修改了状态（全款退款，反正钱退完了再退管理后台会报错）
-                } else {
-                    data.code = 1
                 }
-                data.text = e
             }
 
-            await Call()
+
             return callback(data);
         } catch (e) {
             console.info('boom!!!!!!!!!!!!!')
