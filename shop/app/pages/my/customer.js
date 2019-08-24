@@ -39,7 +39,7 @@ Page({
           if (res.code == 0) {
             app.globalData.point = res.data.point //积分
             app.globalData.balance = res.data.balance //余额
-            app.globalData.discount = res.discount //折扣 100无折扣 70表示7折
+            app.globalData.discount = res.data.discount //折扣 100无折扣 70表示7折
             app.globalData.isCustomer = true
             app.globalData.customerUid = res.customerUid
             self.setData({
