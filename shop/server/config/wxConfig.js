@@ -1,5 +1,5 @@
-const appid = 'wxa0869cd59ebaaa06'  // 啾哩好物
-const secret = '3a5fa1f990812a7cc9aa1a832fbc1f86'
+const appid = 'wx768a827128cc90f8'  // 啾哩好物
+const secret = 'd99eda228b95793b08563a5141f6449c'
 
 const mch_id = "1545776151" // 商户号
 const PAY_API_KEY = 'kz5fECdUC51XgocMYKY06Ktg5hxXz0P6' // 商户密钥

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-08-24 14:10:16
+Date: 2019-08-24 16:01:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -136,12 +136,13 @@ CREATE TABLE `aftersale` (
   `number` int(11) NOT NULL DEFAULT '1',
   `state` int(1) NOT NULL DEFAULT '0' COMMENT '0 正在申请售后 1 用户取消申请 ',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aftersale
 -- ----------------------------
 INSERT INTO `aftersale` VALUES ('1', '2', '0.10', '退运费', '', '[]', '', '2019-08-24 11:38:12', '1', '0');
+INSERT INTO `aftersale` VALUES ('2', '1', '27.00', '退运费', '', '[]', '', '2019-08-24 14:36:43', '1', '0');
 
 -- ----------------------------
 -- Table structure for brand
@@ -355,7 +356,7 @@ CREATE TABLE `order` (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', '14', '23', '177', '179', '绿色', '小', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_15_17_43_5_0.png', '2', '2019-08-24 10:59:57', '1', '0', '2019-08-24 10:59:57', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '27.00', '0.00', 'nw_156661559764418018yb', null, '0');
+INSERT INTO `order` VALUES ('1', '14', '23', '177', '179', '绿色', '小', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_15_17_43_5_0.png', '2', '2019-08-24 10:59:57', '2', '4', '2019-08-24 10:59:57', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '27.00', '0.00', 'nw_156661559764418018yb', '71609147935673', '0');
 INSERT INTO `order` VALUES ('2', '14', '25', '182', '183', '红色', '大', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_16_18_56_48_0.jpg', '1', '2019-08-24 11:34:31', '2', '4', '2019-08-24 11:34:31', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '0.10', '0.00', 'nw_156661765432595438', '71609147935673', '0');
 
 -- ----------------------------
@@ -758,13 +759,13 @@ CREATE TABLE `user` (
   `integral` int(64) NOT NULL DEFAULT '0',
   `session_key` varchar(255) NOT NULL,
   `phone` varchar(16) DEFAULT NULL,
+  `customerUid` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('%E3%80%82%E3%80%82%E3%80%82', 'oHjV85X-ld1eKTRDPd3HjMW2_CxY', '2019-08-21 11:28:08', '2019-08-24 10:58:56', '14', '0', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKicggrszbOFRE5siciaIFjUAYWiacpClj4saVxfFuSp0hibQTOG2vPN3zAALibxOyuEibhAxntqS8uMUekQ/132', '', '0', null, '0', 'lLEQ2alKGKjVkSJHY5UF1A==', '13055257913');
 
 -- ----------------------------
 -- Table structure for wow_cat
