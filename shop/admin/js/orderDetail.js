@@ -5,12 +5,12 @@ var orderDetailVM = new Vue({
         orderDetail: {}
     },
     methods: {
-        changePage: function (e) {
-            var href = './' + e + '.html'
-            $("#container").load(href);
-
-            sessionStorage.setItem("href", href);
-        },
+        // changePage: function (e) {
+        //     var href = './' + e + '.html'
+        //     $("#container").load(href);
+        //
+        //     sessionStorage.setItem("href", href);
+        // },
         refund: function () {
             toRefund()
         }
