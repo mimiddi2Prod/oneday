@@ -138,7 +138,7 @@ Page({
         content: '您将消费积分0元换购，退换货积分不退回',
         success: function(res) {
           if (res.confirm) {
-            self.addOrderByState(1, self.getTradeId())
+            self.addOrderByState(1, self.getTradeId('f'))
             self.updateIntegral()
           }
         }
@@ -181,14 +181,27 @@ Page({
   balancePay: function() {
     let self = this
     if (self.data.customerUid) {
-      // 根据银豹customerUid 更新对应余额和积分
-      let data = {}
-      data.customerUid = self.data.customerUid
-      data.balanceIncrement = self.data.actualPrice
-      data.pointIncrement = self.data.actualPrice
-      server.api(api.updateCustomerByCustomerUid, "post").then(function(res) {
-        console.info(res)
-      })
+      if (app.globalData.balance > Number(self.data.actualPrice)) {
+        // 根据银豹customerUid 更新对应余额和积分
+        let data = {}
+        data.customerUid = self.data.customerUid
+        data.balanceIncrement = self.data.actualPrice
+        data.pointIncrement = self.data.actualPrice
+        server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
+          console.info(res)
+          if (res.code == 0) {
+            app.globalData.balance = res.data.balanceAfterUpdate
+            app.globalData.point = res.data.pointAfterUpdate
+            self.addOrderByState(1, self.getTradeId('yb'))
+          }
+        })
+      } else {
+        wx.showModal({
+          title: '支付失败',
+          content: '您的余额不足，请到线下充值',
+          showCancel: false,
+        })
+      }
     } else {
       wx.showModal({
         title: '支付失败',
@@ -208,14 +221,14 @@ Page({
     // })
   },
 
-  getTradeId: function() {
+  getTradeId: function(str) {
     var date = new Date().getTime().toString()
     var text = ""
     var possible = "0123456789"
     for (var i = 0; i < 5; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length))
     }
-    var tradeId = 'nw_' + date + text + 'f'
+    var tradeId = 'nw_' + date + text + str
     console.info(tradeId)
     return tradeId
   },

@@ -21,11 +21,11 @@ function SHOPUpdateCustomer() {
         var response = tool.error.OK;
         var sql = '', row = [];
         if (param['customerUid'].length <= 0) {
-            console.info('没有收到encryptedData')
+            console.info('没有收到customerUid')
         } else if (param['balanceIncrement'].length <= 0) {
-            console.info('没有收到iv')
+            console.info('没有收到balanceIncrement')
         } else if (param['pointIncrement'].length <= 0) {
-            console.info('没有收到openid')
+            console.info('没有收到pointIncrement')
         } else {
             try {
                 // sql = "select session_key from `user` where open_id = ?"
@@ -42,66 +42,29 @@ function SHOPUpdateCustomer() {
                 // sql = 'update `user` set phone = ? where open_id = ?'
                 // row = await query(sql, [phoneNumber, param["openid"]])
                 //
-                // 1.获取会员
-                let postData = {
-                    "appId": yinbaoAppId,
-                    "customerTel": phoneNumber
+                // 更新会员信息
+                let updateCustomer = require('./yinbao_update_customer')
+                let callData = await updateCustomer(param)
+                console.info(callData)
+                if (callData.code == 0) {
+                    data = callData
                 }
-                let postDataJson = JSON.stringify(postData)
-                let router = "queryBytel"
-                let e = await request(router, postDataJson)
-
-                e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
-                e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
-                e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
-                e = e.replace(/,\"categoryName\"/g, "\",\"categoryName\"")
-
-                console.info("获得分类数据：")
-                console.info(e)
-                e = JSON.parse(e)
-                if (e.data) {
-                    if (e.data[0].number.length > 0 && e.data[0].number == phoneNumber) {
-                        data.code = 0
-                        data.text = "success"
-                        data.data = {}
-                        data.data.point = e.data[0].point
-                        data.data.balance = e.data[0].balance
-                        data.data.discount = e.data[0].discount
-                        data.data.customerUid = e.data[0].customerUid
-                    }
-                } else {
-                    // 2.没查询到对应的会员卡 注册
-                    let postData = {
-                        "appId": yinbaoAppId,
-                        "customerInfo":{
-                            "number": phoneNumber
-                        }
-                    }
-                    let postDataJson = JSON.stringify(postData)
-                    console.info(postDataJson)
-                    let router = "add"
-                    let e = await request(router, postDataJson)
-
-                    e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
-                    e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
-                    e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
-                    e = e.replace(/,\"number\"/g, "\",\"number\"")
-
-                    console.info("获得分类数据：")
-                    console.info(e)
-                    e = JSON.parse(e)
-                    if (e.data) {
-                        if (e.data.number.length > 0 && e.data.number == phoneNumber) {
-                            data.code = 0
-                            data.text = "success"
-                            data.data = {}
-                            data.data.point = e.data.point
-                            data.data.balance = e.data.balance
-                            data.data.discount = e.data.discount
-                            data.data.customerUid = e.data.customerUid
-                        }
-                    }
-                }
+                // let postData = {
+                //     "appId": yinbaoAppId,
+                //     "customerTel": phoneNumber
+                // }
+                // let postDataJson = JSON.stringify(postData)
+                // let router = "queryBytel"
+                // let e = await request(router, postDataJson)
+                //
+                // e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
+                // e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
+                // e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
+                // e = e.replace(/,\"categoryName\"/g, "\",\"categoryName\"")
+                //
+                // console.info("获得分类数据：")
+                // console.info(e)
+                // e = JSON.parse(e)
 
             } catch (err) {
                 if (err.code) {
@@ -123,7 +86,7 @@ function SHOPUpdateCustomer() {
             {
                 res: response,
                 data: data,
-                action: "get_user_phone_and_register",
+                action: "update_customer",
             }, res);
         tool.log.debug("SHOPUpdateCustomer::Run.out");
     }
