@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-08-21 11:50:36
+Date: 2019-08-24 14:10:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,11 +30,12 @@ CREATE TABLE `address` (
   `user_id` int(11) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of address
 -- ----------------------------
+INSERT INTO `address` VALUES ('1', '张三', '020-81167888', '广东省', '广州市', '海珠区', '新港中路397号', '14', '2019-08-23 17:14:41');
 
 -- ----------------------------
 -- Table structure for admin
@@ -57,7 +58,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2019-08-20 10:22:14', '0', null, '34214036-ea44-49ed-bb1c-b84f9674983e', '2019-08-20 22:22:14');
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2019-08-24 11:36:06', '0', null, '1c3e3680-dd9b-427e-9ae8-55e0dba72b03', '2019-08-24 23:36:06');
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -135,11 +136,12 @@ CREATE TABLE `aftersale` (
   `number` int(11) NOT NULL DEFAULT '1',
   `state` int(1) NOT NULL DEFAULT '0' COMMENT '0 正在申请售后 1 用户取消申请 ',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aftersale
 -- ----------------------------
+INSERT INTO `aftersale` VALUES ('1', '2', '0.10', '退运费', '', '[]', '', '2019-08-24 11:38:12', '1', '0');
 
 -- ----------------------------
 -- Table structure for brand
@@ -176,7 +178,7 @@ CREATE TABLE `cart` (
   `item_param_id_2` int(11) NOT NULL,
   `number` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cart
@@ -260,10 +262,10 @@ CREATE TABLE `item` (
 -- ----------------------------
 -- Records of item
 -- ----------------------------
-INSERT INTO `item` VALUES ('23', '第一商品', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_15_17_42_7_0.png\",\"http://notwastingqiniu.minidope.com/goods_2019_8_15_17_42_7_1.jpg\"]', '../goods/goods', '0', '15.00', '啊啊啊1!!!!', '0', '0', '0', '1', '2', '0', '33', '0', '0', '2019-08-15 17:43:07', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_15_17_42_46_0.png\",\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_15_17_42_46_1.jpg\"]', '0.00', '0');
-INSERT INTO `item` VALUES ('24', 's s  s ', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_16_18_50_20_0.jpg\"]', '../goods/goods', '0', '1.00', 's s s s ', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-16 18:53:44', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_16_18_50_58_0.jpg\"]', '0.00', '0');
-INSERT INTO `item` VALUES ('25', '1', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_16_18_56_28_0.png\"]', '../goods/goods', '0', '1.00', '1', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-16 18:56:56', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_16_18_56_54_0.jpg\"]', '0.00', '0');
-INSERT INTO `item` VALUES ('26', '1', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_16_18_58_16_0.jpg\"]', '../goods/goods', '0', '2.00', '2', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-16 18:58:46', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_16_18_58_44_0.jpg\"]', '0.00', '0');
+INSERT INTO `item` VALUES ('23', '第一商品', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_15_17_42_7_0.png\",\"http://notwastingqiniu.minidope.com/goods_2019_8_15_17_42_7_1.jpg\"]', '../goods/goods', '0', '16.00', '啊啊啊1!!!!', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-15 17:43:07', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_15_17_42_46_0.png\",\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_15_17_42_46_1.jpg\"]', '0.00', '0');
+INSERT INTO `item` VALUES ('24', 's s  s ', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_16_18_50_20_0.jpg\"]', '../goods/goods', '0', '2.00', 's s s s ', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-16 18:53:44', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_16_18_50_58_0.jpg\"]', '0.00', '0');
+INSERT INTO `item` VALUES ('25', '1', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_16_18_56_28_0.png\"]', '../goods/goods', '0', '2.00', '1', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-16 18:56:56', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_16_18_56_54_0.jpg\"]', '0.00', '0');
+INSERT INTO `item` VALUES ('26', '1', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_16_18_58_16_0.jpg\"]', '../goods/goods', '0', '3.00', '2', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-16 18:58:46', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_16_18_58_44_0.jpg\"]', '0.00', '0');
 
 -- ----------------------------
 -- Table structure for item_param
@@ -313,13 +315,13 @@ CREATE TABLE `item_price` (
 -- ----------------------------
 -- Records of item_price
 -- ----------------------------
-INSERT INTO `item_price` VALUES ('167', '176', '178', '121', '15.00', '23', '2019-08-15 17:48:44', '0');
-INSERT INTO `item_price` VALUES ('168', '177', '179', '23', '26.00', '23', '2019-08-15 17:48:44', '0');
-INSERT INTO `item_price` VALUES ('169', '176', '179', '23', '35.00', '23', '2019-08-15 17:48:44', '0');
-INSERT INTO `item_price` VALUES ('170', '177', '178', '233', '35.00', '23', '2019-08-15 17:48:44', '0');
-INSERT INTO `item_price` VALUES ('171', '180', '181', '1', '1.00', '24', '2019-08-16 18:53:44', '0');
-INSERT INTO `item_price` VALUES ('172', '182', '183', '1', '1.00', '25', '2019-08-16 18:56:56', '0');
-INSERT INTO `item_price` VALUES ('173', '184', '185', '2', '2.00', '26', '2019-08-16 18:58:46', '0');
+INSERT INTO `item_price` VALUES ('167', '176', '178', '121', '16.00', '23', '2019-08-21 14:16:34', '0');
+INSERT INTO `item_price` VALUES ('168', '177', '179', '21', '27.00', '23', '2019-08-24 11:00:05', '0');
+INSERT INTO `item_price` VALUES ('169', '176', '179', '23', '36.00', '23', '2019-08-21 14:16:34', '0');
+INSERT INTO `item_price` VALUES ('170', '177', '178', '233', '36.00', '23', '2019-08-21 14:16:34', '0');
+INSERT INTO `item_price` VALUES ('171', '180', '181', '1', '2.00', '24', '2019-08-21 14:16:34', '0');
+INSERT INTO `item_price` VALUES ('172', '182', '183', '0', '0.10', '25', '2019-08-24 11:34:37', '0');
+INSERT INTO `item_price` VALUES ('173', '184', '185', '2', '3.00', '26', '2019-08-21 14:16:34', '0');
 
 -- ----------------------------
 -- Table structure for order
@@ -348,11 +350,13 @@ CREATE TABLE `order` (
   `logistics_code` varchar(255) DEFAULT NULL COMMENT '物流查询',
   `have_cost_integral` int(2) NOT NULL DEFAULT '0' COMMENT '0: 不花费 1 花费',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
+INSERT INTO `order` VALUES ('1', '14', '23', '177', '179', '绿色', '小', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_15_17_43_5_0.png', '2', '2019-08-24 10:59:57', '1', '0', '2019-08-24 10:59:57', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '27.00', '0.00', 'nw_156661559764418018yb', null, '0');
+INSERT INTO `order` VALUES ('2', '14', '25', '182', '183', '红色', '大', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_16_18_56_48_0.jpg', '1', '2019-08-24 11:34:31', '2', '4', '2019-08-24 11:34:31', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '0.10', '0.00', 'nw_156661765432595438', '71609147935673', '0');
 
 -- ----------------------------
 -- Table structure for paid
@@ -367,11 +371,13 @@ CREATE TABLE `paid` (
   `state` int(11) NOT NULL COMMENT '0 abandon 1 to pay,',
   `order_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of paid
 -- ----------------------------
+INSERT INTO `paid` VALUES ('1', '168', '14', '2019-08-24 10:59:57', '2', '1', '1');
+INSERT INTO `paid` VALUES ('2', '172', '14', '2019-08-24 11:34:31', '1', '1', '2');
 
 -- ----------------------------
 -- Table structure for position
@@ -636,7 +642,7 @@ CREATE TABLE `restaurant_user` (
 -- Records of restaurant_user
 -- ----------------------------
 INSERT INTO `restaurant_user` VALUES ('2', 'oTapG43y69Y_L_RWRDESkAgzBy4Y', '', null, null, '2019-07-19 17:42:09', '7Xa0Lt0bYxhdbHt8XusZTw==', '2019-08-01 15:52:43', null, '0', null);
-INSERT INTO `restaurant_user` VALUES ('3', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '', null, null, '2019-08-02 14:58:46', 'NVRC8hNgEv22nUjH8mrN9w==', '2019-08-21 11:19:35', null, '0', '13055257913');
+INSERT INTO `restaurant_user` VALUES ('3', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '', null, null, '2019-08-02 14:58:46', 'GoqIEItjUub82LLBPOjH1A==', '2019-08-23 16:02:17', null, '0', '13055257913');
 
 -- ----------------------------
 -- Table structure for review
@@ -675,362 +681,6 @@ CREATE TABLE `review_detail` (
 -- ----------------------------
 -- Records of review_detail
 -- ----------------------------
-
--- ----------------------------
--- Table structure for shop_ad
--- ----------------------------
-DROP TABLE IF EXISTS `shop_ad`;
-CREATE TABLE `shop_ad` (
-  `id` int(12) NOT NULL,
-  `type` int(1) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `text` varchar(255) DEFAULT NULL,
-  `sort` int(4) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_id` int(4) NOT NULL,
-  `state` int(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_ad
--- ----------------------------
-
--- ----------------------------
--- Table structure for shop_address
--- ----------------------------
-DROP TABLE IF EXISTS `shop_address`;
-CREATE TABLE `shop_address` (
-  `id` int(11) NOT NULL,
-  `receiver` varchar(255) NOT NULL,
-  `tel` varchar(16) NOT NULL,
-  `province` text NOT NULL,
-  `city` text NOT NULL,
-  `area` text NOT NULL,
-  `road` text NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_address
--- ----------------------------
-
--- ----------------------------
--- Table structure for shop_brand
--- ----------------------------
-DROP TABLE IF EXISTS `shop_brand`;
-CREATE TABLE `shop_brand` (
-  `id` int(12) NOT NULL AUTO_INCREMENT,
-  `image` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `sort` int(11) NOT NULL,
-  `status` int(1) NOT NULL,
-  `describe` text NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_id` int(16) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_brand
--- ----------------------------
-INSERT INTO `shop_brand` VALUES ('1', 'http://notwastingqiniu.minidope.com/brand_2019_8_14_18_32_52_0.png', '/pages/brandDetail/brandDetail', 'test', '4.00', '1', '1', 'test介绍', '2019-08-14 18:32:55', '0');
-INSERT INTO `shop_brand` VALUES ('2', 'http://notwastingqiniu.minidope.com/brand_2019_8_14_18_7_20_0.jpg', '/pages/brandDetail/brandDetail', '3', '5.00', '6', '0', '4', '2019-08-14 18:07:27', '0');
-
--- ----------------------------
--- Table structure for shop_cart
--- ----------------------------
-DROP TABLE IF EXISTS `shop_cart`;
-CREATE TABLE `shop_cart` (
-  `id` int(12) NOT NULL,
-  `user_id` int(12) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `goods_param_id_1` int(12) NOT NULL,
-  `goods_param_id_2` int(12) NOT NULL,
-  `number` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_cart
--- ----------------------------
-
--- ----------------------------
--- Table structure for shop_category
--- ----------------------------
-DROP TABLE IF EXISTS `shop_category`;
-CREATE TABLE `shop_category` (
-  `id` int(12) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `parent_id` int(16) NOT NULL,
-  `type` int(1) NOT NULL,
-  `home_nav` int(1) NOT NULL,
-  `sort` int(4) NOT NULL,
-  `describe` text,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_id` int(4) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_category
--- ----------------------------
-INSERT INTO `shop_category` VALUES ('3', '分类1', 'http://notwastingqiniu.minidope.com/category_2019_8_15_10_22_46_0.jpg', '', '0', '0', '1', '1', '居家必备', '2019-08-15 10:22:49', '0');
-INSERT INTO `shop_category` VALUES ('5', '分类1小弟', 'http://notwastingqiniu.minidope.com/category_2019_8_15_10_26_43_0.png', '/pages/category/category', '3', '1', '1', '1', '', '2019-08-15 10:26:44', '0');
-INSERT INTO `shop_category` VALUES ('6', '分类1小弟2', 'http://notwastingqiniu.minidope.com/category_2019_8_15_13_44_38_0.jpg', '/pages/category/category', '3', '1', '1', '2', '', '2019-08-15 13:44:40', '0');
-
--- ----------------------------
--- Table structure for shop_goods
--- ----------------------------
-DROP TABLE IF EXISTS `shop_goods`;
-CREATE TABLE `shop_goods` (
-  `id` int(12) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `image` text NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `min_price` decimal(10,2) NOT NULL,
-  `stock` varchar(255) NOT NULL,
-  `describe` text NOT NULL,
-  `type` int(2) NOT NULL COMMENT '0 goods 1 topic',
-  `goods_info` text NOT NULL,
-  `sort` int(12) NOT NULL,
-  `status` int(1) NOT NULL,
-  `specification_id_1` int(12) NOT NULL,
-  `specification_id_2` int(12) NOT NULL,
-  `category_id` int(16) NOT NULL,
-  `brand_id` int(16) NOT NULL,
-  `review_id` int(16) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_id` int(16) NOT NULL,
-  `location_code` varchar(255) NOT NULL,
-  `integral_price` int(10) NOT NULL,
-  `group_id` int(12) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_goods
--- ----------------------------
-INSERT INTO `shop_goods` VALUES ('2', '第一件商品', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_15_11_24_49_0.png\",\"http://notwastingqiniu.minidope.com/goods_2019_8_15_11_24_49_1.jpg\"]', '../goods/goods', '101.00', '', 'OK看过', '2', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_15_11_26_4_0.png\",\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_15_11_26_4_1.jpg\"]', '0', '0', '3', '2', '6', '1', '0', '2019-08-15 15:18:54', '0', '', '0', null);
-
--- ----------------------------
--- Table structure for shop_goods_param
--- ----------------------------
-DROP TABLE IF EXISTS `shop_goods_param`;
-CREATE TABLE `shop_goods_param` (
-  `id` int(12) NOT NULL AUTO_INCREMENT,
-  `goods_id` int(12) NOT NULL,
-  `specification_id` int(12) NOT NULL,
-  `param` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `user_id` int(12) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_goods_param
--- ----------------------------
-INSERT INTO `shop_goods_param` VALUES ('13', '2', '3', '火影', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_15_11_26_12_0.jpg', '0', '2019-08-15 15:18:54');
-INSERT INTO `shop_goods_param` VALUES ('14', '2', '3', '海贼', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_15_11_26_14_0.png', '0', '2019-08-15 15:18:54');
-INSERT INTO `shop_goods_param` VALUES ('15', '2', '2', '170cm', '', '0', '2019-08-15 15:18:54');
-INSERT INTO `shop_goods_param` VALUES ('16', '2', '2', '175cm', '', '0', '2019-08-15 15:18:54');
-
--- ----------------------------
--- Table structure for shop_goods_price
--- ----------------------------
-DROP TABLE IF EXISTS `shop_goods_price`;
-CREATE TABLE `shop_goods_price` (
-  `id` int(12) NOT NULL AUTO_INCREMENT,
-  `param_id_1` int(12) NOT NULL,
-  `param_id_2` int(12) NOT NULL,
-  `stock` int(16) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `goods_id` int(12) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_id` int(12) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_goods_price
--- ----------------------------
-INSERT INTO `shop_goods_price` VALUES ('13', '13', '15', '0', '101.00', '2', '2019-08-15 15:18:55', '0');
-INSERT INTO `shop_goods_price` VALUES ('14', '14', '15', '13', '101.00', '2', '2019-08-15 15:18:55', '0');
-INSERT INTO `shop_goods_price` VALUES ('15', '13', '16', '0', '111.00', '2', '2019-08-15 15:18:55', '0');
-INSERT INTO `shop_goods_price` VALUES ('16', '14', '16', '12', '111.00', '2', '2019-08-15 15:18:55', '0');
-
--- ----------------------------
--- Table structure for shop_group_buy
--- ----------------------------
-DROP TABLE IF EXISTS `shop_group_buy`;
-CREATE TABLE `shop_group_buy` (
-  `id` int(64) NOT NULL,
-  `goods_id` int(64) NOT NULL,
-  `founded` int(1) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `start_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `user_id` int(16) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_group_buy
--- ----------------------------
-
--- ----------------------------
--- Table structure for shop_order
--- ----------------------------
-DROP TABLE IF EXISTS `shop_order`;
-CREATE TABLE `shop_order` (
-  `id` int(12) NOT NULL,
-  `goods_id` int(12) NOT NULL,
-  `param_id_1` int(12) NOT NULL,
-  `param_id_2` int(12) NOT NULL,
-  `param_1` varchar(255) NOT NULL,
-  `param_2` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `number` int(12) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `status` int(2) NOT NULL,
-  `after_sale_status` int(2) NOT NULL,
-  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `address_text` varchar(255) NOT NULL,
-  `tel` varchar(16) NOT NULL,
-  `receiver` varchar(255) NOT NULL,
-  `single_price` decimal(10,2) NOT NULL,
-  `postage` decimal(10,2) NOT NULL,
-  `trade_id` varchar(32) NOT NULL,
-  `logistics_code` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_order
--- ----------------------------
-
--- ----------------------------
--- Table structure for shop_paid
--- ----------------------------
-DROP TABLE IF EXISTS `shop_paid`;
-CREATE TABLE `shop_paid` (
-  `id` int(12) NOT NULL,
-  `goods_price_id` int(12) NOT NULL,
-  `number` int(12) NOT NULL,
-  `status` int(12) NOT NULL,
-  `order_id` int(12) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_id` int(16) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_paid
--- ----------------------------
-
--- ----------------------------
--- Table structure for shop_review
--- ----------------------------
-DROP TABLE IF EXISTS `shop_review`;
-CREATE TABLE `shop_review` (
-  `id` int(12) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `best_review_detail_id` int(12) NOT NULL,
-  `review_detail_count` int(12) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_review
--- ----------------------------
-
--- ----------------------------
--- Table structure for shop_review_detail
--- ----------------------------
-DROP TABLE IF EXISTS `shop_review_detail`;
-CREATE TABLE `shop_review_detail` (
-  `id` int(12) NOT NULL,
-  `text` text NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `param_id_1` int(12) NOT NULL,
-  `param_id_2` int(12) NOT NULL,
-  `param_1` varchar(255) NOT NULL,
-  `param_2` varchar(255) NOT NULL,
-  `goods_id` int(12) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `user_id` int(12) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_review_detail
--- ----------------------------
-
--- ----------------------------
--- Table structure for shop_specification
--- ----------------------------
-DROP TABLE IF EXISTS `shop_specification`;
-CREATE TABLE `shop_specification` (
-  `id` int(12) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `user_id` int(12) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_specification
--- ----------------------------
-INSERT INTO `shop_specification` VALUES ('1', '颜色', '2019-08-14 18:40:49', '0');
-INSERT INTO `shop_specification` VALUES ('2', '尺寸', '2019-08-14 18:41:01', '0');
-INSERT INTO `shop_specification` VALUES ('3', '印花', '2019-08-15 10:47:48', '0');
-
--- ----------------------------
--- Table structure for shop_specification_param
--- ----------------------------
-DROP TABLE IF EXISTS `shop_specification_param`;
-CREATE TABLE `shop_specification_param` (
-  `id` int(64) NOT NULL,
-  `specification_id` int(64) NOT NULL,
-  `param` varchar(255) NOT NULL,
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `user_id` int(12) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_specification_param
--- ----------------------------
-
--- ----------------------------
--- Table structure for shop_user
--- ----------------------------
-DROP TABLE IF EXISTS `shop_user`;
-CREATE TABLE `shop_user` (
-  `id` int(12) NOT NULL,
-  `user_name` varchar(255) NOT NULL,
-  `open_id` varchar(64) NOT NULL,
-  `register_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `last_login_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `avatar` varchar(255) NOT NULL,
-  `address_id` varchar(255) DEFAULT NULL,
-  `integral` int(64) NOT NULL,
-  `session_key` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of shop_user
--- ----------------------------
-INSERT INTO `shop_user` VALUES ('0', '%E3%80%82%E3%80%82%E3%80%82', 'oHjV85X-ld1eKTRDPd3HjMW2_CxY', '2019-08-13 18:45:08', '2019-08-15 16:26:50', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKicggrszbOFRE5siciaIFjUAYWiacpClj4saVxfFuSp0hibQTOG2vPN3zAALibxOyuEibhAxntqS8uMUekQ/132', null, '0', '');
 
 -- ----------------------------
 -- Table structure for specification
@@ -1107,13 +757,14 @@ CREATE TABLE `user` (
   `address_id` int(11) DEFAULT NULL,
   `integral` int(64) NOT NULL DEFAULT '0',
   `session_key` varchar(255) NOT NULL,
+  `phone` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('%E3%80%82%E3%80%82%E3%80%82', 'oHjV85X-ld1eKTRDPd3HjMW2_CxY', '2019-08-21 11:28:08', '2019-08-21 11:50:20', '14', '0', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKicggrszbOFRE5siciaIFjUAYWiacpClj4saVxfFuSp0hibQTOG2vPN3zAALibxOyuEibhAxntqS8uMUekQ/132', '', '0', null, '0', 's8SmCqhR2LzUUoE18EtfMA==');
+INSERT INTO `user` VALUES ('%E3%80%82%E3%80%82%E3%80%82', 'oHjV85X-ld1eKTRDPd3HjMW2_CxY', '2019-08-21 11:28:08', '2019-08-24 10:58:56', '14', '0', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKicggrszbOFRE5siciaIFjUAYWiacpClj4saVxfFuSp0hibQTOG2vPN3zAALibxOyuEibhAxntqS8uMUekQ/132', '', '0', null, '0', 'lLEQ2alKGKjVkSJHY5UF1A==', '13055257913');
 
 -- ----------------------------
 -- Table structure for wow_cat
