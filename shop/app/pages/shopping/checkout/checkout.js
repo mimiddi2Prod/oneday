@@ -172,7 +172,7 @@ Page({
     pay.pay(api.payfee, self.data.actualPrice, "post").then(function(res) {
       // console.info(res)
       self.addOrderByState(1, res)
-      // self.updateIntegral()
+      self.updateIntegral()
     }).catch(function(res) {
       self.addOrderByState(0, res)
     })
@@ -186,7 +186,7 @@ Page({
         let data = {}
         data.customerUid = self.data.customerUid
         data.balanceIncrement = self.data.actualPrice
-        data.pointIncrement = self.data.actualPrice
+        data.pointIncrement = self.data.costIntegral <= 0 ? self.data.actualPrice : (0 - Number(self.data.costIntegral))
         server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
           console.info(res)
           if (res.code == 0) {
@@ -215,10 +215,6 @@ Page({
         }
       })
     }
-
-    // server.api(api.updateIntegral, data, "post").then(function(res) {
-    //   console.info(res)
-    // })
   },
 
   getTradeId: function(str) {
@@ -233,23 +229,38 @@ Page({
     return tradeId
   },
 
-  updatePoint: function() {
-    let data = {}
-    // data.integral = this.data.getIntegral - this.data.costIntegral
-    // data.user_id = app.globalData.user_id
-    server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
-      console.info(res)
-    })
-  },
-
-  // updateIntegral: function() {
+  // updatePoint: function() {
   //   let data = {}
-  //   data.integral = this.data.getIntegral - this.data.costIntegral
-  //   data.user_id = app.globalData.user_id
-  //   server.api(api.updateIntegral, data, "post").then(function(res) {
+  //   // data.integral = this.data.getIntegral - this.data.costIntegral
+  //   // data.user_id = app.globalData.user_id
+  //   server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
   //     console.info(res)
   //   })
   // },
+
+  updateIntegral: function() {
+    if (self.data.customerUid.length < 0){
+      return false
+    }
+    let self = this
+    // data.user_id = app.globalData.user_id
+    // server.api(api.updateIntegral, data, "post").then(function(res) {
+    //   console.info(res)
+    // })
+    // 根据银豹customerUid 更新对应余额和积分
+    let data = {}
+    data.customerUid = self.data.customerUid
+    data.balanceIncrement = 0
+    data.pointIncrement = self.data.getIntegral - self.data.costIntegral
+    server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
+      console.info(res)
+      if (res.code == 0) {
+        app.globalData.balance = res.data.balanceAfterUpdate
+        app.globalData.point = res.data.pointAfterUpdate
+        // self.addOrderByState(1, self.getTradeId('yb'))
+      }
+    })
+  },
 
   addOrderByState: function(state, tradeId) {
     // console.info(this.data.checkedGoodsList)
@@ -280,6 +291,7 @@ Page({
       } else if (orderList[i].integral_price > 0) {
         data.have_cost_integral = 1
       }
+      data.integral_price = orderList[i].integral_price
 
       server.api(api.submitOrder, data, "post").then(function(res) {
         // console.info(res)

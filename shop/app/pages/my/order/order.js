@@ -64,7 +64,15 @@ Page({
     windowWidth: 0,
 
     // 用户是否进行上划加载操作
-    isReachBottom: false
+    isReachBottom: false,
+
+    showPayMethodDialog: false,
+    customerUid: '',
+
+    orderId: '',
+    // item_price_id:'',
+    price: '',
+    integrlprice: '',
   },
 
   /**
@@ -115,7 +123,10 @@ Page({
       }
     }
 
-    this.getOrder(status)
+    if (!options.id) {
+      this.getOrder(status)
+    }
+
 
     // this.payInterval()
   },
@@ -144,7 +155,7 @@ Page({
       last_id: last_id
     }, "post").then(function(res) {
       if (res.length > 0) {
-        // console.info(res)
+        console.info(res)
         if (status == -1) {
           // console.info(self.data.orderList[0])
           // console.info(res)
@@ -172,9 +183,9 @@ Page({
           self.data.orderList[4].list = self.data.orderList[4].list.concat(res)
           self.data.orderList[4].last_id++
         }
-        for (let i in self.data.orderList){
-          if (self.data.orderList[i].list.length > 0){
-            self.data.orderList[i].list = self.data.orderList[i].list.map(function(e){
+        for (let i in self.data.orderList) {
+          if (self.data.orderList[i].list.length > 0) {
+            self.data.orderList[i].list = self.data.orderList[i].list.map(function(e) {
               e.total = Number(e.number * e.single_price).toFixed(2)
               return e
             })
@@ -272,14 +283,15 @@ Page({
   abandonOrder: function(e) {
     // console.info(e.currentTarget.dataset)
     var orderId = e.currentTarget.dataset.orderid
-    var item_price_id = e.currentTarget.dataset.itempriceid
+    // var item_price_id = e.currentTarget.dataset.itempriceid
     var self = this
     // console.info(orderId)
     wx.showModal({
       content: '确定取消订单吗？',
       success: function(res) {
         if (res.confirm) {
-          self.changeOrderState(orderId, -1, item_price_id)
+          // self.changeOrderState(orderId, -1, item_price_id)
+          self.changeOrderState(orderId, -1)
         }
       }
     })
@@ -288,32 +300,33 @@ Page({
   acceptOrder: function(e) {
     // console.info(e.currentTarget.dataset)
     var orderId = e.currentTarget.dataset.orderid
-    var item_price_id = e.currentTarget.dataset.itempriceid
+    // var item_price_id = e.currentTarget.dataset.itempriceid
     var self = this
     // console.info(orderId)
     wx.showModal({
       content: '确认收货吗？',
       success: function(res) {
         if (res.confirm) {
-          self.changeOrderState(orderId, 3, item_price_id)
+          // self.changeOrderState(orderId, 3, item_price_id)
+          self.changeOrderState(orderId, 3)
         }
       }
     })
   },
 
-  changeOrderState: function (orderId, willChangeState, itemPriceId, tradeId) {
+  changeOrderState: function(orderId, willChangeState, tradeId) {
     // console.info(tradeId)
     var self = this
     // -1 取消订单 1已支付 3已收货
     server.api(api.changeOrderState, {
       order_id: orderId,
       state: willChangeState,
-      item_price_id: itemPriceId,
+      // item_price_id: itemPriceId,
       trade_id: tradeId
     }, "post").then(function(res) {
       if (res.text == "更新订单成功") {
-        self.data.orderList[self.data.currentId].list = self.data.orderList[self.data.currentId].list.map(function(fn){
-          if (fn.id == orderId){
+        self.data.orderList[self.data.currentId].list = self.data.orderList[self.data.currentId].list.map(function(fn) {
+          if (fn.id == orderId) {
             clearInterval(fn.interval)
           }
           return fn
@@ -327,8 +340,8 @@ Page({
           self.data.orderList[0].last_id = 0
           if (tradeId) {
             // 全部订单也需要重新载入
-            self.data.orderList[1].list = self.data.orderList[1].list.map(function(fn){
-              if(fn.interval){
+            self.data.orderList[1].list = self.data.orderList[1].list.map(function(fn) {
+              if (fn.interval) {
                 clearInterval(fn.interval)
               }
               return fn
@@ -343,7 +356,7 @@ Page({
           self.data.orderList[1].last_id = 0
           if (tradeId) {
             // 全部订单也需要重新载入
-            self.data.orderList[0].list = self.data.orderList[0].list.map(function (fn) {
+            self.data.orderList[0].list = self.data.orderList[0].list.map(function(fn) {
               if (fn.interval) {
                 clearInterval(fn.interval)
               }
@@ -370,28 +383,23 @@ Page({
     // this.getOrder(willChangeState)
   },
 
-  toPayOrder: function(e) {
-    // console.info(e.currentTarget.dataset)
-    var self = this
-    var orderId = e.currentTarget.dataset.orderid
-    var item_price_id = e.currentTarget.dataset.itempriceid
-    var price = e.currentTarget.dataset.price
-
-    // // 拉起支付
-    pay.pay(api.payfee, price, "post").then(function(res) {
-      // console.info(res)
-      let tradeId = res
-      self.changeOrderState(orderId, 1, item_price_id, tradeId)
-      // self.addOrderByState(1, res)
-
-      self.addIntegral(price)
-    }).catch(function(res) {
-      // 支付失败
-      wx.showToast({
-        title: '支付失败',
-        icon: 'none'
-      })
+  payDialog: function() {
+    this.setData({
+      showPayMethodDialog: false
     })
+  },
+
+  toPayOrder: function(e) {
+    console.info(e.currentTarget.dataset)
+    var self = this
+    self.data.orderId = e.currentTarget.dataset.orderid
+    // self.data.item_price_id = e.currentTarget.dataset.itempriceid
+    self.data.price = e.currentTarget.dataset.price
+    self.data.integrlprice = e.currentTarget.dataset.integrlprice
+    self.setData({
+      showPayMethodDialog: true
+    })
+    // // 拉起支付
 
     // wx.showModal({
     //   title: '模拟支付',
@@ -407,13 +415,113 @@ Page({
     // })
   },
 
-  addIntegral: function (price) {
+  wxPay: function() {
+    var orderId = this.data.orderId,
+      // item_price_id = this.data.item_price_id,
+      price = Number(this.data.price),
+      integrlprice = Number(this.data.integrlprice)
+    let self = this
+    // 拉起支付
+    pay.pay(api.payfee, price, "post").then(function(res) {
+      // console.info(res)
+      let tradeId = res
+      self.changeOrderState(orderId, 1, tradeId)
+
+      // self.changeOrderState(orderId, 1, item_price_id, tradeId)
+
+      // self.addIntegral(price)
+    }).catch(function(res) {
+      // 支付失败
+      wx.showToast({
+        title: '支付失败',
+        icon: 'none'
+      })
+    })
+  },
+
+  balancePay: function() {
+    var orderId = this.data.orderId,
+      // item_price_id = this.data.item_price_id,
+      price = Number(this.data.price),
+      integrlprice = Number(this.data.integrlprice)
+    let self = this
+    if (self.data.customerUid) {
+      if (app.globalData.balance > price) {
+        // 根据银豹customerUid 更新对应余额和积分
+        let data = {}
+        data.customerUid = self.data.customerUid
+        data.balanceIncrement = price
+        data.pointIncrement = integrlprice <= 0 ? price : (0 - integrlprice)
+        server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
+          console.info(res)
+          if (res.code == 0) {
+            app.globalData.balance = res.data.balanceAfterUpdate
+            app.globalData.point = res.data.pointAfterUpdate
+            // self.changeOrderState(orderId, 1, item_price_id, self.getTradeId('yb'))
+            self.changeOrderState(orderId, 1, self.getTradeId('yb'))
+            self.setData({
+              showPayMethodDialog: false
+            })
+          }
+        })
+      } else {
+        wx.showModal({
+          title: '支付失败',
+          content: '您的余额不足，请到线下充值',
+          showCancel: false,
+        })
+      }
+    } else {
+      wx.showModal({
+        title: '支付失败',
+        content: '您还没有绑定/注册会员卡，是否前往绑定/注册',
+        success: function(e) {
+          if (e.confirm) {
+            wx.navigateTo({
+              url: '../../my/customer',
+            })
+          }
+        }
+      })
+    }
+  },
+
+  getTradeId: function(str) {
+    var date = new Date().getTime().toString()
+    var text = ""
+    var possible = "0123456789"
+    for (var i = 0; i < 5; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    var tradeId = 'nw_' + date + text + str
+    console.info(tradeId)
+    return tradeId
+  },
+
+  addIntegral: function(price) {
+    if (this.data.customerUid.length < 0) {
+      return false
+    }
+    // let data = {}
+    // data.integral = parseInt(price)
+    // data.user_id = app.globalData.user_id
+    // data.state = 0 // 0 增加 1 减少
+    // server.api(api.updateIntegral, data, "post").then(function (res) {
+    //   console.info(res)
+    // })
+    let self = this
+    // 根据银豹customerUid 更新对应余额和积分
     let data = {}
-    data.integral = parseInt(price)
-    data.user_id = app.globalData.user_id
-    data.state = 0 // 0 增加 1 减少
-    server.api(api.updateIntegral, data, "post").then(function (res) {
+    data.customerUid = self.data.customerUid
+    data.balanceIncrement = 0
+    data.pointIncrement = self.data.getIntegral - self.data.costIntegral
+    server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
       console.info(res)
+      if (res.code == 0) {
+        app.globalData.balance = res.data.balanceAfterUpdate
+        app.globalData.point = res.data.pointAfterUpdate
+        // self.addOrderByState(1, self.getTradeId('yb'))
+      }
     })
   },
 
@@ -428,6 +536,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.setData({
+      customerUid: app.globalData.customerUid
+    })
     if (app.globalData.refreshOrder) {
       var state = ''
       if (this.data.sliderOffset == 0) {

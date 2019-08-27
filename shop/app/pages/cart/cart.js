@@ -220,7 +220,14 @@ Page({
       })
       return false;
     }
-    if (this.data.checkedAllIntegralPrice > app.globalData.integral){
+    // if (this.data.checkedAllIntegralPrice > app.globalData.integral){
+    //   wx.showToast({
+    //     title: '购买商品所需积分不足',
+    //     icon: 'none'
+    //   })
+    //   return false;
+    // }
+    if (this.data.checkedAllIntegralPrice > app.globalData.point) {
       wx.showToast({
         title: '购买商品所需积分不足',
         icon: 'none'

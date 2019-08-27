@@ -13,7 +13,7 @@ Page({
   onLoad: function(options) {
     var that = this;
     that.setData({
-      integral: app.globalData.integral
+      integral: app.globalData.point
     });
     this.waterfall()
   },

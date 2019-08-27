@@ -455,19 +455,19 @@ Page({
     this.getGoodsInfo();
 
     this.getCartTotal();
-    this.getIntegral();
+    // this.getIntegral();
   },
 
-  getIntegral: function() {
-    let self = this
-    server.api(api.getIntegral, {
-      user_id: app.globalData.user_id,
-    }, "post").then(function(res) {
-      if (res.length > 0) {
-        app.globalData.integral = res[0].integral
-      }
-    })
-  },
+  // getIntegral: function() {
+  //   let self = this
+  //   server.api(api.getIntegral, {
+  //     user_id: app.globalData.user_id,
+  //   }, "post").then(function(res) {
+  //     if (res.length > 0) {
+  //       app.globalData.integral = res[0].integral
+  //     }
+  //   })
+  // },
 
   onReady: function() {
     // 页面渲染完成
@@ -681,7 +681,7 @@ Page({
       }
 
       let costIntegral = this.data.number * this.data.goods.integral_price
-      if (app.globalData.integral < costIntegral) {
+      if (app.globalData.point < costIntegral) {
         wx.showToast({
           title: '购买商品所需积分不足',
           icon: 'none',

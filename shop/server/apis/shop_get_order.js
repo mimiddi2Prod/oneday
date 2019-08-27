@@ -19,7 +19,7 @@ function SHOPGetOrder() {
                 // 数据库需要加订单号 说明是同一个包裹
                 if (param['state'] == -1) {
                     // 全部拉取
-                    sql = "select item_id,param_id_1,param_id_2,param_1,param_2,image,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id,tradeId,after_sale_state,logistics_code from `order` where user_id = ? ORDER BY update_time desc limit ?,?";
+                    sql = "select item_id,param_id_1,param_id_2,param_1,param_2,image,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id,tradeId,after_sale_state,logistics_code,integral_price from `order` where user_id = ? ORDER BY update_time desc limit ?,?";
                     row = await query(sql, [param['user_id'], param['last_id'] * 10, 10]);
                 } else {
                     // 单个拉取
@@ -28,12 +28,12 @@ function SHOPGetOrder() {
                     var time = new Date(currentTime - oneHours)
                     if (param['state'] == 0) {
                         // 客户端待付款栏 只展示一个小时内未付款 全部拉取才展示所有
-                        sql = "select item_id,param_id_1,param_id_2,param_1,param_2,image,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id,tradeId,after_sale_state,logistics_code from `order` where user_id = ? and state = ? and create_time > ? ORDER BY update_time desc limit ?,?";
+                        sql = "select item_id,param_id_1,param_id_2,param_1,param_2,image,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id,tradeId,after_sale_state,logistics_code,integral_price from `order` where user_id = ? and state = ? and create_time > ? ORDER BY update_time desc limit ?,?";
                         row = await query(sql, [param['user_id'], param['state'], time, param['last_id'] * 10, 10]);
                     } else {
                         // 已付款(待发货) 已发货(待收货) 已收货(物流送达七天||买家确认收货)
                         // 物流送达如无法自动更改 需再做个时间判断
-                        sql = "select item_id,param_id_1,param_id_2,param_1,param_2,image,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id,tradeId,after_sale_state,logistics_code from `order` where user_id = ? and state = ? ORDER BY update_time desc limit ?,?";
+                        sql = "select item_id,param_id_1,param_id_2,param_1,param_2,image,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id,tradeId,after_sale_state,logistics_code,integral_price from `order` where user_id = ? and state = ? ORDER BY update_time desc limit ?,?";
                         row = await query(sql, [param['user_id'], param['state'], param['last_id'] * 10, 10]);
                     }
                     // sql = "select item_id,param_id_1,param_id_2,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id from `order` where user_id = ? and state = ? ORDER BY update_time desc limit ?,?";
