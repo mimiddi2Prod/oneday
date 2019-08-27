@@ -167,6 +167,9 @@ Page({
   },
 
   wxPay: function() {
+    wx.showLoading({
+      title: '',
+    })
     let self = this
     // // 拉起支付
     pay.pay(api.payfee, self.data.actualPrice, "post").then(function(res) {
@@ -179,6 +182,9 @@ Page({
   },
 
   balancePay: function() {
+    wx.showLoading({
+      title: '',
+    })
     let self = this
     if (self.data.customerUid) {
       if (app.globalData.balance > Number(self.data.actualPrice)) {

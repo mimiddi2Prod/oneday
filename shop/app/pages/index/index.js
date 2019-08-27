@@ -119,7 +119,7 @@ Page({
       topic_last_id: self.data.topic_last_id,
       type: 0,
     }, "post").then(function(res) {
-      // console.info(res)
+      console.info(res)
       if (res.waterfallList.length > 0 || res.topic.length > 0) {
         self.data.waterfallGoods.push({})
       } else {
