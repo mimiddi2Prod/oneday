@@ -85,6 +85,18 @@ app.use(function (req, res, next) {
                 res.end();
             });
         });
+    } else if (type[2] == 'fonts') {
+        fs.readFile('./' + req.url, function (err, file) {//主要这里的‘binary’
+            if (err) {
+                console.log(err);
+                return;
+            } else {
+                console.log("输出文件");
+                //res.writeHead(200,  {'Content-Type':'image/jpeg'});
+                res.write(file, 'binary');//这里输出的是一个二进制的文件流
+                res.end();
+            }
+        });
     } else if (type[1] == 'css' || type[1] == 'js' || type[1] == 'node_modules' || type[1] == 'jquery-3.3.1' || type[1] == 'bootstrap' || type[1] == 'qiniu-js' || type[1] == 'rsa' || type[1] == 'layDate-v5.0.9') {
         showPaper(urlPath.substr(1))
     } else if (type[1] == 'images') {
