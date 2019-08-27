@@ -617,9 +617,10 @@
 
 .attr-pop {
   /* width: 100%; */
+  width: 690rpx;
   height: auto;
   max-height: 780rpx;
-  padding: 31.25rpx;
+  padding: 30rpx;
   background: #fff;
   position: fixed;
   z-index: 9;
