@@ -8,11 +8,11 @@ function checkStock() {
     log.info('checkStock is start')
     var currentTime = new Date().getTime()
     setInterval(function () {
-        log.info('10s已到，开始计算库存')
+        // log.info('10s已到，开始计算库存')
         var sql = "select item_price_id, sum(number), now(),create_time,state from paid where create_time >= ? GROUP BY item_price_id"
         var row = tool.query(sql,new Date(currentTime))
         row.then(function (paidRes) {
-            console.info(paidRes)
+            // console.info(paidRes)
             if (paidRes.length > 0) {
                 for (var i in paidRes) {
                     var create_time = new Date(paidRes[i].create_time).getTime()

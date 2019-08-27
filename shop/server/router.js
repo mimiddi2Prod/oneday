@@ -143,7 +143,7 @@ function FBRouter(){
                     break;
                 }
                 case "get_uploadToken":{
-                    var SHOPGetUploadToken = require("./apis/shop_get_uploadToken");
+                    var SHOPGetUploadToken = require("./apis/shop_get_UploadToken");
                     work = new SHOPGetUploadToken;
                     break;
                 }

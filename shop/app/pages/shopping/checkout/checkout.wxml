@@ -116,8 +116,8 @@
   <view class='dialog-body' catchtap='onDialogBody'>
     <view class='title'>请选择支付方式</view>
     <view class='content'>
-      <button bindtap="wxPay">微信登录</button>
-      <button bindtap="balancePay">余额登录</button>
+      <button bindtap="wxPay">微信支付</button>
+      <button bindtap="balancePay">余额支付</button>
       <button bindtap='payDialog'>取消</button>
       <!-- <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onWechatLogin">手机号登录</button> -->
     </view>

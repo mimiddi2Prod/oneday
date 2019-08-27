@@ -1,4 +1,5 @@
 var tools = require("./../tool");
+const qiniuConfig = require("./../config/qiniuConfig")
 
 function SHOPAddReview() {
     var tool = new tools;
@@ -22,7 +23,7 @@ function SHOPAddReview() {
             var sql = ""
             try {
                 var img_list = []
-                var qiniuRootUrl = "http://notwastingqiniu.minidope.com/"
+                var qiniuRootUrl = qiniuConfig.qiniuRootUrl
                 // var qiniuRootUrl = "http://ppburep37.bkt.clouddn.com/"  //七牛云测试域名
                 if (param["img_name_list"].length > 0) {
                     img_list = param["img_name_list"].map(function (res) {

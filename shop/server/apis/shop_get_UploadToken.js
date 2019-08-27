@@ -1,10 +1,12 @@
 var tools = require("./../tool");
 var qiniu = require("qiniu");
+const qiniuConfig = require("./../config/qiniuConfig")
+console.info(qiniuConfig)
 
 function SHOPGetUploadToken() {
     var tool = new tools;
     var log = tool.log;
-    var query = tool.query;
+    // var query = tool.query;
 
     this.Run = async function (ver, param, res) {
         var name = "SHOPGetUploadToken::Run";
@@ -13,17 +15,17 @@ function SHOPGetUploadToken() {
         var response = tool.error.OK;
         var row = [];
         try {
-            var accessKey = 'r4jtfPWWt-3YWnuJCVH9DAIp2h2SSBE5i6LwZJ7B';
-            var secretKey = 'qStM0CzH2Lnt1-CWcqya4VGuQiR-WeByx4blseQI';
+            var accessKey = qiniuConfig.accessKey;
+            var secretKey = qiniuConfig.secretKey;
             var mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
-            var bucket = "notwasting";
+            var bucket = qiniuConfig.bucket;
 
             var keyToOverwrite = param.key;
             var options = {
                 scope: bucket + ":" + keyToOverwrite,
             };
             var putPolicy = new qiniu.rs.PutPolicy(options);
-            var uploadToken=putPolicy.uploadToken(mac);
+            var uploadToken = putPolicy.uploadToken(mac);
 
             var list = {}
 

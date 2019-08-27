@@ -35,7 +35,7 @@ function qiniuUpload(data = {}) {
         'token': data.uploadToken
       },
       success: function(res) {
-        // console.info(res)
+        console.info(res)
         if (res.statusCode == 200) {
           resolve(res.statusCode)
         } else {
