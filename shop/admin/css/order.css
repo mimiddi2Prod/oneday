@@ -182,7 +182,8 @@ label{
 }
 
 .first-title>label .a{
-    width: 20%;
+    /*width: 20%;*/
+    margin-right: 10px;
 }
 
 .first-title>label .b{
