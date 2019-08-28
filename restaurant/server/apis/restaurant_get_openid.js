@@ -49,7 +49,7 @@ function RestaurantGetOpenid() {
                         sql = 'select phone from restaurant_user where open_id = ?'
                         row = await query(sql, openid)
                         if (row.length > 0) {
-                            if (row[0].phone.length > 0) {
+                            if (row[0].phone && row[0].phone.length > 0) {
                                 data.phone = row[0].phone
                             }
                         }
