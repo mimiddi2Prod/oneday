@@ -134,6 +134,10 @@ function Router() {
                 var shopGetAfterSaleNumber = require("./api/shop_get_afterSaleNumber.js");
                 baseApi = new shopGetAfterSaleNumber;
                 break;
+            case "get_sales":
+                var shopGetSales = require("./api/shop_get_sales.js");
+                baseApi = new shopGetSales;
+                break;
             case "update_adState":
                 var shopUpdateAdState = require("./api/shop_update_adState.js");
                 baseApi = new shopUpdateAdState;

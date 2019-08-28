@@ -1,4 +1,5 @@
 var tools = require("./../tool");
+const qiniuConfig = require("./../config/qiniuConfig")
 
 function SHOPAddAfterSale() {
     var tool = new tools;
@@ -16,7 +17,7 @@ function SHOPAddAfterSale() {
             var sql = ""
             try {
                 var img_list = []
-                var qiniuRootUrl = "http://notwastingqiniu.minidope.com/"
+                var qiniuRootUrl = qiniuConfig.qiniuRootUrl
                 // var qiniuRootUrl = "http://ppburep37.bkt.clouddn.com/"  //七牛云测试域名
                 if (param["img_name_list"].length > 0) {
                     img_list = param["img_name_list"].map(function (res) {
@@ -31,8 +32,9 @@ function SHOPAddAfterSale() {
                 console.info(img_list)
                 console.info(address)
                 console.info(param['number'])
-                sql = "insert into afterSale(`number`,order_id,state,reason,refund,description,image,address,create_time)values(?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)"
-                row = await tool.query(sql, [param['number'],param["order_id"], 0, param["reason"], param["refund"], param["description"], img_list, address]);
+                let sumPrice = Number(param["refund"]) * Number(param["number"])
+                sql = "insert into afterSale(`number`,order_id,state,reason,refund,total_refund,description,image,address,create_time)values(?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)"
+                row = await tool.query(sql, [param['number'], param["order_id"], 0, param["reason"], param["refund"], sumPrice, param["description"], img_list, address]);
                 if (row.affectedRows == 1) {
                     data.text = "申请售后成功"
 
