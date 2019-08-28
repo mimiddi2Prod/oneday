@@ -152,7 +152,7 @@
   </view>
   <view class="header-middle">
     <navigator url="../customer/customer" hover-class='none' wx:if="{{!isCustomer}}">
-      会员
+      会员登录
     </navigator>
     <navigator url="../customer/customer" hover-class='none' wx:if="{{isCustomer}}" style="font-size:26rpx">
       余额{{balance}}，积分{{point}}

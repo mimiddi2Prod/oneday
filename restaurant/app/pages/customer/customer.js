@@ -44,6 +44,16 @@ Page({
             self.setData({
               isCustomer: app.globalData.isCustomer
             })
+
+            wx.showModal({
+              content: '绑定成功',
+              showCancel: false,
+              success: function(e) {
+                if(e.confirm){
+                  wx.navigateBack({})
+                }
+              }
+            })
           }
         })
       }
