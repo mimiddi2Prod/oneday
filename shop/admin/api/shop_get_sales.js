@@ -8,11 +8,15 @@ function shopGetSales() {
         try {
             sql = "select sum(total_price) from `order` where state >= ?";
             row = await db.Query(sql, 1);
-            let totalPrice = row[0]['sum(total_price)']
+            let total_price = row[0]['sum(total_price)']
 
-            sql = "select sum(total_refund) from aftersale where state = ?"
-            row = await db.Query(sql, 1);
-            data.number = row[0]['count(id)']
+            sql = "select sum(total_refund) from aftersale where state = ? and order_id in (select id from `order` where after_sale_state >= ?)"
+            row = await db.Query(sql, [0, 4]);
+            let total_refund = row[0]['sum(total_refund)']
+            console.info(total_price)
+            console.info(total_refund)
+
+            data.number = Number(Number(total_price) - Number(total_refund)).toFixed(2)
 
             return callback(data);
         } catch (e) {

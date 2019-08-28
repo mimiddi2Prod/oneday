@@ -2,7 +2,8 @@ var homeVM = new Vue({
     el: '#home',
     data: {
         waitShipNum: 0,
-        getAfterSaleNum: 0,
+        afterSaleNum: 0,
+        sales: 0.00
     },
     methods: {
         toOrder: function (nav) {
@@ -25,6 +26,7 @@ var homeVM = new Vue({
 $(document).ready(function () {
     getWaitShip()
     getAfterSaleNumber()
+    getSales()
 })
 
 function getWaitShip() {
@@ -41,6 +43,15 @@ function getAfterSaleNumber() {
     let data = {}
     server(url, data, async, "post", function (res) {
         console.info(res)
-        homeVM.getAfterSaleNum = res.number
+        homeVM.afterSaleNum = res.number
+    })
+}
+
+function getAfterSaleNumber() {
+    const url = api.getSales, async = true
+    let data = {}
+    server(url, data, async, "post", function (res) {
+        console.info(res)
+        homeVM.sales = res.number
     })
 }
