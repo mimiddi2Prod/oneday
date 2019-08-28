@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2019-08-24 16:01:06
+Date: 2019-08-28 15:05:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,12 +30,13 @@ CREATE TABLE `address` (
   `user_id` int(11) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of address
 -- ----------------------------
 INSERT INTO `address` VALUES ('1', '张三', '020-81167888', '广东省', '广州市', '海珠区', '新港中路397号', '14', '2019-08-23 17:14:41');
+INSERT INTO `address` VALUES ('2', '张三', '020-81167888', '广东省', '广州市', '海珠区', '新港中路397号', '1', '2019-08-27 11:47:47');
 
 -- ----------------------------
 -- Table structure for admin
@@ -58,7 +59,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2019-08-24 11:36:06', '0', null, '1c3e3680-dd9b-427e-9ae8-55e0dba72b03', '2019-08-24 23:36:06');
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2019-08-28 10:37:14', '0', null, 'f371f1d4-72ea-4952-8535-cf7df74278eb', '2019-08-28 22:37:14');
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -136,13 +137,14 @@ CREATE TABLE `aftersale` (
   `number` int(11) NOT NULL DEFAULT '1',
   `state` int(1) NOT NULL DEFAULT '0' COMMENT '0 正在申请售后 1 用户取消申请 ',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of aftersale
 -- ----------------------------
 INSERT INTO `aftersale` VALUES ('1', '2', '0.10', '退运费', '', '[]', '', '2019-08-24 11:38:12', '1', '0');
 INSERT INTO `aftersale` VALUES ('2', '1', '27.00', '退运费', '', '[]', '', '2019-08-24 14:36:43', '1', '0');
+INSERT INTO `aftersale` VALUES ('3', '10', '11.00', '退运费', '', '[]', '', '2019-08-27 18:31:17', '1', '0');
 
 -- ----------------------------
 -- Table structure for brand
@@ -179,7 +181,7 @@ CREATE TABLE `cart` (
   `item_param_id_2` int(11) NOT NULL,
   `number` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cart
@@ -258,15 +260,17 @@ CREATE TABLE `item` (
   `integral_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '积分商城要用',
   `group_id` int(11) NOT NULL DEFAULT '0' COMMENT '团购id 0 不是团购商品 1 是团购商品',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of item
 -- ----------------------------
-INSERT INTO `item` VALUES ('23', '第一商品', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_15_17_42_7_0.png\",\"http://notwastingqiniu.minidope.com/goods_2019_8_15_17_42_7_1.jpg\"]', '../goods/goods', '0', '16.00', '啊啊啊1!!!!', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-15 17:43:07', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_15_17_42_46_0.png\",\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_15_17_42_46_1.jpg\"]', '0.00', '0');
+INSERT INTO `item` VALUES ('23', '第一商品', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_15_17_42_7_0.png\",\"http://notwastingqiniu.minidope.com/goods_2019_8_15_17_42_7_1.jpg\"]', '../goods/goods', '0', '16.00', '啊啊啊1!!!!', '1', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-15 17:43:07', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_15_17_42_46_0.png\",\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_15_17_42_46_1.jpg\"]', '0.00', '0');
 INSERT INTO `item` VALUES ('24', 's s  s ', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_16_18_50_20_0.jpg\"]', '../goods/goods', '0', '2.00', 's s s s ', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-16 18:53:44', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_16_18_50_58_0.jpg\"]', '0.00', '0');
 INSERT INTO `item` VALUES ('25', '1', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_16_18_56_28_0.png\"]', '../goods/goods', '0', '2.00', '1', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-16 18:56:56', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_16_18_56_54_0.jpg\"]', '0.00', '0');
 INSERT INTO `item` VALUES ('26', '1', '[\"http://notwastingqiniu.minidope.com/goods_2019_8_16_18_58_16_0.jpg\"]', '../goods/goods', '0', '3.00', '2', '0', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-16 18:58:46', '8', '0', '[\"http://notwastingqiniu.minidope.com/goodsInfo_2019_8_16_18_58_44_0.jpg\"]', '0.00', '0');
+INSERT INTO `item` VALUES ('27', 'test', '[\"http://onedayqiniu.minidope.com/goods_2019_8_27_11_43_24_0.png\",\"http://onedayqiniu.minidope.com/goods_2019_8_27_11_43_29_0.jpg\"]', '../goods/goods', '0', '21.00', 'testbbbbbbbbbbbbbbb', '0', '0', '0', '1', '2', '0', '33', '0', '0', '2019-08-27 11:44:48', '8', '0', '[\"http://onedayqiniu.minidope.com/goodsInfo_2019_8_27_11_44_37_0.png\",\"http://onedayqiniu.minidope.com/goodsInfo_2019_8_27_11_44_42_0.jpg\"]', '0.00', '0');
+INSERT INTO `item` VALUES ('28', '11', '[\"http://onedayqiniu.minidope.com/goods_2019_8_27_14_21_43_0.jpg\"]', '../goods/goods', '0', '2.00', '22', '1', '0', '0', '1', '2', '0', '32', '0', '0', '2019-08-27 14:22:41', '8', '0', '[\"http://onedayqiniu.minidope.com/goodsInfo_2019_8_27_14_22_37_0.jpg\"]', '0.00', '0');
 
 -- ----------------------------
 -- Table structure for item_param
@@ -281,7 +285,7 @@ CREATE TABLE `item_param` (
   `user_id` int(11) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of item_param
@@ -296,6 +300,13 @@ INSERT INTO `item_param` VALUES ('182', '25', '1', '红色', 'http://notwastingq
 INSERT INTO `item_param` VALUES ('183', '25', '2', '大', '', '0', '2019-08-16 18:56:56');
 INSERT INTO `item_param` VALUES ('184', '26', '1', '绿色', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_16_18_58_39_0.jpg', '0', '2019-08-16 18:58:46');
 INSERT INTO `item_param` VALUES ('185', '26', '2', '小', '', '0', '2019-08-16 18:58:46');
+INSERT INTO `item_param` VALUES ('186', '27', '1', '绿色', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_11_44_18_0.jpg', '0', '2019-08-27 11:44:48');
+INSERT INTO `item_param` VALUES ('187', '27', '1', '蓝色', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_11_44_21_0.png', '0', '2019-08-27 11:44:48');
+INSERT INTO `item_param` VALUES ('188', '27', '2', '小', '', '0', '2019-08-27 11:44:48');
+INSERT INTO `item_param` VALUES ('189', '27', '2', '中', '', '0', '2019-08-27 11:44:48');
+INSERT INTO `item_param` VALUES ('190', '28', '1', '黑色', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_14_22_5_0.png', '0', '2019-08-27 14:22:41');
+INSERT INTO `item_param` VALUES ('191', '28', '1', '灰色', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_14_22_9_0.jpg', '0', '2019-08-27 14:22:41');
+INSERT INTO `item_param` VALUES ('192', '28', '2', '中', '', '0', '2019-08-27 14:22:41');
 
 -- ----------------------------
 -- Table structure for item_price
@@ -311,7 +322,7 @@ CREATE TABLE `item_price` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of item_price
@@ -322,7 +333,13 @@ INSERT INTO `item_price` VALUES ('169', '176', '179', '23', '36.00', '23', '2019
 INSERT INTO `item_price` VALUES ('170', '177', '178', '233', '36.00', '23', '2019-08-21 14:16:34', '0');
 INSERT INTO `item_price` VALUES ('171', '180', '181', '1', '2.00', '24', '2019-08-21 14:16:34', '0');
 INSERT INTO `item_price` VALUES ('172', '182', '183', '0', '0.10', '25', '2019-08-24 11:34:37', '0');
-INSERT INTO `item_price` VALUES ('173', '184', '185', '2', '3.00', '26', '2019-08-21 14:16:34', '0');
+INSERT INTO `item_price` VALUES ('173', '184', '185', '1', '3.00', '26', '2019-08-27 18:47:09', '0');
+INSERT INTO `item_price` VALUES ('174', '186', '189', '2', '21.00', '27', '2019-08-27 11:44:48', '0');
+INSERT INTO `item_price` VALUES ('175', '186', '188', '2', '22.00', '27', '2019-08-27 11:44:48', '0');
+INSERT INTO `item_price` VALUES ('176', '187', '189', '222', '23.00', '27', '2019-08-27 11:44:48', '0');
+INSERT INTO `item_price` VALUES ('177', '187', '188', '22', '24.00', '27', '2019-08-27 11:44:48', '0');
+INSERT INTO `item_price` VALUES ('178', '191', '192', '0', '2.00', '28', '2019-08-27 17:13:36', '0');
+INSERT INTO `item_price` VALUES ('179', '190', '192', '208', '11.00', '28', '2019-08-27 18:01:52', '0');
 
 -- ----------------------------
 -- Table structure for order
@@ -332,6 +349,7 @@ CREATE TABLE `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
+  `goodsname` varchar(255) NOT NULL,
   `param_id_1` int(11) NOT NULL,
   `param_id_2` int(11) NOT NULL,
   `param_1` varchar(30) NOT NULL,
@@ -350,14 +368,21 @@ CREATE TABLE `order` (
   `tradeId` varchar(32) NOT NULL COMMENT '订单号',
   `logistics_code` varchar(255) DEFAULT NULL COMMENT '物流查询',
   `have_cost_integral` int(2) NOT NULL DEFAULT '0' COMMENT '0: 不花费 1 花费',
+  `integral_price` int(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', '14', '23', '177', '179', '绿色', '小', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_15_17_43_5_0.png', '2', '2019-08-24 10:59:57', '2', '4', '2019-08-24 10:59:57', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '27.00', '0.00', 'nw_156661559764418018yb', '71609147935673', '0');
-INSERT INTO `order` VALUES ('2', '14', '25', '182', '183', '红色', '大', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_16_18_56_48_0.jpg', '1', '2019-08-24 11:34:31', '2', '4', '2019-08-24 11:34:31', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '0.10', '0.00', 'nw_156661765432595438', '71609147935673', '0');
+INSERT INTO `order` VALUES ('6', '1', '28', '', '190', '192', '黑色', '中', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_14_22_5_0.png', '1', '2019-08-27 16:10:54', '-1', '0', '2019-08-27 16:10:54', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '11.00', '0.00', 'nw_156689345087512405', null, '1', '22');
+INSERT INTO `order` VALUES ('7', '1', '28', '', '191', '192', '灰色', '中', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_14_22_9_0.jpg', '1', '2019-08-27 17:10:26', '1', '0', '2019-08-27 17:10:26', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '2.00', '0.00', 'nw_156689702295569185', null, '1', '22');
+INSERT INTO `order` VALUES ('8', '1', '28', '', '191', '192', '灰色', '中', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_14_22_9_0.jpg', '1', '2019-08-27 17:13:23', '1', '0', '2019-08-27 17:13:23', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '2.00', '0.00', 'nw_156689719941097961', null, '1', '22');
+INSERT INTO `order` VALUES ('9', '1', '28', '', '190', '192', '黑色', '中', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_14_22_5_0.png', '1', '2019-08-27 17:19:40', '1', '0', '2019-08-27 17:19:40', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '11.00', '0.00', 'nw_156689757688298744', null, '1', '22');
+INSERT INTO `order` VALUES ('10', '1', '28', '', '190', '192', '黑色', '中', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_14_22_5_0.png', '1', '2019-08-27 17:22:00', '3', '4', '2019-08-27 17:22:00', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '11.00', '0.00', 'nw_156689772683737707yb', '9895999672102', '1', '22');
+INSERT INTO `order` VALUES ('11', '1', '28', '', '190', '192', '黑色', '中', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_14_22_5_0.png', '1', '2019-08-27 18:01:20', '1', '0', '2019-08-27 18:01:20', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '11.00', '0.00', 'nw_156690008057287792yb', null, '0', '0');
+INSERT INTO `order` VALUES ('12', '1', '28', '', '190', '192', '黑色', '中', 'http://onedayqiniu.minidope.com/goods_param_2019_8_27_14_22_5_0.png', '1', '2019-08-27 18:01:39', '1', '0', '2019-08-27 18:01:39', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '11.00', '0.00', 'nw_156690010604256449yb', null, '0', '0');
+INSERT INTO `order` VALUES ('13', '1', '26', '', '184', '185', '绿色', '小', 'http://notwastingqiniu.minidope.com/goods_param_2019_8_16_18_58_39_0.jpg', '1', '2019-08-27 18:47:00', '1', '0', '2019-08-27 18:47:00', '广东省广州市海珠区新港中路397号', '020-81167888', '张三', '3.00', '0.00', 'nw_156690282017648095', null, '0', '0');
 
 -- ----------------------------
 -- Table structure for paid
@@ -372,13 +397,18 @@ CREATE TABLE `paid` (
   `state` int(11) NOT NULL COMMENT '0 abandon 1 to pay,',
   `order_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of paid
 -- ----------------------------
-INSERT INTO `paid` VALUES ('1', '168', '14', '2019-08-24 10:59:57', '2', '1', '1');
-INSERT INTO `paid` VALUES ('2', '172', '14', '2019-08-24 11:34:31', '1', '1', '2');
+INSERT INTO `paid` VALUES ('7', '178', '1', '2019-08-27 17:11:48', '1', '1', '7');
+INSERT INTO `paid` VALUES ('8', '178', '1', '2019-08-27 17:13:31', '1', '1', '8');
+INSERT INTO `paid` VALUES ('9', '179', '1', '2019-08-27 17:19:46', '1', '1', '9');
+INSERT INTO `paid` VALUES ('10', '179', '1', '2019-08-27 17:22:06', '1', '1', '10');
+INSERT INTO `paid` VALUES ('11', '179', '1', '2019-08-27 18:01:20', '1', '1', '11');
+INSERT INTO `paid` VALUES ('12', '179', '1', '2019-08-27 18:01:46', '1', '1', '12');
+INSERT INTO `paid` VALUES ('13', '173', '1', '2019-08-27 18:47:00', '1', '1', '13');
 
 -- ----------------------------
 -- Table structure for position
@@ -761,11 +791,12 @@ CREATE TABLE `user` (
   `phone` varchar(16) DEFAULT NULL,
   `customerUid` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('%E3%80%82%E3%80%82%E3%80%82', 'oHjV85X-ld1eKTRDPd3HjMW2_CxY', '2019-08-27 11:20:20', '2019-08-27 19:00:52', '1', '0', 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKicggrszbOFRE5siciaIFjUAYWiacpClj4saVxfFuSp0hibQTOG2vPN3zAALibxOyuEibhAxntqS8uMUekQ/132', '', '0', null, '0', 'Q8n7NR2OSG1TF/QLkeDAxQ==', '13055257913', '588697366193191383');
 
 -- ----------------------------
 -- Table structure for wow_cat
