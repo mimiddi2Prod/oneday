@@ -279,6 +279,7 @@ Page({
       var data = {}
       data.user_id = app.globalData.user_id
       data.item_id = orderList[i].item_id
+      data.name = orderList[i].name
       data.param_id_1 = orderList[i].item_param_id_1
       data.param_id_2 = orderList[i].item_param_id_2
       data.param_1 = orderList[i].param_1

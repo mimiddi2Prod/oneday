@@ -20,6 +20,7 @@ var api = {
     getParam: '../api/get_param',
     updateGoods: '../api/update_goods',
     order: '../api/order',
+    getOrderBySearch: '../api/get_order_by_search',
     addLogisticsCodeToOrder: '../api/add_logistics_code_to_order', // 物流信息 阿里
     updateOrderState: '../api/update_orderState',
     getAd: '../api/get_ad',

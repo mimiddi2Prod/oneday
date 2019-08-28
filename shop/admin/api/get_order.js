@@ -1,6 +1,6 @@
 var db = require("./../utils/dba");
 
-function order() {
+function get_order() {
     // var tool = new tools;
     // var query = tool.query;
     this.Service = async function (version, param, callback) {
@@ -128,4 +128,4 @@ function order() {
     }
 }
 
-module.exports = order;
+module.exports = get_order;

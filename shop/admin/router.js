@@ -11,11 +11,15 @@ function Router() {
                 baseApi = new getMenu;
                 break;
             case "order":
-                var order = require("./api/order.js");
+                var order = require("./api/get_order.js");
                 baseApi = new order;
                 break;
+            case "get_order_by_search":
+                var getOrderBySearch = require("./api/get_order_by_search.js");
+                baseApi = new getOrderBySearch;
+                break;
             case "order_detail":
-                var orderDetail = require("./api/order_detail.js");
+                var orderDetail = require("./api/get_order_detail.js");
                 baseApi = new orderDetail;
                 break;
             case "refund":

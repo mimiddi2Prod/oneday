@@ -13,6 +13,19 @@ var orderVM = new Vue({
         logistics_order_id: '',
         logistics_code: '',
         logistics_tel: '', //顺丰快递查询还需要电话号码 后四位 格式-> 单号:号码后四位
+
+        select_1: '商品ID',
+        id_or_goodsName: '',
+        start_time: '',
+        end_time: '',
+        select_2: '订单编号',
+        tradeId_or_logistics: '',
+        select_3: ['全部', '待发货', '待付款', '已发货', '已完成', '已关闭'],
+        order_status: 0, //
+        select_4: '收货人姓名',
+        userName_or_phone: '',
+        select_5: ['暂不选择', '退款中+退款成功', '退款中', '退款成功'],
+        afterSale_status: 0,
     },
     methods: {
         // changePage: function (e, id) {
@@ -22,7 +35,7 @@ var orderVM = new Vue({
         //     sessionStorage.setItem("href", href);
         //     sessionStorage.setItem("orderId", id);
         // },
-        orderDetail:function(id){
+        orderDetail: function (id) {
             sessionStorage.setItem("orderId", id);
             window.location.href = 'orderDetail'
         },
@@ -79,7 +92,7 @@ var orderVM = new Vue({
                     self.updateOrderState(self.logistics_order_id, 2)
                 }
             })
-        }
+        },
     }
 })
 
@@ -150,3 +163,66 @@ $(document).ready(function () {
     sessionStorage.removeItem('orderNav')
 
 })
+
+// 筛选条件
+function getOrderBySearch() {
+    let start_time = document.getElementById('test5_1').value,
+        end_time = document.getElementById('test5_2').value
+    if (orderVM.id_or_goodsName.length <= 0 && !start_time && !end_time && orderVM.tradeId_or_logistics.length <= 0 && orderVM.userName_or_phone.length <= 0) {
+        alert('请至少填写一项筛选条件！')
+        return
+    }
+    if (start_time && !end_time) {
+        alert('请选择截止时间')
+        return
+    }
+    if (!start_time && end_time) {
+        alert('请选择起始时间')
+        return
+    }
+    if (new Date(start_time) > new Date(end_time)) {
+        alert('起始时间不得大于截止时间')
+        return
+    }
+    // console.info(start_time)
+    // console.info(end_time)
+    orderVM.pageList = []
+    orderVM.orderList = []
+    orderVM.navId = -1
+    const url = api.getOrderBySearch, async = true
+    let data = {}
+    // data.last_id = orderVM.last_id
+    data.select_1 = (orderVM.select_1 == '商品ID' ? 0 : 1)
+    data.select_2 = (orderVM.select_2 == '订单编号' ? 0 : 1)
+    data.order_status = orderVM.order_status
+    data.select_4 = (orderVM.select_4 == '收货人姓名' ? 0 : 1)
+    data.afterSale_status = orderVM.afterSale_status
+    data.id_or_goodsName = orderVM.id_or_goodsName
+    data.start_time = start_time
+    data.end_time = end_time
+    data.tradeId_or_logistics = orderVM.tradeId_or_logistics
+    data.userName_or_phone = orderVM.userName_or_phone
+    console.info(data)
+
+    server(url, data, async, "post", function (res) {
+        console.info(res)
+        if (res.list && res.list.length > 0) {
+            res.list = res.list.map(function (eData) {
+                if (new Date() - new Date(eData.create_time) < 60 * 60 * 1000) {
+                    eData.waitPay = true
+                } else {
+                    eData.waitPay = false
+                }
+
+                eData.create_time = formatTime(new Date(eData.create_time))
+                eData.total_price_and_postage = Number((eData.single_price * eData.number) + eData.postage).toFixed(2)
+                eData.single_price = Number(eData.single_price).toFixed(2)
+                eData.postage = Number(eData.postage).toFixed(2)
+
+                return eData
+            })
+            orderVM.orderList = res.list
+        }
+        // console.info(res.list)
+    })
+}

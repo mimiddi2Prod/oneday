@@ -12,7 +12,7 @@
     <script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="../jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <!--<link rel="stylesheet" type="text/css"-->
-          <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../layDate-v5.0.9/laydate/laydate.js"></script> <!--时间控件-->
@@ -45,41 +45,44 @@
                 <div class="select">
                     <form role="form">
                         <div class="form-group">
-                            <select class="form-control">
+                            <select class="form-control" v-model="select_1">
                                 <option>商品ID</option>
                                 <option>商品名称</option>
                             </select>
                         </div>
                     </form>
-                    <input type="text" class="form-control" style="width: auto; display: inline-block;margin-right: 50px;">
+                    <input type="text" class="form-control"
+                           style="width: auto; display: inline-block;margin-right: 50px;" v-model="id_or_goodsName">
                     <span>下单时间：</span>
                     <input type="text" class="form-control" id="test5_1" style="width: auto;display: inline-block;"
-                           placeholder="选择起始时间">
+                           placeholder="选择起始时间" v-model="start_time">
                     <div class="line"></div>
                     <input type="text" class="form-control" id="test5_2" style="width: auto;display: inline-block;"
-                           placeholder="选择截止时间">
+                           placeholder="选择截止时间" v-model="end_time">
                 </div>
 
                 <div class="select">
                     <form role="form">
                         <div class="form-group">
-                            <select class="form-control">
+                            <select class="form-control" v-model="select_2">
                                 <option>订单编号</option>
                                 <option>物流编号</option>
                             </select>
                         </div>
                     </form>
-                    <input type="text" class="form-control" style="width: auto; display: inline-block;margin-right: 50px;">
+                    <input type="text" class="form-control"
+                           style="width: auto; display: inline-block;margin-right: 50px;" v-model="tradeId_or_logistics">
                     <span>订单状态：</span>
                     <form role="form">
                         <div class="form-group">
-                            <select class="form-control">
-                                <option>全部</option>
-                                <option>待发货</option>
-                                <option>待付款</option>
-                                <option>已发货</option>
-                                <option>已完成</option>
-                                <option>已关闭</option>
+                            <select class="form-control" v-model="order_status">
+                                <option v-for="item,index in select_3" v-bind:value="index">{{item}}</option>
+                                <!--<option>全部</option>-->
+                                <!--<option>待发货</option>-->
+                                <!--<option>待付款</option>-->
+                                <!--<option>已发货</option>-->
+                                <!--<option>已完成</option>-->
+                                <!--<option>已关闭</option>-->
                             </select>
                         </div>
                     </form>
@@ -88,31 +91,33 @@
                 <div class="select">
                     <form role="form">
                         <div class="form-group">
-                            <select class="form-control">
+                            <select class="form-control" v-model="select_4">
                                 <option>收货人姓名</option>
                                 <option>收货人手机号</option>
                             </select>
                         </div>
                     </form>
-                    <input type="text" class="form-control" style="width: auto; display: inline-block;margin-right: 50px;">
+                    <input type="text" class="form-control"
+                           style="width: auto; display: inline-block;margin-right: 50px;" v-model="userName_or_phone">
                     <span>退款状态：</span>
                     <form role="form">
                         <div class="form-group">
-                            <select class="form-control">
-                                <option>暂不选择</option>
-                                <option>退款中+退款成功</option>
-                                <option>退款中</option>
-                                <option>退款成功</option>
+                            <select class="form-control" v-model="afterSale_status">
+                                <option v-for="item,index in select_5" v-bind:value="index">{{item}}</option>
+                                <!--<option>暂不选择</option>-->
+                                <!--<option>退款中+退款成功</option>-->
+                                <!--<option>退款中</option>-->
+                                <!--<option>退款成功</option>-->
                             </select>
                         </div>
                     </form>
                 </div>
 
                 <div class="select">
-                    <button type="button" class="btn btn-danger btn-margin-right">筛选订单</button>
-                    <button type="button" class="btn btn-secondary btn-margin-right">清空筛选条件</button>
-                    <button type="button" class="btn btn-secondary btn-margin-right">批量导出</button>
-                    <button type="button" class="btn btn-secondary btn-margin-right">查看已生成报表</button>
+                    <button type="button" class="btn btn-danger btn-margin-right" v-on:click="getOrderBySearch()">筛选订单</button>
+                    <!--<button type="button" class="btn btn-secondary btn-margin-right">清空筛选条件</button>-->
+                    <!--<button type="button" class="btn btn-secondary btn-margin-right">批量导出</button>-->
+                    <!--<button type="button" class="btn btn-secondary btn-margin-right">查看已生成报表</button>-->
                 </div>
             </nav>
         </div>
@@ -192,7 +197,8 @@
                             {{item.after_sale_state == 6 ? '已换货' : ''}}
                         </div>
                         <button type="button" class="btn btn-link" v-if="item.after_sale_state == 0 && item.state == 1"
-                                data-toggle="modal" data-target="#myModal" v-on:click="getLogistics(item.id,item.tel)">待发货
+                                data-toggle="modal" data-target="#myModal" v-on:click="getLogistics(item.id,item.tel)">
+                            待发货
                         </button>
                         <button type="button" class="btn btn-link" v-on:click="orderDetail(item.id)">订单详情
                         </button>
@@ -212,11 +218,13 @@
             <li v-for="item,index in pageList" v-on:click="getPage(index)"
                 v-bind:class="(item == last_id+1 ? 'active' : '')"><a
                     href="javascript:;">{{item}}</a></li>
-            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="javascript:;">&raquo;</a>
+            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a
+                    href="javascript:;">&raquo;</a>
             </li>
         </ul>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
