@@ -44,7 +44,7 @@
                         <div><h5>待发货订单</h5></div>
                     </div>
                     <div class="column-center" v-on:click="toOrder(3)" style="cursor: pointer">
-                        <div><h1>0</h1></div>
+                        <div><h1>{{getAfterSaleNum}}</h1></div>
                         <div><h5>退款售后订单</h5></div>
                     </div>
                     <div class="column-center">
@@ -53,7 +53,7 @@
                     </div>
                     <div class="column-center">
                         <div><h1>0.00</h1></div>
-                        <div><h5>待提现金额</h5></div>
+                        <div><h5>销售金额</h5></div>
                     </div>
 
                 </div>

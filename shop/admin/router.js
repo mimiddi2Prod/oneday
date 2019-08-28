@@ -130,6 +130,10 @@ function Router() {
                 var shopGetWaitShip = require("./api/shop_get_waitShip.js");
                 baseApi = new shopGetWaitShip;
                 break;
+            case "get_afterSaleNumber":
+                var shopGetAfterSaleNumber = require("./api/shop_get_afterSaleNumber.js");
+                baseApi = new shopGetAfterSaleNumber;
+                break;
             case "update_adState":
                 var shopUpdateAdState = require("./api/shop_update_adState.js");
                 baseApi = new shopUpdateAdState;

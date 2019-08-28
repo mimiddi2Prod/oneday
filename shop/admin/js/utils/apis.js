@@ -3,6 +3,7 @@ var api = {
     getPublic: '../api/get_public',
     login: '../api/login',
     getWaitShip: '../api/get_waitShip',
+    getAfterSaleNumber:'../api/get_afterSaleNumber',
     updateGoodsState: '../api/update_goodsState',
     getGoods: '../api/get_goods',
     getCategory: '../api/get_category',

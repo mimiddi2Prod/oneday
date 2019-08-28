@@ -151,8 +151,6 @@ function getOrder() {
 }
 
 $(document).ready(function () {
-    getOrder()
-
     let navId = sessionStorage.getItem('orderNav')
     console.info(navId)
     if (navId == 0 || navId == 3) {
@@ -161,7 +159,7 @@ $(document).ready(function () {
         orderVM.navId = -1
     }
     sessionStorage.removeItem('orderNav')
-
+    getOrder()
 })
 
 // 筛选条件
