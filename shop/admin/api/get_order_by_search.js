@@ -23,11 +23,12 @@ function getOrderBySearch() {
             // id或商品名查找
             if (param['id_or_goodsName'].length > 0) {
                 if (param['select_1'] == 0) {
-                    sql += ' item_id = ?'
+                    sql += ' item_id = ? '
+                    arr.push(param['id_or_goodsName'])
                 } else if (param['select_1'] == 1) {
-                    sql += ' goodsname like'
+                    sql += ' goodsname like ?'
+                    arr.push("%" + param['id_or_goodsName'] + "%")
                 }
-                arr.push('%' + param['id_or_goodsName'] + '%')
             }
             // 时间范围查找
             if (param['start_time'] && param['end_time']) {
@@ -68,7 +69,7 @@ function getOrderBySearch() {
                 } else if (param['select_4'] == 1) {
                     sql += (param['id_or_goodsName'].length > 0 || (param['start_time'] && param['end_time'] || param['tradeId_or_logistics'].length > 0 || param['order_status'] > 0) ? ' and' : '') + ' tel like ?'
                 }
-                arr.push('%' + param['userName_or_phone'] + '%')
+                arr.push("%" + param['userName_or_phone'] + "%")
             }
             // 退款状态
             // ['暂不选择', '退款中+退款成功', '退款中', '退款成功'],
@@ -85,6 +86,8 @@ function getOrderBySearch() {
                     arr.push(3)
                 }
             }
+            console.info(sql)
+            console.info(arr)
             row = await db.Query(sql, arr);
 
             var rowData = row
