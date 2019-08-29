@@ -98,7 +98,8 @@ var addGoodsVM = new Vue({
         sizeIndex: '',
         selectText: '',
 
-
+        batchPrice: '',
+        batchStock: '',
         // testList1:[1,2,3,4],
         // testList2:[]
     },
@@ -550,6 +551,42 @@ var addGoodsVM = new Vue({
 
             }
             // console.info(this.sizeAndPrice)
+        },
+
+        // 批量改价
+        batchChangePrice: function () {
+            let self = this
+            console.info(this.sizeAndPrice)
+            console.info(this.SortItem)
+            self.sizeAndPrice = self.sizeAndPrice.map(function (eData) {
+                eData.price = Number(self.batchPrice)
+                return eData
+            })
+            let index1_length = this.SortItem[0].size.length
+            let index2_length = this.SortItem[1].size.length
+            let tag = 'paramPrice'
+            for (let i = 0; i < index1_length; i++) {
+                for (let j = 0; j < index2_length; j++) {
+                    let id = tag + i + '_' + j
+                    document.getElementById(id).value = Number(self.batchPrice)
+                }
+            }
+        },
+        batchChangeStock: function () {
+            let self = this
+            self.sizeAndPrice = self.sizeAndPrice.map(function (eData) {
+                eData.stock = Number(self.batchStock)
+                return eData
+            })
+            let index1_length = this.SortItem[0].size.length
+            let index2_length = this.SortItem[1].size.length
+            let tag = 'paramStock'
+            for (let i = 0; i < index1_length; i++) {
+                for (let j = 0; j < index2_length; j++) {
+                    let id = tag + i + '_' + j
+                    document.getElementById(id).value = Number(self.batchStock)
+                }
+            }
         },
 
         // 商品提交
