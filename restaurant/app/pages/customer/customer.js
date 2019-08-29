@@ -48,6 +48,7 @@ Page({
             wx.showModal({
               content: '绑定成功',
               showCancel: false,
+              confirmText:'返回首页',
               success: function(e) {
                 if(e.confirm){
                   wx.navigateBack({})
