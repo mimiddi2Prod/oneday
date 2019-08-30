@@ -47,7 +47,7 @@ function getAfterSaleNumber() {
     })
 }
 
-function getAfterSaleNumber() {
+function getSales() {
     const url = api.getSales, async = true
     let data = {}
     server(url, data, async, "post", function (res) {
