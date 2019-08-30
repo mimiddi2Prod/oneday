@@ -15,6 +15,7 @@
           <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../layDate-v5.0.9/laydate/laydate.js"></script> <!--时间控件-->
     <script type="text/javascript" src="../js/utils/apis.js"></script>
     <script type="text/javascript" src="../js/utils/http.js"></script> <!--封装接口请求-->
     <script type="text/javascript" src="../js/utils/formatTime.js"></script> <!--时间格式化-->
@@ -51,75 +52,100 @@
                         <div><h5>退款售后订单</h5></div>
                     </div>
                     <div class="column-center">
-                        <div><h1>0</h1></div>
-                        <div><h5>待查看消息</h5></div>
+                        <div><h1>{{orderAmount}}</h1></div>
+                        <div><h5>订单金额</h5></div>
                     </div>
                     <div class="column-center">
-                        <div><h1>{{sales}}</h1></div>
-                        <div><h5>销售金额</h5></div>
+                        <div><h1>{{refundAmount}}</h1></div>
+                        <div><h5>退款金额</h5></div>
                     </div>
-
+                    <!--<div class="column-center">-->
+                        <!--<div><h1>{{sales}}</h1></div>-->
+                        <!--<div><h5>销售金额</h5></div>-->
+                    <!--</div>-->
                 </div>
             </nav>
         </div>
 
-        <div class="title row-center">
-            <div>
-                <h4>关键指数</h4>
+        <div style="margin: 10px 0;">趋势分析</div>
+
+
+        <div style="display: flex;flex-direction: row;">
+            <div style="margin-right: 30px">
+                <button type="button" class="btn btn-secondary" style="margin-left: 0;margin-right: 6px" :style="index == active ? 'color:#fff;background-color:red' : ''" v-for="item,index in dayList" v-on:click="getSales(item)">{{item}}天</button>
+                <!--<button type="button" class="btn btn-secondary" style="margin-left: 0;" v-on:click="getSales(7)">7天</button>-->
+                <!--<button type="button" class="btn btn-secondary" style="margin-left: 0;" v-on:click="getSales(30)">30天</button>-->
             </div>
-            <div class="column-center">7天</div>
-            <div class="column-center">30天</div>
+            <div style="display: flex;flex-direction: row;">
+                <input type="text" class="form-control" id="test5_1" style="width: auto;display: inline-block;margin-right: 6px"
+                       placeholder="选择起始时间">
+                <div class="line"></div>
+                <input type="text" class="form-control" id="test5_2" style="width: auto;display: inline-block;margin-right: 6px"
+                       placeholder="选择截止时间">
+                <button type="button" class="btn btn-secondary" style="margin-left: 0" v-on:click="getSales()" :style="2 == active ? 'color:#fff;background-color:red' : ''">确定</button>
+            </div>
         </div>
 
-        <div class="zhishu row-center">
-            <nav role="navigation" class="navbar navbar-default">
-                <div class="item">
-                    <div class="column-center">
-                        <span>访问人数</span>
-                    </div>
-                    <div class="row-center">
-                        <div>100.00%</div>
-                        <div style="margin-left: 10px;">0</div>
-                    </div>
-                </div>
-            </nav>
 
-            <nav role="navigation" class="navbar navbar-default">
-                <div class="item">
-                    <div class="column-center">
-                        <span>成交客户</span>
-                    </div>
-                    <div class="row-center">
-                        <div>100.00%</div>
-                        <div style="margin-left: 10px;">0</div>
-                    </div>
-                </div>
-            </nav>
+        <!--<button type="button" class="btn btn-secondary">批量导出商品</button>-->
 
-            <nav role="navigation" class="navbar navbar-default">
-                <div class="item">
-                    <div class="column-center">
-                        <span>支付订单</span>
-                    </div>
-                    <div class="row-center">
-                        <div>100.00%</div>
-                        <div style="margin-left: 10px;">0</div>
-                    </div>
-                </div>
-            </nav>
+        <!--<div class="title row-center">-->
+            <!--<div>-->
+                <!--<h4>关键指数</h4>-->
+            <!--</div>-->
+            <!--<div class="column-center">7天</div>-->
+            <!--<div class="column-center">30天</div>-->
+        <!--</div>-->
 
-            <nav role="navigation" class="navbar navbar-default">
-                <div class="item">
-                    <div class="column-center">
-                        <span>支付金额</span>
-                    </div>
-                    <div class="row-center">
-                        <div>100.00%</div>
-                        <div style="margin-left: 10px;">0</div>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        <!--<div class="zhishu row-center">-->
+            <!--<nav role="navigation" class="navbar navbar-default">-->
+                <!--<div class="item">-->
+                    <!--<div class="column-center">-->
+                        <!--<span>访问人数</span>-->
+                    <!--</div>-->
+                    <!--<div class="row-center">-->
+                        <!--<div>100.00%</div>-->
+                        <!--<div style="margin-left: 10px;">0</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</nav>-->
+
+            <!--<nav role="navigation" class="navbar navbar-default">-->
+                <!--<div class="item">-->
+                    <!--<div class="column-center">-->
+                        <!--<span>成交客户</span>-->
+                    <!--</div>-->
+                    <!--<div class="row-center">-->
+                        <!--<div>100.00%</div>-->
+                        <!--<div style="margin-left: 10px;">0</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</nav>-->
+
+            <!--<nav role="navigation" class="navbar navbar-default">-->
+                <!--<div class="item">-->
+                    <!--<div class="column-center">-->
+                        <!--<span>支付订单</span>-->
+                    <!--</div>-->
+                    <!--<div class="row-center">-->
+                        <!--<div>100.00%</div>-->
+                        <!--<div style="margin-left: 10px;">0</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</nav>-->
+
+            <!--<nav role="navigation" class="navbar navbar-default">-->
+                <!--<div class="item">-->
+                    <!--<div class="column-center">-->
+                        <!--<span>支付金额</span>-->
+                    <!--</div>-->
+                    <!--<div class="row-center">-->
+                        <!--<div>100.00%</div>-->
+                        <!--<div style="margin-left: 10px;">0</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</nav>-->
+        <!--</div>-->
 
         <!--线性图-->
         <div id="chart1"></div>

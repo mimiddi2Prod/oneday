@@ -138,6 +138,14 @@ function Router() {
                 var shopGetSales = require("./api/shop_get_sales.js");
                 baseApi = new shopGetSales;
                 break;
+            case "get_orderAmount":
+                var shopGetOrderAmount = require("./api/shop_get_orderAmount.js");
+                baseApi = new shopGetOrderAmount;
+                break;
+            case "get_refundAmount":
+                var shopGetRefundAmount = require("./api/shop_get_refundAmount.js");
+                baseApi = new shopGetRefundAmount;
+                break;
             case "update_adState":
                 var shopUpdateAdState = require("./api/shop_update_adState.js");
                 baseApi = new shopUpdateAdState;

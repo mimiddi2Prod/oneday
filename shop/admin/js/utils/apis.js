@@ -5,6 +5,9 @@ var api = {
     getWaitShip: '../api/get_waitShip',
     getAfterSaleNumber: '../api/get_afterSaleNumber',
     getSales: '../api/get_sales',
+    getOrderAmount: '../api/get_orderAmount',
+    getRefundAmount: '../api/get_refundAmount',
+
     updateGoodsState: '../api/update_goodsState',
     getGoods: '../api/get_goods',
     getCategory: '../api/get_category',
