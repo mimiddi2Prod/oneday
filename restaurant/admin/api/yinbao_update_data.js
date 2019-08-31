@@ -1,6 +1,7 @@
 var db = require("./../utils/dba");
 var appId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
+var jsonBigInt = require('json-bigint')
 
 
 function yinbaoUpdateData() {
@@ -16,14 +17,19 @@ function yinbaoUpdateData() {
             let postDataJson = JSON.stringify(postData)
             let router = "queryProductCategoryPages"
             let e = await request(router, postDataJson)
+console.info(e)
+            e = jsonBigInt.parse(e)
+            // e.data.result[0].uid = e.data.result[0].uid.c.join("")
+            // e.data.result[0].parentUid = e.data.result[0].parentUid.c.join("")
+
             console.info("获得分类数据：")
             console.info(e)
-            e = e.replace(/\"uid\":/g, "\"uid\":\"")
-            e = e.replace(/,\"parentUid\"/g, "\",\"parentUid\"")
-            e = e.replace(/\"parentUid\":/g, "\"parentUid\":\"")
-            e = e.replace(/,\"name\"/g, "\",\"name\"")
+            // e = e.replace(/\"uid\":/g, "\"uid\":\"")
+            // e = e.replace(/,\"parentUid\"/g, "\",\"parentUid\"")
+            // e = e.replace(/\"parentUid\":/g, "\"parentUid\":\"")
+            // e = e.replace(/,\"name\"/g, "\",\"name\"")
 
-            e = JSON.parse(e)
+            // e = JSON.parse(e)
             // console.info(e.data.result[0])
             let CategoryResult = ""
             if (e.status == "success" && e.data.result.length > 0) {
@@ -34,6 +40,12 @@ function yinbaoUpdateData() {
 
                 // 插入现有的银豹分类数据
                 for (let i in CategoryResult) {
+                    console.info(CategoryResult[i])
+                    CategoryResult[i].uid = CategoryResult[i].uid.c.join("")
+                    // if(CategoryResult[i].parentUid != 0){
+                    //     CategoryResult[i].parentUid = CategoryResult[i].parentUid.c.join("")
+                    // }
+                    console.info(CategoryResult[i])
                     sql = "insert into restaurant_category(`name`,id,location_code,create_time) values (?,?,?,current_timestamp )"
                     row = await db.Query(sql, [CategoryResult[i].name, CategoryResult[i].uid, "xmspw"])
                 }
@@ -49,12 +61,15 @@ function yinbaoUpdateData() {
             e = await request(router, postDataJson)
             console.info("获得商品数据：")
             console.info(e)
-            e = e.replace(/\"uid\":/g, "\"uid\":\"")
-            e = e.replace(/,\"categoryUid\"/g, "\",\"categoryUid\"")
-            e = e.replace(/\"categoryUid\":/g, "\"categoryUid\":\"")
-            e = e.replace(/,\"name\"/g, "\",\"name\"")
-
-            e = JSON.parse(e)
+            // e = e.replace(/\"uid\":/g, "\"uid\":\"")
+            // e = e.replace(/,\"categoryUid\"/g, "\",\"categoryUid\"")
+            // e = e.replace(/\"categoryUid\":/g, "\"categoryUid\":\"")
+            // e = e.replace(/,\"name\"/g, "\",\"name\"")
+            //
+            // e = JSON.parse(e)
+            e = jsonBigInt.parse(e)
+            // e.data.result[0].uid = e.data.result[0].uid.c.join("")
+            // e.data.result[0].categoryUid = e.data.result[0].categoryUid.c.join("")
 
             if (e.status == "success" && e.data.result.length > 0) {
                 ProductResult = e.data.result
@@ -64,9 +79,12 @@ function yinbaoUpdateData() {
 
                 // 插入现有的银豹商品数据（没有图片，需另外获取）
                 for (let i in ProductResult) {
+                    ProductResult[i].uid = ProductResult[i].uid.c.join("")
+                    ProductResult[i].categoryUid = ProductResult[i].categoryUid.c.join("")
                     sql = "insert into restaurant_goods(`name`,id,`describe`,min_price,category_id,stock,status,location_code,create_time) values (?,?,?,?,?,?,?,?,current_timestamp )"
                     row = await db.Query(sql, [ProductResult[i].name, ProductResult[i].uid, ProductResult[i].description, ProductResult[i].sellPrice, ProductResult[i].categoryUid, ProductResult[i].stock, ProductResult[i].enable, "xmspw"])
                 }
+            console.info(ProductResult)
 
                 // 将备注里的数据格式 放到参数表上
                 // 先清除原有的数据
@@ -127,18 +145,21 @@ function yinbaoUpdateData() {
             e = await request(router, postDataJson)
             console.info("获得商品数据：")
             console.info(e)
-            e = e.replace(/\"productUid\":/g, "\"productUid\":\"")
-            e = e.replace(/,\"productName\"/g, "\",\"productName\"")
+            // e = e.replace(/\"productUid\":/g, "\"productUid\":\"")
+            // e = e.replace(/,\"productName\"/g, "\",\"productName\"")
             // e = e.replace(/\"categoryUid\":/g, "\"categoryUid\":\"")
             // e = e.replace(/,\"name\"/g, "\",\"name\"")
 
-            e = JSON.parse(e)
+            // e = JSON.parse(e)
+            e = jsonBigInt.parse(e)
+            // e.data.result[0].productUid = e.data.result[0].productUid.c.join("")
 
             if (e.status == "success" && e.data.result.length > 0) {
                 ProductImgResult = e.data.result
 
                 // 根据productUid更新商品图片
                 for (let i in ProductImgResult) {
+                    ProductImgResult[i].productUid = ProductImgResult[i].productUid.c.join("")
                     sql = "update restaurant_goods set img = ? where id = ?"
                     row = await db.Query(sql, [ProductImgResult[i].imageUrl, ProductImgResult[i].productUid])
                 }
