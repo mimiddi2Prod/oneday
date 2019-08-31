@@ -1,7 +1,7 @@
 var yinbaoAppId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 var fm = require('./../utils/formatTime')
-
+var jsonBigInt = require('json-bigint')
 
 async function YinbaoUpdateCustomer(data) {
     data.balanceIncrement = 0 - Number(data.balanceIncrement)
@@ -19,12 +19,14 @@ async function YinbaoUpdateCustomer(data) {
     let router = "updateBalancePointByIncrement"
     let e = await request(router, postDataJson)
 
-    e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
-    e = e.replace(/,\"balanceBeforeUpdate\"/g, "\",\"balanceBeforeUpdate\"")
+    e = jsonBigInt.parse(e)
+    e.data.customerUid = e.data.customerUid.c.join("")
+    // e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
+    // e = e.replace(/,\"balanceBeforeUpdate\"/g, "\",\"balanceBeforeUpdate\"")
 
     console.info("获得分类数据：")
     console.info(e)
-    e = JSON.parse(e)
+    // e = JSON.parse(e)
     console.info(e)
     if (e.data) {
         if((e.data.balanceIncrement == data.balanceIncrement) && (e.data.pointIncrement == Number(data.pointIncrement))){

@@ -1,7 +1,7 @@
 var yinbaoAppId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 // var fm = require('./../utils/formatTime')
-
+var jsonBigInt = require('json-bigint')
 
 async function YinbaoGetCustomer(phone) {
     let callData = {}
@@ -14,14 +14,18 @@ async function YinbaoGetCustomer(phone) {
     let router = "queryBytel"
     let e = await request(router, postDataJson)
 
-    e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
-    e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
-    e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
-    e = e.replace(/,\"categoryName\"/g, "\",\"categoryName\"")
+    e = jsonBigInt.parse(e)
+    e.data[0].customrUid = e.data[0].customrUid.c.join("")
+    e.data[0].customerUid = e.data[0].customerUid.c.join("")
+    console.info(e)
+    // e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
+    // e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
+    // e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
+    // e = e.replace(/,\"categoryName\"/g, "\",\"categoryName\"")
 
     console.info("获得分类数据：")
     console.info(e)
-    e = JSON.parse(e)
+    // e = JSON.parse(e)
     if (e.data) {
         if (e.data[0].number.length > 0 && e.data[0].number == phone) {
             callData.code = 0
@@ -45,14 +49,17 @@ async function YinbaoGetCustomer(phone) {
         let router = "add"
         let e = await request(router, postDataJson)
 
-        e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
-        e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
-        e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
-        e = e.replace(/,\"number\"/g, "\",\"number\"")
+        e.data.customrUid = e.data.customrUid.c.join("")
+        e.data.customerUid = e.data.customerUid.c.join("")
+
+        // e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
+        // e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
+        // e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
+        // e = e.replace(/,\"number\"/g, "\",\"number\"")
 
         console.info("获得分类数据：")
         console.info(e)
-        e = JSON.parse(e)
+        // e = JSON.parse(e)
         if (e.data) {
             if (e.data.number.length > 0 && e.data.number == phone) {
                 callData.code = 0
