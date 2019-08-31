@@ -68,6 +68,7 @@ function getAfterSaleNumber() {
 }
 
 function formate(time) {
+    homeVM.x = []
     let current_time = new Date()
     let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
     let timeParse = year + '-' + month + '-' + date
@@ -79,8 +80,8 @@ function formate(time) {
         start_time = new Date(new Date(timeParse).getTime() - (29 * 24 * 60 * 60 * 1000))
         end_time = current_time
     } else {
-        start_time = document.getElementById('test5_1').value
-        end_time = document.getElementById('test5_2').value
+        start_time = new Date(document.getElementById('test5_1').value)
+        end_time = new Date(document.getElementById('test5_2').value)
         if (!start_time) {
             alert('请选择起始时间')
             return
@@ -122,8 +123,8 @@ function getSales(time) {
         start_time = new Date(new Date(timeParse).getTime() - (29 * 24 * 60 * 60 * 1000))
         end_time = current_time
     } else {
-        start_time = document.getElementById('test5_1').value
-        end_time = document.getElementById('test5_2').value
+        start_time = new Date(document.getElementById('test5_1').value)
+        end_time = new Date(document.getElementById('test5_2').value)
         if (!start_time) {
             alert('请选择起始时间')
             return
@@ -144,7 +145,7 @@ function getSales(time) {
     data.start_time = start_time
     data.end_time = end_time
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         // homeVM.sales = res.number
         start_time = start_time.getTime()
         end_time = end_time.getTime()
@@ -214,11 +215,17 @@ function writeChart() {
     var x = homeVM.x; //定义X轴刻度值
     var title = homeVM.title; //统计图标标题
 
-    // $('#chart1').remove()
-    // var div = document.createElement("div");
-    // document.getElementById("chart").appendChild(div);
-    // div.id = 'chart1';
+    if(document.getElementById('chart1')){
+        document.getElementById('chart').innerHTML = ''
+        // j.jqplot.diagram.init()
+    }
+    var div = document.createElement("div");
+    document.getElementById("chart").appendChild(div);
+    div.id = 'chart1';
 
+    // my_jqplot.Init()
+    // my_jqplot.Base()
+    // my_jqplot.j.jqplot.diagram.base("chart1", data, line_title, title, x, x_label, y_label, data_max, 1)
     j.jqplot.diagram.base("chart1", data, line_title, title, x, x_label, y_label, data_max, 1);
     // j.jqplot.diagram.base("chart2", data, line_title, "这是统计标题", x, x_label, y_label, data_max, 2);
 
