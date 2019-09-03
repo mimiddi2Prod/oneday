@@ -160,19 +160,20 @@ function getSales(time) {
         start_time = start_time.getTime()
         end_time = end_time.getTime()
         let max_number = 10
-        if (res.order) {
-            for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
-                let temp = 0
-                for (let j in res.order) {
-                    if (new Date(res.order[j].create_time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.order[j].create_time).getTime() >= i) {
-                        temp = temp + (res.order[j].number * res.order[j].single_price)
-                    }
-                }
-                max_number = temp > max_number ? temp + 10 : max_number
-                homeVM.data[0].push(temp)
-            }
-            homeVM.data_max = max_number
-        }
+        // 本系统
+        // if (res.order) {
+        //     for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
+        //         let temp = 0
+        //         for (let j in res.order) {
+        //             if (new Date(res.order[j].create_time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.order[j].create_time).getTime() >= i) {
+        //                 temp = temp + (res.order[j].number * res.order[j].single_price)
+        //             }
+        //         }
+        //         max_number = temp > max_number ? temp + 10 : max_number
+        //         homeVM.data[0].push(temp)
+        //     }
+        //     homeVM.data_max = max_number
+        // }
         if (res.refund) {
             for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
                 let temp = 0
@@ -185,6 +186,30 @@ function getSales(time) {
                 homeVM.data[1].push(temp)
             }
             homeVM.data_max = max_number
+        }
+        // 银豹收银
+        if (res.order) {
+            console.info(res.order)
+            for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
+                let temp = 0
+                for (let j in res.order) {
+                    if (new Date(res.order[j].start_time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.order[j].start_time).getTime() >= i) {
+                        temp = res.order[j].total_price
+                        console.info(temp)
+                    }
+                }
+                max_number = temp > max_number ? temp + 10 : max_number
+                homeVM.data[0].push(temp)
+            }
+            homeVM.data_max = max_number
+            // for(let i in res.order){
+            //     if(res.order[i].start_time >= start_time && res.order[i].end_time <= (start_time + (24 * 60 * 60 * 1000)){
+            //         temp = res.order[i].total_price
+            //     }else{
+            //         temp = 0
+            //     }
+            //     start_time = start_time + (24 * 60 * 60 * 1000)
+            // }
         }
 
         self.formate(time)
