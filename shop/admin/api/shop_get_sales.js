@@ -6,6 +6,13 @@ function shopGetSales() {
         var data = {}
         var row = []
         try {
+            // sql = "select * from yinbao_update_time"
+            // row = await db.Query(sql)
+            //
+            // if (row.length > 0) {
+            //     await getYinbaoOrder(row[0]['last_update_time'])
+            // }
+
             // sql = "select sum(total_price) from `order` where state >= ?";
             // row = await db.Query(sql, 1);
             // let total_price = row[0]['sum(total_price)']
@@ -38,3 +45,4 @@ function shopGetSales() {
 }
 
 module.exports = shopGetSales;
+

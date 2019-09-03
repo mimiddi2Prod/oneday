@@ -17,6 +17,9 @@ db.Init()
 var privateKey = require("./utils/getPrivateKey");
 privateKey.Init()
 
+var checkYinbaoOrder = require('./api/check_yinbao_order')
+checkYinbaoOrder()
+
 var express = require('express');
 var cookieParser = require('cookie-parser');
 // var session = require('express-session');
