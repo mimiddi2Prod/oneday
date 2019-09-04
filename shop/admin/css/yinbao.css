@@ -1,0 +1,27 @@
+.jumbotron{
+    background-color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+.jumbotron .title{
+    margin-bottom: 40px;
+}
+
+.zhishu{
+    justify-content: space-around;
+}
+
+.zhishu>nav{
+    width: 24%;
+}
+
+.zhishu>nav .item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+
+}

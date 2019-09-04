@@ -234,6 +234,10 @@ function Router() {
                 var shopGetGoodsRefundUserList = require("./api/shop_get_goodsRefundUserList.js");
                 baseApi = new shopGetGoodsRefundUserList;
                 break;
+            case "yinbao_update_data":
+                var yinbaoUpdateData = require("./api/yinbao_update_data.js");
+                baseApi = new yinbaoUpdateData;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;
