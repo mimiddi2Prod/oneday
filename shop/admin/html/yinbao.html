@@ -12,7 +12,7 @@
     <script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="../jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <!--<link rel="stylesheet" type="text/css"-->
-          <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../layDate-v5.0.9/laydate/laydate.js"></script> <!--时间控件-->
@@ -44,6 +44,33 @@
         </div>
 
 
+        <div class="time">
+            <!--<span>时间：</span>-->
+            <!--<input type="text" class="form-control" id="test5_1" style="width: auto;margin-right: 20px"-->
+            <!--placeholder="选择起始时间" v-model="start_time">-->
+            <!--<div class="line"></div>-->
+            <!--<input type="text" class="form-control" id="test5_2" style="width: auto;"-->
+            <!--placeholder="选择截止时间" v-model="end_time">-->
+        </div>
+
+        <div id="calendar">
+            <h4>{{year}}年{{month}}月</h4>
+            <span v-on:click="getDate(n - 1)">上月</span>
+            <span v-on:click="getDate(n + 1)">下月</span>
+        </div>
+
+        <table class="table table-bordered">
+            <!--<caption>边框表格布局</caption>-->
+            <thead>
+            <tr v-for="item in number">
+                <th v-for="item1 in dayList" v-if="(item1.day / 7 <= item) && (item1.day / 7 > item - 1)">
+                    <div>{{item1.day}}</div>
+                    <input type="text" class="form-control" style="width: auto;" v-bind:value="item1.refund"
+                           v-model="item1.refund" v-on:keyUp.enter="updateRefund(item1.day,item1.refund)">
+                </th>
+            </tr>
+            </thead>
+        </table>
     </div>
 </div>
 

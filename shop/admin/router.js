@@ -238,6 +238,14 @@ function Router() {
                 var yinbaoUpdateData = require("./api/yinbao_update_data.js");
                 baseApi = new yinbaoUpdateData;
                 break;
+            case "yinbao_record_refund":
+                var yinbaoRecordRefund = require("./api/yinbao_record_refund.js");
+                baseApi = new yinbaoRecordRefund;
+                break;
+            case "yinbao_get_refund":
+                var yinbaoGetRefund = require("./api/yinbao_get_refund.js");
+                baseApi = new yinbaoGetRefund;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;
