@@ -19,10 +19,18 @@ module.exports = function getYinbaoOrder() {
                         if (eData2.status == 'success' && eData2.data.result.length > 0) {
                             let result = eData2.data.result
                             console.info(result)
+                            let day_sellprice = 0
                             for (let i in result) {
                                 sql = 'insert into yinbao_order (cashier,cashierUid,customerUid,datetime,invalid,items,orderNo,payments,remark,rounding,serviceFee,sn,ticketType,totalAmount,totalProfit,uid,webOrderNo)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
                                 row = db.Query(sql, [result[i].cashier, result[i].cashierUid, result[i].customerUid, result[i].datetime, result[i].invalid, result[i].items, (result[i].orderNo ? result[i].orderNo : ''), result[i].payments, (result[i].remark ? result[i].remark : ''), result[i].rounding, (result[i].serviceFee >= 0 ? result[i].serviceFee : ''), result[i].sn, result[i].ticketType, result[i].totalAmount, result[i].totalProfit, result[i].uid, result[i].webOrderNo])
+
+                                let items = JSON.parse(result[i].items)
+                                for (let j in items) {
+                                    day_sellprice = day_sellprice + items[j].totalAmount
+                                }
                             }
+                            sql = 'insert into yinbao_order_sellprice (total_price,start_time,end_time)values(?,?,?)'
+                            row = db.Query(sql, [day_sellprice, timeList.start_time, timeList.end_time])
                         }
 
                         sql = "update yinbao_update_time set last_update_time = ?"

@@ -6,13 +6,7 @@ function shopGetSales() {
         var data = {}
         var row = []
         try {
-            // sql = "select * from yinbao_update_time"
-            // row = await db.Query(sql)
-            //
-            // if (row.length > 0) {
-            //     await getYinbaoOrder(row[0]['last_update_time'])
-            // }
-
+            // 销售减售后
             // sql = "select sum(total_price) from `order` where state >= ?";
             // row = await db.Query(sql, 1);
             // let total_price = row[0]['sum(total_price)']
@@ -24,16 +18,27 @@ function shopGetSales() {
             // console.info(total_refund)
             //
             // data.number = Number(Number(total_price) - Number(total_refund)).toFixed(2)
-            sql = "select * from `order` where state >= ? and create_time >= ? and create_time <= ? order by create_time"
-            row = await db.Query(sql, [1, param['start_time'], param['end_time']])
-            if (row.length > 0) {
-                data.order = row
-            }
 
+            // 本系统
+            // 销售额
+            // sql = "select * from `order` where state >= ? and create_time >= ? and create_time <= ? order by create_time"
+            // row = await db.Query(sql, [1, param['start_time'], param['end_time']])
+            // if (row.length > 0) {
+            //     data.order = row
+            // }
+
+            // 退款
             sql = "select * from aftersale where state = ? and order_id in (select id from `order` where after_sale_state >= ?) and create_time >= ? and create_time <= ? order by create_time"
             row = await db.Query(sql, [0, 4, param['start_time'], param['end_time']])
             if (row.length > 0) {
                 data.refund = row
+            }
+
+            // 银豹销售额
+            sql = "select * from `yinbao_order_sellprice` where start_time >= ? and end_time <= ? order by start_time"
+            row = await db.Query(sql, [param['start_time'], param['end_time']])
+            if (row.length > 0) {
+                data.order = row
             }
 
 
