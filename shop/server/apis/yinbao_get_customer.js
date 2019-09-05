@@ -15,9 +15,7 @@ async function YinbaoGetCustomer(phone) {
     let e = await request(router, postDataJson)
 
     e = jsonBigInt.parse(e)
-    e.data[0].customrUid = e.data[0].customrUid.c.join("")
-    e.data[0].customerUid = e.data[0].customerUid.c.join("")
-    console.info(e)
+
     // e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
     // e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
     // e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
@@ -28,6 +26,9 @@ async function YinbaoGetCustomer(phone) {
     // e = JSON.parse(e)
     if (e.data) {
         if (e.data[0].number.length > 0 && e.data[0].number == phone) {
+            e.data[0].customrUid = e.data[0].customrUid.c.join("")
+            e.data[0].customerUid = e.data[0].customerUid.c.join("")
+
             callData.code = 0
             callData.text = "success"
             callData.data = {}
@@ -49,6 +50,7 @@ async function YinbaoGetCustomer(phone) {
         let router = "add"
         let e = await request(router, postDataJson)
 
+        e = jsonBigInt.parse(e)
         e.data.customrUid = e.data.customrUid.c.join("")
         e.data.customerUid = e.data.customerUid.c.join("")
 

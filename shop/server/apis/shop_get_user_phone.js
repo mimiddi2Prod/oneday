@@ -2,6 +2,7 @@ var tools = require("./../tool");
 var yinbaoAppId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 
+var jsonBigInt = require('json-bigint')
 // 银豹用户密码加密方式
 // const crypto = require('crypto')
 // const hash = crypto.createHash('md5');
@@ -41,7 +42,6 @@ function SHOPGetUserPhone() {
 
                 // sql = 'update `user` set phone = ? where open_id = ?'
                 // row = await query(sql, [phoneNumber, param["openid"]])
-
                 // 1.获取会员
                 let postData = {
                     "appId": yinbaoAppId,
@@ -50,17 +50,22 @@ function SHOPGetUserPhone() {
                 let postDataJson = JSON.stringify(postData)
                 let router = "queryBytel"
                 let e = await request(router, postDataJson)
+                e = jsonBigInt.parse(e)
 
-                e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
-                e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
-                e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
-                e = e.replace(/,\"categoryName\"/g, "\",\"categoryName\"")
+                // e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
+                // e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
+                // e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
+                // e = e.replace(/,\"categoryName\"/g, "\",\"categoryName\"")
 
-                console.info("获得分类数据：")
+                console.info("获得会员数据：")
                 console.info(e)
-                e = JSON.parse(e)
+                // e = JSON.parse(e)
                 if (e.data) {
                     if (e.data[0].number.length > 0 && e.data[0].number == phoneNumber) {
+
+                        e.data[0].customrUid = e.data[0].customrUid.c.join("")
+                        e.data[0].customerUid = e.data[0].customerUid.c.join("")
+
                         data.code = 0
                         data.text = "success"
                         data.data = {}
@@ -82,14 +87,17 @@ function SHOPGetUserPhone() {
                     let router = "add"
                     let e = await request(router, postDataJson)
 
-                    e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
-                    e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
-                    e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
-                    e = e.replace(/,\"number\"/g, "\",\"number\"")
+                    e = jsonBigInt.parse(e)
+                    e.data.customrUid = e.data.customrUid.c.join("")
+                    e.data.customerUid = e.data.customerUid.c.join("")
+                    // e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
+                    // e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
+                    // e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
+                    // e = e.replace(/,\"number\"/g, "\",\"number\"")
 
                     console.info("获得分类数据：")
                     console.info(e)
-                    e = JSON.parse(e)
+                    // e = JSON.parse(e)
                     if (e.data) {
                         if (e.data.number.length > 0 && e.data.number == phoneNumber) {
                             data.code = 0
@@ -103,7 +111,7 @@ function SHOPGetUserPhone() {
                     }
                 }
 
-                sql = 'update `user` set phone = ?,customerUid = ? where open_id = ?'
+                sql = 'update `user` set phone = ?,customerUid = ?,get_phone_time = current_timestamp where open_id = ?'
                 row = await query(sql, [phoneNumber, data.data.customerUid, param["openid"]])
 
             } catch (err) {
