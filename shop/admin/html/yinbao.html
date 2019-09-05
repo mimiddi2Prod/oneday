@@ -53,10 +53,12 @@
             <!--placeholder="选择截止时间" v-model="end_time">-->
         </div>
 
-        <div id="calendar">
+        <div id="calendar" style="margin: 0 0 10px 0">
             <h4>{{year}}年{{month}}月</h4>
-            <span v-on:click="getDate(n - 1)">上月</span>
-            <span v-on:click="getDate(n + 1)">下月</span>
+            <button class="btn btn-secondary" v-on:click="getDate(n - 1)">上月</button>
+            <button class="btn btn-secondary" v-on:click="getDate(n + 1)">下月</button>
+            <!--<span v-on:click="getDate(n - 1)">上月</span>-->
+            <!--<span v-on:click="getDate(n + 1)">下月</span>-->
         </div>
 
         <table class="table table-bordered">
