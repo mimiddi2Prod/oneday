@@ -12,6 +12,16 @@ function shopGetRefundAmount() {
 
             data.number = Number(total_refund).toFixed(2)
 
+            sql = "select * from yinbao_refund"
+            row = await db.Query(sql)
+            if (row.length > 0) {
+                let yinbaoRefund = 0
+                for (let i in row) {
+                    yinbaoRefund = yinbaoRefund + Number(row[i].total_refund)
+                }
+                data.number = Number(Number(data.number) + yinbaoRefund).toFixed(2)
+            }
+
             return callback(data);
         } catch (e) {
             console.info('boom!!!!!!!!!!!!!')

@@ -37,7 +37,7 @@ function shopGetSales() {
 
             sql = "select * from yinbao_refund where `time` >= ? and `time` <= ?"
             row = await db.Query(sql, [param['start_time'], param['end_time']])
-            console.info(row)
+            // console.info(row)
             if (row.length > 0) {
                 data.yinbaoRefund = row
             }
