@@ -30,8 +30,16 @@ function shopGetSales() {
             // 退款
             sql = "select * from aftersale where state = ? and order_id in (select id from `order` where after_sale_state >= ?) and create_time >= ? and create_time <= ? order by create_time"
             row = await db.Query(sql, [0, 4, param['start_time'], param['end_time']])
+            // console.info(row)
             if (row.length > 0) {
                 data.refund = row
+            }
+
+            sql = "select * from yinbao_refund where `time` >= ? and `time` <= ?"
+            row = await db.Query(sql, [param['start_time'], param['end_time']])
+            console.info(row)
+            if (row.length > 0) {
+                data.yinbaoRefund = row
             }
 
             // 银豹销售额

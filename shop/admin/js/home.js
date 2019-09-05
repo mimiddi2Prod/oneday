@@ -22,7 +22,7 @@ var homeVM = new Vue({
 
         people_dayList: [7, 30],
         people_active: 0,
-        people_data:[[]],
+        people_data: [[]],
         people_data_max: '', //Y轴最大刻度
         people_line_title: ["新增人数"], //曲线名称
         people_y_label: "单位 /人", //Y轴标题
@@ -119,7 +119,7 @@ function formate(time) {
 }
 
 function getSales(time) {
-    homeVM.data = [[],[]]
+    homeVM.data = [[], []]
     let current_time = new Date()
     let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
     let timeParse = year + '-' + month + '-' + date
@@ -186,7 +186,30 @@ function getSales(time) {
                 homeVM.data[1].push(temp)
             }
             homeVM.data_max = max_number
+        } else {
+            for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
+                let temp = 0
+                homeVM.data[1].push(temp)
+            }
         }
+
+        // 银豹退款
+        if (res.yinbaoRefund) {
+            let k = 0
+            for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
+                let temp = 0
+                for (let j in res.yinbaoRefund) {
+                    if (new Date(res.yinbaoRefund[j].time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.yinbaoRefund[j].time).getTime() >= i) {
+                        temp = homeVM.data[1][k] + Number(res.yinbaoRefund[j].total_refund)
+                    }
+                }
+                max_number = temp > max_number ? temp + 200 : max_number
+                homeVM.data[1][k] = temp
+                k++
+            }
+            homeVM.data_max = max_number
+        }
+
         // 银豹收银
         if (res.order) {
             // console.info(res.order)
@@ -195,7 +218,7 @@ function getSales(time) {
                 for (let j in res.order) {
                     if (new Date(res.order[j].start_time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.order[j].start_time).getTime() >= i) {
                         temp = res.order[j].total_price
-                        console.info(temp)
+                        // console.info(temp)
                     }
                 }
                 max_number = temp > max_number ? temp + 200 : max_number
@@ -210,6 +233,11 @@ function getSales(time) {
             //     }
             //     start_time = start_time + (24 * 60 * 60 * 1000)
             // }
+        } else {
+            for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
+                let temp = 0
+                homeVM.data[0].push(temp)
+            }
         }
 
         self.formate(time)
@@ -339,7 +367,7 @@ function people_writeChart() {
     var people_x = homeVM.people_x; //定义X轴刻度值
     var people_title = homeVM.people_title; //统计图标标题
 
-    if(document.getElementById('chart2')){
+    if (document.getElementById('chart2')) {
         document.getElementById('chart_2').innerHTML = ''
     }
     var div = document.createElement("div");
@@ -385,7 +413,7 @@ function writeChart() {
     var x = homeVM.x; //定义X轴刻度值
     var title = homeVM.title; //统计图标标题
 
-    if(document.getElementById('chart1')){
+    if (document.getElementById('chart1')) {
         document.getElementById('chart_1').innerHTML = ''
     }
     var div = document.createElement("div");
