@@ -6,12 +6,17 @@ function shopGetPeople() {
         var data = {}
         var row = []
         try {
-            sql = "select * from `user` where register_time >= ? and register_time <= ? order by register_time"
-            row = await db.Query(sql, [param['start_time'], param['end_time']])
+            sql = "select * from `restaurant_user` where register_time >= ? and register_time <= ? order by register_time"
+            row = await db.Query(sql, [new Date(param['start_time']), new Date(param['end_time'])])
             if (row.length > 0) {
                 data.people = row
             }
 
+            // sql = "select * from `restaurant_user` where register_time >= ? and register_time <= ? and phone != '' order by register_time"
+            // row = await db.Query(sql, [new Date(param['start_time']), new Date(param['end_time'])])
+            // if (row.length > 0) {
+            //     data.member = row
+            // }
             // sql = "select * from aftersale where state = ? and order_id in (select id from `order` where after_sale_state >= ?) and create_time >= ? and create_time <= ? order by create_time"
             // row = await db.Query(sql, [0, 4, param['start_time'], param['end_time']])
             // if (row.length > 0) {

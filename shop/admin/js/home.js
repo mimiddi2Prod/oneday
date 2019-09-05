@@ -22,9 +22,9 @@ var homeVM = new Vue({
 
         people_dayList: [7, 30],
         people_active: 0,
-        people_data: [[]],
+        people_data: [[], []],
         people_data_max: '', //Y轴最大刻度
-        people_line_title: ["新增人数"], //曲线名称
+        people_line_title: ["新增游客", "新增会员"], //曲线名称
         people_y_label: "单位 /人", //Y轴标题
         people_x_label: "日期", //X轴标题
         people_x: [], //定义X轴刻度值
@@ -245,7 +245,7 @@ function getSales(time) {
 }
 
 function getPeople(time) {
-    homeVM.people_data = [[]]
+    homeVM.people_data = [[], []]
     let current_time = new Date()
     let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
     let timeParse = year + '-' + month + '-' + date
@@ -288,14 +288,26 @@ function getPeople(time) {
         let max_number = 10
         if (res.people) {
             for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
-                let temp = 0
+                let temp1 = 0, temp2 = 0
                 for (let j in res.people) {
                     if (new Date(res.people[j].register_time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.people[j].register_time).getTime() >= i) {
-                        temp++
+                        temp1++
+                        if (res.people[j].phone.length > 0) {
+                            temp2++
+                        }
                     }
                 }
+                max_number = temp1 > max_number ? temp1 + 10 : max_number
+                homeVM.people_data[0].push(temp1)
+                homeVM.people_data[1].push(temp2)
+            }
+            homeVM.people_data_max = max_number
+        } else {
+            for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
+                let temp = 0
                 max_number = temp > max_number ? temp + 10 : max_number
                 homeVM.people_data[0].push(temp)
+                homeVM.people_data[2].push(temp)
             }
             homeVM.people_data_max = max_number
         }
