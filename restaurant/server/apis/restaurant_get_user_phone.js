@@ -39,7 +39,7 @@ function RestaurantGetUserPhone() {
                 let rawData = wxParse(demo)
                 let phoneNumber = rawData.phoneNumber
 
-                sql = 'update restaurant_user set phone = ? where open_id = ?'
+                sql = 'update restaurant_user set phone = ?,get_phone_time = current_timestamp where open_id = ?'
                 row = await query(sql, [phoneNumber, param["openid"]])
 
                 // 1.获取会员
