@@ -34,6 +34,11 @@ function Router() {
 					work = new WXClickMenu;
 					break;
 				}
+				case "reply": {
+					var WXReply = require("./apis/wx_reply.js");
+					work = new WXReply;
+					break;
+				}
 				default:
 					break;
 			}

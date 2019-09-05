@@ -12,6 +12,11 @@ onedayonehome:
 	m15659838771@163.com
 	ONEDAY830
 
+onedayjolly@sina.com
+oneday123
+wx96712ce56a31e5b2
+8955558ee139ab858ec66cae41e36828
+
 七牛云：
 【邮箱】
 onedayjolly@163.com 
@@ -66,3 +71,18 @@ userArea:8区
 接口地址前缀（host:port）:https://area8-win.pospal.cn:443/
 appID:0C581113F5EF82EC48A4563EDF4CF4A9
 appKey:718070985931782035
+
+
+
+银豹收银 啾哩好物给予信息
+onedayjolly@sina.com
+oneday123
+
+公众号名称：啾哩女装
+公众号appid：wx96712ce56a31e5b2
+公众号密钥：8955558ee139ab858ec66cae41e36828
+微信支付商户号：1545776151 
+商户号营业执照名称：厦门市思明区玖栗久鲤服装店
+需绑定的银豹账号：newdeli
+是否要开通收银端微信退款功能：否
+商户号是否从银豹申请的：否

@@ -159,37 +159,48 @@ app.use(async (ctx, next) => {
         XMLJS.parseString(data.toString(), (err, result) => {
 			console.info(result)
           if (result) {
-            const event = result.xml.Event[0];
-            if (event === 'subscribe') {
-              // 订阅，获取用户基本信息存入订阅表，建议使用非同步写法以加快response
-              //ctx.service.wechat.saveSubscibeUser(result.xml.FromUserName[0]);
-			  // sendMessage(openid)
-			  let param = {
-				  openid:openid,
-				  eventkey:result.xml.EventKey[0] // 扫描带参二维码并关注,否则为空
-			  }
-			  param = JSON.stringify(param)
-			  router.Run('subscribe_message',param);
-            } else if (event === 'unsubscribe') {
-              // 取消订阅
-              //ctx.service.wechat.deleteSubscibeUser(result.xml.FromUserName[0]);
-            } else if(event === 'SCAN'){
-			  // 扫描二维码进入
-			  let param = {
-				  openid:openid,
-				  eventkey:result.xml.EventKey[0] // 扫描带参二维码且已关注,否则为空
-			  }
-			  param = JSON.stringify(param)
-			  router.Run('scan',param);
-			} else if(event === 'CLICK'){
-			  // 菜单栏点击进入
-			  let param = {
-				  openid:openid,
-				  eventkey:result.xml.EventKey[0] // 点击菜单栏CLICK事件
-			  }
-			  param = JSON.stringify(param)
-			  router.Run('click_menu',param);
+			const msgType = result.xml.MsgType[0]
+			if(msgType === 'event'){
+				const event = result.xml.Event[0];
+				if (event === 'subscribe') {
+				  // 订阅，获取用户基本信息存入订阅表，建议使用非同步写法以加快response
+				  //ctx.service.wechat.saveSubscibeUser(result.xml.FromUserName[0]);
+				  // sendMessage(openid)
+				  let param = {
+					  openid:openid,
+					  eventkey:result.xml.EventKey[0] // 扫描带参二维码并关注,否则为空
+				  }
+				  param = JSON.stringify(param)
+				  router.Run('subscribe_message',param);
+				} else if (event === 'unsubscribe') {
+				  // 取消订阅
+				  //ctx.service.wechat.deleteSubscibeUser(result.xml.FromUserName[0]);
+				} else if(event === 'SCAN'){
+				  // 扫描二维码进入
+				  let param = {
+					  openid:openid,
+					  eventkey:result.xml.EventKey[0] // 扫描带参二维码且已关注,否则为空
+				  }
+				  param = JSON.stringify(param)
+				  router.Run('scan',param);
+				} else if(event === 'CLICK'){
+				  // 菜单栏点击进入
+				  let param = {
+					  openid:openid,
+					  eventkey:result.xml.EventKey[0] // 点击菜单栏CLICK事件
+				  }
+				  param = JSON.stringify(param)
+				  router.Run('click_menu',param);
+				}
+			} else if(msgType === 'text'){
+				let param = {
+					openid:openid,
+					content:result.xml.Content[0]
+				}
+				param = JSON.stringify(param)
+				router.Run('reply',param);
 			}
+				
 			
 			// if(event === 'SCAN'){
 				// let eventKey = result.xml.EventKey[0].split('_')[0];
