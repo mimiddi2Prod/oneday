@@ -31,12 +31,14 @@ async function yinbaoAddOnLineOrder(data = {}) {
         })
     }
     let newArr = []
-    cart.forEach(el=>{
-        const result = newArr.findIndex(ol=>{return el.goodsId === ol.goodsId})
-        if(result!== -1){
+    cart.forEach(el => {
+        const result = newArr.findIndex(ol => {
+            return el.goodsId === ol.goodsId
+        })
+        if (result !== -1) {
             newArr[result].comment = newArr[result].comment + el.comment
             newArr[result].goodsNumber = newArr[result].goodsNumber + el.goodsNumber
-        }else{
+        } else {
             newArr.push(el)
         }
     })
@@ -71,27 +73,28 @@ async function yinbaoAddOnLineOrder(data = {}) {
     if (deliveryType == 1) {
         postData = {
             "appId": appId,
-            "customerNumber":13055257913, // 会员号
+            "customerNumber": 13055000000, // 会员号
             "payMethod": "Wxpay",
             "payOnLine": 1,
             "orderRemark": (data.style == 0 ? "堂食" : "外带"),
+            "dinnersNumber": data.dinnersNumber,
             "orderDateTime": current_time,
             "deliveryType": deliveryType,
             "restaurantTableName": 7, //桌号
-            "contactName": "这是姓名",
-            "contactTel": "这是电话",
+            "contactName": "contactName",
+            "contactTel": "contactTel",
             "items": items
         }
     }
     // return
     // console.info(items)
 
+    console.info('显示推送订单数据')
     console.info(postData)
     let postDataJson = JSON.stringify(postData)
     let router = "addOnLineOrder"
-    console.info(2)
     let e = await request(router, postDataJson)
-    console.info("获得分类数据：")
+    console.info("获得添加订单数据：")
     console.info(e)
     // addOnLineOrder
 

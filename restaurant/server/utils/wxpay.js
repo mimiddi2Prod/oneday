@@ -9,9 +9,10 @@ const xmlParser = new xml2js.Parser()
 // 一个方便的 log 方法
 const log = console.log.bind(console)
 
-var mch_id = '1508603281'//商户号
-var PAY_API_KEY = '81ef119935811ab9339b8c802a2ffc7B'
-var appid = 'wx14dd6120d4882a81'
+const wxConfig = require('./../config/wxConfig')
+var mch_id = wxConfig.mch_id//商户号
+var PAY_API_KEY = wxConfig.PAY_API_KEY
+var appid = wxConfig.appid
 
 // 微信小程序支付入口
 async function payfee(data = {}) {
@@ -34,14 +35,14 @@ async function payfee(data = {}) {
         // 商品简单描述 如：腾讯充值中心-QQ会员充值
         const productIntro = data.body
         //通知地址  确保外网能正常访问
-        const notifyUrl = 'https://www.minidope.com/index.php/home/PubWXPay/notify'
+        const notifyUrl = 'https://www.youyueworld.com/index.php/home/PubWXPay/notify'
         // 生成商家内部自定义的订单号, 商家内部的系统用的, 理论上只要不和其他订单重复, 使用任意的字符串都是可以的
         const tradeId = getTradeId(attach)
         // 生成签名
         // 这里是在 express 获取用户的 ip, 因为使用了 nginx 的反向代理, 所以这样获取
         // let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
         // ip = ip.match(/\d+\.\d+\.\d+\.\d+/)[0]
-        let ip = '47.105.87.66' //终端IP
+        let ip = '120.79.94.138' //终端IP
         // let ip = '127.0.0.1:9001'
         const sign = getPrePaySign(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price)
         // 将微信需要的数据拼成 xml 发送出去

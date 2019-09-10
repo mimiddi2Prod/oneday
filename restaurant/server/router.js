@@ -42,6 +42,11 @@ function FBRouter(){
                     work = new RestaurantGetOrderDetailByTradeid;
                     break;
                 }
+                case "restaurant_payfee":{
+                    var RestaurantPayfee = require("./apis/restaurant_payfee");
+                    work = new RestaurantPayfee;
+                    break;
+                }
                 case "yinbao_get_customer":{
                     var YinbaoGetCustomer = require("./apis/yinbao_get_customer");
                     work = new YinbaoGetCustomer;

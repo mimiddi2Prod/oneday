@@ -1,4 +1,4 @@
-const app = getApp()
+// const app = getApp()
 
 // 接口请求
 function request(url, data = {}, method = "GET") {
@@ -26,10 +26,12 @@ function request(url, data = {}, method = "GET") {
 }
 
 // 微信登录
-function login(){
+function login() {
   wx.login({
     success: function(res) {
-      request('http://127.0.0.1',data = {code:res.code},"post").then(function(res){
+      request('http://127.0.0.1', data = {
+        code: res.code
+      }, "post").then(function(res) {
         console.info(res)
       })
     },
@@ -37,15 +39,15 @@ function login(){
 }
 
 // 微信支付
-function pay(url, money, method = 'get') {
+function pay(url, openid, money, method = 'get') {
   console.info('---请求微信支付---')
-  console.info(app.globalData.openid)
+  console.info(openid)
   console.info(money)
   return new Promise(function(resolve, reject) {
     wx.request({
       url: url,
       data: {
-        openid: app.globalData.openid,
+        openid: openid,
         money: money,
       },
       method: method,

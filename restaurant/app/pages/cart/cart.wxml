@@ -19,6 +19,16 @@
     </view>
   </view>
 
+  <view class="card" style="padding:0 30rpx;">
+    <!-- 用餐人数 -->
+    <view class="dinner-num">
+      <view>人数：</view>
+      <view class="cut" bindtap="cutDinnersNumber">-</view>
+      <input name="dinnersNumber" value="{{dinnersNumber}}" type="number" bindinput="dinnerNum" maxlength = '2' bindblur="blur"></input>
+      <view class="cut" bindtap="addDinnersNumber">+</view>
+    </view>
+  </view>
+
   <view class="card">
     <block wx:for="{{cart}}">
       <view class="goods-info">
@@ -65,4 +75,16 @@
     <text>{{totalPrice}}</text>
   </view>
   <view class="topay" bindtap='submitOrder'>去支付</view>
+</view>
+
+<view class='dialog-login' wx:if="{{showPayMethodDialog}}">
+  <view class='dialog-body' catchtap='onDialogBody'>
+    <view class='title'>请选择支付方式</view>
+    <view class='dialog-content'>
+      <button bindtap="wxPay">微信支付</button>
+      <button bindtap="balancePay">余额支付</button>
+      <button bindtap='payDialog'>取消</button>
+      <!-- <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onWechatLogin">手机号登录</button> -->
+    </view>
+  </view>
 </view>

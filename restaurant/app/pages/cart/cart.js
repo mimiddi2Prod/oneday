@@ -14,19 +14,36 @@ Page({
     totalPrice: 0,
     styleList: ['堂食', '外带'],
     style: 0,
+
+    dinnersNumber: 1,
+    showPayMethodDialog: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.getCart()
   },
 
-  getCart: function () {
+  dinnerNum: function(e) {
+    this.setData({
+      dinnersNumber: Number(e.detail.value)
+    })
+  },
+
+  blur: function(e) {
+    if (Number(e.detail.value) == 0) {
+      this.setData({
+        dinnersNumber: 1
+      })
+    }
+  },
+
+  getCart: function() {
     let cart = app.globalData.cart
     let totalPrice = 0
-    cart = cart.map(function (eData) {
+    cart = cart.map(function(eData) {
       eData.subTotalPrice = eData.price * eData.number
       totalPrice = totalPrice + eData.subTotalPrice
       return eData
@@ -38,21 +55,56 @@ Page({
     console.info(this.data.cart)
   },
 
-  selectStyle: function (e) {
+  selectStyle: function(e) {
     this.setData({
       style: e.currentTarget.dataset.id
     })
   },
 
-  submitOrder: function () {
+
+
+  submitOrder: function() {
+    this.setData({
+      showPayMethodDialog: true
+    })
+  },
+
+  payDialog: function() {
+    this.setData({
+      showPayMethodDialog: false
+    })
+  },
+
+  wxPay: function() {
+    let self = this
+    console.info(app.globalData.openid)
+    server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, "post").then(function(res) {
+      console.info(res)
+      let tradeId = res
+      self.addOrder(tradeId)
+    }).catch(function(res) {
+      wx.showModal({
+        title: '支付失败',
+        content: '请重新支付，支付订单完成大厨就开工啦',
+      })
+    })
+  },
+
+  balancePay: function() {
+
+  },
+
+  addOrder: function (tradeId) {
     let self = this
     console.info(this.data.cart)
     let data = {}
     data.openid = app.globalData.openid
     data.style = self.data.style
-    data.tradeId = util.formatTime(new Date()).toString()
+    data.dinnersNumber = self.data.dinnersNumber
+    // data.tradeId = util.formatTime(new Date()).toString()
+    data.tradeId = tradeId
     data.cart = self.data.cart
-    server.request(api.addOrder, data, "post").then(function (res) {
+    server.request(api.addOrder, data, "post").then(function(res) {
       console.info(res)
       if (res.code == 0) {
         app.globalData.cart = []
@@ -63,52 +115,65 @@ Page({
     })
   },
 
+  cutDinnersNumber: function() {
+    this.setData({
+      dinnersNumber: (this.data.dinnersNumber > 1 ? this.data.dinnersNumber - 1 : this.data.dinnersNumber)
+    })
+  },
+
+  addDinnersNumber: function() {
+    console.info(this.data.dinnersNumber)
+    this.setData({
+      dinnersNumber: (this.data.dinnersNumber + 1)
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
