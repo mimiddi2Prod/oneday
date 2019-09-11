@@ -31,6 +31,7 @@ App({
     point: 0,
     balance: 0,
     discount: 0,
-    isCustomer: false
+    isCustomer: false,
+    customerUid:0,
   }
 })

@@ -3,6 +3,7 @@ var yinbaoAppId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 // var https = require('https');
 // var secret = wxConfig.secret
+var jsonBigInt = require('json-bigint')
 
 function YinbaoGetPhone() {
     var tool = new tools;
@@ -29,9 +30,10 @@ function YinbaoGetPhone() {
                 let postDataJson = JSON.stringify(postData)
                 let router = "queryBytel"
                 let e = await request(router, postDataJson)
-                console.info("获得分类数据：")
+                e = jsonBigInt.parse(e)
+                console.info("获得用户数据：")
                 console.info(e)
-                e = JSON.parse(e)
+                // e = JSON.parse(e)
                 if (e.data) {
                     if (e.data[0].number.length > 0 && e.data[0].number == param["phone"]) {
                         // data.code = 0
@@ -40,6 +42,7 @@ function YinbaoGetPhone() {
                         data.point = e.data[0].point
                         data.balance = e.data[0].balance
                         data.discount = e.data[0].discount
+                        data.customerUid = e.data[0].customerUid
                     }
                 } else {
                     // 2.没查询到对应的会员卡 注册
@@ -53,9 +56,10 @@ function YinbaoGetPhone() {
                     console.info(postDataJson)
                     let router = "add"
                     let e = await request(router, postDataJson)
-                    console.info("获得分类数据：")
+                    e = jsonBigInt.parse(e)
+                    console.info("获得新增用户数据：")
                     console.info(e)
-                    e = JSON.parse(e)
+                    // e = JSON.parse(e)
                     if (e.data) {
                         if (e.data.number.length > 0 && e.data.number == param["phone"]) {
                             // data.code = 0
@@ -64,6 +68,7 @@ function YinbaoGetPhone() {
                             data.point = e.data.point
                             data.balance = e.data.balance
                             data.discount = e.data.discount
+                            data.customerUid = e.data.customerUid
                         }
                     }
                 }

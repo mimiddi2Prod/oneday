@@ -21,7 +21,7 @@ async function payfee(data = {}) {
         console.info(data)
 
         // attach 是一个任意的字符串, 会原样返回, 可以用作一个标记
-        const attach = 'nw'
+        const attach = 'br'
         // 一个随机字符串
         const nonceStr = getNonceStr()
         // 用户的 openId

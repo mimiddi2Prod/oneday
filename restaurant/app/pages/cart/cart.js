@@ -91,10 +91,54 @@ Page({
   },
 
   balancePay: function() {
-
+    let self = this
+    let data = {}
+    console.info(app.globalData.customerUid)
+    if (!app.globalData.isCustomer) {
+      wx.showModal({
+        title: '支付失败',
+        content: '您还没有办理会员卡，是否前往注册',
+        success: function(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../customer/customer',
+            })
+          }
+        }
+      })
+      return
+    }
+    if (self.data.totalPrice > app.globalData.balance) {
+      wx.showModal({
+        title: '支付失败',
+        content: '会员卡余额不足，请前往前台充值',
+        showCancel: false
+      })
+      return
+    }
+    data.customerUid = app.globalData.customerUid
+    data.balanceIncrement = self.data.totalPrice
+    data.pointIncrement = self.data.totalPrice
+    server.request(api.balancePay, data, "post").then(function(res) {
+      console.info(res)
+      let tradeId = self.getTradeId()
+      self.addOrder(tradeId)
+    })
   },
 
-  addOrder: function (tradeId) {
+  getTradeId: function () {
+    var date = new Date().getTime().toString()
+    var text = ""
+    var possible = "0123456789"
+    for (var i = 0; i < 5; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    var tradeId = 'br_' + date + text + 'y'
+    console.info(tradeId)
+    return tradeId
+  },
+
+  addOrder: function(tradeId) {
     let self = this
     console.info(this.data.cart)
     let data = {}

@@ -1,13 +1,13 @@
 var tools = require("./../tool");
 
-function RestaurantAddOrder() {
+function RestaurantYinbaoPay() {
     var tool = new tools;
     var log = tool.log;
     var query = tool.query;
 
     this.Run = async function (ver, param, res) {
-        var name = "RestaurantAddOrder::Run";
-        log.debug("RestaurantAddOrder::Run.in");
+        var name = "RestaurantYinbaoPay::Run";
+        log.debug("RestaurantYinbaoPay::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -48,8 +48,8 @@ function RestaurantAddOrder() {
                 data: data,
                 action: "add_order",
             }, res);
-        tool.log.debug("RestaurantAddOrder::Run.out");
+        tool.log.debug("RestaurantYinbaoPay::Run.out");
     }
 }
 
-module.exports = RestaurantAddOrder;
+module.exports = RestaurantYinbaoPay;
