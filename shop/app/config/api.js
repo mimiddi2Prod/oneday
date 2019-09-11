@@ -1,5 +1,5 @@
-const rootUrl = "http://127.0.0.1:9001/apis/"
-// const rootUrl = "https://shop.minidope.com/apis/"
+// const rootUrl = "http://127.0.0.1:9001/apis/"
+const rootUrl = "https://shop.minidope.com/apis/"
 
 module.exports = {
   getOpenid: rootUrl + 'get_openid',

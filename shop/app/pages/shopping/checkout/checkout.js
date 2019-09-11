@@ -198,7 +198,7 @@ Page({
           if (res.code == 0) {
             app.globalData.balance = res.data.balanceAfterUpdate
             app.globalData.point = res.data.pointAfterUpdate
-            self.addOrderByState(1, self.getTradeId('yb'))
+            self.addOrderByState(1, self.getTradeId('y'))
           }
         })
       } else {
@@ -263,7 +263,7 @@ Page({
       if (res.code == 0) {
         app.globalData.balance = res.data.balanceAfterUpdate
         app.globalData.point = res.data.pointAfterUpdate
-        // self.addOrderByState(1, self.getTradeId('yb'))
+        // self.addOrderByState(1, self.getTradeId('y'))
       }
     })
   },

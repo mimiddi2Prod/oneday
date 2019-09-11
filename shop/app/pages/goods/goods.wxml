@@ -4,11 +4,11 @@
       <image src="{{item}}" background-size="cover"></image>
     </swiper-item>
   </swiper>
-  <view class="service-policy" wx:if="{{goods.group_id <= 0}}">
+  <!-- <view class="service-policy" wx:if="{{goods.group_id <= 0}}">
     <view class="item">30天无忧退货</view>
     <view class="item">48小时快速退款</view>
     <view class="item">满88元免邮费</view>
-  </view>
+  </view> -->
   <view class="goods-info">
     <view class="c">
       <text class="name">{{goods.name}}</text>
@@ -82,7 +82,7 @@
   </view>
 
 
-  <view class="common-problem">
+  <!-- <view class="common-problem">
     <view class="h">
       <view class="line"></view>
       <text class="title">常见问题</text>
@@ -98,7 +98,7 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
 
   <!-- <view class="related-goods" wx:if="{{relatedGoods.length > 0}}">
     <view class="h">

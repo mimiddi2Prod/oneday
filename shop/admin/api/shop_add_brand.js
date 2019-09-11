@@ -1,5 +1,7 @@
 // var tools = require("./tool");
 var db = require("./../utils/dba");
+const qiniuRootUrl = require("./../config/qiniuConfig").qiniuRootUrl
+
 function shopAddBrand() {
     // var tool = new tools;
     // var query = tool.query;
@@ -8,7 +10,6 @@ function shopAddBrand() {
         var data = {}
         var row = []
         try {
-            var qiniuRootUrl = "http://notwastingqiniu.minidope.com/"
             // 单张图上传
             var img = qiniuRootUrl + param['imgList'][0]
 

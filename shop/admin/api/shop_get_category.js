@@ -33,9 +33,15 @@ function shopGetCategory() {
                 row = await db.Query(sql, 0);
                 data.number = row[0]['count(id)']
                 // 全部拉取
-                sql = "select id,name,image,url,create_time,parent_id,`type`,home_nav,sort,`describe` from category where `type` = ? ORDER BY sort limit ?,?";
-                console.info(sql)
-                row = await db.Query(sql, [0, param['last_id'] * 5, 5]);
+                if(param['last_id'] >= 0){
+                    sql = "select id,name,image,url,create_time,parent_id,`type`,home_nav,sort,`describe` from category where `type` = ? ORDER BY sort limit ?,?";
+                    console.info(sql)
+                    row = await db.Query(sql, [0, param['last_id'] * 5, 5]);
+                }else{
+                    sql = "select id,name,image,url,create_time,parent_id,`type`,home_nav,sort,`describe` from category where `type` = ? ORDER BY sort";
+                    row = await db.Query(sql, 0);
+                }
+
                 data.sortList = row
                 for (var i in data.sortList) {
                     sql = "select id,name,image,url,create_time,`type`,home_nav,sort from category where `type` = ? and parent_id = ? ORDER BY sort";

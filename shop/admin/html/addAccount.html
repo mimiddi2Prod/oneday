@@ -12,7 +12,7 @@
     <script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="../jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <!--<link rel="stylesheet" type="text/css"-->
-          <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../layDate-v5.0.9/laydate/laydate.js"></script> <!--时间控件-->
@@ -38,7 +38,7 @@
         <div class="jumbotron">
             <!-- 类目 添加分类 -->
             <div class="title row-center">
-                <h4><span v-on:click="changePage('account')">账号管理</span><span
+                <h4><span v-on:click="window.location.href = 'account'">账号管理</span><span
                         class="glyphicon glyphicon-menu-right"></span><span>子账号添加</span></h4>
             </div>
 
@@ -50,7 +50,8 @@
                     <div class="index">登录名</div>
                     <div class="item">
                         <input v-model="login_name" type="text" class="form-control" name=""/>
-                        <div class="text">由字母或数字组成，不超过8位，登录时使用，暂不支持修改</div></div>
+                        <div class="text">由字母或数字组成，不超过8位，登录时使用，暂不支持修改</div>
+                    </div>
                 </div>
 
                 <div class="sort row-center">
@@ -75,72 +76,133 @@
 
                 <div class="sort row-center">
                     <div class="index">确认密码</div>
-                    <div class="item"><input v-model="check_password" type="password" class="form-control" name=""/></div>
+                    <div class="item"><input v-model="check_password" type="password" class="form-control" name=""/>
+                    </div>
                 </div>
             </div>
 
             <!-- 岗位信息 -->
-            <div class="subtitle">
-                <div>岗位信息</div>
-                <div class="sort row-center">
-                    <div class="index">岗位与权限</div>
-                    <div class="select">
-                        <form role="form">
-                            <div class="form-group" style="width: 300px">
-                                <select class="form-control" v-model="position_id">
-                                    <option disabled="" value="" selected="selected">请选择岗位</option>
-                                    <option v-for="item in positionList" v-bind:value="item.id">{{item.name}}</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            <!--<div class="subtitle">-->
+            <!--<div>岗位信息</div>-->
+            <!--<div class="sort row-center">-->
+            <!--<div class="index">岗位与权限</div>-->
+            <!--<div class="select">-->
+            <!--<form role="form">-->
+            <!--<div class="form-group" style="width: 300px">-->
+            <!--<select class="form-control" v-model="position_id">-->
+            <!--<option disabled="" value="" selected="selected">请选择岗位</option>-->
+            <!--<option v-for="item in positionList" v-bind:value="item.id">{{item.name}}</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--</form>-->
+            <!--</div>-->
+            <!--</div>-->
 
-                <div class="sort row-center">
-                    <div class="index">岗位权限</div>
-                    <!--<div class="item">-->
-                    <!--订单管理-->
-                    <!--</div>-->
-                    <div class="item column">
-                        <label class="form-check-label" v-if="select_position_detail.goods_manage == 0">
-                            <!--<input class="form-check-input" type="checkbox" name=""> -->
-                            商品管理
-                        </label>
-                        <div>
-                            <label class="form-check-label" v-if="select_position_detail.order_manage == 0 || select_position_detail.order_update_price == 0 || select_position_detail.order_refund == 0 || select_position_detail.order_other == 0">
-                                <!--<input class="form-check-input" type="checkbox" name=""> -->
-                                订单管理
-                            </label>
-                            <div style="position: relative" v-if="select_position_detail.order_update_price == 0">
-                                <span class="fenzhi"></span>
-                                <label class="form-check-label" style="margin-left: 30px">
-                                    <!--<input class="form-check-input" type="checkbox" name=""> -->
-                                    可改价
+            <!--<div class="sort row-center">-->
+            <!--<div class="index">岗位权限</div>-->
+            <!--&lt;!&ndash;<div class="item">&ndash;&gt;-->
+            <!--&lt;!&ndash;订单管理&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--<div class="item column">-->
+            <!--<label class="form-check-label" v-if="select_position_detail.goods_manage == 0">-->
+            <!--&lt;!&ndash;<input class="form-check-input" type="checkbox" name=""> &ndash;&gt;-->
+            <!--商品管理-->
+            <!--</label>-->
+            <!--<div>-->
+            <!--<label class="form-check-label" v-if="select_position_detail.order_manage == 0 || select_position_detail.order_update_price == 0 || select_position_detail.order_refund == 0 || select_position_detail.order_other == 0">-->
+            <!--&lt;!&ndash;<input class="form-check-input" type="checkbox" name=""> &ndash;&gt;-->
+            <!--订单管理-->
+            <!--</label>-->
+            <!--<div style="position: relative" v-if="select_position_detail.order_update_price == 0">-->
+            <!--<span class="fenzhi"></span>-->
+            <!--<label class="form-check-label" style="margin-left: 30px">-->
+            <!--&lt;!&ndash;<input class="form-check-input" type="checkbox" name=""> &ndash;&gt;-->
+            <!--可改价-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--<div style="position: relative" v-if="select_position_detail.order_refund == 0">-->
+            <!--<span class="fenzhi"></span>-->
+            <!--<label class="form-check-label" style="margin-left: 30px">-->
+            <!--&lt;!&ndash;<input class="form-check-input" type="checkbox" name=""> &ndash;&gt;-->
+            <!--可操作退款-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--<div style="position: relative" v-if="select_position_detail.order_other == 0">-->
+            <!--<span class="fenzhi"></span>-->
+            <!--<label class="form-check-label" style="margin-left: 30px">-->
+            <!--&lt;!&ndash;<input class="form-check-input" type="checkbox" name=""> &ndash;&gt;-->
+            <!--其他操作-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<label class="form-check-label" v-if="select_position_detail.info_manage == 0">-->
+            <!--&lt;!&ndash;<input class="form-check-input" type="checkbox" name=""> &ndash;&gt;-->
+            <!--消息管理-->
+            <!--</label>-->
+            <!--<label class="form-check-label" v-if="select_position_detail.user_manage == 0">-->
+            <!--&lt;!&ndash;<input class="form-check-input" type="checkbox" name=""> &ndash;&gt;-->
+            <!--客户管理-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--分类信息-->
+            <div class="subtitle">
+                <div>权限设置</div>
+                <div class="subtitle">
+                    <div>分类权限</div>
+                    <div class="sort row-center">
+                        <div class="index"></div>
+                        <div class="item column">
+                            <div v-for="item,index in categoryList">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" name="" v-model="item.checked"
+                                           v-on:change="checkedCate(item.id)">
+                                    {{item.name}}
                                 </label>
+                                <div style="position: relative" v-if="item.menu.length > 0"
+                                     v-for="itemMenu,indexMenu in item.menu">
+                                    <span class="fenzhi"></span>
+                                    <label class="form-check-label" style="margin-left: 30px">
+                                        <input class="form-check-input" type="checkbox" name=""
+                                               v-model="itemMenu.checked" v-on:change="checkedSubCate(index)">
+                                        {{itemMenu.name}}
+                                    </label>
+                                </div>
                             </div>
-                            <div style="position: relative" v-if="select_position_detail.order_refund == 0">
-                                <span class="fenzhi"></span>
-                                <label class="form-check-label" style="margin-left: 30px">
-                                    <!--<input class="form-check-input" type="checkbox" name=""> -->
-                                    可操作退款
-                                </label>
-                            </div>
-                            <div style="position: relative" v-if="select_position_detail.order_other == 0">
-                                <span class="fenzhi"></span>
-                                <label class="form-check-label" style="margin-left: 30px">
-                                    <!--<input class="form-check-input" type="checkbox" name=""> -->
-                                    其他操作
-                                </label>
-                            </div>
+                            <!--<div>-->
+                            <!--<label class="form-check-label">-->
+                            <!--<input class="form-check-input" type="checkbox" id="orderManage" name="orderManage">-->
+                            <!--订单管理-->
+                            <!--</label>-->
+                            <!--<div style="position: relative">-->
+                            <!--<span class="fenzhi"></span>-->
+                            <!--<label class="form-check-label" style="margin-left: 30px">-->
+                            <!--<input class="form-check-input" type="checkbox" name="">-->
+                            <!--可改价-->
+                            <!--</label>-->
+                            <!--</div>-->
+                            <!--<div style="position: relative">-->
+                            <!--<span class="fenzhi"></span>-->
+                            <!--<label class="form-check-label" style="margin-left: 30px">-->
+                            <!--<input class="form-check-input" type="checkbox" name=""> 可操作退款-->
+                            <!--</label>-->
+                            <!--</div>-->
+                            <!--<div style="position: relative">-->
+                            <!--<span class="fenzhi"></span>-->
+                            <!--<label class="form-check-label" style="margin-left: 30px">-->
+                            <!--<input class="form-check-input" type="checkbox" name=""> 其他操作-->
+                            <!--</label>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<label class="form-check-label">-->
+                            <!--<input class="form-check-input" type="checkbox" name=""> 消息管理-->
+                            <!--</label>-->
+                            <!--<label class="form-check-label">-->
+                            <!--<input class="form-check-input" type="checkbox" name=""> 客户管理-->
+                            <!--</label>-->
                         </div>
-                        <label class="form-check-label" v-if="select_position_detail.info_manage == 0">
-                            <!--<input class="form-check-input" type="checkbox" name=""> -->
-                            消息管理
-                        </label>
-                        <label class="form-check-label" v-if="select_position_detail.user_manage == 0">
-                            <!--<input class="form-check-input" type="checkbox" name=""> -->
-                            客户管理
-                        </label>
                     </div>
                 </div>
             </div>

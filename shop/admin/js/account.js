@@ -17,25 +17,25 @@ var accountVM = new Vue({
     },
     methods: {
         // 跳转添加推荐位需要
-        changePage: function (e, id) {
-            if (id) {
-                if (this.navId == 0) {
-                    let temp = this.accountList.filter(function (res) {
-                        return res.id == id
-                    })
-                    sessionStorage.setItem("editAccountList", JSON.stringify(temp));
-                } else {
-                    let temp = this.positionDetailList.filter(function (res) {
-                        return res.id == id
-                    })
-                    sessionStorage.setItem("editPositionList", JSON.stringify(temp));
-                }
-            }
-
-            var href = './' + e + '.html'
-            $("#container").load(href);
-            sessionStorage.setItem("href", href);
-        },
+        // changePage: function (e, id) {
+        //     if (id) {
+        //         if (this.navId == 0) {
+        //             let temp = this.accountList.filter(function (res) {
+        //                 return res.id == id
+        //             })
+        //             sessionStorage.setItem("editAccountList", JSON.stringify(temp));
+        //         } else {
+        //             let temp = this.positionDetailList.filter(function (res) {
+        //                 return res.id == id
+        //             })
+        //             sessionStorage.setItem("editPositionList", JSON.stringify(temp));
+        //         }
+        //     }
+        //
+        //     var href = './' + e + '.html'
+        //     $("#container").load(href);
+        //     sessionStorage.setItem("href", href);
+        // },
         // 删除按钮弹窗
         delItem: function (index) {
             const body = this.accountList[index].text

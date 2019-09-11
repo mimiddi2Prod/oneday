@@ -18,19 +18,22 @@ Page({
         image: '/images/dingwei.png',
         name: '地址管理',
         url: 'address',
-      }, {
-        image: '/images/dianpu.png',
-        name: '积分商城',
-        url: 'integral',
-      }, {
+      }, 
+      // {
+      //   image: '/images/dianpu.png',
+      //   name: '积分商城',
+      //   url: 'integral',
+      // }, 
+      {
         image: '/images/kuaidi.png',
         name: '我的退换货',
         url: 'afterSale/afterSale',
-      }, {
-        image: '/images/duihua.png',
-        name: '不浪费商城用户协议',
-        url: 'userAgreement',
-      }
+      },
+      //  {
+      //   image: '/images/duihua.png',
+      //   name: '不浪费商城用户协议',
+      //   url: 'userAgreement',
+      // }
       // , {
       //   image: '/images/tongzhi.png',
       //   name: '消息通知',

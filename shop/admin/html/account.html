@@ -40,34 +40,35 @@
             <h4>子账号管理</h4>
         </div>
 
-        <div class="nav-1">
-            <ul class="nav nav-tabs">
-                <li v-bind:class="(index == navId ? 'active' : '')" v-for="item,index in navList"
-                    v-on:click="changeNav(index)"><a href="javascript:;">{{item}}</a></li>
-            </ul>
-        </div>
+        <!--<div class="nav-1">-->
+            <!--<ul class="nav nav-tabs">-->
+                <!--<li v-bind:class="(index == navId ? 'active' : '')" v-for="item,index in navList"-->
+                    <!--v-on:click="changeNav(index)"><a href="javascript:;">{{item}}</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
 
         <div class="nav-1">
-            <ul class="nav nav-tabs">
-                <div class="row-center" style="display: block" v-if="navId == 0">
-                    <div class="select">
-                        <form role="form" style="width: 30%">
-                            <div class="form-group">
-                                <select class="form-control" v-model="position_id" v-on:change="getAccount()">
-                                    <option v-for="item in positionList" v-bind:value="item.id">{{item.name}}</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </ul>
+            <!--<ul class="nav nav-tabs">-->
+                <!--<div class="row-center" style="display: block" v-if="navId == 0">-->
+                    <!--<div class="select">-->
+                        <!--<form role="form" style="width: 30%">-->
+                            <!--<div class="form-group">-->
+                                <!--<select class="form-control" v-model="position_id" v-on:change="getAccount()">-->
+                                    <!--<option v-for="item in positionList" v-bind:value="item.id">{{item.name}}</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</form>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</ul>-->
+            <span style="opacity: 0"></span>
             <div class="row-center" style="align-items: end;margin-bottom: 15px">
-                <button type="button" class="btn btn-danger" v-on:click="changePage('account-add')" v-if="navId == 0">
+                <button type="button" class="btn btn-danger" v-on:click="window.location.href = 'addAccount'" v-if="navId == 0">
                     新建子账号
                 </button>
-                <button type="button" class="btn btn-danger" v-on:click="changePage('position-add')" v-if="navId == 1">
-                    新建岗位
-                </button>
+                <!--<button type="button" class="btn btn-danger" v-on:click="window.location.href = 'addPosition'" v-if="navId == 1">-->
+                    <!--新建岗位-->
+                <!--</button>-->
             </div>
         </div>
 
@@ -76,8 +77,8 @@
             <nav class="navbar navbar-default" role="navigation">
                 <div class="item">
                     <span class="second-title have-border column-center">登录名</span>
-                    <span class="second-title have-border column-center">昵称</span>
-                    <span class="second-title have-border column-center">岗位</span>
+                    <!--<span class="second-title have-border column-center">昵称</span>-->
+                    <!--<span class="second-title have-border column-center">岗位</span>-->
                     <span class="second-title have-border column-center">状态</span>
                     <span class="first-title column-center">操作</span>
                 </div>

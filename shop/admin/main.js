@@ -159,6 +159,8 @@ app.use(function (req, res, next) {
                     showPaper('html/addAccount.html');
                 } else if (type[1] == 'editAccount') {
                     showPaper('html/editAccount.html');
+                } else if (type[1] == 'addPosition') {
+                    showPaper('html/addPosition.html');
                 } else if (type[1] == 'yinbao') {
                     showPaper('html/yinbao.html');
                 } else {
