@@ -81,11 +81,6 @@ var editGoodsVM = new Vue({
         // testList2:[]
     },
     methods: {
-        changePage: function (e) {
-            var href = './' + e + '.html'
-            $("#container").load(href);
-            sessionStorage.setItem("href", href);
-        },
         getImg: function (id) {
             let imgUploadList = []
             const self = this, type = 'goods_'
@@ -727,7 +722,7 @@ $(document).ready(function () {
 
 function getCurrentGoodsInfo() {
     let current_goods_List = JSON.parse(sessionStorage.getItem('editGoods'))[0]
-    // console.info('获取当前商品数据\n' + JSON.stringify(current_goods_List))
+    console.info('获取当前商品数据\n' + JSON.stringify(current_goods_List))
     if (current_goods_List.image.length > 0) {
         current_goods_List.image.map(function (res) {
             editGoodsVM.imgList.push({
@@ -750,7 +745,7 @@ function getCurrentGoodsInfo() {
     editGoodsVM.typeValue = current_goods_List.type
     editGoodsVM.category_parent_id_select = current_goods_List.category_parent_id
     getCategory(1, current_goods_List.category_parent_id)
-    editGoodsVM.category_id_select = current_goods_List.category_id
+    editGoodsVM.category_id_select = current_goods_List.category_id_1
     editGoodsVM.sizeAndPrice = current_goods_List.param
     for (let i = 0; i <= 1; i++) {
         // editGoodsVM.SortItem[i].select = select
