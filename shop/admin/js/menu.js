@@ -9,6 +9,7 @@ var menuVM = new Vue({
         getMenu: function () {
             let self = this
             let url = api.getMenu, data = {}, async = false
+            data.type = sessionStorage.getItem('type')
             server(url, data, async, "post", function (res) {
                 // console.info(res)
                 self.menu = res.menu
@@ -31,6 +32,9 @@ var menuVM = new Vue({
         }
         if(tag == 'orderDetail'){
             tag = 'order'
+        }
+        if(tag == 'addAccount'){
+            tag = 'account'
         }
         this.activeMenuTag = tag
     }

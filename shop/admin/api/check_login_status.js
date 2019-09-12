@@ -12,8 +12,9 @@ module.exports = async function (cookie) {
             data.text = false
             return data
         } else {
-            let sql = 'select token_expire from admin where token = ?'
+            let sql = 'select `type`,token_expire from admin where token = ?'
             let row = await db.Query(sql, cookie.token)
+            data.type = row[0].type
             let current_time = new Date()
             let token_expire = new Date(row[0].token_expire)
             if (row.length > 0) {

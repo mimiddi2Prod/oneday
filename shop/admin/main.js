@@ -116,7 +116,7 @@ app.use(function (req, res, next) {
             console.info(eData)
             if (!eData.text) {
                 showPaper('index.html')
-            } else {
+            } else if (eData.type == 0) {
                 if (type[1] == '') {
                     showPaper('index.html')
                 } else if (type[1] == 'home') {
@@ -163,6 +163,12 @@ app.use(function (req, res, next) {
                     showPaper('html/addPosition.html');
                 } else if (type[1] == 'yinbao') {
                     showPaper('html/yinbao.html');
+                } else {
+                    showPaper('html/404.html')
+                }
+            } else if (eData.type == 1) {
+                if (type[1] == 'goods') {
+                    showPaper('html/goods.html');
                 } else {
                     showPaper('html/404.html')
                 }

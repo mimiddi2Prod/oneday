@@ -58,16 +58,20 @@ function login(username, password) {
     data.password = password
     server(url, data, async, "post", function (res) {
         if (res.text == "login is success") {
-            console.info(res)
+            // console.info(res)
             let current_time = new Date()
             current_time.setTime(current_time.getTime() + 12 * 60 * 60 * 1000);
             document.cookie = 'id' + "=" + res.id + ";expires=" + current_time.toGMTString() + ";path=/";
             document.cookie = 'token' + "=" + res.token + ";expires=" + current_time.toGMTString() + ";path=/";
 
             sessionStorage.setItem("user_id", res.id);
-            // sessionStorage.setItem("str", res.str);
-            //
-            window.location.href = './home';
+            sessionStorage.setItem("type", res.type);
+            if(res.type == 0){
+                window.location.href = './home';
+            }else if(res.type == 1){
+                window.location.href = './goods';
+                sessionStorage.setItem("cate", res.cate);
+            }
         } else {
             alert(res.text)
         }
