@@ -9,9 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "blueimp-md5": "^2.12.0",
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "https": "^1.0.0",
+    "json-bigint": "^0.3.0",
     "mysql": "^2.17.1",
     "net": "^1.0.2",
     "path": "^0.12.7",
