@@ -873,8 +873,8 @@ function addSpecification(name) {
     const url = api.addSpecification, async = true
     let data = {}
     data.name = name
-    // data.user_id = sessionStorage.getItem('user_id')
-    data.user_id = 0
+    data.user_id = sessionStorage.getItem('user_id')
+    // data.user_id = 0
     server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.text == '添加成功') {
@@ -899,8 +899,8 @@ function editGoods() {
     const url = api.updateGoods, async = true
     let data = {}
     data.goods_id = editGoodsVM.goods_id
-    // data.user_id = sessionStorage.getItem('user_id')
-    data.user_id = 0
+    data.user_id = sessionStorage.getItem('user_id')
+    // data.user_id = 0
     data.imgList = editGoodsVM.imgList
     //     .map(function (res) {
     //     if (res.key) {

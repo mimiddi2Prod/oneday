@@ -222,8 +222,8 @@ function addCategory(type, parent_id) {
     data.parent_id = parent_id
     data.name = categoryVM.sortModalText
     data.sort = categoryVM.sortModalSort
-    // data.user_id = sessionStorage.getItem('user_id')
-    data.user_id = 0
+    data.user_id = sessionStorage.getItem('user_id')
+    // data.user_id = 0
     data.imgList = []
     for (let i in categoryVM.sortModalImg) {
         data.imgList.push(categoryVM.sortModalImg[i].key)

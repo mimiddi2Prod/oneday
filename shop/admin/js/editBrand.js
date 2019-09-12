@@ -113,8 +113,8 @@ function updateBrand(state) {
     data.sort = editBrandVM.sort
     data.price = editBrandVM.price
     data.url = editBrandVM.url_select
-    // data.user_id = sessionStorage.getItem('user_id')
-    data.user_id = 0
+    data.user_id = sessionStorage.getItem('user_id')
+    // data.user_id = 0
     data.imgList = editBrandVM.imageList
     server(url, data, async, "post", function (res) {
         if (res.text == '编辑成功') {

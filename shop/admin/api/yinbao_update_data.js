@@ -38,7 +38,7 @@ function yinbaoUpdateData() {
                     if (CategoryResult[i].name == "食品") {
                         bigCateUid = CategoryResult[i].uid
                     }
-                    if (CategoryResult[i].parentUid == bigCateUid) {
+                    if (CategoryResult[i].parentUid != 0 && CategoryResult[i].parentUid == bigCateUid) {
                         littleCateUidList.push({
                             name: CategoryResult[i].name,
                             uid: CategoryResult[i].uid

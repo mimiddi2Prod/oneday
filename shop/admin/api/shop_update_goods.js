@@ -9,7 +9,7 @@ function shopUpdateGoods() {
         var data = {}
         var row = []
         try {
-            if (!param['user_id']) {
+            if (!param['user_id'].toString()) {
                 console.info('user_id没有获取到')
             } else if (!param['goods_id']) {
                 console.info('商品Id没有获取到')
@@ -21,9 +21,11 @@ function shopUpdateGoods() {
                 console.info('goods_desc没有获取到')
             } else if (!param['goods_brand_id']) {
                 console.info('goods_brand_id没有获取到')
-            } else if (!param['qcl_id']) {
-                console.info('qcl_id没有获取到')
-            } else if (!param['type'].toString()) {
+            }
+            // else if (!param['qcl_id']) {
+            //     console.info('qcl_id没有获取到')
+            // }
+            else if (!param['type'].toString()) {
                 console.info('type没有获取到')
             } else if (!param['integralValue'].toString()) {
                 console.info('integralValue没有获取到')

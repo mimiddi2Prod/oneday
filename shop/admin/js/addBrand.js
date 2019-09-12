@@ -107,8 +107,8 @@ function addBrand(state) {
     data.sort = addBrandVM.sort
     data.price = addBrandVM.price
     data.url = addBrandVM.url_select
-    // data.user_id = sessionStorage.getItem('user_id')
-    data.user_id = 0
+    data.user_id = sessionStorage.getItem('user_id')
+    // data.user_id = 0
     data.imgList = []
     for (let i in addBrandVM.imageList) {
         data.imgList.push(addBrandVM.imageList[i].key)
