@@ -168,7 +168,7 @@ function yinbaoUpdateData() {
                 }
             }
 
-
+            data.code = 1
             return callback(data);
         } catch (e) {
             console.info('boom!!!!!!!!!!!!!')

@@ -15,6 +15,9 @@ var yinbaoVM = new Vue({
             let data = {}
             server(url, data, async, "post", function (res) {
                 console.info(res)
+                if(res.code == 1){
+                    alert('更新brunch小程序菜单成功')
+                }
             })
         },
         updateRefund: function (day, refund) {

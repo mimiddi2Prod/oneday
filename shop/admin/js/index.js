@@ -71,6 +71,8 @@ function login(username, password) {
             }else if(res.type == 1){
                 window.location.href = './goods';
                 sessionStorage.setItem("cate", res.cate);
+            }else if(res.type == 2){
+                window.location.href = './yinbao';
             }
         } else {
             alert(res.text)

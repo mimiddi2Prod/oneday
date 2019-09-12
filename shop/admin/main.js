@@ -167,8 +167,18 @@ app.use(function (req, res, next) {
                     showPaper('html/404.html')
                 }
             } else if (eData.type == 1) {
-                if (type[1] == 'goods') {
+                if (type[1] == '') {
+                    showPaper('index.html')
+                }else if (type[1] == 'goods') {
                     showPaper('html/goods.html');
+                } else {
+                    showPaper('html/404.html')
+                }
+            } else if (eData.type == 2) {
+                if (type[1] == '') {
+                    showPaper('index.html')
+                }else if (type[1] == 'yinbao') {
+                    showPaper('html/yinbao.html');
                 } else {
                     showPaper('html/404.html')
                 }
