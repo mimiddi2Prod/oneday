@@ -81,7 +81,20 @@ Page({
     server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, "post").then(function(res) {
       console.info(res)
       let tradeId = res
-      self.addOrder(tradeId)
+      self.addOrder(tradeId, 'Wxpay')
+
+      if (app.globalData.customerUid) {
+        let data = {}
+        data.customerUid = app.globalData.customerUid
+        data.balanceIncrement = 0
+        data.pointIncrement = self.data.totalPrice
+        server.request(api.balancePay, data, "post").then(function(res) {
+          if (res.code == 0) {
+            app.globalData.balance = res.data.balanceAfterUpdate
+            app.globalData.point = res.data.pointAfterUpdate
+          }
+        })
+      }
     }).catch(function(res) {
       wx.showModal({
         title: '支付失败',
@@ -116,17 +129,19 @@ Page({
       })
       return
     }
-    data.customerUid = app.globalData.customerUid
-    data.balanceIncrement = self.data.totalPrice
-    data.pointIncrement = self.data.totalPrice
-    server.request(api.balancePay, data, "post").then(function(res) {
-      console.info(res)
-      let tradeId = self.getTradeId()
-      self.addOrder(tradeId)
-    })
+    // data.customerUid = app.globalData.customerUid
+    // data.balanceIncrement = self.data.totalPrice
+    // data.pointIncrement = self.data.totalPrice
+    // server.request(api.balancePay, data, "post").then(function(res) {
+    //   console.info(res)
+    //   let tradeId = self.getTradeId()
+    //   self.addOrder(tradeId, 'customerNumber')
+    // })
+    let tradeId = self.getTradeId()
+    self.addOrder(tradeId, 'CustomerBalance')
   },
 
-  getTradeId: function () {
+  getTradeId: function() {
     var date = new Date().getTime().toString()
     var text = ""
     var possible = "0123456789"
@@ -138,9 +153,9 @@ Page({
     return tradeId
   },
 
-  addOrder: function(tradeId) {
+  addOrder: function(tradeId, payMethod) {
     let self = this
-    console.info(this.data.cart)
+    // console.info(this.data.cart)
     let data = {}
     data.openid = app.globalData.openid
     data.style = self.data.style
@@ -148,8 +163,15 @@ Page({
     // data.tradeId = util.formatTime(new Date()).toString()
     data.tradeId = tradeId
     data.cart = self.data.cart
+    data.restaurantTableName = 1
+    data.payMethod = payMethod
+    if (payMethod == 'CustomerBalance') {
+      data.customerNumber = app.globalData.phone
+    }
+
     server.request(api.addOrder, data, "post").then(function(res) {
       console.info(res)
+      self.getCustomerByPhone()
       if (res.code == 0) {
         app.globalData.cart = []
         wx.redirectTo({
@@ -170,6 +192,22 @@ Page({
     this.setData({
       dinnersNumber: (this.data.dinnersNumber + 1)
     })
+  },
+
+  getCustomerByPhone: function () {
+    let self = this
+    if (app.globalData.phone) {
+      server.request(api.getCustomerByPhone, {
+        'phone': app.globalData.phone
+      }, 'post').then(function (res) {
+        console.info(res)
+        app.globalData.isCustomer = true
+        app.globalData.point = res.point
+        app.globalData.balance = res.balance
+        app.globalData.discount = res.discount
+        app.globalData.customerUid = res.customerUid
+      })
+    }
   },
 
   /**

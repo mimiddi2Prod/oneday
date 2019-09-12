@@ -71,20 +71,39 @@ async function yinbaoAddOnLineOrder(data = {}) {
     //     }
     // } else
     if (deliveryType == 1) {
-        postData = {
-            "appId": appId,
-            "customerNumber": 13055000000, // 会员号
-            "payMethod": "Wxpay",
-            "payOnLine": 1,
-            "orderRemark": (data.style == 0 ? "堂食" : "外带"),
-            "dinnersNumber": data.dinnersNumber,
-            "orderDateTime": current_time,
-            "deliveryType": deliveryType,
-            "restaurantTableName": 7, //桌号
-            "contactName": "contactName",
-            "contactTel": "contactTel",
-            "items": items
+        if(data.payMethod == 'Wxpay'){
+            postData = {
+                "appId": appId,
+                "payMethod": "Wxpay",
+                "payOnLine": 1,
+                "orderRemark": (data.style == 0 ? "堂食" : "外带"),
+                "dinnersNumber": data.dinnersNumber,
+                "orderDateTime": current_time,
+                "deliveryType": deliveryType,
+                "restaurantTableName": data.restaurantTableName, //桌号
+                "contactAddress":"contactAddress",
+                "contactName": "contactName",
+                "contactTel": "contactTel",
+                "items": items
+            }
+        }else if(data.payMethod == 'CustomerBalance'){
+            postData = {
+                "appId": appId,
+                "customerNumber": data.customerNumber, // 会员号
+                "payMethod": "CustomerBalance",
+                //"payOnLine": 1,
+                "orderRemark": (data.style == 0 ? "堂食" : "外带"),
+                "dinnersNumber": data.dinnersNumber,
+                "orderDateTime": current_time,
+                "deliveryType": deliveryType,
+                "restaurantTableName": data.restaurantTableName, //桌号
+                "contactAddress":"contactAddress",
+                "contactName": "contactName",
+                "contactTel": "contactTel",
+                "items": items
+            }
         }
+
     }
     // return
     // console.info(items)

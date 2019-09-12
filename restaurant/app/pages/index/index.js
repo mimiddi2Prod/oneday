@@ -127,7 +127,12 @@ Page({
         cart: [],
         selectGoodsSKU: [],
         totalGoodsPrice: 0,
-        showCart: false
+        showCart: false,
+
+        point: app.globalData.point,
+        balance: app.globalData.balance,
+        discount: app.globalData.discount,
+        isCustomer: app.globalData.isCustomer
       })
       // 获取商品列表 包括类别 和 商品
       this.getCategory(this.data.locationCode)
@@ -270,7 +275,7 @@ Page({
     }, 'post').then(function(res) {
       // console.info(res)
       // self.data.initGoodsList = res.goods
-      if (res.category.length > 0) {
+      if (res.category && res.category.length > 0) {
         self.data.categories = res.category.map(function(eData) {
           eData.scrollId = 's' + eData.id
           return eData
@@ -281,7 +286,7 @@ Page({
           // self.data.activeName = res.category[0].name
         }
       }
-      if (res.goods.length > 0) {
+      if (res.goods && res.goods.length > 0) {
         // 每个商品加入购物车的数量
         for (let i in res.goods) {
           res.goods[i].cartNumber = 0
