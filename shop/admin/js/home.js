@@ -307,7 +307,7 @@ function getPeople(time) {
                 let temp = 0
                 max_number = temp > max_number ? temp + 10 : max_number
                 homeVM.people_data[0].push(temp)
-                homeVM.people_data[2].push(temp)
+                homeVM.people_data[1].push(temp)
             }
             homeVM.people_data_max = max_number
         }
