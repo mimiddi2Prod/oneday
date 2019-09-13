@@ -52,6 +52,7 @@ CREATE TABLE `admin` (
   `token` varchar(255) DEFAULT NULL,
   `token_expire` timestamp NULL DEFAULT NULL,
   `cate` varchar(255) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
