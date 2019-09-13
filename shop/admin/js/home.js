@@ -292,7 +292,7 @@ function getPeople(time) {
                 for (let j in res.people) {
                     if (new Date(res.people[j].register_time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.people[j].register_time).getTime() >= i) {
                         temp1++
-                        if (res.people[j].phone.length > 0) {
+                        if (res.people[j].phone && res.people[j].phone.length > 0) {
                             temp2++
                         }
                     }

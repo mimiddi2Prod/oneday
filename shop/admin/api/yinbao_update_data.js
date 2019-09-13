@@ -77,13 +77,18 @@ function yinbaoUpdateData() {
                     // // 先清除原有的数据
                     // sql = "delete from restaurant_goods"
                     // row = await db.Query(sql)
+                    console.info(ProductResult)
 
                     // 插入现有的银豹商品数据（没有图片，需另外获取）
                     for (let i in ProductResult) {
                         ProductResult[i].uid = ProductResult[i].uid.c.join("")
                         ProductResult[i].categoryUid = ProductResult[i].categoryUid.c.join("")
+                        let description = ''
+                        if(ProductResult[i].description){
+                            description = ProductResult[i].description
+                        }
                         sql = "insert into restaurant_goods(`name`,id,`describe`,min_price,category_id,stock,status,location_code,create_time) values (?,?,?,?,?,?,?,?,current_timestamp )"
-                        row = await db.Query(sql, [ProductResult[i].name, ProductResult[i].uid, ProductResult[i].description, ProductResult[i].sellPrice, ProductResult[i].categoryUid, ProductResult[i].stock, ProductResult[i].enable, "xmspw"])
+                        row = await db.Query(sql, [ProductResult[i].name, ProductResult[i].uid, description, ProductResult[i].sellPrice, ProductResult[i].categoryUid, ProductResult[i].stock, ProductResult[i].enable, "xmspw"])
                     }
                     console.info(ProductResult)
 
@@ -94,7 +99,7 @@ function yinbaoUpdateData() {
 
                     // 插入现有的银豹商品数据（没有图片，需另外获取）
                     for (let i in ProductResult) {
-                        let tempList = ProductResult[i].attribute2
+                        let tempList = (ProductResult[i].attribute2 ? ProductResult[i].attribute2 : '')
                         if (tempList.length > 0) {
                             tempList = JSON.parse(tempList)
                             if (typeof tempList == "object") {
