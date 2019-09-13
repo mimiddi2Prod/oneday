@@ -11,6 +11,7 @@ var api = {
 
     updateGoodsState: '../api/update_goodsState',
     getGoods: '../api/get_goods',
+    getGoodsByCate: '../api/get_goods_by_cate',
     getCategory: '../api/get_category',
     addCategory: '../api/add_category',
     delCategory: '../api/del_category',
@@ -42,6 +43,7 @@ var api = {
     getPosition: '../api/get_position',
     getAccount: '../api/get_account',
     addAccount: '../api/add_account',
+    delAccount: '../api/del_account',
     getUser: '../api/get_user',
     delReview: '../api/del_review',
     updateReview: '../api/update_review',

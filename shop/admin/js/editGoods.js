@@ -77,6 +77,8 @@ var editGoodsVM = new Vue({
         selectText: '',
 
 
+        user_type: '',
+        cate: '',
         // testList1:[1,2,3,4],
         // testList2:[]
     },
@@ -713,6 +715,10 @@ var editGoodsVM = new Vue({
 })
 
 $(document).ready(function () {
+    editGoodsVM.user_type = sessionStorage.getItem('type')
+    if (editGoodsVM.user_type == 1) {
+        editGoodsVM.cate = sessionStorage.getItem('cate')
+    }
     getCurrentGoodsInfo()
 
     getBrand()

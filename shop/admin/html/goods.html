@@ -34,20 +34,20 @@
         <!-- 类目 搜索栏 -->
         <div class="title item">
             <h4>商品管理</h4>
-            <div class="search">
-                <form class="bs-example bs-example-form" role="form">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn">
- 								<button class="btn btn-default" type="button">搜索</button>
- 							</span>
-                            </div><!-- /input-group -->
-                        </div><!-- /.col-lg-6 -->
-                    </div><!-- /.row -->
-                </form>
-            </div>
+            <!--<div class="search">-->
+                <!--<form class="bs-example bs-example-form" role="form">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-lg-6">-->
+                            <!--<div class="input-group">-->
+                                <!--<input type="text" class="form-control">-->
+                                <!--<span class="input-group-btn">-->
+ 								<!--<button class="btn btn-default" type="button">搜索</button>-->
+ 							<!--</span>-->
+                            <!--</div>&lt;!&ndash; /input-group &ndash;&gt;-->
+                        <!--</div>&lt;!&ndash; /.col-lg-6 &ndash;&gt;-->
+                    <!--</div>&lt;!&ndash; /.row &ndash;&gt;-->
+                <!--</form>-->
+            <!--</div>-->
 
         </div>
         <!-- 商品状态 -->
@@ -112,7 +112,7 @@
                         <input type="checkbox" name="checkbox-all" v-model="checkboxAll">
                         <span>全选</span>
                     </label>
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#categoryModal">批量分类
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#categoryModal" v-if="user_type == 0">批量分类
                     </button>
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#priceModal" v-on:click="showPriceModal()">批量改价
                     </button>
@@ -171,7 +171,7 @@
                     </div>
                     <div class="second-title column-center">
                         <button type="button" class="btn btn-link" v-on:click="editGoods(item.id)">编辑</button>
-                        <button type="button" class="btn btn-link" v-on:click="reviewGoods(item.id)">评价
+                        <button type="button" class="btn btn-link" v-on:click="reviewGoods(item.id)" v-if="user_type == 0">评价
                         </button>
                         <button type="button" class="btn btn-link" v-on:click="changeGoodsState(item.id,item.state)">
                             {{item.state == 0 ? '下架' : '上架'}}

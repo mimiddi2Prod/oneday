@@ -34,6 +34,10 @@ function Router() {
                 var shopGetGoods = require("./api/shop_get_goods.js");
                 baseApi = new shopGetGoods;
                 break;
+            case "get_goods_by_cate":
+                var shopGetGoodsByCate = require("./api/shop_get_goods_by_cate.js");
+                baseApi = new shopGetGoodsByCate;
+                break;
             case "login":
                 var shopLogin = require("./api/login.js");
                 baseApi = new shopLogin;
@@ -193,6 +197,10 @@ function Router() {
             case "add_account":
                 var shopAddAccount = require("./api/shop_add_account.js");
                 baseApi = new shopAddAccount;
+                break;
+            case "del_account":
+                var shopDelAccount = require("./api/shop_delete_account.js");
+                baseApi = new shopDelAccount;
                 break;
             case "add_logistics_code_to_order":
                 var shopAddLogisticsCodeToOrder = require("./api/shop_add_logistics_code_to_order.js");

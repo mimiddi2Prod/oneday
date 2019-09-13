@@ -12,8 +12,10 @@ var addAccountVM = new Vue({
         // select_position_detail: {},
 
         categoryList: [],
+        submitCate: [[], []],
 
-        submitCate: [[], []]
+        brandList: [],
+        submitBrand: []
     },
     methods: {
         checkedCate: function (id) {
@@ -82,6 +84,17 @@ var addAccountVM = new Vue({
                 alert('请至少选择一种分类')
                 return
             }
+
+            addAccountVM.submitBrand = []
+            for (let i in addAccountVM.brandList) {
+                if (addAccountVM.brandList[i].checked) {
+                    addAccountVM.submitBrand.push(addAccountVM.brandList[i].id)
+                }
+            }
+            if (addAccountVM.submitBrand.length <= 0) {
+                alert('请至少选择一种品牌')
+                return
+            }
             addAccount(state)
         }
     },
@@ -99,6 +112,7 @@ var addAccountVM = new Vue({
 $(document).ready(function () {
     // getPosition()
     getCategory()
+    getBrand()
 })
 
 function getCategory() {
@@ -116,6 +130,18 @@ function getCategory() {
     })
 }
 
+function getBrand() {
+    const url = api.getBrand, async = true
+    let data = {}
+    server(url, data, async, "post", function (res) {
+        console.info(res)
+        for (let i in res) {
+            res[i].checked = false
+        }
+        addAccountVM.brandList = res
+    })
+}
+
 function addAccount(state) {
     // state 0 保存 1保存并继续添加
     const url = api.addAccount, async = true
@@ -124,6 +150,8 @@ function addAccount(state) {
     data.password = addAccountVM.password
     data.nick_name = addAccountVM.nick_name
     data.cate = addAccountVM.submitCate
+    data.brand = addAccountVM.submitBrand
+
     server(url, data, async, "post", function (res) {
         console.info(res)
         if (res.text == '添加成功') {

@@ -66,12 +66,13 @@ function login(username, password) {
 
             sessionStorage.setItem("user_id", res.id);
             sessionStorage.setItem("type", res.type);
-            if(res.type == 0){
+            if (res.type == 0) {
                 window.location.href = './home';
-            }else if(res.type == 1){
+            } else if (res.type == 1) {
                 window.location.href = './goods';
                 sessionStorage.setItem("cate", res.cate);
-            }else if(res.type == 2){
+                sessionStorage.setItem("brand", res.brand)
+            } else if (res.type == 2) {
                 window.location.href = './yinbao';
             }
         } else {

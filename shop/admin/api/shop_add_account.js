@@ -11,8 +11,8 @@ function shopAddAccount() {
             // sql = "insert into admin(username,password,nick_name,register_time,last_login_time,`type`,position_id)values(?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?)";
             // row = await db.Query(sql, [param['login_name'], param['password'], param['nick_name'], 1, param['position_id']]);
 
-            sql = "insert into admin(username,password,nick_name,register_time,last_login_time,`type`,cate)values(?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?)";
-            row = await db.Query(sql, [param['login_name'], param['password'], param['nick_name'], 1, JSON.stringify(param['cate'])]);
+            sql = "insert into admin(username,password,nick_name,register_time,last_login_time,`type`,cate,brand)values(?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?,?)";
+            row = await db.Query(sql, [param['login_name'], param['password'], param['nick_name'], 1, JSON.stringify(param['cate']), JSON.stringify(param['brand'])]);
             console.info(row)
             if (row.insertId) {
                 data.text = '添加成功'

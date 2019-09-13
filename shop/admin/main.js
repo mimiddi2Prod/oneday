@@ -169,15 +169,19 @@ app.use(function (req, res, next) {
             } else if (eData.type == 1) {
                 if (type[1] == '') {
                     showPaper('index.html')
-                }else if (type[1] == 'goods') {
+                } else if (type[1] == 'goods') {
                     showPaper('html/goods.html');
+                } else if (type[1] == 'addGoods') {
+                    showPaper('html/addGoods.html');
+                } else if (type[1] == 'editGoods') {
+                    showPaper('html/editGoods.html');
                 } else {
                     showPaper('html/404.html')
                 }
             } else if (eData.type == 2) {
                 if (type[1] == '') {
                     showPaper('index.html')
-                }else if (type[1] == 'yinbao') {
+                } else if (type[1] == 'yinbao') {
                     showPaper('html/yinbao.html');
                 } else {
                     showPaper('html/404.html')

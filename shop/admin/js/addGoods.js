@@ -102,6 +102,9 @@ var addGoodsVM = new Vue({
         batchStock: '',
         // testList1:[1,2,3,4],
         // testList2:[]
+
+        user_type: '',
+        cate: '',
     },
     // watch: {
     //     integralSelect: function (val) {
@@ -742,6 +745,11 @@ var addGoodsVM = new Vue({
 })
 
 $(document).ready(function () {
+    addGoodsVM.user_type = sessionStorage.getItem('type')
+    if (addGoodsVM.user_type == 1) {
+        addGoodsVM.cate = sessionStorage.getItem('cate')
+    }
+
     // check_login()
     getBrand()
     getCategory(0, 0)

@@ -48,6 +48,8 @@ var goodsVM = new Vue({
         calc_number_two: '',
         previewGoodsPrice: [],
 
+
+        user_type: '',
     },
     methods: {
         // changePage: function (e, goods_id) {
@@ -480,6 +482,7 @@ function updateGoodsState(id_list, state) {
 }
 
 $(document).ready(function () {
+    goodsVM.user_type = sessionStorage.getItem('type')
     getGoods()
     getCategory(0, 0)
 
@@ -492,11 +495,16 @@ function getGoods() {
     goodsVM.pageList = []
     goodsVM.goodsList = []
     // -1全部 / 0出售中 / 1出售完 / 2已下架
-    const url = api.getGoods, async = true
+    let url = api.getGoods, async = true
     let data = {}
     data.last_id = goodsVM.last_id
     data.state = goodsVM.goods_state
     data.need_integral = goodsVM.need_integral
+    if (goodsVM.user_type == 1) {
+        data.cate = sessionStorage.getItem('cate')
+        data.brand = sessionStorage.getItem('brand')
+        url = api.getGoodsByCate
+    }
     server(url, data, async, "post", function (res) {
         console.info(res)
         if (res.number > 0) {

@@ -205,6 +205,30 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="subtitle">
+                    <div>品牌权限</div>
+                    <div class="sort row-center">
+                        <div class="index"></div>
+                        <div class="item column">
+                            <div v-for="item,index in brandList">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" name="" v-model="item.checked">
+                                    {{item.name}}
+                                </label>
+                                <!--<div style="position: relative" v-if="item.menu.length > 0"-->
+                                     <!--v-for="itemMenu,indexMenu in item.menu">-->
+                                    <!--<span class="fenzhi"></span>-->
+                                    <!--<label class="form-check-label" style="margin-left: 30px">-->
+                                        <!--<input class="form-check-input" type="checkbox" name=""-->
+                                               <!--v-model="itemMenu.checked" v-on:change="checkedSubCate(index)">-->
+                                        <!--{{itemMenu.name}}-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="subtitle">

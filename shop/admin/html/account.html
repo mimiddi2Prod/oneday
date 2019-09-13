@@ -77,9 +77,9 @@
             <nav class="navbar navbar-default" role="navigation">
                 <div class="item">
                     <span class="second-title have-border column-center">登录名</span>
-                    <!--<span class="second-title have-border column-center">昵称</span>-->
+                    <span class="second-title have-border column-center">昵称</span>
                     <!--<span class="second-title have-border column-center">岗位</span>-->
-                    <span class="second-title have-border column-center">状态</span>
+                    <span class="second-title have-border column-center">类型</span>
                     <span class="first-title column-center">操作</span>
                 </div>
             </nav>
@@ -98,21 +98,21 @@
                     {{item.nick_name}}
                 </div>
 
-                <div class="second-title column-center" v-if="item.position">
-                    {{item.position.name}}
-                </div>
-                <div class="second-title column-center" v-if="!item.position">
-                    无
-                </div>
+                <!--<div class="second-title column-center" v-if="item.position">-->
+                    <!--{{item.position.name}}-->
+                <!--</div>-->
+                <!--<div class="second-title column-center" v-if="!item.position">-->
+                    <!--无-->
+                <!--</div>-->
 
                 <div class="second-title column-center" v-if="item.type == 1">
-                    使用中
+                    添加商品人员
                 </div>
                 <div class="second-title column-center" v-if="item.type == 2">
-                    停用
+                    更新菜单人员
                 </div>
                 <div class="first-title" style="text-align: center  ">
-                    <button type="button" class="btn btn-link" v-on:click="changePage('account-edit',item.id)">编辑</button>
+                    <!--<button type="button" class="btn btn-link" v-on:click="changePage('account-edit',item.id)">编辑</button>-->
                     <button type="button" class="btn btn-link" v-on:click="delItem(index)" data-toggle="modal"
                             data-target="#myModal">删除
                     </button>
@@ -173,7 +173,7 @@
                 <div class="modal-body" id="content"><span></span></div> <!--是否删除...-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-primary" onclick="delaccount()">确定</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
