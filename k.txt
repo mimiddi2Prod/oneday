@@ -42,7 +42,7 @@ wx768a827128cc90f8
 d99eda228b95793b08563a5141f6449c
 
 小程序：餐饮
-onedayjolly@sina.com
+onedayjolly3@163.com
 youyue123
 wx3a3f97ca688ddcea
 5cfbffbaeaedefb495f107a5e529d89f
@@ -87,3 +87,8 @@ oneday123
 需绑定的银豹账号：newdeli
 是否要开通收银端微信退款功能：否
 商户号是否从银豹申请的：否
+
+
+餐饮商户号：
+1555664181
+5cfbffbaeaedefb495f107a5e529d89f
