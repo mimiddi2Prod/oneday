@@ -182,7 +182,11 @@ function getSales(time) {
                         temp = temp + (res.refund[j].number * res.refund[j].refund)
                     }
                 }
-                max_number = temp > max_number ? temp + 200 : max_number
+                max_number = temp > max_number ? function () {
+                    let len = parseInt(temp).toString().length
+                    let pow = Math.pow(10, len - 1)
+                    return Number((temp / pow)).toFixed(0) * pow + 2 * pow
+                }() : max_number
                 homeVM.data[1].push(temp)
             }
             homeVM.data_max = max_number
@@ -203,7 +207,11 @@ function getSales(time) {
                         temp = homeVM.data[1][k] + Number(res.yinbaoRefund[j].total_refund)
                     }
                 }
-                max_number = temp > max_number ? temp + 200 : max_number
+                max_number = temp > max_number ? function () {
+                    let len = parseInt(temp).toString().length
+                    let pow = Math.pow(10, len - 1)
+                    return Number((temp / pow)).toFixed(0) * pow + 2 * pow
+                }() : max_number
                 homeVM.data[1][k] = temp
                 k++
             }
@@ -221,7 +229,11 @@ function getSales(time) {
                         // console.info(temp)
                     }
                 }
-                max_number = temp > max_number ? temp + 200 : max_number
+                max_number = temp > max_number ? function () {
+                    let len = parseInt(temp).toString().length
+                    let pow = Math.pow(10, len - 1)
+                    return Number((temp / pow)).toFixed(0) * pow + 2 * pow
+                }() : max_number
                 homeVM.data[0].push(temp)
             }
             homeVM.data_max = max_number
@@ -297,7 +309,11 @@ function getPeople(time) {
                         }
                     }
                 }
-                max_number = temp1 > max_number ? temp1 + 10 : max_number
+                max_number = temp1 > max_number ? function () {
+                    let len = parseInt(temp).toString().length
+                    let pow = Math.pow(10, len - 1)
+                    return Number((temp / pow)).toFixed(0) * pow + 2 * pow
+                }() : max_number
                 homeVM.people_data[0].push(temp1)
                 homeVM.people_data[1].push(temp2)
             }
@@ -305,7 +321,11 @@ function getPeople(time) {
         } else {
             for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
                 let temp = 0
-                max_number = temp > max_number ? temp + 10 : max_number
+                max_number = temp > max_number ? function () {
+                    let len = parseInt(temp).toString().length
+                    let pow = Math.pow(10, len - 1)
+                    return Number((temp / pow)).toFixed(0) * pow + 2 * pow
+                }() : max_number
                 homeVM.people_data[0].push(temp)
                 homeVM.people_data[1].push(temp)
             }
