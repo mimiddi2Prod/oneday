@@ -15,6 +15,9 @@ async function YinbaoGetTicket(data) {
         "startTime": data['start_time'],
         "endTime": data['end_time'],
     }
+    if(data.postBackParameter){
+        postData.postBackParameter = data.postBackParameter
+    }
     let postDataJson = JSON.stringify(postData)
     let router = "queryTicketPages"
     let e = await request(router, postDataJson)

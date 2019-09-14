@@ -219,7 +219,7 @@ function getSales(time) {
                 let temp = 0
                 for (let j in res.yinbaoRefund) {
                     if (new Date(res.yinbaoRefund[j].time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.yinbaoRefund[j].time).getTime() >= i) {
-                        temp = homeVM.data[1][k] + Number(res.yinbaoRefund[j].total_refund)
+                        temp = temp + homeVM.data[1][k] + Number(res.yinbaoRefund[j].total_refund)
                     }
                 }
                 max_number = temp > max_number ? function () {
@@ -235,12 +235,11 @@ function getSales(time) {
 
         // 银豹收银
         if (res.order) {
-            // console.info(res.order)
             for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
                 let temp = 0
                 for (let j in res.order) {
                     if (new Date(res.order[j].start_time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.order[j].start_time).getTime() >= i) {
-                        temp = res.order[j].total_price
+                        temp = temp + res.order[j].total_price
                         // console.info(temp)
                     }
                 }
