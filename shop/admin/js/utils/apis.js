@@ -8,6 +8,7 @@ var api = {
     getOrderAmount: '../api/get_orderAmount',
     getRefundAmount: '../api/get_refundAmount',
     getPeople: '../api/get_people',
+    getPeopleShop: '../api/get_people_shop',
 
     updateGoodsState: '../api/update_goodsState',
     getGoods: '../api/get_goods',

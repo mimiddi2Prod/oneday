@@ -19,6 +19,7 @@ var homeVM = new Vue({
         x: [], //定义X轴刻度值
         title: "这是标题", //统计图标标题
 
+        people_total: 0,
 
         people_dayList: [7, 30],
         people_active: 0,
@@ -29,6 +30,19 @@ var homeVM = new Vue({
         people_x_label: "日期", //X轴标题
         people_x: [], //定义X轴刻度值
         people_title: "这是标题", //统计图标标题
+
+
+        people_shop_total: 0,
+
+        people_shop_dayList: [7, 30],
+        people_shop_active: 0,
+        people_shop_data: [[], []],
+        people_shop_data_max: '', //Y轴最大刻度
+        people_shop_line_title: ["新增游客", "新增会员"], //曲线名称
+        people_shop_y_label: "单位 /人", //Y轴标题
+        people_shop_x_label: "日期", //X轴标题
+        people_shop_x: [], //定义X轴刻度值
+        people_shop_title: "这是标题", //统计图标标题
     },
     methods: {
         toOrder: function (nav) {
@@ -56,6 +70,7 @@ $(document).ready(function () {
 
     getSales(7)
     getPeople(7)
+    getPeopleShop(7)
 })
 
 
@@ -293,6 +308,7 @@ function getPeople(time) {
     data.start_time = start_time
     data.end_time = end_time
     server(url, data, async, "post", function (res) {
+        homeVM.people_total = res.total
         console.info(res)
         // homeVM.sales = res.number
         start_time = start_time.getTime()
@@ -331,20 +347,6 @@ function getPeople(time) {
             }
             homeVM.people_data_max = max_number
         }
-        // if (res.refund) {
-        //     for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
-        //         let temp = 0
-        //         for (let j in res.refund) {
-        //             if (new Date(res.refund[j].create_time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.refund[j].create_time).getTime() >= i) {
-        //                 temp = temp + (res.refund[j].number * res.refund[j].refund)
-        //             }
-        //         }
-        //         max_number = temp > max_number ? temp + 10 : max_number
-        //         homeVM.data[1].push(temp)
-        //     }
-        //     homeVM.data_max = max_number
-        // }
-
         self.people_formate(time)
     })
 }
@@ -407,6 +409,148 @@ function people_writeChart() {
     div.id = 'chart2';
 
     j.jqplot.diagram.base("chart2", people_data, people_line_title, people_title, people_x, people_x_label, people_y_label, people_data_max, 1);
+    // j.jqplot.diagram.base("chart2", data, line_title, "这是统计标题", x, x_label, y_label, data_max, 2);
+
+}
+
+function getPeopleShop(time) {
+    homeVM.people_shop_data = [[], []]
+    let current_time = new Date()
+    let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
+    let timeParse = year + '-' + month + '-' + date
+    let start_time = '', end_time = ''
+    if (time == 7) {
+        homeVM.people_shop_active = 0
+        start_time = new Date(new Date(timeParse).getTime() - (6 * 24 * 60 * 60 * 1000))
+        end_time = current_time
+    } else if (time == 30) {
+        homeVM.people_shop_active = 1
+        start_time = new Date(new Date(timeParse).getTime() - (29 * 24 * 60 * 60 * 1000))
+        end_time = current_time
+    } else {
+        start_time = new Date(document.getElementById('test5_13').value)
+        end_time = new Date(document.getElementById('test5_23').value)
+        if (!start_time) {
+            alert('请选择起始时间')
+            return
+        }
+        if (!end_time) {
+            alert('请选择截止时间')
+            return
+        }
+        if (new Date(start_time) > new Date(end_time)) {
+            alert('起始时间不得大于截止时间')
+            return
+        }
+        homeVM.people_shop_active = 2
+    }
+
+    const url = api.getPeopleShop, async = true
+    let data = {}
+    data.start_time = start_time
+    data.end_time = end_time
+    server(url, data, async, "post", function (res) {
+        homeVM.people_shop_total = res.total
+        console.info(res)
+        // homeVM.sales = res.number
+        start_time = start_time.getTime()
+        end_time = end_time.getTime()
+        let max_number = 10
+        if (res.people) {
+            for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
+                let temp1 = 0, temp2 = 0
+                for (let j in res.people) {
+                    if (new Date(res.people[j].register_time).getTime() < (i + (24 * 60 * 60 * 1000)) && new Date(res.people[j].register_time).getTime() >= i) {
+                        temp1++
+                        if (res.people[j].phone && res.people[j].phone.length > 0) {
+                            temp2++
+                        }
+                    }
+                }
+                max_number = temp1 > max_number ? function () {
+                    let len = parseInt(temp).toString().length
+                    let pow = Math.pow(10, len - 1)
+                    return Number((temp / pow)).toFixed(0) * pow + 2 * pow
+                }() : max_number
+                homeVM.people_shop_data[0].push(temp1)
+                homeVM.people_shop_data[1].push(temp2)
+            }
+            homeVM.people_shop_data_max = max_number
+        } else {
+            for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
+                let temp = 0
+                max_number = temp > max_number ? function () {
+                    let len = parseInt(temp).toString().length
+                    let pow = Math.pow(10, len - 1)
+                    return Number((temp / pow)).toFixed(0) * pow + 2 * pow
+                }() : max_number
+                homeVM.people_shop_data[0].push(temp)
+                homeVM.people_shop_data[1].push(temp)
+            }
+            homeVM.people_shop_data_max = max_number
+        }
+        self.people_shop_formate(time)
+    })
+}
+
+function people_shop_formate(time) {
+    homeVM.people_shop_x = []
+    let current_time = new Date()
+    let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
+    let timeParse = year + '-' + month + '-' + date
+    let start_time = '', end_time = ''
+    if (time == 7) {
+        start_time = new Date(new Date(timeParse).getTime() - (6 * 24 * 60 * 60 * 1000))
+        end_time = current_time
+    } else if (time == 30) {
+        start_time = new Date(new Date(timeParse).getTime() - (29 * 24 * 60 * 60 * 1000))
+        end_time = current_time
+    } else {
+        start_time = new Date(document.getElementById('test5_13').value)
+        end_time = new Date(document.getElementById('test5_23').value)
+        if (!start_time) {
+            alert('请选择起始时间')
+            return
+        }
+        if (!end_time) {
+            alert('请选择截止时间')
+            return
+        }
+        if (new Date(start_time) > new Date(end_time)) {
+            alert('起始时间不得大于截止时间')
+            return
+        }
+    }
+
+    start_time = start_time.getTime()
+    end_time = end_time.getTime()
+    for (let i = start_time; i <= end_time; i = i + (24 * 60 * 60 * 1000)) {
+        let current = new Date(i)
+        let x = (current.getMonth() + 1) + '-' + (current.getDate())
+        homeVM.people_shop_x.push(x)
+    }
+
+    homeVM.people_shop_title = "新增人数" //统计图标标题
+    self.people_shop_writeChart()
+}
+
+function people_shop_writeChart() {
+    var people_shop_data = homeVM.people_shop_data;
+    var people_shop_data_max = homeVM.people_shop_data_max; //Y轴最大刻度
+    var people_shop_line_title = homeVM.people_shop_line_title; //曲线名称
+    var people_shop_y_label = homeVM.people_shop_y_label; //Y轴标题
+    var people_shop_x_label = homeVM.people_shop_x_label; //X轴标题
+    var people_shop_x = homeVM.people_shop_x; //定义X轴刻度值
+    var people_shop_title = homeVM.people_shop_title; //统计图标标题
+
+    if (document.getElementById('chart3')) {
+        document.getElementById('chart_3').innerHTML = ''
+    }
+    var div = document.createElement("div");
+    document.getElementById("chart_3").appendChild(div);
+    div.id = 'chart3';
+
+    j.jqplot.diagram.base("chart3", people_shop_data, people_shop_line_title, people_shop_title, people_shop_x, people_shop_x_label, people_shop_y_label, people_shop_data_max, 1);
     // j.jqplot.diagram.base("chart2", data, line_title, "这是统计标题", x, x_label, y_label, data_max, 2);
 
 }
@@ -477,6 +621,18 @@ laydate.render({
 
 laydate.render({
     elem: '#test5_22'
+    , type: 'datetime'
+    , calendar: true
+});
+
+laydate.render({
+    elem: '#test5_13'
+    , type: 'datetime'
+    , calendar: true
+});
+
+laydate.render({
+    elem: '#test5_23'
     , type: 'datetime'
     , calendar: true
 });
