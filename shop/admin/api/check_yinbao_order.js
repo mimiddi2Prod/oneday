@@ -24,10 +24,13 @@ module.exports = function getYinbaoOrder() {
                                 sql = 'insert into yinbao_order (cashier,cashierUid,customerUid,datetime,invalid,items,orderNo,payments,remark,rounding,serviceFee,sn,ticketType,totalAmount,totalProfit,uid,webOrderNo)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
                                 row = db.Query(sql, [result[i].cashier, result[i].cashierUid, result[i].customerUid, result[i].datetime, result[i].invalid, result[i].items, (result[i].orderNo ? result[i].orderNo : ''), result[i].payments, (result[i].remark ? result[i].remark : ''), result[i].rounding, (result[i].serviceFee >= 0 ? result[i].serviceFee : ''), result[i].sn, result[i].ticketType, result[i].totalAmount, result[i].totalProfit, result[i].uid, result[i].webOrderNo])
 
-                                let items = JSON.parse(result[i].items)
-                                for (let j in items) {
-                                    day_sellprice = day_sellprice + items[j].totalAmount
+                                if(result[i].invalid == 0){
+                                    let items = JSON.parse(result[i].items)
+                                    for (let j in items) {
+                                        day_sellprice = day_sellprice + items[j].totalAmount
+                                    }
                                 }
+
                             }
                             sql = 'insert into yinbao_order_sellprice (total_price,start_time,end_time)values(?,?,?)'
                             row = db.Query(sql, [day_sellprice, timeList.start_time, timeList.end_time])

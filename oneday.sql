@@ -742,7 +742,7 @@ CREATE TABLE `yinbao_order` (
   `datetime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `discount` int(6) DEFAULT NULL,
   `invalid` int(6) DEFAULT NULL,
-  `items` varchar(2000) DEFAULT NULL,
+  `items` varchar(5000) DEFAULT NULL,
   `orderNo` varchar(255) DEFAULT NULL,
   `payments` varchar(1000) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,

@@ -12,7 +12,7 @@
     <script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="../jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <!--<link rel="stylesheet" type="text/css"-->
-          <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../layDate-v5.0.9/laydate/laydate.js"></script> <!--时间控件-->
@@ -115,21 +115,21 @@
                 </div>
 
                 <!--<div class="sort row-center">-->
-                    <!--<div class="index">商品等级</div>-->
-                    <!--<div class="item">-->
-                        <!--<div class="select">-->
-                            <!--<form role="form">-->
-                                <!--<div class="form-group">-->
-                                    <!--<select class="form-control" v-model="qcl_id">-->
-                                        <!--<option disabled="" value="" selected="selected">请选择级别</option>-->
-                                        <!--<option v-for="item in qcl" v-bind:value="item.id">{{item.name}}</option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
-                            <!--</form>-->
-                        <!--</div>-->
+                <!--<div class="index">商品等级</div>-->
+                <!--<div class="item">-->
+                <!--<div class="select">-->
+                <!--<form role="form">-->
+                <!--<div class="form-group">-->
+                <!--<select class="form-control" v-model="qcl_id">-->
+                <!--<option disabled="" value="" selected="selected">请选择级别</option>-->
+                <!--<option v-for="item in qcl" v-bind:value="item.id">{{item.name}}</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</form>-->
+                <!--</div>-->
 
-                        <!--<div class="text">(质量等级：A,B,C A最佳,B次之,c最差)</div>-->
-                    <!--</div>-->
+                <!--<div class="text">(质量等级：A,B,C A最佳,B次之,c最差)</div>-->
+                <!--</div>-->
                 <!--</div>-->
 
                 <div class="sort row-center">
@@ -160,7 +160,7 @@
                     </div>
                 </div>
 
-                <div class="sort row-center">
+                <div class="sort row-center" v-if="user_type == 0">
                     <div class="index">设置积分</div>
                     <div class="item row-center">
                         <label class="form-check-label" v-for="item in integralList">
@@ -172,19 +172,24 @@
                     </div>
                 </div>
 
-                <div class="sort row-center" v-if="integralSelect == 0">
-                    <div class="index">商品推荐</div>
-                    <div class="item">
-                        <label class="form-check-label" v-for="item in typeList">
-                            <input class="form-check-input" type="radio" name="type" v-bind:value="item.id" v-model="typeValue">
-                            {{item.name}}
-                        </label>
+                <div v-if="user_type == 0">
+                    <div class="sort row-center" v-if="integralSelect == 0">
+                        <div class="index">商品推荐</div>
+                        <div class="item">
+                            <label class="form-check-label" v-for="item in typeList">
+                                <input class="form-check-input" type="radio" name="type" v-bind:value="item.id"
+                                       v-model="typeValue">
+                                {{item.name}}
+                            </label>
+                        </div>
                     </div>
                 </div>
 
                 <div class="sort row-center" v-if="integralSelect == 1">
                     <div class="index">积分数目</div>
-                    <div class="item"><input v-model="integralValue" type="text" oninput="value=value.replace(/[^\d]/g,'')" class="form-control" name="" placeholder="请填写购买所需积分"/></div>
+                    <div class="item"><input v-model="integralValue" type="text"
+                                             oninput="value=value.replace(/[^\d]/g,'')" class="form-control" name=""
+                                             placeholder="请填写购买所需积分"/></div>
                 </div>
             </div>
             <!-- 型号/价格 -->
@@ -222,14 +227,16 @@
                                         <form role="form" class="formWidth">
                                             <div class="form-group">
                                                 <select class="form-control" :id="'sortId'+index"
-                                                        v-on:change="getSelectSort(index)" v-if="index == 0" v-model="selectId0">
+                                                        v-on:change="getSelectSort(index)" v-if="index == 0"
+                                                        v-model="selectId0">
                                                     <option disabled="" value="" selected="selected">请选择型号分类</option>
                                                     <option v-for="typeItem,typeIndex in item.specificationList"
                                                             v-bind:value="typeItem.id">{{typeItem.name}}
                                                     </option>
                                                 </select>
                                                 <select class="form-control" :id="'sortId'+index"
-                                                        v-on:change="getSelectSort(index)" v-if="index == 1" v-model="selectId1">
+                                                        v-on:change="getSelectSort(index)" v-if="index == 1"
+                                                        v-model="selectId1">
                                                     <option disabled="" value="" selected="selected">请选择型号分类</option>
                                                     <option v-for="typeItem,typeIndex in item.specificationList"
                                                             v-bind:value="typeItem.id">{{typeItem.name}}
@@ -278,7 +285,8 @@
                                                 <input :id="'reParamImg'+sizeIndex" class="getImg" type="file"
                                                        accept="image/*"
                                                        v-on:change="replaceParamImg(index,sizeIndex)"/>
-                                                <img class="imgSrc" :src='paramItem.tempFilePath' style="margin-left: 0">
+                                                <img class="imgSrc" :src='paramItem.tempFilePath'
+                                                     style="margin-left: 0">
                                                 <!--<img class="imgDel" src="/images/del.png" v-on:click="delParamImg(index,sizeIndex)">-->
                                             </div>
                                         </div>
@@ -294,7 +302,8 @@
                             <!--添加分类-->
                             <!-- 限制参数选择 最多为2 -->
                             <nav class="navbar navbar-default row-center" role="navigation" v-if="SortItem.length <= 1">
-                                <button type="button" class="btn btn-secondary" v-on:click="addSortItem()">添加型号分类</button>
+                                <button type="button" class="btn btn-secondary" v-on:click="addSortItem()">添加型号分类
+                                </button>
                             </nav>
                         </div>
                     </div>
@@ -454,10 +463,15 @@
                                 <div class="item">
                                     <span class="first-title column-center">批量修改价格</span>
                                     <span class="second-title column-center"><input class="form-control"
-                                                                                    style="width: 90%"/></span>
+                                                                                    style="width: 90%"
+                                                                                    v-model="batchPrice"
+                                                                                    oninput="value=value.replace(/[^\d.]/g,'')"
+                                                                                    v-on:keyUp.enter="batchChangePrice"/></span>
                                     <span class="second-title column-center"><input class="form-control"
+                                                                                    style="width: 90%"
+                                                                                    v-model="batchStock"
                                                                                     oninput="value=value.replace(/[^\d]/g,'')"
-                                                                                    style="width: 90%"/></span>
+                                                                                    v-on:keyUp.enter="batchChangeStock"/></span>
                                     <span class="second-title column-center"><input class="form-control"
                                                                                     style="width: 90%"/></span>
                                 </div>
@@ -468,61 +482,61 @@
             </div>
             <!-- 运费/其他 -->
             <!--<div class="subtitle">-->
-                <!--<div>运费/其他（暂时不用选）</div>-->
+            <!--<div>运费/其他（暂时不用选）</div>-->
 
-                <!--<div class="sort row-center">-->
-                    <!--<div class="index">商品分类</div>-->
-                    <!--<div class="item">-->
-                        <!--<label class="form-check-label">-->
-                            <!--<input class="form-check-input" type="checkbox" name=""> 22-->
-                        <!--</label>-->
-                        <!--<label class="form-check-label">-->
-                            <!--<input class="form-check-input" type="checkbox" name=""> 44-->
-                        <!--</label>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="sort row-center">-->
+            <!--<div class="index">商品分类</div>-->
+            <!--<div class="item">-->
+            <!--<label class="form-check-label">-->
+            <!--<input class="form-check-input" type="checkbox" name=""> 22-->
+            <!--</label>-->
+            <!--<label class="form-check-label">-->
+            <!--<input class="form-check-input" type="checkbox" name=""> 44-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--</div>-->
 
-                <!--<div class="sort row-center">-->
-                    <!--<div class="index">运费设置</div>-->
-                    <!--<div class="item">-->
-                        <!--<div class="select">-->
-                            <!--<form role="form">-->
-                                <!--<div class="form-group">-->
-                                    <!--<select class="form-control">-->
-                                        <!--<option>1</option>-->
-                                        <!--<option>2</option>-->
-                                        <!--<option>3</option>-->
-                                        <!--<option>4</option>-->
-                                        <!--<option>5</option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
-                            <!--</form>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="sort row-center">-->
+            <!--<div class="index">运费设置</div>-->
+            <!--<div class="item">-->
+            <!--<div class="select">-->
+            <!--<form role="form">-->
+            <!--<div class="form-group">-->
+            <!--<select class="form-control">-->
+            <!--<option>1</option>-->
+            <!--<option>2</option>-->
+            <!--<option>3</option>-->
+            <!--<option>4</option>-->
+            <!--<option>5</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--</form>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
 
-                <!--<div class="sort row-center">-->
-                    <!--<div class="index">可配送区域</div>-->
-                    <!--<div class="item">wwwwww</div>-->
-                <!--</div>-->
+            <!--<div class="sort row-center">-->
+            <!--<div class="index">可配送区域</div>-->
+            <!--<div class="item">wwwwww</div>-->
+            <!--</div>-->
 
-                <!--<div class="sort row-center">-->
-                    <!--<div class="index">开售时间</div>-->
-                    <!--<div class="item">-->
-                        <!--<label class="form-check-label">-->
-                            <!--<input class="form-check-input" type="radio" name="Shelf"-->
-                                   <!--id="exampleRadios3" value="option2">-->
-                            <!--立刻开售-->
-                        <!--</label>-->
-                        <!--<label class="form-check-label">-->
-                            <!--<input class="form-check-input" type="radio" name="Shelf"-->
-                                   <!--id="exampleRadios4" value="option2">-->
-                            <!--定时开售-->
-                            <!--<input type="text" class="form-control" id="test5" style="width: auto;display: inline-block;"-->
-                                   <!--placeholder="选择开售时间">-->
-                        <!--</label>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="sort row-center">-->
+            <!--<div class="index">开售时间</div>-->
+            <!--<div class="item">-->
+            <!--<label class="form-check-label">-->
+            <!--<input class="form-check-input" type="radio" name="Shelf"-->
+            <!--id="exampleRadios3" value="option2">-->
+            <!--立刻开售-->
+            <!--</label>-->
+            <!--<label class="form-check-label">-->
+            <!--<input class="form-check-input" type="radio" name="Shelf"-->
+            <!--id="exampleRadios4" value="option2">-->
+            <!--定时开售-->
+            <!--<input type="text" class="form-control" id="test5" style="width: auto;display: inline-block;"-->
+            <!--placeholder="选择开售时间">-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</div>-->
             <!-- 商品详情 -->
             <div class="subtitle">
@@ -585,7 +599,8 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="sortModalLabel"></h4><!--标题 -->
                     </div>
-                    <div class="modal-body"><input type="text" class="form-control" id="sortModalText" type="text" name=""
+                    <div class="modal-body"><input type="text" class="form-control" id="sortModalText" type="text"
+                                                   name=""
                                                    v-model="sortModalText"/></div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

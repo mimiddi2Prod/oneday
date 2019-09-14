@@ -12,7 +12,7 @@
     <script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="../jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <!--<link rel="stylesheet" type="text/css"-->
-          <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../layDate-v5.0.9/laydate/laydate.js"></script> <!--时间控件-->
@@ -115,21 +115,21 @@
                 </div>
 
                 <!--<div class="sort row-center">-->
-                    <!--<div class="index">商品等级</div>-->
-                    <!--<div class="item">-->
-                        <!--<div class="select">-->
-                            <!--<form role="form">-->
-                                <!--<div class="form-group">-->
-                                    <!--<select class="form-control" v-model="qcl_id">-->
-                                        <!--<option disabled="" value="" selected="selected">请选择级别</option>-->
-                                        <!--<option v-for="item in qcl" v-bind:value="item.id">{{item.name}}</option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
-                            <!--</form>-->
-                        <!--</div>-->
+                <!--<div class="index">商品等级</div>-->
+                <!--<div class="item">-->
+                <!--<div class="select">-->
+                <!--<form role="form">-->
+                <!--<div class="form-group">-->
+                <!--<select class="form-control" v-model="qcl_id">-->
+                <!--<option disabled="" value="" selected="selected">请选择级别</option>-->
+                <!--<option v-for="item in qcl" v-bind:value="item.id">{{item.name}}</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</form>-->
+                <!--</div>-->
 
-                        <!--<div class="text">(质量等级：A,B,C A最佳,B次之,c最差)</div>-->
-                    <!--</div>-->
+                <!--<div class="text">(质量等级：A,B,C A最佳,B次之,c最差)</div>-->
+                <!--</div>-->
                 <!--</div>-->
 
                 <div class="sort row-center">
@@ -160,7 +160,7 @@
                     </div>
                 </div>
 
-                <div class="sort row-center">
+                <div class="sort row-center" v-if="user_type == 0">
                     <div class="index">设置积分</div>
                     <div class="item row-center">
                         <label class="form-check-label" v-for="item in integralList">
@@ -172,14 +172,16 @@
                     </div>
                 </div>
 
-                <div class="sort row-center" v-if="integralSelect == 0">
-                    <div class="index">商品推荐</div>
-                    <div class="item">
-                        <label class="form-check-label" v-for="item in typeList">
-                            <input class="form-check-input" type="radio" name="type" v-bind:value="item.id"
-                                   v-model="typeValue">
-                            {{item.name}}
-                        </label>
+                <div v-if="user_type == 0">
+                    <div class="sort row-center" v-if="integralSelect == 0">
+                        <div class="index">商品推荐</div>
+                        <div class="item">
+                            <label class="form-check-label" v-for="item in typeList">
+                                <input class="form-check-input" type="radio" name="type" v-bind:value="item.id"
+                                       v-model="typeValue">
+                                {{item.name}}
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -454,10 +456,12 @@
                                     <span class="first-title column-center">批量修改价格</span>
                                     <span class="second-title column-center">
                                         <input class="form-control" style="width: 90%" v-model="batchPrice"
-                                               oninput="value=value.replace(/[^\d.]/g,'')" v-on:keyUp.enter="batchChangePrice"/></span>
+                                               oninput="value=value.replace(/[^\d.]/g,'')"
+                                               v-on:keyUp.enter="batchChangePrice"/></span>
                                     <span class="second-title column-center">
                                         <input class="form-control" style="width: 90%" v-model="batchStock"
-                                               oninput="value=value.replace(/[^\d]/g,'')" v-on:keyUp.enter="batchChangeStock"/></span>
+                                               oninput="value=value.replace(/[^\d]/g,'')"
+                                               v-on:keyUp.enter="batchChangeStock"/></span>
                                     <span class="second-title column-center"><input class="form-control"
                                                                                     style="width: 90%"/></span>
                                 </div>
@@ -468,62 +472,62 @@
             </div>
             <!-- 运费/其他 -->
             <!--<div class="subtitle">-->
-                <!--<div>运费/其他（暂时不用选）</div>-->
+            <!--<div>运费/其他（暂时不用选）</div>-->
 
-                <!--<div class="sort row-center">-->
-                    <!--<div class="index">商品分类</div>-->
-                    <!--<div class="item">-->
-                        <!--<label class="form-check-label">-->
-                            <!--<input class="form-check-input" type="checkbox" name=""> 22-->
-                        <!--</label>-->
-                        <!--<label class="form-check-label">-->
-                            <!--<input class="form-check-input" type="checkbox" name=""> 44-->
-                        <!--</label>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="sort row-center">-->
+            <!--<div class="index">商品分类</div>-->
+            <!--<div class="item">-->
+            <!--<label class="form-check-label">-->
+            <!--<input class="form-check-input" type="checkbox" name=""> 22-->
+            <!--</label>-->
+            <!--<label class="form-check-label">-->
+            <!--<input class="form-check-input" type="checkbox" name=""> 44-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--</div>-->
 
-                <!--<div class="sort row-center">-->
-                    <!--<div class="index">运费设置</div>-->
-                    <!--<div class="item">-->
-                        <!--<div class="select">-->
-                            <!--<form role="form">-->
-                                <!--<div class="form-group">-->
-                                    <!--<select class="form-control">-->
-                                        <!--<option>1</option>-->
-                                        <!--<option>2</option>-->
-                                        <!--<option>3</option>-->
-                                        <!--<option>4</option>-->
-                                        <!--<option>5</option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
-                            <!--</form>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="sort row-center">-->
+            <!--<div class="index">运费设置</div>-->
+            <!--<div class="item">-->
+            <!--<div class="select">-->
+            <!--<form role="form">-->
+            <!--<div class="form-group">-->
+            <!--<select class="form-control">-->
+            <!--<option>1</option>-->
+            <!--<option>2</option>-->
+            <!--<option>3</option>-->
+            <!--<option>4</option>-->
+            <!--<option>5</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--</form>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
 
-                <!--<div class="sort row-center">-->
-                    <!--<div class="index">可配送区域</div>-->
-                    <!--<div class="item">wwwwww</div>-->
-                <!--</div>-->
+            <!--<div class="sort row-center">-->
+            <!--<div class="index">可配送区域</div>-->
+            <!--<div class="item">wwwwww</div>-->
+            <!--</div>-->
 
-                <!--<div class="sort row-center">-->
-                    <!--<div class="index">开售时间</div>-->
-                    <!--<div class="item">-->
-                        <!--<label class="form-check-label">-->
-                            <!--<input class="form-check-input" type="radio" name="Shelf"-->
-                                   <!--id="exampleRadios3" value="option2">-->
-                            <!--立刻开售-->
-                        <!--</label>-->
-                        <!--<label class="form-check-label">-->
-                            <!--<input class="form-check-input" type="radio" name="Shelf"-->
-                                   <!--id="exampleRadios4" value="option2">-->
-                            <!--定时开售-->
-                            <!--<input type="text" class="form-control" id="test5"-->
-                                   <!--style="width: auto;display: inline-block;"-->
-                                   <!--placeholder="选择开售时间">-->
-                        <!--</label>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="sort row-center">-->
+            <!--<div class="index">开售时间</div>-->
+            <!--<div class="item">-->
+            <!--<label class="form-check-label">-->
+            <!--<input class="form-check-input" type="radio" name="Shelf"-->
+            <!--id="exampleRadios3" value="option2">-->
+            <!--立刻开售-->
+            <!--</label>-->
+            <!--<label class="form-check-label">-->
+            <!--<input class="form-check-input" type="radio" name="Shelf"-->
+            <!--id="exampleRadios4" value="option2">-->
+            <!--定时开售-->
+            <!--<input type="text" class="form-control" id="test5"-->
+            <!--style="width: auto;display: inline-block;"-->
+            <!--placeholder="选择开售时间">-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</div>-->
             <!-- 商品详情 -->
             <div class="subtitle">

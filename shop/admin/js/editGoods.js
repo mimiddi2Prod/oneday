@@ -41,7 +41,7 @@ var editGoodsVM = new Vue({
             id: 2,
             name: '待定项'
         }],
-        typeValue: '',
+        typeValue: 2,
 
         //默认的尺寸选择 不应进行改变 是固定值
         specificationList: [{
@@ -76,9 +76,12 @@ var editGoodsVM = new Vue({
         sizeIndex: '',
         selectText: '',
 
+        batchPrice: '',
+        batchStock: '',
 
         user_type: '',
         cate: '',
+        brand: '',
         // testList1:[1,2,3,4],
         // testList2:[]
     },
@@ -522,6 +525,49 @@ var editGoodsVM = new Vue({
             // console.info(this.sizeAndPrice)
         },
 
+        // 批量改价
+        batchChangePrice: function () {
+            let self = this
+            console.info(this.sizeAndPrice)
+            console.info(this.SortItem)
+            self.sizeAndPrice = self.sizeAndPrice.map(function (eData) {
+                eData.price = Number(self.batchPrice)
+                let tag = 'paramPrice_'
+                let id = tag + eData.param_1 + '_' + eData.param_2
+                console.info(id)
+                document.getElementById(id).value = Number(self.batchPrice)
+                return eData
+            })
+            // let index1_length = this.SortItem[0].size.length
+            // let index2_length = this.SortItem[1].size.length
+            // let tag = 'paramPrice'
+            // for (let i = 0; i < index1_length; i++) {
+            //     for (let j = 0; j < index2_length; j++) {
+            //         let id = tag + i + '_' + j
+            //         document.getElementById(id).value = Number(self.batchPrice)
+            //     }
+            // }
+        },
+        batchChangeStock: function () {
+            let self = this
+            self.sizeAndPrice = self.sizeAndPrice.map(function (eData) {
+                eData.stock = Number(self.batchStock)
+                let tag = 'paramStock_'
+                let id = tag + eData.param_1 + '_' + eData.param_2
+                document.getElementById(id).value = Number(self.batchStock)
+                return eData
+            })
+            // let index1_length = this.SortItem[0].size.length
+            // let index2_length = this.SortItem[1].size.length
+            // let tag = 'paramStock'
+            // for (let i = 0; i < index1_length; i++) {
+            //     for (let j = 0; j < index2_length; j++) {
+            //         let id = tag + i + '_' + j
+            //         document.getElementById(id).value = Number(self.batchStock)
+            //     }
+            // }
+        },
+
         // 商品提交
         submitGoods: function (state) {
             this.state = state
@@ -718,6 +764,7 @@ $(document).ready(function () {
     editGoodsVM.user_type = sessionStorage.getItem('type')
     if (editGoodsVM.user_type == 1) {
         editGoodsVM.cate = sessionStorage.getItem('cate')
+        editGoodsVM.brand = sessionStorage.getItem('brand')
     }
     getCurrentGoodsInfo()
 
@@ -811,7 +858,17 @@ function getBrand() {
     let data = {}
     server(url, data, async, "post", function (res) {
         if (res.length > 0) {
-            editGoodsVM.brandList = res
+            if (editGoodsVM.user_type == 0) {
+                editGoodsVM.brandList = res
+            } else if (editGoodsVM.user_type == 1) {
+                let brand = JSON.parse(editGoodsVM.brand)
+                editGoodsVM.brandList = res.filter(function (eData) {
+                    for (let i in brand) {
+                        return brand[i] == eData.id
+                    }
+                })
+            }
+
         }
     })
 }
@@ -824,11 +881,30 @@ function getCategory(type, parent_id) {
     server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.length > 0) {
-            if (type == 0) {
-                editGoodsVM.category_parent = res
-            } else if (type == 1) {
-                editGoodsVM.category = res
+            if (editGoodsVM.user_type == 0) {
+                if (type == 0) {
+                    editGoodsVM.category_parent = res
+                } else if (type == 1) {
+                    editGoodsVM.category = res
+                }
+            } else if (editGoodsVM.user_type == 1) {
+                if (type == 0) {
+                    let cate = JSON.parse(editGoodsVM.cate)[0]
+                    editGoodsVM.category_parent = res.filter(function (eData) {
+                        for (let i in cate) {
+                            return cate[i] == eData.id
+                        }
+                    })
+                } else if (type == 1) {
+                    let cate = JSON.parse(editGoodsVM.cate)[1]
+                    editGoodsVM.category = res.filter(function (eData) {
+                        for (let i in cate) {
+                            return cate[i] == eData.id
+                        }
+                    })
+                }
             }
+
         }
     })
 }

@@ -40,7 +40,7 @@ var addGoodsVM = new Vue({
             id: 2,
             name: '待定项'
         }],
-        typeValue: '',
+        typeValue: 2,
 
         //默认的尺寸选择 不应进行改变 是固定值
         specificationList: [{
@@ -63,33 +63,7 @@ var addGoodsVM = new Vue({
         paramImgList: [],
 
         SortItem: [],
-        // SortItem = [{
-        //  select:'', option选中的尺寸类型
-        //  size:[],   添加的尺寸类型
-        //  typeList:[],   尺寸总类别
-        // }]
-
         sizeAndPrice: [],
-        // 预想出来的数据结构 （看来用不上了）
-        // sizeAndPrice = [{
-        //     param_1: '蓝色',
-        //     specification_id_1: '颜色id',
-        //     param_2_list: [{
-        //         param_2: '小',
-        //         specification_id_2: '型号id',
-        //         stock: '',
-        //         price: 25
-        //     }],
-        // }, {
-        //     param_1: '红色',
-        //     specification_id_1: '颜色id',
-        //     param_2_list: [{
-        //         param_2: '小',
-        //         specification_id_2: '型号id',
-        //         stock: '',
-        //         price: 26
-        //     }],
-        // }]
         goodsInfoImgList: [],
         state: '',
 
@@ -105,6 +79,7 @@ var addGoodsVM = new Vue({
 
         user_type: '',
         cate: '',
+        brand: '',
     },
     // watch: {
     //     integralSelect: function (val) {
@@ -748,6 +723,7 @@ $(document).ready(function () {
     addGoodsVM.user_type = sessionStorage.getItem('type')
     if (addGoodsVM.user_type == 1) {
         addGoodsVM.cate = sessionStorage.getItem('cate')
+        addGoodsVM.brand = sessionStorage.getItem('brand')
     }
 
     // check_login()
@@ -761,7 +737,16 @@ function getBrand() {
     let data = {}
     server(url, data, async, "post", function (res) {
         if (res.length > 0) {
-            addGoodsVM.brandList = res
+            if (addGoodsVM.user_type == 0) {
+                addGoodsVM.brandList = res
+            } else if (addGoodsVM.user_type == 1) {
+                let brand = JSON.parse(addGoodsVM.brand)
+                addGoodsVM.brandList = res.filter(function (eData) {
+                    for (let i in brand) {
+                        return brand[i] == eData.id
+                    }
+                })
+            }
         }
     })
 }
@@ -772,13 +757,30 @@ function getCategory(type, parent_id) {
     data.type = type
     data.parent_id = parent_id
     server(url, data, async, "post", function (res) {
-        // console.info(res)
-        // if (res.length > 0) {
-        if (type == 0) {
-            addGoodsVM.category_parent = res
-        } else if (type == 1) {
-            addGoodsVM.category = res
+        if (addGoodsVM.user_type == 0) {
+            if (type == 0) {
+                addGoodsVM.category_parent = res
+            } else if (type == 1) {
+                addGoodsVM.category = res
+            }
+        } else if (addGoodsVM.user_type == 1) {
+            if (type == 0) {
+                let cate = JSON.parse(addGoodsVM.cate)[0]
+                addGoodsVM.category_parent = res.filter(function (eData) {
+                    for (let i in cate) {
+                        return cate[i] == eData.id
+                    }
+                })
+            } else if (type == 1) {
+                let cate = JSON.parse(addGoodsVM.cate)[1]
+                addGoodsVM.category = res.filter(function (eData) {
+                    for (let i in cate) {
+                        return cate[i] == eData.id
+                    }
+                })
+            }
         }
+
         // }
     })
 }
