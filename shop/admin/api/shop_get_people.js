@@ -12,6 +12,12 @@ function shopGetPeople() {
                 data.people = row
             }
 
+            sql = "select count(id) from `restaurant_user` where phone > 0"
+            row = await db.Query(sql)
+            if (row.length > 0) {
+                data.total = row[0]['count(id)']
+            }
+
             // sql = "select * from `restaurant_user` where register_time >= ? and register_time <= ? and phone != '' order by register_time"
             // row = await db.Query(sql, [new Date(param['start_time']), new Date(param['end_time'])])
             // if (row.length > 0) {
