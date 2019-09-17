@@ -110,6 +110,10 @@ function Router() {
                 var shopUpdateWaterfall = require("./api/shop_update_waterfall.js");
                 baseApi = new shopUpdateWaterfall;
                 break;
+            case "update_waterfallSort":
+                var shopUpdateWaterfallSort = require("./api/shop_update_waterfallSort.js");
+                baseApi = new shopUpdateWaterfallSort;
+                break;
             case "get_goods_by_category":
                 var shopGetGoodsByCategory = require("./api/shop_get_goods_by_category.js");
                 baseApi = new shopGetGoodsByCategory;

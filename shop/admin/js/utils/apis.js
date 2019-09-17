@@ -43,6 +43,7 @@ var api = {
     updateNavigation: '../api/update_navigation',
     getWaterfall: '../api/get_waterfall',
     updateWaterfall: '../api/update_waterfall',
+    updateWaterfallSort: '../api/update_waterfallSort',
     getPosition: '../api/get_position',
     getAccount: '../api/get_account',
     addAccount: '../api/add_account',

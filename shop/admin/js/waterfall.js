@@ -55,6 +55,9 @@ var waterfallVM = new Vue({
             this.last_id = 0
             getWaterFall()
         },
+        updateSort: function (id, sort) {
+            updateWaterFallSort(id, sort)
+        }
     }
 })
 
@@ -95,6 +98,20 @@ function changeWaterFallState(itemId, type) {
         // console.info(res)
         if (res.text == "更改成功") {
             location.reload()
+        }
+    })
+}
+
+function updateWaterFallSort(id, sort) {
+    const url = api.updateWaterfallSort, async = true
+    let data = {}
+    data.id = id
+    data.sort = sort
+    server(url, data, async, "post", function (res) {
+        console.info(res)
+        if (res.code == 0) {
+            // location.reload()
+            getWaterFall()
         }
     })
 }
