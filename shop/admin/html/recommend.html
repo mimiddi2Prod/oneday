@@ -126,7 +126,10 @@
                     </label>
                 </div>
                 <div class="second-title column-center">
-                    {{item.sort}}
+                    <!--{{item.sort}}-->
+                    <input class="form-control" style="min-width:30px" v-bind:value="item.sort"
+                           v-model="item.sort" v-on:keyUp.enter="updateSort(item.id,item.sort)"
+                           oninput="value=value.replace(/[^\d]/g,'')"/>
                 </div>
 
                 <div class="second-title column-center">

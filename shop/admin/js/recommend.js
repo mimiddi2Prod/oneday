@@ -71,6 +71,10 @@ var recommendVM = new Vue({
             this.last_id = 0
             getAd()
         },
+
+        updateSort: function (id, sort) {
+            updateAd(id, sort)
+        }
     }
 })
 
@@ -123,6 +127,19 @@ function delAd() {
         // console.info(res)
         if (res.text == "删除成功") {
             $('#myModal').modal('hide')
+            getAd()
+        }
+    })
+}
+
+function updateAd(id, sort) {
+    const url = api.updateAdSort, async = true
+    let data = {}
+    data.id = id
+    data.sort = sort
+    server(url, data, async, "post", function (res) {
+        console.info(res)
+        if (res.code == 0) {
             getAd()
         }
     })

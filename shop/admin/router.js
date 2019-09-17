@@ -50,6 +50,10 @@ function Router() {
                 var shopAddCategory = require("./api/shop_add_category.js");
                 baseApi = new shopAddCategory;
                 break;
+            case "update_category":
+                var shopUpdateCategory = require("./api/shop_update_category.js");
+                baseApi = new shopUpdateCategory;
+                break;
             case "get_uploadToken":
                 var shopGetUploadToken = require("./api/shop_getUploadToken.js");
                 baseApi = new shopGetUploadToken;
@@ -89,6 +93,14 @@ function Router() {
             case "add_ad":
                 var shopAddAd = require("./api/shop_add_ad.js");
                 baseApi = new shopAddAd;
+                break;
+            case "update_ad":
+                var shopUpdateAd = require("./api/shop_update_ad.js");
+                baseApi = new shopUpdateAd;
+                break;
+            case "update_adSort":
+                var shopUpdateAdSort = require("./api/shop_update_adSort.js");
+                baseApi = new shopUpdateAdSort;
                 break;
             case "get_waterfall":
                 var shopGetWaterfall = require("./api/shop_get_waterfall.js");

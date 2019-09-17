@@ -12,7 +12,7 @@
     <script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="../jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <!--<link rel="stylesheet" type="text/css"-->
-          <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
     <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/utils/apis.js"></script>
@@ -68,12 +68,16 @@
 					<span class="row-center pointer" v-on:click="changeCaret(index)">{{item.name}}<span
                             :id="'collapse'+index" class="caret-right"></span></span>
 				</span>
-                    <span class="second-title column-center">{{item.sort}}</span>
+                    <input class="second-title column-center form-control" v-bind:value="item.sort"
+                           v-model="item.sort" v-on:keyUp.enter="updateSort(item.id,item.sort)"
+                           oninput="value=value.replace(/[^\d]/g,'')"/>
                     <span class="first-title column-center">{{item.describe}}</span>
                     <span class="second-title column-center">{{item.create_time}}</span>
                     <span class="second-title column-center">{{item.number}}</span>
                     <span class="second-title column-center">
-					<button type="button" class="btn btn-link" v-if="item.menu.length <= 0" v-on:click="delSort(item.parent_id,item.id,item.name)" data-toggle="modal" data-target="#myModal">删除分类</button>
+					<button type="button" class="btn btn-link" v-if="item.menu.length <= 0"
+                            v-on:click="delSort(item.parent_id,item.id,item.name)" data-toggle="modal"
+                            data-target="#myModal">删除分类</button>
 					<button type="button" class="btn btn-link">
                         <!--修改名称-->
                     </button>
@@ -85,14 +89,19 @@
             </nav>
             <div :id="'collapse-container'+index" class="none">
                 <div class="goods-sort-container" v-for="menuItem,menuIndex in item.menu">
-                    <span class="second-title column-center"><img :src="menuItem.image" style="width: 50px;height: 50px"></span>
+                    <span class="second-title column-center"><img :src="menuItem.image"
+                                                                  style="width: 50px;height: 50px"></span>
                     <span class="second-title column-center">{{menuItem.name}}{{menuItem.home_nav == 0 ? '(首页展示中)' : ''}}</span>
-                    <span class="second-title column-center">{{menuItem.sort}}</span>
+                    <input class="second-title column-center form-control" v-bind:value="menuItem.sort"
+                           v-model="menuItem.sort" v-on:keyUp.enter="updateSort(menuItem.id,menuItem.sort)"
+                           oninput="value=value.replace(/[^\d]/g,'')"/>
                     <span class="first-title column-center">{{menuItem.url}}</span>
                     <span class="second-title column-center">{{menuItem.create_time}}</span>
                     <span class="second-title column-center">{{menuItem.number}}</span>
                     <span class="second-title column-center">
-					<button type="button" class="btn btn-link" v-if="menuItem.number <= 0" v-on:click="delSort(item.id,menuItem.id,menuItem.name)" data-toggle="modal" data-target="#myModal">删除分类</button>
+					<button type="button" class="btn btn-link" v-if="menuItem.number <= 0"
+                            v-on:click="delSort(item.id,menuItem.id,menuItem.name)" data-toggle="modal"
+                            data-target="#myModal">删除分类</button>
 					<button type="button" class="btn btn-link">
                         <!--修改名称-->
                     </button>
@@ -121,12 +130,14 @@
             <li v-for="item,index in pageList" v-on:click="getPage(index)"
                 v-bind:class="(item == last_id+1 ? 'active' : '')"><a
                     href="javascript:;">{{item}}</a></li>
-            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="javascript:;">&raquo;</a>
+            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a
+                    href="javascript:;">&raquo;</a>
             </li>
         </ul>
 
         <!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">开始演示模态框</button> -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -164,7 +175,11 @@
                                     <img class="imgDel" src="/images/del.png" v-on:click="delImg(index)">
                                 </div>
                             </div>
-                            <div class="text"><div>建议尺寸：</div><div v-if="index == -1">264 x 96 (2.75:1)。</div><div v-if="index != -1">(72 x 72) (1:1)。</div></div>
+                            <div class="text">
+                                <div>建议尺寸：</div>
+                                <div v-if="index == -1">264 x 96 (2.75:1)。</div>
+                                <div v-if="index != -1">(72 x 72) (1:1)。</div>
+                            </div>
                         </div>
                     </div>
 
