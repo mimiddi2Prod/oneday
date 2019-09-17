@@ -246,7 +246,7 @@ function getSales(time) {
                 max_number = temp > max_number ? function () {
                     let len = parseInt(temp).toString().length
                     let pow = Math.pow(10, len - 1)
-                    return Number((temp / pow)).toFixed(0) * pow + 3 * pow
+                    return Number((temp / pow)).toFixed(0) * pow + 4 * pow
                 }() : max_number
                 homeVM.data[0].push(temp)
             }
