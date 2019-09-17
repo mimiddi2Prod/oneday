@@ -1,5 +1,6 @@
 // var tools = require("./tool");
 var db = require("./../utils/dba");
+const qiniuRootUrl = require("./../config/qiniuConfig").qiniuRootUrl
 function shopAddAd() {
     // var tool = new tools;
     // var query = tool.query;
@@ -8,7 +9,7 @@ function shopAddAd() {
         var data = {}
         var row = []
         try {
-            var qiniuRootUrl = "http://notwastingqiniu.minidope.com/"
+            // var qiniuRootUrl = "http://notwastingqiniu.minidope.com/"
             // var qiniuRootUrl = "http://ppburep37.bkt.clouddn.com/"  //七牛云测试域名
             // 多张图上传
             // var img = []

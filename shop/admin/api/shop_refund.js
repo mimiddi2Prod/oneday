@@ -32,7 +32,7 @@ function shopRefund() {
             payData.tradeId = tradeId
             payData.total_fee = total_fee * 100
 
-            if (payData.tradeId.indexOf('yb') == -1) {
+            if (payData.tradeId.indexOf('y') == -1) {
                 // 微信支付退款
                 async function Call() {
                     var e = await refund(payData)
