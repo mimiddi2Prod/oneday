@@ -105,8 +105,8 @@ function formate(time) {
         start_time = new Date(new Date(timeParse).getTime() - (29 * 24 * 60 * 60 * 1000))
         end_time = current_time
     } else {
-        start_time = new Date(document.getElementById('test5_1').value)
-        end_time = new Date(document.getElementById('test5_2').value)
+        start_time = new Date(document.getElementById('test5_1').value.slice(0,10))
+        end_time = new Date(document.getElementById('test5_2').value.slice(0,10))
         if (!start_time) {
             alert('请选择起始时间')
             return
@@ -150,8 +150,8 @@ function getSales(time) {
         start_time = new Date(new Date(timeParse).getTime() - (29 * 24 * 60 * 60 * 1000))
         end_time = current_time
     } else {
-        start_time = new Date(document.getElementById('test5_1').value)
-        end_time = new Date(document.getElementById('test5_2').value)
+        start_time = new Date(document.getElementById('test5_1').value.slice(0,10))
+        end_time = new Date(document.getElementById('test5_2').value.slice(0,10))
         if (!start_time) {
             alert('请选择起始时间')
             return
@@ -289,8 +289,8 @@ function getPeople(time) {
         start_time = new Date(new Date(timeParse).getTime() - (29 * 24 * 60 * 60 * 1000))
         end_time = current_time
     } else {
-        start_time = new Date(document.getElementById('test5_12').value)
-        end_time = new Date(document.getElementById('test5_22').value)
+        start_time = new Date(document.getElementById('test5_12').value.slice(0,10))
+        end_time = new Date(document.getElementById('test5_22').value.slice(0,10))
         if (!start_time) {
             alert('请选择起始时间')
             return
@@ -369,8 +369,8 @@ function people_formate(time) {
         start_time = new Date(new Date(timeParse).getTime() - (29 * 24 * 60 * 60 * 1000))
         end_time = current_time
     } else {
-        start_time = new Date(document.getElementById('test5_12').value)
-        end_time = new Date(document.getElementById('test5_22').value)
+        start_time = new Date(document.getElementById('test5_12').value.slice(0,10))
+        end_time = new Date(document.getElementById('test5_22').value.slice(0,10))
         if (!start_time) {
             alert('请选择起始时间')
             return
@@ -435,8 +435,8 @@ function getPeopleShop(time) {
         start_time = new Date(new Date(timeParse).getTime() - (29 * 24 * 60 * 60 * 1000))
         end_time = current_time
     } else {
-        start_time = new Date(document.getElementById('test5_13').value)
-        end_time = new Date(document.getElementById('test5_23').value)
+        start_time = new Date(document.getElementById('test5_13').value.slice(0,10))
+        end_time = new Date(document.getElementById('test5_23').value.slice(0,10))
         if (!start_time) {
             alert('请选择起始时间')
             return
@@ -513,8 +513,8 @@ function people_shop_formate(time) {
         start_time = new Date(new Date(timeParse).getTime() - (29 * 24 * 60 * 60 * 1000))
         end_time = current_time
     } else {
-        start_time = new Date(document.getElementById('test5_13').value)
-        end_time = new Date(document.getElementById('test5_23').value)
+        start_time = new Date(document.getElementById('test5_13').value.slice(0,10))
+        end_time = new Date(document.getElementById('test5_23').value.slice(0,10))
         if (!start_time) {
             alert('请选择起始时间')
             return
