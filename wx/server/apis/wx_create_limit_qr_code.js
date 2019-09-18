@@ -20,7 +20,7 @@ function WXCreateLimitQRCode() {
 				// console.info(result.url)
 				sql = "insert into wechat_qrcode (number,url,create_time) values (?,?,CURRENT_TIMESTAMP)"
 				// console.info(sql)
-				row = await query(sql, [param[i],result.url])
+				row = query(sql, [param[i],result.url])
 				// console.info(row)
 			});
 		}

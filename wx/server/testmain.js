@@ -131,7 +131,12 @@ function createMenu(){
 }
 // createLimitQRCode()
 function createLimitQRCode(){
-	let codeList = [100,101]
+	// let codeList = [100,101]
+	let codeList = []
+	for(let i=1;i<=50;i++ ){
+		codeList.push(i)
+	}
+	console.info(codeList)
 	codeList = JSON.stringify(codeList)
 	router.Run('create_limit_qr_code',codeList);
 }
