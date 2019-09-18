@@ -23,18 +23,23 @@ function shopLogin() {
                 const password = Decrypt(param['password'], privateKey)
                 // param['username'] = encodeURIComponent(param['username'])
 
-                sql = "select id,`type`,position_id,cate,brand from admin where username = ? and password = ?";
+                sql = "select id,`type`,position_id,cate,brand,token,token_expire from admin where username = ? and password = ?";
                 row = await db.Query(sql, [param['username'], password]);
                 if (row.length > 0) {
                     data.text = "login is success"
                     data.id = row[0].id
                     data.type = row[0].type
-                    if(data.type == 1){
+                    if (data.type == 1) {
                         data.cate = row[0].cate
                         data.brand = row[0].brand
                     }
 
-                    data.token = uuid.v4()
+                    if (row[0].token && row[0].token_expire && new Date(row[0].token_expire) > new Date()) {
+                        data.token = row[0].token
+                    } else {
+                        data.token = uuid.v4()
+                    }
+
                     data.expiredTime = new Date().getTime() + (12 * 1000 * 60 * 60)
                     let expiredTime = new Date(data.expiredTime)
 

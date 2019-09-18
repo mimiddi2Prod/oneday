@@ -14,10 +14,10 @@ module.exports = async function (cookie) {
         } else {
             let sql = 'select `type`,token_expire from admin where token = ?'
             let row = await db.Query(sql, cookie.token)
-            data.type = row[0].type
-            let current_time = new Date()
-            let token_expire = new Date(row[0].token_expire)
             if (row.length > 0) {
+                data.type = row[0].type
+                let current_time = new Date()
+                let token_expire = new Date(row[0].token_expire)
                 if (token_expire > current_time) {
                     data.text = true
                     return data
@@ -25,6 +25,9 @@ module.exports = async function (cookie) {
                     data.text = false
                     return data
                 }
+            }else{
+                data.text = false
+                return data
             }
         }
     }
