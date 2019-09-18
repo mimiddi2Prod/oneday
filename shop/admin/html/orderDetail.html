@@ -53,7 +53,8 @@
                         {{orderDetail.after_sale_state == 3 ? '换货中' : ''}}
                         {{orderDetail.after_sale_state == 4 ? '已退款' : ''}}
                         {{orderDetail.after_sale_state == 5 ? '已退货退款' : ''}}
-                        {{orderDetail.after_sale_state == 6 ? '已换货' : ''}}</h2>
+                        {{orderDetail.after_sale_state == 6 ? '已换货' : ''}}
+                        {{orderDetail.after_sale_state == 7 ? '已拒绝退款' : ''}}</h2>
                 </div>
             </nav>
 
@@ -133,7 +134,8 @@
                         {{orderDetail.after_sale_state == 3 ? '换货中' : ''}}
                         {{orderDetail.after_sale_state == 4 ? '已退款' : ''}}
                         {{orderDetail.after_sale_state == 5 ? '已退货退款' : ''}}
-                        {{orderDetail.after_sale_state == 6 ? '已换货' : ''}}</span></div>
+                        {{orderDetail.after_sale_state == 6 ? '已换货' : ''}}
+                        {{orderDetail.after_sale_state == 7 ? '已拒绝退款' : ''}}</span></div>
                 </div>
                 <!--单价/数量-->
                 <div class="third-title column">
@@ -193,16 +195,16 @@
                         <span>退款数量：x{{orderDetail.aftersale[0].number}}</span>
                     </div>
                 </label>
-                <label class="form-check-label row" style="justify-content: space-between;align-items: center">
+                <div class="form-check-label row" style="justify-content: space-between;align-items: center">
                     <div class="a column" style="width: 50%">
                         <span>退款说明：{{orderDetail.aftersale[0].description}}</span>
                         <span>售后凭证：</span>
                     </div>
                     <div style="width: 50%;margin-top: 10px;text-align: end" v-if="orderDetail.after_sale_state == 1">
                         <button type="button" class="btn btn-danger" v-on:click="refund()">确认退款</button>
-                        <button type="button" class="btn btn-secondary">拒绝退款</button>
+                        <button type="button" class="btn btn-secondary" v-on:click="rejectRefund()">拒绝退款</button>
                     </div>
-                </label>
+                </div>
                 <label class="form-check-label row">
                     <div class="afterSaleImg">
 
@@ -228,15 +230,15 @@
                         <span>退款数量：x{{orderDetail.aftersale[0].number}}</span>
                     </div>
                 </label>
-                <label class="form-check-label row" style="justify-content: space-between;align-items: center">
+                <div class="form-check-label row" style="justify-content: space-between;align-items: center">
                     <div class="a" style="width: 50%">
                         <span>售后凭证：</span>
                     </div>
                     <div style="width: 50%;margin-top: 10px;text-align: end" v-if="orderDetail.after_sale_state == 2">
                         <button type="button" class="btn btn-danger" v-on:click="refund()">确认退款</button>
-                        <button type="button" class="btn btn-secondary">拒绝退款</button>
+                        <button type="button" class="btn btn-secondary" v-on:click="rejectRefund()">拒绝退款</button>
                     </div>
-                </label>
+                </div>
                 <label class="form-check-label row">
                     <div class="afterSaleImg">
                         <img class="proof" v-for="item in orderDetail.aftersale[0].image" :src="item">

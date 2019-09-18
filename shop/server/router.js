@@ -162,6 +162,11 @@ function FBRouter(){
                     work = new SHOPUpdateAfterSaleState;
                     break;
                 }
+                case "get_afterSaleNotice":{
+                    var SHOPGetAfterSaleNotice = require("./apis/shop_get_afterSaleNotice");
+                    work = new SHOPGetAfterSaleNotice;
+                    break;
+                }
                 case "get_logistics":{
                     var SHOPGetLogistics = require("./apis/shop_get_logistics");
                     work = new SHOPGetLogistics;

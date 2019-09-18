@@ -26,6 +26,10 @@ function Router() {
                 var shopRefund = require("./api/shop_refund.js");
                 baseApi = new shopRefund;
                 break;
+            case "rejectRefund":
+                var shopRejectRefund = require("./api/shop_rejectRefund.js");
+                baseApi = new shopRejectRefund;
+                break;
             case "update_orderState":
                 var shopUpdateOrderState = require("./api/shop_update_orderState.js");
                 baseApi = new shopUpdateOrderState;

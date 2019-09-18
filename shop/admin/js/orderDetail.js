@@ -13,9 +13,30 @@ var orderDetailVM = new Vue({
         // },
         refund: function () {
             toRefund()
+        },
+        rejectRefund: function () {
+            toRejectRefund()
         }
     }
 })
+
+function toRejectRefund() {
+    const url = "../api/rejectRefund", async = true
+    var data = {}
+    data.order_id = orderDetailVM.orderId
+    data.user_id = orderDetailVM.orderDetail.user_id
+    server(url, data, async, "post", function (res) {
+        console.info(res)
+        if (res.code == 0) {
+            // 退款成功
+            alert(res.text)
+            getOrderDetail()
+        } else if (res.code == 1) {
+            // 退款失败
+            alert(res.text)
+        }
+    })
+}
 
 function toRefund() {
     const url = "../api/refund", async = true
@@ -60,7 +81,7 @@ function getOrderDetail() {
     var data = {}
     data.order_id = orderDetailVM.orderId
     server(url, data, async, "post", function (res) {
-        // console.info(res)
+        console.info(res)
         if (res.length > 0) {
             res = res.map(function (data) {
                 if (new Date() - new Date(data.create_time) < 60 * 60 * 1000) {

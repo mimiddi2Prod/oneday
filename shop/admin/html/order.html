@@ -195,6 +195,7 @@
                             {{item.after_sale_state == 4 ? '已退款' : ''}}
                             {{item.after_sale_state == 5 ? '已退货退款' : ''}}
                             {{item.after_sale_state == 6 ? '已换货' : ''}}
+                            {{item.after_sale_state == 7 ? '已拒绝退款' : ''}}
                         </div>
                         <button type="button" class="btn btn-link" v-if="item.after_sale_state == 0 && item.state == 1"
                                 data-toggle="modal" data-target="#myModal" v-on:click="getLogistics(item.id,item.tel)">
