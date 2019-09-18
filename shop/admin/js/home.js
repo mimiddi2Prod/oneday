@@ -137,6 +137,8 @@ function getSales(time) {
     homeVM.data = [[], []]
     let current_time = new Date()
     let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
+    month = (month < 10 ? '0' + month : month)
+    date = (date < 10 ? '0' + date : date)
     let timeParse = year + '-' + month + '-' + date
     let start_time = '', end_time = ''
     if (time == 7) {
@@ -274,6 +276,8 @@ function getPeople(time) {
     homeVM.people_data = [[], []]
     let current_time = new Date()
     let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
+    month = (month < 10 ? '0' + month : month)
+    date = (date < 10 ? '0' + date : date)
     let timeParse = year + '-' + month + '-' + date
     let start_time = '', end_time = ''
     if (time == 7) {
@@ -354,6 +358,8 @@ function people_formate(time) {
     homeVM.people_x = []
     let current_time = new Date()
     let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
+    month = (month < 10 ? '0' + month : month)
+    date = (date < 10 ? '0' + date : date)
     let timeParse = year + '-' + month + '-' + date
     let start_time = '', end_time = ''
     if (time == 7) {
@@ -416,6 +422,8 @@ function getPeopleShop(time) {
     homeVM.people_shop_data = [[], []]
     let current_time = new Date()
     let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
+    month = (month < 10 ? '0' + month : month)
+    date = (date < 10 ? '0' + date : date)
     let timeParse = year + '-' + month + '-' + date
     let start_time = '', end_time = ''
     if (time == 7) {
