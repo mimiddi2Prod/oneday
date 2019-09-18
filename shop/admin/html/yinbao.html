@@ -65,9 +65,9 @@
             <!--<caption>边框表格布局</caption>-->
             <thead>
             <tr v-for="item in number">
-                <th v-for="item1 in dayList" v-if="(item1.day / 7 <= item) && (item1.day / 7 > item - 1)">
-                    <div>{{item1.day}}</div>
-                    <input type="text" class="form-control" style="width: auto;" v-bind:value="item1.refund"
+                <th v-for="item1 in dayList" v-if="(item1.day / 7 <= item) && (item1.day / 7 > item - 1)" style="width: auto;">
+                    <div style="width: 100%;min-width: 90px">{{item1.day}}</div>
+                    <input type="text" class="form-control" style="width: 100%;" v-bind:value="item1.refund"
                            v-model="item1.refund" v-on:keyUp.enter="updateRefund(item1.day,item1.refund)">
                 </th>
             </tr>
