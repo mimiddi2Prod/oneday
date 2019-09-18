@@ -96,6 +96,8 @@ function formate(time) {
     homeVM.x = []
     let current_time = new Date()
     let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
+    month = (month < 10 ? '0' + month : month)
+    date = (date < 10 ? '0' + date : date)
     let timeParse = year + '-' + month + '-' + date
     let start_time = '', end_time = ''
     if (time == 7) {
@@ -504,6 +506,8 @@ function people_shop_formate(time) {
     homeVM.people_shop_x = []
     let current_time = new Date()
     let year = current_time.getFullYear(), month = current_time.getMonth() + 1, date = current_time.getDate()
+    month = (month < 10 ? '0' + month : month)
+    date = (date < 10 ? '0' + date : date)
     let timeParse = year + '-' + month + '-' + date
     let start_time = '', end_time = ''
     if (time == 7) {

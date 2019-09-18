@@ -192,7 +192,7 @@
         <div style="display: flex;flex-direction: row;">
             <div style="margin-right: 30px">
                 <button type="button" class="btn btn-secondary" style="margin-left: 0;margin-right: 6px"
-                        :style="index == people_active ? 'color:#fff;background-color:red' : ''" v-for="item,index in people_shop_dayList"
+                        :style="index == people_shop_active ? 'color:#fff;background-color:red' : ''" v-for="item,index in people_shop_dayList"
                         v-on:click="getPeopleShop(item)">{{item}}天
                 </button>
                 <!--<button type="button" class="btn btn-secondary" style="margin-left: 0;" v-on:click="getSales(7)">7天</button>-->
