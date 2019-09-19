@@ -16,7 +16,7 @@ function RestaurantGetBanner() {
         // } else {
         try {
             sql = "select * from restaurant_banner where status = ? order by sort";
-            row = await query(sql, 1);
+            row = await query(sql, 0);
             console.info(row)
             if (row.length > 0) {
                 data.opening = row
