@@ -4,12 +4,16 @@ page {
   background-color: #f0f0f0;
 }
 
-view {
+.top {
   position: absolute;
   margin-top: 40%;
   z-index: 2;
   text-align: center;
   width: 100%;
+}
+
+.top > view{
+  margin-bottom: 8rpx
 }
 
 image {

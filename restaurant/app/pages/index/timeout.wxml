@@ -1,6 +1,7 @@
 <!--pages/index/timeout.wxml-->
-<view>
-  消息已过期，请重新扫描桌面二维码
+<view class="top">
+  <view>消息已过期</view>
+  请扫描桌上二维码，获取桌号后进行点餐
 </view>
 
 <image src="/images/ao.jpg"  mode="widthFix"></image>
