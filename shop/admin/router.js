@@ -278,6 +278,34 @@ function Router() {
                 var yinbaoGetRefund = require("./api/yinbao_get_refund.js");
                 baseApi = new yinbaoGetRefund;
                 break;
+            case "get_brunch_banner":
+                var shopGetBrunchBanner = require("./api/shop_get_brunch_banner.js");
+                baseApi = new shopGetBrunchBanner;
+                break;
+            case "del_brunch_banner":
+                var shopDelBrunchBanner = require("./api/shop_delete_brunch_banner.js");
+                baseApi = new shopDelBrunchBanner;
+                break;
+            case "update_brunch_banner_status":
+                var shopUpdateBrunchBannerStatus = require("./api/shop_update_brunch_banner_status.js");
+                baseApi = new shopUpdateBrunchBannerStatus;
+                break;
+            case "get_brunch_category":
+                var shopGetBrunchCategory = require("./api/shop_get_brunch_category.js");
+                baseApi = new shopGetBrunchCategory;
+                break;
+            case "get_goods_by_brunch_category":
+                var shopGetGoodsByBrunchCategory = require("./api/shop_get_goods_by_brunch_category.js");
+                baseApi = new shopGetGoodsByBrunchCategory;
+                break;
+            case "add_brunch_banner":
+                var shopAddBrunchBanner = require("./api/shop_add_brunch_banner.js");
+                baseApi = new shopAddBrunchBanner;
+                break;
+            case "update_brunch_banner_sort":
+                var shopUpdateBrunchBannerSort = require("./api/shop_update_brunch_banner_sort.js");
+                baseApi = new shopUpdateBrunchBannerSort;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

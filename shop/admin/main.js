@@ -163,6 +163,10 @@ app.use(function (req, res, next) {
                     showPaper('html/addPosition.html');
                 } else if (type[1] == 'yinbao') {
                     showPaper('html/yinbao.html');
+                } else if (type[1] == 'brunchBanner') {
+                    showPaper('html/brunchBanner.html');
+                } else if (type[1] == 'addBrunchBanner') {
+                    showPaper('html/addBrunchBanner.html');
                 } else {
                     showPaper('html/404.html')
                 }
@@ -183,6 +187,10 @@ app.use(function (req, res, next) {
                     showPaper('index.html')
                 } else if (type[1] == 'yinbao') {
                     showPaper('html/yinbao.html');
+                } else if (type[1] == 'brunchBanner') {
+                    showPaper('html/brunchBanner.html');
+                } else if (type[1] == 'addBrunchBanner') {
+                    showPaper('html/addBrunchBanner.html');
                 } else {
                     showPaper('html/404.html')
                 }
