@@ -42,6 +42,11 @@ function FBRouter(){
                     work = new RestaurantGetOrderDetailByTradeid;
                     break;
                 }
+                case "restaurant_get_banner":{
+                    var RestaurantGetBanner = require("./apis/restaurant_get_banner");
+                    work = new RestaurantGetBanner;
+                    break;
+                }
                 case "restaurant_payfee":{
                     var RestaurantPayfee = require("./apis/restaurant_payfee");
                     work = new RestaurantPayfee;

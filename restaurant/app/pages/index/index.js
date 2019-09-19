@@ -52,7 +52,16 @@ Page({
     isCustomer: false,
     point: 0,
     balance: 0,
-    discount: 0
+    discount: 0,
+
+    showBannerModal: true, //开门广告开启
+    opening: []
+  },
+
+  showBannerModal: function() {
+    this.setData({
+      showBannerModal: false
+    })
   },
 
   // 页面高度 scroll-view需要防止整个页面跟着拖动
@@ -92,7 +101,24 @@ Page({
     // 获取商品列表 包括类别 和 商品
     this.getCategory(this.data.locationCode)
 
+    // 开门广告
+    this.ad()
+
     this.getCustomerByPhone()
+  },
+
+  ad: function() {
+    let self = this
+    server.request(api.getBanner, {
+      'phone': app.globalData.phone
+    }, 'post').then(function(res) {
+      console.info(res)
+      if (res && res.opening.length > 0) {
+        self.setData({
+          opening: res.opening
+        })
+      }
+    })
   },
 
   getCustomerByPhone: function() {
@@ -170,17 +196,35 @@ Page({
   },
 
   showGoodsDetail: function(e) {
+    this.setData({
+      showBannerModal: false
+    })
     if (this.data.showDetail) {
       this.setData({
         showDetail: false
       })
     } else {
       let goods_id = e.currentTarget.dataset.id
-      let index = e.currentTarget.dataset.index
-      let goods_detail = this.data.goods[index].list.filter(function(eData) {
-        return eData.id == goods_id
-      })[0]
+      // let index = e.currentTarget.dataset.index
+      // let goods_detail = this.data.goods[index].list.filter(function(eData) {
+      //   return eData.id == goods_id
+      // })[0]
+      // goods_detail.index = index
+      // 改 --》
+      let cateid = e.currentTarget.dataset.cateid
+      let goods_detail = {}
+      let index = ''
+      for (let i in this.data.goods) {
+        if (this.data.goods[i].category_id == cateid) {
+          index = i
+          goods_detail = this.data.goods[index].list.filter(function(eData) {
+            return eData.id == goods_id
+          })[0]
+          break;
+        }
+      }
       goods_detail.index = index
+      // 《-- 改
       // console.info(goods_detail)
       this.setData({
         goods_detail: goods_detail,

@@ -16,14 +16,22 @@ Page({
       title: '加载中',
     })
     console.info(options)
-    let status = true 
-    let expire_time = new Date() //公众号二维码链接过期时间
+    let status = false
+    let expire_time = new Date(options.expire_time) //公众号二维码链接过期时间
     let current_time = new Date()
-    let number = 7 //桌号
+    console.info('过期时间' + expire_time)
+    console.info('当前时间' + current_time)
+    let number = options.id //桌号
     let locationCode = 'xmspw'
+    if (expire_time >= current_time) {
+      status = true
+    }
     if (status) {
+      // wx.redirectTo({
+      //   url: '../index/index?number=' + number + '&expire_time=' + expire_time + '&locationCode=' + locationCode,
+      // })
       wx.redirectTo({
-        url: '../index/index?number=' + number + '&expire_time=' + expire_time + '&locationCode=' + locationCode,
+        url: '../index/index?number=' + number + '&locationCode=' + locationCode,
       })
     } else {
       wx.redirectTo({

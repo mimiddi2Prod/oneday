@@ -7,6 +7,7 @@ module.exports = {
   addOrder: rootUrl + 'restaurant_add_order',
   getOrderByOpenid: rootUrl + 'restaurant_get_order_by_openid',
   getOrderDetailByTradeid: rootUrl + 'restaurant_get_order_detail_by_tradeid',
+  getBanner: rootUrl + 'restaurant_get_banner',
 
   getUserPhone: rootUrl + 'restaurant_get_user_phone',
 
