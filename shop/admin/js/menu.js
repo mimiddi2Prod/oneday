@@ -36,7 +36,7 @@ var menuVM = new Vue({
         if(tag == 'addAccount'){
             tag = 'account'
         }
-        if(tag = 'addBrunchBanner'){
+        if(tag == 'addBrunchBanner'){
             tag = 'brunchBanner'
         }
         this.activeMenuTag = tag
