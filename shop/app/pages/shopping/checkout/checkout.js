@@ -173,7 +173,7 @@ Page({
     let self = this
     // // 拉起支付
     pay.pay(api.payfee, self.data.actualPrice, "post").then(function(res) {
-      // console.info(res)
+      console.info(res)
       self.addOrderByState(1, res)
       self.updateIntegral()
     }).catch(function(res) {
@@ -245,10 +245,10 @@ Page({
   // },
 
   updateIntegral: function() {
-    if (self.data.customerUid.length < 0){
+    let self = this
+    if (self.data.customerUid.length < 0) {
       return false
     }
-    let self = this
     // data.user_id = app.globalData.user_id
     // server.api(api.updateIntegral, data, "post").then(function(res) {
     //   console.info(res)
@@ -274,7 +274,9 @@ Page({
     var address = this.data.checkedAddress
     var self = this
     var submitNum = 0
-    // console.info(orderList)
+    console.info(orderList)
+
+    console.info(tradeId)
     for (var i in orderList) {
       var data = {}
       data.user_id = app.globalData.user_id

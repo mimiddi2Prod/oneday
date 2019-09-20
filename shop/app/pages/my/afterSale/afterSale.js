@@ -129,13 +129,13 @@ Page({
 
         for (let i in self.data.orderList) {
           if (self.data.orderList[i].list.length > 0) {
-            self.data.orderList[i].list = self.data.orderList[i].list.map(function (e) {
+            self.data.orderList[i].list = self.data.orderList[i].list.map(function(e) {
               e.total = Number(e.number * e.single_price).toFixed(2)
               return e
             })
           }
         }
-        
+
         self.setData(self.data)
         wx.hideLoading()
       } else {
@@ -259,8 +259,8 @@ Page({
         wx.showModal({
           content: '售后申请取消失败',
           showCancel: false,
-          success:function(res){
-            if(res.confirm){
+          success: function(res) {
+            if (res.confirm) {
               // 刷新
               if (self.data.currentId == 0) {
                 // 申请售后
@@ -300,6 +300,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.getAfterSaleNotice()
+    
     if (app.globalData.refreshAfterSale) {
       var orderList = [{
         status: 0, // 申请售后
@@ -316,6 +318,23 @@ Page({
       this.getAfterSale(0)
       app.globalData.refreshAfterSale = false
     }
+  },
+
+  getAfterSaleNotice: function() {
+    server.api(api.getAfterSaleNotice, {
+      user_id: app.globalData.user_id
+    }, "post").then(function(res) {
+      console.info(res)
+      if (res) {
+        if (res.code == 0) {
+          wx.showModal({
+            title: '拒绝退款',
+            content: '商家拒绝了您的退款申请，如需帮助，请在“我的”页面中联系客服解决',
+            showCancel: false,
+          })
+        }
+      }
+    })
   },
 
   /**

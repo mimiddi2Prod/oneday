@@ -41,10 +41,12 @@ Page({
             app.globalData.balance = res.data.balance //余额
             app.globalData.discount = res.data.discount //折扣 100无折扣 70表示7折
             app.globalData.isCustomer = true
-            app.globalData.customerUid = res.customerUid
+            app.globalData.customerUid = res.data.customerUid
             self.setData({
               isCustomer: app.globalData.isCustomer
             })
+
+            wx.navigateBack({})
           }
         })
       }

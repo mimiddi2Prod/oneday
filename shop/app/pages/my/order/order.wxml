@@ -42,8 +42,7 @@
               <view>x{{item.number}}</view>
               <view wx:if="{{item.state == 0}}">{{item.payInterval ? '待付款' : '已取消'}}</view>
               <view wx:if="{{item.after_sale_state == 0}}">{{item.state == -1 ? '已取消' : ''}}{{item.state == 1 ? '待发货' : ''}}{{item.state == 2 ? '待收货' : ''}}{{item.state == 3 ? '待评价' : ''}}{{item.state == 4 ? '已完成' : ''}}</view>
-              <view wx:if="{{item.after_sale_state != 0}}">{{item.after_sale_state == 1 ? '退款中' : ''}}{{item.after_sale_state == 2 ? '退货退款中' : ''}}{{item.after_sale_state == 3 ? '换货中' : ''}}{{item.after_sale_state == 4 ? '已退款' : ''}}{{item.after_sale_state == 5 ? '已退货退款' : ''}}{{item.after_sale_state
-                == 6 ? '已换货' : ''}}</view>
+              <view wx:if="{{item.after_sale_state != 0}}">{{item.after_sale_state == 1 ? '退款中' : ''}}{{item.after_sale_state == 2 ? '退货退款中' : ''}}{{item.after_sale_state == 3 ? '换货中' : ''}}{{item.after_sale_state == 4 ? '已退款' : ''}}{{item.after_sale_state == 5 ? '已退货退款' : ''}}{{item.after_sale_state == 6 ? '已换货' : ''}}{{item.after_sale_state == 7 ? '已拒绝' : ''}}</view>
             </view>
           </view>
         </view>
@@ -174,7 +173,7 @@
               <button>查看物流</button>
             </navigator>
             <view class="btn" bindtap='changeAfterSale' data-pageid='{{pageId}}' data-orderid='{{index}}' hover-class='none'>
-              <button>售后完成</button>
+              <button>{{item.after_sale_state == 7 ? '售后已拒绝' : '售后完成'}}</button>
             </view>
           </view>
         </view>

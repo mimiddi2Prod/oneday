@@ -7,7 +7,7 @@ module.exports = {
   login: rootUrl + 'login',
 
   // 二维码
-  getwxacodeunlimit: rootUrl +'get_wxacodeunlimit',
+  getwxacodeunlimit: rootUrl + 'get_wxacodeunlimit',
 
   // 首页
   ad: rootUrl + 'get_ad',
@@ -52,6 +52,7 @@ module.exports = {
   getAfterSale: rootUrl + 'get_afterSale',
   addAfterSale: rootUrl + 'add_afterSale',
   changeAfterSale: rootUrl + 'update_afterSaleState',
+  getAfterSaleNotice: rootUrl + 'get_afterSaleNotice',
 
   // 获取用户绑定微信手机号
   getUserPhone: rootUrl + 'get_user_phone',
