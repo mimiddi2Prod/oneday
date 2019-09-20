@@ -14,12 +14,17 @@ Page({
     create_time:'',
     style:'',
     trade_id:'',
+
+    restaurantTableName:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      restaurantTableName: app.globalData.restaurantTableName
+    })
     console.info(options)
     if (options.tradeid) {
       let tradeid = options.tradeid

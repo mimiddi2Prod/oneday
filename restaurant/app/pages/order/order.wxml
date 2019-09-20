@@ -2,7 +2,7 @@
 <!-- 标题栏 -->
 <view class="header">
   <view class="header_left">
-    桌号:
+    桌号：{{restaurantTableName}}
   </view>
   <!-- <view class="header_right">
     订单

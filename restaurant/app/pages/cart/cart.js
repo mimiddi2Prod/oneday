@@ -16,13 +16,18 @@ Page({
     style: 0,
 
     dinnersNumber: 1,
-    showPayMethodDialog: false
+    showPayMethodDialog: false,
+
+    restaurantTableName:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      restaurantTableName: app.globalData.restaurantTableName
+    })
     this.getCart()
   },
 

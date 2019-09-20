@@ -1,7 +1,7 @@
 <!--pages/pay_status/pay_status.wxml-->
 <view class="header">
   <view class="header_left">
-    桌号:
+    桌号：{{restaurantTableName}}
   </view>
   <view class="header_right">
     <navigator open-type="navigateBack" delta="3" hover-class='none'>
