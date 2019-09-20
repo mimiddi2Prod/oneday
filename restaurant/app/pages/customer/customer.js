@@ -39,7 +39,8 @@ Page({
           if (res.code == 0) {
             app.globalData.point = res.data.point //积分
             app.globalData.balance = res.data.balance //余额
-            app.globalData.discount = res.discount //折扣 100无折扣 70表示7折
+            app.globalData.discount = res.data.discount //折扣 100无折扣 70表示7折
+            app.globalData.phone = res.data.phone
             app.globalData.isCustomer = true
             self.setData({
               isCustomer: app.globalData.isCustomer
@@ -48,7 +49,7 @@ Page({
             wx.showModal({
               content: '绑定成功',
               showCancel: false,
-              confirmText:'返回首页',
+              confirmText:'确定',
               success: function(e) {
                 if(e.confirm){
                   wx.navigateBack({})
