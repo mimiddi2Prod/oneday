@@ -32,6 +32,8 @@ App({
     balance: 0,
     discount: 0,
     isCustomer: false,
-    customerUid:0,
+    customerUid: 0,
+
+    restaurantTableName: 0,
   }
 })

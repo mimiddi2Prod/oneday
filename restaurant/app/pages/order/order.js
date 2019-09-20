@@ -26,21 +26,23 @@ Page({
       'openid': app.globalData.openid
     }, 'post').then(function(res) {
       console.info(res)
-      self.data.order = res.order_list.map(function(eData) {
-        eData.total_price = 0
-        eData.total_number = 0
-        let arr_price = eData['group_concat(price)'].split(','),
-          arr_number = eData['group_concat(number)'].split(',')
-        for (let i in arr_price) {
-          eData.total_price += Number(arr_price[i])
-        }
-        for (let i in arr_number) {
-          eData.total_number += Number(arr_number[i])
-        }
-        eData.create_time = util.formatTime(new Date(eData.create_time))
-        return eData
-      })
-      self.setData(self.data)
+      if (res.order_list) {
+        self.data.order = res.order_list.map(function(eData) {
+          eData.total_price = 0
+          eData.total_number = 0
+          let arr_price = eData['group_concat(price)'].split(','),
+            arr_number = eData['group_concat(number)'].split(',')
+          for (let i in arr_price) {
+            eData.total_price += Number(arr_price[i])
+          }
+          for (let i in arr_number) {
+            eData.total_number += Number(arr_number[i])
+          }
+          eData.create_time = util.formatTime(new Date(eData.create_time))
+          return eData
+        })
+        self.setData(self.data)
+      }
       console.info(self.data.order)
     })
   },

@@ -163,7 +163,7 @@ Page({
     // data.tradeId = util.formatTime(new Date()).toString()
     data.tradeId = tradeId
     data.cart = self.data.cart
-    data.restaurantTableName = 1
+    data.restaurantTableName = app.globalData.restaurantTableName
     data.payMethod = payMethod
     if (payMethod == 'CustomerBalance') {
       data.customerNumber = app.globalData.phone

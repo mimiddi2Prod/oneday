@@ -17,7 +17,7 @@ Page({
     })
     console.info(options)
     let status = false
-    let expire_time = new Date(options.expire_time) //公众号二维码链接过期时间
+    let expire_time = new Date(Number(options.expire_time)) //公众号二维码链接过期时间
     let current_time = new Date()
     console.info('过期时间' + expire_time)
     console.info('当前时间' + current_time)

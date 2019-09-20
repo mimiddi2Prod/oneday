@@ -88,6 +88,7 @@ Page({
     console.info(options)
     if (options.number) {
       this.data.number = options.number // 获取到桌号
+      app.globalData.restaurantTableName = options.number
     }
     if (options.expire_time) {
       this.data.expire_time = options.expire_time // 超时时间
