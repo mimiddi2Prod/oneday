@@ -61,6 +61,7 @@ function RestaurantGetUserPhone() {
                         data.data.point = e.data[0].point
                         data.data.balance = e.data[0].balance
                         data.data.discount = e.data[0].discount
+                        data.data.phone = phoneNumber
                     }
                 } else {
                     // 2.没查询到对应的会员卡 注册
@@ -85,6 +86,7 @@ function RestaurantGetUserPhone() {
                             data.data.point = e.data.point
                             data.data.balance = e.data.balance
                             data.data.discount = e.data.discount
+                            data.data.phone = phoneNumber
                         }
                     }
                 }

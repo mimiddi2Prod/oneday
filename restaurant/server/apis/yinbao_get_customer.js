@@ -3,7 +3,7 @@ var yinbaoAppId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 // var https = require('https');
 // var secret = wxConfig.secret
-var jsonBigInt = require('json-bigint')
+var jsonBigInt = require('json-bigint')({"storeAsString": true});
 
 function YinbaoGetPhone() {
     var tool = new tools;
