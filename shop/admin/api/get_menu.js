@@ -11,7 +11,7 @@ function getMenu() {
             } else if (param['type'] == 1) {
                 sql = "select id,`name`,image,tag from admin_menu where sup_id = ? and app = ? and `name` in('商品')";
             } else if (param['type'] == 2) {
-                sql = "select id,`name`,image,tag from admin_menu where sup_id = ? and app = ? and `name` in('银豹收银')";
+                sql = "select id,`name`,image,tag from admin_menu where sup_id = ? and app = ? and `name` in('brunch')";
             }
             // sql = "select id,`name`,image,tag from admin_menu where sup_id = ? and app = ?";
             row = await db.Query(sql, [0, 'shop']);
@@ -23,6 +23,8 @@ function getMenu() {
                         sql = "select `name`,image,tag from admin_menu where sup_id = ? and app = ?";
                     } else if (param['type'] == 1) {
                         sql = "select `name`,image,tag from admin_menu where sup_id = ? and app = ? and `name` in('商品管理')";
+                    } else if (param['type'] == 2){
+                        sql = "select `name`,image,tag from admin_menu where sup_id = ? and app = ?"
                     }
                     // sql = "select `name`,image,tag from admin_menu where sup_id = ? and app = ? and `name` in('商品管理')";
                     row = await db.Query(sql, [data.menu[i].id, 'shop']);
