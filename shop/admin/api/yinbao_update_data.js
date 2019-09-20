@@ -1,7 +1,7 @@
 var db = require("./../utils/dba");
 var appId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
-var jsonBigInt = require('json-bigint')
+var jsonBigInt = require('json-bigint')({"storeAsString": true});
 
 
 function yinbaoUpdateData() {
@@ -30,10 +30,10 @@ function yinbaoUpdateData() {
 
                 // 插入现有的银豹分类数据
                 for (let i in CategoryResult) {
-                    CategoryResult[i].uid = CategoryResult[i].uid.c.join("")
-                    if (CategoryResult[i].parentUid != 0) {
-                        CategoryResult[i].parentUid = CategoryResult[i].parentUid.c.join("")
-                    }
+                    // CategoryResult[i].uid = CategoryResult[i].uid.c.join("")
+                    // if (CategoryResult[i].parentUid != 0) {
+                    //     CategoryResult[i].parentUid = CategoryResult[i].parentUid.c.join("")
+                    // }
                     console.info(CategoryResult[i])
                     if (CategoryResult[i].name == "食品") {
                         bigCateUid = CategoryResult[i].uid
@@ -81,8 +81,8 @@ function yinbaoUpdateData() {
 
                     // 插入现有的银豹商品数据（没有图片，需另外获取）
                     for (let i in ProductResult) {
-                        ProductResult[i].uid = ProductResult[i].uid.c.join("")
-                        ProductResult[i].categoryUid = ProductResult[i].categoryUid.c.join("")
+                        // ProductResult[i].uid = ProductResult[i].uid.c.join("")
+                        // ProductResult[i].categoryUid = ProductResult[i].categoryUid.c.join("")
                         let description = ''
                         if(ProductResult[i].description){
                             description = ProductResult[i].description
@@ -167,7 +167,7 @@ function yinbaoUpdateData() {
 
                 // 根据productUid更新商品图片
                 for (let i in ProductImgResult) {
-                    ProductImgResult[i].productUid = ProductImgResult[i].productUid.c.join("")
+                    // ProductImgResult[i].productUid = ProductImgResult[i].productUid.c.join("")
                     sql = "update restaurant_goods set img = ? where id = ?"
                     row = await db.Query(sql, [ProductImgResult[i].imageUrl, ProductImgResult[i].productUid])
                 }
