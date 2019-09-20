@@ -76,7 +76,7 @@ async function yinbaoAddOnLineOrder(data = {}) {
                 "appId": appId,
                 "payMethod": "Wxpay",
                 "payOnLine": 1,
-                "orderRemark": (data.style == 0 ? "堂食" : "外带"),
+                "orderRemark": (data.style == 0 ? "堂食 " : "外带 ") + '桌号:' + data.restaurantTableName.toString(),
                 "dinnersNumber": data.dinnersNumber,
                 "orderDateTime": current_time,
                 "deliveryType": deliveryType,
@@ -92,7 +92,7 @@ async function yinbaoAddOnLineOrder(data = {}) {
                 "customerNumber": data.customerNumber, // 会员号
                 "payMethod": "CustomerBalance",
                 //"payOnLine": 1,
-                "orderRemark": (data.style == 0 ? "堂食" : "外带"),
+                "orderRemark": (data.style == 0 ? "堂食 " : "外带 ") + '桌号:' + data.restaurantTableName.toString(),
                 "dinnersNumber": data.dinnersNumber,
                 "orderDateTime": current_time,
                 "deliveryType": deliveryType,
