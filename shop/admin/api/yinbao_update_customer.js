@@ -5,6 +5,7 @@ var fm = require('./../utils/formatTime')
 
 async function YinbaoUpdateCustomer(data) {
     data.balanceIncrement = Number(data.balanceIncrement)
+    data.pointIncrement = data.pointIncrement >> 0
     data.pointIncrement = 0 - Number(data.pointIncrement)
     let callData = {}
     // 1.更新会员信息

@@ -5,6 +5,7 @@ var jsonBigInt = require('json-bigint')
 
 async function YinbaoUpdateCustomer(data) {
     data.balanceIncrement = 0 - Number(data.balanceIncrement)
+    data.pointIncrement = data.pointIncrement >> 0
     let callData = {}
     // 1.更新会员信息
     let dataChangeTime = fm(new Date())
