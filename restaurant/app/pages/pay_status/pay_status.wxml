@@ -20,7 +20,7 @@
     </view>
     <view class="dashed"></view>
     <!-- <image src></image> -->
-    取餐号：7
+    取餐号：{{restaurantTableName}}
   </view>
 
   <view class="card">
