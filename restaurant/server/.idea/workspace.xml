@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f740c969-a70b-424b-8eb9-8ea63f319cfa" name="默认更改列表" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/restaurant_add_order.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/restaurant_add_order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/restaurant_get_order_by_openid.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/restaurant_get_order_by_openid.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/restaurant_get_order_detail_by_tradeid.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/restaurant_get_order_detail_by_tradeid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/yinbao_add_onLineOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/yinbao_add_onLineOrder.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,7 +11,17 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apis/restaurant_get_order_detail_by_tradeid.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -120,7 +126,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569313421384" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569313614828" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -162,15 +168,16 @@
       <workItem from="1569035222516" duration="590000" />
       <workItem from="1569036328567" duration="3549000" />
       <workItem from="1569292509042" duration="2620000" />
-      <workItem from="1569308137065" duration="3794000" />
+      <workItem from="1569308137065" duration="4397000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39507000" />
+    <option name="totallyTimeSpent" value="40110000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2632375" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -387,7 +394,7 @@
     <entry file="file://$PROJECT_DIR$/apis/restaurant_get_order_detail_by_tradeid.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
-          <caret line="19" column="53" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
+          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
         </state>
       </provider>
     </entry>
