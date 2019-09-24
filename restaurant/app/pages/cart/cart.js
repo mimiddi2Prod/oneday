@@ -18,7 +18,7 @@ Page({
     dinnersNumber: 1,
     showPayMethodDialog: false,
 
-    restaurantTableName:'',
+    restaurantTableName: '',
   },
 
   /**
@@ -84,6 +84,10 @@ Page({
     let self = this
     console.info(app.globalData.openid)
     server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, "post").then(function(res) {
+      wx.showLoading({
+        title: '',
+        mask: true
+      })
       console.info(res)
       let tradeId = res
       self.addOrder(tradeId, 'Wxpay')
@@ -143,6 +147,10 @@ Page({
     //   self.addOrder(tradeId, 'customerNumber')
     // })
     let tradeId = self.getTradeId()
+    wx.showLoading({
+      title: '',
+      mask: true
+    })
     self.addOrder(tradeId, 'CustomerBalance')
   },
 
@@ -199,12 +207,12 @@ Page({
     })
   },
 
-  getCustomerByPhone: function () {
+  getCustomerByPhone: function() {
     let self = this
     if (app.globalData.phone) {
       server.request(api.getCustomerByPhone, {
         'phone': app.globalData.phone
-      }, 'post').then(function (res) {
+      }, 'post').then(function(res) {
         console.info(res)
         app.globalData.isCustomer = true
         app.globalData.point = res.point
