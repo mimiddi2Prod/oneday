@@ -58,7 +58,8 @@
       订单信息
     </view>
     <view>
-      订单编号：{{trade_id}}
+      <!-- 订单编号：{{trade_id}} -->
+      订单编号：{{yinbao_order_no}}
     </view>
     <view>
       下单时间：{{create_time}}

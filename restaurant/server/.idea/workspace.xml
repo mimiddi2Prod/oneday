@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f740c969-a70b-424b-8eb9-8ea63f319cfa" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../wx/server/apis/wx_reply.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../wx/server/apis/wx_reply.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/restaurant_add_order.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/restaurant_add_order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/restaurant_get_order_by_openid.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/restaurant_get_order_by_openid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/restaurant_get_order_detail_by_tradeid.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/restaurant_get_order_detail_by_tradeid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/yinbao_add_onLineOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/yinbao_add_onLineOrder.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +32,7 @@
       <find>RestaurantYinbaoPay</find>
       <find>join</find>
       <find>updateBalancePointByIncrement</find>
+      <find>call</find>
     </findStrings>
     <replaceStrings>
       <replace>RestaurantGetMenuByLocationCode</replace>
@@ -60,11 +64,13 @@
         <option value="$PROJECT_DIR$/config/wxConfig.js" />
         <option value="$PROJECT_DIR$/router.js" />
         <option value="$PROJECT_DIR$/apis/restaurant_get_openid.js" />
-        <option value="$PROJECT_DIR$/apis/restaurant_add_order.js" />
         <option value="$PROJECT_DIR$/apis/yinbao_get_customer.js" />
         <option value="$PROJECT_DIR$/utils/yinbaoRequest.js" />
         <option value="$PROJECT_DIR$/apis/yinbao_update_customer.js" />
         <option value="$PROJECT_DIR$/apis/yinbao_add_onLineOrder.js" />
+        <option value="$PROJECT_DIR$/apis/restaurant_get_order_by_openid.js" />
+        <option value="$PROJECT_DIR$/apis/restaurant_add_order.js" />
+        <option value="$PROJECT_DIR$/apis/restaurant_get_order_detail_by_tradeid.js" />
       </list>
     </option>
   </component>
@@ -74,8 +80,9 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="210" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="361" />
+    <option name="y" value="8" />
     <option name="width" value="1016" />
     <option name="height" value="735" />
   </component>
@@ -113,7 +120,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1568976550116" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569313421384" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -155,17 +162,17 @@
       <workItem from="1569035222516" duration="590000" />
       <workItem from="1569036328567" duration="3549000" />
       <workItem from="1569292509042" duration="2620000" />
-      <workItem from="1569308137065" duration="344000" />
+      <workItem from="1569308137065" duration="3794000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36057000" />
+    <option name="totallyTimeSpent" value="39507000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20801815" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2632375" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Learn" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -174,7 +181,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="设计器" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.0" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -302,13 +309,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apis/restaurant_add_order.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="29" column="17" lean-forward="true" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apis/yinbao_get_customer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="608">
@@ -327,13 +327,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="59" column="43" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apis/restaurant_yinbao_pay.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="22" column="70" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="70" />
         </state>
       </provider>
     </entry>
@@ -357,13 +350,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/apis/restaurant_yinbao_pay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="22" column="70" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apis/restaurant_payfee.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/apis/yinbao_add_onLineOrder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="53" column="5" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+        <state relative-caret-position="384">
+          <caret line="122" column="24" selection-start-line="122" selection-start-column="17" selection-end-line="122" selection-end-column="24" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apis/restaurant_add_order.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="21" column="50" lean-forward="true" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apis/restaurant_get_order_by_openid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="17" column="54" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apis/restaurant_get_order_detail_by_tradeid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="19" column="53" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
         </state>
       </provider>
     </entry>

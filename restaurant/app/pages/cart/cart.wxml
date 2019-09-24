@@ -78,7 +78,7 @@
 </view>
 
 <view class='dialog-login' wx:if="{{showPayMethodDialog}}">
-  <view class='dialog-body' catchtap='onDialogBody'>
+  <view class='dialog-body'>
     <view class='title'>请选择支付方式</view>
     <view class='dialog-content'>
       <button bindtap="wxPay">微信支付</button>

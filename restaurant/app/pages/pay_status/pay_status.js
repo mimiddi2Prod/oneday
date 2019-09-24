@@ -14,6 +14,7 @@ Page({
     create_time:'',
     style:'',
     trade_id:'',
+    yinbao_order_no:'',
 
     restaurantTableName:'',
   },
@@ -55,7 +56,8 @@ Page({
           create_time: res.order_list[0].create_time,
           style: res.order_list[0].style,
           total_price: total_price,
-          trade_id: tradeid
+          trade_id: tradeid,
+          yinbao_order_no: res.order_list[0].yinbao_order_no
         })
       }
     })

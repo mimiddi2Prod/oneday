@@ -115,6 +115,17 @@ async function yinbaoAddOnLineOrder(data = {}) {
     let e = await request(router, postDataJson)
     console.info("获得添加订单数据：")
     console.info(e)
+	e = JSON.parse(e)
+    let callback = {}
+    if(e.status == 'success' && e.data){
+        callback.code = 0
+        callback.text = 'success'
+        callback.orderNo = e.data.orderNo
+    }else{
+        callback.code = 1
+        callback.text = 'fail'
+    }
+    return callback
     // addOnLineOrder
 
 }

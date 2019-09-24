@@ -17,7 +17,7 @@ function RestaurantGetOrderDetailByTradeid() {
             console.info('没有收到tradeid')
         } else {
             try {
-                sql = "select `name`,`describe`,img,param,price,`number`,create_time,style from restaurant_goods_order where open_id = ? and trade_id = ?";
+                sql = "select `name`,yinbao_order_no,`describe`,img,param,price,`number`,create_time,style from restaurant_goods_order where open_id = ? and trade_id = ?";
                 row = await query(sql, [param["openid"], param["tradeid"]]);
                 if (row.length > 0) {
                     data.order_list = row
