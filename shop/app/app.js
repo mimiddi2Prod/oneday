@@ -1,6 +1,7 @@
 //app.js
 const server = require('/utils/server.js')
 const api = require('/config/api.js')
+var Interval = null
 App({
   onLaunch: function() {
     // 手机信息 适配tabbar
@@ -35,11 +36,7 @@ App({
         })
       }
     })
-
-    // 1分钟检查一次 小程序存活就更新时间
-    let Interval = setInterval(function() {
-      self.check_token()
-    }, 60000)
+    
   },
 
   onShow: function() {
@@ -47,7 +44,16 @@ App({
     console.info(self.globalData.check_token)
     if (self.globalData.check_token) {
       self.check_token()
+
+      // 1分钟检查一次 小程序存活就更新时间
+      Interval = setInterval(function () {
+        self.check_token()
+      }, 60000)
     }
+  },
+
+  onHide: function() {
+    clearInterval(Interval)
   },
 
   check_token: function() {
