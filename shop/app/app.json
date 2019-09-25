@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/blank/blank",
     "pages/index/index",
     "pages/brandDetail/brandDetail",
     "pages/catalog/catalog",

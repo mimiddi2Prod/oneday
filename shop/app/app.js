@@ -35,6 +35,39 @@ App({
         })
       }
     })
+
+    // 1分钟检查一次 小程序存活就更新时间
+    let Interval = setInterval(function() {
+      self.check_token()
+    }, 60000)
+  },
+
+  onShow: function() {
+    var self = this
+    console.info(self.globalData.check_token)
+    if (self.globalData.check_token) {
+      self.check_token()
+    }
+  },
+
+  check_token: function() {
+    var self = this
+    let url = api.queueUpdateTimeByToken
+    wx.request({
+      url: url,
+      data: {
+        token: self.globalData.token
+      },
+      method: "post",
+      success: function(res) {
+        console.info(res)
+        if (res.data.data.code == 0) {
+          wx.reLaunch({
+            url: '../blank/blank',
+          })
+        }
+      },
+    })
   },
 
   login: function(openid) {
@@ -59,6 +92,8 @@ App({
     })
   },
   globalData: {
+    // 排队等待
+    check_token: false,
     // userInfo: null,
 
     // 手机型号
@@ -80,9 +115,9 @@ App({
 
     selectAddress: null,
 
-    phone:'',
+    phone: '',
     // 银豹会员信息
-    customerUid:'',
+    customerUid: '',
     point: 0,
     balance: 0,
     discount: 0,

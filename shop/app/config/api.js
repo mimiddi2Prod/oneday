@@ -2,6 +2,9 @@
 const rootUrl = "https://shop.minidope.com/apis/"
 
 module.exports = {
+  queue: rootUrl + 'queue',
+  queueUpdateTimeByToken: rootUrl + 'queue_update_time_by_token',
+
   getOpenid: rootUrl + 'get_openid',
   register: rootUrl + 'register',
   login: rootUrl + 'login',
