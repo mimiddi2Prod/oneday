@@ -12,6 +12,16 @@ function FBRouter(){
         }else {
             var work = null;
             switch(arr[2]){
+                case "queue":{
+                    var queue = require("./apis/queue");
+                    work = new queue;
+                    break;
+                }
+                case "queue_update_time_by_token":{
+                    var queueUpdateTimeByToken = require("./apis/queue_update_time_by_token");
+                    work = new queueUpdateTimeByToken;
+                    break;
+                }
                 case "get_openid":{
                     var SHOPGetOpenId = require("./apis/shop_get_openid");
                     work = new SHOPGetOpenId;
