@@ -78,8 +78,10 @@
 					<button type="button" class="btn btn-link" v-if="item.menu.length <= 0"
                             v-on:click="delSort(item.parent_id,item.id,item.name)" data-toggle="modal"
                             data-target="#myModal">删除分类</button>
-					<button type="button" class="btn btn-link">
+					<button type="button" class="btn btn-link" v-on:click="EditSort(-1,item.parent_id,item.id,item.name,item.sort,item.image,item.describe)" data-toggle="modal"
+                            data-target="#myModal">
                         <!--修改名称-->
+                        编辑
                     </button>
 				</span>
                     <!--<span class="second-title column-center">-->
@@ -102,8 +104,10 @@
 					<button type="button" class="btn btn-link" v-if="menuItem.number <= 0"
                             v-on:click="delSort(item.id,menuItem.id,menuItem.name)" data-toggle="modal"
                             data-target="#myModal">删除分类</button>
-					<button type="button" class="btn btn-link">
+					<button type="button" class="btn btn-link" v-on:click="EditSort(index,item.id,menuItem.id,menuItem.name,menuItem.sort,menuItem.image,menuItem.url)" data-toggle="modal"
+                            data-target="#myModal">
                         <!--修改名称-->
+                        编辑
                     </button>
 				</span>
                     <!--<span class="second-title column-center">-->
@@ -144,7 +148,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
-                    <div class="modal-body" v-if="modalType == 0">
+                    <div class="modal-body" v-if="modalType == 0 || modalType == 2">
                         <input type="text" class="form-control" id="sortModalText" type="text" name=""
                                v-model="sortModalText" style="margin-bottom: 6px" placeholder="分类名"/>
                         <input type="text" class="form-control" id="sortModalSort" type="text" name=""

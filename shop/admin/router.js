@@ -54,6 +54,10 @@ function Router() {
                 var shopAddCategory = require("./api/shop_add_category.js");
                 baseApi = new shopAddCategory;
                 break;
+            case "update_category_sort":
+                var shopUpdateCategorySort = require("./api/shop_update_category_sort.js");
+                baseApi = new shopUpdateCategorySort;
+                break;
             case "update_category":
                 var shopUpdateCategory = require("./api/shop_update_category.js");
                 baseApi = new shopUpdateCategory;

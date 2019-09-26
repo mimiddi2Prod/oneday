@@ -16,6 +16,7 @@ var api = {
     getCategory: '../api/get_category',
     addCategory: '../api/add_category',
     delCategory: '../api/del_category',
+    updateCategorySort: '../api/update_category_sort',
     updateCategory: '../api/update_category',
     updateGoodsCategory: '../api/update_goods_category',
     updateGoodsPrice: '../api/update_goods_price',

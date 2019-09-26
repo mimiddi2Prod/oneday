@@ -54,6 +54,7 @@ var categoryVM = new Vue({
         delCategoryId: '',
         delCategoryParentId: '',
 
+        editId:'',
     },
     methods: {
         changeCaret: function (id) {
@@ -133,10 +134,31 @@ var categoryVM = new Vue({
             })
         },
         updateSort: function (id, sort) {
-            updateCategory(id, sort)
+            updateCategorySort(id, sort)
+        },
+        EditSort: function (index, parent_id, id, name, sort, image, desc) {
+            this.modalType = 2
+            this.editId = id
+            this.sortModalText = name
+            this.sortModalSort = sort
+            this.sortModalImg[0] = {
+                key: image,
+                tempFilePath: image
+            }
+            this.index = index
+            if (parent_id == 0) {
+                this.sortModalDesc = desc
+            } else {
+                this.sortModalUrl = desc
+            }
+
+            $('#myModal').on('show.bs.modal', function () {
+                var modal = $(this)
+                modal.find('.modal-title').text('编辑 "' + name + '" 分类')
+            })
         },
         submitSortBtn: function () {
-            if (this.modalType == 0) {
+            if (this.modalType == 0 || this.modalType == 2) {
                 // 添加分类
                 let type = 0, parent_id = 0
                 if (this.sortModalText == '') {
@@ -166,14 +188,27 @@ var categoryVM = new Vue({
                 }
                 let self = this, flag = 0
                 for (let i in this.sortModalImg) {
-                    uploadImg(this.sortModalImg[i].key, this.sortModalImg[i].uploadToken, this.sortModalImg[i].imgFile, function (res) {
-                        // flag 图片上传完毕之后才提交
+                    if (this.sortModalImg[i].uploadToken) {
+                        uploadImg(this.sortModalImg[i].key, this.sortModalImg[i].uploadToken, this.sortModalImg[i].imgFile, function (res) {
+                            // flag 图片上传完毕之后才提交
+                            flag++
+                            if (flag == self.sortModalImg.length) {
+                                // console.info('上传完毕')
+                                if (self.modalType == 0) {
+                                    addCategory(type, parent_id)
+                                } else if (self.modalType == 2) {
+                                    updateCategory(type, parent_id)
+                                }
+                            }
+                        })
+                    } else {
                         flag++
                         if (flag == self.sortModalImg.length) {
-                            // console.info('上传完毕')
-                            addCategory(type, parent_id)
+                            if (self.modalType == 2) {
+                                updateCategory(type, parent_id)
+                            }
                         }
-                    })
+                    }
                 }
             } else if (this.modalType == 1) {
                 // 删除分类
@@ -258,14 +293,43 @@ function delCategory(parent_id, id) {
     })
 }
 
-function updateCategory(id, sort) {
-    const url = api.updateCategory, async = true
+function updateCategorySort(id, sort) {
+    const url = api.updateCategorySort, async = true
     let data = {}
     data.id = id
     data.sort = sort
     server(url, data, async, "post", function (res) {
         console.info(res)
         if (res.code == 0) {
+            getCategory()
+        }
+    })
+}
+
+function updateCategory(type, parent_id) {
+    const url = api.updateCategory, async = true
+    let data = {}
+    data.id = categoryVM.editId
+    data.type = type
+    data.parent_id = parent_id
+    data.name = categoryVM.sortModalText
+    data.sort = categoryVM.sortModalSort
+    data.user_id = sessionStorage.getItem('user_id')
+    // data.user_id = 0
+    data.imgList = []
+    for (let i in categoryVM.sortModalImg) {
+        data.imgList.push(categoryVM.sortModalImg[i].key)
+    }
+    data.url = categoryVM.sortModalUrl
+    data.describe = categoryVM.sortModalDesc
+    server(url, data, async, "post", function (res) {
+        if (res.code == 0) {
+            categoryVM.sortModalText = ''
+            categoryVM.sortModalSort = ''
+            categoryVM.sortModalDesc = ''
+            categoryVM.sortModalUrl = ''
+            categoryVM.sortModalImg = []
+            $('#inputImg').val('')
             getCategory()
         }
     })
