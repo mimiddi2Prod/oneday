@@ -127,10 +127,12 @@ page {
 
 .goodsName {
   font-size: 28rpx;
+  flex-grow: 1
 }
 
 .goodsPrice {
   color: #e64340;
+  flex-shrink: 0
 }
 
 .goods-add {
@@ -192,7 +194,7 @@ page {
 }
 
 .goods-param-b {
-  margin: 20rpx 0 20rpx 10rpx;
+  margin: 10rpx 0 10rpx 10rpx;
   width: 470rpx;
   display: flex;
   flex-direction: column;
@@ -204,7 +206,7 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0 20rpx 0;
+  /* padding: 0 0 20rpx 0; */
 }
 
 .goods-param-detail > view {

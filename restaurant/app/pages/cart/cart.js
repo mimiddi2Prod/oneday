@@ -31,14 +31,16 @@ Page({
     this.getCart()
   },
 
+  // 输入用餐人数
   dinnerNum: function(e) {
     this.setData({
       dinnersNumber: Number(e.detail.value)
     })
   },
 
+  // 防止输入的用餐人数小于1
   blur: function(e) {
-    if (Number(e.detail.value) == 0) {
+    if (Number(e.detail.value) <= 0) {
       this.setData({
         dinnersNumber: 1
       })
@@ -80,9 +82,50 @@ Page({
     })
   },
 
+  checkStock: function(e) {
+    let payMethod = e.currentTarget.dataset.pay // 0微信支付 1余额支付
+    // todo 商品库存验证
+    let self = this,
+      data = []
+
+    for (let i in this.data.cart) {
+      data.push({
+        goodsId: this.data.cart[i].goodsId,
+        goodsName: this.data.cart[i].goodsName,
+        number: this.data.cart[i].number
+      })
+    }
+    server.request(api.checkOrderStock, data, "post").then(function(res) {
+      // console.info(res)
+      if (res.code == 0) {
+        if (res.canPay == 0) {
+          if (payMethod == 0) {
+            self.wxPay()
+          } else if (payMethod == 1) {
+            self.balancePay()
+          }
+        } else {
+          let shortageName = res.shortageList.map(function(eData) {
+            return eData.name + 'x' + eData.stock
+          }).join(',')
+          wx.showModal({
+            title: '支付失败',
+            content: '剩余 ' + shortageName + ' 库存不足，请重新选择商品',
+            showCancel: false
+          })
+        }
+      } else {
+        wx.showModal({
+          title: '',
+          content: '请求失败，请联系前台服务员',
+          showCancel: false
+        })
+      }
+    })
+  },
+
   wxPay: function() {
     let self = this
-    console.info(app.globalData.openid)
     server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, "post").then(function(res) {
       wx.showLoading({
         title: '',
@@ -110,6 +153,7 @@ Page({
         content: '请重新支付，支付订单完成大厨就开工啦',
       })
     })
+
   },
 
   balancePay: function() {
@@ -138,14 +182,7 @@ Page({
       })
       return
     }
-    // data.customerUid = app.globalData.customerUid
-    // data.balanceIncrement = self.data.totalPrice
-    // data.pointIncrement = self.data.totalPrice
-    // server.request(api.balancePay, data, "post").then(function(res) {
-    //   console.info(res)
-    //   let tradeId = self.getTradeId()
-    //   self.addOrder(tradeId, 'customerNumber')
-    // })
+
     let tradeId = self.getTradeId()
     wx.showLoading({
       title: '',

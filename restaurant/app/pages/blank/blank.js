@@ -22,6 +22,9 @@ Page({
     console.info('过期时间' + expire_time)
     console.info('当前时间' + current_time)
     let number = options.id //桌号
+    // test
+    // expire_time = new Date('2019-09-29')
+    // number = 1
     let locationCode = 'xmspw'
     if (expire_time >= current_time) {
       status = true

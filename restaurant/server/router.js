@@ -17,6 +17,11 @@ function FBRouter(){
                     work = new RestaurantGetOpenid;
                     break;
                 }
+                case "restaurant_check_order_stock":{
+                    var RestaurantCheckOrderStock = require("./apis/restaurant_check_order_stock");
+                    work = new RestaurantCheckOrderStock;
+                    break;
+                }
                 case "restaurant_get_category_by_location_code":{
                     var RestaurantGetCategoryByLocationCode = require("./apis/restaurant_get_category_by_location_code");
                     work = new RestaurantGetCategoryByLocationCode;

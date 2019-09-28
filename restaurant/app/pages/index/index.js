@@ -33,6 +33,7 @@ Page({
     goodsId: '',
     goodsName: '',
     goodsPrice: '',
+    goodsStock: '',
     goodsParamId: '',
     goodsImage: '',
     goodsParam: '',
@@ -403,9 +404,10 @@ Page({
       goodsImage = e.currentTarget.dataset.image,
       goodsName = e.currentTarget.dataset.name,
       goodsParam = '',
-      goodsDescribe = e.currentTarget.dataset.describe
+      goodsDescribe = e.currentTarget.dataset.describe,
+      goodsStock = e.currentTarget.dataset.stock
 
-    self.addCart(goodsId, price, paramId, goodsName, goodsDescribe, goodsImage, goodsParam)
+    self.addCart(goodsId, price, paramId, goodsName, goodsDescribe, goodsImage, goodsParam, goodsStock)
   },
 
   cutSingleParamCart: function(e) {
@@ -427,7 +429,8 @@ Page({
     let goodsImage = self.data.goodsImage
     let goodsParam = self.data.goodsParam
     let goodsDescribe = self.data.goodsDescribe
-    self.addCart(goodsId, price, paramId, goodsName, goodsDescribe, goodsImage, goodsParam)
+    let goodsStock = self.data.goodsStock
+    self.addCart(goodsId, price, paramId, goodsName, goodsDescribe, goodsImage, goodsParam, goodsStock)
   },
 
   cutMoreParamCart: function() {
@@ -481,10 +484,10 @@ Page({
     self.setData(self.data)
   },
 
-  addCart: function(goodsId, price, paramId, goodsName, goodsDesc, goodsImage, goodsParam) {
+  addCart: function(goodsId, price, paramId, goodsName, goodsDesc, goodsImage, goodsParam, goodsStock) {
     let self = this
     let cart = self.data.cart
-
+    let canAddNumber = true
     // 检查购物车是否有相同规格商品 有则增加数量 无则新增数组
     let haveGoods = cart.some(function(eData) {
       if (goodsId == eData.goodsId && paramId == eData.paramId) {
@@ -495,7 +498,16 @@ Page({
     if (haveGoods) {
       cart = cart.map(function(eData) {
         if (goodsId == eData.goodsId && paramId == eData.paramId) {
-          eData.number++
+          // 新增对库存的判断
+          if (goodsStock <= eData.number) {
+            canAddNumber = false
+            wx.showToast({
+              title: '库存不足',
+              icon: 'none'
+            })
+          } else {
+            eData.number++
+          }
         }
         return eData
       })
@@ -508,7 +520,8 @@ Page({
         goodsDesc: goodsDesc,
         goodsImage: goodsImage,
         goodsParam: goodsParam,
-        number: 1
+        number: 1,
+        stock: goodsStock
       })
     }
     this.setData({
@@ -518,7 +531,6 @@ Page({
     for (let i in cart) {
       totalGoodsPrice = totalGoodsPrice + (cart[i].price * cart[i].number)
     }
-    // self.data.totalGoodsPrice = totalGoodsPrice
     this.setData({
       totalGoodsPrice: totalGoodsPrice
     })
@@ -526,7 +538,7 @@ Page({
     // 主界面商品添加购物车的数量展示
     for (let i in goods) {
       for (let j in goods[i].list) {
-        if (goods[i].list[j].id == goodsId) {
+        if (goods[i].list[j].id == goodsId && canAddNumber) {
           goods[i].list[j].cartNumber++
         }
       }
@@ -578,6 +590,7 @@ Page({
     let price = '',
       paramId = '',
       param = ''
+    // stock = ''
     for (let i in selectGoodsSKU) {
       if (selectParamArray == JSON.stringify(selectGoodsSKU[i].param)) {
         // console.info(JSON.stringify(selectGoodsSKU[i].param_list.param))
@@ -585,11 +598,13 @@ Page({
         paramId = selectGoodsSKU[i].id
         // param = JSON.stringify(selectGoodsSKU[i].param_list.param)
         param = selectGoodsSKU[i].param
+        // stock = selectGoodsSKU[i].stock
       }
     }
     self.data.goodsPrice = price
     self.data.goodsParamId = paramId
     self.data.goodsParam = param
+    // self.data.goodsStock = stock
 
     self.setData(self.data)
   },
@@ -606,6 +621,7 @@ Page({
     let goodsImage = e.currentTarget.dataset.image
     let goodsDescribe = e.currentTarget.dataset.describe
     let index = e.currentTarget.dataset.index
+    let stock = e.currentTarget.dataset.stock
     let goodsInfo = self.data.goods[index].list.filter(function(item) {
       return (item.id == goodsId)
     })[0].sku
@@ -617,6 +633,7 @@ Page({
     self.data.goodsName = goodsName
     self.data.goodsImage = goodsImage
     self.data.goodsDescribe = goodsDescribe
+    self.data.goodsStock = stock
     self.data.goodsPrice = goodsInfo[0].price
     self.data.goodsParamId = goodsInfo[0].id
     self.data.goodsParam = goodsInfo[0].param
