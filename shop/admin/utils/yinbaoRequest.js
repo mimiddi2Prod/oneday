@@ -52,6 +52,9 @@ async function getPath(router) {
         case "queryTicketPages":
             path += 'ticketOpenApi/queryTicketPages'; // 分页查询所有单据
             break;
+        case "queryDailyAccessTimesLog":
+            path += 'openApiLimitAccess/queryDailyAccessTimesLog'; // 查询接口访问量
+            break;
         default:
             console.info('没有发现能够匹配的path')
             return;

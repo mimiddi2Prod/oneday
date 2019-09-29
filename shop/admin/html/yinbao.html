@@ -41,6 +41,15 @@
 
         <div class="zhishu">
             <button class="btn btn-secondary" v-on:click="yinbaoGetGoodsToUpdate">更新brunch商品列表</button>
+            <button class="btn btn-secondary" v-on:click="yinbaoGetAPIAccessTimes">获取银豹7天内接口剩余次数</button>
+        </div>
+
+        <div class="zhishu">
+            <div v-for="item in accessTimesData">
+                日期：{{item.accessDate}}
+                限制次数：{{item.limitTimes}}
+                使用次数：{{item.haveAcessTimes}}
+            </div>
         </div>
 
 

@@ -7,7 +7,9 @@ var yinbaoVM = new Vue({
         year: 2019,
         month: 9,
         dayList: [],
-        number: 0
+        number: 0,
+
+        accessTimesData: null
     },
     methods: {
         yinbaoGetGoodsToUpdate: function () {
@@ -15,7 +17,7 @@ var yinbaoVM = new Vue({
             let data = {}
             server(url, data, async, "post", function (res) {
                 console.info(res)
-                if(res.code == 1){
+                if (res.code == 1) {
                     alert('更新brunch小程序菜单成功')
                 }
             })
@@ -31,6 +33,17 @@ var yinbaoVM = new Vue({
             data.time = time
             server(url, data, async, "post", function (res) {
                 // console.info(res)
+            })
+        },
+        yinbaoGetAPIAccessTimes: function () {
+            let self = this
+            const url = '../api/yinbao_get_API_access_times', async = true
+            let data = {}
+            server(url, data, async, "post", function (res) {
+                console.info(res)
+                if (res.code == 1) {
+                    self.accessTimesData = res.data
+                }
             })
         }
     }

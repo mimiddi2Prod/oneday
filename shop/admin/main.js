@@ -167,6 +167,8 @@ app.use(function (req, res, next) {
                     showPaper('html/brunchBanner.html');
                 } else if (type[1] == 'addBrunchBanner') {
                     showPaper('html/addBrunchBanner.html');
+                } else if (type[1] == 'brunchStock') {
+                    showPaper('html/brunchStock.html');
                 } else {
                     showPaper('html/404.html')
                 }
@@ -191,6 +193,8 @@ app.use(function (req, res, next) {
                     showPaper('html/brunchBanner.html');
                 } else if (type[1] == 'addBrunchBanner') {
                     showPaper('html/addBrunchBanner.html');
+                } else if (type[1] == 'brunchStock') {
+                    showPaper('html/brunchStock.html');
                 } else {
                     showPaper('html/404.html')
                 }

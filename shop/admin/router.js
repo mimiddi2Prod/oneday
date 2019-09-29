@@ -310,6 +310,10 @@ function Router() {
                 var shopUpdateBrunchBannerSort = require("./api/shop_update_brunch_banner_sort.js");
                 baseApi = new shopUpdateBrunchBannerSort;
                 break;
+            case "yinbao_get_API_access_times":
+                var YinbaoGetAPIAccessTimes = require("./api/yinbao_get_API_access_times.js");
+                baseApi = new YinbaoGetAPIAccessTimes;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;
