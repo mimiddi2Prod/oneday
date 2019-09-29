@@ -116,7 +116,7 @@
     </view>
   </view> -->
 </view>
-<view class="attr-pop-box" hidden="{{!openAttr}}">
+<view class="attr-pop-box" hidden="{{!openAttr}}" catchtouchmove="ture">
   <view class="attr-pop">
     <view class="close" bindtap="closeAttr">
       <image class="icon" src="../../images/icon_close.png"></image>
@@ -133,7 +133,7 @@
         </view>
       </view>
     </view>
-    <view class="spec-con">
+    <scroll-view class="spec-con" scroll-y="true">
       <view class="spec-item" wx:for="{{specificationList}}" wx:key="{{index}}">
         <block wx:if="{{index == 0}}">
           <view class="name">{{item.name}}</view>
@@ -166,7 +166,7 @@
           <view class="add" bindtap="addNumber">+</view>
         </view>
       </view>
-    </view>
+    </scroll-view>
   </view>
 </view>
 <view class="bottom-btn">

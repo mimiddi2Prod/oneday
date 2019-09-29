@@ -175,6 +175,9 @@ page {
   /* height: 164rpx; */
   width: 672rpx;
   border-bottom: 1px solid #f4f4f4;
+  display: flex;
+  flex-direction: row;
+  align-items: center
 }
 
 .cart-view .item .img {
@@ -216,7 +219,7 @@ page {
 
 .cart-view .item .param {
   /* height: 28rpx; */
-  max-width: 310rpx;
+  /* max-width: 310rpx; */
   /* line-height: 28rpx; */
   margin: 8rpx 0;
   font-size: 24rpx;

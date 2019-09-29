@@ -231,7 +231,7 @@ page{
 
 .goods-items .info{
     flex: 1;
-    height: 145.83rpx;
+    /* height: 145.83rpx; */
     padding-top: 5rpx;
     display: flex;
     flex-direction: column;

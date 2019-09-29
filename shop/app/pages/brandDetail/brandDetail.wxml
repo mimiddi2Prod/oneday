@@ -1,6 +1,6 @@
 <!--pages/brandDetail/brandDetail.wxml-->
 <view class="brand-detail">
-  <image src="{{brand_img}}"></image>
+  <image src="{{brand_img}}" mode="aspectFill"></image>
   <view class="brand-title">
     <text>{{brand_name}}</text>
   </view>
