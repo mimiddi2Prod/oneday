@@ -171,12 +171,12 @@ function getSales(time) {
 
     const url = api.getSales, async = true
     let data = {}
-    data.start_time = start_time
-    data.end_time = end_time
+    data.start_time = new Date(new Date(start_time).getTime() - (24 * 60 * 60 *1000))
+    data.end_time = new Date(new Date(end_time).getTime())
     server(url, data, async, "post", function (res) {
-        // console.info(res)
+        console.info(res)
         // homeVM.sales = res.number
-        start_time = start_time.getTime()
+        start_time = start_time.getTime() - (24 * 60 * 60 *1000)
         end_time = end_time.getTime()
         let max_number = 10
         // 本系统
