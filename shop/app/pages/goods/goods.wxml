@@ -81,6 +81,10 @@
     <image wx:for="{{goods.goods_info}}" src="{{item}}" mode="widthFix"></image>
   </view>
 
+  <view style="opacity: 0;height:106rpx">
+  1
+  </view>
+
 
   <!-- <view class="common-problem">
     <view class="h">

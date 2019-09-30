@@ -1,9 +1,9 @@
 <!--pages/brandDetail/brandDetail.wxml-->
 <view class="brand-detail">
   <image src="{{brand_img}}" mode="aspectFill"></image>
-  <view class="brand-title">
+  <!-- <view class="brand-title">
     <text>{{brand_name}}</text>
-  </view>
+  </view> -->
   <view class="brand-desc">
     <text>{{desc}}</text>
   </view>

@@ -68,7 +68,10 @@ App({
       success: function(res) {
         console.info(res)
         if (res.data.data.code == 0) {
-          wx.reLaunch({
+          // wx.reLaunch({
+          //   url: '../blank/blank',
+          // })
+          wx.redirectTo({
             url: '../blank/blank',
           })
         }

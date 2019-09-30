@@ -47,11 +47,8 @@ Page({
             url: '../index/index',
           })
         } else {
-          wx.showLoading({
-            title: '',
-          })
           self.setData({
-            text1: '服务器正忙，请稍等片刻再进入哦~',
+            text1: '服务器正忙，请稍等片刻即可进入哦~',
             // text2: '请扫描桌上二维码，获取桌号后进行点餐',
             image: '/images/ao.jpg'
           })
@@ -75,6 +72,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    wx.showLoading({
+      title: '',
+    })
     // if (wx.canIUse("getUpdateManager")) {
     //   let updateManager = wx.getUpdateManager();
     //   updateManager.onCheckForUpdate((res) => {
