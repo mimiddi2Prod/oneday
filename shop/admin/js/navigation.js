@@ -1,5 +1,5 @@
 var navigationVM = new Vue({
-    el: '#navigation',
+    el: '#navigations',
     data: {
         last_id: 0,
         // goryList: [{
