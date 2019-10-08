@@ -88,7 +88,7 @@ app.use(function (req, res, next) {
                 res.end();
             });
         });
-    } else if (type[2] == 'fonts') {
+    } else if (type[2] == 'fonts' || type[5] == 'font') {
         fs.readFile('./' + req.url, function (err, file) {//主要这里的‘binary’
             if (err) {
                 console.log(err);
