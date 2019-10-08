@@ -40,8 +40,8 @@
         </div>
 
         <div class="zhishu">
-            <button class="btn btn-secondary" v-on:click="yinbaoGetGoodsToUpdate">更新brunch商品列表</button>
-            <button class="btn btn-secondary" v-on:click="yinbaoGetAPIAccessTimes">获取银豹7天内接口剩余次数</button>
+            <button class="btn btn-secondary" v-on:click="yinbaoGetGoodsToUpdate" style="margin-bottom: 6px">更新brunch商品列表</button>
+            <button class="btn btn-secondary" v-on:click="yinbaoGetAPIAccessTimes" style="margin-bottom: 6px">获取银豹7天内接口剩余次数</button>
         </div>
 
         <div class="zhishu">
@@ -72,9 +72,19 @@
 
         <table class="table table-bordered">
             <!--<caption>边框表格布局</caption>-->
-            <thead>
+            <thead v-if="!isPhone">
             <tr v-for="item in number">
                 <th v-for="item1 in dayList" v-if="(item1.day / 7 <= item) && (item1.day / 7 > item - 1)" style="width: auto;">
+                    <div style="width: 100%;min-width: 90px">{{item1.day}}</div>
+                    <input type="text" class="form-control" style="width: 100%;" v-bind:value="item1.refund"
+                           v-model="item1.refund" v-on:keyUp.enter="updateRefund(item1.day,item1.refund)">
+                </th>
+            </tr>
+            </thead>
+
+            <thead v-if="isPhone">
+            <tr v-for="item in number">
+                <th v-for="item1 in dayList" v-if="(item1.day / 3 <= item) && (item1.day / 3 > item - 1)" style="width: auto;">
                     <div style="width: 100%;min-width: 90px">{{item1.day}}</div>
                     <input type="text" class="form-control" style="width: 100%;" v-bind:value="item1.refund"
                            v-model="item1.refund" v-on:keyUp.enter="updateRefund(item1.day,item1.refund)">

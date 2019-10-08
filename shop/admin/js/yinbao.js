@@ -9,7 +9,9 @@ var yinbaoVM = new Vue({
         dayList: [],
         number: 0,
 
-        accessTimesData: null
+        accessTimesData: null,
+
+        isPhone: false
     },
     methods: {
         yinbaoGetGoodsToUpdate: function () {
@@ -50,6 +52,14 @@ var yinbaoVM = new Vue({
 })
 
 $(document).ready(function () {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        // 执行相应代码或直接跳转到手机页面
+        yinbaoVM.isPhone = true
+    } else {
+        // 执行桌面端代码
+        yinbaoVM.isPhone = false
+    }
+
     getDate(0)
 })
 
@@ -95,9 +105,18 @@ function getDate(n) {
             time: new Date(year + '-' + Number(month + 1) + '-' + i)
         })
     }
-    let number = Number(allDay / 7).toFixed(0)
-    yinbaoVM.number = (allDay % 7 >= 5 ? number : Number(number) + 1)
-    yinbaoVM.n = n
+    // let number = Number(allDay / 7).toFixed(0)
+    // yinbaoVM.number = (allDay % 7 >= 5 ? number : Number(number) + 1)
+    // yinbaoVM.n = n
+    if(!yinbaoVM.isPhone){
+        let number = Number(allDay / 7).toFixed(0)
+        yinbaoVM.number = (allDay % 7 >= 5 ? number : Number(number) + 1)
+        yinbaoVM.n = n
+    }else{
+        let number = Number(allDay / 3).toFixed(0)
+        yinbaoVM.number = (allDay % 3 >= 11 ? number : Number(number) + 1)
+        yinbaoVM.n = n
+    }
 
     getYinbaoRefund(year, month + 1)
 }
