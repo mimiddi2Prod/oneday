@@ -14,12 +14,20 @@ label{
     margin-bottom: 10px;
 }
 
-.item{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+@media (min-width: 768px) {
+    .item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
 }
+/*.item{*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*align-items: center;*/
+    /*justify-content: space-around;*/
+/*}*/
 
 .home-title>nav{
     padding: 20px;
