@@ -125,6 +125,10 @@ Page({
   },
 
   wxPay: function() {
+    wx.showLoading({
+      title: '',
+      mask: true
+    })
     let self = this
     server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, "post").then(function(res) {
       wx.showLoading({
@@ -151,6 +155,12 @@ Page({
       wx.showModal({
         title: '支付失败',
         content: '请重新支付，支付订单完成大厨就开工啦',
+        showCancel: false,
+        success: function(res) {
+          if (res.confirm) {
+            wx.hideLoading()
+          }
+        }
       })
     })
 
