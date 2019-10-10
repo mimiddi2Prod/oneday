@@ -83,6 +83,10 @@ Page({
   },
 
   checkStock: function(e) {
+    wx.showLoading({
+      title: '请稍后...',
+      mask: true
+    })
     let payMethod = e.currentTarget.dataset.pay // 0微信支付 1余额支付
     let self = this,
       data = []
@@ -151,10 +155,6 @@ Page({
   },
 
   wxPay: function(checkStockData) {
-    wx.showLoading({
-      title: '',
-      mask: true
-    })
     let self = this
     server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, "post").then(function(res) {
       wx.showLoading({
