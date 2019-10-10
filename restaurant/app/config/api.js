@@ -6,6 +6,9 @@ module.exports = {
   getOpenid: rootUrl + 'restaurant_get_openid',
   // 支付之前 检查商品库存
   checkOrderStock: rootUrl + 'restaurant_check_order_stock',
+  // 微信支付失败，恢复库存
+  restoreStock: rootUrl + 'restaurant_restore_stock',
+
   addOrder: rootUrl + 'restaurant_add_order',
   getOrderByOpenid: rootUrl + 'restaurant_get_order_by_openid',
   getOrderDetailByTradeid: rootUrl + 'restaurant_get_order_detail_by_tradeid',

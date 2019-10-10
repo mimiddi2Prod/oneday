@@ -84,10 +84,36 @@ Page({
 
   checkStock: function(e) {
     let payMethod = e.currentTarget.dataset.pay // 0微信支付 1余额支付
-    // todo 商品库存验证
     let self = this,
       data = []
 
+    // 余额支付的话 先检查是否有绑定会员卡/余额是否足够
+    if (payMethod == 1) {
+      if (!app.globalData.isCustomer) {
+        wx.showModal({
+          title: '支付失败',
+          content: '您还没有办理会员卡，是否前往注册',
+          success: function(res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '../customer/customer',
+              })
+            }
+          }
+        })
+        return
+      }
+      if (self.data.totalPrice > app.globalData.balance) {
+        wx.showModal({
+          title: '支付失败',
+          content: '会员卡余额不足，请前往前台充值',
+          showCancel: false
+        })
+        return
+      }
+    }
+
+    // todo 商品库存验证
     for (let i in this.data.cart) {
       data.push({
         goodsId: this.data.cart[i].goodsId,
@@ -100,7 +126,7 @@ Page({
       if (res.code == 0) {
         if (res.canPay == 0) {
           if (payMethod == 0) {
-            self.wxPay()
+            self.wxPay(data)
           } else if (payMethod == 1) {
             self.balancePay()
           }
@@ -124,7 +150,7 @@ Page({
     })
   },
 
-  wxPay: function() {
+  wxPay: function(checkStockData) {
     wx.showLoading({
       title: '',
       mask: true
@@ -152,15 +178,20 @@ Page({
         })
       }
     }).catch(function(res) {
-      wx.showModal({
-        title: '支付失败',
-        content: '请重新支付，支付订单完成大厨就开工啦',
-        showCancel: false,
-        success: function(res) {
-          if (res.confirm) {
-            wx.hideLoading()
+      // 支付失败 库存恢复
+      // console.info(checkStockData)
+      server.request(api.restoreStock, checkStockData, "post").then(function(e) {
+        // 支付失败提醒
+        wx.showModal({
+          title: '支付失败',
+          content: '请重新支付，支付订单完成大厨就开工啦',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              wx.hideLoading()
+            }
           }
-        }
+        })
       })
     })
 
@@ -169,29 +200,29 @@ Page({
   balancePay: function() {
     let self = this
     let data = {}
-    console.info(app.globalData.customerUid)
-    if (!app.globalData.isCustomer) {
-      wx.showModal({
-        title: '支付失败',
-        content: '您还没有办理会员卡，是否前往注册',
-        success: function(res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '../customer/customer',
-            })
-          }
-        }
-      })
-      return
-    }
-    if (self.data.totalPrice > app.globalData.balance) {
-      wx.showModal({
-        title: '支付失败',
-        content: '会员卡余额不足，请前往前台充值',
-        showCancel: false
-      })
-      return
-    }
+    // console.info(app.globalData.customerUid)
+    // if (!app.globalData.isCustomer) {
+    //   wx.showModal({
+    //     title: '支付失败',
+    //     content: '您还没有办理会员卡，是否前往注册',
+    //     success: function(res) {
+    //       if (res.confirm) {
+    //         wx.navigateTo({
+    //           url: '../customer/customer',
+    //         })
+    //       }
+    //     }
+    //   })
+    //   return
+    // }
+    // if (self.data.totalPrice > app.globalData.balance) {
+    //   wx.showModal({
+    //     title: '支付失败',
+    //     content: '会员卡余额不足，请前往前台充值',
+    //     showCancel: false
+    //   })
+    //   return
+    // }
 
     let tradeId = self.getTradeId()
     wx.showLoading({

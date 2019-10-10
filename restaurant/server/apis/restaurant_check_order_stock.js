@@ -20,7 +20,9 @@ function RestaurantCheckOrderStock() {
                     return eData.goodsId
                 })]);
                 if (row.length > 0) {
-                    let haveStock = row.every(function (eData) {
+                    let getRow = row
+                    // 检查是否库存都满足
+                    let haveStock = getRow.every(function (eData) {
                         for (let i in param) {
                             if (eData.id == param[i].goodsId) {
                                 if (eData.stock >= param[i].number) {
@@ -30,22 +32,35 @@ function RestaurantCheckOrderStock() {
                         }
                         return false
                     })
-                    // every 只要满足true 就不会再运行下去
-                    let shortageList = []
-                    for (let i in row) {
-                        for (let j in param) {
-                            if (row[i].id == param[j].goodsId) {
-                                if (row[i].stock < param[j].number) {
-                                    shortageList.push(row[i])
-                                }
-                            }
-                        }
-                    }
+
                     data.code = 0
                     if (haveStock) {
                         data.canPay = 0
                         data.text = '库存有盈余'
+
+                        // 减去对应库存 锁单
+                        for (let i in getRow) {
+                            for (let j in param) {
+                                if (getRow[i].id == param[j].goodsId) {
+                                    let stock = getRow[i].stock - param[j].number
+                                    sql = "update restaurant_goods set stock = ? where id = ?"
+                                    row = await query(sql, [stock, getRow[i].id])
+                                }
+                            }
+                        }
                     } else {
+                        // 提取库存不足的商品名字
+                        let shortageList = []
+                        for (let i in getRow) {
+                            for (let j in param) {
+                                if (getRow[i].id == param[j].goodsId) {
+                                    if (getRow[i].stock < param[j].number) {
+                                        shortageList.push(getRow[i])
+                                    }
+                                }
+                            }
+                        }
+
                         data.canPay = 1
                         data.text = '库存耗竭'
                         data.shortageList = shortageList
@@ -73,7 +88,7 @@ function RestaurantCheckOrderStock() {
             {
                 res: response,
                 data: data,
-                action: "get_banner",
+                action: "check_stock",
             }, res);
         tool.log.debug("RestaurantCheckOrderStock::Run.out");
     }

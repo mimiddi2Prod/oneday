@@ -22,6 +22,11 @@ function FBRouter(){
                     work = new RestaurantCheckOrderStock;
                     break;
                 }
+                case "restaurant_restore_stock":{
+                    var RestaurantRestoreStock = require("./apis/restaurant_restore_stock");
+                    work = new RestaurantRestoreStock;
+                    break;
+                }
                 case "restaurant_get_category_by_location_code":{
                     var RestaurantGetCategoryByLocationCode = require("./apis/restaurant_get_category_by_location_code");
                     work = new RestaurantGetCategoryByLocationCode;
