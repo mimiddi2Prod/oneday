@@ -10,13 +10,14 @@ Page({
    */
   data: {
     order: [],
+    total_number: 0,
     total_price: 0,
-    create_time:'',
-    style:'',
-    trade_id:'',
-    yinbao_order_no:'',
+    create_time: '',
+    style: '',
+    trade_id: '',
+    yinbao_order_no: '',
 
-    restaurantTableName:'',
+    restaurantTableName: '',
   },
 
   /**
@@ -43,18 +44,21 @@ Page({
       console.info(res)
       if (res.order_list.length > 0) {
         let total_price = 0
+        let total_number = 0
         res.order_list = res.order_list.map(function(eData) {
           eData.subTotalPrice = Number(eData.price) * Number(eData.number)
+          total_number += Number(eData.number)
           total_price += eData.subTotalPrice
           eData.param = JSON.parse(eData.param)
           eData.create_time = util.formatTime(new Date(eData.create_time))
-          
+
           return eData
         })
         self.setData({
           order: res.order_list,
           create_time: res.order_list[0].create_time,
           style: res.order_list[0].style,
+          total_number: total_number,
           total_price: total_price,
           trade_id: tradeid,
           yinbao_order_no: res.order_list[0].yinbao_order_no

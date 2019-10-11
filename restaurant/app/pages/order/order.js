@@ -37,11 +37,11 @@ Page({
           eData.total_number = 0
           let arr_price = eData['group_concat(price)'].split(','),
             arr_number = eData['group_concat(number)'].split(',')
-          for (let i in arr_price) {
-            eData.total_price += Number(arr_price[i])
-          }
           for (let i in arr_number) {
             eData.total_number += Number(arr_number[i])
+          }
+          for (let i in arr_price) {
+            eData.total_price += Number(arr_price[i]) * Number(arr_number[i])
           }
           eData.create_time = util.formatTime(new Date(eData.create_time))
           return eData
