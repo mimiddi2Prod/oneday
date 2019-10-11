@@ -62,4 +62,6 @@ var api = {
     getGoodsByBrunchCategory: '../api/get_goods_by_brunch_category',
     addBrunchBanner: '../api/add_brunch_banner',
     updateBrunchBannerSort: '../api/update_brunch_banner_sort',
+
+    restaurantGetOrderByTime:'../api/restaurant_get_order_by_time'
 }

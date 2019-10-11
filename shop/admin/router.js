@@ -314,6 +314,10 @@ function Router() {
                 var YinbaoGetAPIAccessTimes = require("./api/yinbao_get_API_access_times.js");
                 baseApi = new YinbaoGetAPIAccessTimes;
                 break;
+            case "restaurant_get_order_by_time":
+                var restaurantGetOrderByTime = require("./api/restaurant_get_order_by_time.js");
+                baseApi = new restaurantGetOrderByTime;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;
