@@ -67,5 +67,8 @@ App({
     customerUid: 0,
 
     restaurantTableName: 0,
+
+    expire_time: '',
+    number: 0,
   }
 })

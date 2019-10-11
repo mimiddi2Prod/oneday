@@ -1,4 +1,6 @@
 // pages/blank/blank.js
+
+const app = getApp()
 Page({
 
   /**
@@ -17,11 +19,13 @@ Page({
     })
     console.info(options)
     let status = false
-    let expire_time = new Date(Number(options.expire_time)) //公众号二维码链接过期时间
+    let expire_time = options.expire_time ? new Date(Number(options.expire_time)) : app.globalData.expire_time //公众号二维码链接过期时间
+    app.globalData.expire_time = expire_time
     let current_time = new Date()
     console.info('过期时间' + expire_time)
     console.info('当前时间' + current_time)
-    let number = options.id //桌号
+    let number = options.id ? options.id : app.globalData.number //桌号
+    app.globalData.number = number
     // test
     // expire_time = new Date('2019-09-29')
     // number = 1
