@@ -3,7 +3,9 @@ var brunchOrderVM = new Vue({
     data: {
         total: [],
         // list: [],
-        isPhone: false
+        isPhone: false,
+
+        total_price: 0,
     },
     methods: {
         // getOrderDetail: function (yinbao_order_no) {
@@ -71,6 +73,7 @@ function getSales(start_time, end_time) {
                         eData.totalPrice = eData.totalPrice + res.list[i].price * res.list[i].number
                     }
                 }
+                brunchOrderVM.total_price = brunchOrderVM.total_price + eData.totalPrice
                 return eData
             })
             // brunchOrderVM.list = res.list
