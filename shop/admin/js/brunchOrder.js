@@ -62,12 +62,13 @@ function getSales(start_time, end_time) {
                 // 格式化时间
                 eData.create_time = formatTime(new Date(eData.create_time))
                 eData.totalNumber = eval(eData['group_concat(number)'].split(',').join('+'))
-                eData.totalPrice = eval(eData['group_concat(price)'].split(',').join('+'))
-
+                // eData.totalPrice = eval(eData['group_concat(price)'].split(',').join('+'))
+                eData.totalPrice = 0
                 eData.list = []
                 for (let i in res.list) {
                     if (eData.yinbao_order_no == res.list[i].yinbao_order_no) {
                         eData.list.push(res.list[i])
+                        eData.totalPrice = eData.totalPrice + res.list[i].price * res.list[i].number
                     }
                 }
                 return eData
