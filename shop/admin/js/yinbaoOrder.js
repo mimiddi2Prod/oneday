@@ -1,6 +1,8 @@
 var yinbaoOrderVM = new Vue({
     el: '#yinbaoOrder',
     data: {
+        orderAmount: 0.00, // 总金额不包括今日
+
         total: [],
         // list: [],
         isPhone: false,
@@ -36,7 +38,7 @@ $(document).ready(function () {
         // 执行桌面端代码
         yinbaoOrderVM.isPhone = false
     }
-
+    getOrderAmount()
     getOrder()
 })
 
@@ -70,5 +72,14 @@ function getOrder() {
             yinbaoOrderVM.total = res.list
         }
 
+    })
+}
+
+function getOrderAmount() {
+    const url = api.getOrderAmount, async = true
+    let data = {}
+    server(url, data, async, "post", function (res) {
+        // console.info(res)
+        yinbaoOrderVM.orderAmount = res.number
     })
 }
