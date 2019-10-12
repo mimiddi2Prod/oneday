@@ -2,6 +2,7 @@ var yinbaoOrderVM = new Vue({
     el: '#yinbaoOrder',
     data: {
         orderAmount: 0.00, // 总金额不包括今日
+        a:false,
 
         total: [],
         // list: [],
@@ -38,7 +39,12 @@ $(document).ready(function () {
         // 执行桌面端代码
         yinbaoOrderVM.isPhone = false
     }
-    getOrderAmount()
+    let a = sessionStorage.getItem('user_id')
+    if(a == 14 || a == 15){
+        yinbaoOrderVM.a = true
+        getOrderAmount()
+    }
+
     getOrder()
 })
 

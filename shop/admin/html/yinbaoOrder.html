@@ -39,7 +39,7 @@
         <div class="title item">
             <h4>每日订单</h4>
             <button class="btn btn-secondary" v-on:click="yinbaoGetTodayOrder" style="margin-bottom: 6px">更新当日订单</button>
-            <h5>总计：{{orderAmount}} （不含今日）</h5>
+            <h5 v-if="a">总计：{{orderAmount}} （不含今日）</h5>
             <h5>今日总计：{{total_price}}</h5>
             <h5>单数：{{total.length}}</h5>
         </div>
