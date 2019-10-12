@@ -63,5 +63,7 @@ var api = {
     addBrunchBanner: '../api/add_brunch_banner',
     updateBrunchBannerSort: '../api/update_brunch_banner_sort',
 
-    restaurantGetOrderByTime:'../api/restaurant_get_order_by_time'
+    restaurantGetOrderByTime: '../api/restaurant_get_order_by_time',
+    yinbaoGetTodayOrder: '../api/yinbao_get_today_order',
+    restaurantGetTodayOrder: '../api/restaurant_get_today_order'
 }

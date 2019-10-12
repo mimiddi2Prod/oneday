@@ -318,6 +318,14 @@ function Router() {
                 var restaurantGetOrderByTime = require("./api/restaurant_get_order_by_time.js");
                 baseApi = new restaurantGetOrderByTime;
                 break;
+            case "yinbao_get_today_order":
+                var yinbaoGetTodayOrder = require("./api/yinbao_get_today_order.js");
+                baseApi = new yinbaoGetTodayOrder;
+                break;
+            case "restaurant_get_today_order":
+                var restaurantGetTodayOrder = require("./api/restaurant_get_today_order.js");
+                baseApi = new restaurantGetTodayOrder;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;
