@@ -43,7 +43,7 @@ async function getOrder(paramData) {
         for (let i in result) {
             // console.info(result[0])
             sql = 'insert into yinbao_order_today (cashier,cashierUid,customerUid,datetime,invalid,items,orderNo,payments,remark,rounding,serviceFee,sn,ticketType,totalAmount,totalProfit,uid,webOrderNo)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
-            row = db.Query(sql, [result[i].cashier, result[i].cashierUid, result[i].customerUid, result[i].datetime, result[i].invalid, result[i].items, (result[i].orderNo ? result[i].orderNo : ''), result[i].payments, (result[i].remark ? result[i].remark : ''), result[i].rounding, (result[i].serviceFee >= 0 ? result[i].serviceFee : ''), result[i].sn, result[i].ticketType, result[i].totalAmount, result[i].totalProfit, result[i].uid, result[i].webOrderNo])
+            row = await db.Query(sql, [result[i].cashier, result[i].cashierUid, result[i].customerUid, result[i].datetime, result[i].invalid, result[i].items, (result[i].orderNo ? result[i].orderNo : ''), result[i].payments, (result[i].remark ? result[i].remark : ''), result[i].rounding, (result[i].serviceFee >= 0 ? result[i].serviceFee : ''), result[i].sn, result[i].ticketType, result[i].totalAmount, result[i].totalProfit, result[i].uid, result[i].webOrderNo])
 
             if (result[i].invalid == 0) {
                 let payments = JSON.parse(result[i].payments)
@@ -53,7 +53,7 @@ async function getOrder(paramData) {
         }
 
         sql = 'insert into yinbao_order_sellprice_today (total_price,create_time)values(?,current_timestamp )'
-        row = db.Query(sql, day_sellprice)
+        row = await db.Query(sql, day_sellprice)
     }
     if (callData.data.result.length == 100) {
         let temp = paramData
