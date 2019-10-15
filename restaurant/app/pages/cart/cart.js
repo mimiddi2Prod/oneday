@@ -29,6 +29,18 @@ Page({
       restaurantTableName: app.globalData.restaurantTableName
     })
     this.getCart()
+
+    let current_time = new Date(),
+      date = new Date(current_time.toDateString()).getTime(),
+      start_time = new Date(date + (12 * 60 * 60 * 1000)),
+      end_time = new Date(date + (14 * 60 * 60 * 1000))
+    if (current_time >= start_time && current_time <= end_time) {
+      wx.showModal({
+        title: '',
+        content: '该时段较为繁忙，出品时间可能会稍有延迟，请耐心等候哦～',
+        showCancel: false
+      })
+    }
   },
 
   // 输入用餐人数
@@ -71,6 +83,17 @@ Page({
 
 
   submitOrder: function() {
+    let current_time = new Date(),
+      date = new Date(current_time.toDateString()).getTime(),
+      start_time = new Date(date + (21 * 60 * 60 * 1000))
+    if (current_time >= start_time) {
+      wx.showModal({
+        title: '',
+        content: '21点后小程序不能再下单',
+        showCancel: false
+      })
+      return
+    }
     this.setData({
       showPayMethodDialog: true
     })
@@ -186,7 +209,7 @@ Page({
           title: '支付失败',
           content: '请重新支付，支付订单完成大厨就开工啦',
           showCancel: false,
-          success: function (res) {
+          success: function(res) {
             if (res.confirm) {
               wx.hideLoading()
             }

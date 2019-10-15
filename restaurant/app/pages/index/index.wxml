@@ -20,7 +20,9 @@
         </view>
         <view class="goods-param-c">
           <!-- 商品价格 -->
-          <view>￥{{goodsPrice}} <text style="font-size:24rpx">{{goodsStock < 10 ? '剩余 '+goodsStock+' 份' : ''}}</text></view>
+          <view>￥{{goodsPrice}}
+            <text style="font-size:24rpx">{{goodsStock < 10 ? '剩余 '+goodsStock+' 份' : ''}}</text>
+          </view>
           <!-- 购买数量选择 -->
           <view class="goods-add-cart" wx:if="{{selectGoods.cartNumber <= 0}}" bindtap="addMoreParamCart">加入购物车</view>
           <view class="goods-add-cart-have" wx:else>
@@ -61,7 +63,8 @@
     <image class="detail-img" src='{{goods_detail.img}}' mode="widthFix"></image>
     <view class="detail-ju">
       <view>
-        ￥{{goods_detail.min_price}} <text style="font-size:24rpx">{{goods_detail.stock < 10 ? '剩余 '+goods_detail.stock+' 份' : ''}}</text>
+        ￥{{goods_detail.min_price}}
+        <text style="font-size:24rpx">{{goods_detail.stock < 10 ? '剩余 '+goods_detail.stock+' 份' : ''}}</text>
       </view>
       <view>
         <!-- 没有规格 -->
@@ -152,10 +155,17 @@
   <view class="modal-bg"></view>
   <view class="modal-container">
     <swiper class="modal-banner" indicator-dots="true" indicator-active-color="#fff">
+      <!-- 跳转客服 -->
+      <!-- <swiper-item wx:for="{{contact}}" wx:key="{{item.id}}">
+        <button class="contact" open-type="contact" hover-class='none' plain="true">
+          <image src="{{item.image}}" mode="aspectFill"></image>
+        </button>
+      </swiper-item> -->
       <swiper-item wx:for="{{opening}}" wx:key="{{item.id}}">
-        <!-- <navigator url="{{item.url}}" hover-class='none'> -->
-        <image src="{{item.image}}" mode="aspectFill" bindtap='showGoodsDetail' data-id="{{item.goods_id}}" data-cateid="{{item.category_id}}"></image>
-        <!-- </navigator> -->
+        <image class="modal-banner-image" src="{{item.image}}" mode="aspectFill" bindtap='showGoodsDetail' data-id="{{item.goods_id}}" data-cateid="{{item.category_id}}" wx:if="{{item.type == 0}}"></image>
+        <button class="contact" open-type="contact" hover-class='none' plain="true" wx:if="{{item.type == 1}}">
+          <image src="{{item.image}}" mode="aspectFill"></image>
+        </button>
       </swiper-item>
     </swiper>
     <!-- <image src="../../images/clear_input.png" mode="cover" bindtap='showModal'></image> -->
