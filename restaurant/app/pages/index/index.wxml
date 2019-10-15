@@ -166,6 +166,7 @@
         <button class="contact" open-type="contact" hover-class='none' plain="true" wx:if="{{item.type == 1}}">
           <image src="{{item.image}}" mode="aspectFill"></image>
         </button>
+        <image class="modal-banner-image" src="{{item.image}}" mode="aspectFill" wx:if="{{item.type == 2}}"></image>
       </swiper-item>
     </swiper>
     <!-- <image src="../../images/clear_input.png" mode="cover" bindtap='showModal'></image> -->

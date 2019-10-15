@@ -89,7 +89,7 @@ Page({
     if (current_time >= start_time) {
       wx.showModal({
         title: '',
-        content: '21点后小程序不能再下单',
+        content: '非常抱歉 当前已暂停提供餐品我们下次见啦：）',
         showCancel: false
       })
       return

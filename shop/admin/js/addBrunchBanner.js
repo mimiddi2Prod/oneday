@@ -14,6 +14,9 @@ var addBrunchBannerVM = new Vue({
         }, {
             id: 1,
             name: '跳转客服'
+        }, {
+            id: 2,
+            name: '无事件'
         }],
         adSelect: 0
     },
@@ -50,7 +53,7 @@ var addBrunchBannerVM = new Vue({
                 alert('请填写排序')
                 return
             }
-            if(this.adSelect == 0){
+            if (this.adSelect == 0) {
                 if (!this.goods_id) {
                     alert('请选择商品类目')
                     return
@@ -89,9 +92,19 @@ function addAdvertisement(status) {
     }
     data.category_id = data.type == 0 ? addBrunchBannerVM.category_id_select : 0
     data.goods_id = data.type == 0 ? addBrunchBannerVM.goods_id : 0
-    data.name = data.type == 0 ? addBrunchBannerVM.goodsList.filter(function (eData) {
-        return eData.id == data.goods_id
-    })[0].name : '跳转客服'
+
+    if (data.type == 0) {
+        data.name = addBrunchBannerVM.goodsList.filter(function (eData) {
+            return eData.id == data.goods_id
+        })[0].name
+    } else if (data.type == 1) {
+        data.name = '跳转客服'
+    } else if (data.type == 2) {
+        data.name = '无事件'
+    }
+    // data.name = data.type == 0 ? addBrunchBannerVM.goodsList.filter(function (eData) {
+    //     return eData.id == data.goods_id
+    // })[0].name : '跳转客服'
     server(url, data, async, "post", function (res) {
         if (res.code == 0) {
             alert('添加成功')
