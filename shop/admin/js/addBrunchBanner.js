@@ -7,6 +7,15 @@ var addBrunchBannerVM = new Vue({
         goodsList: [],
         category_id_select: '',
         goods_id: '',
+
+        adList: [{
+            id: 0,
+            name: '餐品'
+        }, {
+            id: 1,
+            name: '跳转客服'
+        }],
+        adSelect: 0
     },
     methods: {
         getImg: function (id) {
@@ -41,11 +50,13 @@ var addBrunchBannerVM = new Vue({
                 alert('请填写排序')
                 return
             }
-            if (!this.goods_id) {
-                alert('请选择商品类目')
-                return
+            if(this.adSelect == 0){
+                if (!this.goods_id) {
+                    alert('请选择商品类目')
+                    return
+                }
             }
-            // 全部验证完毕 开始上传图片 有图片的地方分别是 1.imgList 2.SortItem>size>img 3.goodsInfoImgList
+            // 全部验证完毕 开始上传图片
             if (this.imageList.length > 0) {
                 let self = this, flag = 0
                 for (let i in this.imageList) {
@@ -68,19 +79,19 @@ function addAdvertisement(status) {
     const url = api.addBrunchBanner, async = true
     let data = {}
     data.status = status
-    // data.type = addBrunchBannerVM.ad_type
-    // data.text = addBrunchBannerVM.desc
+    data.type = addBrunchBannerVM.adSelect // 0餐品 1客服
+
     data.sort = addBrunchBannerVM.sort
     data.user_id = sessionStorage.getItem('user_id')
     data.imgList = []
     for (let i in addBrunchBannerVM.imageList) {
         data.imgList.push(addBrunchBannerVM.imageList[i].key)
     }
-    data.category_id = addBrunchBannerVM.category_id_select
-    data.goods_id = addBrunchBannerVM.goods_id
-    data.name = addBrunchBannerVM.goodsList.filter(function (eData) {
+    data.category_id = data.type == 0 ? addBrunchBannerVM.category_id_select : 0
+    data.goods_id = data.type == 0 ? addBrunchBannerVM.goods_id : 0
+    data.name = data.type == 0 ? addBrunchBannerVM.goodsList.filter(function (eData) {
         return eData.id == data.goods_id
-    })[0].name
+    })[0].name : '跳转客服'
     server(url, data, async, "post", function (res) {
         if (res.code == 0) {
             alert('添加成功')

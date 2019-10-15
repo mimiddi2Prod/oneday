@@ -10,8 +10,8 @@ function shopAddBrunchBanner() {
             // 单张图上传
             var img = qiniuRootUrl + param['imgList'][0]
 
-            sql = "insert into restaurant_banner(category_id,goods_id,`name`,image,status,sort,user_id,create_time)values(?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
-            row = await db.Query(sql, [param['category_id'], param['goods_id'], param['name'], img, param['status'], param['sort'], param['user_id']]);
+            sql = "insert into restaurant_banner(category_id,goods_id,`name`,image,status,sort,user_id,`type`,create_time)values(?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
+            row = await db.Query(sql, [param['category_id'], param['goods_id'], param['name'], img, param['status'], param['sort'], param['user_id'], param['type']]);
             console.info(row)
             if (row.insertId) {
                 data.code = 0

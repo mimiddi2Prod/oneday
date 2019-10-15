@@ -46,24 +46,6 @@
         <div class="subtitle">
             <div>基础信息</div>
 
-            <!--<div class="sort row-center">-->
-                <!--<div class="index">跳转类型</div>-->
-                <!--<div class="item">-->
-                    <!--<div class="select">-->
-                        <!--<form role="form">-->
-                            <!--<div class="form-group">-->
-                                <!--<select class="form-control" v-model="ad_type">-->
-                                    <!--<option disabled="" value="" selected="selected">请选择广告类型</option>-->
-                                    <!--<option v-for="item in adTypeList" v-bind:value="item.id">{{item.name}}</option>-->
-                                <!--</select>-->
-                            <!--</div>-->
-                        <!--</form>-->
-                    <!--</div>-->
-
-                    <!--<div class="text">(广告类型分为 &#45;&#45; 可关闭的弹窗型banner -&#45;&#45; swiper轮播型banner)</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
             <div class="sort row-center">
                 <div class="index">广告图片</div>
                 <div class="item">
@@ -80,53 +62,29 @@
                             <img class="imgDel" src="/images/del.png" v-on:click="delImg(index)">
                         </div>
                     </div>
-                    <!-- <div class="text">建议：轮播型图片应为《长度大高度小》，弹窗型图片应为《长度小高度大》。</div> -->
                 </div>
             </div>
-
-            <!--<div class="sort row-center">-->
-                <!--<div class="index">广告描述</div>-->
-                <!--<div class="item"><input type="text" class="form-control" v-model="desc" name=""/></div>-->
-            <!--</div>-->
 
             <div class="sort row-center">
                 <div class="index">排序</div>
                 <div class="item"><input type="text" class="form-control" v-model="sort" name=""/></div>
             </div>
 
-            <!--<div class="sort row-center">-->
-                <!--<div class="index">跳转类型</div>-->
-                <!--<div class="item">-->
-                    <!--<div class="select">-->
-                        <!--<form role="form">-->
-                            <!--<div class="form-group">-->
-                                <!--<select class="form-control">-->
-                                    <!--<option>页面内部跳转</option>-->
-                                    <!--<option>web-view</option>-->
-                                    <!--<option>关联小程序跳转</option>-->
-                                <!--</select>-->
-                            <!--</div>-->
-                        <!--</form>-->
-                    <!--</div>-->
-
-                    <!--<div class="text">(先不选 将来可能用于跳转 &#45;&#45; 页面内部跳转 -&#45;&#45; web-view -&#45;&#45; 关联小程序跳转)</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
             <div class="sort row-center">
+                <div class="index">广告类型</div>
+                <div class="item row-center">
+                    <label class="form-check-label" v-for="item in adList">
+                        <input class="form-check-input" type="radio" name="integral" v-bind:value="item.id"
+                               v-model="adSelect">
+                        {{item.name}}
+                    </label>
+                </div>
+            </div>
+
+            <div class="sort row-center" v-if="adSelect == 0">
                 <div class="index">商品类目</div>
                 <div class="item">
                     <div class="select">
-                        <!--<form role="form">-->
-                            <!--<div class="form-group">-->
-                                <!--<select class="form-control" v-model="category_parent_id_select"-->
-                                        <!--v-on:change="haveCategoryParent(category_parent_id_select)">-->
-                                    <!--<option disabled="" value="" selected="selected">请选择大分类</option>-->
-                                    <!--<option v-for="item in category_parent" v-bind:value="item.id">{{item.name}}-->
-                                    <!--</option>-->
-                                <!--</select>-->
-                            <!--</div>-->
-                        <!--</form>-->
                         <form role="form">
                             <div class="form-group">
                                 <select class="form-control" v-model="category_id_select"
@@ -145,8 +103,6 @@
                             </div>
                         </form>
                     </div>
-
-                    <!-- <div class="text">(请务必选对类目)</div> -->
                 </div>
             </div>
 
