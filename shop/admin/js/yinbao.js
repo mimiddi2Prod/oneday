@@ -15,11 +15,15 @@ var yinbaoVM = new Vue({
     },
     methods: {
         yinbaoGetGoodsToUpdate: function () {
+            //显示
+            $('#myModal').modal('show');
             const url = '../api/yinbao_update_data', async = true
             let data = {}
             server(url, data, async, "post", function (res) {
                 console.info(res)
                 if (res.code == 1) {
+                    //影藏
+                    $('#myModal').modal('hide');
                     alert('更新brunch小程序菜单成功')
                 }
             })
