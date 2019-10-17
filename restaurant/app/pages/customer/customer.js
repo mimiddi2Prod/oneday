@@ -28,7 +28,6 @@ Page({
     let errMsg = e.detail.errMsg
     if (errMsg == "getPhoneNumber:ok") {
       if (e.detail.encryptedData && e.detail.iv) {
-        let self = this
         let data = {}
         data.encryptedData = e.detail.encryptedData
         data.iv = e.detail.iv
@@ -42,6 +41,7 @@ Page({
             app.globalData.discount = res.data.discount //折扣 100无折扣 70表示7折
             app.globalData.phone = res.data.phone
             app.globalData.isCustomer = true
+            app.globalData.customerUid = res.data.customerUid
             self.setData({
               isCustomer: app.globalData.isCustomer
             })
@@ -50,8 +50,8 @@ Page({
               content: '绑定成功',
               showCancel: false,
               confirmText:'确定',
-              success: function(e) {
-                if(e.confirm){
+              success: function(eData) {
+                if (eData.confirm){
                   wx.navigateBack({})
                 }
               }

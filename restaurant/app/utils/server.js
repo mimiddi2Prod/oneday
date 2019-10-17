@@ -39,7 +39,7 @@ function login() {
 }
 
 // 微信支付
-function pay(url, openid, money, method = 'get') {
+function pay(url, openid, money, order, method = 'get') {
   console.info('---请求微信支付---')
   console.info(openid)
   console.info(money)
@@ -49,9 +49,20 @@ function pay(url, openid, money, method = 'get') {
       data: {
         openid: openid,
         money: money,
+        order: order
       },
       method: method,
       success: function(res) {
+        console.info(res)
+        if (res.data.data.addOrderStatus.code == 1) {
+          wx.hideLoading()
+          wx.showModal({
+            title: '错误',
+            content: res.data.data.addOrderStatus.text,
+            showCancel: false
+          })
+          return
+        }
         console.info('---success---')
         console.info(res)
         let tradeId = res.data.data.tradeId

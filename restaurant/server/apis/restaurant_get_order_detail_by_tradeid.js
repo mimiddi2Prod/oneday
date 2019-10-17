@@ -18,8 +18,8 @@ function RestaurantGetOrderDetailByTradeid() {
         } else {
             try {
 
-                sql = "select `name`,yinbao_order_no,`describe`,img,param,price,`number`,create_time,style from restaurant_goods_order where open_id = ? and trade_id = ?";
-                row = await query(sql, [param["openid"], param["tradeid"]]);
+                sql = "select `name`,yinbao_order_no,`describe`,img,param,price,`number`,create_time,style from restaurant_goods_order where open_id = ? and trade_id = ? and pay_status = ?";
+                row = await query(sql, [param["openid"], param["tradeid"], 0]);
                 if (row.length > 0) {
                     data.order_list = row
                 }

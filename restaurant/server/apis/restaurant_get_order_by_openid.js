@@ -15,10 +15,10 @@ function RestaurantGetOrderByOpenid() {
             console.info('没有收到用户的openid')
         } else {
             try {
-                sql = "select trade_id,yinbao_order_no,group_concat(price),group_concat(number),create_time from restaurant_goods_order where open_id = ? group by trade_id order by create_time desc";
-                row = await query(sql, param["openid"]);
+                sql = "select trade_id,yinbao_order_no,group_concat(price),group_concat(number),create_time from restaurant_goods_order where open_id = ? and pay_status = ? group by trade_id order by create_time desc";
+                row = await query(sql, [param["openid"], 0]);
                 console.info(row)
-                if(row.length > 0){
+                if (row.length > 0) {
                     data.order_list = row
                 }
 

@@ -37,6 +37,11 @@ function FBRouter(){
                     work = new RestaurantAddOrder;
                     break;
                 }
+                case "restaurant_add_order_by_yinbao_balance":{
+                    var RestaurantAddOrderByYinbaoBalance = require("./apis/restaurant_add_order_by_yinbao_balance");
+                    work = new RestaurantAddOrderByYinbaoBalance;
+                    break;
+                }
                 case "restaurant_get_order_by_openid":{
                     var RestaurantGetOrderByOpenid = require("./apis/restaurant_get_order_by_openid");
                     work = new RestaurantGetOrderByOpenid;

@@ -2,6 +2,8 @@ var tools = require("./../tool");
 var yinbaoAppId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 
+var jsonBigInt = require('json-bigint')({"storeAsString": true});
+
 // 银豹用户密码加密方式
 // const crypto = require('crypto')
 // const hash = crypto.createHash('md5');
@@ -52,7 +54,8 @@ function RestaurantGetUserPhone() {
                 let e = await request(router, postDataJson)
                 console.info("获得分类数据：")
                 console.info(e)
-                e = JSON.parse(e)
+                // e = JSON.parse(e)
+                e = jsonBigInt.parse(e)
                 if (e.data) {
                     if (e.data[0].number.length > 0 && e.data[0].number == phoneNumber) {
                         data.code = 0
@@ -62,13 +65,20 @@ function RestaurantGetUserPhone() {
                         data.data.balance = e.data[0].balance
                         data.data.discount = e.data[0].discount
                         data.data.phone = phoneNumber
+                        data.data.customerUid = e.data[0].customerUid
                     }
                 } else {
                     // 2.没查询到对应的会员卡 注册
+                    let text = ''
+                    var possible = "0123456789"
+                    for (var i = 0; i < 2; i++) {
+                        text += possible.charAt(Math.floor(Math.random() * possible.length))
+                    }
                     let postData = {
                         "appId": yinbaoAppId,
-                        "customerInfo":{
-                            "number": phoneNumber
+                        "customerInfo": {
+                            "number": phoneNumber + text,
+                            "phone": phoneNumber
                         }
                     }
                     let postDataJson = JSON.stringify(postData)
@@ -77,9 +87,10 @@ function RestaurantGetUserPhone() {
                     let e = await request(router, postDataJson)
                     console.info("获得分类数据：")
                     console.info(e)
-                    e = JSON.parse(e)
+                    // e = JSON.parse(e)
+                    e = jsonBigInt.parse(e)
                     if (e.data) {
-                        if (e.data.number.length > 0 && e.data.number == phoneNumber) {
+                        if (e.data.number.length > 0 && e.data.phone == phoneNumber) {
                             data.code = 0
                             data.text = "success"
                             data.data = {}
@@ -87,6 +98,7 @@ function RestaurantGetUserPhone() {
                             data.data.balance = e.data.balance
                             data.data.discount = e.data.discount
                             data.data.phone = phoneNumber
+                            data.data.customerUid = e.data.customerUid
                         }
                     }
                 }

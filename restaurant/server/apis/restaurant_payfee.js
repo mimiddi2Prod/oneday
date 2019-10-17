@@ -25,6 +25,14 @@ function RestaurantPayfee() {
                 async function Call() {
                     var e = await payfee(payData)
                     data = e
+
+                    // 获得订单号后，将订单添加到数据库 并且支付状态为未支付
+                    var addOrder = require('./restaurant_add_order')
+                    let order = param['order']
+                    order.tradeId = e.tradeId
+                    let callback = await addOrder(order)
+                    data.addOrderStatus = callback
+
                 }
                 await Call()
 

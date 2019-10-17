@@ -10,6 +10,7 @@ module.exports = {
   restoreStock: rootUrl + 'restaurant_restore_stock',
 
   addOrder: rootUrl + 'restaurant_add_order',
+  addOrderByYinbaoBalance: rootUrl + 'restaurant_add_order_by_yinbao_balance',
   getOrderByOpenid: rootUrl + 'restaurant_get_order_by_openid',
   getOrderDetailByTradeid: rootUrl + 'restaurant_get_order_detail_by_tradeid',
   getBanner: rootUrl + 'restaurant_get_banner',

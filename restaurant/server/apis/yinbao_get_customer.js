@@ -35,7 +35,7 @@ function YinbaoGetPhone() {
                 console.info(e)
                 // e = JSON.parse(e)
                 if (e.data) {
-                    if (e.data[0].number.length > 0 && e.data[0].number == param["phone"]) {
+                    if (e.data[0].number.length > 0 && e.data[0].phone == param["phone"]) {
                         // data.code = 0
                         // data.text = "success"
                         // data.data = {}
@@ -44,34 +44,41 @@ function YinbaoGetPhone() {
                         data.discount = e.data[0].discount
                         data.customerUid = e.data[0].customerUid
                     }
-                } else {
-                    // 2.没查询到对应的会员卡 注册
-                    let postData = {
-                        "appId": yinbaoAppId,
-                        "customerInfo": {
-                            "number": param["phone"]
-                        }
-                    }
-                    let postDataJson = JSON.stringify(postData)
-                    console.info(postDataJson)
-                    let router = "add"
-                    let e = await request(router, postDataJson)
-                    e = jsonBigInt.parse(e)
-                    console.info("获得新增用户数据：")
-                    console.info(e)
-                    // e = JSON.parse(e)
-                    if (e.data) {
-                        if (e.data.number.length > 0 && e.data.number == param["phone"]) {
-                            // data.code = 0
-                            // data.text = "success"
-                            // data.data = {}
-                            data.point = e.data.point
-                            data.balance = e.data.balance
-                            data.discount = e.data.discount
-                            data.customerUid = e.data.customerUid
-                        }
-                    }
                 }
+        // else {
+        //             // 2.没查询到对应的会员卡 注册
+        //             let text = ''
+        //             var possible = "0123456789"
+        //             for (var i = 0; i < 2; i++) {
+        //                 text += possible.charAt(Math.floor(Math.random() * possible.length))
+        //             }
+        //             let postData = {
+        //                 "appId": yinbaoAppId,
+        //                 "customerInfo": {
+        //                     "number": param["phone"] + text,
+        //                     "phone": param["phone"]
+        //                 }
+        //             }
+        //             let postDataJson = JSON.stringify(postData)
+        //             console.info(postDataJson)
+        //             let router = "add"
+        //             let e = await request(router, postDataJson)
+        //             e = jsonBigInt.parse(e)
+        //             console.info("获得新增用户数据：")
+        //             console.info(e)
+        //             // e = JSON.parse(e)
+        //             if (e.data) {
+        //                 if (e.data.number.length > 0 && e.data.number == param["phone"]) {
+        //                     // data.code = 0
+        //                     // data.text = "success"
+        //                     // data.data = {}
+        //                     data.point = e.data.point
+        //                     data.balance = e.data.balance
+        //                     data.discount = e.data.discount
+        //                     data.customerUid = e.data.customerUid
+        //                 }
+        //             }
+        //         }
 
             } catch (err) {
                 if (err.code) {

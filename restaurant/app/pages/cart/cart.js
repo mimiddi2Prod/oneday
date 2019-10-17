@@ -43,6 +43,12 @@ Page({
     }
   },
 
+  test: function() {
+    server.pay(api.payfee, app.globalData.openid, 0.01, "post").then(function(res) {
+      console.info(res)
+    }).catch(function(res) {})
+  },
+
   // 输入用餐人数
   dinnerNum: function(e) {
     this.setData({
@@ -106,10 +112,6 @@ Page({
   },
 
   checkStock: function(e) {
-    wx.showLoading({
-      title: '请稍后...',
-      mask: true
-    })
     let payMethod = e.currentTarget.dataset.pay // 0微信支付 1余额支付
     let self = this,
       data = []
@@ -139,6 +141,11 @@ Page({
         return
       }
     }
+
+    wx.showLoading({
+      title: '请稍后...',
+      mask: true
+    })
 
     // todo 商品库存验证
     for (let i in this.data.cart) {
@@ -177,29 +184,66 @@ Page({
     })
   },
 
+  getWXPayOrder: function () {
+    let self = this
+    let data = {}
+    data.openid = app.globalData.openid
+    data.style = self.data.style
+    data.dinnersNumber = self.data.dinnersNumber
+    data.cart = self.data.cart
+    data.restaurantTableName = app.globalData.restaurantTableName
+    data.payMethod = 'Wxpay'
+    // if (payMethod == 'CustomerBalance') {
+    //   data.customerNumber = app.globalData.phone
+    // }
+    data.payStatus = 1
+    data.customerUid = ''
+    if (app.globalData.customerUid) {
+      data.customerUid = app.globalData.customerUid
+    }
+
+    // server.request(api.addOrder, data, "post").then(function (res) {
+    //   console.info(res)
+    //   self.getCustomerByPhone()
+    //   if (res.code == 0) {
+    //     app.globalData.cart = []
+    //     wx.redirectTo({
+    //       url: '../pay_status/pay_status?tradeid=' + data.tradeId,
+    //     })
+    //   }
+    // })
+    return data
+  },
+
   wxPay: function(checkStockData) {
     let self = this
-    server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, "post").then(function(res) {
+
+    let orderData = self.getWXPayOrder()
+    server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, orderData, "post").then(function(res) {
       wx.showLoading({
         title: '',
         mask: true
       })
       console.info(res)
       let tradeId = res
-      self.addOrder(tradeId, 'Wxpay')
+      app.globalData.cart = []
+      wx.redirectTo({
+        url: '../pay_status/pay_status?tradeid=' + tradeId,
+      })
+      // self.addOrder(tradeId, 'Wxpay')
 
-      if (app.globalData.customerUid) {
-        let data = {}
-        data.customerUid = app.globalData.customerUid
-        data.balanceIncrement = 0
-        data.pointIncrement = self.data.totalPrice
-        server.request(api.balancePay, data, "post").then(function(res) {
-          if (res.code == 0) {
-            app.globalData.balance = res.data.balanceAfterUpdate
-            app.globalData.point = res.data.pointAfterUpdate
-          }
-        })
-      }
+      // if (app.globalData.customerUid) {
+      //   let data = {}
+      //   data.customerUid = app.globalData.customerUid
+      //   data.balanceIncrement = 0
+      //   data.pointIncrement = self.data.totalPrice
+      //   server.request(api.balancePay, data, "post").then(function(res) {
+      //     if (res.code == 0) {
+      //       app.globalData.balance = res.data.balanceAfterUpdate
+      //       app.globalData.point = res.data.pointAfterUpdate
+      //     }
+      //   })
+      // }
     }).catch(function(res) {
       // 支付失败 库存恢复
       // console.info(checkStockData)
@@ -248,11 +292,12 @@ Page({
     // }
 
     let tradeId = self.getTradeId()
-    wx.showLoading({
-      title: '',
-      mask: true
-    })
-    self.addOrder(tradeId, 'CustomerBalance')
+    // wx.showLoading({
+    //   title: '',
+    //   mask: true
+    // })
+    self.addOrder(tradeId, 'CustomerBalance', 0)
+    // self.addOrder('CustomerBalance', 0)
   },
 
   getTradeId: function() {
@@ -267,14 +312,14 @@ Page({
     return tradeId
   },
 
-  addOrder: function(tradeId, payMethod) {
+  addOrder: function(tradeId, payMethod, payStatus) {
+  // addOrder: function(payMethod, payStatus) {
     let self = this
     // console.info(this.data.cart)
     let data = {}
     data.openid = app.globalData.openid
     data.style = self.data.style
     data.dinnersNumber = self.data.dinnersNumber
-    // data.tradeId = util.formatTime(new Date()).toString()
     data.tradeId = tradeId
     data.cart = self.data.cart
     data.restaurantTableName = app.globalData.restaurantTableName
@@ -282,8 +327,13 @@ Page({
     if (payMethod == 'CustomerBalance') {
       data.customerNumber = app.globalData.phone
     }
+    data.payStatus = payStatus
 
-    server.request(api.addOrder, data, "post").then(function(res) {
+    if (app.globalData.customerUid) {
+      data.customerUid = app.globalData.customerUid
+    }
+
+    server.request(api.addOrderByYinbaoBalance, data, "post").then(function(res) {
       console.info(res)
       self.getCustomerByPhone()
       if (res.code == 0) {

@@ -132,24 +132,32 @@ Page({
           'phone': app.globalData.phone
         }, 'post').then(function(res) {
           console.info(res)
-          app.globalData.isCustomer = true
-          app.globalData.point = res.point
-          app.globalData.balance = res.balance
-          app.globalData.discount = res.discount
-          app.globalData.customerUid = res.customerUid
+          if (res.customerUid) {
+            app.globalData.isCustomer = true
+            app.globalData.point = res.point
+            app.globalData.balance = res.balance
+            app.globalData.discount = res.discount
+            app.globalData.customerUid = res.customerUid
 
-          self.setData({
-            point: app.globalData.point,
-            balance: app.globalData.balance,
-            discount: app.globalData.discount,
-            isCustomer: app.globalData.isCustomer
-          })
+            self.setData({
+              point: app.globalData.point,
+              balance: app.globalData.balance,
+              discount: app.globalData.discount,
+              isCustomer: app.globalData.isCustomer
+            })
+          }
         })
       }
     }, 500)
   },
 
   onShow: function() {
+    this.setData({
+      point: app.globalData.point,
+      balance: app.globalData.balance,
+      discount: app.globalData.discount,
+      isCustomer: app.globalData.isCustomer
+    })
     if (app.globalData.cart.length <= 0) {
       this.setData({
         cart: [],
@@ -157,21 +165,16 @@ Page({
         totalGoodsPrice: 0,
         showCart: false,
 
-        point: app.globalData.point,
-        balance: app.globalData.balance,
-        discount: app.globalData.discount,
-        isCustomer: app.globalData.isCustomer
+        // point: app.globalData.point,
+        // balance: app.globalData.balance,
+        // discount: app.globalData.discount,
+        // isCustomer: app.globalData.isCustomer
       })
       // 获取商品列表 包括类别 和 商品
       this.getCategory(this.data.locationCode)
     }
 
-    this.setData({
-      point: app.globalData.point,
-      balance: app.globalData.balance,
-      discount: app.globalData.discount,
-      isCustomer: app.globalData.isCustomer
-    })
+
   },
   // 关闭选择规格弹窗 
   closeModal: function() {
