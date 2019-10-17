@@ -43,12 +43,6 @@ Page({
     }
   },
 
-  test: function() {
-    server.pay(api.payfee, app.globalData.openid, 0.01, "post").then(function(res) {
-      console.info(res)
-    }).catch(function(res) {})
-  },
-
   // 输入用餐人数
   dinnerNum: function(e) {
     this.setData({
