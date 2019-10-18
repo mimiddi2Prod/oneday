@@ -49,7 +49,9 @@ function RestaurantWxPayNotify() {
 
                 // todo 写本地日志保存 用于保存银豹订单推送的情况  code:0 成功，1 失败
                 if (AddOrderCall.code == 0) {
-
+                    let yinbao_orderNo = AddOrderCall.orderNo
+                    sql = 'update restaurant_goods_order set yinbao_order_no = ? where trade_id = ? and open_id = ?'
+                    row = await query(sql, [yinbao_orderNo, tradeId, openid])
                 } else if (AddOrderCall.code == 1) {
 
                 }
