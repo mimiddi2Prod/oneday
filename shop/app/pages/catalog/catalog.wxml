@@ -14,7 +14,7 @@
       <!-- <navigator url="url" class="banner"> -->
       <view class="banner">
         <image class="image" src="{{currentCategory.image}}" mode="aspectFill"></image>
-        <view class="txt">{{currentCategory.describe}}</view>
+        <!-- <view class="txt">{{currentCategory.describe}}</view> -->
       </view>
       <!-- </navigator> -->
       <view class="hd">
