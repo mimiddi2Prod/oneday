@@ -743,8 +743,11 @@ function getBrand() {
                 let brand = JSON.parse(addGoodsVM.brand)
                 addGoodsVM.brandList = res.filter(function (eData) {
                     for (let i in brand) {
-                        return brand[i] == eData.id
+                        if(brand[i] == eData.id){
+                            return true
+                        }
                     }
+                    return false
                 })
             }
         }
@@ -768,15 +771,21 @@ function getCategory(type, parent_id) {
                 let cate = JSON.parse(addGoodsVM.cate)[0]
                 addGoodsVM.category_parent = res.filter(function (eData) {
                     for (let i in cate) {
-                        return cate[i] == eData.id
+                        if(cate[i] == eData.id){
+                            return true
+                        }
                     }
+                    return false
                 })
             } else if (type == 1) {
                 let cate = JSON.parse(addGoodsVM.cate)[1]
                 addGoodsVM.category = res.filter(function (eData) {
                     for (let i in cate) {
-                        return cate[i] == eData.id
+                        if(cate[i] == eData.id){
+                            return true
+                        }
                     }
+                    return false
                 })
             }
         }
