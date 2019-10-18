@@ -138,6 +138,7 @@ Page({
             app.globalData.balance = res.balance
             app.globalData.discount = res.discount
             app.globalData.customerUid = res.customerUid
+            app.globalData.customerNumber = res.number
 
             self.setData({
               point: app.globalData.point,

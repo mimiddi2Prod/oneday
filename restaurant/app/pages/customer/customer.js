@@ -42,6 +42,7 @@ Page({
             app.globalData.phone = res.data.phone
             app.globalData.isCustomer = true
             app.globalData.customerUid = res.data.customerUid
+            app.globalData.customerNumber = res.data.number
             self.setData({
               isCustomer: app.globalData.isCustomer
             })

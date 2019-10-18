@@ -43,6 +43,7 @@ function YinbaoGetPhone() {
                         data.balance = e.data[0].balance
                         data.discount = e.data[0].discount
                         data.customerUid = e.data[0].customerUid
+                        data.number = e.data[0].number
                     }
                 }
         // else {

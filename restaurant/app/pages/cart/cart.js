@@ -213,6 +213,7 @@ Page({
     let self = this
 
     let orderData = self.getWXPayOrder()
+    console.info(orderData)
     server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, orderData, "post").then(function(res) {
       wx.showLoading({
         title: '',
@@ -319,7 +320,7 @@ Page({
     data.restaurantTableName = app.globalData.restaurantTableName
     data.payMethod = payMethod
     if (payMethod == 'CustomerBalance') {
-      data.customerNumber = app.globalData.phone
+      data.customerNumber = app.globalData.customerNumber
     }
     data.payStatus = payStatus
 

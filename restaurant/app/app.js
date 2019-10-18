@@ -65,6 +65,7 @@ App({
     discount: 0,
     isCustomer: false,
     customerUid: 0,
+    customerNumber:0,
 
     restaurantTableName: 0,
 
