@@ -57,7 +57,7 @@ function RestaurantGetUserPhone() {
                 // e = JSON.parse(e)
                 e = jsonBigInt.parse(e)
                 if (e.data) {
-                    if (e.data[0].number.length > 0 && e.data[0].number == phoneNumber) {
+                    if (e.data[0].number.length > 0 && e.data[0].phone == phoneNumber) {
                         data.code = 0
                         data.text = "success"
                         data.data = {}
