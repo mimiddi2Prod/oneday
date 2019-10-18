@@ -199,6 +199,8 @@ function updateAccount(state) {
     data.cate = editAccountVM.submitCate
     data.brand = editAccountVM.submitBrand
     data.id = editAccountVM.id
+    data.login_name = editAccountVM.login_name
+    data.nick_name = editAccountVM.nick_name
 
     server(url, data, async, "post", function (res) {
         console.info(res)

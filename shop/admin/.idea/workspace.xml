@@ -2,20 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="278ea589-be2d-4581-90eb-9c105552cda9" name="默认更改列表" comment="">
-      <change afterPath="$PROJECT_DIR$/api/shop_update_account.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/css/loading.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/js/loading.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../restaurant/app/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../restaurant/app/project.config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../restaurant/server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../restaurant/server/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/shop_get_account.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/shop_get_account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/editAccount.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/editAccount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/account.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/shop_update_account.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/shop_update_account.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/editAccount.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/editAccount.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/utils/apis.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/utils/apis.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/router.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,44 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/html/addAccount.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="231" column="18" lean-forward="true" selection-start-line="150" selection-start-column="12" selection-end-line="231" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/editAccount.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="161" column="37" selection-start-line="161" selection-start-column="37" selection-end-line="161" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/html/editAccount.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="232" column="100" lean-forward="true" selection-start-line="232" selection-start-column="100" selection-end-line="232" selection-end-column="100" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/addAccount.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="126" column="14" lean-forward="true" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -112,14 +68,14 @@
         <option value="$PROJECT_DIR$/html/addGoods.html" />
         <option value="$PROJECT_DIR$/js/addGoods.js" />
         <option value="$PROJECT_DIR$/api/shop_get_account.js" />
-        <option value="$PROJECT_DIR$/js/account.js" />
         <option value="$PROJECT_DIR$/js/menu.js" />
         <option value="$PROJECT_DIR$/html/account.html" />
         <option value="$PROJECT_DIR$/js/utils/apis.js" />
         <option value="$PROJECT_DIR$/router.js" />
-        <option value="$PROJECT_DIR$/api/shop_update_account.js" />
         <option value="$PROJECT_DIR$/html/editAccount.html" />
+        <option value="$PROJECT_DIR$/js/account.js" />
         <option value="$PROJECT_DIR$/js/editAccount.js" />
+        <option value="$PROJECT_DIR$/api/shop_update_account.js" />
       </list>
     </option>
   </component>
@@ -129,9 +85,9 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="169" />
-    <option name="y" value="14" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="130" />
+    <option name="y" value="-21" />
     <option name="width" value="1386" />
     <option name="height" value="788" />
   </component>
@@ -141,7 +97,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -157,24 +112,14 @@
             <path>
               <item name="admin" type="b2602c69:ProjectViewProjectNode" />
               <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="html" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -224,18 +169,18 @@
       <workItem from="1568965548402" duration="4287000" />
       <workItem from="1570851513730" duration="9671000" />
       <workItem from="1571374757984" duration="1686000" />
-      <workItem from="1571376782722" duration="8334000" />
+      <workItem from="1571376782722" duration="9214000" />
+      <workItem from="1571386673872" duration="358000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26506000" />
+    <option name="totallyTimeSpent" value="27744000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="267" y="11" width="1386" height="788" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1892911" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19288956" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="设计器" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -418,31 +363,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/account.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="66" column="28" lean-forward="true" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/html/account.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="524">
           <caret line="114" column="89" selection-start-line="114" selection-start-column="89" selection-end-line="114" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/html/addAccount.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="231" column="18" lean-forward="true" selection-start-line="150" selection-start-column="12" selection-end-line="231" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/addAccount.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="126" column="14" lean-forward="true" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -460,13 +384,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/shop_update_account.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/html/editAccount.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="254">
@@ -474,10 +391,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/html/addAccount.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="231" column="18" lean-forward="true" selection-start-line="150" selection-start-column="12" selection-end-line="231" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/addAccount.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="126" column="14" lean-forward="true" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/account.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="60" column="38" selection-start-line="60" selection-start-column="38" selection-end-line="60" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/shop_update_account.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="76" selection-start-line="11" selection-start-column="76" selection-end-line="11" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/editAccount.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="161" column="37" selection-start-line="161" selection-start-column="37" selection-end-line="161" selection-end-column="37" />
+        <state relative-caret-position="288">
+          <caret line="202" column="18" selection-start-line="202" selection-start-column="9" selection-end-line="202" selection-end-column="18" />
         </state>
       </provider>
     </entry>
