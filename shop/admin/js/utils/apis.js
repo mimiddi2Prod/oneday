@@ -48,6 +48,7 @@ var api = {
     getPosition: '../api/get_position',
     getAccount: '../api/get_account',
     addAccount: '../api/add_account',
+    updateAccount: '../api/update_account',
     delAccount: '../api/del_account',
     getUser: '../api/get_user',
     delReview: '../api/del_review',

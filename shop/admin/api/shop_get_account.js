@@ -14,7 +14,7 @@ function shopGetAccount() {
                 row = await db.Query(sql, 0);
                 data.number = row[0]['count(id)']
 
-                sql = "select id,username,nick_name,position_id,type from admin where `type` != ? ORDER BY register_time limit ?,?"
+                sql = "select id,username,nick_name,position_id,type,cate,brand from admin where `type` != ? ORDER BY register_time limit ?,?"
                 row = await db.Query(sql, [0, param['last_id'] * 5, 5])
                 data.accountList = row
             } else {

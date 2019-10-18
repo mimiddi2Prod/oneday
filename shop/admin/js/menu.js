@@ -44,7 +44,7 @@ var menuVM = new Vue({
         if (tag == 'orderDetail') {
             tag = 'order'
         }
-        if (tag == 'addAccount') {
+        if (tag == 'addAccount' || tag == 'editAccount') {
             tag = 'account'
         }
         if (tag == 'addBrunchBanner') {

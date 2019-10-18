@@ -226,6 +226,10 @@ function Router() {
                 var shopAddAccount = require("./api/shop_add_account.js");
                 baseApi = new shopAddAccount;
                 break;
+            case "update_account":
+                var shopUpdateAccount = require("./api/shop_update_account.js");
+                baseApi = new shopUpdateAccount;
+                break;
             case "del_account":
                 var shopDelAccount = require("./api/shop_delete_account.js");
                 baseApi = new shopDelAccount;

@@ -57,6 +57,17 @@ var accountVM = new Vue({
             }
 
         },
+
+        toEditAccount: function (id) {
+            let editAccount = this.accountList.filter(function (eData) {
+                if (eData.id == id) {
+                    return true
+                }
+                return false
+            })
+            sessionStorage.setItem('editAccount', JSON.stringify(editAccount))
+            window.location.href = 'editAccount'
+        }
         // 菜单栏
         // changeNav: function (index) {
         //     this.navId = index
@@ -140,7 +151,7 @@ function delaccount() {
     data.del_id = accountVM.del_id
     server(url, data, async, "post", function (res) {
         console.info(res)
-        if(res.code == 0){
+        if (res.code == 0) {
             alert('删除成功')
             location.reload()
         }
