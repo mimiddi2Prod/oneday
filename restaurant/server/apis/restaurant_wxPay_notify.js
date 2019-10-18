@@ -66,7 +66,7 @@ function RestaurantWxPayNotify() {
                         updateCustomerData.balanceIncrement = 0
                         updateCustomerData.pointIncrement = totalPrice
                         let updateCustomer = require('./yinbao_update_customer')
-                        let updateCustomerCall = await updateCustomer(param)
+                        let updateCustomerCall = await updateCustomer(updateCustomerData)
                         // todo 微信支付更新积分成功和失败的提醒 code:0 成功，1 失败
                         if (updateCustomerCall.code == 0) {
 
