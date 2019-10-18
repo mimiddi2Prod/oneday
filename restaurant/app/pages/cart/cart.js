@@ -162,6 +162,7 @@ Page({
           let shortageName = res.shortageList.map(function(eData) {
             return eData.name + 'x' + eData.stock
           }).join(',')
+          wx.hideLoading()
           wx.showModal({
             title: '支付失败',
             content: '剩余 ' + shortageName + ' 库存不足，请重新选择商品',
