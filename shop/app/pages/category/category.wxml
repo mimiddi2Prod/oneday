@@ -16,11 +16,12 @@
       </view> -->
       <view class="b">
         <navigator class="item {{(index + 1) % 2 == 0 ? 'item-b' : ''}}" url="/pages/goods/goods?id={{item.id}}" wx:for="{{goodsList}}" wx:for-item="item" wx:for-index="index">
-          <image class="rank" wx:if="{{item.qcl == 1}}" src="/images/A.png"></image>
+          <!-- <image class="rank" wx:if="{{item.qcl == 1}}" src="/images/A.png"></image>
           <image class="rank" wx:if="{{item.qcl == 2}}" src="/images/B.png"></image>
-          <image class="rank" wx:if="{{item.qcl == 3}}" src="/images/C.png"></image>
-          <image class="img" src="{{item.image[0]}}" background-size="cover"></image>
-          <text class="name">{{item.name}}</text>
+          <image class="rank" wx:if="{{item.qcl == 3}}" src="/images/C.png"></image> -->
+          <!-- <image class="img" src="{{item.image[0]}}" background-size="cover"></image> -->
+          <image class="img" src="{{item.image[0]}}"></image>
+          <text class="name desc">{{item.name}}</text>
           <!-- <text class="price">￥{{iitem.retail_price}}</text> -->
           <view class="price">
             <text>￥{{item.price}}</text>

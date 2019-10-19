@@ -29,6 +29,7 @@ Page({
   },
 
   getGoodsList: function() {
+    // todo 分批次加载
     var self = this
     server.api(api.goodsList, {
       brandId: this.data.brand_id

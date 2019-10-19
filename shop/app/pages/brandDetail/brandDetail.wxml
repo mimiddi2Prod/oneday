@@ -13,10 +13,11 @@
   <view class="b">
     <block wx:for="{{goodsList}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
       <navigator url="../goods/goods?id={{item.id}}" class="item">
-        <image class="rank" wx:if="{{item.qcl == 1}}" src="/images/A.png"></image>
+        <!-- <image class="rank" wx:if="{{item.qcl == 1}}" src="/images/A.png"></image>
         <image class="rank" wx:if="{{item.qcl == 2}}" src="/images/B.png"></image>
-        <image class="rank" wx:if="{{item.qcl == 3}}" src="/images/C.png"></image>
-        <image class="img" src="{{item.image[0]}}" background-size="cover"></image>
+        <image class="rank" wx:if="{{item.qcl == 3}}" src="/images/C.png"></image> -->
+        <!-- <image class="img" src="{{item.image[0]}}" background-size="cover"></image> -->
+        <image class="img" src="{{item.image[0]}}" lazy-load="true"></image>
         <view class="name">{{item.name}}</view>
         <view class="desc">{{item.describe}}</view>
         <view class="price">

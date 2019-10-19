@@ -32,11 +32,13 @@
   </swiper>
   <view class="m-menu">
     <navigator class="item" url="{{item.url}}?id={{item.id}}&parentid={{item.parent_id}}" wx:for="{{channel}}" wx:key="{{item.id}}" wx:if="{{item.url == '/pages/category/category'}}" hover-class='none'>
-      <image src="{{item.image}}" background-size="cover"></image>
+      <!-- <image src="{{item.image}}" background-size="cover"></image> -->
+      <image src="{{item.image}}" lazy-load="true"></image>
       <text>{{item.name}}</text>
     </navigator>
     <navigator class="item" url="{{item.url}}" wx:for="{{channel}}" wx:key="{{item.id}}" wx:if="{{item.url == '/pages/group_buy/group_buy'}}">
-      <image src="{{item.image}}" background-size="cover"></image>
+      <!-- <image src="{{item.image}}" background-size="cover"></image> -->
+      <image src="{{item.image}}" lazy-load="true"></image>
       <text>{{item.name}}</text>
     </navigator>
   </view>
@@ -144,10 +146,11 @@
     <view class="bb">
       <block wx:for="{{item.waterfallList}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
         <navigator url="../goods/goods?id={{item.id}}" class="itemm">
-          <image class="rank" wx:if="{{item.qcl == 1}}" src="/images/A.png"></image>
+          <!-- <image class="rank" wx:if="{{item.qcl == 1}}" src="/images/A.png"></image>
           <image class="rank" wx:if="{{item.qcl == 2}}" src="/images/B.png"></image>
-          <image class="rank" wx:if="{{item.qcl == 3}}" src="/images/C.png"></image>
-          <image class="imgg" src="{{item.image[0]}}" background-size="cover"></image>
+          <image class="rank" wx:if="{{item.qcl == 3}}" src="/images/C.png"></image> -->
+          <!-- <image class="imgg" src="{{item.image[0]}}" background-size="cover"></image> -->
+          <image class="imgg" src="{{item.image[0]}}" lazy-load="true"></image>
           <view class="namee">{{item.name}}</view>
           <view class="descc">{{item.describe}}</view>
           <view class="pricee">
@@ -184,7 +187,8 @@
       </scroll-view> -->
         <view class="item" wx:for="{{item.topic}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
           <navigator url="../goods/goods?id={{item.id}}">
-            <image class="img" src="{{item.image[0]}}" background-size="cover"></image>
+            <!-- <image class="img" src="{{item.image[0]}}" background-size="cover"></image> -->
+            <image class="img" src="{{item.image[0]}}" lazy-load="true"></image>
             <view class="np">
               <text class="name">{{item.name}}</text>
               <text class="price">￥{{item.price}}元起</text>

@@ -1,7 +1,8 @@
 <view class="container">
   <swiper class="goodsimgs" indicator-dots="true" indicator-active-color="#fff" autoplay="true" interval="3000" duration="1000">
     <swiper-item wx:for="{{goods.image}}" wx:key="{{item.id}}">
-      <image src="{{item}}" background-size="cover"></image>
+      <!-- <image src="{{item}}" background-size="cover" bindtap="previewImage" data-index="{{index}}" data-list="{{goods.image}}"></image> -->
+      <image src="{{item}}" bindtap="previewImage" data-index="{{index}}" data-list="{{goods.image}}" lazy-load="true"></image>
     </swiper-item>
   </swiper>
   <!-- <view class="service-policy" wx:if="{{goods.group_id <= 0}}">
@@ -24,7 +25,8 @@
   </view>
   <view class="section-nav section-attr" bindtap="switchAttrPop">
     <view class="t">请选择规格数量</view>
-    <image class="i" src="../../images/address_right.png" background-size="cover"></image>
+    <!-- <image class="i" src="../../images/address_right.png" background-size="cover"></image> -->
+    <image class="i" src="../../images/address_right.png" lazy-load="true"></image>
   </view>
   <!--<view class="section-nav section-act">
       <view class="t">
@@ -78,7 +80,7 @@
   <view class="detail">
     <!-- <import src="../../lib/wxParse/wxParse.wxml" />
     <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" /> -->
-    <image wx:for="{{goods.goods_info}}" src="{{item}}" mode="widthFix"></image>
+    <image wx:for="{{goods.goods_info}}" src="{{item}}" mode="widthFix" bindtap="previewImage" data-index="{{index}}" data-list="{{goods.goods_info}}"></image>
   </view>
 
   <view style="opacity: 0;height:106rpx">

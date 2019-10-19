@@ -36,6 +36,15 @@ Page({
     hasCollectImage: "../../images/icon_collect_checked.png",
     collectBackImage: "../../images/icon_collect.png"
   },
+
+  previewImage: function(e) {
+    let index = e.currentTarget.dataset.index,
+      list = e.currentTarget.dataset.list
+    wx.previewImage({
+      urls: list,
+      current: list[index]
+    })
+  },
   getGoodsInfo: function() {
     var self = this
     server.api(api.goodsInfo, {
@@ -768,7 +777,7 @@ Page({
               wx.showModal({
                 title: '注册会员',
                 content: '注册或绑定会员，可累积购物积分换好礼，更可享受线下充值送额度等其他权益，是否前往注册',
-                success: function (e) {
+                success: function(e) {
                   if (e.confirm) {
                     wx.navigateTo({
                       url: '../my/customer',

@@ -12,8 +12,8 @@ Page({
     scrollLeft: 0,
     scrollTop: 0,
     scrollHeight: 0,
-    page: 1,
-    size: 10000
+    // page: 1,
+    // size: 10000
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
