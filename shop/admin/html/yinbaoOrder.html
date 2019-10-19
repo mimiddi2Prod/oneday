@@ -52,7 +52,7 @@
                         <h3 class="panel-title">创建时间：{{item.datetime}}</h3>
                     </div>
                     <div class="row-center">
-                        <h3 class="panel-title" style="margin-right: 6px">数量：{{item.items.length}}</h3>
+                        <h3 class="panel-title" style="margin-right: 6px">餐品：{{item.items.length}}</h3>
                         <h3 class="panel-title">总计：{{item.payments.amount}}</h3>
                     </div>
 
@@ -63,7 +63,7 @@
                         商品名：{{detail.name}}
                         <div :class="isPhone ? '' : 'row-center'">
                             <span style="margin-right: 6px">数量：{{detail.quantity}}</span>
-                            <span>单价：{{detail.totalAmount}}</span>
+                            <span>总价：{{detail.totalAmount}}</span>
                         </div>
                     </div>
                 </div>
