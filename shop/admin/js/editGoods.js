@@ -863,9 +863,15 @@ function getBrand() {
             } else if (editGoodsVM.user_type == 1) {
                 let brand = JSON.parse(editGoodsVM.brand)
                 editGoodsVM.brandList = res.filter(function (eData) {
+                    // for (let i in brand) {
+                    //     return brand[i] == eData.id
+                    // }
                     for (let i in brand) {
-                        return brand[i] == eData.id
+                        if(brand[i] == eData.id){
+                            return true
+                        }
                     }
+                    return false
                 })
             }
 
@@ -891,16 +897,28 @@ function getCategory(type, parent_id) {
                 if (type == 0) {
                     let cate = JSON.parse(editGoodsVM.cate)[0]
                     editGoodsVM.category_parent = res.filter(function (eData) {
+                        // for (let i in cate) {
+                        //     return cate[i] == eData.id
+                        // }
                         for (let i in cate) {
-                            return cate[i] == eData.id
+                            if(cate[i] == eData.id){
+                                return true
+                            }
                         }
+                        return false
                     })
                 } else if (type == 1) {
                     let cate = JSON.parse(editGoodsVM.cate)[1]
                     editGoodsVM.category = res.filter(function (eData) {
+                        // for (let i in cate) {
+                        //     return cate[i] == eData.id
+                        // }
                         for (let i in cate) {
-                            return cate[i] == eData.id
+                            if(cate[i] == eData.id){
+                                return true
+                            }
                         }
+                        return false
                     })
                 }
             }
