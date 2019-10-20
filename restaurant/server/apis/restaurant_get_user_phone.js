@@ -79,7 +79,8 @@ function RestaurantGetUserPhone() {
                         "appId": yinbaoAppId,
                         "customerInfo": {
                             "number": phoneNumber + text,
-                            "phone": phoneNumber
+                            "phone": phoneNumber,
+                            "onAccount": 0
                         }
                     }
                     let postDataJson = JSON.stringify(postData)

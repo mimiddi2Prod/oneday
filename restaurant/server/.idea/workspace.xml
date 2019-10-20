@@ -4,15 +4,9 @@
     <list default="true" id="f740c969-a70b-424b-8eb9-8ea63f319cfa" name="默认更改列表" comment="">
       <change afterPath="$PROJECT_DIR$/../../shop/admin/css/loading.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../shop/admin/js/loading.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/config/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/config/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/pages/cart/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/../app/pages/cart/cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../app/project.config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apis/restaurant_get_user_phone.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/restaurant_get_user_phone.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apis/yinbao_get_customer.js" beforeDir="false" afterPath="$PROJECT_DIR$/apis/yinbao_get_customer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../shop/admin/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../shop/admin/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../shop/app/pages/catalog/catalog.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../shop/app/pages/catalog/catalog.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../shop/app/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../shop/app/project.config.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,47 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apis/restaurant_add_order_by_yinbao_balance.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="21" column="70" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apis/restaurant_get_user_phone.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="102" column="53" selection-start-line="102" selection-start-column="53" selection-end-line="102" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apis/yinbao_get_customer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="45" column="35" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apis/yinbao_add_onLineOrder.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1556">
-              <caret line="91" column="53" selection-start-line="91" selection-start-column="39" selection-end-line="91" selection-end-column="53" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -123,8 +77,8 @@
         <option value="$PROJECT_DIR$/apis/restaurant_add_order.js" />
         <option value="$PROJECT_DIR$/apis/restaurant_get_order_detail_by_tradeid.js" />
         <option value="$PROJECT_DIR$/apis/restaurant_wxPay_notify.js" />
-        <option value="$PROJECT_DIR$/apis/restaurant_get_user_phone.js" />
         <option value="$PROJECT_DIR$/apis/yinbao_get_customer.js" />
+        <option value="$PROJECT_DIR$/apis/restaurant_get_user_phone.js" />
       </list>
     </option>
   </component>
@@ -134,10 +88,10 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="293" />
-    <option name="y" value="-10" />
-    <option name="width" value="1016" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="706" />
+    <option name="y" value="177" />
+    <option name="width" value="1159" />
     <option name="height" value="735" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -146,7 +100,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -168,13 +121,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569315130112" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571550767953" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="D:/golang" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -221,18 +175,19 @@
       <workItem from="1571368457739" duration="1412000" />
       <workItem from="1571386516399" duration="152000" />
       <workItem from="1571387032789" duration="603000" />
-      <workItem from="1571392396397" duration="5267000" />
+      <workItem from="1571392396397" duration="5867000" />
+      <workItem from="1571550714372" duration="49000" />
+      <workItem from="1571551657785" duration="427000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48018000" />
+    <option name="totallyTimeSpent" value="49094000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="706" y="177" width="1159" height="735" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25945538" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30937216" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Learn" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -434,9 +389,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/apis/restaurant_add_order_by_yinbao_balance.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" column="70" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apis/yinbao_add_onLineOrder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1556">
+        <state relative-caret-position="1620">
           <caret line="91" column="53" selection-start-line="91" selection-start-column="39" selection-end-line="91" selection-end-column="53" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -444,24 +406,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apis/restaurant_add_order_by_yinbao_balance.js">
+    <entry file="file://$PROJECT_DIR$/apis/yinbao_get_customer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="21" column="70" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="70" />
+        <state relative-caret-position="-54">
+          <caret line="45" column="35" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apis/restaurant_get_user_phone.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="102" column="53" selection-start-line="102" selection-start-column="53" selection-end-line="102" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apis/yinbao_get_customer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="45" column="35" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="35" />
+        <state relative-caret-position="363">
+          <caret line="82" column="42" selection-start-line="82" selection-start-column="42" selection-end-line="82" selection-end-column="42" />
         </state>
       </provider>
     </entry>
