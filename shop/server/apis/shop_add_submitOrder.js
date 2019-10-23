@@ -16,8 +16,8 @@ function SHOPAddSubmitOrder() {
             var sql = ""
             try {
                 let sumPrice = Number(param["single_price"]) * Number(param["number"]) + Number(param["postage"])
-                sql = "insert into `order`(user_id,item_id,goodsname,param_id_1,param_id_2,param_1,param_2,image,`number`,state,address_text,tel,receiver,single_price,total_price,postage,tradeId,have_cost_integral,integral_price,create_time,update_time)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)"
-                row = await tool.query(sql, [param["user_id"], param["item_id"], param["name"], param["param_id_1"], param["param_id_2"], param["param_1"], param["param_2"], param["image"], param["number"], param["state"], param["address_text"], param["tel"], param["receiver"], param["single_price"], sumPrice, param["postage"], param["tradeId"], param["have_cost_integral"], param["integral_price"]])
+                sql = "insert into `order`(user_id,open_id,item_id,goodsname,param_id_1,param_id_2,param_1,param_2,image,`number`,state,address_text,tel,receiver,single_price,total_price,postage,tradeId,have_cost_integral,integral_price,create_time,update_time,customer_uid)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?)"
+                row = await tool.query(sql, [param["user_id"], param["open_id"], param["item_id"], param["name"], param["param_id_1"], param["param_id_2"], param["param_1"], param["param_2"], param["image"], param["number"], param["state"], param["address_text"], param["tel"], param["receiver"], param["single_price"], sumPrice, param["postage"], param["tradeId"], param["have_cost_integral"], param["integral_price"],param["customerUid"]])
                 console.info(row)
                 if (row.insertId) {
                     var order_id = row.insertId

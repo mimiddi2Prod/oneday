@@ -32,6 +32,13 @@ function SHOPPayfee() {
                 async function Call() {
                     var e = await payfee(payData)
                     data = e
+
+                    var addOrder = require('./shop_add_wx_order')
+                    let order = {}
+                    order.order = param['order']
+                    order.tradeId = e.tradeId
+                    let callback = await addOrder(order)
+                    data.addOrderStatus = callback
                 }
 
                 await Call()

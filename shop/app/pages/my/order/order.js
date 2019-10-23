@@ -325,6 +325,9 @@ Page({
       trade_id: tradeId
     }, "post").then(function(res) {
       if (res.text == "更新订单成功") {
+        app.globalData.point = res.customer.data.pointAfterUpdate
+        app.globalData.balance = res.customer.data.balanceAfterUpdate
+        // self.clearIntervalByOrderId(orderId, tradeId)
         self.data.orderList[self.data.currentId].list = self.data.orderList[self.data.currentId].list.map(function(fn) {
           if (fn.id == orderId) {
             clearInterval(fn.interval)
@@ -378,10 +381,69 @@ Page({
         }
         self.setData(self.data)
         self.getOrder(status)
+
+        self.payDialog()
       }
     })
     // this.getOrder(willChangeState)
   },
+
+  // clearIntervalByOrderId: function (orderId, tradeId) {
+  //   let self = this
+  //   self.data.orderList[self.data.currentId].list = self.data.orderList[self.data.currentId].list.map(function(fn) {
+  //     if (fn.id == orderId) {
+  //       clearInterval(fn.interval)
+  //     }
+  //     return fn
+  //   })
+  //   // 刷新
+  //   var status = ''
+  //   if (self.data.currentId == 0) {
+  //     // 全部订单
+  //     status = -1
+  //     self.data.orderList[0].list = []
+  //     self.data.orderList[0].last_id = 0
+  //     if (tradeId) {
+  //       // 全部订单也需要重新载入
+  //       self.data.orderList[1].list = self.data.orderList[1].list.map(function(fn) {
+  //         if (fn.interval) {
+  //           clearInterval(fn.interval)
+  //         }
+  //         return fn
+  //       })
+  //       self.data.orderList[1].list = []
+  //       self.data.orderList[1].last_id = 0
+  //     }
+  //   } else if (self.data.currentId == 1) {
+  //     // 待付款
+  //     status = 0
+  //     self.data.orderList[1].list = []
+  //     self.data.orderList[1].last_id = 0
+  //     if (tradeId) {
+  //       // 全部订单也需要重新载入
+  //       self.data.orderList[0].list = self.data.orderList[0].list.map(function(fn) {
+  //         if (fn.interval) {
+  //           clearInterval(fn.interval)
+  //         }
+  //         return fn
+  //       })
+  //       self.data.orderList[0].list = []
+  //       self.data.orderList[0].last_id = 0
+  //     }
+  //   } else if (self.data.currentId == 3) {
+  //     // 待收货
+  //     status = 2
+  //     self.data.orderList[3].list = []
+  //     self.data.orderList[3].last_id = 0
+  //   } else if (self.data.currentId == 4) {
+  //     // 待评价
+  //     status = 3
+  //     self.data.orderList[4].list = []
+  //     self.data.orderList[4].last_id = 0
+  //   }
+  //   self.setData(self.data)
+  //   self.getOrder(status)
+  // },
 
   payDialog: function() {
     this.setData({
@@ -399,37 +461,23 @@ Page({
     self.setData({
       showPayMethodDialog: true
     })
-    // // 拉起支付
-
-    // wx.showModal({
-    //   title: '模拟支付',
-    //   content: '模拟支付失败或成功的场景',
-    //   success: function(res) {
-    //     if (res.confirm) {
-    //       // 支付成功
-    //       self.changeOrderState(orderId, 1, item_price_id)
-    //     } else {
-
-    //     }
-    //   }
-    // })
   },
 
   wxPay: function() {
     var orderId = this.data.orderId,
       // item_price_id = this.data.item_price_id,
-      price = Number(this.data.price),
-      integrlprice = Number(this.data.integrlprice)
-    let self = this
+      price = Number(this.data.price)
+    // integrlprice = Number(this.data.integrlprice)
+    let self = this,
+      data = {}
+
+    data.orderId = orderId
     // 拉起支付
-    pay.pay(api.payfee, price, "post").then(function(res) {
-      // console.info(res)
+    pay.pay(api.payfeeContinue, price, data, "post").then(function(res) {
+      console.info(res)
       let tradeId = res
       self.changeOrderState(orderId, 1, tradeId)
-
-      // self.changeOrderState(orderId, 1, item_price_id, tradeId)
-
-      // self.addIntegral(price)
+      // self.clearIntervalByOrderId(orderId, tradeId)
     }).catch(function(res) {
       // 支付失败
       wx.showToast({

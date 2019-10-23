@@ -2,7 +2,7 @@ var tools = require("./../tool");
 var yinbaoAppId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 
-var jsonBigInt = require('json-bigint')
+var jsonBigInt = require('json-bigint')({"storeAsString": true});
 // 银豹用户密码加密方式
 // const crypto = require('crypto')
 // const hash = crypto.createHash('md5');
@@ -61,10 +61,10 @@ function SHOPGetUserPhone() {
                 console.info(e)
                 // e = JSON.parse(e)
                 if (e.data) {
-                    if (e.data[0].number.length > 0 && e.data[0].number == phoneNumber) {
+                    if (e.data[0].number.length > 0 && e.data[0].phone == phoneNumber) {
 
-                        e.data[0].customrUid = e.data[0].customrUid.c.join("")
-                        e.data[0].customerUid = e.data[0].customerUid.c.join("")
+                        // e.data[0].customrUid = e.data[0].customrUid.c.join("")
+                        // e.data[0].customerUid = e.data[0].customerUid.c.join("")
 
                         data.code = 0
                         data.text = "success"
@@ -88,18 +88,18 @@ function SHOPGetUserPhone() {
                     let e = await request(router, postDataJson)
 
                     e = jsonBigInt.parse(e)
-                    e.data.customrUid = e.data.customrUid.c.join("")
-                    e.data.customerUid = e.data.customerUid.c.join("")
+                    // e.data.customrUid = e.data.customrUid.c.join("")
+                    // e.data.customerUid = e.data.customerUid.c.join("")
                     // e = e.replace(/\"customrUid\":/g, "\"customrUid\":\"")
                     // e = e.replace(/,\"customerUid\"/g, "\",\"customerUid\"")
                     // e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
                     // e = e.replace(/,\"number\"/g, "\",\"number\"")
 
-                    console.info("获得分类数据：")
+                    console.info("获得注册会员数据：")
                     console.info(e)
                     // e = JSON.parse(e)
                     if (e.data) {
-                        if (e.data.number.length > 0 && e.data.number == phoneNumber) {
+                        if (e.data.number.length > 0 && e.data.phone == phoneNumber) {
                             data.code = 0
                             data.text = "success"
                             data.data = {}

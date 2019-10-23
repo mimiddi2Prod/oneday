@@ -122,6 +122,11 @@ function FBRouter(){
                     work = new SHOPUpdateAddress;
                     break;
                 }
+                case "get_check_order_stock":{
+                    var SHOPGetCheckOrderStock = require("./apis/shop_get_check_order_stock");
+                    work = new SHOPGetCheckOrderStock;
+                    break;
+                }
                 case "add_submitOrder":{
                     var SHOPAddSubmitOrder = require("./apis/shop_add_submitOrder");
                     work = new SHOPAddSubmitOrder;
@@ -130,6 +135,11 @@ function FBRouter(){
                 case "payfee":{
                     var SHOPPayfee = require("./apis/shop_payfee");
                     work = new SHOPPayfee;
+                    break;
+                }
+                case "payfee_continue":{
+                    var SHOPPayfeeContinue = require("./apis/shop_payfee_continue");
+                    work = new SHOPPayfeeContinue;
                     break;
                 }
                 case "get_order":{

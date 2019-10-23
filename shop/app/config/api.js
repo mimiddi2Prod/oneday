@@ -38,8 +38,10 @@ module.exports = {
   updateDefaultAddress: rootUrl + 'update_default_address',
 
   // 提交订单 / 付款 / 订单状态 / 物流 / 积分
+  checkOrderStock: rootUrl + 'get_check_order_stock',
   submitOrder: rootUrl + 'add_submitOrder',
   payfee: rootUrl + 'payfee',
+  payfeeContinue: rootUrl + 'payfee_continue',
   getOrder: rootUrl + 'get_order',
   changeOrderState: rootUrl + 'update_orderState',
   getLogistics: rootUrl + 'get_logistics',

@@ -166,18 +166,166 @@ Page({
     })
   },
 
-  wxPay: function() {
+  checkStock: function(e) {
+    let payMethod = e.currentTarget.dataset.pay // 0微信支付 1余额支付
+    let self = this,
+      data = {}
+
+    // 余额支付的话 先检查是否有绑定会员卡/余额是否足够
+    if (payMethod == 1) {
+      if (!app.globalData.isCustomer) {
+        wx.showModal({
+          title: '支付失败',
+          content: '您还没有办理会员卡，是否前往注册',
+          success: function(res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '../customer/customer',
+              })
+            }
+          }
+        })
+        return
+      }
+      if (self.data.actualPrice > app.globalData.balance) {
+        wx.showModal({
+          title: '支付失败',
+          content: '会员卡余额不足，请前往前台充值',
+          showCancel: false
+        })
+        return
+      }
+    }
+
     wx.showLoading({
-      title: '',
+      title: '请稍后...',
+      mask: true
     })
-    let self = this
-    // // 拉起支付
-    pay.pay(api.payfee, self.data.actualPrice, "post").then(function(res) {
+    data.user_id = app.globalData.user_id
+    data.order = []
+    // todo 商品库存验证
+    for (let i in this.data.checkedGoodsList) {
+      data.order.push({
+        item_id: this.data.checkedGoodsList[i].item_id,
+        item_param_id_1: this.data.checkedGoodsList[i].item_param_id_1,
+        item_param_id_2: this.data.checkedGoodsList[i].item_param_id_2,
+        param_1: this.data.checkedGoodsList[i].param_1,
+        param_2: this.data.checkedGoodsList[i].param_2,
+        name: this.data.checkedGoodsList[i].name,
+        number: this.data.checkedGoodsList[i].number
+      })
+    }
+    server.api(api.checkOrderStock, data, "post").then(function(res) {
       console.info(res)
-      self.addOrderByState(1, res)
-      self.updateIntegral()
+      if (res.code == 0) {
+        if (res.canPay == 0) {
+          if (payMethod == 0) {
+            // self.wxPay(data)
+            self.wxPay()
+          } else if (payMethod == 1) {
+            self.balancePay()
+          }
+        } else {
+          let shortageName = res.shortageList.map(function(eData) {
+            return eData.name + '(' + eData.param_1 + ' ' + eData.param_2 + ')' + 'x' + eData.stock
+          }).join(',')
+          wx.hideLoading()
+          wx.showModal({
+            title: '支付失败',
+            content: '剩余 ' + shortageName + ' 库存不足，请重新选择商品',
+            showCancel: false
+          })
+        }
+      } else {
+        wx.showModal({
+          title: '',
+          // content: '请求失败，请联系前台服务员',
+          showCancel: false
+        })
+      }
+    })
+  },
+
+  getWXPayOrderList: function() {
+    let call = []
+    // console.info(this.data.checkedGoodsList)
+    var orderList = this.data.checkedGoodsList
+    var address = this.data.checkedAddress
+    var self = this
+    // var submitNum = 0
+    // console.info(orderList)
+
+    // console.info(tradeId)
+    for (var i in orderList) {
+      var data = {}
+      data.user_id = app.globalData.user_id
+      data.open_id = app.globalData.openid
+      data.customerUid = ''
+      if (app.globalData.customerUid) {
+        data.customerUid = app.globalData.customerUid
+      }
+      data.item_id = orderList[i].item_id
+      data.name = orderList[i].name
+      data.param_id_1 = orderList[i].item_param_id_1
+      data.param_id_2 = orderList[i].item_param_id_2
+      data.param_1 = orderList[i].param_1
+      data.param_2 = orderList[i].param_2
+      data.image = orderList[i].image
+      data.number = orderList[i].number
+      data.single_price = orderList[i].price
+      data.postage = 0
+      data.state = 0 // 0未支付 1支付
+      data.address_text = address.full_region + address.address
+      data.tel = address.mobile
+      data.receiver = address.name
+      // data.tradeId = tradeId
+      if (orderList[i].integral_price <= 0) {
+        data.have_cost_integral = 0
+      } else if (orderList[i].integral_price > 0) {
+        data.have_cost_integral = 1
+      }
+      data.integral_price = orderList[i].integral_price
+
+      call.push(data)
+    }
+
+    return call
+  },
+
+  wxPay: function() {
+    // wx.showLoading({
+    //   title: '',
+    // })
+    let self = this
+    let order = self.getWXPayOrderList()
+
+    // // 拉起支付
+    pay.pay(api.payfee, self.data.actualPrice, order, "post").then(function(res) {
+      console.info(res)
+      // self.addOrderByState(1, res)
+      // self.updateIntegral()
+
+      // 跳转显示订单状态
+      let address = self.data.checkedAddress
+      app.globalData.payInfo.address = address
+      app.globalData.payInfo.state = 1
+      app.globalData.payInfo.actualPrice = self.data.actualPrice
+
+      wx.redirectTo({
+        url: '../../payResult/payResult',
+      })
+
     }).catch(function(res) {
-      self.addOrderByState(0, res)
+      // self.addOrderByState(0, res)
+      // 跳转显示订单状态
+      let address = self.data.checkedAddress
+      app.globalData.payInfo.address = address
+      app.globalData.payInfo.state = 0
+      app.globalData.payInfo.actualPrice = self.data.actualPrice
+
+      wx.redirectTo({
+        url: '../../payResult/payResult',
+      })
     })
   },
 
@@ -280,6 +428,11 @@ Page({
     for (var i in orderList) {
       var data = {}
       data.user_id = app.globalData.user_id
+      data.open_id = app.globalData.openid
+      data.customerUid = ''
+      if (app.globalData.customerUid) {
+        data.customerUid = app.globalData.customerUid
+      }
       data.item_id = orderList[i].item_id
       data.name = orderList[i].name
       data.param_id_1 = orderList[i].item_param_id_1

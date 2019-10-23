@@ -14,10 +14,10 @@ function SHOPUpdateOrderState() {
         } else if (param["order_id"]) {
             var row = [];
             try {
-                if(param["trade_id"]){
+                if (param["trade_id"]) {
                     var sql = "update `order` set state = ?,tradeId = ? where id = ?"
                     row = await tool.query(sql, [param["state"], param["trade_id"], param["order_id"]])
-                }else{
+                } else {
                     var sql = "update `order` set state = ? where id = ?"
                     row = await tool.query(sql, [param["state"], param["order_id"]])
                 }
@@ -31,6 +31,21 @@ function SHOPUpdateOrderState() {
                         // 已支付
                         sql = "update paid set state = ? where order_id = ?"
                         row = await tool.query(sql, [1, param["order_id"]])
+                    }
+
+                    // todo 更新银豹积分
+                    // 查询订单总额
+                    sql = "select sum(total_price),customer_uid from `order` where state = ? and tradeId = ? and id = ?"
+                    row = await tool.query(sql, [1, param["trade_id"], param["order_id"]])
+                    if(row.length > 0){
+                        let paramData = {}
+                        paramData.customerUid = row[0].customer_uid
+                        paramData.balanceIncrement = 0
+                        paramData.pointIncrement = row[0]['sum(total_price)']
+
+                        var updateCustomer = require("./yinbao_update_customer")
+                        let call = updateCustomer(paramData)
+                        data.customer = call
                     }
                 }
             } catch (err) {

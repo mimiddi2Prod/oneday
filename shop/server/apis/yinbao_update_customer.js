@@ -1,7 +1,7 @@
 var yinbaoAppId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 var fm = require('./../utils/formatTime')
-var jsonBigInt = require('json-bigint')
+var jsonBigInt = require('json-bigint')({"storeAsString": true})
 
 async function YinbaoUpdateCustomer(data) {
     data.balanceIncrement = 0 - Number(data.balanceIncrement)
@@ -21,7 +21,7 @@ async function YinbaoUpdateCustomer(data) {
     let e = await request(router, postDataJson)
 
     e = jsonBigInt.parse(e)
-    e.data.customerUid = e.data.customerUid.c.join("")
+    // e.data.customerUid = e.data.customerUid.c.join("")
     // e = e.replace(/\"customerUid\":/g, "\"customerUid\":\"")
     // e = e.replace(/,\"balanceBeforeUpdate\"/g, "\",\"balanceBeforeUpdate\"")
 

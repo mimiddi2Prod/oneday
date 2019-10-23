@@ -1,6 +1,6 @@
 const app = getApp();
 
-function pay(url, money, method = 'get') {
+function pay(url, money, order, method = 'get') {
   // console.info(app.globalData.openid)
   // console.info(money)
   return new Promise(function(resolve, reject) {
@@ -9,6 +9,7 @@ function pay(url, money, method = 'get') {
       data: {
         openid: app.globalData.openid,
         money: money,
+        order: order
       },
       method: method,
       success: function(res) {
@@ -26,7 +27,7 @@ function pay(url, money, method = 'get') {
             // console.info(res.errMsg)
             resolve(tradeId)
           },
-          'fail':function(res){
+          'fail': function(res) {
             // console.info(res)
             reject(tradeId)
           }
