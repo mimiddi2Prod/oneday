@@ -160,3 +160,15 @@
   transform: translate(20%, 30%);
   /* 根据 .cate-item .item .img做了调整 */
 }
+
+.warmText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.warmText>text {
+  font-size: 24rpx;
+  color: #808080;
+}

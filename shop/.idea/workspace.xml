@@ -2,23 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84a5aa41-17a0-47c4-b279-96d25638fb38" name="默认更改列表" comment="">
-      <change afterPath="$PROJECT_DIR$/server/apis/shop_add_wx_order.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/apis/shop_payfee_continue.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/apis/shop_update_wx_orderState.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/my/order/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/my/order/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/shopping/checkout/checkout.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/shopping/checkout/checkout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/shopping/checkout/checkout.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/shopping/checkout/checkout.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/utils/pay.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/utils/pay.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/apis/shop_add_submitOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/apis/shop_add_submitOrder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/apis/shop_get_user_phone.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/apis/shop_get_user_phone.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/apis/shop_payfee.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/apis/shop_payfee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/apis/shop_update_orderState.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/apis/shop_update_orderState.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/apis/yinbao_get_customer.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/apis/yinbao_get_customer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/apis/yinbao_update_customer.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/apis/yinbao_update_customer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/utils/wxpay.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/utils/wxpay.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/brandDetail/brandDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/brandDetail/brandDetail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/pages/brandDetail/brandDetail.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/brandDetail/brandDetail.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/apis/shop_get_goodsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/apis/shop_get_goodsList.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/server/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,19 +17,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/apis/shop_wxPay_notify.js">
+        <entry file="file://$PROJECT_DIR$/server/apis/shop_get_goodsList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="35" column="26" lean-forward="true" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
+            <state relative-caret-position="486">
+              <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/apis/shop_update_orderState.js">
+        <entry file="file://$PROJECT_DIR$/server/apis/shop_get_waterfall.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="32" column="75" lean-forward="true" selection-start-line="30" selection-start-column="24" selection-end-line="32" selection-end-column="75" />
+            <state relative-caret-position="342">
+              <caret line="19" column="84" lean-forward="true" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="84" />
             </state>
           </provider>
         </entry>
@@ -128,7 +115,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/admin/html/addAccount.html" />
         <option value="$PROJECT_DIR$/admin/html/addBrand.html" />
         <option value="$PROJECT_DIR$/admin/html/addGoods.html" />
         <option value="$PROJECT_DIR$/admin/html/addRecommend.html" />
@@ -179,6 +165,7 @@
         <option value="$PROJECT_DIR$/server/apis/shop_update_wx_orderState.js" />
         <option value="$PROJECT_DIR$/server/apis/shop_update_orderState.js" />
         <option value="$PROJECT_DIR$/server/apis/shop_wxPay_notify.js" />
+        <option value="$PROJECT_DIR$/server/apis/shop_get_goodsList.js" />
       </list>
     </option>
   </component>
@@ -235,7 +222,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571816997747" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571818302853" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/server - 副本" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -324,12 +311,12 @@
       <workItem from="1571297218900" duration="231000" />
       <workItem from="1571452028175" duration="2892000" />
       <workItem from="1571712241950" duration="10868000" />
-      <workItem from="1571797534321" duration="12375000" />
+      <workItem from="1571797534321" duration="13821000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="440625000" />
+    <option name="totallyTimeSpent" value="442071000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -371,16 +358,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/admin/html/goods.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/navigation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="40" lean-forward="true" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/html/navigation.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -638,16 +615,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/utils/wxpay.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/apis/shop_login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -718,10 +685,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/utils/wxpay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/apis/shop_wxPay_notify.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
           <caret line="35" column="26" lean-forward="true" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/apis/shop_get_waterfall.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="84" lean-forward="true" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/apis/shop_get_goodsList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
         </state>
       </provider>
     </entry>

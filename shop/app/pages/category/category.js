@@ -14,6 +14,9 @@ Page({
     scrollHeight: 0,
     // page: 1,
     // size: 10000
+
+    last_id: 0,
+    warmText: '没有更多数据了~',
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -46,12 +49,21 @@ Page({
     var self = this
     // console.info(this.data.id)
     server.api(api.goodsList, {
-      categoryId: this.data.id
+      categoryId: this.data.id,
+      last_id: this.data.last_id
     }, "post").then(function(res) {
       // console.info(res)
-      self.setData({
-        goodsList: res
-      })
+      if (res.length < 0) {
+        self.data.warmText = "没有更多数据了~"
+      } else {
+        self.data.last_id++
+        self.data.goodsList = self.data.goodsList.concat(res)
+      }
+      self.setData(self.data)
+
+      // self.setData({
+      //   goodsList: res
+      // })
     })
   },
 
@@ -83,6 +95,15 @@ Page({
   onUnload: function() {
     // 页面关闭
   },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    this.getGoodsList()
+  },
+
+
   switchCate: function(event) {
     if (this.data.id == event.currentTarget.dataset.id) {
       return false;

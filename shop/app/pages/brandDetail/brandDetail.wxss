@@ -140,3 +140,15 @@ page{
   height: 32rpx;
   transform: translate(30%,30%)
 }
+
+.warmText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.warmText>text {
+  font-size: 24rpx;
+  color: #808080;
+}

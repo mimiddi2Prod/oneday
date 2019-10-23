@@ -13,16 +13,21 @@ function SHOPGetGoodsList() {
         var row = [];
         try {
             if (param['brandId']) {
-                var sql = 'select name,image,url,qcl,price,`describe`,id from item where group_id = ? and integral_price = ? and state = ? and brand_id = ? ORDER BY sort'
-                row = await query(sql, [0, 0, 0, param['brandId']]);
+                var sql = 'select name,image,url,qcl,price,`describe`,id from item where group_id = ? and integral_price = ? and state = ? and brand_id = ? ORDER BY sort limit ?,?'
+                row = await query(sql, [0, 0, 0, param['brandId'], param['last_id'] * 8, 8]);
             } else if (param['categoryId']) {
-                var sql = 'select name,image,url,qcl,price,`describe`,id from item where group_id = ? and integral_price = ? and state = ? and category_id_1 = ? ORDER BY sort'
-                row = await query(sql, [0, 0, 0, param['categoryId']]);
+                var sql = 'select name,image,url,qcl,price,`describe`,id from item where group_id = ? and integral_price = ? and state = ? and category_id_1 = ? ORDER BY sort limit ?,?'
+                row = await query(sql, [0, 0, 0, param['categoryId'], param['last_id'] * 8, 8]);
             }
 
-            for (var i in row) {
-                row[i].image = JSON.parse(row[i].image)
+            if(row.length > 0){
+                for (var i in row) {
+                    row[i].image = JSON.parse(row[i].image)
+                }
+            }else{
+                data = []
             }
+
             if (row.length == 0) {
                 // response = tool.error.ErrorNotFoundUser;
                 log.warn('categoryInfo is not found')

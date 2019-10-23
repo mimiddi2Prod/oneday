@@ -27,4 +27,8 @@
       </navigator>
     </block>
   </view>
+
+  <view class="warmText">
+    <text>{{warmText}}</text>
+  </view>
 </view>

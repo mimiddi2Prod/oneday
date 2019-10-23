@@ -12,6 +12,9 @@ Page({
     brand_img: '',
     desc: '',
     goodsList: [],
+
+    last_id: 0,
+    warmText: '没有更多数据了~',
   },
 
   /**
@@ -32,12 +35,21 @@ Page({
     // todo 分批次加载
     var self = this
     server.api(api.goodsList, {
-      brandId: this.data.brand_id
+      brandId: this.data.brand_id,
+      last_id: this.data.last_id
     }, "post").then(function(res) {
-      // console.info(res)
-      self.setData({
-        goodsList: res
-      })
+      console.info(res)
+      if (res.length < 0) {
+        self.data.warmText = "没有更多数据了~"
+      } else {
+        self.data.last_id++
+        self.data.goodsList = self.data.goodsList.concat(res)
+      }
+
+      // self.setData({
+      //   goodsList: res
+      // })
+      self.setData(self.data)
     })
   },
 
@@ -80,7 +92,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    this.getGoodsList()
   },
 
   /**
