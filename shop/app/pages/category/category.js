@@ -6,6 +6,7 @@ Page({
   data: {
     // text:"这是一个页面"
     navList: [],
+    allGoodsList: [],
     goodsList: [],
     id: 0,
     currentCategory: {},
@@ -16,7 +17,7 @@ Page({
     // size: 10000
 
     last_id: 0,
-    warmText: '没有更多数据了~',
+    warmText: '',
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -31,8 +32,15 @@ Page({
       this.getSubCategory(options.parentid)
     } else {
       that.setData({
-        navList: app.globalData.subCategory
+        navList: app.globalData.subCategory,
       });
+
+      this.data.allGoodsList = app.globalData.subCategory.subCategory
+      for (let i in this.data.allGoodsList) {
+        this.data.allGoodsList[i].list = []
+        this.data.allGoodsList[i].last_id = 0
+      }
+      this.setData(this.data)
     }
 
     wx.getSystemInfo({
@@ -53,11 +61,20 @@ Page({
       last_id: this.data.last_id
     }, "post").then(function(res) {
       // console.info(res)
-      if (res.length < 0) {
+      if (res.length <= 0) {
         self.data.warmText = "没有更多数据了~"
       } else {
-        self.data.last_id++
-        self.data.goodsList = self.data.goodsList.concat(res)
+        for (let i in self.data.allGoodsList) {
+          if (self.data.allGoodsList[i].id == self.data.id) {
+            self.data.allGoodsList[i].list = self.data.allGoodsList[i].list.concat(res)
+            self.data.allGoodsList[i].last_id++
+
+              self.data.last_id = self.data.allGoodsList[i].last_id
+            self.data.goodsList = self.data.allGoodsList[i].list
+          }
+        }
+        // self.data.last_id++
+        //   self.data.goodsList = self.data.goodsList.concat(res)
       }
       self.setData(self.data)
 
@@ -78,7 +95,7 @@ Page({
           })
         }
       }
-      
+
 
     })
   },
@@ -99,7 +116,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     this.getGoodsList()
   },
 
@@ -124,6 +141,17 @@ Page({
       id: event.currentTarget.dataset.id
     });
 
-    this.getGoodsList();
+    for (let i in this.data.allGoodsList) {
+      if (this.data.allGoodsList[i].id == event.currentTarget.dataset.id) {
+        this.data.last_id = this.data.allGoodsList[i].last_id
+        this.data.goodsList = this.data.allGoodsList[i].list
+
+        this.setData(this.data)
+        if (this.data.allGoodsList[i].list.length <= 0) {
+          this.getGoodsList();
+        } 
+      }
+    }
+    // this.getGoodsList();
   }
 })
