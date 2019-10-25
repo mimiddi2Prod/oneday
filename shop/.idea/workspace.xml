@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="84a5aa41-17a0-47c4-b279-96d25638fb38" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/brandDetail/brandDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/brandDetail/brandDetail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/brandDetail/brandDetail.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/brandDetail/brandDetail.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/apis/shop_get_goodsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/apis/shop_get_goodsList.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/server/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,26 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/apis/shop_get_goodsList.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/apis/shop_get_waterfall.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="19" column="84" lean-forward="true" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="84" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -187,6 +165,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -216,13 +195,12 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571818302853" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571823807482" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/server - 副本" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -311,18 +289,19 @@
       <workItem from="1571297218900" duration="231000" />
       <workItem from="1571452028175" duration="2892000" />
       <workItem from="1571712241950" duration="10868000" />
-      <workItem from="1571797534321" duration="13821000" />
+      <workItem from="1571797534321" duration="14838000" />
+      <workItem from="1571885349503" duration="629000" />
+      <workItem from="1571971597926" duration="134000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="442071000" />
+    <option name="totallyTimeSpent" value="443851000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49941522" visible="true" weight="0.15618336" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49941522" visible="true" weight="0.15938166" />
       <window_info id="Structure" order="1" sideWeight="0.5005848" side_tool="true" weight="0.15282181" />
       <window_info id="设计器" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -702,17 +681,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/apis/shop_get_waterfall.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="84" lean-forward="true" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/apis/shop_get_goodsList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
           <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/apis/shop_get_waterfall.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="84" lean-forward="true" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="84" />
         </state>
       </provider>
     </entry>

@@ -12,7 +12,7 @@ Page({
     currentCategory: {},
     scrollLeft: 0,
     scrollTop: 0,
-    scrollHeight: 0,
+    // scrollHeight: 0,
     // page: 1,
     // size: 10000
 
@@ -43,13 +43,13 @@ Page({
       this.setData(this.data)
     }
 
-    wx.getSystemInfo({
-      success: function(res) {
-        that.setData({
-          scrollHeight: res.windowHeight
-        });
-      }
-    });
+    // wx.getSystemInfo({
+    //   success: function(res) {
+    //     that.setData({
+    //       scrollHeight: res.windowHeight
+    //     });
+    //   }
+    // });
     this.getGoodsList();
   },
 
