@@ -1,65 +1,79 @@
+var tools = require("./../tool");
+
 var https = require('https');
-// var fs = require('fs')
 const appid = require('./../config/wxConfig').appid;
 const secret = require('./../config/wxConfig').secret;
-const TEMPLATE_ID = 'uT1omE2L_riFv0af7Vyuhdd1v7wQzDqZRCBDaPAgzQ4';
+
+// const TEMPLATE_ID = 'uT1omE2L_riFv0af7Vyuhdd1v7wQzDqZRCBDaPAgzQ4';
 
 async function RestaurantForwardOrderInfo(openid) {
-    var options = {
-        host: 'api.weixin.qq.com',
-        path: '/cgi-bin/token?grant_type=client_credential&appid=' + appid + '&secret=' + secret,
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
+    var tool = new tools;
+    var query = tool.query;
+    var sql = '', row = ''
 
-    async function Call() {
-        var e = await HttpsGet(options)
+    sql = 'select * from restaurant_subscribe_message where tag = ?'
+    row = await query(sql, 'xdtz')
 
-        let access_token = JSON.parse(e).access_token
-        console.info(access_token)
+    if (row.length > 0) {
+        let TEMPLATE_ID = row[0].template_id
 
-        let postData = JSON.stringify({
-            "touser": openid,
-            "template_id": TEMPLATE_ID,
-            "data": {
-                "number1": {
-                    "value": "1111"
-                },
-                "date4": {
-                    "value": "2015-01-05 12:30:10"
-                },
-            }
-        })
-
-        options = {
+        var options = {
             host: 'api.weixin.qq.com',
-            path: '/cgi-bin/message/subscribe/send?access_token=' + access_token,
-            method: 'POST',
-            form: postData,
+            path: '/cgi-bin/token?grant_type=client_credential&appid=' + appid + '&secret=' + secret,
+            method: 'GET',
             headers: {
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Type': 'application/json',
-                'Content-Length': postData.length
-            },
-            // encoding: 'binary'
+                'Content-Type': 'application/json'
+            }
+        };
+
+        async function Call() {
+            var e = await HttpsGet(options)
+
+            let access_token = JSON.parse(e).access_token
+            console.info(access_token)
+
+            let postData = JSON.stringify({
+                "touser": openid,
+                "template_id": TEMPLATE_ID,
+                "data": {
+                    "number1": {
+                        "value": "测试"
+                    },
+                    "date4": {
+                        "value": formatTime(new Date())
+                    },
+                }
+            })
+
+            options = {
+                host: 'api.weixin.qq.com',
+                path: '/cgi-bin/message/subscribe/send?access_token=' + access_token,
+                method: 'POST',
+                form: postData,
+                headers: {
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
+                    'Content-Length': postData.length
+                },
+                // encoding: 'binary'
+            }
+
+            async function CallCODE() {
+                e = await HttpsPost(options, postData)
+                console.info(e)
+                // fs.writeFile('./index.png', e, function (err) {
+                //     if (err) {
+                //         throw err;
+                //     }
+                // })
+            }
+
+            await CallCODE()
         }
 
-        async function CallCODE() {
-            e = await HttpsPost(options, postData)
-            console.info(e)
-            // fs.writeFile('./index.png', e, function (err) {
-            //     if (err) {
-            //         throw err;
-            //     }
-            // })
-        }
-
-        await CallCODE()
+        await Call()
     }
 
-    await Call()
 
 }
 

@@ -97,6 +97,25 @@ Page({
     this.setData({
       showPayMethodDialog: true
     })
+    // 消息订阅
+    server.request(api.getSubscribeMessage, {}, "post").then(function (res) {
+      if(res.length > 0){
+        let tmplIds = []
+        for(let i in res){
+          tmplIds.push(res[i].template_id)
+        }
+        wx.requestSubscribeMessage({
+          tmplIds: tmplIds,
+          success: function (e) {
+            console.info(e)
+          },
+          fail: function (e) {
+            console.info(e)
+          }
+        })
+      }
+    })
+    
   },
 
   payDialog: function() {
@@ -217,7 +236,7 @@ Page({
     console.info(orderData)
     server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, orderData, "post").then(function(res) {
       wx.showLoading({
-        title: '',
+        title: '支付中请稍等，勿重复下单，谢谢',
         mask: true
       })
       console.info(res)

@@ -77,6 +77,11 @@ function FBRouter(){
                     work = new RestaurantYinbaoPay;
                     break;
                 }
+                case "restaurant_get_subscribe_message":{
+                    var RestaurantGetSubscribeMessage = require("./apis/restaurant_get_subscribe_message");
+                    work = new RestaurantGetSubscribeMessage;
+                    break;
+                }
                 default:
                     break;
             }

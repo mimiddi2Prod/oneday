@@ -21,7 +21,10 @@ module.exports = {
   getCustomerByPhone: rootUrl + 'yinbao_get_customer',
 
   payfee: rootUrl + 'restaurant_payfee',
-  balancePay: rootUrl + 'restaurant_yinbao_pay'
+  balancePay: rootUrl + 'restaurant_yinbao_pay',
+
+  // 消息订阅
+  getSubscribeMessage: rootUrl + 'restaurant_get_subscribe_message'
 
   // getUploadToken: rootUrl + 'get_uploadToken', // 图片上传七牛云前需要获取token
 }

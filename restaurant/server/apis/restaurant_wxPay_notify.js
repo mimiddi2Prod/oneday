@@ -11,7 +11,7 @@ function RestaurantWxPayNotify() {
     this.run = async function (xml) {
         var sql = '', row = ''
         console.info('获得支付结果回调')
-        console.info(xml)
+        // console.info(xml)
 
         // 修改订单支付状态 并且给银豹发送订单请求
         var e = await xmlParse(xml)
@@ -23,7 +23,7 @@ function RestaurantWxPayNotify() {
             // 查询对应订单用于给银豹推送订单
             sql = 'select * from restaurant_goods_order where trade_id = ? and open_id = ?'
             row = await query(sql, [tradeId, openid])
-            console.info(row)
+            // console.info(row)
 
             if (row.length > 0) {
                 let rowData = row
@@ -55,6 +55,9 @@ function RestaurantWxPayNotify() {
                         let yinbao_orderNo = AddOrderCall.orderNo
                         sql = 'update restaurant_goods_order set yinbao_order_no = ? where trade_id = ? and open_id = ?'
                         row = await query(sql, [yinbao_orderNo, tradeId, openid])
+
+                        var forwardOrder = require("./restaurant_forward_order_info")
+                        let ForwardOrderCall = await forwardOrder(openid)
                     } else if (AddOrderCall.code == 1) {
 
                     }
