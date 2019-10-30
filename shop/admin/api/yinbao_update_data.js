@@ -144,34 +144,31 @@ function yinbaoUpdateData() {
 
             // 2.更新商品列表图片
             // 银豹只会给有图片的信息
-            let ProductImgResult = ""
+            // let ProductImgResult = ""
+            // postData = {
+            //     "appId": appId,
+            // }
+            // postDataJson = JSON.stringify(postData)
+            // router = "queryProductImagePages"
+            // e = await request(router, postDataJson)
+            // console.info("获得商品图片数据：")
+            // console.info(e)
+
+            // e = jsonBigInt.parse(e)
+
+            // if (e.status == "success" && e.data.result.length > 0) {
+            //     ProductImgResult = e.data.result
+
+            //     // 根据productUid更新商品图片
+            //     for (let i in ProductImgResult) {
+            //         sql = "update restaurant_goods set img = ? where id = ?"
+            //         row = await db.Query(sql, [ProductImgResult[i].imageUrl, ProductImgResult[i].productUid])
+            //     }
+            // }
             postData = {
                 "appId": appId,
             }
-            postDataJson = JSON.stringify(postData)
-            router = "queryProductImagePages"
-            e = await request(router, postDataJson)
-            console.info("获得商品图片数据：")
-            console.info(e)
-            // e = e.replace(/\"productUid\":/g, "\"productUid\":\"")
-            // e = e.replace(/,\"productName\"/g, "\",\"productName\"")
-            // e = e.replace(/\"categoryUid\":/g, "\"categoryUid\":\"")
-            // e = e.replace(/,\"name\"/g, "\",\"name\"")
-
-            // e = JSON.parse(e)
-            e = jsonBigInt.parse(e)
-            // e.data.result[0].productUid = e.data.result[0].productUid.c.join("")
-
-            if (e.status == "success" && e.data.result.length > 0) {
-                ProductImgResult = e.data.result
-
-                // 根据productUid更新商品图片
-                for (let i in ProductImgResult) {
-                    // ProductImgResult[i].productUid = ProductImgResult[i].productUid.c.join("")
-                    sql = "update restaurant_goods set img = ? where id = ?"
-                    row = await db.Query(sql, [ProductImgResult[i].imageUrl, ProductImgResult[i].productUid])
-                }
-            }
+            await getYinBaoImg(postData)
 
             data.code = 1
             return callback(data);
@@ -211,4 +208,30 @@ function digui(models) {
     }
     console.log(resultArr);
     return resultArr
+}
+
+async function getYinBaoImg(postData){
+    let ProductImgResult = ""
+    
+    postDataJson = JSON.stringify(postData)
+    router = "queryProductImagePages"
+    e = await request(router, postDataJson)
+    console.info("获得商品图片数据：")
+    console.info(e)
+
+    e = jsonBigInt.parse(e)
+
+    if (e.status == "success" && e.data.result.length > 0) {
+        ProductImgResult = e.data.result
+
+        // 根据productUid更新商品图片
+        for (let i in ProductImgResult) {
+            sql = "update restaurant_goods set img = ? where id = ?"
+            row = await db.Query(sql, [ProductImgResult[i].imageUrl, ProductImgResult[i].productUid])
+        }
+    }
+    if(e.data.result.length >= 100){
+        postData.postBackParameter = e.data.postBackParameter
+        await getYinBaoImg(postData)
+    }
 }
