@@ -15,7 +15,7 @@ function RestaurantWxPayNotify() {
 
         // 修改订单支付状态 并且给银豹发送订单请求
         var e = await xmlParse(xml)
-        if (e.xml.return_code[0] === 'SUCCESS') {
+        if (e.xml.return_code[0] === 'SUCCESS' && e.xml.result_code[0] === 'SUCCESS') {
             let tradeId = e.xml.out_trade_no[0]
             let openid = e.xml.openid[0]
             let totalPrice = Number(e.xml.total_fee[0]) * 0.01 // 获取的值 1 = 0.01
