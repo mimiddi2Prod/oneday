@@ -84,7 +84,7 @@
     </view>
   </view>
 
-  <view class="order-box">
+  <!-- <view class="order-box">
     <view class="order-item">
       <view class="l">
         <text class="name">可得积分</text>
@@ -93,7 +93,7 @@
         <text class="txt">{{getIntegral}}</text>
       </view>
     </view>
-  </view>
+  </view> -->
 
   <view class="order-box" wx:if="{{costIntegral > 0}}">
     <view class="order-item">
