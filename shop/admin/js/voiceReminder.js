@@ -9,7 +9,7 @@ var voiceVM = new Vue({
             const url = api.getWaitShip, async = true
             let data = {}
             server(url, data, async, "post", function (res) {
-                console.info(document.getElementById("audio"))
+                // console.info(document.getElementById("audio"))
                 if (res.number > 0) {
                     if(document.getElementById("audio").pause){
                         document.getElementById("audio").play()
@@ -26,6 +26,9 @@ var voiceVM = new Vue({
 
 $(document).ready(function () {
     document.getElementById("audio").pause()
+    if(!sessionStorage.getItem('type') || sessionStorage.getItem('type') != 0){
+        return
+    }
     setInterval(function () {
         voiceVM.getWaitShip()
     },10000)
