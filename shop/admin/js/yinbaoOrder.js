@@ -17,15 +17,22 @@ var yinbaoOrderVM = new Vue({
             //今天的年 月 日 ；本月的总天数；本月第一天是周几？？？
             var oDate = new Date(); //定义时间
             oDate.setMonth(oDate.getMonth() + n);//设置月份
-            var year = oDate.getFullYear(); //年
-            var month = oDate.getMonth(); //月
-            var today = oDate.getDate(); //日
+            var oyear = oDate.getFullYear(); //年
+            var omonth = oDate.getMonth(); //月
+            var otoday = oDate.getDate(); //日
 
-            yinbaoOrderVM.year = year
-            yinbaoOrderVM.month = month + 1
+            yinbaoOrderVM.year = oyear
+            yinbaoOrderVM.month = omonth + 1
 
-            let end_time = year + '-' + (month + 1) + '-' + (today + 1) + ' 00:00:00'
-            let start_time = year + '-' + (month + 1) + '-' + today + ' 00:00:00'
+            var eDate = new Date(oDate.getTime() + (24 * 60 * 60 * 1000))
+            var eyear = eDate.getFullYear(); //年
+            var emonth = eDate.getMonth(); //月
+            var etoday = eDate.getDate(); //日
+
+            let end_time = eyear + '-' + (emonth + 1) + '-' + etoday + ' 00:00:00'
+            let start_time = oyear + '-' + (omonth + 1) + '-' + otoday + ' 00:00:00'
+            console.info(end_time)
+            console.info(start_time)
             getToday(start_time, end_time)
         }
     }
