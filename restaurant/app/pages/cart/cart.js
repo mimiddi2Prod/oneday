@@ -235,11 +235,12 @@ Page({
     let orderData = self.getWXPayOrder()
     console.info(orderData)
     server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, orderData, "post").then(function(res) {
-      wx.showLoading({
-        title: '支付中请稍等，勿重复下单，谢谢',
-        mask: true
-      })
-      console.info(res)
+      // wx.showLoading({
+      //   title: '支付中请稍等，勿重复下单，谢谢',
+      //   mask: true
+      // })
+      // console.info(res)
+      wx.hideLoading()
       let tradeId = res
       app.globalData.cart = []
       wx.redirectTo({
@@ -352,6 +353,7 @@ Page({
       console.info(res)
       self.getCustomerByPhone()
       if (res.code == 0) {
+        wx.hideLoading()
         app.globalData.cart = []
         wx.redirectTo({
           url: '../pay_status/pay_status?tradeid=' + data.tradeId,
