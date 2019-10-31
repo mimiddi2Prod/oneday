@@ -519,3 +519,7 @@ button[plain]{
   width: 100%;
   height: 100%;
 }
+
+.gray{
+  color:#CBCBCB
+}

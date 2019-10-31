@@ -67,16 +67,23 @@
         <text style="font-size:24rpx">{{goods_detail.stock < 10 ? '剩余 '+goods_detail.stock+' 份' : ''}}</text>
       </view>
       <view>
-        <!-- 没有规格 -->
-        <view class='goods-add-cart-have' wx:if="{{goods_detail.sku.length <= 0}}">
-          <view bindtap="cutSingleParamCart" data-id="{{goods_detail.id}}" data-paramid="0" data-price="{{goods_detail.min_price}}" wx:if="{{goods_detail.cartNumber > 0}}">-</view>
-          <view wx:if="{{goods_detail.cartNumber > 0}}">{{goods_detail.cartNumber}}</view>
-          <view bindtap="addSingleParamCart" data-id="{{goods_detail.id}}" data-paramid="0" data-price="{{goods_detail.min_price}}" data-name="{{goods_detail.name}}" data-image="{{goods_detail.img}}" data-describe="{{goods_detail.describe}}" data-stock="{{goods_detail.stock}}">+</view>
-        </view>
-        <!-- 有规格 -->
-        <view class='goods-add-cart-nor' wx:else bindtap='getGoodsParam' data-id='{{goods_detail.id}}' data-name='{{goods_detail.name}}' data-describe="{{goods_detail.describe}}" data-image="{{goods_detail.img}}" data-index="{{goods_detail.index}}" data-stock="{{goods_detail.stock}}">
-          选择
-        </view>
+        <block wx:if="{{goods_detail.stock > 0}}">
+          <!-- 没有规格 -->
+          <view class='goods-add-cart-have' wx:if="{{goods_detail.sku.length <= 0}}">
+            <view bindtap="cutSingleParamCart" data-id="{{goods_detail.id}}" data-paramid="0" data-price="{{goods_detail.min_price}}" wx:if="{{goods_detail.cartNumber > 0}}">-</view>
+            <view wx:if="{{goods_detail.cartNumber > 0}}">{{goods_detail.cartNumber}}</view>
+            <view bindtap="addSingleParamCart" data-id="{{goods_detail.id}}" data-paramid="0" data-price="{{goods_detail.min_price}}" data-name="{{goods_detail.name}}" data-image="{{goods_detail.img}}" data-describe="{{goods_detail.describe}}" data-stock="{{goods_detail.stock}}">+</view>
+          </view>
+          <!-- 有规格 -->
+          <view class='goods-add-cart-nor' wx:else bindtap='getGoodsParam' data-id='{{goods_detail.id}}' data-name='{{goods_detail.name}}' data-describe="{{goods_detail.describe}}" data-image="{{goods_detail.img}}" data-index="{{goods_detail.index}}" data-stock="{{goods_detail.stock}}">
+            选择
+          </view>
+        </block>
+        <block wx:else>
+          <view class='goods-add-cart-nor gray'>
+            售罄
+          </view>
+        </block>
       </view>
     </view>
     <view class="detail-title">{{goods_detail.name}}</view>
@@ -218,26 +225,35 @@
       <view class="goodsWrap-category" id='{{item.scrollId}}'>
         <text>{{item.category_name}}</text>
       </view>
-      <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex" wx:if="{{goods.stock > 0}}">
+      <!-- <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex" wx:if="{{goods.stock > 0}}"> -->
+      <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex">
         <view class='goods-item' data-id="{{goods.id}}">
           <!-- 新增加data-cateid 为了配合开门广告 -->
           <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}" data-index="{{index}}" data-cateid="{{goods.category_id}}"></image>
           <!-- <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='getGoodsDetail' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}" wx:if="{{goods.sku.length > 0}}"></image> -->
           <view class='goods-info'>
-            <text class='goodsName'>{{goods.name}}</text>
+            <text class='goodsName {{goods.stock > 0 ? "" : "gray"}}'>{{goods.name}}</text>
             <text class='goodsPrice'>￥{{goods.min_price}} <text style="font-size:24rpx">{{goods.stock < 10 ? '剩余 '+goods.stock+' 份' : ''}}</text></text>
           </view>
           <view class="goods-add">
-            <!-- 没有规格 -->
-            <view class='goods-add-cart-have' wx:if="{{goods.sku.length <= 0}}">
-              <view bindtap="cutSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" wx:if="{{goods.cartNumber > 0}}">-</view>
-              <view wx:if="{{goods.cartNumber > 0}}">{{goods.cartNumber}}</view>
-              <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-describe="{{goods.describe}}" data-stock="{{goods.stock}}">+</view>
-            </view>
-            <!-- 有规格 -->
-            <view class='goods-add-cart-nor' wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-index="{{index}}" data-image="{{goods.img}}" data-stock="{{goods.stock}}">
-              选择
-            </view>
+            <!-- 有库存正常显示 没库存显示售罄不可选择 -->
+            <block wx:if="{{goods.stock > 0}}">
+              <!-- 没有规格 -->
+              <view class='goods-add-cart-have' wx:if="{{goods.sku.length <= 0}}">
+                <view bindtap="cutSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" wx:if="{{goods.cartNumber > 0}}">-</view>
+                <view wx:if="{{goods.cartNumber > 0}}">{{goods.cartNumber}}</view>
+                <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-describe="{{goods.describe}}" data-stock="{{goods.stock}}">+</view>
+              </view>
+              <!-- 有规格 -->
+              <view class='goods-add-cart-nor' wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-index="{{index}}" data-image="{{goods.img}}" data-stock="{{goods.stock}}">
+                选择
+              </view>
+            </block>
+            <block wx:else>
+              <view class='goods-add-cart-nor gray'>
+                售罄
+              </view>
+            </block>
           </view>
         </view>
       </block>
