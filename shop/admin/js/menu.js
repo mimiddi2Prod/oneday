@@ -12,6 +12,10 @@ var menuVM = new Vue({
             let self = this
             let url = api.getMenu, data = {}, async = false
             data.type = sessionStorage.getItem('type')
+            if (!data.type) {
+                window.location.href = './'
+                return
+            }
             server(url, data, async, "post", function (res) {
                 // console.info(res)
                 self.menu = res.menu
