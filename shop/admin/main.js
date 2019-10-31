@@ -104,6 +104,8 @@ app.use(function (req, res, next) {
         showPaper(urlPath.substr(1))
     } else if (type[1] == 'images') {
         optfile.readImg('./' + req.url, res);
+    } else if (type[1] == 'mp3') {
+        optfile.readMp3('./' + req.url, res);
     } else {
         let check_login_status = require('./api/check_login_status')
         let cookie = req.cookies
