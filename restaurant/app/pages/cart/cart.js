@@ -235,12 +235,15 @@ Page({
     let orderData = self.getWXPayOrder()
     console.info(orderData)
     server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, orderData, "post").then(function(res) {
-      wx.showLoading({
-        title: '已支付，勿重复下单，谢谢',
-        mask: true
-      })
-      // console.info(res)
+      // wx.showLoading({
+      //   title: '已支付，勿重复下单，谢谢',
+      //   mask: true
+      // })
       wx.hideLoading()
+      wx.showToast({
+        title: '支付成功',
+      })
+      
       let tradeId = res
       app.globalData.cart = []
       wx.redirectTo({
