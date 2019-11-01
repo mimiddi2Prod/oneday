@@ -236,7 +236,7 @@ Page({
     console.info(orderData)
     server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, orderData, "post").then(function(res) {
       wx.showLoading({
-        title: '支付中请稍等，勿重复下单，谢谢',
+        title: '已支付，勿重复下单，谢谢',
         mask: true
       })
       // console.info(res)
@@ -263,6 +263,7 @@ Page({
     }).catch(function(res) {
       // 支付失败 库存恢复
       // console.info(checkStockData)
+      wx.hideLoading()
       server.request(api.restoreStock, checkStockData, "post").then(function(e) {
         // 支付失败提醒
         wx.showModal({
