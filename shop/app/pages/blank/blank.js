@@ -39,7 +39,7 @@ Page({
       },
       method: "post",
       success: function(res) {
-        console.info(res)
+        // console.info(res)
         if (res.data.data.code == 1) {
           // 放行
           app.globalData.check_token = true

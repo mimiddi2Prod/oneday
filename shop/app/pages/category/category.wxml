@@ -46,6 +46,7 @@
       </view>
 
       <view class="warmText">
+        <image wx:if="{{warmText.length <= 0}}" class="load" src="/images/loading.gif"></image>
         <text>{{warmText}}</text>
       </view>
     </view>

@@ -41,7 +41,7 @@ App({
 
   onShow: function() {
     var self = this
-    console.info(self.globalData.check_token)
+    // console.info(self.globalData.check_token)
     if (self.globalData.check_token) {
       self.check_token()
 
@@ -66,7 +66,7 @@ App({
       },
       method: "post",
       success: function(res) {
-        console.info(res)
+        // console.info(res)
         if (res.data.data.code == 0) {
           // wx.reLaunch({
           //   url: '../blank/blank',
@@ -84,7 +84,7 @@ App({
     server.api(api.login, {
       op_id: openid
     }, "post").then(function(res) {
-      console.info(res)
+      // console.info(res)
       if (res.length <= 0) {
 
       } else {

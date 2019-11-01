@@ -11,10 +11,13 @@ Page({
     brand_name: '',
     brand_img: '',
     desc: '',
-    goodsList: [],
+    // goodsList: [],
+    goods: [],
 
     last_id: 0,
-    warmText: '没有更多数据了~',
+    warmText: '',
+
+    canPullData: true,
   },
 
   /**
@@ -39,16 +42,20 @@ Page({
       last_id: this.data.last_id
     }, "post").then(function(res) {
       console.info(res)
-      if (res.length < 0) {
+      if (res.length <= 0) {
         self.data.warmText = "没有更多数据了~"
       } else {
         self.data.last_id++
-        self.data.goodsList = self.data.goodsList.concat(res)
+          // self.data.goodsList = self.data.goodsList.concat(res)
+          // for(let i in res){
+          self.data.goods.push(res)
+        // }
       }
 
       // self.setData({
       //   goodsList: res
       // })
+      self.data.canPullData = true
       self.setData(self.data)
     })
   },
@@ -92,7 +99,13 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    this.getGoodsList()
+    if (this.data.canPullData) {
+      this.setData({
+        canPullData: false
+      })
+      this.getGoodsList()
+    }
+
   },
 
   /**

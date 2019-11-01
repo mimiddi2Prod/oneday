@@ -275,3 +275,8 @@
   font-size: 24rpx;
   color: #808080;
 }
+
+.load{
+  width: 60rpx;
+  height:60rpx;
+}

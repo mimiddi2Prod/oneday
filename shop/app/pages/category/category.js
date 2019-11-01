@@ -27,6 +27,7 @@ Page({
       that.setData({
         id: parseInt(options.id)
       });
+      this.loadSwitchCate(options.id)
     }
     if (options.parentid) {
       this.getSubCategory(options.parentid)
@@ -51,6 +52,20 @@ Page({
     //   }
     // });
     this.getGoodsList();
+  },
+
+  loadSwitchCate: function(id) {
+    var that = this;
+    let clientX = ''
+    let sublist = app.globalData.subCategory.subCategory
+    for (let i in sublist) {
+      if (sublist[i].id == id) {
+        clientX = i
+      }
+    }
+    that.setData({
+      scrollLeft: clientX * 60
+    });
   },
 
   getGoodsList: function() {
@@ -149,7 +164,7 @@ Page({
         this.setData(this.data)
         if (this.data.allGoodsList[i].list.length <= 0) {
           this.getGoodsList();
-        } 
+        }
       }
     }
     // this.getGoodsList();
