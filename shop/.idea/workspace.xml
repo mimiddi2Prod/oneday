@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84a5aa41-17a0-47c4-b279-96d25638fb38" name="默认更改列表" comment="">
-      <change afterPath="$PROJECT_DIR$/admin/api/shop_update_remind_time.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/api/get_menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/api/get_menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/api/shop_add_account.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/api/shop_add_account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/api/shop_get_account.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/api/shop_get_account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/api/shop_get_waitShip.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/api/shop_get_waitShip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/api/shop_update_account.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/api/shop_update_account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/html/addAccount.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/html/addAccount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/html/editAccount.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/html/editAccount.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/html/order.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/html/order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/addAccount.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/addAccount.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/editAccount.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/editAccount.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/utils/apis.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/utils/apis.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/voiceReminder.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/voiceReminder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/js/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/account.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/server/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,19 +14,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin/main.js">
+        <entry file="file://$PROJECT_DIR$/admin/html/account.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="583">
-              <caret line="191" column="17" selection-start-line="191" selection-start-column="17" selection-end-line="191" selection-end-column="17" />
+            <state relative-caret-position="1061">
+              <caret line="187" column="69" selection-start-line="187" selection-start-column="69" selection-end-line="187" selection-end-column="69" />
+              <folding>
+                <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/admin/api/get_menu.js">
+        <entry file="file://$PROJECT_DIR$/admin/js/account.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="22" column="124" selection-start-line="22" selection-start-column="124" selection-end-line="22" selection-end-column="124" />
+            <state relative-caret-position="450">
+              <caret line="139" column="46" selection-start-line="139" selection-start-column="46" selection-end-line="139" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -173,13 +159,13 @@
         <option value="$PROJECT_DIR$/admin/api/shop_add_account.js" />
         <option value="$PROJECT_DIR$/admin/api/shop_update_account.js" />
         <option value="$PROJECT_DIR$/admin/api/shop_get_account.js" />
-        <option value="$PROJECT_DIR$/admin/js/account.js" />
         <option value="$PROJECT_DIR$/admin/html/editAccount.html" />
         <option value="$PROJECT_DIR$/admin/js/editAccount.js" />
         <option value="$PROJECT_DIR$/admin/js/addAccount.js" />
         <option value="$PROJECT_DIR$/admin/js/menu.js" />
-        <option value="$PROJECT_DIR$/admin/api/get_menu.js" />
         <option value="$PROJECT_DIR$/admin/main.js" />
+        <option value="$PROJECT_DIR$/admin/api/get_menu.js" />
+        <option value="$PROJECT_DIR$/admin/js/account.js" />
       </list>
     </option>
   </component>
@@ -190,8 +176,8 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="335" />
-    <option name="y" value="25" />
+    <option name="x" value="432" />
+    <option name="y" value="16" />
     <option name="width" value="1535" />
     <option name="height" value="965" />
   </component>
@@ -255,7 +241,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1572692259122" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1572692824909" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/server - 副本" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -350,15 +336,15 @@
       <workItem from="1572423336129" duration="1149000" />
       <workItem from="1572503408883" duration="12881000" />
       <workItem from="1572575271942" duration="2473000" />
-      <workItem from="1572662819263" duration="9842000" />
+      <workItem from="1572662819263" duration="10461000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="470196000" />
+    <option name="totallyTimeSpent" value="470815000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="335" y="25" width="1535" height="965" extended-state="0" />
+    <frame x="432" y="16" width="1535" height="965" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49941522" visible="true" weight="0.21355931" />
@@ -462,16 +448,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-943">
           <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/html/account.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="623">
-          <caret line="187" column="69" selection-start-line="187" selection-start-column="69" selection-end-line="187" selection-end-column="69" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -737,20 +713,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/api/shop_get_account.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="118" selection-start-line="16" selection-start-column="79" selection-end-line="16" selection-end-column="118" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/js/account.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="66" column="14" lean-forward="true" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/html/addAccount.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1106">
@@ -808,6 +770,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/admin/api/get_menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="15" column="50" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/admin/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="583">
@@ -815,10 +784,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/api/get_menu.js">
+    <entry file="file://$PROJECT_DIR$/admin/api/shop_get_account.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
-          <caret line="22" column="124" selection-start-line="22" selection-start-column="124" selection-end-line="22" selection-end-column="124" />
+          <caret line="16" column="118" selection-start-line="16" selection-start-column="79" selection-end-line="16" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/html/account.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1061">
+          <caret line="187" column="69" selection-start-line="187" selection-start-column="69" selection-end-line="187" selection-end-column="69" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/account.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="139" column="46" selection-start-line="139" selection-start-column="46" selection-end-line="139" selection-end-column="46" />
         </state>
       </provider>
     </entry>

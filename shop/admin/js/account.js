@@ -137,7 +137,7 @@ function getaccount() {
             accountVM.accountList = res.accountList
 
             // 分页栏
-            for (let i = 0; i < res.number / 4; i++) {
+            for (let i = 0; i < res.number / 5; i++) {
                 accountVM.pageList.push(i + 1)
             }
         }
