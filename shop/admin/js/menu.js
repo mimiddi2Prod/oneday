@@ -16,8 +16,11 @@ var menuVM = new Vue({
                 window.location.href = './'
                 return
             }
+            if(data.type == 1){
+                data.user_id = sessionStorage.getItem('user_id')
+            }
             server(url, data, async, "post", function (res) {
-                // console.info(res)
+                console.info(res)
                 self.menu = res.menu
             })
         },

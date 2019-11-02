@@ -185,6 +185,20 @@ app.use(function (req, res, next) {
                     showPaper('html/addGoods.html');
                 } else if (type[1] == 'editGoods') {
                     showPaper('html/editGoods.html');
+                } else if (type[1] == 'order') {
+                    showPaper('html/order.html');
+                } else if (type[1] == 'orderDetail') {
+                    showPaper('html/orderDetail.html');
+                } else if (type[1] == 'recommend') {
+                    showPaper('html/recommend.html');
+                } else if (type[1] == 'addRecommend') {
+                    showPaper('html/addRecommend.html');
+                } else if (type[1] == 'editRecommend') {
+                    showPaper('html/editRecommend.html');
+                } else if (type[1] == 'navigation') {
+                    showPaper('html/navigation.html');
+                } else if (type[1] == 'waterfall') {
+                    showPaper('html/waterfall.html');
                 } else {
                     showPaper('html/404.html')
                 }

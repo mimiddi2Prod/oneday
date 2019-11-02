@@ -9,6 +9,7 @@ var api = {
     getRefundAmount: '../api/get_refundAmount',
     getPeople: '../api/get_people',
     getPeopleShop: '../api/get_people_shop',
+    updateRemindTime:'../api/update_remind_time', // 更新订单提醒时间
 
     updateGoodsState: '../api/update_goodsState',
     getGoods: '../api/get_goods',

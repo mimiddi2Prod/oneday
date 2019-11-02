@@ -28,6 +28,14 @@ var orderVM = new Vue({
         afterSale_status: 0,
     },
     methods: {
+        updateRemindTime: function () {
+            const url = api.updateRemindTime, async = true
+            let data = {}
+            server(url, data, async, "post", function (res) {
+                // console.info(res)
+                document.getElementById("audio").pause()
+            })
+        },
         // changePage: function (e, id) {
         //     var href = './' + e + '.html'
         //     $("#container").load(href);

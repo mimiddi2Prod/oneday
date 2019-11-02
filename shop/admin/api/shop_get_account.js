@@ -14,18 +14,19 @@ function shopGetAccount() {
                 row = await db.Query(sql, 0);
                 data.number = row[0]['count(id)']
 
-                sql = "select id,username,nick_name,position_id,type,cate,brand from admin where `type` != ? ORDER BY register_time limit ?,?"
+                sql = "select id,username,nick_name,position_id,type,cate,brand,`order`,recommend,navigation,waterfall from admin where `type` != ? ORDER BY register_time limit ?,?"
                 row = await db.Query(sql, [0, param['last_id'] * 5, 5])
                 data.accountList = row
-            } else {
-                sql = "select count(id) from admin where `type` != ? and position_id = ?";
-                row = await db.Query(sql, [0, param['position_id']]);
-                data.number = row[0]['count(id)']
-
-                sql = "select id,username,nick_name,position_id,type from admin where `type` != ? and position_id = ? ORDER BY register_time limit ?,?"
-                row = await db.Query(sql, [0, param['position_id'], param['last_id'] * 5, 5])
-                data.accountList = row
             }
+            // else {
+            //     sql = "select count(id) from admin where `type` != ? and position_id = ?";
+            //     row = await db.Query(sql, [0, param['position_id']]);
+            //     data.number = row[0]['count(id)']
+            //
+            //     sql = "select id,username,nick_name,position_id,type from admin where `type` != ? and position_id = ? ORDER BY register_time limit ?,?"
+            //     row = await db.Query(sql, [0, param['position_id'], param['last_id'] * 5, 5])
+            //     data.accountList = row
+            // }
 
             if (data.accountList.length > 0) {
                 for (let i in data.accountList) {

@@ -15,7 +15,12 @@ var addAccountVM = new Vue({
         submitCate: [[], []],
 
         brandList: [],
-        submitBrand: []
+        submitBrand: [],
+
+        order: false,
+        recommend: false,
+        navigation: false,
+        waterfall: false
     },
     methods: {
         checkedCate: function (id) {
@@ -69,6 +74,7 @@ var addAccountVM = new Vue({
                 alert('请先去添加商品分类')
                 return
             }
+
             addAccountVM.submitCate = [[], []]
             for (let i in addAccountVM.categoryList) {
                 if (addAccountVM.categoryList[i].checked) {
@@ -80,18 +86,18 @@ var addAccountVM = new Vue({
                     }
                 }
             }
-            if (addAccountVM.submitCate[0].length <= 0) {
-                alert('请至少选择一种分类')
-                return
-            }
-
             addAccountVM.submitBrand = []
             for (let i in addAccountVM.brandList) {
                 if (addAccountVM.brandList[i].checked) {
                     addAccountVM.submitBrand.push(addAccountVM.brandList[i].id)
                 }
             }
-            if (addAccountVM.submitBrand.length <= 0) {
+            if (addAccountVM.submitCate[0].length <= 0 && addAccountVM.submitBrand.length > 0) {
+                alert('请至少选择一种分类')
+                return
+            }
+
+            if (addAccountVM.submitBrand.length <= 0 && addAccountVM.submitCate[0].length > 0) {
                 alert('请至少选择一种品牌')
                 return
             }
@@ -151,6 +157,10 @@ function addAccount(state) {
     data.nick_name = addAccountVM.nick_name
     data.cate = addAccountVM.submitCate
     data.brand = addAccountVM.submitBrand
+    data.order = addAccountVM.order ? 1 : 0
+    data.recommend = addAccountVM.recommend ? 1 : 0
+    data.navigation = addAccountVM.navigation ? 1 : 0
+    data.waterfall = addAccountVM.waterfall ? 1 : 0
 
     server(url, data, async, "post", function (res) {
         console.info(res)

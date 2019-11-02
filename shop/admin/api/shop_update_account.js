@@ -8,8 +8,8 @@ function shopUpdateAccount() {
         var data = {}
         var row = []
         try {
-            sql = "update admin set username = ?,nick_name = ?,cate = ?,brand = ? where id = ?"
-            row = await db.Query(sql, [param['login_name'], param['nick_name'], JSON.stringify(param['cate']), JSON.stringify(param['brand']), param['id']]);
+            sql = "update admin set username = ?,nick_name = ?,cate = ?,brand = ?,`order` = ?,recommend = ?,navigation = ?,waterfall = ? where id = ?"
+            row = await db.Query(sql, [param['login_name'], param['nick_name'], JSON.stringify(param['cate']), JSON.stringify(param['brand']),param['order'],param['recommend'],param['navigation'],param['waterfall'], param['id']]);
             console.info(row)
             if (row.changedRows) {
                 data.text = '编辑成功'

@@ -8,8 +8,13 @@ function shopGetWaitShip() {
         var data = {}
         var row = []
         try {
-            sql = "select count(id) from `order` where state = ?";
-            row = await db.Query(sql, 1);
+            if (param['voice']) {
+                sql = "select count(id) from `order` where state = ? and update_time > (select remind_time from remind_time where tag = ?)";
+                row = await db.Query(sql, [1, 'order']);
+            } else {
+                sql = "select count(id) from `order` where state = ?";
+                row = await db.Query(sql, 1);
+            }
             data.number = row[0]['count(id)']
 
             return callback(data);

@@ -16,7 +16,12 @@ var editAccountVM = new Vue({
         submitCate: [[], []],
 
         brandList: [],
-        submitBrand: []
+        submitBrand: [],
+
+        order: false,
+        recommend: false,
+        navigation: false,
+        waterfall: false
     },
     methods: {
         checkedCate: function (id) {
@@ -142,6 +147,11 @@ $(document).ready(function () {
     editAccountVM.login_name = list.username
     editAccountVM.nick_name = list.nick_name
     editAccountVM.id = list.id
+
+    editAccountVM.order = list.order == 1 ? true : false
+    editAccountVM.recommend = list.recommend == 1 ? true : false
+    editAccountVM.navigation = list.navigation == 1 ? true : false
+    editAccountVM.waterfall = list.waterfall == 1 ? true : false
     getCategory()
     getBrand()
 })
@@ -201,6 +211,10 @@ function updateAccount(state) {
     data.id = editAccountVM.id
     data.login_name = editAccountVM.login_name
     data.nick_name = editAccountVM.nick_name
+    data.order = editAccountVM.order ? 1 : 0
+    data.recommend = editAccountVM.recommend ? 1 : 0
+    data.navigation = editAccountVM.navigation ? 1 : 0
+    data.waterfall = editAccountVM.waterfall ? 1 : 0
 
     server(url, data, async, "post", function (res) {
         console.info(res)

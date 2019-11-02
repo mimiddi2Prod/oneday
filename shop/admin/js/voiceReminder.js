@@ -8,6 +8,7 @@ var voiceVM = new Vue({
         getWaitShip: function () {
             const url = api.getWaitShip, async = true
             let data = {}
+            data.voice = 1
             server(url, data, async, "post", function (res) {
                 // console.info(document.getElementById("audio"))
                 if (res.number > 0) {

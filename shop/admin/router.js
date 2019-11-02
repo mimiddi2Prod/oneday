@@ -330,6 +330,10 @@ function Router() {
                 var restaurantGetTodayOrder = require("./api/restaurant_get_today_order.js");
                 baseApi = new restaurantGetTodayOrder;
                 break;
+            case "update_remind_time":
+                var shopUpdateRemindTime = require("./api/shop_update_remind_time.js");
+                baseApi = new shopUpdateRemindTime;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;
