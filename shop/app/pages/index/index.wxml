@@ -5,7 +5,7 @@
     <swiper class="modal-banner" indicator-dots="true" indicator-active-color="#fff">
       <swiper-item wx:for="{{opening}}" wx:key="{{item.id}}">
         <navigator url="{{item.url}}" hover-class='none'>
-          <image src="{{item.image}}" mode="aspectFill"></image>
+          <image src="{{item.image}}?imageslim" mode="aspectFill"></image>
           <!-- <image src="{{item.image}}" mode="scaleToFill"></image> -->
         </navigator>
       </swiper-item>
@@ -33,12 +33,12 @@
   <view class="m-menu">
     <navigator class="item" url="{{item.url}}?id={{item.id}}&parentid={{item.parent_id}}" wx:for="{{channel}}" wx:key="{{item.id}}" wx:if="{{item.url == '/pages/category/category'}}" hover-class='none'>
       <!-- <image src="{{item.image}}" background-size="cover"></image> -->
-      <image src="{{item.image}}" lazy-load="true"></image>
+      <image src="{{item.image}}?imageView2/1/w/300/h/300" lazy-load="true"></image>
       <text>{{item.name}}</text>
     </navigator>
     <navigator class="item" url="{{item.url}}" wx:for="{{channel}}" wx:key="{{item.id}}" wx:if="{{item.url == '/pages/group_buy/group_buy'}}">
       <!-- <image src="{{item.image}}" background-size="cover"></image> -->
-      <image src="{{item.image}}" lazy-load="true"></image>
+      <image src="{{item.image}}?imageView2/1/w/300/h/300" lazy-load="true"></image>
       <text>{{item.name}}</text>
     </navigator>
   </view>
@@ -52,7 +52,7 @@
       <view class="item item-1" wx:for="{{brand}}" wx:key="item.id">
         <navigator url="{{item.url}}?id={{item.id}}&brandImg={{item.image}}&brandName={{item.name}}&desc={{item.desc}}">
           <view class="wrap">
-            <image class="img" src="{{item.image}}" mode="aspectFill"></image>
+            <image class="img" src="{{item.image}}?imageslim" mode="aspectFill"></image>
             <view class="mt">
               <text class="brand">{{item.name}}</text>
               <!-- <text class="price">{{item.floor_price}}</text>
@@ -150,7 +150,7 @@
           <image class="rank" wx:if="{{item.qcl == 2}}" src="/images/B.png"></image>
           <image class="rank" wx:if="{{item.qcl == 3}}" src="/images/C.png"></image> -->
           <!-- <image class="imgg" src="{{item.image[0]}}" background-size="cover"></image> -->
-          <image class="imgg" src="{{item.image[0]}}" lazy-load="true"></image>
+          <image class="imgg" src="{{item.image[0]}}?imageView2/1/w/300/h/300" lazy-load="true"></image>
           <view class="namee">{{item.name}}</view>
           <view class="descc">{{item.describe}}</view>
           <view class="pricee">
@@ -188,7 +188,7 @@
         <view class="item" wx:for="{{item.topic}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
           <navigator url="../goods/goods?id={{item.id}}">
             <!-- <image class="img" src="{{item.image[0]}}" background-size="cover"></image> -->
-            <image class="img" src="{{item.image[0]}}" lazy-load="true"></image>
+            <image class="img" src="{{item.image[0]}}?imageslim" lazy-load="true"></image>
             <view class="np">
               <text class="name">{{item.name}}</text>
               <text class="price">￥{{item.price}}元起</text>

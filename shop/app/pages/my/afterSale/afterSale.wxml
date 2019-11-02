@@ -18,7 +18,7 @@
         <view bindtap='toGoodsDetail' data-pageid='{{pageId}}' data-orderid='{{index}}' data-isaftersale="false" hover-class='none'>
           <view class="goods">
             <view class="goods-info">
-              <image src="{{item.image}}" mode="cover"></image>
+              <image src="{{item.image}}?imageView2/1/w/300/h/300" mode="cover"></image>
               <view>
                 <view>{{item.name}}</view>
                 <view>{{item.param_1}}，{{item.param_2}}</view>

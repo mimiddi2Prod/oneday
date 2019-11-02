@@ -18,6 +18,8 @@ Page({
 
     last_id: 0,
     warmText: '',
+
+    canPullData: true,
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -91,6 +93,7 @@ Page({
         // self.data.last_id++
         //   self.data.goodsList = self.data.goodsList.concat(res)
       }
+      self.data.canPullData = true
       self.setData(self.data)
 
       // self.setData({
@@ -132,7 +135,13 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    this.getGoodsList()
+    if (this.data.canPullData) {
+      this.setData({
+        canPullData: false
+      })
+      this.getGoodsList()
+    }
+    // this.getGoodsList()
   },
 
 
@@ -161,6 +170,7 @@ Page({
         this.data.last_id = this.data.allGoodsList[i].last_id
         this.data.goodsList = this.data.allGoodsList[i].list
 
+        this.data.warmText = ''
         this.setData(this.data)
         if (this.data.allGoodsList[i].list.length <= 0) {
           this.getGoodsList();

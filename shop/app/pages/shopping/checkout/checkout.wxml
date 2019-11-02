@@ -66,7 +66,7 @@
   <view class="goods-items">
     <view class="item" wx:for="{{checkedGoodsList}}" wx:key="{{item.id}}">
       <view class="img">
-        <image src="{{item.image}}"></image>
+        <image src="{{item.image}}?imageView2/1/w/300/h/300"></image>
       </view>
       <view class="info">
         <view>
