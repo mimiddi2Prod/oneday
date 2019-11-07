@@ -324,9 +324,12 @@ Page({
       // item_price_id: itemPriceId,
       trade_id: tradeId
     }, "post").then(function(res) {
+      // console.info(res)
       if (res.text == "更新订单成功") {
-        app.globalData.point = res.customer.data.pointAfterUpdate
-        app.globalData.balance = res.customer.data.balanceAfterUpdate
+        if (res.customer.data){
+          app.globalData.point = res.customer.data.pointAfterUpdate
+          app.globalData.balance = res.customer.data.balanceAfterUpdate
+        }
         // self.clearIntervalByOrderId(orderId, tradeId)
         self.data.orderList[self.data.currentId].list = self.data.orderList[self.data.currentId].list.map(function(fn) {
           if (fn.id == orderId) {

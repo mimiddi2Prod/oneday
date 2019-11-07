@@ -10,75 +10,78 @@ Page({
     integral: 0,
     item_last_id: 0, //瀑布流加载id
     warmText: '',
-    test: [{
-      "waterfallList": [{
-        "item_id": 22,
-        "start_time": "2019/06/28 14:57:35",
-        "end_time": "2019/07/07 17:49:50",
-        "name": "团购商品1",
-        "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
-        "url": "../goods/goods",
-        "qcl": 1,
-        "price": 0.1,
-        "describe": "团购测试后i的哈会破坏到手的泼洒建瓯的菩萨觉得怕售价跌破十九点破解撒泼建瓯赔偿金哦啊是从接送安排紧凑扫除迫使",
-        "id": 0
-      }, {
-        "item_id": 22,
-        "start_time": "2019/06/28 14:57:35",
-        "end_time": "2019/07/07 17:49:50",
-        "name": "团购商品1",
-        "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
-        "url": "../goods/goods",
-        "qcl": 1,
-        "price": 0.1,
-        "describe": "团购测试后",
-        "id": 1
-      }, {
-        "item_id": 22,
-        "start_time": "2019/06/28 14:57:35",
-        "end_time": "2019/07/07 17:49:50",
-        "name": "团购商品1",
-        "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
-        "url": "../goods/goods",
-        "qcl": 1,
-        "price": 0.1,
-        "describe": "团购测试后那里的看到那世界顶级飞黄金分段菜市场撒吃撒擦三次时间发了机欧派佛怕时间分配静安寺都派佛教案件偶分苏东坡按实际佛帕金斯破发",
-        "id": 2
-      }, {
-        "item_id": 22,
-        "start_time": "2019/06/28 14:57:35",
-        "end_time": "2019/07/07 17:49:50",
-        "name": "团购商品1",
-        "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
-        "url": "../goods/goods",
-        "qcl": 1,
-        "price": 0.1,
-        "describe": "团购测试后",
-        "id": 3
-      }, {
-        "item_id": 22,
-        "start_time": "2019/06/28 14:57:35",
-        "end_time": "2019/07/07 17:49:50",
-        "name": "团购商品1",
-        "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
-        "url": "../goods/goods",
-        "qcl": 1,
-        "price": 0.1,
-        "describe": "团购测试后",
-        "id": 4
-      }, {
-        "item_id": 22,
-        "start_time": "2019/06/28 14:57:35",
-        "end_time": "2019/07/07 17:49:50",
-        "name": "团购商品1",
-        "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
-        "url": "../goods/goods",
-        "qcl": 1,
-        "price": 0.1,
-        "describe": "团购测试后",
-        "id": 5
-      }]
+    test:[{
+      "waterfallList":[]
     }],
+    // test: [{
+    //   "waterfallList": [{
+    //     "item_id": 22,
+    //     "start_time": "2019/06/28 14:57:35",
+    //     "end_time": "2019/07/07 17:49:50",
+    //     "name": "团购商品1",
+    //     "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
+    //     "url": "../goods/goods",
+    //     "qcl": 1,
+    //     "price": 0.1,
+    //     "describe": "团购测试后i的哈会破坏到手的泼洒建瓯的菩萨觉得怕售价跌破十九点破解撒泼建瓯赔偿金哦啊是从接送安排紧凑扫除迫使",
+    //     "id": 0
+    //   }, {
+    //     "item_id": 22,
+    //     "start_time": "2019/06/28 14:57:35",
+    //     "end_time": "2019/07/07 17:49:50",
+    //     "name": "团购商品1",
+    //     "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
+    //     "url": "../goods/goods",
+    //     "qcl": 1,
+    //     "price": 0.1,
+    //     "describe": "团购测试后",
+    //     "id": 1
+    //   }, {
+    //     "item_id": 22,
+    //     "start_time": "2019/06/28 14:57:35",
+    //     "end_time": "2019/07/07 17:49:50",
+    //     "name": "团购商品1",
+    //     "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
+    //     "url": "../goods/goods",
+    //     "qcl": 1,
+    //     "price": 0.1,
+    //     "describe": "团购测试后那里的看到那世界顶级飞黄金分段菜市场撒吃撒擦三次时间发了机欧派佛怕时间分配静安寺都派佛教案件偶分苏东坡按实际佛帕金斯破发",
+    //     "id": 2
+    //   }, {
+    //     "item_id": 22,
+    //     "start_time": "2019/06/28 14:57:35",
+    //     "end_time": "2019/07/07 17:49:50",
+    //     "name": "团购商品1",
+    //     "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
+    //     "url": "../goods/goods",
+    //     "qcl": 1,
+    //     "price": 0.1,
+    //     "describe": "团购测试后",
+    //     "id": 3
+    //   }, {
+    //     "item_id": 22,
+    //     "start_time": "2019/06/28 14:57:35",
+    //     "end_time": "2019/07/07 17:49:50",
+    //     "name": "团购商品1",
+    //     "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
+    //     "url": "../goods/goods",
+    //     "qcl": 1,
+    //     "price": 0.1,
+    //     "describe": "团购测试后",
+    //     "id": 4
+    //   }, {
+    //     "item_id": 22,
+    //     "start_time": "2019/06/28 14:57:35",
+    //     "end_time": "2019/07/07 17:49:50",
+    //     "name": "团购商品1",
+    //     "image": ["http://notwastingqiniu.minidope.com/goods_2019_6_22_16_25_29_0.png"],
+    //     "url": "../goods/goods",
+    //     "qcl": 1,
+    //     "price": 0.1,
+    //     "describe": "团购测试后",
+    //     "id": 5
+    //   }]
+    // }],
     colHeightArry: [0, 0], //瀑布流列数
     position: 'relative',
     screenHeight:0,
@@ -90,9 +93,10 @@ Page({
     });
     this.waterfall()
 
-    if (this.data.test[0].waterfallList.length > 0) {
-      this.setWaterfall(0)
-    }
+    // 瀑布流排版
+    // if (this.data.test[0].waterfallList.length > 0) {
+    //   this.setWaterfall(0)
+    // }
 
     wx.getSystemInfo({
       success: function(res) {
@@ -192,15 +196,23 @@ Page({
           e.end_time = util.formatTime(new Date(e.end_time))
           return e
         })
-        self.data.waterfallGoods.push({})
+        console.info(res.waterfallList)
+        // self.data.waterfallGoods.push({})
+        console.info(self.data.test[0].waterfallList)
+        self.data.test[0].waterfallList = self.data.test[0].waterfallList.concat(res.waterfallList)
+        self.data.colHeightArry = [0, 0]
       } else {
         self.data.warmText = "没有更多数据了~"
       }
-      if (res.waterfallList.length > 0) {
-        self.data.item_last_id++
-          self.data.waterfallGoods[self.data.waterfallGoods.length - 1].waterfallList = res.waterfallList
-      }
+      // if (res.waterfallList.length > 0) {
+      //   self.data.item_last_id++
+      //     self.data.waterfallGoods[self.data.waterfallGoods.length - 1].waterfallList = res.waterfallList
+      // }
       self.setData(self.data)
+      if (res.waterfallList.length > 0){
+        self.setWaterfall(0)
+      }
+      
     })
   },
 
