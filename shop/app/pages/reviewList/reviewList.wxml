@@ -20,7 +20,7 @@
       </view>
       <view class="comment">{{item.text}}</view>
       <view class="imgs" wx:if="{{item.image.length > 0}}">
-        <image class="img" wx:for="{{item.image}}" wx:key="*this" wx:for-item="pitem" src="{{pitem}}"></image>
+        <image class="img" wx:for="{{item.image}}" wx:key="*this" wx:for-item="pitem" src="{{pitem}}" bindtap="previewImage" data-index="{{index}}" data-list="{{item.imageR}}"></image>
       </view>
       <view class="spec">
         <text class="item">{{item.param_1}} {{item.param_2}}</text>

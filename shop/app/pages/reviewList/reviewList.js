@@ -26,6 +26,16 @@ Page({
     });
     this.getReview()
   },
+
+  previewImage: function (e) {
+    let index = e.currentTarget.dataset.index,
+      list = e.currentTarget.dataset.list
+    wx.previewImage({
+      urls: list,
+      current: list[index]
+    })
+  },
+
   getReview: function() {
     var self = this
     server.api(api.getReview, {
@@ -38,6 +48,10 @@ Page({
           obj.user_name = decodeURIComponent(obj.user_name)
           obj.text = decodeURIComponent(obj.text)
           obj.create_time = util.formatTime(new Date(obj.create_time))
+          obj.imageR = obj.image
+          for (let i in obj.image) {
+            obj.image[i] = obj.image[i] + "?imageslim"
+          }
           return obj
         })
         // console.info(res)

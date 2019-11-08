@@ -22,6 +22,10 @@ function Router() {
                 var orderDetail = require("./api/get_order_detail.js");
                 baseApi = new orderDetail;
                 break;
+            case "get_logistics":
+                var shopGetLogistics = require("./api/shop_get_logistics.js");
+                baseApi = new shopGetLogistics;
+                break;
             case "refund":
                 var shopRefund = require("./api/shop_refund.js");
                 baseApi = new shopRefund;

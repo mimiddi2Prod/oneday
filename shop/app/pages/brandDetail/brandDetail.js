@@ -27,9 +27,9 @@ Page({
     // console.info(options)
     this.setData({
       brand_id: options.id,
-      brand_name: options.brandName,
-      brand_img: options.brandImg,
-      desc: options.desc
+      // brand_name: options.brandName,
+      brand_img: options.brandImg + "?imageslim",
+      // desc: options.desc
     })
     this.getGoodsList();
   },
@@ -41,10 +41,14 @@ Page({
       brandId: this.data.brand_id,
       last_id: this.data.last_id
     }, "post").then(function(res) {
-      console.info(res)
+      // console.info(res)
       if (res.length <= 0) {
         self.data.warmText = "没有更多数据了~"
       } else {
+        res = res.map(function(eData){
+          eData.image[0] = eData.image[0] + "?imageView2/1/w/300/h/300"
+          return eData
+        })
         self.data.last_id++
           // self.data.goodsList = self.data.goodsList.concat(res)
           // for(let i in res){

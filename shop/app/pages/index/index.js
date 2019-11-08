@@ -72,8 +72,8 @@ Page({
     // this.getwxacodeunlimit()
   },
 
-  getwxacodeunlimit:function(){
-    server.api(api.getwxacodeunlimit,{},"post").then(function(res){
+  getwxacodeunlimit: function() {
+    server.api(api.getwxacodeunlimit, {}, "post").then(function(res) {
       // console.info(res)
     })
   },
@@ -83,9 +83,15 @@ Page({
     server.api(api.ad, {}, "post").then(function(res) {
       for (var i in res) {
         if (res[i].type == 'opening') {
-          self.data.opening = res[i].data
+          self.data.opening = res[i].data.map(function(eData) {
+            eData.image = eData.image + "?imageslim"
+            return eData
+          })
         } else if (res[i].type == 'banner') {
-          self.data.banner = res[i].data
+          self.data.banner = res[i].data.map(function(eData) {
+            eData.image = eData.image + "?imageslim"
+            return eData
+          })
         }
       }
       self.setData(self.data)
@@ -96,6 +102,10 @@ Page({
     var self = this
     server.api(api.subCategory, {}, "post").then(function(res) {
       // console.info(res)
+      res = res.map(function(eData) {
+        eData.image = eData.image + "?imageView2/1/w/300/h/300"
+        return eData
+      })
       self.setData({
         channel: res
       })
@@ -106,6 +116,10 @@ Page({
     var self = this
     server.api(api.brand, {}, "post").then(function(res) {
       // console.info(res)
+      res = res.map(function(eData) {
+        eData.image = eData.image + "?imageslim"
+        return eData
+      })
       self.setData({
         brand: res
       })
@@ -127,11 +141,19 @@ Page({
       }
       if (res.waterfallList.length > 0) {
         // self.data.item_last_id = res.waterfallList[res.waterfallList.length - 1].id
+        res.waterfallList = res.waterfallList.map(function(eData) {
+          eData.image[0] = eData.image[0] + "?imageView2/1/w/300/h/300"
+          return eData
+        })
         self.data.item_last_id++
           self.data.waterfallGoods[self.data.waterfallGoods.length - 1].waterfallList = res.waterfallList
       }
       if (res.topic.length > 0) {
         // self.data.topic_last_id = res.topic[res.topic.length - 1].id
+        res.topic = res.topic.map(function(eData) {
+          eData.image[0] = eData.image[0] + '?imageslim'
+          return eData
+        })
         self.data.topic_last_id++
           self.data.waterfallGoods[self.data.waterfallGoods.length - 1].topic = res.topic
       }

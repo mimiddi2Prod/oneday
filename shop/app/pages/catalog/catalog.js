@@ -31,6 +31,13 @@ Page({
     var self = this 
     server.api(api.category,{},"post").then(function(res){
       // console.info(res)
+      res = res.map(function(eData){
+        eData.image = eData.image + "?imageslim"
+        for(let i in eData.subCategory){
+          eData.subCategory[i].image = eData.subCategory[i].image + "?imageView2/1/w/300/h/300"
+        }
+        return eData
+      })
       self.setData({
         navList:res,
         currentCategory:res[0]

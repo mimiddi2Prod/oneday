@@ -304,7 +304,10 @@ Page({
       console.info(res)
       // self.addOrderByState(1, res)
       // self.updateIntegral()
-
+      wx.hideLoading()
+      wx.showToast({
+        title: '支付成功',
+      })
       // 跳转显示订单状态
       let address = self.data.checkedAddress
       app.globalData.payInfo.address = address
@@ -344,6 +347,7 @@ Page({
         server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
           console.info(res)
           if (res.code == 0) {
+            wx.hideLoading()
             app.globalData.balance = res.data.balanceAfterUpdate
             app.globalData.point = res.data.pointAfterUpdate
             self.addOrderByState(1, self.getTradeId('y'))

@@ -215,6 +215,7 @@
 .comments .b {
   height: auto;
   width: 710rpx;
+  border-bottom: 1px solid #d9d9d9;
 }
 
 .comments .item {
@@ -224,9 +225,10 @@
 }
 
 .comments .info {
-  height: 127rpx;
+  /* height: 127rpx; */
   width: 100%;
   padding: 33rpx 0 27rpx 0;
+  /* padding: 33rpx 0 0 0; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -285,8 +287,8 @@
 }
 
 .comments .imgs .img {
-  height: 150rpx;
-  width: 150rpx;
+  height: 170rpx;
+  width: 170rpx;
   margin-right: 28rpx;
 }
 
@@ -693,7 +695,7 @@
   /* width: 100%; *//* height: auto; */
   overflow: hidden;
   margin: 0 20rpx;
-  height: 560rpx;
+  max-height: 560rpx;
   width: 710rpx;
 }
 
@@ -716,9 +718,9 @@
 
 .spec-con .value {
   /* display: inline-block; */
-  height: 80rpx;
+  /* height: 80rpx; */
   align-items: center;
-  padding: 0 10rpx;
+  padding: 10rpx 10rpx;
   /* line-height: 56rpx; */
   text-align: center;
   /* margin-right: 25rpx; */
@@ -727,10 +729,12 @@
   font-size: 25rpx;
   color: #333;
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
+  flex-direction: column;
   align-content: center;
   flex-wrap: wrap;
   margin-right: 10rpx;
+  min-width: 60rpx;
 }
 
 .spec-con .value.disable {

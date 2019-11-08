@@ -15,16 +15,16 @@ function ShopWxPayNotify() {
 
         // 修改订单支付状态
         var e = await xmlParse(xml)
-        if (e.xml.return_code[0] === 'SUCCESS') {
+        if (e.xml.return_code[0] === 'SUCCESS' && e.xml.result_code[0] === 'SUCCESS') {
             let tradeId = e.xml.out_trade_no[0]
             let openid = e.xml.openid[0]
-            let total_fee = e.xml.total_fee[0]
-            // let totalPrice = Number(e.xml.total_fee[0]) * 0.01 // 获取的值 1 = 0.01
+            // let total_fee = e.xml.total_fee[0]
+            let totalPrice = Number(e.xml.total_fee[0]) * 0.01 // 获取的值 1 = 0.01
 
             // 查询对应订单
             sql = 'select * from `order` where tradeId = ? and open_id = ?'
             row = await query(sql, [tradeId, openid])
-            console.info(row)
+            // console.info(row)
 
             if (row.length > 0) {
                 let rowData = row
@@ -34,8 +34,11 @@ function ShopWxPayNotify() {
                     row = await query(sql, [1, tradeId, openid])
 
                     // 已支付
-                    sql = "update paid set state = ? where order_id = ?"
-                    row = await tool.query(sql, [1, param["order_id"]])
+                    sql = "update paid set state = ? where order_id in(?)"
+                    // row = await tool.query(sql, [1, param["order_id"]])
+					row = await tool.query(sql, [1, rowData.map(function(eData){
+						return eData.id
+					})])
 
                     // customerUid 更新积分时使用
                     let customerUid = rowData[0].customer_uid
@@ -69,7 +72,8 @@ function ShopWxPayNotify() {
                         let updateCustomerData = {}
                         updateCustomerData.customerUid = customerUid
                         updateCustomerData.balanceIncrement = 0
-                        updateCustomerData.pointIncrement = Number(total_fee)
+                        updateCustomerData.pointIncrement = totalPrice
+						console.info(updateCustomerData)
                         let updateCustomer = require('./yinbao_update_customer')
                         let updateCustomerCall = await updateCustomer(updateCustomerData)
                         // todo 微信支付更新积分成功和失败的提醒 code:0 成功，1 失败

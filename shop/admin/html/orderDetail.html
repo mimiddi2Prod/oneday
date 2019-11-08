@@ -80,12 +80,14 @@
         <!-- 导航栏选择 -->
         <div class="nav-1">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="javascript:;">订单详情</a></li>
-                <li><a href="javascript:;">物流信息</a></li>
+                <!--<li class="active"><a href="javascript:;">订单详情</a></li>-->
+                <!--<li><a href="javascript:;">物流信息</a></li>-->
+                <li v-bind:class="(index == navId ? 'active' : '')" v-for="item,index in navList"
+                    v-on:click="changeNav(index)"><a href="javascript:;">{{item}}</a></li>
             </ul>
         </div>
 
-        <div class="goods">
+        <div class="goods" v-if="navId == 0">
             <!-- 商品标题 -->
             <nav class="navbar navbar-default" role="navigation">
                 <div class="item">
@@ -121,7 +123,8 @@
                 </div>
                 <!--发货状态-->
                 <div class="third-title column">
-                    <div class="c" v-if="orderDetail.state == 0"><span>{{orderDetail.payInterval ? '待付款' : '已取消'}}</span>
+                    <div class="c" v-if="orderDetail.state == 0">
+                        <span>{{orderDetail.payInterval ? '待付款' : '已取消'}}</span>
                     </div>
                     <div class="c"><span>{{orderDetail.state == -1 ? '已取消' : ''}}
                         {{orderDetail.state == 1 ? '待发货' : ''}}
@@ -292,6 +295,17 @@
             </div>
         </div>
 
+        <div class="goods"  v-if="navId == 1">
+            <div>
+                <span>下单时间：{{orderDetail.create_time}}</span>
+            </div>
+            <div>
+                物流公司：{{logisticsName}}
+            </div>
+            <div v-for="item in logistics">
+                <div>时间：{{item.time}}，信息：{{item.status}}</div>
+            </div>
+        </div>
 
     </div>
 </div>

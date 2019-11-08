@@ -9,7 +9,7 @@ function orderDetail() {
             console.info('start')
             console.info(param['order_id'])
             if (param['order_id']) {
-                sql = "select item_id,user_id,param_id_1,param_id_2,param_1,param_2,image,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id,tradeId,after_sale_state,have_cost_integral from `order` where id = ?";
+                sql = "select item_id,user_id,param_id_1,param_id_2,param_1,param_2,image,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id,tradeId,after_sale_state,have_cost_integral,logistics_code from `order` where id = ?";
                 console.info(sql)
                 row = await db.Query(sql, param['order_id']);
             } else {

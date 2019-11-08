@@ -4,7 +4,7 @@
     height: auto;
     /* padding-left:30rpx; */
     background: #fff;
-    margin: 20rpx 0;
+    margin:0 0 20rpx 0;
 }
 
 .comments .h{
@@ -68,9 +68,14 @@
 }
 
 .comments .info{
-    height: 127rpx;
+    /* height: 127rpx; */
     /* width: 100%; */
-    padding: 33rpx 0 27rpx 0;
+    /* padding: 33rpx 0 27rpx 0; */
+    margin: 33rpx 0 27rpx 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .comments .user{
@@ -119,13 +124,13 @@
 
 .comments .imgs{
     width: 720rpx;
-    height: 150rpx;
+    /* height: 150rpx; */
     margin-bottom: 25rpx;
 }
 
 .comments .imgs .img{
-    height: 150rpx;
-    width: 150rpx;
+    height: 170rpx;
+    width: 170rpx;
     margin-right: 28rpx;
 }
 

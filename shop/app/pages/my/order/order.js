@@ -344,7 +344,7 @@ Page({
           status = -1
           self.data.orderList[0].list = []
           self.data.orderList[0].last_id = 0
-          if (tradeId) {
+          // if (tradeId) {
             // 全部订单也需要重新载入
             self.data.orderList[1].list = self.data.orderList[1].list.map(function(fn) {
               if (fn.interval) {
@@ -354,7 +354,7 @@ Page({
             })
             self.data.orderList[1].list = []
             self.data.orderList[1].last_id = 0
-          }
+          // }
         } else if (self.data.currentId == 1) {
           // 待付款
           status = 0
@@ -382,6 +382,17 @@ Page({
           self.data.orderList[4].list = []
           self.data.orderList[4].last_id = 0
         }
+
+        // 全部订单也需要重新载入
+        self.data.orderList[0].list = self.data.orderList[0].list.map(function (fn) {
+          if (fn.interval) {
+            clearInterval(fn.interval)
+          }
+          return fn
+        })
+        self.data.orderList[0].list = []
+        self.data.orderList[0].last_id = 0
+        
         self.setData(self.data)
         self.getOrder(status)
 
@@ -509,7 +520,7 @@ Page({
             app.globalData.balance = res.data.balanceAfterUpdate
             app.globalData.point = res.data.pointAfterUpdate
             // self.changeOrderState(orderId, 1, item_price_id, self.getTradeId('yb'))
-            self.changeOrderState(orderId, 1, self.getTradeId('yb'))
+            self.changeOrderState(orderId, 1, self.getTradeId('y'))
             self.setData({
               showPayMethodDialog: false
             })
@@ -571,7 +582,7 @@ Page({
       if (res.code == 0) {
         app.globalData.balance = res.data.balanceAfterUpdate
         app.globalData.point = res.data.pointAfterUpdate
-        // self.addOrderByState(1, self.getTradeId('yb'))
+        // self.addOrderByState(1, self.getTradeId('y'))
       }
     })
   },

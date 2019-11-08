@@ -10,8 +10,8 @@ Page({
     integral: 0,
     item_last_id: 0, //瀑布流加载id
     warmText: '',
-    test:[{
-      "waterfallList":[]
+    test: [{
+      "waterfallList": []
     }],
     // test: [{
     //   "waterfallList": [{
@@ -84,7 +84,7 @@ Page({
     // }],
     colHeightArry: [0, 0], //瀑布流列数
     position: 'relative',
-    screenHeight:0,
+    screenHeight: 0,
   },
   onLoad: function(options) {
     var that = this;
@@ -98,14 +98,14 @@ Page({
     //   this.setWaterfall(0)
     // }
 
-    wx.getSystemInfo({
-      success: function(res) {
-        console.info(res)
-        that.setData({
-          screenHeight: res.screenHeight + 50
-        })
-      },
-    })
+    // wx.getSystemInfo({
+    //   success: function(res) {
+    //     console.info(res)
+    //     that.setData({
+    //       screenHeight: res.screenHeight + 50
+    //     })
+    //   },
+    // })
     // this.data.test[0].waterfallList = this.data.test[0].waterfallList.map(function(res) {
     //   for (let i in this.data.test[0].waterfallList){
     //     var minValue = that.data.colHeightArry[0]
@@ -147,6 +147,7 @@ Page({
     // console.info(index)
     this.data.test[0].waterfallList[index].left = minIndex * 365
     this.data.test[0].waterfallList[index].top = minValue
+    this.data.screenHeight = minValue + 270
     this.setData(this.data)
     // console.info(this.data.test[0].waterfallList)
     that.getCreateSelectorQuery(minIndex, this.data.test[0].waterfallList[index].id).then(function(e) {
@@ -155,9 +156,9 @@ Page({
       that.setData(that.data)
       if (index < that.data.test[0].waterfallList.length - 1) {
         that.setWaterfall(index + 1)
-      }else{
+      } else {
         that.setData({
-          position:'absolute'
+          position: 'absolute'
         })
       }
     })
@@ -196,10 +197,11 @@ Page({
           e.end_time = util.formatTime(new Date(e.end_time))
           return e
         })
-        console.info(res.waterfallList)
+        // console.info(res.waterfallList)
         // self.data.waterfallGoods.push({})
-        console.info(self.data.test[0].waterfallList)
-        self.data.test[0].waterfallList = self.data.test[0].waterfallList.concat(res.waterfallList)
+        // console.info(self.data.test[0].waterfallList)
+        self.data.item_last_id++
+          self.data.test[0].waterfallList = self.data.test[0].waterfallList.concat(res.waterfallList)
         self.data.colHeightArry = [0, 0]
       } else {
         self.data.warmText = "没有更多数据了~"
@@ -209,10 +211,10 @@ Page({
       //     self.data.waterfallGoods[self.data.waterfallGoods.length - 1].waterfallList = res.waterfallList
       // }
       self.setData(self.data)
-      if (res.waterfallList.length > 0){
+      if (res.waterfallList.length > 0) {
         self.setWaterfall(0)
       }
-      
+
     })
   },
 

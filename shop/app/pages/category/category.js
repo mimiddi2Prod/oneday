@@ -44,6 +44,8 @@ Page({
         this.data.allGoodsList[i].last_id = 0
       }
       this.setData(this.data)
+
+      this.getGoodsList();
     }
 
     // wx.getSystemInfo({
@@ -53,7 +55,7 @@ Page({
     //     });
     //   }
     // });
-    this.getGoodsList();
+    
   },
 
   loadSwitchCate: function(id) {
@@ -77,10 +79,14 @@ Page({
       categoryId: this.data.id,
       last_id: this.data.last_id
     }, "post").then(function(res) {
-      // console.info(res)
+      console.info(res)
       if (res.length <= 0) {
         self.data.warmText = "没有更多数据了~"
       } else {
+        res = res.map(function(eData){
+          eData.image[0] = eData.image[0] + "?imageView2/1/w/300/h/300"
+          return eData
+        })
         for (let i in self.data.allGoodsList) {
           if (self.data.allGoodsList[i].id == self.data.id) {
             self.data.allGoodsList[i].list = self.data.allGoodsList[i].list.concat(res)
@@ -111,6 +117,16 @@ Page({
           self.setData({
             navList: res[i]
           })
+          app.globalData.subCategory = res[i]
+
+          self.data.allGoodsList = app.globalData.subCategory.subCategory
+          for (let j in self.data.allGoodsList) {
+            self.data.allGoodsList[j].list = []
+            self.data.allGoodsList[j].last_id = 0
+          }
+          self.setData(self.data)
+
+          self.getGoodsList();
         }
       }
 

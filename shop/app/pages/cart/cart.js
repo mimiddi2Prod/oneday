@@ -21,11 +21,11 @@ Page({
     showModal: false,
     editCartItem: '',
 
-    issueList: [{
-      id: 1,
-      question: 'sdadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaw我',
-      answer: 'dwddsadddddddddddddddddddddddddddd打网球大王地区顶顶顶顶顶顶顶顶顶顶顶顶'
-    }],
+    // issueList: [{
+    //   id: 1,
+    //   question: 'sdadsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaw我',
+    //   answer: 'dwddsadddddddddddddddddddddddddddd打网球大王地区顶顶顶顶顶顶顶顶顶顶顶顶'
+    // }],
   },
   onLoad: function(options) {
 
@@ -289,25 +289,21 @@ Page({
   cutNumber: function(event) {
     let itemIndex = event.target.dataset.itemIndex;
     let cartItem = this.data.cartGoods[itemIndex];
+    if (cartItem.number - 1 <= 0) {
+      return false
+    }
     let number = (cartItem.number - 1 > 1) ? cartItem.number - 1 : 1;
     cartItem.number = number;
     this.setData({
       cartGoods: this.data.cartGoods
     });
-    if (cartItem.number - 1 < 0) {
-      return false
-    }
+    
     this.updateCartGoodsNum(cartItem.id, number);
   },
   addNumber: function(event) {
     let itemIndex = event.target.dataset.itemIndex;
     let cartItem = this.data.cartGoods[itemIndex];
     let stock = cartItem.stock;
-    let number = (cartItem.number + 1 <= stock ? cartItem.number + 1 : cartItem.number);
-    cartItem.number = number;
-    this.setData({
-      cartGoods: this.data.cartGoods
-    });
     if (cartItem.number + 1 > stock) {
       wx.showToast({
         title: '超过了库存数量',
@@ -315,12 +311,18 @@ Page({
       })
       return false
     }
+    let number = (cartItem.number + 1 <= stock ? cartItem.number + 1 : cartItem.number);
+    cartItem.number = number;
+    this.setData({
+      cartGoods: this.data.cartGoods
+    });
+    
     this.updateCartGoodsNum(cartItem.id, number);
   },
   editGoodsNum: function(event) {
     let value = event.detail.value.goodsNum
     let cartItem = this.data.editCartItem
-    if (value % 1 != 0) {
+    if (value % 1 != 0 || Number(value) <= 0) {
       wx.showToast({
         title: '请输入有效数字',
         icon: 'none'

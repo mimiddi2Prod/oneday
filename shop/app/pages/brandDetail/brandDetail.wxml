@@ -1,6 +1,6 @@
 <!--pages/brandDetail/brandDetail.wxml-->
 <view class="brand-detail">
-  <image src="{{brand_img}}?imageslim" mode="aspectFill"></image>
+  <image src="{{brand_img}}" mode="aspectFill"></image>
   <!-- <view class="brand-title">
     <text>{{brand_name}}</text>
   </view> -->
@@ -17,7 +17,7 @@
           <!-- <image class="rank" wx:if="{{item.qcl == 1}}" src="/images/A.png"></image>
         <image class="rank" wx:if="{{item.qcl == 2}}" src="/images/B.png"></image>
         <image class="rank" wx:if="{{item.qcl == 3}}" src="/images/C.png"></image> -->
-          <image class="img" src="{{item.image[0]}}?imageView2/1/w/300/h/300" lazy-load="true" mode="aspectFill"></image>
+          <image class="img" src="{{item.image[0]}}" lazy-load="true" mode="aspectFill"></image>
           <view class="name">{{item.name}}</view>
           <view class="desc">{{item.describe}}</view>
           <view class="price">

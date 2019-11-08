@@ -131,6 +131,10 @@ app.use(function (req, res, next) {
                     showPaper('html/editGoods.html');
                 } else if (type[1] == 'reviewGoods') {
                     showPaper('html/reviewGoods.html');
+                } else if (type[1] == 'groupGoods') {
+                    showPaper('html/groupGoods.html');
+                } else if (type[1] == 'groupRefund') {
+                    showPaper('html/groupRefund.html');
                 } else if (type[1] == 'category') {
                     showPaper('html/category.html');
                 } else if (type[1] == 'order') {

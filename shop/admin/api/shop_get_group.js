@@ -116,9 +116,14 @@ function shopGetGroup() {
                 data.number = row[0]['count(id)']
 
                 sql = "select id,`name`,image,url,qcl,price,`describe`,`type`,integral_price,sort,state,specification_id_1,specification_id_2,category_id_1,category_id_2,category_id_3,create_time,brand_id,review_id,goods_info from item where state = ? and id not in (?) and integral_price <= ? ORDER BY create_time desc limit ?,?";
-                row = await db.Query(sql, [0, group_id_list.map(function (fn) {
-                    return fn.item_id
-                }), 0, param['last_id'] * 5, 5]);
+                if(group_id_list.length > 0){
+                    row = await db.Query(sql, [0, group_id_list.map(function (fn) {
+                        return fn.item_id
+                    }), 0, param['last_id'] * 5, 5]);
+                }else{
+                    row = await db.Query(sql, [0, 0, 0, param['last_id'] * 5, 5]);
+                }
+
 
                 var rowData = row
                 if (rowData.length > 0) {

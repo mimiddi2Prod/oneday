@@ -1,8 +1,14 @@
 var orderDetailVM = new Vue({
     el: '#orderDetail',
     data: {
+        navList: ['订单详情', '物流信息'],
+        navId: 0,
+
         orderId: '',
-        orderDetail: {}
+        orderDetail: {},
+        logisticsCode:'',
+        logisticsName:'',
+        logistics:[]
     },
     methods: {
         // changePage: function (e) {
@@ -16,7 +22,13 @@ var orderDetailVM = new Vue({
         },
         rejectRefund: function () {
             toRejectRefund()
-        }
+        },
+        changeNav: function (index) {
+            this.navId = index
+            if(index == 1 && this.logistics.length <= 0 && this.logisticsCode){
+                getLogistics(this.logisticsCode)
+            }
+        },
     }
 })
 
@@ -101,6 +113,7 @@ function getOrderDetail() {
                 return data
             })
             orderDetailVM.orderDetail = res[0]
+            orderDetailVM.logisticsCode = res[0].logistics_code
             // 分页栏
             // for (let i = 0; i < res.number / 5; i++) {
             //     orderDetailVM.pageList.push(i + 1)
@@ -108,6 +121,19 @@ function getOrderDetail() {
             // console.info(orderDetailVM.pageList)
         }
         // console.info(res)
+    })
+}
+
+function getLogistics(logistics_code){
+    const url = '../api/get_logistics', async = true
+    var data = {}
+    data.logistics_code = logistics_code
+    server(url, data, async, "post", function (res) {
+        // console.info(res)
+        if(res.status == "0" && res.msg == "ok"){
+            orderDetailVM.logisticsName = res.result.expName
+            orderDetailVM.logistics = res.result.list
+        }
     })
 }
 

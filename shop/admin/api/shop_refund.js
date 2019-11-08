@@ -17,8 +17,9 @@ function shopRefund() {
             var order_id = param['order_id']
             var after_sale_state = param['after_sale_state']
 
-            sql = "select user_id,single_price,`number`,postage from `order` where tradeid = ?"
+            sql = "select user_id,single_price,`number`,postage,customer_uid from `order` where tradeid = ?"
             row = await db.Query(sql, tradeId)
+            let cuid = row[0].customer_uid // 微信退款使用
             var user_id = row[0].user_id
             var total_fee = 0
             for (let i in row) {
@@ -43,6 +44,15 @@ function shopRefund() {
                         sql = "update `order` set after_sale_state = ? where id = ?"
                         row = await db.Query(sql, [after_sale_state, order_id])
                         // 可能需要做一个数据验证，确保部份退款的情况下，确实修改了状态（全款退款，反正钱退完了再退管理后台会报错）
+                        // todo 积分减法
+                        // 更新会员信息
+                        let updateCustomer = require('./yinbao_update_customer')
+                        let paramData = {
+                            balanceIncrement: 0,
+                            pointIncrement: refund_fee,
+                            customerUid: cuid
+                        }
+                        let callData = await updateCustomer(paramData)
                     } else {
                         data.code = 1
                     }
