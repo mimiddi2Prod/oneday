@@ -50,15 +50,16 @@ Page({
     server.api(api.goodsInfo, {
       itemId: this.data.id
     }, "post").then(function(res) {
-      console.info(res)
-
-      res.imageB = res.image
+      // console.info(res)
+      // res.imageB = res.image
+      res.imageB = []
       for (let i in res.image) {
-        res.image[i] = res.image[i] + "?imageslim"
+        res.imageB[i] = res.image[i] + "?imageslim"
       }
-      res.goods_infoI = res.goods_info
+      // res.goods_infoI = res.goods_info
+      res.goods_infoI = []
       for (let i in res.goods_info) {
-        res.goods_info[i] = res.goods_info[i] + "?imageslim"
+        res.goods_infoI[i] = res.goods_info[i] + "?imageslim"
       }
       for (let i in res.specification) {
         for (let j in res.specification[i].paramList) {
@@ -68,19 +69,18 @@ Page({
         }
       }
 
-      res.best_review[0].imageR = res.best_review[0].image
       if (res.best_review) {
         res.best_review[0].user_name = decodeURIComponent(res.best_review[0].user_name)
         res.best_review[0].text = decodeURIComponent(res.best_review[0].text)
         res.best_review[0].create_time = util.formatTime(new Date(res.best_review[0].create_time))
+        res.best_review[0].imageR = []
         for (let i in res.best_review[0].image) {
-          res.best_review[0].image[i] = res.best_review[0].image[i] + "?imageView2/1/w/300/h/300"
+          res.best_review[0].imageR[i] = res.best_review[0].image[i] + "?imageView2/1/w/300/h/300"
         }
         self.setData({
           review: res.best_review[0],
         })
       }
-
       // 抢购
       if (res.group_id) {
         res.start_time = util.formatTime(new Date(res.start_time))

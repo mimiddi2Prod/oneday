@@ -1,8 +1,8 @@
 <view class="container">
   <swiper class="goodsimgs" indicator-dots="true" indicator-active-color="#fff" autoplay="true" interval="3000" duration="1000">
-    <swiper-item wx:for="{{goods.image}}" wx:key="{{item.id}}">
+    <swiper-item wx:for="{{goods.imageB}}" wx:key="{{item.id}}">
       <!-- <image src="{{item}}" background-size="cover" bindtap="previewImage" data-index="{{index}}" data-list="{{goods.image}}"></image> -->
-      <image src="{{item}}" bindtap="previewImage" data-index="{{index}}" data-list="{{goods.imageB}}" lazy-load="true" mode="aspectFill"></image>
+      <image src="{{item}}" bindtap="previewImage" data-index="{{index}}" data-list="{{goods.image}}" lazy-load="true" mode="aspectFill"></image>
     </swiper-item>
   </swiper>
   <!-- <view class="service-policy" wx:if="{{goods.group_id <= 0}}">
@@ -60,8 +60,8 @@
         <view class="content">
           {{review.text}}
         </view>
-        <view class="imgs" wx:if="{{review.image.length > 0}}">
-          <image class="img" wx:for="{{review.image}}" wx:key="{{index}}" src="{{item}}" bindtap="previewImage" data-index="{{index}}" data-list="{{review.imageR}}"></image>
+        <view class="imgs" wx:if="{{review.imageR.length > 0}}">
+          <image class="img" wx:for="{{review.imageR}}" wx:key="{{index}}" src="{{item}}" bindtap="previewImage" data-index="{{index}}" data-list="{{review.image}}"></image>
         </view>
         <view class="spec">{{review.param_1}} {{review.param_2}}</view>
       </view>
@@ -80,7 +80,7 @@
   <view class="detail">
     <!-- <import src="../../lib/wxParse/wxParse.wxml" />
     <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" /> -->
-    <image wx:for="{{goods.goods_info}}" src="{{item}}" mode="widthFix" bindtap="previewImage" data-index="{{index}}" data-list="{{goods.goods_infoI}}" lazy-load="true"></image>
+    <image wx:for="{{goods.goods_infoI}}" src="{{item}}" mode="widthFix" bindtap="previewImage" data-index="{{index}}" data-list="{{goods.goods_info}}" lazy-load="true"></image>
   </view>
 
   <view style="opacity: 0;height:106rpx">
