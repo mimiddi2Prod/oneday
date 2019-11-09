@@ -73,6 +73,9 @@ Page({
     // item_price_id:'',
     price: '',
     integrlprice: '',
+
+    preIndex: 0,
+    isSwitchCate: false
   },
 
   /**
@@ -107,28 +110,25 @@ Page({
     // 对应数据库  0 未支付 1 已支付 2已发货 3已收货（买家确认收货/物流送达后七天后自动确认收货） 4订单完成
     var status = -1
     if (options.id) {
-      // console.info(options.id)
       this.data.currentId = options.id
+      this.data.isSwitchCate = true
       this.setData(this.data)
 
-      if (options.id == 1) {
-        // 待付款
-        status = 0
-      } else if (options.id == 3) {
-        // 待收货
-        status = 2
-      } else if (options.id == 4) {
-        // 待评价
-        status = 3
-      }
+      // if (options.id == 1) {
+      //   // 待付款
+      //   status = 0
+      // } else if (options.id == 3) {
+      //   // 待收货
+      //   status = 2
+      // } else if (options.id == 4) {
+      //   // 待评价
+      //   status = 3
+      // }
     }
 
     if (!options.id) {
       this.getOrder(status)
     }
-
-
-    // this.payInterval()
   },
 
   getOrder: function(status) {
@@ -136,64 +136,79 @@ Page({
     var self = this
     wx.showLoading({
       title: '加载中...',
+      mask: true
     })
-    var last_id = ''
-    if (status == -1) {
-      last_id = self.data.orderList[0].last_id
-    } else if (status == 0) {
-      last_id = self.data.orderList[1].last_id
-    } else if (status == 1) {
-      last_id = self.data.orderList[2].last_id
-    } else if (status == 2) {
-      last_id = self.data.orderList[3].last_id
-    } else if (status == 3) {
-      last_id = self.data.orderList[4].last_id
-    }
+    // var last_id = ''
+    // if (status == -1) {
+    //   last_id = self.data.orderList[0].last_id
+    // } else if (status == 0) {
+    //   last_id = self.data.orderList[1].last_id
+    // } else if (status == 1) {
+    //   last_id = self.data.orderList[2].last_id
+    // } else if (status == 2) {
+    //   last_id = self.data.orderList[3].last_id
+    // } else if (status == 3) {
+    //   last_id = self.data.orderList[4].last_id
+    // }
+    let last_id = self.data.orderList[status + 1].last_id
     server.api(api.getOrder, {
       user_id: app.globalData.user_id,
       state: status,
       last_id: last_id
     }, "post").then(function(res) {
       if (res.length > 0) {
-        console.info(res)
-        if (status == -1) {
-          // console.info(self.data.orderList[0])
-          // console.info(res)
-          // console.info('这边是获取全部订单的')
-          self.data.orderList[0].list = self.data.orderList[0].list.concat(res)
-          for (var i = (self.data.orderList[0].last_id * 10); i < self.data.orderList[0].list.length; i++) {
-            if (self.data.orderList[0].list[i].state == 0) {
-              self.payInterval(0, i)
+        // console.info(res)
+        // if (status == -1) {
+        //   // console.info(self.data.orderList[0])
+        //   // console.info(res)
+        //   // console.info('这边是获取全部订单的')
+        //   self.data.orderList[0].list = self.data.orderList[0].list.concat(res)
+        //   for (var i = (self.data.orderList[0].last_id * 10); i < self.data.orderList[0].list.length; i++) {
+        //     if (self.data.orderList[0].list[i].state == 0) {
+        //       self.payInterval(0, i)
+        //     }
+        //   }
+        //   self.data.orderList[0].last_id++
+        // } else if (status == 0) {
+        //   self.data.orderList[1].list = self.data.orderList[1].list.concat(res)
+        //   for (var i = self.data.orderList[1].last_id * 10; i < self.data.orderList[1].list.length; i++) {
+        //     self.payInterval(1, i)
+        //   }
+        //   self.data.orderList[1].last_id++
+        // } else if (status == 1) {
+        //   self.data.orderList[2].list = self.data.orderList[2].list.concat(res)
+        //   self.data.orderList[2].last_id++
+        // } else if (status == 2) {
+        //   self.data.orderList[3].list = self.data.orderList[3].list.concat(res)
+        //   self.data.orderList[3].last_id++
+        // } else if (status == 3) {
+        //   self.data.orderList[4].list = self.data.orderList[4].list.concat(res)
+        //   self.data.orderList[4].last_id++
+        // }
+        let y = status + 1
+        self.data.orderList[y].list = self.data.orderList[y].list.concat(res)
+        if (status == -1 || status == 0) {
+          for (let i = (self.data.orderList[y].last_id * 10); i < self.data.orderList[y].list.length; i++) {
+            if (self.data.orderList[y].list[i].state == 0) {
+              self.payInterval(y, i)
             }
           }
-          self.data.orderList[0].last_id++
-        } else if (status == 0) {
-          self.data.orderList[1].list = self.data.orderList[1].list.concat(res)
-          for (var i = self.data.orderList[1].last_id * 10; i < self.data.orderList[1].list.length; i++) {
-            self.payInterval(1, i)
-          }
-          self.data.orderList[1].last_id++
-        } else if (status == 1) {
-          self.data.orderList[2].list = self.data.orderList[2].list.concat(res)
-          self.data.orderList[2].last_id++
-        } else if (status == 2) {
-          self.data.orderList[3].list = self.data.orderList[3].list.concat(res)
-          self.data.orderList[3].last_id++
-        } else if (status == 3) {
-          self.data.orderList[4].list = self.data.orderList[4].list.concat(res)
-          self.data.orderList[4].last_id++
         }
-        for (let i in self.data.orderList) {
-          if (self.data.orderList[i].list.length > 0) {
-            self.data.orderList[i].list = self.data.orderList[i].list.map(function(e) {
-              e.total = Number(e.number * e.single_price).toFixed(2)
-              return e
-            })
+        self.data.orderList[y].last_id++
+          for (let i in self.data.orderList) {
+            if (self.data.orderList[i].list.length > 0) {
+              self.data.orderList[i].list = self.data.orderList[i].list.map(function(e) {
+                e.total = Number(e.number * e.single_price).toFixed(2)
+                return e
+              })
+            }
           }
-        }
 
         self.setData(self.data)
         wx.hideLoading()
+        // setTimeout(function(eData) {
+        //   wx.hideLoading()
+        // }, 1000)
       } else {
         wx.hideLoading()
         if (self.data.isReachBottom) {
@@ -210,45 +225,47 @@ Page({
   },
 
   switchCate: function(e) {
-    // console.info(e.currentTarget.offsetLeft)
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      currentId: e.target.dataset.id
+      currentId: e.target.dataset.id,
+      isSwitchCate: true
     })
   },
 
   swiper: function(e) {
     // console.info(e)
-    this.setData({
-      sliderOffset: this.data.windowWidth / this.data.navList.length * e.detail.current,
-      currentId: e.detail.current,
-    })
-    var currentId = e.detail.current
-    var status = ''
-    // 对应数据库  0 未支付 1 已支付 2已发货 3已收货（买家确认收货/物流送达后七天后自动确认收货） 4订单完成
-    if (currentId == 0 && this.data.orderList[0].list.length <= 0) {
-      // 待付款
-      console.info(111111111111)
-      status = -1
-      this.getOrder(status)
-    } else if (currentId == 1 && this.data.orderList[1].list.length <= 0) {
-      // 待付款
-      status = 0
-      this.getOrder(status)
-    } else if (currentId == 2 && this.data.orderList[2].list.length <= 0) {
-      // console.info(1)
-      // 待发货
-      status = 1
-      this.getOrder(status)
-    } else if (currentId == 3 && this.data.orderList[3].list.length <= 0) {
-      // 待收货
-      status = 2
-      this.getOrder(status)
-    } else if (currentId == 4 && this.data.orderList[4].list.length <= 0) {
-      // 待评价
-      status = 3
-      this.getOrder(status)
+    // 处理左右抖动问题
+    if (e.detail.source == "" && !this.data.isSwitchCate) {
+      this.setData({
+        sliderOffset: this.data.windowWidth / this.data.navList.length * this.data.preIndex,
+        currentId: this.data.preIndex,
+      })
+    } else {
+      this.setData({
+        sliderOffset: this.data.windowWidth / this.data.navList.length * e.detail.current,
+        currentId: e.detail.current,
+        preIndex: e.detail.current,
+        isSwitchCate: false
+      })
     }
+    // this.setData({
+    //   sliderOffset: this.data.windowWidth / this.data.navList.length * e.detail.current,
+    //   currentId: e.detail.current,
+    //   preIndex: e.detail.current
+    // })
+    var currentId = e.detail.current
+    // 对应数据库  0 未支付 1 已支付 2已发货 3已收货（买家确认收货/物流送达后七天后自动确认收货） 4订单完成
+    for (let i in this.data.orderList[currentId].list) {
+      if (this.data.orderList[currentId].list[i].payInterval) {
+        clearInterval(this.data.orderList[currentId].list[i].interval)
+        this.data.orderList[currentId].list[i].payInterval = ''
+      }
+    }
+    this.data.orderList[currentId].list = []
+    this.data.orderList[currentId].last_id = 0
+    this.setData(this.data)
+    var status = Number(currentId) - 1
+    this.getOrder(status)
   },
 
   payInterval: function(orderListId, orderId) {
@@ -282,16 +299,12 @@ Page({
   },
 
   abandonOrder: function(e) {
-    // console.info(e.currentTarget.dataset)
     var orderId = e.currentTarget.dataset.orderid
-    // var item_price_id = e.currentTarget.dataset.itempriceid
     var self = this
-    // console.info(orderId)
     wx.showModal({
       content: '确定取消订单吗？',
       success: function(res) {
         if (res.confirm) {
-          // self.changeOrderState(orderId, -1, item_price_id)
           self.changeOrderState(orderId, -1)
         }
       }
@@ -299,16 +312,12 @@ Page({
   },
 
   acceptOrder: function(e) {
-    // console.info(e.currentTarget.dataset)
     var orderId = e.currentTarget.dataset.orderid
-    // var item_price_id = e.currentTarget.dataset.itempriceid
     var self = this
-    // console.info(orderId)
     wx.showModal({
       content: '确认收货吗？',
       success: function(res) {
         if (res.confirm) {
-          // self.changeOrderState(orderId, 3, item_price_id)
           self.changeOrderState(orderId, 3)
         }
       }
@@ -316,7 +325,6 @@ Page({
   },
 
   changeOrderState: function(orderId, willChangeState, tradeId) {
-    // console.info(tradeId)
     var self = this
     // -1 取消订单 1已支付 3已收货
     server.api(api.changeOrderState, {
@@ -325,75 +333,89 @@ Page({
       // item_price_id: itemPriceId,
       trade_id: tradeId
     }, "post").then(function(res) {
-      // console.info(res)
+      debugger
+      console.info(res)
       if (res.text == "更新订单成功") {
-        if (res.customer.data){
-          app.globalData.point = res.customer.data.pointAfterUpdate
-          app.globalData.balance = res.customer.data.balanceAfterUpdate
-        }
+        // 用户积分
+        // if (res.customer.data) {
+        //   app.globalData.point = res.customer.data.pointAfterUpdate
+        //   app.globalData.balance = res.customer.data.balanceAfterUpdate
+        // }
         // self.clearIntervalByOrderId(orderId, tradeId)
-        self.data.orderList[self.data.currentId].list = self.data.orderList[self.data.currentId].list.map(function(fn) {
-          if (fn.id == orderId) {
-            clearInterval(fn.interval)
-          }
-          return fn
-        })
+        // self.data.orderList[self.data.currentId].list = self.data.orderList[self.data.currentId].list.map(function(fn) {
+        //   if (fn.id == orderId) {
+        //     clearInterval(fn.interval)
+        //   }
+        //   return fn
+        // })
         // 刷新
-        var status = ''
-        if (self.data.currentId == 0) {
-          // 全部订单
-          status = -1
-          self.data.orderList[0].list = []
-          self.data.orderList[0].last_id = 0
-          // if (tradeId) {
-            // 全部订单也需要重新载入
-            self.data.orderList[1].list = self.data.orderList[1].list.map(function(fn) {
-              if (fn.interval) {
-                clearInterval(fn.interval)
-              }
-              return fn
-            })
-            self.data.orderList[1].list = []
-            self.data.orderList[1].last_id = 0
-          // }
-        } else if (self.data.currentId == 1) {
-          // 待付款
-          status = 0
-          self.data.orderList[1].list = []
-          self.data.orderList[1].last_id = 0
-          if (tradeId) {
-            // 全部订单也需要重新载入
-            self.data.orderList[0].list = self.data.orderList[0].list.map(function(fn) {
-              if (fn.interval) {
-                clearInterval(fn.interval)
-              }
-              return fn
-            })
-            self.data.orderList[0].list = []
-            self.data.orderList[0].last_id = 0
-          }
-        } else if (self.data.currentId == 3) {
-          // 待收货
-          status = 2
-          self.data.orderList[3].list = []
-          self.data.orderList[3].last_id = 0
-        } else if (self.data.currentId == 4) {
-          // 待评价
-          status = 3
-          self.data.orderList[4].list = []
-          self.data.orderList[4].last_id = 0
-        }
+        // var status = ''
+        // if (self.data.currentId == 0) {
+        //   // 全部订单
+        //   status = -1
+        //   self.data.orderList[0].list = []
+        //   self.data.orderList[0].last_id = 0
+        //   // if (tradeId) {
+        //   // 全部订单也需要重新载入
+        //   self.data.orderList[1].list = self.data.orderList[1].list.map(function(fn) {
+        //     if (fn.interval) {
+        //       clearInterval(fn.interval)
+        //     }
+        //     return fn
+        //   })
+        //   self.data.orderList[1].list = []
+        //   self.data.orderList[1].last_id = 0
+        //   // }
+        // } else if (self.data.currentId == 1) {
+        //   // 待付款
+        //   status = 0
+        //   self.data.orderList[1].list = []
+        //   self.data.orderList[1].last_id = 0
+        //   if (tradeId) {
+        //     // 全部订单也需要重新载入
+        //     self.data.orderList[0].list = self.data.orderList[0].list.map(function(fn) {
+        //       if (fn.interval) {
+        //         clearInterval(fn.interval)
+        //       }
+        //       return fn
+        //     })
+        //     self.data.orderList[0].list = []
+        //     self.data.orderList[0].last_id = 0
+        //   }
+        // } else if (self.data.currentId == 3) {
+        //   // 待收货
+        //   status = 2
+        //   self.data.orderList[3].list = []
+        //   self.data.orderList[3].last_id = 0
+        // } else if (self.data.currentId == 4) {
+        //   // 待评价
+        //   status = 3
+        //   self.data.orderList[4].list = []
+        //   self.data.orderList[4].last_id = 0
+        // }
+
 
         // 全部订单也需要重新载入
-        self.data.orderList[0].list = self.data.orderList[0].list.map(function (fn) {
-          if (fn.interval) {
-            clearInterval(fn.interval)
+        // self.data.orderList[0].list = self.data.orderList[0].list.map(function(fn) {
+        //   if (fn.interval) {
+        //     clearInterval(fn.interval)
+        //   }
+        //   return fn
+        // })
+        // self.data.orderList[0].list = []
+        // self.data.orderList[0].last_id = 0
+
+        let currentId = self.data.currentId
+        let status = currentId - 1
+        for (let i in self.data.orderList[currentId].list) {
+          if (self.data.orderList[currentId].list[i].payInterval) {
+            clearInterval(self.data.orderList[currentId].list[i].interval)
+            self.data.orderList[currentId].list[i].payInterval = ''
           }
-          return fn
-        })
-        self.data.orderList[0].list = []
-        self.data.orderList[0].last_id = 0
-        
+        }
+        self.data.orderList[currentId].list = []
+        self.data.orderList[currentId].last_id = 0
+
         self.setData(self.data)
         self.getOrder(status)
 
@@ -467,10 +489,9 @@ Page({
   },
 
   toPayOrder: function(e) {
-    console.info(e.currentTarget.dataset)
+    // console.info(e.currentTarget.dataset)
     var self = this
     self.data.orderId = e.currentTarget.dataset.orderid
-    // self.data.item_price_id = e.currentTarget.dataset.itempriceid
     self.data.price = e.currentTarget.dataset.price
     self.data.integrlprice = e.currentTarget.dataset.integrlprice
     self.setData({
@@ -480,19 +501,19 @@ Page({
 
   wxPay: function() {
     var orderId = this.data.orderId,
-      // item_price_id = this.data.item_price_id,
       price = Number(this.data.price)
-    // integrlprice = Number(this.data.integrlprice)
     let self = this,
       data = {}
 
     data.orderId = orderId
     // 拉起支付
+    self.setData({
+      showPayMethodDialog: false
+    })
     pay.pay(api.payfeeContinue, price, data, "post").then(function(res) {
-      console.info(res)
+      // console.info(res)
       let tradeId = res
       self.changeOrderState(orderId, 1, tradeId)
-      // self.clearIntervalByOrderId(orderId, tradeId)
     }).catch(function(res) {
       // 支付失败
       wx.showToast({
@@ -504,7 +525,6 @@ Page({
 
   balancePay: function() {
     var orderId = this.data.orderId,
-      // item_price_id = this.data.item_price_id,
       price = Number(this.data.price),
       integrlprice = Number(this.data.integrlprice)
     let self = this
@@ -516,11 +536,10 @@ Page({
         data.balanceIncrement = price
         data.pointIncrement = integrlprice <= 0 ? price : (0 - integrlprice)
         server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
-          console.info(res)
+          // console.info(res)
           if (res.code == 0) {
             app.globalData.balance = res.data.balanceAfterUpdate
             app.globalData.point = res.data.pointAfterUpdate
-            // self.changeOrderState(orderId, 1, item_price_id, self.getTradeId('yb'))
             self.changeOrderState(orderId, 1, self.getTradeId('y'))
             self.setData({
               showPayMethodDialog: false
@@ -557,7 +576,7 @@ Page({
       text += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     var tradeId = 'nw_' + date + text + str
-    console.info(tradeId)
+    // console.info(tradeId)
     return tradeId
   },
 
@@ -579,7 +598,7 @@ Page({
     data.balanceIncrement = 0
     data.pointIncrement = self.data.getIntegral - self.data.costIntegral
     server.api(api.updateCustomerByCustomerUid, data, "post").then(function(res) {
-      console.info(res)
+      // console.info(res)
       if (res.code == 0) {
         app.globalData.balance = res.data.balanceAfterUpdate
         app.globalData.point = res.data.pointAfterUpdate
@@ -599,27 +618,33 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.setData({
-      customerUid: app.globalData.customerUid
-    })
     if (app.globalData.refreshOrder) {
-      var state = ''
-      if (this.data.sliderOffset == 0) {
-        state = -1
-        this.data.orderList[0].list = []
-        this.data.orderList[0].last_id = 0
-        this.data.orderList[4].list = []
-        this.data.orderList[4].last_id = 0
-      } else {
-        state = 3
-        this.data.orderList[0].list = []
-        this.data.orderList[0].last_id = 0
-        this.data.orderList[4].list = []
-        this.data.orderList[4].last_id = 0
-      }
+      // var state = ''
+      // if (this.data.sliderOffset == 0) {
+      //   state = -1
+      //   this.data.orderList[0].list = []
+      //   this.data.orderList[0].last_id = 0
+      //   this.data.orderList[4].list = []
+      //   this.data.orderList[4].last_id = 0
+      // } else {
+      //   state = 3
+      //   this.data.orderList[0].list = []
+      //   this.data.orderList[0].last_id = 0
+      //   this.data.orderList[4].list = []
+      //   this.data.orderList[4].last_id = 0
+      // }
+      var state = 3
+      console.info(this.data.orderList)
+      this.data.orderList[4].list = []
+      this.data.orderList[4].last_id = 0
+      this.setData(this.data)
       this.getOrder(state)
       app.globalData.refreshOrder = false
     }
+    this.setData({
+      customerUid: app.globalData.customerUid
+    })
+    
   },
 
   /**
@@ -652,23 +677,24 @@ Page({
       isReachBottom: true
     })
 
-    var state = ''
-    if (this.data.currentId == 0) {
-      // 全部订单
-      state = -1
-    } else if (this.data.currentId == 1) {
-      // 待付款
-      state = 0
-    } else if (this.data.currentId == 2) {
-      // 待发货
-      state = 1
-    } else if (this.data.currentId == 3) {
-      // 待收货
-      state = 2
-    } else if (this.data.currentId == 4) {
-      // 待评价
-      state = 3
-    }
+    // var state = ''
+    // if (this.data.currentId == 0) {
+    //   // 全部订单
+    //   state = -1
+    // } else if (this.data.currentId == 1) {
+    //   // 待付款
+    //   state = 0
+    // } else if (this.data.currentId == 2) {
+    //   // 待发货
+    //   state = 1
+    // } else if (this.data.currentId == 3) {
+    //   // 待收货
+    //   state = 2
+    // } else if (this.data.currentId == 4) {
+    //   // 待评价
+    //   state = 3
+    // }
+    var state = Number(this.data.currentId) - 1
     this.getOrder(state)
 
     self.data.winHeight = self.data.calc

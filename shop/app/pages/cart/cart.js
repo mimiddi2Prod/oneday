@@ -39,10 +39,12 @@ Page({
       if (res.length != self.data.cartGoods.length || app.globalData.refreshCart) {
         for (let i in res) {
           res[i].checked = false
-        }
-        for (var i in res) {
           res[i].price = Number(res[i].price).toFixed(2)
+          // res[i].image = res[i].image + "?imageView2/1/w/300/h/300"
         }
+        // for (var i in res) {
+          
+        // }
         // console.info(JSON.stringify(res))
         self.setData({
           cartGoods: res,

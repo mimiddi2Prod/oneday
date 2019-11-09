@@ -61,13 +61,13 @@ Page({
       for (let i in res.goods_info) {
         res.goods_infoI[i] = res.goods_info[i] + "?imageslim"
       }
-      for (let i in res.specification) {
-        for (let j in res.specification[i].paramList) {
-          if (res.specification[i].paramList[j].image.length > 0) {
-            res.specification[i].paramList[j].image = res.specification[i].paramList[j].image + "?imageView2/1/w/300/h/300"
-          }
-        }
-      }
+      // for (let i in res.specification) {
+      //   for (let j in res.specification[i].paramList) {
+      //     if (res.specification[i].paramList[j].image.length > 0) {
+      //       res.specification[i].paramList[j].image = res.specification[i].paramList[j].image + "?imageView2/1/w/300/h/300"
+      //     }
+      //   }
+      // }
 
       if (res.best_review) {
         res.best_review[0].user_name = decodeURIComponent(res.best_review[0].user_name)

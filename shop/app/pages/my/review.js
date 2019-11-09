@@ -113,6 +113,10 @@ Page({
   },
 
   submit: function() {
+    wx.showLoading({
+      title: '',
+      mask: true
+    })
     if (this.data.review.length <= 0) {
       wx.showToast({
         title: '没有填写评论',
@@ -143,6 +147,7 @@ Page({
       var count = 0
       wx.showLoading({
         title: '图片上传中...',
+        mask: true
       })
       for (var k in self.data.imgList) {
         server.qiniuUpload(self.data.imgList[k]).then(function(res) {
@@ -150,6 +155,7 @@ Page({
           if (count == self.data.imgList.length) {
             wx.showToast({
               title: '图片上传成功',
+              mask: true
             })
             self.addReview()
           }
@@ -161,6 +167,10 @@ Page({
   },
 
   addReview: function() {
+    wx.showLoading({
+      title: '',
+      mask: true
+    })
     var self = this
     var imgNameList = []
     if (this.data.imgList.length > 0) {
@@ -183,6 +193,7 @@ Page({
       if (res.text == "评论成功") {
         wx.showToast({
           title: '评论成功',
+          mask: true
         })
         app.globalData.refreshOrder = true
         setTimeout(() => {

@@ -47,6 +47,8 @@ function SHOPUpdateOrderState() {
                         let call = updateCustomer(paramData)
                         data.customer = call
                     }
+                }else if(param["state"] == 1){
+                    data.text = "更新订单成功"
                 }
             } catch (err) {
                 response = tool.error.ErrorSQL;
