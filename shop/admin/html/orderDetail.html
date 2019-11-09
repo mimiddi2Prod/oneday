@@ -276,7 +276,7 @@
                         <span>售后凭证：</span>
                     </div>
                     <div style="width: 50%;margin-top: 10px;text-align: end" v-if="orderDetail.after_sale_state == 3">
-                        <button type="button" class="btn btn-danger">确认售后完成</button>
+                        <button type="button" class="btn btn-danger" v-on:click="changeGoodsState()">确认售后完成</button>
                         <!--<button type="button" class="btn btn-secondary">拒绝</button>-->
                     </div>
                 </label>

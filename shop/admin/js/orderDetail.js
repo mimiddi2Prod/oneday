@@ -5,10 +5,11 @@ var orderDetailVM = new Vue({
         navId: 0,
 
         orderId: '',
+        goods_id: '',
         orderDetail: {},
-        logisticsCode:'',
-        logisticsName:'',
-        logistics:[]
+        logisticsCode: '',
+        logisticsName: '',
+        logistics: []
     },
     methods: {
         // changePage: function (e) {
@@ -25,10 +26,28 @@ var orderDetailVM = new Vue({
         },
         changeNav: function (index) {
             this.navId = index
-            if(index == 1 && this.logistics.length <= 0 && this.logisticsCode){
+            if (index == 1 && this.logistics.length <= 0 && this.logisticsCode) {
                 getLogistics(this.logisticsCode)
             }
         },
+        changeGoodsState: function () {
+            const url = api.updateOrderAfterSaleState, async = true
+            var data = {}
+            data.order_id = orderDetailVM.orderId
+            data.after_sale_state = 6
+            // console.info(data)
+            server(url, data, async, "post", function (res) {
+                console.info(res)
+                if (res.code == 0) {
+                    // 售后完成
+                    alert(res.text)
+                    getOrderDetail()
+                } else if (res.code == 1) {
+                    // 售后未完成
+                    alert(res.text)
+                }
+            })
+        }
     }
 })
 
@@ -38,7 +57,7 @@ function toRejectRefund() {
     data.order_id = orderDetailVM.orderId
     data.user_id = orderDetailVM.orderDetail.user_id
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.code == 0) {
             // 退款成功
             alert(res.text)
@@ -76,7 +95,7 @@ function toRefund() {
 }
 
 function cutIntegral(refund, user_id) {
-    console.info(refund)
+    // console.info(refund)
     const url = '../api/update_integral', async = true
     var data = {}
     data.integral = parseInt(refund)
@@ -93,7 +112,7 @@ function getOrderDetail() {
     var data = {}
     data.order_id = orderDetailVM.orderId
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.length > 0) {
             res = res.map(function (data) {
                 if (new Date() - new Date(data.create_time) < 60 * 60 * 1000) {
@@ -114,6 +133,7 @@ function getOrderDetail() {
             })
             orderDetailVM.orderDetail = res[0]
             orderDetailVM.logisticsCode = res[0].logistics_code
+            orderDetailVM.goods_id = res[0].id
             // 分页栏
             // for (let i = 0; i < res.number / 5; i++) {
             //     orderDetailVM.pageList.push(i + 1)
@@ -124,13 +144,13 @@ function getOrderDetail() {
     })
 }
 
-function getLogistics(logistics_code){
+function getLogistics(logistics_code) {
     const url = '../api/get_logistics', async = true
     var data = {}
     data.logistics_code = logistics_code
     server(url, data, async, "post", function (res) {
         // console.info(res)
-        if(res.status == "0" && res.msg == "ok"){
+        if (res.status == "0" && res.msg == "ok") {
             orderDetailVM.logisticsName = res.result.expName
             orderDetailVM.logistics = res.result.list
         }

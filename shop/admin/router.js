@@ -38,6 +38,10 @@ function Router() {
                 var shopUpdateOrderState = require("./api/shop_update_orderState.js");
                 baseApi = new shopUpdateOrderState;
                 break;
+            case "update_orderAfterSaleState":
+                var shopUpdateOrderAfterSaleState = require("./api/shop_update_orderAfterSaleState.js");
+                baseApi = new shopUpdateOrderAfterSaleState;
+                break;
             case "get_goods":
                 var shopGetGoods = require("./api/shop_get_goods.js");
                 baseApi = new shopGetGoods;

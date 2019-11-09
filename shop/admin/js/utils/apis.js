@@ -34,6 +34,7 @@ var api = {
     getOrderBySearch: '../api/get_order_by_search',
     addLogisticsCodeToOrder: '../api/add_logistics_code_to_order', // 物流信息 阿里
     updateOrderState: '../api/update_orderState',
+    updateOrderAfterSaleState:'../api/update_orderAfterSaleState',
     getAd: '../api/get_ad',
     updateAdState: '../api/update_adState',
     updateAdSort: '../api/update_adSort',
