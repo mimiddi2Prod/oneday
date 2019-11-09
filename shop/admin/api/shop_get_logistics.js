@@ -14,7 +14,7 @@ function shopGetLogistics() {
 
             var options = {
                 host: 'wuliu.market.alicloudapi.com',
-                path: '/kdi?no=' + param['no'],
+                path: '/kdi?no=' + param['logistics_code'],
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
