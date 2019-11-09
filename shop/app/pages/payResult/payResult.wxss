@@ -53,6 +53,17 @@ page{
   width: 20%;
 }
 
+.goods>view:first-child{
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start
+}
+
+.goods>view:first-child>view{
+  width: auto;
+}
+
 .goods>view:last-child>view>text{
   color: red
 }

@@ -29,39 +29,6 @@ Page({
       last_id: 0,
       list: []
     }],
-
-    // orderList: [{
-    //   status: 0,
-    //   list: [{
-    //     name: '一件货物',
-    //     money: '3.0',
-    //     status: 3,
-    //   }, {
-    //     name: '两件货物',
-    //     money: '19.0',
-    //     status: 1,
-    //   }, {
-    //     name: '三件货物',
-    //     money: '19.0',
-    //     status: 3,
-    //   }, {
-    //     name: '四件货物',
-    //     money: '19.0',
-    //     status: 2,
-    //   }, {
-    //     name: '四件货物',
-    //     money: '19.0',
-    //     status: 4,
-    //   }],
-    // }, {
-    //   status: 1,
-    //   list: [{
-    //     name: '两件货物',
-    //     money: '19.0',
-    //     status: 1,
-    //   }],
-    // }],
-
     winHeight: 0,
     calc: 0,
     windowWidth: 0,
@@ -168,10 +135,28 @@ Page({
       currentId: e.detail.current,
     })
     var currentId = e.detail.current
-    if (currentId == 0 && this.data.orderList[0].list.length <= 0) {
+    // if (currentId == 0 && this.data.orderList[0].list.length <= 0) {
+    //   // 申请售后
+    //   this.getAfterSale(0)
+    // } else if (currentId == 1 && this.data.orderList[1].list.length <= 0) {
+    //   // 售后记录
+    //   this.getAfterSale(1)
+    // }
+    this.setData({
+      orderList: [{
+        status: 0, // 申请售后
+        last_id: 0, // 上划加载tag
+        list: []
+      }, {
+        status: 1, // 售后记录
+        last_id: 0,
+        list: []
+      }],
+    })
+    if (currentId == 0) {
       // 申请售后
       this.getAfterSale(0)
-    } else if (currentId == 1 && this.data.orderList[1].list.length <= 0) {
+    } else if (currentId == 1) {
       // 售后记录
       this.getAfterSale(1)
     }

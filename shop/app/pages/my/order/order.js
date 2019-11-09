@@ -228,6 +228,7 @@ Page({
     // 对应数据库  0 未支付 1 已支付 2已发货 3已收货（买家确认收货/物流送达后七天后自动确认收货） 4订单完成
     if (currentId == 0 && this.data.orderList[0].list.length <= 0) {
       // 待付款
+      console.info(111111111111)
       status = -1
       this.getOrder(status)
     } else if (currentId == 1 && this.data.orderList[1].list.length <= 0) {
