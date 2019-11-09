@@ -18,6 +18,8 @@ Page({
     warmText: '',
 
     canPullData: true,
+
+    shareImg: '',
   },
 
   /**
@@ -28,6 +30,7 @@ Page({
     this.setData({
       brand_id: options.id,
       // brand_name: options.brandName,
+      shareImg: options.brandImg,
       brand_img: options.brandImg + "?imageslim",
       // desc: options.desc
     })
@@ -45,7 +48,7 @@ Page({
       if (res.length <= 0) {
         self.data.warmText = "没有更多数据了~"
       } else {
-        res = res.map(function(eData){
+        res = res.map(function(eData) {
           eData.image[0] = eData.image[0] + "?imageView2/1/w/300/h/300"
           return eData
         })
@@ -116,6 +119,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      // title: '',
+      // 分享我的openid
+      path: 'pages/brandDetail/brandDetail?brandImg=' + this.data.shareImg + '&id=' + this.data.brand_id,
+      success: function() {
+        // wx.navigateBack({})
+      }
+    }
   }
 })

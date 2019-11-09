@@ -15,6 +15,10 @@ App({
     //     }
     //   }
     // })
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    })
     var self = this
     wx.login({
       success: function(res) {
@@ -36,7 +40,7 @@ App({
         })
       }
     })
-    
+
   },
 
   onShow: function() {
@@ -46,7 +50,7 @@ App({
       self.check_token()
 
       // 1分钟检查一次 小程序存活就更新时间
-      Interval = setInterval(function () {
+      Interval = setInterval(function() {
         self.check_token()
       }, 60000)
     }
@@ -97,6 +101,7 @@ App({
           // console.info(res.address[0])
           self.globalData.default_address = res.address[0]
         }
+        wx.hideLoading()
       }
     })
   },
