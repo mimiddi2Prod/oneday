@@ -52,6 +52,7 @@ page{
 .item-name>view{
   display: flex;
   flex-direction: column;
+  padding-left: 20rpx;
 }
 
 .item-name>view>text:last-child{

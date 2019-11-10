@@ -54,20 +54,20 @@ Page({
       // res.imageB = res.image
       res.imageB = []
       for (let i in res.image) {
-        res.imageB[i] = res.image[i] + "?imageslim"
+        res.imageB[i] = res.image[i] + "?imageView2/2/w/800/h/800"
       }
       // res.goods_infoI = res.goods_info
       res.goods_infoI = []
       for (let i in res.goods_info) {
-        res.goods_infoI[i] = res.goods_info[i] + "?imageslim"
+        res.goods_infoI[i] = res.goods_info[i] + "?imageView2/2/w/800/h/800"
       }
-      // for (let i in res.specification) {
-      //   for (let j in res.specification[i].paramList) {
-      //     if (res.specification[i].paramList[j].image.length > 0) {
-      //       res.specification[i].paramList[j].image = res.specification[i].paramList[j].image + "?imageView2/1/w/300/h/300"
-      //     }
-      //   }
-      // }
+      for (let i in res.specification) {
+        for (let j in res.specification[i].paramList) {
+          if (res.specification[i].paramList[j].image.length > 0) {
+            res.specification[i].paramList[j].imageC = res.specification[i].paramList[j].image + "?imageView2/0/w/300/h/300"
+          }
+        }
+      }
 
       if (res.best_review) {
         res.best_review[0].user_name = decodeURIComponent(res.best_review[0].user_name)
@@ -75,7 +75,7 @@ Page({
         res.best_review[0].create_time = util.formatTime(new Date(res.best_review[0].create_time))
         res.best_review[0].imageR = []
         for (let i in res.best_review[0].image) {
-          res.best_review[0].imageR[i] = res.best_review[0].image[i] + "?imageView2/1/w/300/h/300"
+          res.best_review[0].imageR[i] = res.best_review[0].image[i] + "?imageView2/0/w/300/h/300"
         }
         self.setData({
           review: res.best_review[0],
@@ -732,6 +732,7 @@ Page({
           goodsInfo[0].param_1 = this.data.specificationList[0].paramList[i].param
           if (this.data.specificationList[0].paramList[i].image) {
             goodsInfo[0].image = this.data.specificationList[0].paramList[i].image
+            goodsInfo[0].imageC = this.data.specificationList[0].paramList[i].imageC
           }
         }
       }
@@ -740,6 +741,7 @@ Page({
           goodsInfo[0].param_2 = this.data.specificationList[1].paramList[i].param
           if (this.data.specificationList[1].paramList[i].image) {
             goodsInfo[0].image = this.data.specificationList[1].paramList[i].image
+            goodsInfo[0].imageC = this.data.specificationList[1].paramList[i].imageC
           }
         }
       }

@@ -31,7 +31,7 @@ Page({
       brand_id: options.id,
       // brand_name: options.brandName,
       shareImg: options.brandImg,
-      brand_img: options.brandImg + "?imageslim",
+      brand_img: options.brandImg + "?imageView2/2/w/800/h/800",
       // desc: options.desc
     })
     this.getGoodsList();
@@ -49,7 +49,7 @@ Page({
         self.data.warmText = "没有更多数据了~"
       } else {
         res = res.map(function(eData) {
-          eData.image[0] = eData.image[0] + "?imageView2/1/w/300/h/300"
+          eData.image[0] = eData.image[0] + "?imageView2/2/w/300/h/300"
           return eData
         })
         self.data.last_id++

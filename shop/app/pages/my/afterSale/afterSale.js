@@ -85,7 +85,11 @@ Page({
       last_id: last_id
     }, "post").then(function(res) {
       if (res.length > 0) {
-        // console.info(res)
+        console.info(res)
+        res = res.map(function(eData){
+          eData.imageO = eData.image + '?imageView2/0/w/300/h/300'
+          return eData
+        })
         if (status == 0) {
           self.data.orderList[0].list = self.data.orderList[0].list.concat(res)
           self.data.orderList[0].last_id++

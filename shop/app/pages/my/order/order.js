@@ -196,8 +196,10 @@ Page({
         }
         self.data.orderList[y].last_id++
           for (let i in self.data.orderList) {
+            // console.info(self.data.orderList[i])
             if (self.data.orderList[i].list.length > 0) {
               self.data.orderList[i].list = self.data.orderList[i].list.map(function(e) {
+                e.imageO = e.image + '?imageView2/0/w/300/h/300'
                 e.total = Number(e.number * e.single_price).toFixed(2)
                 return e
               })

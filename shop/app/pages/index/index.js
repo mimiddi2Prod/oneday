@@ -48,34 +48,10 @@ Page({
     })
   },
   onLoad: function(options) {
-    // var that = this
-    // 底部tabbar
-    // if (app.globalData.isIpx) {
-    //   this.setData({
-    //     isIpx: app.globalData.isIpx
-    //   })
-    // }
-    // template.tabbar("tabBar", 0, this)
-    // 底部tabbar
-
-    // util.request(api.GoodsCount).then(res => {
-    this.setData({
-      goodsCount: 239
-    });
-    // });
-
     this.ad()
     this.subCategory()
     this.brand()
     this.waterfall()
-
-    // this.getwxacodeunlimit()
-  },
-
-  getwxacodeunlimit: function() {
-    server.api(api.getwxacodeunlimit, {}, "post").then(function(res) {
-      // console.info(res)
-    })
   },
 
   ad: function() {
@@ -84,12 +60,12 @@ Page({
       for (var i in res) {
         if (res[i].type == 'opening') {
           self.data.opening = res[i].data.map(function(eData) {
-            eData.image = eData.image + "?imageslim"
+            eData.image = eData.image + "?imageView2/2/w/800/h/800"
             return eData
           })
         } else if (res[i].type == 'banner') {
           self.data.banner = res[i].data.map(function(eData) {
-            eData.image = eData.image + "?imageslim"
+            eData.image = eData.image + "?imageView2/2/w/800/h/800"
             return eData
           })
         }
@@ -101,9 +77,8 @@ Page({
   subCategory: function() {
     var self = this
     server.api(api.subCategory, {}, "post").then(function(res) {
-      // console.info(res)
       res = res.map(function(eData) {
-        eData.image = eData.image + "?imageView2/1/w/300/h/300"
+        eData.image = eData.image + "?imageView2/0/w/300/h/300"
         return eData
       })
       self.setData({
@@ -115,9 +90,8 @@ Page({
   brand: function() {
     var self = this
     server.api(api.brand, {}, "post").then(function(res) {
-      // console.info(res)
       res = res.map(function(eData) {
-        eData.image = eData.image + "?imageslim"
+        eData.image = eData.image + "?imageView2/2/w/600/h/600"
         return eData
       })
       self.setData({
@@ -133,25 +107,22 @@ Page({
       topic_last_id: self.data.topic_last_id,
       type: 0,
     }, "post").then(function(res) {
-      // console.info(res)
       if (res.waterfallList.length > 0 || res.topic.length > 0) {
         self.data.waterfallGoods.push({})
       } else {
         self.data.warmText = "没有更多数据了~"
       }
       if (res.waterfallList.length > 0) {
-        // self.data.item_last_id = res.waterfallList[res.waterfallList.length - 1].id
         res.waterfallList = res.waterfallList.map(function(eData) {
-          eData.image[0] = eData.image[0] + "?imageView2/1/w/300/h/300"
+          eData.image[0] = eData.image[0] + "?imageView2/0/w/300/h/300"
           return eData
         })
         self.data.item_last_id++
           self.data.waterfallGoods[self.data.waterfallGoods.length - 1].waterfallList = res.waterfallList
       }
       if (res.topic.length > 0) {
-        // self.data.topic_last_id = res.topic[res.topic.length - 1].id
         res.topic = res.topic.map(function(eData) {
-          eData.image[0] = eData.image[0] + '?imageslim'
+          eData.image[0] = eData.image[0] + '?imageView2/2/w/800/h/800'
           return eData
         })
         self.data.topic_last_id++

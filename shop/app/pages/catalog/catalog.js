@@ -32,9 +32,9 @@ Page({
     server.api(api.category,{},"post").then(function(res){
       // console.info(res)
       res = res.map(function(eData){
-        eData.image = eData.image + "?imageslim"
+        eData.image = eData.image + "?imageView2/2/w/600/h/600"
         for(let i in eData.subCategory){
-          eData.subCategory[i].image = eData.subCategory[i].image + "?imageView2/1/w/300/h/300"
+          eData.subCategory[i].image = eData.subCategory[i].image + "?imageView2/0/w/300/h/300"
         }
         return eData
       })

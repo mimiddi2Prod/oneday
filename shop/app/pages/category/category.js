@@ -84,7 +84,7 @@ Page({
         self.data.warmText = "没有更多数据了~"
       } else {
         res = res.map(function(eData){
-          eData.image[0] = eData.image[0] + "?imageView2/1/w/300/h/300"
+          eData.image[0] = eData.image[0] + "?imageView2/0/w/300/h/300"
           return eData
         })
         for (let i in self.data.allGoodsList) {

@@ -35,12 +35,12 @@ Page({
     server.api(api.getCart, {
       user_id: app.globalData.user_id
     }, "post").then(function(res) {
-      console.info(res)
+      // console.info(res)
       if (res.length != self.data.cartGoods.length || app.globalData.refreshCart) {
         for (let i in res) {
           res[i].checked = false
           res[i].price = Number(res[i].price).toFixed(2)
-          // res[i].image = res[i].image + "?imageView2/1/w/300/h/300"
+          res[i].imageC = res[i].image + "?imageView2/0/w/300/h/300"
         }
         // for (var i in res) {
           

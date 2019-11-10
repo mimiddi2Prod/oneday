@@ -15,7 +15,7 @@
   </view>
 
   <view>
-    <image class="goods-img" src="{{orderDetail.image}}?imageView2/1/w/300/h/300" mode="cover" bindtap='showImg' data-image='{{orderDetail.image}}'></image>
+    <image class="goods-img" src="{{orderDetail.imageO}}" mode="aspectFill" bindtap='showImg' data-image='{{orderDetail.image}}'></image>
     <view class="goods-name">
       <view>
         <view>

@@ -2,7 +2,7 @@
 <view style="min-height:{{winHeight}}rpx;">
 
   <view class="goods">
-    <image src='{{orderDetail.image}}?imageslim' mode="cover"></image>
+    <image src='{{orderDetail.imageO}}' mode="aspectFill"></image>
     <view>
       <view>{{orderDetail.name}}</view>
       <view>{{orderDetail.param_1}}，{{orderDetail.param_2}}</view>

@@ -1,6 +1,6 @@
 <!--pages/my/afterSale/saleType.wxml-->
 <view class="goods">
-  <image src='{{orderDetail.image}}?imageslim' mode="cover"></image>
+  <image src='{{orderDetail.imageO}}' mode="aspectFill"></image>
   <view>
     <view>{{orderDetail.name}}</view>
     <view>{{orderDetail.param_1}}，{{orderDetail.param_2}}</view>
@@ -12,7 +12,7 @@
     <navigator url="{{item.url}}?id={{index}}" wx:for="{{itemList}}" wx:key="*this" hover-class='none'>
       <view class="item" style="{{index < itemList.length-1 ? 'border-bottom: 1rpx solid #ddd;' : ''}}">
         <view class="item-name">
-          <image src="{{item.image}}?imageslim"></image>
+          <!-- <image src="{{item.image}}"></image> -->
           <view>
             <text>{{item.name}}</text>
             <text>{{item.desc}}</text>

@@ -48,9 +48,9 @@ Page({
           obj.user_name = decodeURIComponent(obj.user_name)
           obj.text = decodeURIComponent(obj.text)
           obj.create_time = util.formatTime(new Date(obj.create_time))
-          obj.imageR = obj.image
+          obj.imageR = []
           for (let i in obj.image) {
-            obj.image[i] = obj.image[i] + "?imageslim"
+            obj.imageR[i] = obj.image[i] + "?imageView2/0/w/300/h/300"
           }
           return obj
         })
