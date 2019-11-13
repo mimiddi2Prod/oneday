@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="84a5aa41-17a0-47c4-b279-96d25638fb38" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/cart/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/cart/cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/goods/goods.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/goods/goods.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/goods/goods.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/goods/goods.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/my/order/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/my/order/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/apis/shop_get_order.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/apis/shop_get_order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/apis/shop_update_orderState.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/apis/shop_update_orderState.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../商品编辑自定义一规范.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../商品编辑自定义一规范.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/server/node_modules/" />
@@ -19,17 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/apis/shop_get_order.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="35" column="283" selection-start-line="35" selection-start-column="283" selection-end-line="35" selection-end-column="283" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -110,7 +94,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/admin/html/addBrunchBanner.html" />
         <option value="$PROJECT_DIR$/admin/html/account.html" />
         <option value="$PROJECT_DIR$/admin/html/addBrand.html" />
         <option value="$PROJECT_DIR$/admin/html/addGoods.html" />
@@ -128,7 +111,6 @@
         <option value="$PROJECT_DIR$/admin/html/recommend.html" />
         <option value="$PROJECT_DIR$/admin/html/reviewGoods.html" />
         <option value="$PROJECT_DIR$/admin/html/waterfall.html" />
-        <option value="$PROJECT_DIR$/admin/js/addGoods.js" />
         <option value="$PROJECT_DIR$/admin/html/order.html" />
         <option value="$PROJECT_DIR$/admin/api/shop_update_remind_time.js" />
         <option value="$PROJECT_DIR$/admin/js/voiceReminder.js" />
@@ -153,7 +135,6 @@
         <option value="$PROJECT_DIR$/server/apis/shop_wxPay_notify.js" />
         <option value="$PROJECT_DIR$/admin/api/shop_refund.js" />
         <option value="$PROJECT_DIR$/admin/api/get_order_detail.js" />
-        <option value="$PROJECT_DIR$/admin/api/shop_get_logistics.js" />
         <option value="$PROJECT_DIR$/admin/router.js" />
         <option value="$PROJECT_DIR$/admin/api/shop_update_orderAfterSaleState.js" />
         <option value="$PROJECT_DIR$/admin/js/orderDetail.js" />
@@ -161,6 +142,9 @@
         <option value="$PROJECT_DIR$/admin/html/orderDetail.html" />
         <option value="$PROJECT_DIR$/server/apis/shop_update_orderState.js" />
         <option value="$PROJECT_DIR$/server/apis/shop_get_order.js" />
+        <option value="$PROJECT_DIR$/server/apis/shop_get_logistics.js" />
+        <option value="$PROJECT_DIR$/admin/api/shop_get_logistics.js" />
+        <option value="$PROJECT_DIR$/admin/js/addGoods.js" />
       </list>
     </option>
   </component>
@@ -170,9 +154,9 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="220" />
-    <option name="y" value="-16" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="169" />
+    <option name="y" value="28" />
     <option name="width" value="1703" />
     <option name="height" value="1019" />
   </component>
@@ -183,12 +167,36 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="shop" type="b2602c69:ProjectViewProjectNode" />
               <item name="shop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="html" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="shop" type="b2602c69:ProjectViewProjectNode" />
@@ -205,13 +213,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573292079320" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573303333533" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="D:/wxmini1/store-show-http" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -310,18 +317,19 @@
       <workItem from="1572923672768" duration="1359000" />
       <workItem from="1573110078721" duration="4771000" />
       <workItem from="1573179977751" duration="12137000" />
-      <workItem from="1573266119440" duration="5786000" />
+      <workItem from="1573266119440" duration="7524000" />
+      <workItem from="1573355119000" duration="4034000" />
+      <workItem from="1573539128872" duration="23000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="495472000" />
+    <option name="totallyTimeSpent" value="501267000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="169" y="28" width="1703" height="1019" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49941522" visible="true" weight="0.16044776" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49941522" visible="true" weight="0.1880706" />
       <window_info id="Structure" order="1" sideWeight="0.5005848" side_tool="true" weight="0.15282181" />
       <window_info id="设计器" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -357,19 +365,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/admin/html/account.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1061">
-          <caret line="187" column="69" selection-start-line="187" selection-start-column="69" selection-end-line="187" selection-end-column="69" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/api/shop_delete_ad.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/html/test.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="752">
@@ -580,13 +575,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/api/shop_get_logistics.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="35" lean-forward="true" selection-start-column="35" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/js/goods.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1728">
@@ -710,8 +698,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/apis/shop_get_order.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="36" column="84" selection-start-line="36" selection-start-column="84" selection-end-line="36" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/apis/shop_get_logistics.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
-          <caret line="35" column="283" selection-start-line="35" selection-start-column="283" selection-end-line="35" selection-end-column="283" />
+          <caret line="26" column="64" lean-forward="true" selection-start-line="26" selection-start-column="64" selection-end-line="26" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/api/shop_get_logistics.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" column="17" lean-forward="true" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/js/addGoods.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="101" column="20" selection-start-line="101" selection-start-column="20" selection-end-line="101" selection-end-column="20" />
         </state>
       </provider>
     </entry>

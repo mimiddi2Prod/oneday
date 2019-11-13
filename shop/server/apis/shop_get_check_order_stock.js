@@ -16,13 +16,16 @@ function SHOPGetCheckOrderStock() {
                 data.code = 1
             } else {
                 let itemParamList = []
+				let notItemParamList = []
                 for (let i in param.order) {
                     // 确认商品对应属性都存在于数据库中
                     sql = 'select * from item_price where item_id = ? and param_id_1 = ? and param_id_2 = ?'
                     row = await query(sql, [param.order[i]['item_id'], param.order[i]['item_param_id_1'], param.order[i]['item_param_id_2']]);
-                    if (row.length > 0) {
+					if (row.length > 0) {
                         itemParamList = itemParamList.concat(row)
-                    }
+                    }else{
+						notItemParamList.push(param.order[i])
+					}
                 }
                 if (itemParamList.length == param.order.length) {
                     //
@@ -72,7 +75,16 @@ function SHOPGetCheckOrderStock() {
                         data.text = '库存耗竭'
                         data.shortageList = shortageList
                     }
-                }
+                }else{
+					// 有商品在后台被编辑 找不到对应参数价格
+					data.code = 0
+					data.canPay = 1
+					data.text = "找不到商品型号"
+					data.shortageList = notItemParamList.map(function(eData){
+						eData.stock = 0
+						return eData
+					})
+				}
 
             }
 

@@ -46,7 +46,9 @@ function SHOPGetCart() {
                             rowData[i].qcl = row[0].qcl
                             rowData[i].describe = row[0].describe
                             rowData[i].integral_price = row[0].integral_price
-                        }
+                        }else{
+							continue
+						}
                         sql = "select image,param from item_param where id = ?"
                         row = await tool.query(sql, rowData[i].item_param_id_1)
                         console.info(rowData[i])
@@ -67,7 +69,10 @@ function SHOPGetCart() {
                         }
                     }
                 }
-                data = rowData.filter(function (res) {
+				data = rowData.filter(function (res) {
+					// 先去除掉没有数据的
+                    return res.item_id
+                }).filter(function (res) {
                     return res.price.toString()
                 })
             } catch (err) {
