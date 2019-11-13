@@ -10,7 +10,7 @@
 </view>
 
 <swiper style="min-height:{{winHeight}}rpx;" current="{{currentId}}" bindchange="swiper">
-  <swiper-item wx:for="{{orderList}}" style="overflow:scroll" wx:for-index="pageId">
+  <swiper-item wx:for="{{orderList}}" style="overflow:scroll;-webkit-overflow-scrolling: touch;" wx:for-index="pageId">
     <scroll-view scroll-y="true" class="container-list" wx:if="{{item.list.length >= 0}}">
       <view class="list" wx:for="{{item.list}}" wx:key="*this">
         <view class="number">订单编号：{{item.tradeId}}</view>

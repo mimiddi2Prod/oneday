@@ -74,6 +74,10 @@
 
   </view>
 </view>
+
+<view style="opacity: 0;height:40rpx">
+  1
+</view>
 <!-- 地址1 -->
 
 <!-- <view class="addressList">

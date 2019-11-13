@@ -39,7 +39,7 @@
     </view>
     <view class="b">
       <view class="item item-1" wx:for="{{brand}}" wx:key="item.id">
-        <navigator url="{{item.url}}?id={{item.id}}&brandImg={{item.image}}&brandName={{item.name}}&desc={{item.desc}}">
+        <navigator url="{{item.url}}?id={{item.id}}&brandName={{item.name}}&desc={{item.desc}}&brandImg={{item.image}}">
           <view class="wrap">
             <image class="img" src="{{item.image}}" mode="aspectFill"></image>
             <view class="mt">
