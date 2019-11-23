@@ -47,7 +47,26 @@ Page({
       showModal: false
     })
   },
+  // 获取领取列表
+  getCouponCard: function () {
+    server.api(api.getCouponCard, {
+      'openid': app.globalData.openid
+    }, 'post').then(function (res) {
+      console.info(res)
+      wx.addCard({
+        cardList: res.cardList,
+        success: function (e) {
+          console.info(e)
+        },
+        complete: function (e) {
+          console.info(e)
+        }
+      })
+    })
+  },
+
   onLoad: function(options) {
+    // this.getCouponCard()
     this.ad()
     this.subCategory()
     this.brand()

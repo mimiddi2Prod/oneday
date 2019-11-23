@@ -9,7 +9,7 @@ var api = {
     getRefundAmount: '../api/get_refundAmount',
     getPeople: '../api/get_people',
     getPeopleShop: '../api/get_people_shop',
-    updateRemindTime:'../api/update_remind_time', // 更新订单提醒时间
+    updateRemindTime: '../api/update_remind_time', // 更新订单提醒时间
 
     updateGoodsState: '../api/update_goodsState',
     getGoods: '../api/get_goods',
@@ -34,7 +34,7 @@ var api = {
     getOrderBySearch: '../api/get_order_by_search',
     addLogisticsCodeToOrder: '../api/add_logistics_code_to_order', // 物流信息 阿里
     updateOrderState: '../api/update_orderState',
-    updateOrderAfterSaleState:'../api/update_orderAfterSaleState',
+    updateOrderAfterSaleState: '../api/update_orderAfterSaleState',
     getAd: '../api/get_ad',
     updateAdState: '../api/update_adState',
     updateAdSort: '../api/update_adSort',
@@ -68,5 +68,12 @@ var api = {
 
     restaurantGetOrderByTime: '../api/restaurant_get_order_by_time',
     yinbaoGetTodayOrder: '../api/yinbao_get_today_order',
-    restaurantGetTodayOrder: '../api/restaurant_get_today_order'
+    restaurantGetTodayOrder: '../api/restaurant_get_today_order',
+
+    // 优惠券
+    getCoupon: '../api/get_coupon',
+    addCoupon: '../api/add_coupon',
+    updateCoupon: '../api/update_coupon',
+    delCoupon: '../api/del_coupon',
+
 }

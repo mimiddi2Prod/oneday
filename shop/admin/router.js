@@ -342,6 +342,23 @@ function Router() {
                 var shopUpdateRemindTime = require("./api/shop_update_remind_time.js");
                 baseApi = new shopUpdateRemindTime;
                 break;
+            // 优惠券
+            case "get_coupon":
+                var shopGetCoupon = require("./api/shop_get_coupon.js");
+                baseApi = new shopGetCoupon;
+                break;
+            case "add_coupon":
+                var shopAddCoupon = require("./api/shop_add_coupon.js");
+                baseApi = new shopAddCoupon;
+                break;
+            case "update_coupon":
+                var shopUpdateCoupon = require("./api/shop_update_coupon.js");
+                baseApi = new shopUpdateCoupon;
+                break;
+            case "del_coupon":
+                var shopDeleteCoupon = require("./api/shop_delete_coupon.js");
+                baseApi = new shopDeleteCoupon;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

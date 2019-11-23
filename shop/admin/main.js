@@ -177,6 +177,8 @@ app.use(function (req, res, next) {
                     showPaper('html/brunchOrder.html');
                 } else if (type[1] == 'yinbaoOrder') {
                     showPaper('html/yinbaoOrder.html');
+                } else if (type[1] == 'coupon') {
+                    showPaper('html/coupon.html');
                 } else {
                     showPaper('html/404.html')
                 }
@@ -203,6 +205,8 @@ app.use(function (req, res, next) {
                     showPaper('html/navigation.html');
                 } else if (type[1] == 'waterfall') {
                     showPaper('html/waterfall.html');
+                } else if (type[1] == 'coupon') {
+                    showPaper('html/coupon.html');
                 } else {
                     showPaper('html/404.html')
                 }

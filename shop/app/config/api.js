@@ -67,4 +67,9 @@ module.exports = {
   updateCustomerByCustomerUid: rootUrl + 'update_customer',
 
   getUploadToken: rootUrl + 'get_uploadToken', // 图片上传七牛云前需要获取token
+
+  // 优惠券
+  getCouponCard: rootUrl + 'get_coupon_card',
+  getCouponCardToConsume: rootUrl + 'get_coupon_card_to_consume'
+
 }
