@@ -15,7 +15,10 @@ function RestaurantGetCategoryByLocationCode() {
             console.info('没有地区代码')
         } else {
             try {
-                sql = "select id,`name` from restaurant_category where location_code = ? order by sort";
+                sql = "update restaurant_category set sort = ? where name = ?"
+                row = await query(sql, [1, '下单前必看']);
+
+                sql = "select id,`name` from restaurant_category where location_code = ? order by sort desc";
                 row = await query(sql, param['location_code']);
                 if (row.length > 0) {
                     data.category = row
