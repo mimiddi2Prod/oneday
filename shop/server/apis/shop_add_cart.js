@@ -33,7 +33,7 @@ function SHOPAddCart() {
                         row =  await tool.query(sql, [param["number"]+number,param["user_id"], param["param_id_1"], param["param_id_2"]]);
                         data.text = "添加成功"
                     }else{
-                        data.text = "添加商品超出库存量"
+                        data.text = "超出库存"
                     }
                 }
             } catch (err) {

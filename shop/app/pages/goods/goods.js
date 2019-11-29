@@ -638,7 +638,7 @@ Page({
               openAttr: !self.data.openAttr
             });
             self.getCartTotal()
-          } else if (res.text == "添加商品超出库存量") {
+          } else if (res.text == "超出库存") {
             wx.showToast({
               image: '../../images/icon_error.png',
               title: res.text,
