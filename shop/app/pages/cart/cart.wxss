@@ -437,6 +437,7 @@ page {
   width: 100%;
   background: #fff;
   display: flex;
+  z-index: 2
 }
 
 .cart-bottom .checkbox {
