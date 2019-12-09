@@ -477,9 +477,9 @@ function getPeopleShop(time) {
                     }
                 }
                 max_number = temp1 > max_number ? function () {
-                    let len = parseInt(temp).toString().length
+                    let len = parseInt(temp1).toString().length
                     let pow = Math.pow(10, len - 1)
-                    return Number((temp / pow)).toFixed(0) * pow + 2 * pow
+                    return Number((temp1 / pow)).toFixed(0) * pow + 2 * pow
                 }() : max_number
                 homeVM.people_shop_data[0].push(temp1)
                 homeVM.people_shop_data[1].push(temp2)
