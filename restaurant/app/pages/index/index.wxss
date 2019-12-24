@@ -30,6 +30,7 @@ page {
 .banner {
   width: 100%;
   padding-top: 90rpx;
+  display: block
 }
 
 .content {
@@ -44,6 +45,7 @@ page {
   /* width: 200rpx; */
   width: 150rpx;
   flex-shrink: 0;
+  font-size: 28rpx;
   /* overflow: hidden; *//* border-right: 1rpx solid #eee0c0; */
 }
 
@@ -251,7 +253,7 @@ page {
 }
 
 .goods-add-cart-have > view:first-child, .goods-add-cart-have > view:last-child {
-  font-size: 40rpx;
+  /* font-size: 40rpx; */
   padding: 10rpx 20rpx;
 }
 

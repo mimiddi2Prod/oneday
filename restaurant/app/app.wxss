@@ -12,6 +12,7 @@
 
 page {
   background-color: whitesmoke;
+  font-family: "黑体";
 }
 
 .header-icon{

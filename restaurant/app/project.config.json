@@ -21,7 +21,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.2",
+	"libVersion": "2.9.4",
 	"appid": "wx3a3f97ca688ddcea",
 	"projectname": "onedayRestaurant",
 	"debugOptions": {
