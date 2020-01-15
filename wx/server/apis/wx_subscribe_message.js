@@ -36,23 +36,19 @@ function sendText(param,messages,index){
 			}
 		});
 	}else{
-		if(JSON.parse(param).eventkey.length > 0){
-			// let message = '<a data-miniprogram-appid="'+ config.restaurant_mini_appid +'" data-miniprogram-path="pages/index/index?id='+ JSON.parse(param).eventkey.split('_')[1] +'" href="">你选择了:'+ JSON.parse(param).eventkey.split('_')[1] +'桌，点击进入菜单</a>'
+		// if(JSON.parse(param).eventkey.length > 0){
+			// let expire_time = new Date().getTime() + (30 * 60 * 1000)
+			// let message = '<a data-miniprogram-appid="'+ config.restaurant_mini_appid +'" data-miniprogram-path="pages/blank/blank?id='+ JSON.parse(param).eventkey.split('_')[1] +'&expire_time='+ expire_time +'" href="">你选择了:'+ JSON.parse(param).eventkey.split('_')[1] +'桌，点击进入菜单</a>'
 			// wechatApi.api.sendText(JSON.parse(param).openid, message, function(err,result){
 				// console.info(result)
 				// if(result.errcode == 0){
 					
 				// }
 			// });
-			let expire_time = new Date().getTime() + (30 * 60 * 1000)
-			let message = '<a data-miniprogram-appid="'+ config.restaurant_mini_appid +'" data-miniprogram-path="pages/blank/blank?id='+ JSON.parse(param).eventkey.split('_')[1] +'&expire_time='+ expire_time +'" href="">你选择了:'+ JSON.parse(param).eventkey.split('_')[1] +'桌，点击进入菜单</a>'
-			wechatApi.api.sendText(JSON.parse(param).openid, message, function(err,result){
-				// console.info(result)
-				if(result.errcode == 0){
-					
+		// }
+		if(JSON.parse(param).eventkey.length > 0){
+					sendMiniProgram(param)	
 				}
-			});
-		}
 	}
 }
 

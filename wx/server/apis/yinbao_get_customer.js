@@ -14,7 +14,7 @@ async function YinbaoGetCustomer(phone) {
     let e = await request(router, postDataJson)
 
     e = jsonBigInt.parse(e)
-    console.info("获得用户数据：")
+    // console.info("获得用户数据：")
     // console.info(e)
 
     if (e.data) {

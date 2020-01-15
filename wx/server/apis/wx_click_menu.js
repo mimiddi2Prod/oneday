@@ -25,13 +25,13 @@ function send(param){
 			// break;
 		// }
 		case "item2_2":{
-			message = '🍉即将上线，敬请期待~'
+			url = './images/wanshang.jpg'
 			break;
 		}
-		case "item2_3":{
-			message = '🍉即将上线，敬请期待~'
-			break;
-		}
+		// case "item2_3":{
+			// url = './images/course.jpg'
+			// break;
+		// }
 		case "item2_4":{
 			url = './images/traffic.jpg'
 			break;
