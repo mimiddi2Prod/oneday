@@ -34,6 +34,10 @@
 		AppID:wx96712ce56a31e5b2
 		AppSecret:8955558ee139ab858ec66cae41e36828
 
+	啾哩策划文化：
+		账号：onedayjolly2@sina.com
+		密码：oneday123
+
 小程序：
 	onedayonehome：
 		账号：m15659838771@163.com
