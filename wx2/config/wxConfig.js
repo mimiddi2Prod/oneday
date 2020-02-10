@@ -10,7 +10,7 @@ const appid = "wx9a7f04eeea0842be"
 // const secret = 'a8ba4d24824b82af2e6decce9f576873'
 // const token = 'odtest'
 // const EncodingAESKey = "lHxyzBdCBdSgHmK7kBpChUMiF5grezlgbJeDjs4ifdz"
-const restaurant_mini_appid = 'wx14dd6120d4882a81' // 公众号 跳转 不浪费商城小程序
+const restaurant_mini_appid = 'wx3a3f97ca688ddcea' // 公众号 跳转 brunch小程序
 
 module.exports = {
     appid: appid,

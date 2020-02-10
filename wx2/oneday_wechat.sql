@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-01-17 11:13:34
+Date: 2020-02-10 19:44:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -50,7 +50,7 @@ CREATE TABLE `wechat_access_token` (
 -- ----------------------------
 -- Records of wechat_access_token
 -- ----------------------------
-INSERT INTO `wechat_access_token` VALUES ('wx9a7f04eeea0842be', '{\"accessToken\":\"28_xQ5qg5Y6Ywlz2Cyb5EWRz8Sq4IwBd3_IoUnHFw_Z1AtXNvkq5mzxp24uNVpLyl6uQdkP5NsnxgrvlwXx5HZPsgyehMFjLECMBBaFTgsQHKDI5Et4BJE3WwxS_A2iiK1t1bDXlxDmk58ukfksTOHcAAAZUN\",\"expireTime\":1576139969817}');
+INSERT INTO `wechat_access_token` VALUES ('wx9a7f04eeea0842be', '{\"accessToken\":\"30_EMol0ioJu9VMY0SDnHMwGCgeGyqTSHEWthXGbLLa_BnF_j0R-HJnaHyQhboZh5mUZ2ZVbwrHRLMgEUNFLFiGYMfjVrBu76mn1jxeTm35f_hEX2MvFPhNgBMl_IIEJOaAHAPUZ\",\"expireTime\":1581340382554}');
 
 -- ----------------------------
 -- Table structure for wechat_config

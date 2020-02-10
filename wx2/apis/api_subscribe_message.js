@@ -1,5 +1,6 @@
 var db = require("./../utils/dba");
 var wechatApi = require("./../utils/wechat_api")
+var config = require("./../config/wxConfig")
 
 exports.run = async function (params) {
     return new Promise(async function (resolve, reject) {
