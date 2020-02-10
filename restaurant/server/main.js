@@ -28,7 +28,7 @@ http.createServer(function (req, res) {
     let postRaw = '';
     req.on('data', function (chunk) {
         postRaw += chunk;
-        if (reqUrl == '/apis/restaurant_wxPay_notify') {
+		if (reqUrl == '/apis/restaurant_wxPay_notify') {
             var wxPayNotify = require("./apis/restaurant_wxPay_notify")
             var work = new wxPayNotify()
             work.run(postRaw)

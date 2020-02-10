@@ -49,7 +49,6 @@ async function getPath(router) {
         case "updateBalancePointByIncrement":
             path += 'customerOpenApi/updateBalancePointByIncrement'; // 修改会员余额积分
             break;
-            
         default:
             console.info('没有发现能够匹配的path')
             return;

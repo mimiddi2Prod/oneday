@@ -15,8 +15,38 @@ function RestaurantGetCategoryByLocationCode() {
             console.info('没有地区代码')
         } else {
             try {
-                sql = "update restaurant_category set sort = ? where name = ?"
-                row = await query(sql, [1, '下单前必看']);
+            	sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [11, '下单前必看']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [10, '新春套餐']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [9, '甜品']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [8, '软饮']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [7, '冰酿']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [6, '意式咖啡']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [5, '精品咖啡']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [4, 'Brunch早午餐']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [3, 'All Day全天供应']);
+				
+				// sql = "update restaurant_category set sort = ? where name = ?"
+            	// row = await query(sql, [3, 'Dinner晚餐']);
+				
+				sql = "update restaurant_goods set sort = ? where id in(?,?)"
+            	row = await query(sql, [1, '377817133878507704','142572163614065663']);
 
                 sql = "select id,`name` from restaurant_category where location_code = ? order by sort desc";
                 row = await query(sql, param['location_code']);
@@ -24,7 +54,7 @@ function RestaurantGetCategoryByLocationCode() {
                     data.category = row
                 }
 
-                sql = "select id,`name`,img,`describe`,min_price,category_id,stock from restaurant_goods where location_code = ? and status = ? order by sort";
+                sql = "select id,`name`,img,`describe`,min_price,category_id,stock from restaurant_goods where location_code = ? and status = ? order by sort desc";
                 row = await query(sql, [param['location_code'], 1]);
                 if (row.length > 0) {
                     data.goods = row

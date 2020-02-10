@@ -82,6 +82,14 @@ function FBRouter(){
                     work = new RestaurantGetSubscribeMessage;
                     break;
                 }
+                /**
+                 *优惠券相关
+                 * */
+                case "get_coupon_card":{
+                    var CCSGetCouponCard = require("./apis/ccs_get_coupon_card");
+                    work = new CCSGetCouponCard;
+                    break;
+                }
                 default:
                     break;
             }
