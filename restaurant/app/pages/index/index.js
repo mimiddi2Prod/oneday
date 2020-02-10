@@ -757,5 +757,37 @@ Page({
         break;
       }
     }
-  }
+  },
+
+  /**
+   * 优惠券相关
+   * */
+  getCouponCard: function() {
+    let self = this
+    server.request(api.getCouponCard, {
+      'openid': app.globalData.openid,
+      'type': 'opening'
+    }, 'post').then(function(res) {
+      // console.info(res)
+      wx.addCard({
+        cardList: res.cardList,
+        success: function(e) {
+          // console.info(e)
+          self.saveCard(JSON.stringify(e))
+        },
+        complete: function(e) {
+          // console.info(e)
+        }
+      })
+    })
+  },
+
+  saveCard: function(data) {
+    server.request(api.saveCard, {
+      'openid': app.globalData.openid,
+      'cardList': data
+    }, 'post').then(function(res) {
+      // console.info(res)
+    })
+  },
 })

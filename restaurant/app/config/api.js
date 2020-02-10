@@ -24,7 +24,17 @@ module.exports = {
   balancePay: rootUrl + 'restaurant_yinbao_pay',
 
   // 消息订阅
-  getSubscribeMessage: rootUrl + 'restaurant_get_subscribe_message'
+  getSubscribeMessage: rootUrl + 'restaurant_get_subscribe_message',
+
+  /**
+   * 优惠券相关
+   * getCouponCard：获取优惠券领取页面
+   * saveCard：将获取的优惠券保存到数据库中
+   * getHadCard：获得已领取优惠券列表
+   * */
+  getCouponCard: rootUrl + 'get_coupon_card',
+  saveCard:rootUrl + 'save_card',
+  getHadCard: rootUrl + 'get_had_card',
 
   // getUploadToken: rootUrl + 'get_uploadToken', // 图片上传七牛云前需要获取token
 }

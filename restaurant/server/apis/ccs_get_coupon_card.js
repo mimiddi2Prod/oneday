@@ -29,7 +29,7 @@ function CCSGetCouponCard() {
                     console.info(e)
                     data = e
                 */
-                sql = "select * from card_info where `type` = ?"
+                sql = "select * from restaurant_card_info where `type` = ?"
                 row = await tool.query(sql, param["type"])
                 console.info(row)
                 if (row.length > 0) {
@@ -60,7 +60,7 @@ function CCSGetCouponCard() {
                         })
                         var options = {
                             host: '127.0.0.1',
-                            port: '9900',
+                            port: '9131',
                             path: '/apis/getCardExt',
                             method: 'POST',
                             form: postDataJson,
