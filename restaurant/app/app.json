@@ -6,7 +6,8 @@
     "pages/cart/cart",
     "pages/order/order",
     "pages/pay_status/pay_status",
-    "pages/customer/customer"
+    "pages/customer/customer",
+    "pages/coupon/coupon"
   ],
   "window": {
     "backgroundTextStyle": "light",

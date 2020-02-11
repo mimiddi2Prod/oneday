@@ -65,11 +65,16 @@ App({
     discount: 0,
     isCustomer: false,
     customerUid: 0,
-    customerNumber:0,
+    customerNumber: 0,
 
     restaurantTableName: 0,
 
     expire_time: '',
     number: 0,
+
+    // 用于展示优惠券列表，在coupon页面可选
+    cardList: [],
+    // 在coupon页面中，选中的优惠券
+    selectCard: null,
   }
 })

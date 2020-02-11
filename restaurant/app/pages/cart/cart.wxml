@@ -64,7 +64,7 @@
     </view>
   </view>
 
-  <view class="card row-center">
+  <view class="card row-center" bindtap="toCoupon">
     <view>红包/代金券</view>
     <view>{{showCardUseInfo}}</view>
   </view>

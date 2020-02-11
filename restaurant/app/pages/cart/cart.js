@@ -28,7 +28,7 @@ Page({
      * selcCardInfo：选中的优惠券详情
      * */
     showCardUseInfo: '',
-    cardList: [],
+    cardList: null,
     selcCardInfo: null,
   },
 
@@ -420,7 +420,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (app.globalData.selectCard) {
+      this.setData({
+        showCardUseInfo: "优惠" + app.globalData.selectCard.reduce_cost + "元",
+        reducePrice: this.data.totalPrice - app.globalData.selectCard.reduce_cost,
+        selcCardInfo: app.globalData.selectCard
+      })
+    }
   },
 
   // 优惠券相关，获取已领取优惠券信息
@@ -472,6 +478,20 @@ Page({
         selcCardInfo: maxReduce
       })
     }
+  },
+
+  toCoupon: function() {
+    if (!this.data.cardList) {
+      wx.showModal({
+        content: '暂无和使用的优惠券',
+        showCancel: false
+      })
+      return false
+    }
+    app.globalData.cardList = this.data.cardList
+    wx.navigateTo({
+      url: '/pages/coupon/coupon?price=' + this.data.totalPrice
+    })
   },
 
   /**
