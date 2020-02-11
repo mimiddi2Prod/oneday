@@ -7,7 +7,7 @@ var ContentType = require("./content-type.js");
 var optfile = require('./utils/readImage.js');
 // var writefile = require('./uploadImg.js');
 var router = new Router();
-var port = 9010;
+var port = 9230;
 
 // 初始化数据库连接池
 var db = require("./utils/dba");
@@ -131,10 +131,6 @@ app.use(function (req, res, next) {
                     showPaper('html/editGoods.html');
                 } else if (type[1] == 'reviewGoods') {
                     showPaper('html/reviewGoods.html');
-                } else if (type[1] == 'groupGoods') {
-                    showPaper('html/groupGoods.html');
-                } else if (type[1] == 'groupRefund') {
-                    showPaper('html/groupRefund.html');
                 } else if (type[1] == 'category') {
                     showPaper('html/category.html');
                 } else if (type[1] == 'order') {
@@ -205,8 +201,6 @@ app.use(function (req, res, next) {
                     showPaper('html/navigation.html');
                 } else if (type[1] == 'waterfall') {
                     showPaper('html/waterfall.html');
-                } else if (type[1] == 'coupon') {
-                    showPaper('html/coupon.html');
                 } else {
                     showPaper('html/404.html')
                 }
@@ -223,6 +217,8 @@ app.use(function (req, res, next) {
                     showPaper('html/brunchOrder.html');
                 } else if (type[1] == 'yinbaoOrder') {
                     showPaper('html/yinbaoOrder.html');
+                } else if (type[1] == 'coupon') {
+                    showPaper('html/coupon.html');
                 } else {
                     showPaper('html/404.html')
                 }

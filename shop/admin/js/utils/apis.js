@@ -71,9 +71,11 @@ var api = {
     restaurantGetTodayOrder: '../api/restaurant_get_today_order',
 
     // 优惠券
-    getCoupon: '../api/get_coupon',
-    addCoupon: '../api/add_coupon',
-    updateCoupon: '../api/update_coupon',
-    delCoupon: '../api/del_coupon',
-
+    // getCoupon: '../api/get_coupon',
+    // addCoupon: '../api/add_coupon',
+    // updateCoupon: '../api/update_coupon',
+    // delCoupon: '../api/del_coupon',
+    addCard: '../api/add_card',
+    getCard: '../api/get_card',
+    updateCardInfo: '../api/update_card_info',
 }

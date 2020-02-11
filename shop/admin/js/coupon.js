@@ -1,164 +1,239 @@
 var couponVM = new Vue({
-    el: '#coupon',
+    el: "#coupon",
     data: {
-        couponList: [],
-        card_id:'',
-        // id:'',
-        // name: '',
-        // location: '',
-        // phone: '',
-        // start_time: '',
-        // end_time: '',
-        type: 0,
-        // last_id: 0,
+        last_id: 0,
+        // navId: -1,
+        pageList: [],
+        cardList: [],
+        // sortList: [{
+        //     name: '居家',
+        //     id: 0,
+        //     order: 0,//0和1 ，0:上移，1:下移
+        //     createTime: '2019-02-20',
+        //     goodsNum: 19,
+        //     menu: [{
+        //         menu_name: '风扇',
+        //         menu_order: 0,//0和1 ，0:上移，1:下移
+        //         menu_createTime: '2019-02-20',
+        //         menu_goodsNum: 19,
+        //     }, {
+        //         menu_name: '纸巾',
+        //         menu_order: 0,//0和1 ，0:上移，1:下移
+        //         menu_createTime: '2019-02-20',
+        //         menu_goodsNum: 19,
+        //     }]
+        // }, {
+        //     name: '服装',
+        //     id: 1,
+        //     order: 0,//0和1 ，0:上移，1:下移
+        //     createTime: '2019-02-20',
+        //     goodsNum: 191,
+        //     menu: [{
+        //         menu_name: '秋裤',
+        //         menu_order: 0,//0和1 ，0:上移，1:下移
+        //         menu_createTime: '2019-02-20',
+        //         menu_goodsNum: 129,
+        //     }]
+        // }, {
+        //     name: '志趣',
+        //     id: 2,
+        //     order: 0,//0和1 ，0:上移，1:下移
+        //     createTime: '2019-02-20',
+        //     goodsNum: 191,
+        //     menu: []
+        // }],
+        index: '',
+        // sortModalText: '',
+        // sortModalSort: '',
+        // // 大分类才有
+        // sortModalDesc: '',
+        // // 小分类才有
+        // sortModalImg: [],
+        // sortModalUrl: '',
 
-        // pageList: [], // 分页栏
+        modalType: 0,  //0 添加分类 1删除分类
+        delCategoryId: '',
+        delCategoryParentId: '',
+
+        editId: '',
+
+        card_id: '',
     },
     methods: {
         // getPage: function (index) {
         //     this.last_id = index
-        //     getUser()
+        //     getCategory()
         // },
-        toAddCoupon: function () {
-            this.type = 0
-            // this.name = ''
-            // this.location = ''
-            // this.phone = ''
-            // this.start_time = ''
-            // this.end_time = ''
-            this.card_id = ""
-            $('#myModal').on('show.bs.modal', function () {
-                var modal = $(this)
-                modal.find('.modal-title').text('添加卡券')
-            })
-        },
-        toUpdateCoupon: function (id) {
-            $('#myModal').on('show.bs.modal', function () {
-                var modal = $(this)
-                modal.find('.modal-title').text('修改店信息')
-            })
-            this.type = 1
-            // for (let i in this.couponList) {
-            //     if (this.couponList[i].id == id) {
-            //         this.id = this.couponList[i].id
-            //         this.name = this.couponList[i].name
-            //         this.location = this.couponList[i].location
-            //         this.phone = this.couponList[i].phone
-            //         this.start_time = this.couponList[i].start_time
-            //         this.end_time = this.couponList[i].end_time
-            //         break
-            //     }
-            // }
-        },
-        toDelCoupon: function (id) {
-            delCoupon(id)
-        },
-        submitCoupon: function () {
-            if (this.card_id == "") {
-                alert("请填写点名")
-                return
+        addSort: function (index) {
+            this.modalType = 0
+            this.index = index
+            if (index < 0) {
+                $('#myModal').on('show.bs.modal', function () {
+                    var modal = $(this)
+                    modal.find('.modal-title').text('添加卡券')
+                })
             }
-            // if (this.location == "") {
-            //     alert("请填写坐标")
-            //     return
+            // else {
+            //     const title = this.sortList[index].name
+            //     $('#myModal').on('show.bs.modal', function () {
+            //         var modal = $(this)
+            //         modal.find('.modal-title').text('添加 "' + title + '" 分类')
+            //     })
             // }
-            // if (this.phone == "") {
-            //     alert("请填写客服电话")
-            //     return
-            // }
-            // this.start_time = document.getElementById('test5_1').value
-            // this.end_time = document.getElementById('test5_2').value
-            // if (this.start_time == "") {
-            //     alert("请选择营业开始时间")
-            //     return
-            // }
-            // if (this.end_time == "") {
-            //     alert("请选择营业结束时间")
-            //     return
-            // }
-            // if (this.start_time > this.end_time) {
-            //     alert("营业开始时间不得大于结束时间")
-            //     return
-            // }
-            if (this.type == 0) addCoupon(); else updateCoupon()
+        },
+        setType: function (id, type) {
+            couponVM.cardList = []
+            const url = api.updateCardInfo, async = true
+            let data = {}
+            data.id = id
+            data.type = type
+            server(url, data, async, "post", function (res) {
+                // console.info(res)
+                if (res.text == '更新成功') {
+                    alert(res.text)
+                    window.location.reload()
+                }
+            })
+        },
+        delSort: function (parent_id, id, name) {
+            this.modalType = 1
+            this.delCategoryId = id
+            this.delCategoryParentId = parent_id
+            $('#myModal').on('show.bs.modal', function () {
+                var modal = $(this)
+                modal.find('.modal-title').text('删除 "' + name + '" 分类')
+            })
+        },
+        // updateSort: function (id, sort) {
+        //     updateCategorySort(id, sort)
+        // },
+        // EditSort: function (index, parent_id, id, name, sort, image, desc) {
+        //     this.modalType = 2
+        //     this.editId = id
+        //     this.sortModalText = name
+        //     this.sortModalSort = sort
+        //     this.sortModalImg[0] = {
+        //         key: image,
+        //         tempFilePath: image
+        //     }
+        //     this.index = index
+        //     if (parent_id == 0) {
+        //         this.sortModalDesc = desc
+        //     } else {
+        //         this.sortModalUrl = desc
+        //     }
+        //
+        //     $('#myModal').on('show.bs.modal', function () {
+        //         var modal = $(this)
+        //         modal.find('.modal-title').text('编辑 "' + name + '" 分类')
+        //     })
+        // },
+        submitSortBtn: function () {
+            if (this.modalType == 0 || this.modalType == 2) {
+                addCard()
+                // 添加分类
+                // let type = 0, parent_id = 0
+                // if (this.sortModalText == '') {
+                //     alert('请填写分类名称')
+                //     return
+                // } else if (this.sortModalSort == '') {
+                //     alert('请填写分类排序')
+                //     return
+                // } else if (this.sortModalImg == []) {
+                //     alert('请选择上传图片')
+                //     return
+                // }
+                // if (this.index < 0) {
+                //     // 大分类
+                //     if (this.sortModalDesc == '') {
+                //         alert('请填写分类描述')
+                //         return
+                //     }
+                //     type = 0, parent_id = 0
+                // } else {
+                //     // 小分类
+                //     if (this.sortModalUrl == '') {
+                //         alert('请选择分类路径')
+                //         return
+                //     }
+                //     type = 1, parent_id = this.sortList[this.index].id
+                // }
+                // let self = this, flag = 0
+                // for (let i in this.sortModalImg) {
+                //     if (this.sortModalImg[i].uploadToken) {
+                //         uploadImg(this.sortModalImg[i].key, this.sortModalImg[i].uploadToken, this.sortModalImg[i].imgFile, function (res) {
+                //             // flag 图片上传完毕之后才提交
+                //             flag++
+                //             if (flag == self.sortModalImg.length) {
+                //                 // console.info('上传完毕')
+                //                 if (self.modalType == 0) {
+                //                     addCategory(type, parent_id)
+                //                 } else if (self.modalType == 2) {
+                //                     updateCategory(type, parent_id)
+                //                 }
+                //             }
+                //         })
+                //     } else {
+                //         flag++
+                //         if (flag == self.sortModalImg.length) {
+                //             if (self.modalType == 2) {
+                //                 updateCategory(type, parent_id)
+                //             }
+                //         }
+                //     }
+                // }
+            } else if (this.modalType == 1) {
+                // 删除分类
+                delCategory(this.delCategoryParentId, this.delCategoryId)
+            }
+
+            $('#myModal').modal('hide')
         }
     }
 })
 
 $(document).ready(function () {
-    // getCoupon()
+    // getCategory()
+    getCard()
 })
 
-function getCoupon() {
-    const url = api.getCoupon, async = true
+function getCard() {
+    // categoryVM.pageList = []
+    couponVM.cardList = []
+    const url = api.getCard, async = true
     let data = {}
-    // data.last_id = couponVM.last_id
+    // data.last_id = categoryVM.last_id
     server(url, data, async, "post", function (res) {
         console.info(res)
-        if (res.length > 0) {
-            res = res.map((eData) => {
-                eData.create_time = formatTime(new Date(eData.create_time))
-                return eData
+        if (res.number > 0) {
+            res.cardList.map(function (fn) {
+                fn.create_time = formatTime(new Date(fn.create_time))
+                fn.cash = JSON.parse(fn.cash)
+                if (fn.cash.base_info.date_info.type == 'DATE_TYPE_FIX_TIME_RANGE') {
+                    fn.cash.base_info.date_info.begin_timestamp = formatTime(new Date(fn.cash.base_info.date_info.begin_timestamp * 1000))
+                    fn.cash.base_info.date_info.end_timestamp = formatTime(new Date(fn.cash.base_info.date_info.end_timestamp * 1000))
+                }
+                return fn
             })
-            couponVM.couponList = res
+            couponVM.cardList = res.cardList
+            console.info(res.cardList)
+            // 分页栏
+            // for (let i = 0; i < res.number / 5; i++) {
+            //     categoryVM.pageList.push(i + 1)
+            // }
         }
-
     })
 }
 
-function addCoupon() {
-    const url = api.addCoupon, async = true
+function addCard() {
+    const url = api.addCard, async = true
     let data = {}
     data.card_id = couponVM.card_id
-    // data.location = couponVM.location
-    // data.phone = couponVM.phone
-    // data.start_time = couponVM.start_time
-    // data.end_time = couponVM.end_time
     server(url, data, async, "post", function (res) {
         console.info(res)
         if (res.code) {
+            alert(res.text)
             window.location.reload()
         }
     })
 }
-
-function updateCoupon() {
-    const url = api.updateCoupon, async = true
-    let data = {}
-    data.id = couponVM.id
-    data.name = couponVM.name
-    data.location = couponVM.location
-    data.phone = couponVM.phone
-    data.start_time = couponVM.start_time
-    data.end_time = couponVM.end_time
-    server(url, data, async, "post", function (res) {
-        console.info(res)
-        if (res.code) {
-            window.location.reload()
-        }
-    })
-}
-
-function delCoupon(id) {
-    const url = api.delCoupon, async = true
-    let data = {}
-    data.id = id
-    server(url, data, async, "post", function (res) {
-        console.info(res)
-        if (res.code) {
-            window.location.reload()
-        }
-    })
-}
-
-laydate.render({
-    elem: '#test5_1'
-    , type: 'time'
-    , calendar: true
-});
-
-laydate.render({
-    elem: '#test5_2'
-    , type: 'time'
-    , calendar: true
-});

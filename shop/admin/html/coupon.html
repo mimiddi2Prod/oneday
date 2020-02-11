@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <title>卡券设置</title>
+    <title>优惠券设置</title>
     <script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="../jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <!--<link rel="stylesheet" type="text/css"-->
@@ -38,65 +38,69 @@
 
 <div class="right">
     <div class="jumbotron" id="coupon">
-        <!-- 类目 搜索栏 -->
+        <!-- 类目 添加分类 -->
         <div class="title item">
-            <h4>优惠券设置<span style="font-size: 10px">(用于设置小程序可领取的公众号后台的卡券，当前小程序仅支持代金券)</span></h4>
+            <h4>优惠券</h4>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"
-                    v-on:click="toAddCoupon()">添加卡券
+                    v-on:click="addSort(-1)">添加优惠券
             </button>
+
         </div>
 
-        <div class="goods">
-            <!-- 商品标题 -->
+        <!-- 标题 -->
+        <div class="sort-title">
             <nav class="navbar navbar-default" role="navigation">
                 <div class="item">
-                    <span class="first-title have-border column-center">卡券ID</span>
-                    <span class="second-title have-border column-center">代金券额度</span>
-                    <span class="second-title have-border column-center">已领取人数（仅小程序）</span>
-                    <!--<span class="second-title have-border column-center">营业时间</span>-->
-                    <span class="second-title have-border column-center">创建时间</span>
+                    <!--<span class="second-title column-center" style="min-width: 137.5px">图片</span>-->
+                    <span class="first-title column-center">卡id</span>
+                    <span class="second-title column-center">卡券类型</span>
+                    <span class="second-title column-center">发送途径</span>
+                    <span class="first-title column-center">信息</span>
+                    <span class="first-title column-center">时间</span>
+                    <!--<span class="second-title column-center">商品数量</span>-->
                     <span class="second-title column-center">操作</span>
+                    <!--<span class="second-title column-center"></span>-->
                 </div>
             </nav>
+        </div>
 
-            <div class="goods-container" v-for="item,index in couponList">
-                <div class="first-title column-center">
-                    <span>{{item.card_id}}</span>
+        <!-- 分类名称item -->
+        <div class="sort" v-for="item,index in cardList">
+                <div class="goods-sort-container">
+                    <span class="first-title column-center">{{item.card_id}}</span>
+                    <span class="second-title column-center ">{{item.card_type == 'CASH' ? '代金券' : '其他券'}}</span>
+                    <span class="second-title column-center " v-if="item.type">{{item.type == 'opening' ? '首页弹窗' : '首单奖励'}}</span>
+                    <span class="second-title column-center " v-else>待投放</span>
+                    <span class="first-title column-center">{{item.cash.base_info.title}}</span>
+                    <span class="first-title column-center" v-if="item.cash.base_info.date_info.type == 'DATE_TYPE_FIX_TIME_RANGE'">固定日期区间:{{item.cash.base_info.date_info.begin_timestamp}} ~ {{item.cash.base_info.date_info.end_timestamp}}</span>
+                    <!--<span class="second-title column-center">{{item.number}}</span>-->
+                    <span class="second-title column-center" v-if="item.type">
+                    <button type="button" class="btn btn-link" v-if="item.type == 'newCustomer'" v-on:click="setType(item.id,'opening')">设为首页弹窗</button>
+                    <!-- <button type="button" class="btn btn-link" v-if="item.type == 'opening'"  v-on:click="setType(item.id,'newCustomer')">设为首单奖励</button> -->
+                    <button type="button" class="btn btn-link" v-on:click="setType(item.id,null)">不投放</button>
+                </span>
+                    <span class="second-title column-center" v-if="!item.type">
+                    <button type="button" class="btn btn-link" v-on:click="setType(item.id,'opening')">设为首页弹窗</button>
+                    <!-- <button type="button" class="btn btn-link" v-on:click="setType(item.id,'newCustomer')">设为首单奖励</button> -->
+                </span>
+                
                 </div>
-                <div class="second-title column-center">
-                    <span>{{item.full_reduction_price}} - {{discounted_price}}</span>
-                </div>
-                <div class="second-title column-center">
-                    <span>{{item.phone}}</span>
-                </div>
-                <div class="second-title column-center">
-                    <span>{{item.start_time}} - {{item.end_time}}</span>
-                </div>
-                <div class="second-title column-center">
-                    <span>{{item.create_time}}</span>
-                </div>
-                <div class="second-title column-center">
-                    <!--<button type="button" class="btn " :class="item.state == 0 ? 'btn-danger' : 'btn-secondary'"-->
-                            <!--v-on:click="changeStatus(item.id,item.state)">{{item.state == 0 ? "点击禁用" : "点击开启"}}-->
-                    <!--</button>-->
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal"
-                            v-on:click="toUpdateStore(item.id)">编辑</button>
-                    <button v-if="index > 0" type="button" class="btn btn-link" v-on:click="toDelStore(item.id)">删除
-                    </button>
-                </div>
-            </div>
 
+                
         </div>
 
         <!-- 分页栏 -->
-        <!--<ul class="pagination">-->
-        <!--<li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li>-->
-        <!--<li v-for="item,index in pageList" v-on:click="getPage(index)"-->
-        <!--v-bind:class="(item == last_id+1 ? 'active' : '')"><a-->
-        <!--href="javascript:;">{{item}}</a></li>-->
-        <!--<li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="javascript:;">&raquo;</a>-->
-        <!--</li>-->
-        <!--</ul>-->
+        <!-- <ul class="pagination"> -->
+            <!-- <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li> -->
+            <!-- <li v-for="item,index in pageList" v-on:click="getPage(index)" -->
+                <!-- v-bind:class="(item == last_id+1 ? 'active' : '')"><a -->
+                    <!-- href="javascript:;">{{item}}</a></li> -->
+            <!-- <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a -->
+                    <!-- href="javascript:;">&raquo;</a> -->
+            <!-- </li> -->
+        <!-- </ul> -->
+
+        <!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">开始演示模态框</button> -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
@@ -105,27 +109,14 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
-                    <div class="modal-body">
-                        <input type="text" class="form-control" id="card_id" type="text" name=""
-                               v-model="card_id" style="margin-bottom: 6px" placeholder="卡券ID(卡券功能 -> 优惠券 -> 优惠券详情 -> 卡券ID)"/>
-                        <!--<input type="text" class="form-control" id="name" type="text" name=""-->
-                               <!--v-model="name" style="margin-bottom: 6px" placeholder="满" oninput="value=value.replace(/[^\d]/g,'')"/>-->
-                        <!--<input type="text" class="form-control" id="location" type="text" name=""-->
-                               <!--v-model="location" style="margin-bottom: 6px" placeholder="减" oninput="value=value.replace(/[^\d]/g,'')"/>-->
-                        <!--<a href="https://lbs.qq.com/tool/getpoint/" target="_blank">*点击获取地理位置</a>-->
-                        <!--<input type="text" class="form-control" id="phone" type="text" name=""-->
-                               <!--v-model="phone" style="margin-bottom: 6px" placeholder="电话"-->
-                               <!--oninput="value=value.replace(/[^\d]/g,'')"/>-->
-                        <!--<input type="text" class="form-control" id="test5_1" style="width: auto;display: inline-block;"-->
-                               <!--placeholder="选择起始时间" v-model="start_time">-->
-                        <!--<div class="line"></div>-->
-                        <!--<input type="text" class="form-control" id="test5_2" style="width: auto;display: inline-block;"-->
-                               <!--placeholder="选择截止时间" v-model="end_time">-->
+                    <div class="modal-body" v-if="modalType == 0 || modalType == 2">
+                        <input type="text" class="form-control" id="sortModalText" type="text" name=""
+                               v-model="card_id" style="margin-bottom: 6px" placeholder="卡券id(当前只支持代金券)"/>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" v-on:click="submitCoupon()">确定</button>
+                        <button type="button" class="btn btn-primary" v-on:click="submitSortBtn()">确定</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->

@@ -343,21 +343,33 @@ function Router() {
                 baseApi = new shopUpdateRemindTime;
                 break;
             // 优惠券
-            case "get_coupon":
-                var shopGetCoupon = require("./api/shop_get_coupon.js");
-                baseApi = new shopGetCoupon;
+            // case "get_coupon":
+            //     var shopGetCoupon = require("./api/shop_get_coupon.js");
+            //     baseApi = new shopGetCoupon;
+            //     break;
+            // case "add_coupon":
+            //     var shopAddCoupon = require("./api/shop_add_coupon.js");
+            //     baseApi = new shopAddCoupon;
+            //     break;
+            // case "update_coupon":
+            //     var shopUpdateCoupon = require("./api/shop_update_coupon.js");
+            //     baseApi = new shopUpdateCoupon;
+            //     break;
+            // case "del_coupon":
+            //     var shopDeleteCoupon = require("./api/shop_delete_coupon.js");
+            //     baseApi = new shopDeleteCoupon;
+            //     break;
+            case "add_card":
+                var shopAddCard = require("./api/shop_add_card.js");
+                baseApi = new shopAddCard;
                 break;
-            case "add_coupon":
-                var shopAddCoupon = require("./api/shop_add_coupon.js");
-                baseApi = new shopAddCoupon;
+            case "get_card":
+                var shopGetCard = require("./api/shop_get_card.js");
+                baseApi = new shopGetCard;
                 break;
-            case "update_coupon":
-                var shopUpdateCoupon = require("./api/shop_update_coupon.js");
-                baseApi = new shopUpdateCoupon;
-                break;
-            case "del_coupon":
-                var shopDeleteCoupon = require("./api/shop_delete_coupon.js");
-                baseApi = new shopDeleteCoupon;
+            case "update_card_info":
+                var shopUpdateCardInfo = require("./api/shop_update_card_info.js");
+                baseApi = new shopUpdateCardInfo;
                 break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
