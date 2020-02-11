@@ -85,9 +85,19 @@ function FBRouter(){
                 /**
                  *优惠券相关
                  * */
-                case "get_coupon_card":{
+                case "restaurant_get_coupon_card":{
                     var CCSGetCouponCard = require("./apis/ccs_get_coupon_card");
                     work = new CCSGetCouponCard;
+                    break;
+                }
+                case "restaurant_save_card":{
+                    var RestaurantSaveCard = require("./apis/restaurant_save_card");
+                    work = new RestaurantSaveCard;
+                    break;
+                }
+                case "restaurant_get_had_card":{
+                    var RestaurantGetHadCard = require("./apis/restaurant_get_had_card");
+                    work = new RestaurantGetHadCard;
                     break;
                 }
                 default:

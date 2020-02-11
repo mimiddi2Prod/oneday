@@ -63,6 +63,12 @@
       <text>{{totalPrice}}</text>
     </view>
   </view>
+
+  <view class="card row-center">
+    <view>红包/代金券</view>
+    <view>{{showCardUseInfo}}</view>
+  </view>
+
   <view style="height:240rpx;opacity: 0">1</view>
 </view>
 
@@ -71,8 +77,13 @@
 </view>
 
 <view class="footer">
-  <view class="total-price">￥
+  <view class="total-price" wx:if="{{!selcCardInfo}}">￥
     <text>{{totalPrice}}</text>
+  </view>
+  <view class="total-price" wx:else>￥
+    <text>{{reducePrice}}</text>
+    <text style="font-size:26rpx;text-decoration:line-through">{{totalPrice}}</text>
+    <text style="font-size:20rpx;color:red">已优惠{{selcCardInfo.reduce_cost}}元</text>
   </view>
   <view class="topay" bindtap='submitOrder'>去支付</view>
 </view>

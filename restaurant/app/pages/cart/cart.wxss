@@ -237,3 +237,10 @@
 .dialog-login .dialog-body button{
   margin-top: 30rpx;
 }
+
+.row-center{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between
+}

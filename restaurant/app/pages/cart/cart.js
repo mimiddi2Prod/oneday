@@ -12,6 +12,7 @@ Page({
   data: {
     cart: [],
     totalPrice: 0,
+    reducePrice: 0,
     styleList: ['堂食', '外带'],
     style: 0,
 
@@ -19,6 +20,16 @@ Page({
     showPayMethodDialog: false,
 
     restaurantTableName: '',
+
+    /** 
+     * 优惠券相关
+     * showCardUseInfo：展示优惠券使用后情况 或 是否有优惠券可用
+     * cardList：用户已有的所以优惠券
+     * selcCardInfo：选中的优惠券详情
+     * */
+    showCardUseInfo: '',
+    cardList: [],
+    selcCardInfo: null,
   },
 
   /**
@@ -41,6 +52,9 @@ Page({
         showCancel: false
       })
     }
+
+    // 获取已有优惠券列表
+    this.getHadCardList()
   },
 
   // 输入用餐人数
@@ -98,24 +112,24 @@ Page({
       showPayMethodDialog: true
     })
     // 消息订阅
-    server.request(api.getSubscribeMessage, {}, "post").then(function (res) {
-      if(res.length > 0){
+    server.request(api.getSubscribeMessage, {}, "post").then(function(res) {
+      if (res.length > 0) {
         let tmplIds = []
-        for(let i in res){
+        for (let i in res) {
           tmplIds.push(res[i].template_id)
         }
         wx.requestSubscribeMessage({
           tmplIds: tmplIds,
-          success: function (e) {
+          success: function(e) {
             console.info(e)
           },
-          fail: function (e) {
+          fail: function(e) {
             console.info(e)
           }
         })
       }
     })
-    
+
   },
 
   payDialog: function() {
@@ -198,7 +212,7 @@ Page({
     })
   },
 
-  getWXPayOrder: function () {
+  getWXPayOrder: function() {
     let self = this
     let data = {}
     data.openid = app.globalData.openid
@@ -243,7 +257,7 @@ Page({
       wx.showToast({
         title: '支付成功',
       })
-      
+
       let tradeId = res
       app.globalData.cart = []
       wx.redirectTo({
@@ -333,7 +347,7 @@ Page({
   },
 
   addOrder: function(tradeId, payMethod, payStatus) {
-  // addOrder: function(payMethod, payStatus) {
+    // addOrder: function(payMethod, payStatus) {
     let self = this
     // console.info(this.data.cart)
     let data = {}
@@ -407,6 +421,57 @@ Page({
    */
   onShow: function() {
 
+  },
+
+  // 优惠券相关，获取已领取优惠券信息
+  getHadCardList: function() {
+    let self = this
+    server.request(api.getHadCard, {
+      'openid': app.globalData.openid
+    }, 'post').then(function(res) {
+      // console.info(res)
+      if (res.length > 0) {
+        // 去除过期优惠券
+        res = res.filter(function(item) {
+          return new Date(item.end_time).getTime() > new Date().getTime()
+        })
+        self.setData({
+          cardList: res
+        })
+        self.maxDiscount()
+      } else {
+        self.setData({
+          showCardUseInfo: "暂无可使用优惠券"
+        })
+      }
+    })
+  },
+
+  // 计算出优惠券最优使用
+  maxDiscount: function() {
+    let maxReduce = null,
+      cardList = this.data.cardList,
+      minLeast = cardList[0]
+    for (let i in cardList) {
+      if (cardList[i].least_cost <= this.data.totalPrice) {
+        if (!maxReduce) {
+          maxReduce = cardList[i]
+        }
+        maxReduce = cardList[i].reduce_cost > maxReduce.reduce_cost ? cardList[i] : maxReduce
+      }
+      minLeast = cardList[i].least_cost < minLeast.least_cost ? cardList[i] : minLeast
+    }
+    if (!maxReduce) {
+      this.setData({
+        showCardUseInfo: "差" + (minLeast.least_cost - this.data.totalPrice) + "元即可减免" + (minLeast.reduce_cost) + "元"
+      })
+    } else {
+      this.setData({
+        showCardUseInfo: "优惠" + maxReduce.reduce_cost + "元",
+        reducePrice: this.data.totalPrice - maxReduce.reduce_cost,
+        selcCardInfo: maxReduce
+      })
+    }
   },
 
   /**
