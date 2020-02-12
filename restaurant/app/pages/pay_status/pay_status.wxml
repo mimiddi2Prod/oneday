@@ -70,8 +70,11 @@
       <!-- 订单份数：{{order.length}} -->
       订单份数：{{total_number}}
     </view>
+    <view wx:if="{{card}}">
+      优惠券：{{card.cash.base_info.title}}
+    </view>
     <view>
-      订单总计：￥{{total_price}}
+      订单总计：￥{{card ? discount_total_price : total_price}}
     </view>
   </view>
 </view>

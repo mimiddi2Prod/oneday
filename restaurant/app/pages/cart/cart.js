@@ -248,7 +248,7 @@ Page({
 
     let orderData = self.getWXPayOrder()
     console.info(orderData)
-    server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, orderData, "post").then(function(res) {
+    server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, self.data.selcCardInfo, orderData, "post").then(function(res) {
       // wx.showLoading({
       //   title: '已支付，勿重复下单，谢谢',
       //   mask: true

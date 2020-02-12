@@ -19,7 +19,9 @@ function RestaurantPayfee() {
                 var payData = {}
                 payData.openid = param['openid']
                 payData.body = '啾哩Brunch'
-                payData.total_fee = param['money'] * 100
+                // payData.total_fee = param['money'] * 100
+                // 改动 根据优惠情况计算 param["coupon"] null/object
+                payData.total_fee = param["coupon"] ? (param['money'] - param["coupon"].reduce_cost) * 100 : param['money'] * 100
 
                 var payfee = require("./../utils/wxpay");
                 async function Call() {
@@ -30,6 +32,8 @@ function RestaurantPayfee() {
                     var addOrder = require('./restaurant_add_order')
                     let order = param['order']
                     order.tradeId = e.tradeId
+                    // 新增 优惠券信息
+                    order.coupon = param["coupon"]
                     let callback = await addOrder(order)
                     data.addOrderStatus = callback
 

@@ -3,6 +3,8 @@ var tools = require("./../tool");
 const xml2js = require('xml2js')
 const xmlParser = new xml2js.Parser()
 
+var http = require("http")
+
 function RestaurantWxPayNotify() {
     var tool = new tools;
     // var log = tool.log;
@@ -77,6 +79,43 @@ function RestaurantWxPayNotify() {
 
                         }
                     }
+
+                    /** 
+                     * 如果有使用优惠券，就进行核销
+                     * select_card_id:数据库中用户领取优惠券的存储id restaurant_card:id 
+                     * */
+                    let select_card_id = rowData[0].restaurant_card_id
+                    sql = "update restaurant_card set trade_id = ? where id = ?"
+                    row = await query(sql, [tradeId, select_card_id])
+
+                    sql = "select * from restaurant_card where id = ?"
+                    row = await query(sql, select_card_id)
+
+                    var postDataJson = JSON.stringify({
+                        card_id: row[0].card_id,
+                        encrypt_code: row[0].code
+                    })
+                    var options = {
+                        host: '127.0.0.1',
+                        port: '9131',
+                        path: '/apis/consumeCard',
+                        method: 'POST',
+                        form: postDataJson,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8',
+                        },
+                    }
+
+                    async function Call() {
+                        let e = await HttpPost(options, postDataJson)
+                        e = JSON.parse(e)
+                        console.info(e)
+                        // if (e.code == 0) {
+                        //     data.cardList = e.data
+                        // }
+                    }
+
+                    await Call()
                 }
 
             }
@@ -98,5 +137,26 @@ async function xmlParse(xml) {
                 resolve(success)
             }
         })
+    })
+}
+
+async function HttpPost(option, postData) {
+    return new Promise(function (resolve, reject) {
+        var req = http.request(option, function (res) {
+            let data = '';
+            // res.headers = {
+            //     'data-signature': sign,
+            //     'Content-Type': 'application/json;charset=UTF-8'
+            // }
+            res.setEncoding('utf8');
+            res.on('data', function (chunk) {
+                data += chunk;
+            })
+            res.on('end', function (e) {
+                resolve(data)
+            })
+        })
+        req.write(postData);
+        req.end();
     })
 }

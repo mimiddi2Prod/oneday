@@ -18,6 +18,10 @@ Page({
     yinbao_order_no: '',
 
     restaurantTableName: '',
+
+    // 用于优惠券
+    card: null,
+    discount_total_price: 0,
   },
 
   /**
@@ -62,6 +66,14 @@ Page({
           total_price: total_price,
           trade_id: tradeid,
           yinbao_order_no: res.order_list[0].yinbao_order_no
+        })
+      }
+
+      // 优惠券
+      if (res.card) {
+        self.setData({
+          card: res.card,
+          discount_total_price: self.data.total_price - (res.card.cash.reduce_cost / 100)
         })
       }
     })

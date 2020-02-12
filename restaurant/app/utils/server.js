@@ -39,17 +39,20 @@ function login() {
 }
 
 // 微信支付
-function pay(url, openid, money, order, method = 'get') {
+function pay(url, openid, money, coupon, order, method = 'get') {
   console.info('---请求微信支付---')
-  console.info(openid)
-  console.info(money)
+  // console.info(openid)
+  // console.info(money)
+  // console.info(coupon)
+  // console.info(order)
   return new Promise(function(resolve, reject) {
     wx.request({
       url: url,
       data: {
         openid: openid,
         money: money,
-        order: order
+        order: order,
+        coupon: coupon
       },
       method: method,
       success: function(res) {
