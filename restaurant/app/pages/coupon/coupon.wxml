@@ -1,19 +1,28 @@
 <!--pages/coupon/coupon.wxml-->
-<view class="card {{item.canUseCoupon ? 'cbg' : 'nbg'}}" wx:for="{{cardList}}" wx:key="*this" bindtap="selectCard" data-id="{{item.id}}" data-canuse="{{item.canUseCoupon}}">
-  <view class="content">
-    <image class="logo" src="{{item.cash.base_info.logo_url}}"></image>
-    <view>
-      <view>{{item.cash.base_info.brand_name}}</view>
-      <view>{{item.cash.base_info.title}}</view>
+<view class="page">
+  <view class="card {{item.canUseCoupon ? 'cbg' : 'nbg'}} {{selectCard.id == item.id ? 'selc' : ''}}" wx:for="{{cardList}}" wx:key="*this" bindtap="selectCard" data-id="{{item.id}}" data-canuse="{{item.canUseCoupon}}">
+    <view class="content">
+      <image class="logo" src="{{item.cash.base_info.logo_url}}"></image>
+      <view>
+        <view>{{item.cash.base_info.brand_name}}</view>
+        <view>{{item.cash.base_info.title}}</view>
+      </view>
     </view>
-  </view>
-  <view class="other content">
-    <view>{{item.begin_time}} ~ {{item.end_time}}</view>
-    <!-- <view wx:else>已过期</view> -->
-    <view>{{item.canUseCoupon ? '可用' : '不满足使用条件'}}</view>
+    <view class="other content">
+      <view>{{item.begin_time}} ~ {{item.end_time}}</view>
+      <!-- <view wx:else>已过期</view> -->
+      <view>{{item.canUseCoupon ? '可用' : '不满足使用条件'}}</view>
 
-    <!-- <view wx:if="{{item.isExpireCoupon}}">已过期</view>
+      <!-- <view wx:if="{{item.isExpireCoupon}}">已过期</view>
     <view wx:elif="{{item.canUseCoupon}}">可用</view>
     <view wx:else>不满足使用条件</view> -->
+    </view>
   </view>
+</view>
+
+<view class="footer">
+  <view class="total-price">
+    <text>已选择 {{selectCard ? "1" : "0"}} 张，可抵扣 {{selectCard ? selectCard.reduce_cost : "0"}} 元</text>
+  </view>
+  <view class="topay" bindtap='back'>确定</view>
 </view>

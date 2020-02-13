@@ -36,6 +36,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.globalData.selectCard = null
     this.setData({
       restaurantTableName: app.globalData.restaurantTableName
     })
@@ -422,7 +423,8 @@ Page({
   onShow: function() {
     if (app.globalData.selectCard) {
       this.setData({
-        showCardUseInfo: "优惠" + app.globalData.selectCard.reduce_cost + "元",
+        // showCardUseInfo: "优惠" + app.globalData.selectCard.reduce_cost + "元",
+        showCardUseInfo: app.globalData.selectCard.cash.base_info.title,
         reducePrice: this.data.totalPrice - app.globalData.selectCard.reduce_cost,
         selcCardInfo: app.globalData.selectCard
       })
@@ -457,9 +459,11 @@ Page({
   maxDiscount: function() {
     let maxReduce = null,
       cardList = this.data.cardList,
-      minLeast = cardList[0]
+      minLeast = cardList[0],
+      canUseNumber = 0
     for (let i in cardList) {
       if (cardList[i].least_cost <= this.data.totalPrice) {
+        canUseNumber++
         if (!maxReduce) {
           maxReduce = cardList[i]
         }
@@ -473,9 +477,10 @@ Page({
       })
     } else {
       this.setData({
-        showCardUseInfo: "优惠" + maxReduce.reduce_cost + "元",
-        reducePrice: this.data.totalPrice - maxReduce.reduce_cost,
-        selcCardInfo: maxReduce
+        showCardUseInfo: "可用" + canUseNumber + "张",
+        // showCardUseInfo: "优惠" + maxReduce.reduce_cost + "元",
+        // reducePrice: this.data.totalPrice - maxReduce.reduce_cost,
+        // selcCardInfo: maxReduce
       })
     }
   },
