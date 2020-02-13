@@ -53,7 +53,7 @@ Page({
       // wx.navigateBack({})
     } else {
       wx.showToast({
-        title: '不满足条件满减条件',
+        title: '不满足满减条件',
         icon: 'none'
       })
     }
