@@ -1,12 +1,15 @@
 <!--pages/coupon/coupon.wxml-->
 <view class="page">
-  <view class="card {{item.canUseCoupon ? 'cbg' : 'nbg'}} {{selectCard.id == item.id ? 'selc' : ''}}" wx:for="{{cardList}}" wx:key="*this" bindtap="selectCard" data-id="{{item.id}}" data-canuse="{{item.canUseCoupon}}">
-    <view class="content">
-      <image class="logo" src="{{item.cash.base_info.logo_url}}"></image>
-      <view>
-        <view>{{item.cash.base_info.brand_name}}</view>
-        <view>{{item.cash.base_info.title}}</view>
+  <view class="card {{item.canUseCoupon ? 'cbg' : 'nbg'}}" wx:for="{{cardList}}" wx:key="*this" bindtap="selectCard" data-id="{{item.id}}" data-canuse="{{item.canUseCoupon}}">
+    <view class="spacbetween">
+      <view class="content">
+        <image class="logo" src="{{item.cash.base_info.logo_url}}"></image>
+        <view>
+          <view>{{item.cash.base_info.brand_name}}</view>
+          <view>{{item.cash.base_info.title}}</view>
+        </view>
       </view>
+      <image class="selc-img" src="{{selectCard.id == item.id ? '/images/selc.png' : '/images/nor-selc.png'}}"></image>
     </view>
     <view class="other content">
       <view>{{item.begin_time}} ~ {{item.end_time}}</view>

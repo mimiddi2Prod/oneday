@@ -21,8 +21,20 @@
   background-color: #ddd;
 }
 
-.selc {
-  border: 1rpx solid red;
+/* .selc {
+  border: 1rpx solid #879d89;
+} */
+
+.spacbetween {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between
+}
+
+.selc-img{
+  width: 32rpx;
+  height: 32rpx
 }
 
 .content {
