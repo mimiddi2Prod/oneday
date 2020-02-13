@@ -21,6 +21,7 @@
     <view wx:else>不满足使用条件</view> -->
     </view>
   </view>
+  <view style="height:240rpx;opacity: 0">1</view>
 </view>
 
 <view class="footer">
