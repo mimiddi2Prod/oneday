@@ -20,8 +20,16 @@ async function RestaurantAddCard(param) {
                 row = await query(sql, cardList[i].cardId)
                 if (row.length > 0) {
                     let date_info = JSON.parse(row[0].cash).base_info.date_info
-                    cardList[i].begin_time = new Date(date_info.begin_timestamp * 1000)
-                    cardList[i].end_time = new Date(date_info.end_timestamp * 1000)
+                    // cardList[i].begin_time = new Date(date_info.begin_timestamp * 1000)
+                    // cardList[i].end_time = new Date(date_info.end_timestamp * 1000)
+                    if(date_info.type == "DATE_TYPE_FIX_TIME_RANGE"){
+                        cardList[i].begin_time = new Date(date_info.begin_timestamp * 1000)
+                        cardList[i].end_time = new Date(date_info.end_timestamp * 1000)
+                    } else if(date_info.type == "DATE_TYPE_FIX_TERM"){
+                        let ctime = new Date(new Date().toLocaleDateString()).getTime()
+                        cardList[i].begin_time = new Date(ctime + (1000 * 60 * 60 * 24 * date_info.fixed_begin_term))
+                        cardList[i].end_time = new Date(ctime + (1000 * 60 * 60 * 24 * date_info.fixed_term) - 1000)
+                    }
                 }
                 sql = "insert into restaurant_card(card_id,code,cardExt,openid,begin_time,end_time,create_time)values(?,?,?,?,?,?,CURRENT_TIMESTAMP )"
                 row = await query(sql, [cardList[i].cardId, cardList[i].code, cardList[i].cardExt, param["openid"], cardList[i].begin_time, cardList[i].end_time])

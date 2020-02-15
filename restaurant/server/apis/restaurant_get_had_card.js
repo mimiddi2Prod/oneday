@@ -50,8 +50,8 @@ function RestaurantGetHadCard() {
                             if (myCard[j].card_id == base_info.id) {
                                 myCard[j].least_cost = cash.least_cost / 100
                                 myCard[j].reduce_cost = cash.reduce_cost / 100
-                                myCard[j].begin_time = base_info.date_info.begin_timestamp * 1000
-                                myCard[j].end_time = base_info.date_info.end_timestamp * 1000
+                                // myCard[j].begin_time = base_info.date_info.begin_timestamp * 1000
+                                // myCard[j].end_time = base_info.date_info.end_timestamp * 1000
                                 myCard[j].cash = cash
                             }
                         }
