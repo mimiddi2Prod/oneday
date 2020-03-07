@@ -15,6 +15,26 @@ function RestaurantRestoreStock() {
             if (param.length <= 0) {
                 data.code = 1
             } else {
+                let temp = []
+                for (let i in param) {
+                    let haveSameGoods = temp.some(function (item) {
+                        return item.goodsId == param[i].goodsId
+                    })
+                    if (!haveSameGoods) {
+                        temp.push({
+                            goodsId: param[i].goodsId,
+                            number: param[i].number
+                        })
+                    } else {
+                        for (let j in temp) {
+                            if (temp[j].goodsId == param[i].goodsId) {
+                                temp[j].number = temp[j].number + param[i].number
+                            }
+                        }
+                    }
+                }
+                param = temp
+                
                 sql = "select * from restaurant_goods where id in (?)";
                 row = await query(sql, [param.map(function (eData) {
                     return eData.goodsId
