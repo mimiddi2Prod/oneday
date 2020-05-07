@@ -36,7 +36,7 @@ function RestaurantGetOpenid() {
                     var e = await HttpsGet(options)
                     let openid = JSON.parse(e).openid
                     let sessionkey = JSON.parse(e).session_key
-                    console.info(e)
+                    // console.info(e)
                     var sql = 'select id from restaurant_user where open_id = ?'
                     var row = await query(sql, openid)
                     if (row.length <= 0) {

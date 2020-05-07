@@ -10,7 +10,7 @@ function SHOPGetOpenId() {
 
     this.Run = async function (ver, param, res) {
         var name = "SHOPGetOpenId::Run";
-        log.debug("SHOPGetOpenId::Run.in");
+        // log.debug("SHOPGetOpenId::Run.in");
         var data = {};
         var response = tool.error.OK;
         if (!param["code"]) {
@@ -34,9 +34,9 @@ function SHOPGetOpenId() {
             } catch (err) {
                 if (err.code) {
                     response = tool.error.ErrorSQL;
-                    log.warn(name, "code:", err.code, ", sql:", err.sql);
+                    // log.warn(name, "code:", err.code, ", sql:", err.sql);
                 } else {
-                    log.warn(name, JSON.stringify(response));
+                    // log.warn(name, JSON.stringify(response));
                     response = tool.error.ErrorCatch;
                 }
             }
@@ -52,7 +52,7 @@ function SHOPGetOpenId() {
                 data: data,
                 action: "get_openid",
             }, res);
-        tool.log.debug("SHOPGetOpenId::Run.out");
+        // tool.log.debug("SHOPGetOpenId::Run.out");
     }
 }
 

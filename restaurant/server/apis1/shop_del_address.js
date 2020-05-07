@@ -4,10 +4,10 @@ function SHOPDelAddress() {
     var tool = new tools;
     this.Run = async function (ver, param, res) {
         var name = "SHOPDelAddress::Run";
-        tool.log.debug(name + ".in");
+        // tool.log.debug(name + ".in");
         var data = {};
         var response = tool.error.OK;
-        tool.log.debug(param)
+        // tool.log.debug(param)
         if (!param["user_id"]) {
             // 用户id可能不需要传 cart的id为唯一对应的
             // response = tool.error.ErrorNotOpId;
@@ -35,7 +35,7 @@ function SHOPDelAddress() {
                 data: data,
                 action: "del_address",
             }, res);
-        tool.log.debug("SHOPDelCart::Run.out");
+        // tool.log.debug("SHOPDelCart::Run.out");
     }
 }
 

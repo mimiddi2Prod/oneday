@@ -3,10 +3,14 @@
 var appId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 var fm = require('./../utils/formatTime')
+var fs = require('fs')
 
 
 async function yinbaoAddOnLineOrder(data = {}) {
-    console.info(data)
+    fs.appendFile("log.txt", new Date().toLocaleString() + '--推送订单--' + JSON.stringify(data) + '/n', function (err) {
+
+    })
+    // console.info(data)
     // 推送在线订单
     let current_time = fm(new Date())
     let items = []
@@ -71,7 +75,7 @@ async function yinbaoAddOnLineOrder(data = {}) {
     //     }
     // } else
     if (deliveryType == 1) {
-        if(data.payMethod == 'Wxpay'){
+        if (data.payMethod == 'Wxpay') {
             postData = {
                 "appId": appId,
                 "payMethod": "Wxpay",
@@ -81,12 +85,12 @@ async function yinbaoAddOnLineOrder(data = {}) {
                 "orderDateTime": current_time,
                 "deliveryType": deliveryType,
                 "restaurantTableName": data.restaurantTableName, //桌号
-                "contactAddress":"contactAddress",
+                "contactAddress": "contactAddress",
                 "contactName": "contactName",
                 "contactTel": "contactTel",
                 "items": items
             }
-        }else if(data.payMethod == 'CustomerBalance'){
+        } else if (data.payMethod == 'CustomerBalance') {
             postData = {
                 "appId": appId,
                 "customerNumber": data.customerNumber, // 会员号
@@ -97,7 +101,7 @@ async function yinbaoAddOnLineOrder(data = {}) {
                 "orderDateTime": current_time,
                 "deliveryType": deliveryType,
                 "restaurantTableName": data.restaurantTableName, //桌号
-                "contactAddress":"contactAddress",
+                "contactAddress": "contactAddress",
                 "contactName": "contactName",
                 "contactTel": "contactTel",
                 "items": items
@@ -108,20 +112,23 @@ async function yinbaoAddOnLineOrder(data = {}) {
     // return
     // console.info(items)
 
-    console.info('显示推送订单数据')
-    console.info(postData)
+    // console.info('显示推送订单数据')
+    // console.info(postData)
     let postDataJson = JSON.stringify(postData)
     let router = "addOnLineOrder"
     let e = await request(router, postDataJson)
-    console.info("获得添加订单数据：")
-    console.info(e)
-	e = JSON.parse(e)
+    // console.info("获得添加订单数据：")
+    // console.info(e)
+    fs.appendFile("log.txt", new Date().toLocaleString() + '--推送订单成功--' + JSON.stringify(e) + '/n', function (err) {
+
+    })
+    e = JSON.parse(e)
     let callback = {}
-    if(e.status == 'success' && e.data){
+    if (e.status == 'success' && e.data) {
         callback.code = 0
         callback.text = 'success'
         callback.orderNo = e.data.orderNo
-    }else{
+    } else {
         callback.code = 1
         callback.text = 'fail'
     }

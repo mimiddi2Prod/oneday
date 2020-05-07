@@ -8,7 +8,7 @@ function SHOPGetLogistics() {
 
     this.Run = async function (ver, param, res) {
         var name = "SHOPGetLogistics::Run";
-        log.debug("SHOPGetLogistics::Run.in");
+        // log.debug("SHOPGetLogistics::Run.in");
         var data = [];
         var response = tool.error.OK;
         var row = [];
@@ -30,7 +30,7 @@ function SHOPGetLogistics() {
 
             async function Call() {
                 var e = await HttpsGet(options)
-                console.info(e)
+                // console.info(e)
                 data = JSON.parse(e)
             }
 
@@ -55,7 +55,7 @@ function SHOPGetLogistics() {
                 data: data,
                 action: "get_logistics",
             }, res);
-        tool.log.debug("SHOPGetLogistics::Run.out");
+        // tool.log.debug("SHOPGetLogistics::Run.out");
     }
 }
 

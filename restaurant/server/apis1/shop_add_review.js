@@ -4,10 +4,10 @@ function SHOPAddReview() {
     var tool = new tools;
     this.Run = async function (ver, param, res) {
         var name = "SHOPAddReview::Run";
-        tool.log.debug(name + ".in");
+        // tool.log.debug(name + ".in");
         var data = {};
         var response = tool.error.OK;
-        tool.log.debug(param)
+        // tool.log.debug(param)
         if (!param["user_id"]) {
             // response = tool.error.ErrorNotOpId;
             tool.log.warn(name, 'user_id is not defined')
@@ -30,7 +30,7 @@ function SHOPAddReview() {
                     })
                 }
                 img_list = JSON.stringify(img_list)
-                console.info(img_list)
+                // console.info(img_list)
                 sql = "insert into review_detail(text,image,user_id,param_id_1, param_id_2,param_1, param_2,item_id,create_time)values(?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)"
                 row = await tool.query(sql, [param["text"], img_list, param["user_id"], param["param_id_1"], param["param_id_2"],param["param_1"],param["param_2"],param["item_id"], param["number"]]);
                 if (row.affectedRows == 1) {

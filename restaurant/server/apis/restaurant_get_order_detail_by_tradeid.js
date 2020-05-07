@@ -7,7 +7,7 @@ function RestaurantGetOrderDetailByTradeid() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantGetOrderDetailByTradeid::Run";
-        log.debug("RestaurantGetOrderDetailByTradeid::Run.in");
+        // log.debug("RestaurantGetOrderDetailByTradeid::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -56,7 +56,7 @@ function RestaurantGetOrderDetailByTradeid() {
                 data: data,
                 action: "get_order_detail",
             }, res);
-        tool.log.debug("RestaurantGetOrderDetailByTradeid::Run.out");
+        // tool.log.debug("RestaurantGetOrderDetailByTradeid::Run.out");
     }
 }
 

@@ -76,7 +76,7 @@ function SHOPGetGoodsInfo() {
                             // 获取评价总数
                             sql = 'select count(*) from review_detail where item_id = ?'
                             row = await query(sql, param['itemId']);
-                            console.info(row)
+                            // console.info(row)
                             rowData.best_review[0].review_detail_count = row[0]["count(*)"]
                         }
                     }
@@ -119,7 +119,7 @@ function SHOPGetGoodsInfo() {
                             // 获取评价总数
                             sql = 'select count(*) from review_detail where item_id = ?'
                             row = await query(sql, param['itemId']);
-                            console.info(row)
+                            // console.info(row)
                             rowData.best_review[0].review_detail_count = row[0]["count(*)"]
                         }
                     }

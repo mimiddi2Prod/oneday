@@ -4,10 +4,10 @@ function SHOPUpdateAddress() {
     var tool = new tools;
     this.Run = async function (ver, param, res) {
         var name = "SHOPUpdateAddress::Run";
-        tool.log.debug(name + ".in");
+        // tool.log.debug(name + ".in");
         var data = {};
         var response = tool.error.OK;
-        tool.log.debug(param)
+        // tool.log.debug(param)
         if (!param["address_id"]) {
             // response = tool.error.ErrorNotOpId;
             tool.log.warn(name, 'address_id is not defined')
@@ -47,7 +47,7 @@ function SHOPUpdateAddress() {
                 data: data,
                 action: "update_address",
             }, res);
-        tool.log.debug("SHOPUpdateAddress::Run.out");
+        // tool.log.debug("SHOPUpdateAddress::Run.out");
     }
 }
 

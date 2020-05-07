@@ -7,7 +7,7 @@ function SHOPGetBrand() {
 
     this.Run = async function (ver, param, res) {
         var name = "SHOPGetBrand::Run";
-        log.debug("SHOPGetBrand::Run.in");
+        // log.debug("SHOPGetBrand::Run.in");
         var data = {};
         var response = tool.error.OK;
         var row = [];
@@ -40,7 +40,7 @@ function SHOPGetBrand() {
                 data: data,
                 action: "get_brand",
             }, res);
-        tool.log.debug("SHOPGetBrand::Run.out");
+        // tool.log.debug("SHOPGetBrand::Run.out");
     }
 }
 

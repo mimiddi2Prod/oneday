@@ -4,6 +4,7 @@ const xml2js = require('xml2js')
 const xmlParser = new xml2js.Parser()
 
 var http = require("http")
+var fs = require("fs")
 
 function RestaurantWxPayNotify() {
     var tool = new tools;
@@ -12,7 +13,7 @@ function RestaurantWxPayNotify() {
 
     this.run = async function (xml) {
         var sql = '', row = ''
-        console.info('获得支付结果回调')
+        // console.info('获得支付结果回调', new Date().toLocaleString(), xml)
         // console.info(xml)
 
         // 修改订单支付状态 并且给银豹发送订单请求
@@ -29,7 +30,10 @@ function RestaurantWxPayNotify() {
 
             if (row.length > 0) {
                 let rowData = row
-                if(rowData[0].pay_status == 1){
+                if (rowData[0].pay_status == 1) {
+                    fs.appendFile("log.txt", new Date().toLocaleString() + '--获得支付结果回调--' + JSON.stringify(xml) + '/n', function (err) {
+
+                    })
                     // 更改支付状态
                     sql = 'update restaurant_goods_order set pay_status = ? where trade_id = ? and open_id = ?'
                     row = await query(sql, [0, tradeId, openid])
@@ -57,9 +61,14 @@ function RestaurantWxPayNotify() {
                         let yinbao_orderNo = AddOrderCall.orderNo
                         sql = 'update restaurant_goods_order set yinbao_order_no = ? where trade_id = ? and open_id = ?'
                         row = await query(sql, [yinbao_orderNo, tradeId, openid])
+                        fs.appendFile("log.txt", new Date().toLocaleString() + '--修改数据库完成--' + JSON.stringify(row) + '/n/n', function (err) {
 
-                        var forwardOrder = require("./restaurant_forward_order_info")
-                        let ForwardOrderCall = await forwardOrder(openid)
+                        })
+                        /**
+                         * 订阅消息
+                         */
+                        // var forwardOrder = require("./restaurant_forward_order_info")
+                        // let ForwardOrderCall = await forwardOrder(openid)
                     } else if (AddOrderCall.code == 1) {
 
                     }
@@ -80,42 +89,42 @@ function RestaurantWxPayNotify() {
                         }
                     }
 
-                    /** 
+                    /**
                      * 如果有使用优惠券，就进行核销
-                     * select_card_id:数据库中用户领取优惠券的存储id restaurant_card:id 
+                     * select_card_id:数据库中用户领取优惠券的存储id restaurant_card:id
                      * */
-                    let select_card_id = rowData[0].restaurant_card_id
-                    sql = "update restaurant_card set trade_id = ? where id = ?"
-                    row = await query(sql, [tradeId, select_card_id])
-
-                    sql = "select * from restaurant_card where id = ?"
-                    row = await query(sql, select_card_id)
-
-                    var postDataJson = JSON.stringify({
-                        card_id: row[0].card_id,
-                        encrypt_code: row[0].code
-                    })
-                    var options = {
-                        host: '127.0.0.1',
-                        port: '9131',
-                        path: '/apis/consumeCard',
-                        method: 'POST',
-                        form: postDataJson,
-                        headers: {
-                            'Content-Type': 'application/json;charset=utf-8',
-                        },
-                    }
-
-                    async function Call() {
-                        let e = await HttpPost(options, postDataJson)
-                        e = JSON.parse(e)
-                        console.info(e)
-                        // if (e.code == 0) {
-                        //     data.cardList = e.data
-                        // }
-                    }
-
-                    await Call()
+                    // let select_card_id = rowData[0].restaurant_card_id
+                    // sql = "update restaurant_card set trade_id = ? where id = ?"
+                    // row = await query(sql, [tradeId, select_card_id])
+                    //
+                    // sql = "select * from restaurant_card where id = ?"
+                    // row = await query(sql, select_card_id)
+                    //
+                    // var postDataJson = JSON.stringify({
+                    //     card_id: row[0].card_id,
+                    //     encrypt_code: row[0].code
+                    // })
+                    // var options = {
+                    //     host: '127.0.0.1',
+                    //     port: '9131',
+                    //     path: '/apis/consumeCard',
+                    //     method: 'POST',
+                    //     form: postDataJson,
+                    //     headers: {
+                    //         'Content-Type': 'application/json;charset=utf-8',
+                    //     },
+                    // }
+                    //
+                    // async function Call() {
+                    //     let e = await HttpPost(options, postDataJson)
+                    //     e = JSON.parse(e)
+                    //     console.info(e)
+                    //     // if (e.code == 0) {
+                    //     //     data.cardList = e.data
+                    //     // }
+                    // }
+                    //
+                    // await Call()
                 }
 
             }

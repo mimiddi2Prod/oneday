@@ -21,8 +21,10 @@ async function RestaurantAddOrder(param) {
             cart[i].goodsParam = JSON.stringify(cart[i].goodsParam)
             let img = (cart[i].goodsImage ? cart[i].goodsImage : '')
             // 新增优惠券id: restaurant_card_id
-            sql = "insert into restaurant_goods_order (`name`,`describe`,img,goods_id,open_id,param,goods_sku_id,`number`,trade_id,price,style,create_time,pay_status,dinners_number,pay_method,table_number,customer_uid,restaurant_card_id) values (?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?,?)";
-            row = await query(sql, [cart[i].goodsName, cart[i].goodsDesc, img, cart[i].goodsId, param['openid'], cart[i].goodsParam, cart[i].paramId, cart[i].number, param['tradeId'], cart[i].price, param['style'], param['payStatus'], param['dinnersNumber'], param['payMethod'], param['restaurantTableName'], param['customerUid'], param["coupon"].id]);
+            // sql = "insert into restaurant_goods_order (`name`,`describe`,img,goods_id,open_id,param,goods_sku_id,`number`,trade_id,price,style,create_time,pay_status,dinners_number,pay_method,table_number,customer_uid,restaurant_card_id) values (?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?,?)";
+            // row = await query(sql, [cart[i].goodsName, cart[i].goodsDesc, img, cart[i].goodsId, param['openid'], cart[i].goodsParam, cart[i].paramId, cart[i].number, param['tradeId'], cart[i].price, param['style'], param['payStatus'], param['dinnersNumber'], param['payMethod'], param['restaurantTableName'], param['customerUid'], param["coupon"].id]);
+            sql = "insert into restaurant_goods_order (`name`,`describe`,img,goods_id,open_id,param,goods_sku_id,`number`,trade_id,price,style,create_time,pay_status,dinners_number,pay_method,table_number,customer_uid) values (?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?)";
+            row = await query(sql, [cart[i].goodsName, cart[i].goodsDesc, img, cart[i].goodsId, param['openid'], cart[i].goodsParam, cart[i].paramId, cart[i].number, param['tradeId'], cart[i].price, param['style'], param['payStatus'], param['dinnersNumber'], param['payMethod'], param['restaurantTableName'], param['customerUid']]);
             if (row.insertId) {
                 flag++
             }

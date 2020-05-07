@@ -4,10 +4,10 @@ function SHOPUpdateIntegral() {
     var tool = new tools;
     this.Run = async function (ver, param, res) {
         var name = "SHOPUpdateIntegral::Run";
-        tool.log.debug(name + ".in");
+        // tool.log.debug(name + ".in");
         var data = {};
         var response = tool.error.OK;
-        tool.log.debug(param)
+        // tool.log.debug(param)
         if (!param["integral"]) {
             // response = tool.error.ErrorNotOpId;
             tool.log.warn(name, 'integral is not defined')
@@ -25,14 +25,14 @@ function SHOPUpdateIntegral() {
                 row = await tool.query(sql, param["user_id"])
                 if (row.length > 0) {
                     let currentIntegral = row[0].integral
-                    console.info('---------------------')
-                    console.info(currentIntegral)
+                    // console.info('---------------------')
+                    // console.info(currentIntegral)
 
                     // 0相加 1相减
                     // if (param['state'] == 0) {
                     currentIntegral = Number(currentIntegral) + Number(param["integral"])
-                    console.info(currentIntegral)
-                    console.info('---------------------')
+                    // console.info(currentIntegral)
+                    // console.info('---------------------')
                     // } else {
                     //     currentIntegral = currentIntegral - param["integral"]
                     // }

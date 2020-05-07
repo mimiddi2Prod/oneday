@@ -14,7 +14,7 @@ function RestaurantGetSubscribeMessage() {
         try {
             sql = "select * from restaurant_subscribe_message";
             row = await query(sql);
-            console.info(row)
+            // console.info(row)
             if (row.length > 0) {
                 data = row
             } else {

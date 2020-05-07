@@ -13,8 +13,8 @@ async function YinbaoGetCustomer(phone) {
     let postDataJson = JSON.stringify(postData)
     let router = "queryBytel"
     let e = await request(router, postDataJson)
-    console.info("获得分类数据：")
-    console.info(e)
+    // console.info("获得分类数据：")
+    // console.info(e)
     e = JSON.parse(e)
     if (e.data) {
         if (e.data[0].number.length > 0 && e.data[0].number == phone) {
@@ -34,11 +34,11 @@ async function YinbaoGetCustomer(phone) {
             }
         }
         let postDataJson = JSON.stringify(postData)
-        console.info(postDataJson)
+        // console.info(postDataJson)
         let router = "add"
         let e = await request(router, postDataJson)
-        console.info("获得分类数据：")
-        console.info(e)
+        // console.info("获得分类数据：")
+        // console.info(e)
         e = JSON.parse(e)
         if (e.data) {
             if (e.data.number.length > 0 && e.data.number == phone) {

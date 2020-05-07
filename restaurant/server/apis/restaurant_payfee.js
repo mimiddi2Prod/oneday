@@ -6,7 +6,7 @@ function RestaurantPayfee() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantPayfee::Run";
-        log.debug("RestaurantPayfee::Run.in");
+        // log.debug("RestaurantPayfee::Run.in");
         var data = {};
         var response = tool.error.OK;
 
@@ -19,9 +19,9 @@ function RestaurantPayfee() {
                 var payData = {}
                 payData.openid = param['openid']
                 payData.body = '啾哩Brunch'
-                // payData.total_fee = param['money'] * 100
+                payData.total_fee = param['money'] * 100
                 // 改动 根据优惠情况计算 param["coupon"] null/object
-                payData.total_fee = param["coupon"] ? (param['money'] - param["coupon"].reduce_cost) * 100 : param['money'] * 100
+                // payData.total_fee = param["coupon"] ? (param['money'] - param["coupon"].reduce_cost) * 100 : param['money'] * 100
 
                 var payfee = require("./../utils/wxpay");
                 async function Call() {
@@ -33,7 +33,7 @@ function RestaurantPayfee() {
                     let order = param['order']
                     order.tradeId = e.tradeId
                     // 新增 优惠券信息
-                    order.coupon = param["coupon"]
+                    // order.coupon = param["coupon"]
                     let callback = await addOrder(order)
                     data.addOrderStatus = callback
 
@@ -61,7 +61,7 @@ function RestaurantPayfee() {
                 data: data,
                 action: "add_order",
             }, res);
-        tool.log.debug("RestaurantPayfee::Run.out");
+        // tool.log.debug("RestaurantPayfee::Run.out");
     }
 }
 

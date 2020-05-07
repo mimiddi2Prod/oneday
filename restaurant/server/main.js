@@ -37,8 +37,8 @@ http.createServer(function (req, res) {
     req.on('end', function () {
         try {
             var params = JSON.parse(postRaw);
-            console.info(reqUrl);
-            console.info(params);
+            // console.info(reqUrl);
+            // console.info(params);
             res.writeHead(200, contentType);
             var router = new Router;
             router.Run(path, params, res);

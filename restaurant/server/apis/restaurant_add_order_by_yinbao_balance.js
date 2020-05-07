@@ -7,7 +7,7 @@ function RestaurantAddOrderByYinbaoBalance() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantAddOrderByYinbaoBalance::Run";
-        log.debug("RestaurantAddOrderByYinbaoBalance::Run.in");
+        // log.debug("RestaurantAddOrderByYinbaoBalance::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -21,7 +21,7 @@ function RestaurantAddOrderByYinbaoBalance() {
             try {
                 var yinbaoAddOrder = require("./yinbao_add_onLineOrder")
                 let call = await yinbaoAddOrder(param)
-                console.info(call)
+                // console.info(call)
                 if (call.code == 0) {
                     let yinbao_orderNo = call.orderNo
                     let cart = param['cart']
@@ -72,7 +72,7 @@ function RestaurantAddOrderByYinbaoBalance() {
                 data: data,
                 action: "add_order",
             }, res);
-        tool.log.debug("RestaurantAddOrderByYinbaoBalance::Run.out");
+        // tool.log.debug("RestaurantAddOrderByYinbaoBalance::Run.out");
     }
 }
 

@@ -7,7 +7,7 @@ function RestaurantGetCategoryByLocationCode() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantGetCategoryByLocationCode::Run";
-        log.debug("RestaurantGetCategoryByLocationCode::Run.in");
+        // log.debug("RestaurantGetCategoryByLocationCode::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -99,7 +99,7 @@ function RestaurantGetCategoryByLocationCode() {
                 data: data,
                 action: "get_category_by_location_code",
             }, res);
-        tool.log.debug("RestaurantGetCategoryByLocationCode::Run.out");
+        // tool.log.debug("RestaurantGetCategoryByLocationCode::Run.out");
     }
 }
 

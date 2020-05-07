@@ -8,7 +8,7 @@ function SHOPGetUploadToken() {
 
     this.Run = async function (ver, param, res) {
         var name = "SHOPGetUploadToken::Run";
-        log.debug("SHOPGetUploadToken::Run.in");
+        // log.debug("SHOPGetUploadToken::Run.in");
         var data = [];
         var response = tool.error.OK;
         var row = [];
@@ -51,7 +51,7 @@ function SHOPGetUploadToken() {
                 data: data,
                 action: "get_uploadToken",
             }, res);
-        tool.log.debug("SHOPGetUploadToken::Run.out");
+        // tool.log.debug("SHOPGetUploadToken::Run.out");
     }
 }
 

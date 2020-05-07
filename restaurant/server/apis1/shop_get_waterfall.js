@@ -39,7 +39,7 @@ function SHOPGetWaterfall() {
                 if (param['type'] == 0) {
                     sql = "select `name`,image,url,qcl,price,`describe`,id from item where integral_price = ? and `type` = ? and state = ? ORDER BY sort limit ?,?"
                     row = await query(sql, [0, 1, 0, param['topic_last_id'], 1]);
-                    console.info(row)
+                    // console.info(row)
                     if (row.length == 0) {
                         // response = tool.error.ErrorNotFoundUser;
                         data.topic = []
@@ -56,7 +56,7 @@ function SHOPGetWaterfall() {
                 let current_time = new Date()
                 sql = "select item_id,start_time,end_time from group_buy where start_time < ? and end_time > ? ORDER BY start_time limit ?,?";
                 row = await query(sql, [current_time, current_time, param['item_last_id'] * 8, 8]);
-                console.info(row)
+                // console.info(row)
                 let group_list = row
                 if (group_list.length > 0) {
                     for (let i in group_list) {

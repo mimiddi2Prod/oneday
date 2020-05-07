@@ -34,7 +34,7 @@ function SHOPGetCart() {
                             sql = "select sum(number) from paid where item_price_id = ? and create_time >= ?"
                             row = await tool.query(sql, [row[0].id, time])
                             if(row.length > 0){
-                                console.info(row[0]['sum(number)'])
+                                // console.info(row[0]['sum(number)'])
                                 rowData[i].stock = rowData[i].stock - row[0]['sum(number)']
                             }
 
@@ -49,7 +49,7 @@ function SHOPGetCart() {
                         }
                         sql = "select image,param from item_param where id = ?"
                         row = await tool.query(sql, rowData[i].item_param_id_1)
-                        console.info(rowData[i])
+                        // console.info(rowData[i])
                         if (row.length > 0) {
                             rowData[i].param_1 = row[0].param
                             if (row[0].image) {

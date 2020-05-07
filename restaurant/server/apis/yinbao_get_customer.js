@@ -12,7 +12,7 @@ function YinbaoGetPhone() {
 
     this.Run = async function (ver, param, res) {
         var name = "YinbaoGetPhone::Run";
-        log.debug("YinbaoGetPhone::Run.in");
+        // log.debug("YinbaoGetPhone::Run.in");
         var data = {};
         var response = tool.error.OK;
         // var sql = '', row = [];
@@ -21,7 +21,7 @@ function YinbaoGetPhone() {
             // response = tool.error.ErrorNotCode;
         } else {
             try {
-                console.info(param)
+                // console.info(param)
                 // 1.获取会员
                 let postData = {
                     "appId": yinbaoAppId,
@@ -31,8 +31,8 @@ function YinbaoGetPhone() {
                 let router = "queryBytel"
                 let e = await request(router, postDataJson)
                 e = jsonBigInt.parse(e)
-                console.info("获得用户数据：")
-                console.info(e)
+                // console.info("获得用户数据：")
+                // console.info(e)
                 // e = JSON.parse(e)
                 if (e.data) {
                     if (e.data[0].number.length > 0 && e.data[0].phone == param["phone"]) {
@@ -103,7 +103,7 @@ function YinbaoGetPhone() {
                 data: data,
                 action: "get_phone",
             }, res);
-        tool.log.debug("YinbaoGetPhone::Run.out");
+        // tool.log.debug("YinbaoGetPhone::Run.out");
     }
 }
 

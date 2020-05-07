@@ -7,7 +7,7 @@ function RestaurantYinbaoPay() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantYinbaoPay::Run";
-        log.debug("RestaurantYinbaoPay::Run.in");
+        // log.debug("RestaurantYinbaoPay::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -22,7 +22,7 @@ function RestaurantYinbaoPay() {
                 // 更新会员信息
                 let updateCustomer = require('./yinbao_update_customer')
                 let callData = await updateCustomer(param)
-                console.info(callData)
+                // console.info(callData)
                 if (callData.code == 0) {
                     data = callData
                 }
@@ -48,7 +48,7 @@ function RestaurantYinbaoPay() {
                 data: data,
                 action: "add_order",
             }, res);
-        tool.log.debug("RestaurantYinbaoPay::Run.out");
+        // tool.log.debug("RestaurantYinbaoPay::Run.out");
     }
 }
 

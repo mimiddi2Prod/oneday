@@ -7,7 +7,7 @@ function RestaurantGetBanner() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantGetBanner::Run";
-        log.debug("RestaurantGetBanner::Run.in");
+        // log.debug("RestaurantGetBanner::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -17,7 +17,7 @@ function RestaurantGetBanner() {
         try {
             sql = "select * from restaurant_banner where status = ? order by sort";
             row = await query(sql, 0);
-            console.info(row)
+            // console.info(row)
             if (row.length > 0) {
                 data.opening = row
             }
@@ -44,7 +44,7 @@ function RestaurantGetBanner() {
                 data: data,
                 action: "get_banner",
             }, res);
-        tool.log.debug("RestaurantGetBanner::Run.out");
+        // tool.log.debug("RestaurantGetBanner::Run.out");
     }
 }
 

@@ -4,10 +4,10 @@ function SHOPUpdateOrderState() {
     var tool = new tools;
     this.Run = async function (ver, param, res) {
         var name = "SHOPUpdateOrderState::Run";
-        tool.log.debug(name + ".in");
+        // tool.log.debug(name + ".in");
         var data = {};
         var response = tool.error.OK;
-        tool.log.debug(param)
+        // tool.log.debug(param)
         if (!param["order_id"]) {
             // response = tool.error.ErrorNotOpId;
             tool.log.warn(name, 'order_id is not defined')
@@ -50,7 +50,7 @@ function SHOPUpdateOrderState() {
                 data: data,
                 action: "update_orderState",
             }, res);
-        tool.log.debug("SHOPUpdateOrderState::Run.out");
+        // tool.log.debug("SHOPUpdateOrderState::Run.out");
     }
 }
 

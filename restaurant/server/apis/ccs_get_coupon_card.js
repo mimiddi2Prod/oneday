@@ -5,10 +5,10 @@ function CCSGetCouponCard() {
     var tool = new tools;
     this.Run = async function (ver, param, res) {
         var name = "CCSGetCouponCard::Run";
-        tool.log.debug(name + ".in");
+        // tool.log.debug(name + ".in");
         var data = {};
         var response = tool.error.OK;
-        tool.log.debug(param)
+        // tool.log.debug(param)
         if (!param["openid"]) {
             tool.log.warn(name, 'openid is not defined')
         } else {
@@ -31,12 +31,12 @@ function CCSGetCouponCard() {
                 */
                 sql = "select * from restaurant_card_info where `type` = ?"
                 row = await tool.query(sql, param["type"])
-                console.info(row)
+                // console.info(row)
                 if (row.length > 0) {
                     let current_time = new Date().getTime() / 1000
                     let card_id = row.filter(function (e) {
                         e.cash = JSON.parse(e.cash)
-                        console.info(e.cash)
+                        // console.info(e.cash)
                         if (e.cash.base_info.date_info.type == 'DATE_TYPE_FIX_TIME_RANGE') {
                             return (current_time >= e.cash.base_info.date_info.begin_timestamp && current_time <= e.cash.base_info.date_info.end_timestamp)
                         } else {
@@ -76,7 +76,7 @@ function CCSGetCouponCard() {
                         async function Call() {
                             let e = await HttpPost(options, postDataJson)
                             e = JSON.parse(e)
-                            console.info(e)
+                            // console.info(e)
                             if (e.code == 0) {
                                 data.cardList = e.data
                             }
@@ -102,7 +102,7 @@ function CCSGetCouponCard() {
                 data: data,
                 action: "add_address",
             }, res);
-        tool.log.debug("CCSGetCouponCard::Run.out");
+        // tool.log.debug("CCSGetCouponCard::Run.out");
     }
 }
 

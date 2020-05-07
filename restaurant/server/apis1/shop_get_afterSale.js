@@ -18,16 +18,16 @@ function SHOPGetAfterSale() {
             try {
                 // 数据库需要加订单号 说明是同一个包裹
                 if (param['status'] == 0) {
-                    console.info
+                    // console.info
                     // 拉取 申请售后栏
                     sql = "select item_id,param_id_1,param_id_2,param_1,param_2,image,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id,tradeId,after_sale_state,logistics_code from `order` where user_id = ? and state >= ? and state <= ? and after_sale_state <= ? ORDER BY update_time desc limit ?,?";
                     row = await query(sql, [param['user_id'], 2, 7, 3, param['last_id'] * 10, 10]);
-                    console.info(row)
+                    // console.info(row)
                 } else if (param['status'] == 1) {
                     // 拉取 售后记录栏
                     sql = "select item_id,param_id_1,param_id_2,param_1,param_2,image,`number`,update_time,create_time,state,address_text,tel,receiver,single_price,postage,id,tradeId,after_sale_state,logistics_code from `order` where user_id = ? and after_sale_state >= ? and after_sale_state <= ? ORDER BY update_time desc limit ?,?";
                     row = await query(sql, [param['user_id'], 4, 6, param['last_id'] * 10, 10]);
-                    console.info(row)
+                    // console.info(row)
                 }
                 var rowData = row
                 if (rowData.length > 0) {

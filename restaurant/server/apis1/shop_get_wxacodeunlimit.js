@@ -32,7 +32,7 @@ function SHOPGetWxacodeunlimit() {
                 var e = await HttpsGet(options)
 
                 let access_token = JSON.parse(e).access_token
-                console.info(access_token)
+                // console.info(access_token)
 
                 let postData = JSON.stringify({
                     // access_token: access_token,
@@ -56,7 +56,7 @@ function SHOPGetWxacodeunlimit() {
 
                 async function CallCODE() {
                     e = await HttpsPost(options, postData)
-                    console.info(e)
+                    // console.info(e)
 
                     // var base64Image = JSON.parse(e).imgBuffer.toString('base64')
                     // console.info(base64Image)
@@ -143,8 +143,8 @@ async function HttpsPost(option, postData) {
             res.on('end', function (e) {
                 const contentType = res.headers['content-type'];
                 if (!contentType.includes('image')) {
-                    console.log('获取小程序码图片失败，微信api返回的json为：')
-                    console.log(JSON.parse(data))
+                    // console.log('获取小程序码图片失败，微信api返回的json为：')
+                    // console.log(JSON.parse(data))
                     return resolve(null);
                 }
                 const imgBuffer = Buffer.from(data, 'binary');

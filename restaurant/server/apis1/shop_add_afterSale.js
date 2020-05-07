@@ -4,10 +4,10 @@ function SHOPAddAfterSale() {
     var tool = new tools;
     this.Run = async function (ver, param, res) {
         var name = "SHOPAddAfterSale::Run";
-        tool.log.debug(name + ".in");
+        // tool.log.debug(name + ".in");
         var data = {};
         var response = tool.error.OK;
-        tool.log.debug(param)
+        // tool.log.debug(param)
         if (!param["order_id"]) {
             // response = tool.error.ErrorNotOpId;
             tool.log.warn(name, 'order_id is not defined')
@@ -28,9 +28,9 @@ function SHOPAddAfterSale() {
                 if (param['address'].length > 0) {
                     address = JSON.stringify(param['address'])
                 }
-                console.info(img_list)
-                console.info(address)
-                console.info(param['number'])
+                // console.info(img_list)
+                // console.info(address)
+                // console.info(param['number'])
                 sql = "insert into afterSale(`number`,order_id,state,reason,refund,description,image,address,create_time)values(?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)"
                 row = await tool.query(sql, [param['number'],param["order_id"], 0, param["reason"], param["refund"], param["description"], img_list, address]);
                 if (row.affectedRows == 1) {
@@ -61,7 +61,7 @@ function SHOPAddAfterSale() {
                 data: data,
                 action: "add_afterSale",
             }, res);
-        tool.log.debug("SHOPAddAfterSale::Run.out");
+        // tool.log.debug("SHOPAddAfterSale::Run.out");
     }
 }
 

@@ -18,7 +18,7 @@ function RestaurantGetUserPhone() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantGetUserPhone::Run";
-        log.debug("RestaurantGetUserPhone::Run.in");
+        // log.debug("RestaurantGetUserPhone::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -52,8 +52,8 @@ function RestaurantGetUserPhone() {
                 let postDataJson = JSON.stringify(postData)
                 let router = "queryBytel"
                 let e = await request(router, postDataJson)
-                console.info("获得分类数据：")
-                console.info(e)
+                // console.info("获得分类数据：")
+                // console.info(e)
                 // e = JSON.parse(e)
                 e = jsonBigInt.parse(e)
                 if (e.data) {
@@ -84,11 +84,11 @@ function RestaurantGetUserPhone() {
                         }
                     }
                     let postDataJson = JSON.stringify(postData)
-                    console.info(postDataJson)
+                    // console.info(postDataJson)
                     let router = "add"
                     let e = await request(router, postDataJson)
-                    console.info("获得分类数据：")
-                    console.info(e)
+                    // console.info("获得分类数据：")
+                    // console.info(e)
                     // e = JSON.parse(e)
                     e = jsonBigInt.parse(e)
                     if (e.data) {
@@ -128,7 +128,7 @@ function RestaurantGetUserPhone() {
                 data: data,
                 action: "get_user_phone_and_register",
             }, res);
-        tool.log.debug("RestaurantGetUserPhone::Run.out");
+        // tool.log.debug("RestaurantGetUserPhone::Run.out");
     }
 }
 

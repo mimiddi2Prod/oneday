@@ -7,7 +7,7 @@ function RestaurantRestoreStock() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantRestoreStock::Run";
-        log.debug("RestaurantRestoreStock::Run.in");
+        // log.debug("RestaurantRestoreStock::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -77,7 +77,7 @@ function RestaurantRestoreStock() {
                 data: data,
                 action: "restore_stock",
             }, res);
-        tool.log.debug("RestaurantRestoreStock::Run.out");
+        // tool.log.debug("RestaurantRestoreStock::Run.out");
     }
 }
 

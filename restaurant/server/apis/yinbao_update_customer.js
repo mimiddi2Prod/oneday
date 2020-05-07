@@ -23,8 +23,8 @@ async function YinbaoUpdateCustomer(data) {
     e = jsonBigInt.parse(e)
     // e.data.customerUid = e.data.customerUid.c.join("")
 
-    console.info("获得更新后的用户数据：")
-    console.info(e)
+    // console.info("获得更新后的用户数据：")
+    // console.info(e)
     if (e.data) {
         if((e.data.balanceIncrement == data.balanceIncrement) && (e.data.pointIncrement == Number(data.pointIncrement))){
             callData.code = 0

@@ -4,13 +4,13 @@ function SHOPAddCart() {
     var tool = new tools;
     this.Run = async function (ver, param, res) {
         var name = "SHOPAddCart::Run";
-        tool.log.debug(name + ".in");
+        // tool.log.debug(name + ".in");
         var data = {};
         var response = tool.error.OK;
-        tool.log.debug(param)
+        // tool.log.debug(param)
         if (!param["user_id"]) {
             // response = tool.error.ErrorNotOpId;
-            tool.log.warn(name, 'user_id is not defined')
+            // tool.log.warn(name, 'user_id is not defined')
         } else if (param["param_id_1"] && param["param_id_2"]) {
             var row = [];
             var sql = ""
@@ -24,10 +24,10 @@ function SHOPAddCart() {
                     data.text = "添加成功"
                 }else{
                     var number = rowData[0].number
-                    console.info(row)
+                    // console.info(row)
                     sql = "select stock from item_price where param_id_1 = ? and param_id_2 = ?"
                     row =  await tool.query(sql, [param["param_id_1"], param["param_id_2"]]);
-                    console.info(row)
+                    // console.info(row)
                     if(row[0].stock >= number + param["number"]){
                         sql = "update cart set `number` = ? where user_id = ? and item_param_id_1 = ? and item_param_id_2 = ?"
                         row =  await tool.query(sql, [param["number"]+number,param["user_id"], param["param_id_1"], param["param_id_2"]]);
@@ -53,7 +53,7 @@ function SHOPAddCart() {
                 data: data,
                 action: "add_cart",
             }, res);
-        tool.log.debug("SHOPAddCart::Run.out");
+        // tool.log.debug("SHOPAddCart::Run.out");
     }
 }
 
