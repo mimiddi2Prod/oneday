@@ -100,7 +100,7 @@ Page({
   submitOrder: function() {
     let current_time = new Date(),
       date = new Date(current_time.toDateString()).getTime(),
-      start_time = new Date(date + (21 * 60 * 60 * 1000))
+      start_time = new Date(date + (21 * 60 * 60 * 1000 + 30 * 60 * 1000))
     if (current_time >= start_time) {
       wx.showModal({
         title: '',
