@@ -578,6 +578,10 @@ var addGoodsVM = new Vue({
                 alert('请填写商品标题')
                 return
             }
+            if (this.goods_desc == '') {
+                alert('请填写商品描述')
+                return
+            }
             if (this.goods_brand_id == '') {
                 alert('请选择商品品牌')
                 return
