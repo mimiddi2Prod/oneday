@@ -182,11 +182,12 @@ label{
 }
 
 .first-title>label .a{
-    width: 20%;
+    /*width: 20%;*/
 }
 
 .first-title>label .b{
-    width: 60%;
+    /*width: 60%;*/
+    width: 80%;
 }
 
 .first-title>label .c{

@@ -1,7 +1,7 @@
-const accessKey = "r4jtfPWWt-3YWnuJCVH9DAIp2h2SSBE5i6LwZJ7B"
-const secretKey = "qStM0CzH2Lnt1-CWcqya4VGuQiR-WeByx4blseQI"
-const bucket = "notwasting"
-const qiniuRootUrl = "http://notwastingqiniu.minidope.com/"
+const accessKey = "AKeMgvz7ClhsADp9G5lcPeo6poSEnFdgusoFiC4b"
+const secretKey = "JOQMdSpS7FGqUtpV47CAKwn-JdRIPEuozE63X9sp"
+const bucket = "oneday"
+const qiniuRootUrl = "http://onedayqiniu.minidope.com/"
 
 module.exports = {
     accessKey: accessKey,

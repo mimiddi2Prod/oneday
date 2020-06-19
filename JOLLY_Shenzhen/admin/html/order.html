@@ -134,8 +134,9 @@
             <!-- 商品标题 -->
             <nav class="navbar navbar-default" role="navigation" style="margin-bottom: 14px;">
                 <div class="item">
-                    <span class="first-title have-border column-center">订单信息</span>
-                    <span class="second-title column-center">顾客信息</span>
+                    <span class="first-title column-center">订单信息</span>
+                    <!--<span class="first-title have-border column-center">订单信息</span>-->
+                    <!--<span class="second-title column-center">顾客信息</span>-->
                     <!--<span class="third-title column-center">操作</span>-->
                 </div>
             </nav>
@@ -169,16 +170,16 @@
                             <div class="c">
                                 <div>￥{{item.price}}</div>
                                 <div>x{{item.number}}</div>
-                                <div>{{item.style == 0 ? '堂食' : '外带'}}</div>
+                                <div>{{item.take_meal_style == 0 ? '堂食' : '外带'}}</div>
                             </div>
                         </label>
                     </div>
 
-                    <div class="second-title column">
-                        <div><span>openid：{{item.open_id}}</span></div>
-                        <div>（目前不收集顾客其他信息）</div>
-                        <!--<div><span>卖家备注：</span></div>-->
-                    </div>
+                    <!--<div class="second-title column">-->
+                        <!--<div><span>openid：{{item.open_id}}</span></div>-->
+                        <!--<div>（目前不收集顾客其他信息）</div>-->
+                        <!--&lt;!&ndash;<div><span>卖家备注：</span></div>&ndash;&gt;-->
+                    <!--</div>-->
                     <!--<div class="third-title column-center">-->
                         <!--<div type="button" v-if="item.state == 0">{{item.waitPay ? '待付款' : '已取消'}}</div>-->
                         <!--<div type="button" v-if="item.after_sale_state == 0">{{item.state == -1 ? '已取消' : ''}}-->
