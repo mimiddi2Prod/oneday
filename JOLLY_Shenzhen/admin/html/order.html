@@ -142,68 +142,73 @@
             </nav>
 
             <!--for循环-->
-            <div v-for="item in orderList">
-                <nav class="navbar navbar-default" role="navigation">
+            <div v-for="item,index in orderList">
+                <nav class="navbar navbar-default" role="navigation" data-toggle="collapse" :href="'#'+index">
                     <div class="item">
                         <div class="item-title">
                             <span>下单时间：{{item.create_time}}</span>
                             <span>订单号：{{item.trade_id}}</span>
                         </div>
                         <div class="item-title">
-                            <span>共{{item.number}}件商品</span>
+                            <!--<span>共{{item.number}}件商品</span>-->
+                            <span>共{{item.total_num}}件商品</span>
                             <span>合计：¥{{item.total_price}}</span>
+                            <span>{{item.take_meal_style == 0 ? '堂食' : '外带'}}</span>
                         </div>
                     </div>
                 </nav>
 
                 <!-- 商品详情 -->
-                <div class="goods-container">
-                    <div class="first-title">
-                        <label class="form-check-label row">
-                            <div class="a">
-                                <!-- <input type="checkbox" name=""> -->
-                                <img :src="item.img">
-                            </div>
-                            <div class="b">
-                                <span>{{item.name}}</span>
-                            </div>
-                            <div class="c">
-                                <div>￥{{item.price}}</div>
-                                <div>x{{item.number}}</div>
-                                <div>{{item.take_meal_style == 0 ? '堂食' : '外带'}}</div>
-                            </div>
-                        </label>
-                    </div>
+                <div class="collapse" :id="index">
+                    <div class="goods-container" v-for="order in item.order" style="padding: 6px 0;">
+                        <div class="first-title">
+                            <label class="form-check-label row">
+                                <div class="a">
+                                    <!-- <input type="checkbox" name=""> -->
+                                    <img :src="order.img">
+                                </div>
+                                <div class="b">
+                                    <span>{{order.name}}</span>
+                                </div>
+                                <div class="c">
+                                    <div>￥{{order.price}}</div>
+                                    <div>x{{order.number}}</div>
+                                    <!--<div>{{item.take_meal_style == 0 ? '堂食' : '外带'}}</div>-->
+                                </div>
+                            </label>
+                        </div>
 
-                    <!--<div class="second-title column">-->
+                        <!--<div class="second-title column">-->
                         <!--<div><span>openid：{{item.open_id}}</span></div>-->
                         <!--<div>（目前不收集顾客其他信息）</div>-->
                         <!--&lt;!&ndash;<div><span>卖家备注：</span></div>&ndash;&gt;-->
-                    <!--</div>-->
-                    <!--<div class="third-title column-center">-->
+                        <!--</div>-->
+                        <!--<div class="third-title column-center">-->
                         <!--<div type="button" v-if="item.state == 0">{{item.waitPay ? '待付款' : '已取消'}}</div>-->
                         <!--<div type="button" v-if="item.after_sale_state == 0">{{item.state == -1 ? '已取消' : ''}}-->
-                            <!--&lt;!&ndash;{{item.state == 1 ? '待发货' : ''}}&ndash;&gt;-->
-                            <!--{{item.state == 2 ? '已发货' : ''}}-->
-                            <!--{{item.state == 3 ? '待评价' : ''}}-->
-                            <!--{{item.state == 4 ? '已完成' : ''}}-->
+                        <!--&lt;!&ndash;{{item.state == 1 ? '待发货' : ''}}&ndash;&gt;-->
+                        <!--{{item.state == 2 ? '已发货' : ''}}-->
+                        <!--{{item.state == 3 ? '待评价' : ''}}-->
+                        <!--{{item.state == 4 ? '已完成' : ''}}-->
                         <!--</div>-->
                         <!--<div type="button" v-if="item.after_sale_state != 0">{{item.after_sale_state == 1 ? '退款中' : ''}}-->
-                            <!--{{item.after_sale_state == 2 ? '退货退款中' : ''}}-->
-                            <!--{{item.after_sale_state == 3 ? '换货中' : ''}}-->
-                            <!--{{item.after_sale_state == 4 ? '已退款' : ''}}-->
-                            <!--{{item.after_sale_state == 5 ? '已退货退款' : ''}}-->
-                            <!--{{item.after_sale_state == 6 ? '已换货' : ''}}-->
+                        <!--{{item.after_sale_state == 2 ? '退货退款中' : ''}}-->
+                        <!--{{item.after_sale_state == 3 ? '换货中' : ''}}-->
+                        <!--{{item.after_sale_state == 4 ? '已退款' : ''}}-->
+                        <!--{{item.after_sale_state == 5 ? '已退货退款' : ''}}-->
+                        <!--{{item.after_sale_state == 6 ? '已换货' : ''}}-->
                         <!--</div>-->
                         <!--<button type="button" class="btn btn-link" v-if="item.after_sale_state == 0 && item.state == 1"-->
-                                <!--data-toggle="modal" data-target="#myModal" v-on:click="getLogistics(item.id,item.tel)">-->
-                            <!--待发货-->
+                        <!--data-toggle="modal" data-target="#myModal" v-on:click="getLogistics(item.id,item.tel)">-->
+                        <!--待发货-->
                         <!--</button>-->
                         <!--<button type="button" class="btn btn-link" v-on:click="changePage('order-detail',item.id)">订单详情-->
                         <!--</button>-->
                         <!--<button type="button" class="btn btn-link">联系买家</button>-->
-                    <!--</div>-->
+                        <!--</div>-->
+                    </div>
                 </div>
+
             </div>
 
             <div style="text-align: center;margin-bottom:0" v-if="orderList.length <= 0">

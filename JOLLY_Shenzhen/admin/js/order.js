@@ -118,15 +118,15 @@ function getOrder() {
     data.status = orderVM.navId
     data.last_id = orderVM.last_id
     server(url, data, async, "post", function (res) {
-        // console.info(res)
+        console.info(res)
         if (res.number > 0) {
-            res.list = res.list.map(function (eData) {
+            res.trade = res.trade.map(function (eData) {
                 eData.create_time = formatTime(new Date(eData.create_time))
-                eData.total_price = Number(eData.price * eData.number).toFixed(2)
-                eData.price = Number(eData.price).toFixed(2)
+                // eData.total_price = Number(eData.price * eData.number).toFixed(2)
+                // eData.price = Number(eData.price).toFixed(2)
                 return eData
             })
-            orderVM.orderList = res.list
+            orderVM.orderList = res.trade
             // 分页栏
             for (let i = 0; i < res.number / 5; i++) {
                 orderVM.pageList.push(i + 1)
