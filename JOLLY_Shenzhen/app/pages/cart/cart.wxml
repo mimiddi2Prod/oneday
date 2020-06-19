@@ -1,0 +1,104 @@
+<!--pages/cart/cart.wxml-->
+<!-- 标题栏 -->
+<view class="header">
+  <view class="header_left">
+    桌号：{{tableNumber}}
+  </view>
+  <view class="header_right">
+    <navigator url="../order/order" hover-class='none'>
+      <image class="header-icon" src="/images/order.png"></image>
+    </navigator>
+  </view>
+</view>
+
+<view class="content">
+  <view class="card">
+    <!-- 选中就餐方式 -->
+    <view class="style-btn style">
+      <view class="{{takeMealStyle == index ? 'style-btn-active' : 'style-btn-none'}}" wx:for="{{takeMealStyleList}}" data-id='{{index}}' bindtap='selectTakeMealStyle'>{{item}}</view>
+    </view>
+  </view>
+
+  <view class="card" style="padding:0 30rpx;">
+    <!-- 用餐人数 -->
+    <view class="dinner-num">
+      <view>人数：</view>
+      <view class="cut" bindtap="cutDinnersNumber">-</view>
+      <input name="dinnersNumber" value="{{dinnersNumber}}" type="number" bindinput="dinnerNum" maxlength = '2' bindblur="blur"></input>
+      <view class="cut" bindtap="addDinnersNumber">+</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <block wx:for="{{cart}}">
+      <view class="goods-info">
+        <image class="goods-image" src="{{item.goodsImage}}"></image>
+        <!-- <view class="goods-detail">
+        <view class="goods-name">
+          <view>{{item.goodsName}}</view>
+          <view>￥{{item.price}}</view>
+        </view>
+        <view>数量：{{item.number}}</view>
+      </view> -->
+        <view class="goods-detail">
+          <view class="goods-name">
+            <view>{{item.goodsName}}</view>
+            <view wx:if="{{item.goodsParam}}">
+              <block wx:for="{{item.goodsParam}}" wx:for-item="param" wx:for-index="paramIndex">
+                <text class="font-key">{{paramIndex}}:</text>
+                <text class="font-value">{{param}}</text> </block>
+            </view>
+            <view>
+              <text class="font-key">数量:</text>
+              <text class="font-value">{{item.number}}</text>
+            </view>
+          </view>
+          <view>￥{{item.price}}</view>
+        </view>
+      </view>
+      <view class="{{index == cart.length-1 ? '' : 'dashed'}}"></view>
+    </block>
+    <view class="line"></view>
+    <view class="sub-total-price">小计￥
+      <text>{{totalPrice}}</text>
+    </view>
+  </view>
+
+  <!-- 优惠券部分 -->
+  <!-- <view class="card row-center" bindtap="toCoupon">
+    <view>红包/代金券</view>
+    <view>{{showCardUseInfo}}</view>
+  </view> -->
+
+  <view style="height:240rpx;opacity: 0">1</view>
+</view>
+
+<view class="footer-1">
+  <view class="foot-info">订单支付后大厨就开始制作啦</view>
+</view>
+
+<view class="footer">
+  <view class="total-price" wx:if="{{!selcCardInfo}}">￥
+    <text>{{totalPrice}}</text>
+  </view>
+  <view class="total-price" wx:else>￥
+    <text>{{reducePrice}}</text>
+    <text style="font-size:26rpx;text-decoration:line-through">{{totalPrice}}</text>
+    <text style="font-size:20rpx;color:red">已优惠{{selcCardInfo.reduce_cost}}元</text>
+  </view>
+  <view class="topay" bindtap='submitOrder'>去支付</view>
+</view>
+
+<view class='dialog-login' wx:if="{{showPayMethodDialog}}">
+  <view class='dialog-body'>
+    <view class='title'>请选择支付方式</view>
+    <view class='dialog-content'>
+      <!-- <button bindtap="wxPay">微信支付</button>
+      <button bindtap="balancePay">余额支付</button> -->
+      <button bindtap="checkStock" data-pay="0">微信支付</button>
+      <!-- <button bindtap="checkStock" data-pay="1">余额支付</button> -->
+      <button bindtap='payDialog'>取消</button>
+      <!-- <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onWechatLogin">手机号登录</button> -->
+    </view>
+  </view>
+</view>

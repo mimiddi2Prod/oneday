@@ -1,0 +1,80 @@
+<!--pages/pay_status/pay_status.wxml-->
+<view class="header">
+  <view class="header_left">
+    桌号：{{tableNumber}}
+  </view>
+  <view class="header_right">
+    <navigator open-type="navigateBack" delta="3" hover-class='none'>
+      <image class="header-icon" src="/images/home.png"></image>
+    </navigator>
+  </view>
+</view>
+
+<view class="content">
+  <view class="card">
+    <view>
+      已支付
+    </view>
+    <view>
+      支付成功，祝您用餐愉快
+    </view>
+    <!-- <view class="dashed"></view> -->
+    <!-- 取餐号：{{tableNumber}} -->
+  </view>
+
+  <view class="card">
+    <block wx:for="{{order}}">
+      <view class="goods-info">
+        <image class="goods-image" src="{{item.img}}"></image>
+        <view class="goods-detail">
+          <view class="goods-name">
+            <view>{{item.name}}</view>
+            <view wx:if="{{item.param}}">
+              <block wx:for="{{item.param}}" wx:for-item="param" wx:for-index="paramIndex">
+                <text class="font-key">{{paramIndex}}:</text>
+                <text class="font-value">{{param}} </text> </block>
+            </view>
+            <view>
+              <text class="font-key">数量:</text>
+              <text class="font-value">{{item.number}}</text>
+            </view>
+          </view>
+          <view>￥{{item.price}}</view>
+        </view>
+      </view>
+      <view class="{{index == order.length-1 ? '' : 'dashed'}}"></view>
+    </block>
+    <view class="line"></view>
+    <view class="sub-total-price">
+      <!-- <text style="margin-right:20rpx">共 {{item.length}} 份</text>  -->
+      小计￥
+      <text>{{total_price}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view>
+      订单信息
+    </view>
+    <view>
+      <!-- 订单编号：{{trade_id}} -->
+      订单编号：{{yinbao_order_no}}
+    </view>
+    <view>
+      下单时间：{{create_time}}
+    </view>
+    <view>
+      就餐方式：{{take_meal_style == 0 ? '堂食' : '外带'}}
+    </view>
+    <view>
+      <!-- 订单份数：{{order.length}} -->
+      订单份数：{{total_number}}
+    </view>
+    <view wx:if="{{card}}">
+      优惠券：{{card.cash.base_info.title}}
+    </view>
+    <view>
+      订单总计：￥{{card ? discount_total_price : total_price}}
+    </view>
+  </view>
+</view>

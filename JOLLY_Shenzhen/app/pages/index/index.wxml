@@ -1,0 +1,293 @@
+<!--index.wxml-->
+<!-- 1.选择规格 -->
+<view class="goods-param {{showModal ? '' : 'hide'}}">
+  <!-- catchtouchmove="ture" -->
+  <!-- 模糊背景 -->
+  <view class="goods-param-bg"></view>
+  <!-- 弹窗内容 -->
+  <view class="goods-param-container">
+    <!-- 弹窗关闭按钮 -->
+    <image class="goods-param-close" src='/images/icon_close.png' bindtap='closeModal'></image>
+    <view class="goods-param-header">
+      <!-- 商品图片 -->
+      <view class="goods-param-a">
+        <image class="goods-param-pic" src='{{goodsImage}}'></image>
+      </view>
+      <view class="goods-param-b">
+        <!-- 商品名 -->
+        <view class="goods-name">
+          {{goodsName}}
+        </view>
+        <view class="goods-param-c">
+          <!-- 商品价格 -->
+          <view>￥{{goodsPrice}}
+            <text style="font-size:24rpx">{{goodsStock < 10 ? '剩余 '+goodsStock+' 份' : ''}}</text>
+          </view>
+          <!-- 购买数量选择 -->
+          <view class="goods-add-cart" wx:if="{{selectGoods.cartNumber <= 0}}" bindtap="addMoreParamCart">加入购物车</view>
+          <view class="goods-add-cart-have" wx:else>
+            <view bindtap="cutMoreParamCart">-</view>
+            <view>{{selectGoods.cartNumber}}</view>
+            <view bindtap="addMoreParamCart">+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 商品描述 -->
+    <view class="goods-param-detail">
+      <view class="font34">菜单信息</view>
+      <view class="font26">{{goodsDescribe}}</view>
+    </view>
+
+    <!-- 商品规格 -->
+    <view class="param-list" wx:for="{{showParam}}" wx:key="*this">
+      <view>{{item.text}}</view>
+      <view class="row">
+        <view class="{{param.select ? 'param-select' : ''}}" wx:for="{{item.param}}" wx:for-item="param" data-selectparamid='{{item.id}}' data-selecttext="{{param.text}}" bindtap='selectParam'>
+          {{param.text}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<!-- 2.商品详情 -->
+<view class="goods-detail {{showDetail ? '' : 'hide'}}" catchtouchmove="ture">
+  <!-- 模糊背景 -->
+  <view class="goods-param-bg"></view>
+  <!-- 弹窗内容 -->
+  <view class="detail-container">
+    <image class="goods-param-close" src='/images/icon_close.png' bindtap='showGoodsDetail'></image>
+    <image class="detail-img" src='{{goods_detail.img}}' mode="widthFix"></image>
+    <view class="detail-ju">
+      <view>
+        ￥{{goods_detail.min_price}}
+        <text style="font-size:24rpx">{{goods_detail.stock < 10 ? '剩余 '+goods_detail.stock+' 份' : ''}}</text>
+      </view>
+      <view>
+        <block wx:if="{{goods_detail.stock > 0}}">
+          <!-- 没有规格 -->
+          <view class='goods-add-cart-have' wx:if="{{goods_detail.sku.length <= 0}}">
+            <view bindtap="cutSingleParamCart" data-id="{{goods_detail.id}}" data-paramid="0" data-price="{{goods_detail.min_price}}" wx:if="{{goods_detail.cartNumber > 0}}">-</view>
+            <view wx:if="{{goods_detail.cartNumber > 0}}">{{goods_detail.cartNumber}}</view>
+            <view bindtap="addSingleParamCart" data-id="{{goods_detail.id}}" data-paramid="0" data-price="{{goods_detail.min_price}}" data-name="{{goods_detail.name}}" data-image="{{goods_detail.img}}" data-describe="{{goods_detail.describe}}" data-stock="{{goods_detail.stock}}">+</view>
+          </view>
+          <!-- 有规格 -->
+          <view class='goods-add-cart-nor' wx:else bindtap='getGoodsParam' data-id='{{goods_detail.id}}' data-name='{{goods_detail.name}}' data-describe="{{goods_detail.describe}}" data-image="{{goods_detail.img}}" data-index="{{goods_detail.index}}" data-stock="{{goods_detail.stock}}">
+            选择
+          </view>
+        </block>
+        <block wx:else>
+          <view class='goods-add-cart-nor gray'>
+            售罄
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="detail-title">{{goods_detail.name}}</view>
+    <view class="detail-desc">{{goods_detail.describe}}</view>
+  </view>
+</view>
+
+<!-- 3.购物车列表 -->
+<view class="goods-cart {{showCart ? '' : 'hide'}}" catchtouchmove="ture">
+  <!-- 模糊背景 -->
+  <view class="goods-param-bg"></view>
+  <!-- 弹窗内容 -->
+  <scroll-view class="cart-container" scroll-y="true" style="height:{{winCartHeight}}rpx;">
+    <!-- <image class="goods-param-close" src='/images/icon_close.png' bindtap='showCart'></image> -->
+    <view class="cart-item" wx:for="{{cart}}" wx:key="*this">
+      <view class="item">
+        <view class="name">{{item.goodsName}}</view>
+        <view class="param" wx:if="{{item.goodsParam}}">
+          <!-- {{paramIndex}}: -->
+          <text wx:for="{{item.goodsParam}}" wx:for-item="param" wx:for-index="paramIndex">({{param}})</text>
+        </view>
+      </view>
+      <!-- 购物车列表商品数量增减 -->
+      <view class="goods-add" style='align-items: center'>
+        <view class="price">
+          ￥{{item.price}}
+        </view>
+        <view bindtap="cutSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" style='font-size:40rpx;padding:0 6rpx'>-</view>
+        <view>{{item.number}}</view>
+        <view bindtap="addSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" data-name="{{goods.goodsName}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}" data-stock="{{item.stock}}" style='font-size:40rpx;padding:0 6rpx'>+</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 4.商品搜索 -->
+<view class="search {{showSearch ? '' : 'hide'}}" catchtouchmove="ture">
+  <view class="search-container">
+    <image class="goods-param-close" src='/images/icon_close.png' bindtap='showSearch'></image>
+    <input placeholder='请输入商品名称/商品首字母' bindinput='searchInput' value="{{char}}"></input>
+    <!-- <view>
+      历史搜索
+    </view> -->
+    <scroll-view class="search-view" scroll-y="true">
+      <view wx:for="{{goods}}">
+        <block wx:for="{{item.list}}" wx:for-item="goodsSearch" wx:for-index="goodsSearchIndex" wx:if="{{goodsSearch.isSearch && goodsSearch.stock > 0}}">
+          <view class='goods-item' bindtap="toDetailsTap" data-id="{{goodsSearch.id}}" style='width:700rpx'>
+            <!-- 新增加data-cateid 为了配合开门广告 -->
+            <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goodsSearch.img}}" bindtap='showGoodsDetail' data-id="{{goodsSearch.id}}" data-index="{{index}}" data-cateid="{{goodsSearch.category_id}}"></image>
+            <view class='goods-info'>
+              <text class='goodsName'>{{goodsSearch.name}}</text>
+              <text class='goodsPrice'>￥{{goodsSearch.min_price}} <text style="font-size:24rpx">{{goodsSearch.stock < 10 ? '剩余 '+goodsSearch.stock+' 份' : ''}}</text></text>
+            </view>
+            <view class="goods-add" style='padding-right:0'>
+              <!-- 没有规格 -->
+              <view class='goods-add-cart-have' wx:if="{{goodsSearch.sku.length <= 0}}">
+                <view bindtap="cutSingleParamCart" data-id="{{goodsSearch.id}}" data-paramid="0" data-price="{{goodsSearch.min_price}}" wx:if="{{goodsSearch.cartNumber > 0}}">-</view>
+                <view wx:if="{{goodsSearch.cartNumber > 0}}">{{goodsSearch.cartNumber}}</view>
+                <view bindtap="addSingleParamCart" data-id="{{goodsSearch.id}}" data-paramid="0" data-price="{{goodsSearch.min_price}}" data-name="{{goodsSearch.name}}" data-image="{{goodsSearch.img}}" data-describe="{{goodsSearch.describe}}" data-stock="{{goodsSearch.stock}}">+</view>
+              </view>
+              <!-- 有规格 -->
+              <view wx:else bindtap='getGoodsParam' data-id='{{goodsSearch.id}}' data-name='{{goodsSearch.name}}' data-describe="{{goodsSearch.describe}}" data-index="{{index}}" data-image="{{goodsSearch.img}}" data-stock="{{goodsSearch.stock}}">
+                选择
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view style="height:340rpx;opacity: 0">1</view>
+    </scroll-view>
+  </view>
+</view>
+
+<!-- 5.banner,开屏广告 -->
+<view class="modal" catchtouchmove="ture" wx:if="{{showBannerModal && opening.length > 0}}">
+  <view class="modal-bg"></view>
+  <view class="modal-container">
+    <swiper class="modal-banner" indicator-dots="true" indicator-active-color="#fff">
+      <!-- 跳转客服 -->
+      <!-- <swiper-item wx:for="{{contact}}" wx:key="{{item.id}}">
+        <button class="contact" open-type="contact" hover-class='none' plain="true">
+          <image src="{{item.image}}" mode="aspectFill"></image>
+        </button>
+      </swiper-item> -->
+      <swiper-item wx:for="{{opening}}" wx:key="{{item.id}}">
+      <!-- type 0:餐品 1客服 2无事件 3优惠券 -->
+        <image class="modal-banner-image" src="{{item.image}}" mode="aspectFill" bindtap='showGoodsDetail' data-id="{{item.goods_id}}" data-cateid="{{item.category_id}}" wx:if="{{item.type == 0}}"></image>
+        <button class="contact" open-type="contact" hover-class='none' plain="true" wx:if="{{item.type == 1}}">
+          <image src="{{item.image}}" mode="aspectFill"></image>
+        </button>
+        <image class="modal-banner-image" src="{{item.image}}" mode="aspectFill" wx:if="{{item.type == 2}}"></image>
+        <image class="modal-banner-image" src="{{item.image}}" mode="aspectFill" wx:if="{{item.type == 3}}" bindtap="getCouponCard"></image>
+      </swiper-item>
+    </swiper>
+    <!-- <image src="../../images/clear_input.png" mode="cover" bindtap='showModal'></image> -->
+    <image src="../../images/icon_close.png" mode="cover" bindtap='showBannerModal'></image>
+  </view>
+</view>
+
+<!-- 主页面 -->
+<!-- 标题栏 -->
+<view class="header">
+  <view class="header_left">
+    桌号：{{number}}
+  </view>
+  <view class="header-middle">
+    <!-- <navigator url="../customer/customer" hover-class='none' wx:if="{{!isCustomer}}">
+      会员登录
+    </navigator> -->
+    <!-- <navigator url="../customer/customer" hover-class='none' wx:if="{{isCustomer}}" style="font-size:26rpx">
+      余额{{balance}}，积分{{point}}
+    </navigator> -->
+  </view>
+  <view class="header_right">
+    <view bindtap='showSearch'>
+      <image class="header-icon" src="/images/search.png"></image>
+    </view>
+    <navigator url="../order/order" hover-class='none'>
+      <image class="header-icon" src="/images/order.png"></image>
+    </navigator>
+  </view>
+</view>
+<image class="banner" src="/images/banner.png" mode="widthFix"></image>
+<!-- 跳转会员界面 -->
+<navigator url="../customer/customer" hover-class='none'>
+  <image class="banner" style="padding-top:0" src="/images/card.png" mode="widthFix"></image>
+</navigator>
+
+<!-- 内容 -->
+<view class="content" style="height:{{winHeight}}rpx">
+  <!-- 左边商品类型选择 -->
+  <scroll-view class="left" scroll-y="true" scroll-into-view="{{categoryToView}}">
+    <block wx:for="{{categories}}" wx:key="id">
+      <view class="category-item {{activeId==item.scrollId?'category-item-active':''}}" data-id='{{item.scrollId}}' data-name='{{item.name}}' bindtap='onCategoryClick'>
+        <text>{{item.name}}</text>
+      </view>
+    </block>
+    <view style="height:170rpx;opacity: 0">1</view>
+  </scroll-view>
+  <!-- 右边商品列表 -->
+  <scroll-view class='right' scroll-y="true" scroll-into-view="{{goodsToView}}" bindscroll="scroll">
+    <!-- <view class="goodsWrap-category">
+      <text>{{activeName}}</text>
+    </view> -->
+    <view class="goods" wx:for="{{goods}}" wx:key="id">
+      <view class="goodsWrap-category" id='{{item.scrollId}}'>
+        <text>{{item.category_name}}</text>
+      </view>
+      <!-- <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex" wx:if="{{goods.stock > 0}}"> -->
+      <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex">
+        <view class='goods-item' data-id="{{goods.id}}">
+          <!-- 新增加data-cateid 为了配合开门广告 -->
+          <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}" data-index="{{index}}" data-cateid="{{goods.category_id}}"></image>
+          <!-- <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='getGoodsDetail' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}" wx:if="{{goods.sku.length > 0}}"></image> -->
+          <view class='goods-info'>
+            <text class='goodsName {{goods.stock > 0 ? "" : "gray"}}'>{{goods.name}}</text>
+            <text class='goodsPrice'>￥{{goods.min_price}} <text style="font-size:24rpx">{{goods.stock < 10 ? '剩余 '+goods.stock+' 份' : ''}}</text></text>
+          </view>
+          <view class="goods-add">
+            <!-- 有库存正常显示 没库存显示售罄不可选择 -->
+            <block wx:if="{{goods.stock > 0}}">
+              <!-- 没有规格 -->
+              <view class='goods-add-cart-have' wx:if="{{goods.sku.length <= 0}}">
+                <view bindtap="cutSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" wx:if="{{goods.cartNumber > 0}}">-</view>
+                <view wx:if="{{goods.cartNumber > 0}}">{{goods.cartNumber}}</view>
+                <view bindtap="addSingleParamCart" data-id="{{goods.id}}" data-paramid="0" data-price="{{goods.min_price}}" data-name="{{goods.name}}" data-image="{{goods.img}}" data-describe="{{goods.describe}}" data-stock="{{goods.stock}}">+</view>
+              </view>
+              <!-- 有规格 -->
+              <view class='goods-add-cart-nor' wx:else bindtap='getGoodsParam' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-index="{{index}}" data-image="{{goods.img}}" data-stock="{{goods.stock}}">
+                选择
+              </view>
+            </block>
+            <block wx:else>
+              <view class='goods-add-cart-nor gray'>
+                售罄
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+      <!-- <view style="height:170rpx;opacity: 0">1</view> -->
+    </view>
+    <view style="height:170rpx;opacity: 0">1</view>
+  </scroll-view>
+</view>
+
+<!-- 悬浮购物车 -->
+<view class="footer">
+  <view class="footer-icon" bindtap='{{cart.length > 0 ? "showCart" : ""}}'>
+    <image class="cart-icon" src="/images/gouwu.png"></image>
+  </view>
+  <!-- 购物车有商品 -->
+  <block wx:if="{{cart.length > 0}}">
+    <view class="footer-price">
+      <text>￥{{totalGoodsPrice}}</text>
+    </view>
+    <view class="footer-submit" bindtap='toSubmitOrder'>
+      <text>选好了</text>
+    </view>
+  </block>
+  <!-- 购物车没有商品 -->
+  <block wx:else>
+    <view class="footer-price">
+      <text>尚未购买</text>
+    </view>
+  </block>
+</view>

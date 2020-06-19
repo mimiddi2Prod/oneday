@@ -1,0 +1,110 @@
+/* pages/order/order.wxss */
+
+.header {
+  position: fixed;
+  width: 670rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20rpx 40rpx;
+  background-color: white;
+}
+
+.header_left {
+}
+
+.header_right {
+}
+
+.content {
+  width: 100vw;
+  padding-top: 90rpx;
+}
+
+.card {
+  background-color: white;
+  border-radius: 24rpx;
+  margin: 30rpx;
+  padding: 30rpx;
+}
+
+/* .card:last-child{
+  margin-bottom: 140rpx;
+} */
+
+/* .style {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.style-btn {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+
+.style-btn-active {
+  color: red;
+  margin-left: 20rpx;
+}
+
+.style-btn-none {
+  color: gray;
+  margin-left: 20rpx;
+} */
+
+.goods-info {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between
+}
+
+.line {
+  border-top: 1rpx solid rgb(230, 230, 230);
+  width: 630rpx;
+  margin: 10rpx 0;
+}
+
+/* .goods-image {
+  width: 140rpx;
+  height: 140rpx;
+  flex-shrink: 0;
+  margin-right: 10rpx;
+}
+
+.goods-detail {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10rpx;
+}
+
+.goods-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.font-key{
+  font-size: 24rpx;
+}
+
+.font-value{
+  font-size: 30rpx;
+}
+
+
+
+.sub-total-price{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.sub-total-price > text{
+  font-size: 40rpx;
+} */

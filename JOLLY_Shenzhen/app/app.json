@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/blank/blank",
+    "pages/index/index",
+    "pages/index/timeout",
+    "pages/cart/cart",
+    "pages/order/order",
+    "pages/pay_status/pay_status",
+    "pages/customer/customer",
+    "pages/coupon/coupon"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Jolly Fan",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}

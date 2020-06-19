@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--适配移动端 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <title>商品列表</title>
+    <script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
+    <script type="text/javascript" src="../jquery-3.3.1/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/utils/apis.js"></script>
+    <script type="text/javascript" src="../js/utils/http.js"></script> <!--封装接口请求-->
+    <script type="text/javascript" src="../js/utils/formatTime.js"></script> <!--时间格式化-->
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/menu.css" rel="stylesheet">
+    <link href="../css/category.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="LoadMenu" class="left">
+    <load-menu></load-menu>
+</div>
+
+
+<div class="right">
+    <div class="jumbotron" id="category">
+        <!-- 类目 添加分类 -->
+        <div class="title item">
+            <h4>分类管理</h4>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"
+                    v-on:click="addCategoryModal()">添加分类
+            </button>
+
+        </div>
+
+        <!-- 标题 -->
+        <div class="sort-title">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="item">
+                    <!--<span class="second-title column-center">图片</span>-->
+                    <span class="second-title column-center">分类名称</span>
+                    <span class="second-title column-center">排序</span>
+                    <!--<span class="first-title column-center">描述</span>-->
+                    <span class="second-title column-center">创建时间</span>
+                    <span class="second-title column-center">商品数量</span>
+                    <span class="second-title column-center">操作</span>
+                    <!--<span class="second-title column-center"></span>-->
+                </div>
+            </nav>
+        </div>
+
+        <!-- 分类名称item -->
+        <div class="sort" v-for="item,index in categoryList">
+            <nav class="navbar navbar-default row-center" role="navigation">
+                <span class="second-title column-center">{{item.name}}</span>
+                <span class="second-title column-center">{{item.sort}}</span>
+                <span class="second-title column-center">{{item.create_time}}</span>
+                <span class="second-title column-center">{{item.goods_number}}</span>
+                <span class="second-title column-center">
+                    <span v-on:click="editCategoryModal(item.id,item.name,item.sort)" data-toggle="modal"
+                          data-target="#myModal" style="cursor: pointer;color: #1598e3">编辑</span>
+                    <span v-if="item.goods_number <= 0" v-on:click="showObtainedModal(item.id)" style="cursor: pointer;color:#d9534f">删除</span>
+                </span>
+            </nav>
+        </div>
+
+        <!--删除-->
+        <div id="obtained" class="none"
+             style="position: fixed;z-index: 9;width: 100%;height: 100%;top:0;left:0;font-size: 16px">
+            <div style="z-index: 9;width: 100%;height: 100%;background-color: black;opacity: 0"></div>
+            <div class="alert alert-danger"
+                 style="position: absolute;transform: translate(-50%,50%);margin-left: 50%;top:30%;padding-bottom: 0">
+                <div style="display: flex;flex-direction:column;align-items: center;border-bottom: 1px solid #EBD6D6">
+                    <div href="#" class="alert-link" style="display:block">删除后，店铺内将不再展示该分类</div>
+                    <div href="#" class="alert-link" style="margin: 6px 0;">确认删除？</div>
+                </div>
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <div style="cursor: pointer;width:50%;border-right: 1px solid #EBD6D6;flex:1;text-align: center;padding: 10px 0"
+                         v-on:click="hideObtainedModal()">取消
+                    </div>
+                    <div style="cursor: pointer;width: 50%;flex:1;text-align: center;padding: 10px 0"
+                         v-on:click="submitObtained()">确认
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 分页栏 -->
+        <!--<ul class="pagination">-->
+        <!--<li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="#">&laquo;</a></li>-->
+        <!--<li v-for="item,index in pageList" v-on:click="getPage(index)"-->
+        <!--v-bind:class="(item == last_id+1 ? 'active' : '')"><a-->
+        <!--href="#">{{item}}</a></li>-->
+        <!--<li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a-->
+        <!--href="#">&raquo;</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+
+        <!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">开始演示模态框</button> -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+                    </div>
+                    <div class="modal-body" v-if="modalType == 0">
+                        <input type="text" class="form-control" id="submitName" type="text" name=""
+                               v-model="submitName" style="margin-bottom: 6px" placeholder="分类名"/>
+                        <input type="text" class="form-control" id="submitSort" type="text" name=""
+                               v-model="submitSort" style="margin-bottom: 6px"
+                               oninput="value=value.replace(/[^\d]/g,'')" placeholder="排序"/>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" v-on:click="submitCategory()">确定</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/menu.js"></script>
+<script type="text/javascript" src="../js/category.js"></script>
+</body>
+</html>

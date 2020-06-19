@@ -1,0 +1,30 @@
+<!--pages/order/order.wxml-->
+<!-- 标题栏 -->
+<view class="header">
+  <view class="header_left">
+    桌号：{{tableNumber}}
+  </view>
+  <!-- <view class="header_right">
+    订单
+  </view> -->
+</view>
+
+<view class="content">
+  <navigator class="card" wx:for="{{order}}" url="../pay_status/pay_status?tradeid={{item.trade_id}}" hover-class='none'>
+    <view class="goods-info">
+      <view>oneday沙坡尾</view>
+      <view>订单已完成</view>
+    </view>
+    <view class="line"></view>
+    <view class="goods-info">
+      <view>菜单数量：共计{{item.total_number}}件菜品</view>
+      <view>￥{{item.total_price}}</view>
+    </view>
+    <view class="goods-info">
+      <view>下单时间：{{item.create_time}}</view>
+    </view>
+    <!-- <view class="sub-total-price">小计￥
+      <text>{{item.subTotalPrice}}</text>
+    </view> -->
+  </navigator>
+</view>

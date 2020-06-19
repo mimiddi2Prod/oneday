@@ -1,0 +1,83 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": false,
+		"postcss": true,
+		"preloadBackgroundData": false,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.9.4",
+	"appid": "wx14dd6120d4882a81",
+	"projectname": "Brunch",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 2,
+			"list": [
+				{
+					"id": 0,
+					"name": "公众号进入过期时间2020-09-30，桌号3",
+					"pathName": "pages/blank/blank",
+					"query": "expire_time= 1601424000000&id=3",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "过期2019-10-11 16：26",
+					"pathName": "pages/blank/blank",
+					"query": "expire_time= 1570782360000&id=3",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "无参",
+					"pathName": "pages/blank/blank",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

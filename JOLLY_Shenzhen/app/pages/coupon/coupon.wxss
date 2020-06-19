@@ -1,0 +1,97 @@
+/* pages/coupon/coupon.wxss */
+
+.page {
+  font-size: 28rpx;
+  padding: 15rpx;
+  width: 720rpx;
+  background-color: rgb(245, 245, 245);
+}
+
+.card {
+  margin: 20rpx;
+  border-radius: 10rpx;
+  padding: 20rpx;
+}
+
+.cbg {
+  background-color: #fff;
+}
+
+.nbg {
+  background-color: #ddd;
+}
+
+/* .selc {
+  border: 1rpx solid #879d89;
+} */
+
+.spacbetween {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between
+}
+
+.selc-img{
+  width: 40rpx;
+  height: 40rpx
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: 1rpx solid #fdfdfd;
+  margin-right: 20rpx;
+}
+
+.other {
+  font-size: 20rpx;
+  justify-content: space-between;
+  margin-top: 10rpx;
+}
+
+.foot-info {
+  border-radius: 24rpx;
+  background-color: #ecece9;
+  width: 100%;
+  padding: 20rpx 0;
+  text-align: center;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  padding: 20rpx 30rpx;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  width: 690rpx;
+}
+
+.total-price {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.total-price > text {
+  font-size: 30rpx;
+  padding: 10rpx;
+}
+
+.topay {
+  background-color: #879d89;
+  color: white;
+  font-size: 40rpx;
+  padding: 12rpx 30rpx;
+  border-radius: 24rpx;
+}
