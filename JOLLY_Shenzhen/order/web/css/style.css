@@ -39,8 +39,26 @@ body {
     z-index: 1000;
 }
 
+.bd-content {
+    -ms-flex-order: 0;
+    order: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    z-index: 1000;
+}
+
 @media (min-width: 768px) {
     .bd-sidebar {
+        position: -webkit-sticky;
+        position: sticky;
+        /*top: 4rem;*/
+        top: 0;
+        z-index: 1000;
+        /*height: calc(100vh - 4rem);*/
+        /*height: calc(100vh);*/
+        height: calc(100vh - 206px);
+    }
+
+    .bd-content {
         position: -webkit-sticky;
         position: sticky;
         /*top: 4rem;*/
