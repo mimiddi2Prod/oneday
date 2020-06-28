@@ -11,6 +11,21 @@
     }
 }
 
-.number-keyboard{
-    width: 18% !important;
+.number-keyboard {
+    width: 20% !important;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.number-keyboard > div {
+    padding: 20px 30px;
+}
+
+.number-keyboard > div:last-child {
+    flex-grow: 1;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }

@@ -44,15 +44,17 @@
     </div>
 </div>
 <div class="nav pt-5" id="settleaccounts">
-    <!--可选菜单-->
     <main class="nav mx-auto py-md-0 bd-content py-5 w-75" role="main">
-        <div class="flex-grow-1">sda</div>
+        <!--金额/支付方式-->
+        <div class="flex-grow-1">￥{{total_price}}</div>
+        <!--数字键盘-->
         <div class="flex-shrink-0 position-absolute fixed-bottom">
-            <div class="nav mx-auto">
-                <div class="number-keyboard text-center">1</div>
-                <div class="number-keyboard text-center">2</div>
-                <div class="number-keyboard text-center">3</div>
-                <div class="number-keyboard text-center">50</div>
+            <div class="nav">
+                <div class="flex-column number-keyboard" v-for="list,keyIndex in keyboard">
+                    <div class="text-center" :class="keyIndex <= 2 ? 'btn-dark' : 'btn-danger'" v-for="item in list" @click="hitKeyboard(item,keyIndex)">
+                        {{item}}
+                    </div>
+                </div>
             </div>
         </div>
     </main>
