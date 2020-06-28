@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!--适配移动端 -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>index</title>
+    <!--css-->
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <!--js-->
+    <script type="text/javascript" src="/source/rsa/jsencrypt.min.js"></script>
+    <script type="text/javascript" src="/source/vue/vue.min.js"></script>
+    <script type="text/javascript" src="/source/axios/axios.min.js"></script>
+    <script type="text/javascript" src="/utils/http.js"></script>
+    <script type="text/javascript" src="/utils/apis.js"></script>
+
+</head>
+<body class="text-center">
+<div class="content" id="login">
+    <img class="mb-4" src="/images/logo.png" alt="" width="72" height="72">
+    <!--username-->
+    <label for="inputUsername" class="sr-only">用户名</label>
+    <input id="inputUsername" type="text" v-model="username" class="form-control"
+           :class="{'not-input' : isClick && !username}"
+           v-on:keyup.enter="signIn"
+           placeholder="用户名" required="" autofocus="">
+    <!--password-->
+    <label for="inputPassword" class="sr-only">密码</label>
+    <input id="inputPassword" type="password" v-model="password" class="form-control"
+           :class="{'not-input' : isClick && !password}" v-on:keyup.enter="signIn" placeholder="密码" required="">
+    <div class="alert alert-danger" role="alert" v-if="loginErr">
+        {{loginErr}}
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" id="enter" v-on:click="signIn">登录
+    </button>
+</div>
+</body>
+<!--js-->
+<script type="text/javascript" src="/js/index.js"></script>
+</html>

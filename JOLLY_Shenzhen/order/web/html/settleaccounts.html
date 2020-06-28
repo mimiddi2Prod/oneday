@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!--适配移动端 -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>结算</title>
+    <!--css-->
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/settleaccounts.css" rel="stylesheet">
+    <!--js-->
+    <script type="text/javascript" src="/source/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/source/popper-2.1.1/popper.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/source/moment-2.24.0/moment-with-locales.js"></script>
+    <script type="text/javascript"
+            src="/source/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- 使用bootstrap-datetimepicker 需先引用 moment-with-locales -->
+    <script type="text/javascript" src="/source/vue/vue.min.js"></script>
+    <script type="text/javascript" src="/source/axios/axios.min.js"></script>
+    <script type="text/javascript" src="/source/chart/Chart.min.js"></script><!-- Chartjs -->
+    <script type="text/javascript" src="/utils/http.js"></script>
+    <script type="text/javascript" src="/utils/apis.js"></script>
+    <script type="text/javascript" src="/utils/util.js"></script>
+
+</head>
+<body>
+<div class="position-fixed w-100 text-center" style="line-height: 50px">收款</div>
+<div id="GetHeader" class="border-bottom position-fixed row">
+    <get-header></get-header>
+    <div class="row" style="line-height: 50px">
+        <div class="ml-2">当前账号：1001</div>
+    </div>
+</div>
+<div class="nav pt-5" id="settleaccounts">
+    <!--可选菜单-->
+    <main class="nav mx-auto py-md-0 bd-content py-5 w-75" role="main">
+        <div class="flex-grow-1">sda</div>
+        <div class="flex-shrink-0 position-absolute fixed-bottom">
+            <div class="nav mx-auto">
+                <div class="number-keyboard text-center">1</div>
+                <div class="number-keyboard text-center">2</div>
+                <div class="number-keyboard text-center">3</div>
+                <div class="number-keyboard text-center">50</div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div id="MyModal">
+    <my-loading></my-loading>
+    <my-modal-1></my-modal-1>
+</div>
+</body>
+<!--js-->
+<script type="text/javascript" src="/component/header.js"></script>
+<script type="text/javascript" src="/component/datetimepicker.js"></script>
+<script type="text/javascript" src="/component/modal.js"></script>
+<script type="text/javascript" src="/js/settleaccounts.js"></script>
+</html>

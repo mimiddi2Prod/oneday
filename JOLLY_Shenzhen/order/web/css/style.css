@@ -206,3 +206,7 @@ a:link, a {
     height: 2px;
     width: 16px;
 }
+
+.price {
+    color: red
+}

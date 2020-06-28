@@ -1,0 +1,16 @@
+@media (min-width: 768px) {
+    .bd-content {
+        position: -webkit-sticky;
+        position: sticky;
+        /*top: 4rem;*/
+        top: 0;
+        z-index: 1000;
+        /*height: calc(100vh - 4rem);*/
+        /*height: calc(100vh);*/
+        height: calc(100vh - 50px);
+    }
+}
+
+.number-keyboard{
+    width: 18% !important;
+}

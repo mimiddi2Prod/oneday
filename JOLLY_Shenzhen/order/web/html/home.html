@@ -9,15 +9,15 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>home</title>
+    <title>菜单</title>
     <!--css-->
     <link href="/source/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-grid.min.css" rel="stylesheet">
     <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
     <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
-    <link href="/css/home.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/home.css" rel="stylesheet">
     <!--js-->
     <script type="text/javascript" src="/source/jquery-3.4.1/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="/source/popper-2.1.1/popper.min.js"></script>
@@ -36,199 +36,98 @@
 
 </head>
 <body>
-<div class="">
-    <!--<div id="GetHeader" class="border-bottom position-fixed w-100">-->
-    <div id="GetHeader" class="border-bottom position-fixed">
-        <get-header></get-header>
+<div class="position-fixed w-100 text-center" style="line-height: 50px">点单</div>
+<!--<div id="GetHeader" class="border-bottom position-fixed w-100">-->
+<div id="GetHeader" class="border-bottom position-fixed row">
+    <get-header></get-header>
+    <div class="row" style="line-height: 50px">
+        <div class="ml-2">当前账号：1001</div>
+        <!--<button class="btn btn-dark ml-2">锁屏</button>-->
     </div>
-    <div class="nav pt-5" id="home">
-        <!--结账菜单-->
-        <!--<div id="GetSidebar" class="col-md-4 col-xl-3 bd-sidebar border-bottom-0 px-0">-->
-        <div id="GetSidebar" class="col-md-4 col-xl-3 border-bottom-0 px-0">
-            <div class="bg-success px-2 py-md-3 text-right pr-4">共 11 件</div>
-            <div class="bd-sidebar bd-links">
-                <div class="container">
-                    <div class="border-bottom py-2">
-                        <div class="row">
-                            <div class="col-sm-6 px-2">
-                                白灼娃娃菜白灼娃娃菜白灼娃娃菜
-                            </div>
-                            <div class="col-sm-3 px-2 text-center">
-                                18.8
-                            </div>
-                            <div class="col-sm-1 px-2 text-center">1</div>
-                            <div class="col-sm-2 px-2 text-center">-</div>
+</div>
+<div class="nav pt-5" id="home">
+    <!--结账菜单-->
+    <!--<div id="GetSidebar" class="col-md-4 col-xl-3 bd-sidebar border-bottom-0 px-0">-->
+    <div id="GetSidebar" class="col-md-4 col-xl-3 border-bottom-0 px-0">
+        <div class="bg-success px-2 py-md-3 text-right pr-4">共 11 件</div>
+        <div class="bd-sidebar bd-links">
+            <div class="container">
+                <div class="border-bottom py-2" v-for="item in order">
+                    <div class="row">
+                        <div class="col-sm-6 px-2">
+                            {{item.name}}
                         </div>
-                        <div class="figure-caption">备注：的撒dsad 大d</div>
-                    </div>
-                    <div class="border-bottom py-2">
-                        <div class="row">
-                            <div class="col-sm-6 px-2">
-                                白灼娃娃菜白灼娃娃菜白灼娃娃菜
-                            </div>
-                            <div class="col-sm-3 px-2 text-center">
-                                18.8
-                            </div>
-                            <div class="col-sm-1 px-2 text-center">1</div>
-                            <div class="col-sm-2 px-2 text-center">-</div>
+                        <div class="col-sm-3 px-2 text-center price">
+                            ￥{{item.price}}
                         </div>
-                        <div class="figure-caption">备注：的撒dsad 大d</div>
+                        <div class="col-sm-1 px-2 text-center">{{item.num}}</div>
+                        <div class="col-sm-2 px-2 text-center">-</div>
                     </div>
-                    <div class="border-bottom py-2">
-                        <div class="row">
-                            <div class="col-sm-6 px-2">
-                                白灼娃娃菜白灼娃娃菜白灼娃娃菜
-                            </div>
-                            <div class="col-sm-3 px-2 text-center">
-                                18.8
-                            </div>
-                            <div class="col-sm-1 px-2 text-center">1</div>
-                            <div class="col-sm-2 px-2 text-center">-</div>
-                        </div>
-                        <div class="figure-caption">备注：的撒dsad 大d</div>
-                    </div>
-                    <div class="border-bottom py-2">
-                        <div class="row">
-                            <div class="col-sm-6 px-2">
-                                白灼娃娃菜白灼娃娃菜白灼娃娃菜
-                            </div>
-                            <div class="col-sm-3 px-2 text-center">
-                                18.8
-                            </div>
-                            <div class="col-sm-1 px-2 text-center">1</div>
-                            <div class="col-sm-2 px-2 text-center">-</div>
-                        </div>
-                        <div class="figure-caption">备注：的撒dsad 大d</div>
-                    </div>
-                    <div class="border-bottom py-2">
-                        <div class="row">
-                            <div class="col-sm-6 px-2">
-                                白灼娃娃菜白灼娃娃菜白灼娃娃菜
-                            </div>
-                            <div class="col-sm-3 px-2 text-center">
-                                18.8
-                            </div>
-                            <div class="col-sm-1 px-2 text-center">1</div>
-                            <div class="col-sm-2 px-2 text-center">-</div>
-                        </div>
-                        <div class="figure-caption">备注：的撒dsad 大d</div>
-                    </div>
-                    <div class="border-bottom py-2">
-                        <div class="row">
-                            <div class="col-sm-6 px-2">
-                                白灼娃娃菜白灼娃娃菜白灼娃娃菜
-                            </div>
-                            <div class="col-sm-3 px-2 text-center">
-                                18.8
-                            </div>
-                            <div class="col-sm-1 px-2 text-center">1</div>
-                            <div class="col-sm-2 px-2 text-center">-</div>
-                        </div>
-                        <div class="figure-caption">备注：的撒dsad 大d</div>
-                    </div>
-                    <div class="border-bottom py-2">
-                        <div class="row">
-                            <div class="col-sm-6 px-2">
-                                白灼娃娃菜白灼娃娃菜白灼娃娃菜
-                            </div>
-                            <div class="col-sm-3 px-2 text-center">
-                                18.8
-                            </div>
-                            <div class="col-sm-1 px-2 text-center">1</div>
-                            <div class="col-sm-2 px-2 text-center">-</div>
-                        </div>
-                        <div class="figure-caption">备注：的撒dsad 大d</div>
-                    </div>
-                    <div class="border-bottom py-2">
-                        <div class="row">
-                            <div class="col-sm-6 px-2">
-                                白灼娃娃菜白灼娃娃菜白灼娃娃菜
-                            </div>
-                            <div class="col-sm-3 px-2 text-center">
-                                18.8
-                            </div>
-                            <div class="col-sm-1 px-2 text-center">1</div>
-                            <div class="col-sm-2 px-2 text-center">-</div>
-                        </div>
-                        <div class="figure-caption">备注：的撒dsad 大d</div>
-                    </div>
-                    <div class="border-bottom py-2">
-                        <div class="row">
-                            <div class="col-sm-6 px-2">
-                                白灼娃娃菜白灼娃娃菜白灼娃娃菜
-                            </div>
-                            <div class="col-sm-3 px-2 text-center">
-                                18.8
-                            </div>
-                            <div class="col-sm-1 px-2 text-center">1</div>
-                            <div class="col-sm-2 px-2 text-center">-</div>
-                        </div>
-                        <div class="figure-caption">备注：的撒dsad 大d</div>
-                    </div>
+                    <div class="figure-caption">备注：{{item.remark}}</div>
                 </div>
-            </div>
-            <div class="db-btns card">
-                <div class="card-body py-0 px-0 ">
-                    <div class="text-center db-btn">清空</div>
-                    <div class="text-center db-btn">收款 ￥700</div>
-                </div>
-
             </div>
         </div>
-        <!--可选菜单-->
-        <main class="col-md-8 col-xl-9 py-md-0 pl-md-3 bd-content py-5" role="main">
-            <!--分类名-->
-            <div class="row">
-                <div class="w-25 text-center border p-2">冷饮</div>
-                <div class="w-25 text-center border p-2">冷饮</div>
-                <div class="w-25 text-center border p-2">冷饮</div>
-                <div class="w-25 text-center border p-2">冷饮</div>
-                <div class="w-25 text-center border p-2">冷饮</div>
-                <div class="w-25 text-center border p-2">冷饮</div>
-                <div class="w-25 text-center border p-2">冷饮</div>
+        <div class="db-btns card">
+            <div class="card-body py-0 px-0 ">
+                <div class="text-center db-btn">清空</div>
+                <div class="text-center db-btn" @click="toSettleAccounts">收款 ￥700</div>
             </div>
-            <!--商品-->
-            <div class="bd-sidebar bd-links row p-2"
-                 :style="'height: calc(100vh - 150px - ' + 42 * Math.ceil(category.length / 4) + 'px)'">
-                <div class="row no-gutters flex-wrap">
-                    <!--商品卡片-->
-                    <div class="card mb-3 mr-2" style="max-width: 37%;">
-                        <div class="row no-gutters">
-                            <div class="col-md-4">
-                                <img src="../images/logo.png" class="card-img" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body p-0 ml-2 h-100 list-group justify-content-between">
-                                    <div class="card-text flex-grow-1">白斩鸡白斩鸡白斩鸡白斩鸡</div>
-                                    <div class="card-text flex-shrink-0">￥50.8</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="db-btns card border-0">
-                <div class="card-body py-0 px-0 ">
-                    <div class="text-center db-btn row">
-                        <div class="input-group w-50 align-items-center">
-                            <input type="text" class="form-control" placeholder="输入商品关键字"
-                                   aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">确定</button>
-                            </div>
-                        </div>
-                        <div class="ml-3 alert-dark px-2">无码商品</div>
-                    </div>
-                    <div class="text-center row db-btn align-items-center bg-dark">
-                        <div class="w-25">交接班</div>
-                        <div class="w-25">销售单据</div>
-                        <div class="w-25">退货</div>
-                        <div class="w-25">消息中心</div>
-                    </div>
-                </div>
-            </div>
-        </main>
+
+        </div>
     </div>
+    <!--可选菜单-->
+    <main class="col-md-8 col-xl-9 py-md-0 pl-md-3 bd-content py-5" role="main">
+        <!--分类名-->
+        <div class="row">
+            <div class="w-25 text-center border p-2">冷饮</div>
+            <div class="w-25 text-center border p-2">冷饮</div>
+            <div class="w-25 text-center border p-2">冷饮</div>
+            <div class="w-25 text-center border p-2">冷饮</div>
+            <div class="w-25 text-center border p-2">冷饮</div>
+            <div class="w-25 text-center border p-2">冷饮</div>
+            <div class="w-25 text-center border p-2">冷饮</div>
+        </div>
+        <!--商品-->
+        <div class="bd-sidebar bd-links row p-2"
+             :style="'height: calc(100vh - 150px - ' + 42 * Math.ceil(category.length / 4) + 'px)'">
+            <div class="row no-gutters flex-wrap">
+                <!--商品卡片-->
+                <div class="card mb-3 mr-2" style="max-width: 37%;" v-for="item in product">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img :src="item.img_url" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body p-0 ml-2 h-100 list-group justify-content-between">
+                                <div class="card-text flex-grow-1">{{item.name}}</div>
+                                <div class="card-text flex-shrink-0 price">￥{{item.price}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="db-btns card border-0">
+            <div class="card-body py-0 px-0 ">
+                <div class="text-center db-btn row">
+                    <div class="input-group w-50 align-items-center">
+                        <input type="text" class="form-control" placeholder="输入商品关键字"
+                               aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">确定</button>
+                        </div>
+                    </div>
+                    <div class="ml-3 alert-dark px-2">无码商品</div>
+                </div>
+                <div class="text-center row db-btn align-items-center bg-dark">
+                    <div class="w-25">交接班</div>
+                    <div class="w-25">销售单据</div>
+                    <div class="w-25">退货</div>
+                    <div class="w-25">消息中心</div>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
 
 <div id="MyModal">
@@ -237,7 +136,6 @@
 </div>
 </body>
 <!--js-->
-<script type="text/javascript" src="/component/sidebar.js"></script>
 <script type="text/javascript" src="/component/header.js"></script>
 <script type="text/javascript" src="/component/datetimepicker.js"></script>
 <script type="text/javascript" src="/component/modal.js"></script>
