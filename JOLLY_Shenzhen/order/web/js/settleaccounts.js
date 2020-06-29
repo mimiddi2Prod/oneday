@@ -2,7 +2,7 @@ var settleaccountsvm = new Vue({
     el: "#settleaccounts",
     data: {
         keyboard: [["1", "4", "7", "0"], ["2", "5", "8", "00"], ["3", "6", "9", "."], ["50", "100", "200", "300"], ["<-", "确认"]],
-        total_price: ""
+        total_price: "894"
     },
     methods: {
         hitKeyboard(keyboard, m) {
@@ -19,7 +19,10 @@ var settleaccountsvm = new Vue({
             }
 
             console.info(this.total_price)
-        }
+        },
+        getDiscountToCalculation(e){
+            console.info(e)
+        },
     },
     mounted: function () {
 

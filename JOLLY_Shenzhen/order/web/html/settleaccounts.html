@@ -44,13 +44,16 @@
     </div>
 </div>
 <div class="nav pt-5" id="settleaccounts">
+    <div id="discount">
+        <get-discount></get-discount>
+    </div>
     <main class="nav mx-auto bd-content w-75 flex-column" role="main">
         <!--金额/支付方式-->
         <div class="flex-grow-1 row flex-column justify-content-around">
             <div class="container-fluid my-4 flex-grow-1">
                 <div class="input-group mb-3 h-100">
                     <div class="input-group-prepend pay-type-btn text-center">
-                        <button class="btn btn-outline-secondary w-100" type="button" id="button-addon1">总额</button>
+                        <button class="btn w-100" type="button" id="button-addon1">总额</button>
                     </div>
                     <input type="text" class="form-control h-100 text-right" style="font-size: 2rem;" placeholder=""
                            aria-label="Example text with button addon"
@@ -67,11 +70,11 @@
             <div class="container-fluid my-4 flex-grow-1">
                 <div class="input-group mb-3 h-100">
                     <div class="input-group-prepend pay-type-btn text-center">
-                        <button class="btn btn-outline-secondary w-100" type="button" id="button-addon2">现金</button>
+                        <button class="btn w-100" type="button" id="button-addon2">现金</button>
                     </div>
                     <input type="text" class="form-control h-100 text-right" style="font-size: 2rem;" placeholder=""
                            aria-label="Example text with button addon"
-                           aria-describedby="button-addon1"
+                           aria-describedby="button-addon2"
                            oninput="value=value.replace(/[^\d.]/g,'')">
                     <div class="input-group-prepend ml-2 pay-type-btn">
                         <button class="btn btn-dark w-100">微信</button>
@@ -84,11 +87,11 @@
             <div class="container-fluid my-4 flex-grow-1">
                 <div class="input-group mb-3 h-100">
                     <div class="input-group-prepend pay-type-btn text-center">
-                        <button class="btn btn-outline-secondary w-100" type="button" id="button-addon3">找零</button>
+                        <button class="btn w-100" type="button" id="button-addon3">找零</button>
                     </div>
                     <input type="text" class="form-control h-100 text-right" style="font-size: 2rem;" placeholder=""
                            aria-label="Example text with button addon"
-                           aria-describedby="button-addon1"
+                           aria-describedby="button-addon3"
                            oninput="value=value.replace(/[^\d.]/g,'')">
                 </div>
             </div>
@@ -107,9 +110,43 @@
     </main>
 </div>
 
+<!--<div class="modal fade" id="modal_2" tabindex="-1" role="dialog" aria-labelledby="myModal2" data-backdrop="static">-->
+    <!--<div class="modal-dialog" role="document">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<h5 class="modal-title"></h5>-->
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                    <!--<span aria-hidden="true">&times;</span>-->
+                <!--</button>-->
+            <!--</div>-->
+            <!--<div class="modal-body row">-->
+                <!--<div class="input-group mb-3 w-100 align-items-center mx-5">-->
+                    <!--<input type="text" class="form-control text-right" placeholder=""-->
+                           <!--aria-label="Example text with button addon"-->
+                           <!--aria-describedby="button-addon1"-->
+                           <!--oninput="value=value.replace(/[^\d.]/g,'')">-->
+                    <!--<div class="input-group-prepend text-center ml-2">-->
+                        <!--<span>%</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="nav mx-5 flex-row">-->
+                    <!--<div class="text-center col-6 mb-2">-->
+                        <!--<button class="btn btn-info py-2 px-4 w-100"><h5>95 折</h5></button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>-->
+                <!--<button type="button" class="btn btn-primary" id="modal_2_submit">确定</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
 <div id="MyModal">
     <my-loading></my-loading>
     <my-modal-1></my-modal-1>
+    <my-modal-discount></my-modal-discount>
 </div>
 </body>
 <!--js-->
