@@ -58,7 +58,8 @@
                     <input type="text" class="form-control h-100 text-right" style="font-size: 2rem;" placeholder=""
                            aria-label="Example text with button addon"
                            aria-describedby="button-addon1"
-                           oninput="value=value.replace(/[^\d.]/g,'')" v-model="total_price" @click="getCurrentInput(0)">
+                           oninput="value=value.replace(/[^\d.]/g,'')" v-model="total_price"
+                           @click="getCurrentInput(0)">
                     <div class="input-group-prepend ml-2 pay-type-btn">
                         <button class="btn btn-dark w-100">现金</button>
                     </div>
@@ -127,7 +128,7 @@
                         <input type="text" class="form-control text-right" placeholder=""
                                aria-label="Example text with button addon"
                                aria-describedby="button-addon1"
-                               oninput="value=value.replace(/[^\\d.]/g,'')">
+                               oninput="value=value.replace(/[^\d.]/g,'')">
                         <div class="input-group-prepend text-center ml-2">
                             <span>%</span>
                         </div>
@@ -147,10 +148,10 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>-->
-                <!--<button type="button" class="btn btn-primary" id="modal_2_submit">确定</button>-->
-                <!--</div>-->
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>-->
+                    <button type="button" class="btn btn-primary" id="modal_2_submit" data-dismiss="modal">关闭</button>
+                </div>
             </div>
         </div>
     </div>
