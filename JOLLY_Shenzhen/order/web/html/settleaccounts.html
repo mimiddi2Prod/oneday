@@ -37,21 +37,68 @@
 </head>
 <body>
 <div class="position-fixed w-100 text-center" style="line-height: 50px">收款</div>
-<div id="GetHeader" class="border-bottom position-fixed row">
+<div id="GetHeader" class="border-bottom position-fixed row w-100 no-gutters">
     <get-header></get-header>
     <div class="row" style="line-height: 50px">
         <div class="ml-2">当前账号：1001</div>
     </div>
 </div>
 <div class="nav pt-5" id="settleaccounts">
-    <main class="nav mx-auto py-md-0 bd-content py-5 w-75" role="main">
+    <main class="nav mx-auto bd-content w-75 flex-column" role="main">
         <!--金额/支付方式-->
-        <div class="flex-grow-1">￥{{total_price}}</div>
+        <div class="flex-grow-1 row flex-column justify-content-around">
+            <div class="container-fluid my-4 flex-grow-1">
+                <div class="input-group mb-3 h-100">
+                    <div class="input-group-prepend pay-type-btn text-center">
+                        <button class="btn btn-outline-secondary w-100" type="button" id="button-addon1">总额</button>
+                    </div>
+                    <input type="text" class="form-control h-100 text-right" style="font-size: 2rem;" placeholder=""
+                           aria-label="Example text with button addon"
+                           aria-describedby="button-addon1"
+                           oninput="value=value.replace(/[^\d.]/g,'')">
+                    <div class="input-group-prepend ml-2 pay-type-btn">
+                        <button class="btn btn-dark w-100">现金</button>
+                    </div>
+                    <div class="input-group-prepend ml-2 pay-type-btn">
+                        <button class="btn btn-dark w-100">储值卡</button>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid my-4 flex-grow-1">
+                <div class="input-group mb-3 h-100">
+                    <div class="input-group-prepend pay-type-btn text-center">
+                        <button class="btn btn-outline-secondary w-100" type="button" id="button-addon2">现金</button>
+                    </div>
+                    <input type="text" class="form-control h-100 text-right" style="font-size: 2rem;" placeholder=""
+                           aria-label="Example text with button addon"
+                           aria-describedby="button-addon1"
+                           oninput="value=value.replace(/[^\d.]/g,'')">
+                    <div class="input-group-prepend ml-2 pay-type-btn">
+                        <button class="btn btn-dark w-100">微信</button>
+                    </div>
+                    <div class="input-group-prepend ml-2 pay-type-btn">
+                        <button class="btn btn-dark w-100">银联卡</button>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid my-4 flex-grow-1">
+                <div class="input-group mb-3 h-100">
+                    <div class="input-group-prepend pay-type-btn text-center">
+                        <button class="btn btn-outline-secondary w-100" type="button" id="button-addon3">找零</button>
+                    </div>
+                    <input type="text" class="form-control h-100 text-right" style="font-size: 2rem;" placeholder=""
+                           aria-label="Example text with button addon"
+                           aria-describedby="button-addon1"
+                           oninput="value=value.replace(/[^\d.]/g,'')">
+                </div>
+            </div>
+        </div>
         <!--数字键盘-->
-        <div class="flex-shrink-0 position-absolute fixed-bottom">
+        <div class="flex-shrink-0">
             <div class="nav">
                 <div class="flex-column number-keyboard" v-for="list,keyIndex in keyboard">
-                    <div class="text-center" :class="keyIndex <= 2 ? 'btn-dark' : 'btn-danger'" v-for="item in list" @click="hitKeyboard(item,keyIndex)">
+                    <div class="text-center" :class="keyIndex <= 2 ? 'btn-dark' : 'btn-danger'" v-for="item in list"
+                         @click="hitKeyboard(item,keyIndex)">
                         {{item}}
                     </div>
                 </div>
