@@ -61,7 +61,13 @@
                             ￥{{item.price}}
                         </div>
                         <div class="col-sm-1 px-2 text-center">{{item.num}}</div>
-                        <div class="col-sm-2 px-2 text-center">-</div>
+                        <div class="col-sm-2 px-2 text-center">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash-circle-fill"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4 7.5a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1H4z"/>
+                            </svg>
+                        </div>
                     </div>
                     <div class="figure-caption">备注：{{item.remark}}</div>
                 </div>
@@ -121,7 +127,7 @@
                 </div>
                 <div class="text-center row db-btn align-items-center bg-dark">
                     <div class="w-25">交接班</div>
-                    <div class="w-25">销售单据</div>
+                    <div class="w-25" @click="toOrderForm">销售单据</div>
                     <div class="w-25">退货</div>
                     <div class="w-25">消息中心</div>
                 </div>

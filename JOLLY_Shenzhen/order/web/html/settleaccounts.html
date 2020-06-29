@@ -9,7 +9,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>结算</title>
+    <title>收款</title>
     <!--css-->
     <link href="/source/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-grid.min.css" rel="stylesheet">
@@ -38,10 +38,22 @@
 <body>
 <div class="position-fixed w-100 text-center" style="line-height: 50px">收款</div>
 <div id="GetHeader" class="border-bottom position-fixed row w-100 no-gutters">
-    <get-header></get-header>
-    <div class="row" style="line-height: 50px">
-        <div class="ml-2">当前账号：1001</div>
+    <!--<get-header></get-header>-->
+    <!--<div class="row" style="line-height: 50px">-->
+    <!--<div class="ml-2">当前账号：1001</div>-->
+    <!--</div>-->
+    <div id="backspace">
+        <get-backspace></get-backspace>
     </div>
+    <!--<div class="ml-2 nav align-items-center" style="line-height: 50px" onclick="history.go(-1)">-->
+    <!--<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor"-->
+    <!--xmlns="http://www.w3.org/2000/svg">-->
+    <!--<path fill-rule="evenodd"-->
+    <!--d="M7.854 4.646a.5.5 0 0 1 0 .708L5.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>-->
+    <!--<path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>-->
+    <!--</svg>-->
+    <!--返回-->
+    <!--</div>-->
 </div>
 <div class="nav pt-5" id="settleaccounts">
     <div id="discount">
@@ -103,7 +115,18 @@
                 <div class="flex-column number-keyboard" v-for="list,keyIndex in keyboard">
                     <div class="text-center" :class="keyIndex <= 2 ? 'btn-dark' : 'btn-danger'" v-for="item in list"
                          @click="hitKeyboard(item,keyIndex)">
-                        {{item}}
+                        <span v-if="item == '回退'">
+                            <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-backspace"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M6.603 2h7.08a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-7.08a1 1 0 0 1-.76-.35L1 8l4.844-5.65A1 1 0 0 1 6.603 2zm7.08-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08z"/>
+                                <path fill-rule="evenodd"
+                                      d="M5.83 5.146a.5.5 0 0 0 0 .708l5 5a.5.5 0 0 0 .707-.708l-5-5a.5.5 0 0 0-.708 0z"/>
+                                <path fill-rule="evenodd"
+                                      d="M11.537 5.146a.5.5 0 0 1 0 .708l-5 5a.5.5 0 0 1-.708-.708l5-5a.5.5 0 0 1 .707 0z"/>
+                            </svg>
+                        </span>
+                        <span v-else>{{item}}</span>
                     </div>
                 </div>
             </div>

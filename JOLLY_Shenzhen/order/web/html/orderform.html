@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!--适配移动端 -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>销售单据</title>
+    <!--css-->
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/orderform.css" rel="stylesheet">
+    <!--js-->
+    <script type="text/javascript" src="/source/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/source/popper-2.1.1/popper.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/source/moment-2.24.0/moment-with-locales.js"></script>
+    <script type="text/javascript"
+            src="/source/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- 使用bootstrap-datetimepicker 需先引用 moment-with-locales -->
+    <script type="text/javascript" src="/source/vue/vue.min.js"></script>
+    <script type="text/javascript" src="/source/axios/axios.min.js"></script>
+    <script type="text/javascript" src="/source/chart/Chart.min.js"></script><!-- Chartjs -->
+    <script type="text/javascript" src="/utils/http.js"></script>
+    <script type="text/javascript" src="/utils/apis.js"></script>
+    <script type="text/javascript" src="/utils/util.js"></script>
+
+</head>
+<body>
+<div class="position-fixed w-100 text-center" style="line-height: 50px">收款</div>
+<div id="GetHeader" class="position-fixed row w-100 no-gutters">
+    <div id="backspace">
+        <get-backspace></get-backspace>
+    </div>
+</div>
+<div class="nav pt-5" id="orderform">
+    <div id="GetSidebar" class="col-md-4 col-xl-3 border-bottom-0 px-0">
+        <div class="nav justify-content-between bg-success px-2 py-md-3 text-right pr-4">
+            <div>流水号</div>
+            <div>总额</div>
+        </div>
+        <div class="bd-sidebar bd-links">
+            <div class="container">
+                <div class="border-bottom py-2" v-for="item,index in order">
+                    <div class="row">
+                        <div class="col-sm-9 px-2">
+                            {{item.trade_no}}
+                        </div>
+                        <div class="col-sm-3 px-2 text-center price">
+                            ￥{{item.total_price}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9 px-2">
+                            {{item.table_num ? '桌号：'+item.table_num : ''}}
+                        </div>
+                        <div class="figure-caption text-right">
+                            {{item.create_time}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="col-md-8 col-xl-9 py-md-0 pl-md-3 bd-content py-5" role="main">
+        <!--标题-->
+        <div class="nav justify-content-between bg-info px-2 py-md-3 pr-4 row">
+            <div class="col-sm-5 px-2">商品名</div>
+            <div class="col-sm-3 px-2 text-center">售价</div>
+            <div class="col-sm-3 px-2 text-center">折扣价</div>
+            <div class="col-sm-1 px-2 text-center">数量</div>
+        </div>
+        <div class="bd-sidebar bd-links row p-2 order-detail">
+            <div class="nav flex-wrap row" v-for="item in orderDetail">
+                <!--订单商品详情-->
+                <!--<div class="" >-->
+                    <div class="col-sm-5 px-2">{{item.name}}</div>
+                    <div class="col-sm-3 px-2 text-center">{{item.price}}</div>
+                    <div class="col-sm-3 px-2 text-center">{{item.discount_price}}</div>
+                    <div class="col-sm-1 px-2 text-center">{{item.num}}</div>
+                <!--</div>-->
+            </div>
+        </div>
+        <div class="db-btns card border-0">
+            <div class="card-body py-0 px-0 ">
+                <div class="justify-content-between db-btn row mr-2">
+                    <div class="px-2">件数：2</div>
+                    <div class="ml-3 px-2">总额：10.2（现金：10.2）</div>
+                </div>
+                <div class="text-center row db-btn align-items-center bg-dark">
+                    <div class="w-50">退货</div>
+                    <div class="w-50">反结账</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="MyModal">
+        <my-loading></my-loading>
+        <my-modal-1></my-modal-1>
+    </div>
+</div>
+</body>
+<!--js-->
+<script type="text/javascript" src="/component/header.js"></script>
+<script type="text/javascript" src="/component/datetimepicker.js"></script>
+<script type="text/javascript" src="/component/modal.js"></script>
+<script type="text/javascript" src="/js/orderform.js"></script>
+</html>

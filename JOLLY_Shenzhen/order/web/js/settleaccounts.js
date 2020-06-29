@@ -1,7 +1,7 @@
 var settleaccountsvm = new Vue({
     el: "#settleaccounts",
     data: {
-        keyboard: [["1", "4", "7", "0"], ["2", "5", "8", "00"], ["3", "6", "9", "."], ["50", "100", "200", "300"], ["<-", "确认"]],
+        keyboard: [["1", "4", "7", "0"], ["2", "5", "8", "00"], ["3", "6", "9", "."], ["50", "100", "200", "300"], ["回退", "确认"]],
         discount_list: [95, 9, 85, 8, 75, 7, 6, 5],
         type: 0,
         total_price: 894.32,
@@ -37,7 +37,7 @@ var settleaccountsvm = new Vue({
                     }
                 } else if (m == 3) {
                     price = Number(price) + Number(keyboard)
-                } else if (keyboard == "<-") {
+                } else if (keyboard == "回退") {
                     let len = price.toString().length
                     price = len > 0 ? price.toString().substring(0, len - 1) : ""
                 }

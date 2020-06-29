@@ -45,9 +45,12 @@ var homevm = new Vue({
         }]
     },
     methods: {
-        toSettleAccounts: function () {
+        toSettleAccounts() {
             sessionStorage.setItem('order', JSON.stringify(this.order))
             window.location.href = "settleaccounts"
+        },
+        toOrderForm() {
+            window.location.href = "orderform"
         }
     },
     mounted: function () {
