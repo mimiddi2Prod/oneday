@@ -73,21 +73,19 @@
     </div>
     <main class="col-md-8 col-xl-9 py-md-0 pl-md-3 bd-content py-5" role="main">
         <!--标题-->
-        <div class="nav justify-content-between bg-info px-2 py-md-3 pr-4 row">
+        <div class="nav justify-content-between bg-info px-2 py-md-3 row">
             <div class="col-sm-5 px-2">商品名</div>
             <div class="col-sm-3 px-2 text-center">售价</div>
             <div class="col-sm-3 px-2 text-center">折扣价</div>
             <div class="col-sm-1 px-2 text-center">数量</div>
         </div>
-        <div class="bd-sidebar bd-links row p-2 order-detail">
-            <div class="nav flex-wrap row" v-for="item in orderDetail">
+        <div class="bd-sidebar bd-links row px-2 py-md-3 order-detail">
+            <div class="nav flex-wrap" v-for="item in orderDetail">
                 <!--订单商品详情-->
-                <!--<div class="" >-->
-                    <div class="col-sm-5 px-2">{{item.name}}</div>
-                    <div class="col-sm-3 px-2 text-center">{{item.price}}</div>
-                    <div class="col-sm-3 px-2 text-center">{{item.discount_price}}</div>
-                    <div class="col-sm-1 px-2 text-center">{{item.num}}</div>
-                <!--</div>-->
+                <div class="col-sm-5 px-2">{{item.name}}</div>
+                <div class="col-sm-3 px-2 text-center">{{item.price}}</div>
+                <div class="col-sm-3 px-2 text-center">{{item.discount_price}}</div>
+                <div class="col-sm-1 px-2 text-center">{{item.num}}</div>
             </div>
         </div>
         <div class="db-btns card border-0">
