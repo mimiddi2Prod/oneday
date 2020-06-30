@@ -9,16 +9,18 @@ var orderformvm = new Vue({
             table_num: 1,
             orderDetail: [{
                 id: 1,
-                name: '白斩鸡鸡鸡',
+                name: "白斩鸡鸡鸡",
                 num: 2,
                 price: 12,
-                discount_price: 11.5
+                discount_price: 11.5,
+                remark: ""
             }, {
                 id: 2,
-                name: '白斩鸡鸡鸡',
+                name: "白斩鸡鸡鸡",
                 num: 1,
                 price: 14,
-                discount_price: 13
+                discount_price: 13,
+                remark: "多加亿点辣椒！！！"
             }]
         }, {
             id: 1,

@@ -80,9 +80,12 @@
             <div class="col-sm-1 px-2 text-center">数量</div>
         </div>
         <div class="bd-sidebar bd-links row px-2 py-md-3 order-detail">
-            <div class="nav flex-wrap" v-for="item in orderDetail">
+            <div class="nav flex-wrap flex-row align-items-center mb-2 pb-2 border-bottom" v-for="item in orderDetail">
                 <!--订单商品详情-->
-                <div class="col-sm-5 px-2">{{item.name}}</div>
+                <div class="col-sm-5 px-2">
+                    <div>{{item.name}}</div>
+                    <div class="figure-caption">{{item.remark ? "备注："+item.remark : ""}}</div>
+                </div>
                 <div class="col-sm-3 px-2 text-center">{{item.price}}</div>
                 <div class="col-sm-3 px-2 text-center">{{item.discount_price}}</div>
                 <div class="col-sm-1 px-2 text-center">{{item.num}}</div>
