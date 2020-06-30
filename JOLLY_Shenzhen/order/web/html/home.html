@@ -53,7 +53,7 @@
         <div class="bd-sidebar bd-links">
             <div class="container">
                 <div class="border-bottom py-2" v-for="item in order">
-                    <div class="row">
+                    <div class="row align-items-center">
                         <div class="col-sm-6 px-2">
                             {{item.name}}
                         </div>
@@ -69,6 +69,7 @@
                             </svg>
                         </div>
                     </div>
+                    <div class="figure-caption text-right" v-if="item.num > 1">小计：￥{{item.subtotal}}</div>
                     <div class="figure-caption">备注：{{item.remark}}</div>
                 </div>
             </div>
@@ -100,7 +101,7 @@
                 <!--商品卡片-->
                 <div class="card mb-3 mr-2" style="max-width: 37%;" v-for="item in product">
                     <div class="row no-gutters">
-                        <div class="col-md-4">
+                        <div class="col-md-4" @click="showModalProduct(item)">
                             <img :src="item.img_url" class="card-img" alt="...">
                         </div>
                         <div class="col-md-8">
@@ -134,6 +135,59 @@
             </div>
         </div>
     </main>
+
+    <!--商品备注/折扣编辑-->
+    <div class="modal fade" id="modal_3" tabindex="-1" role="dialog" aria-labelledby="myModal3" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body row" style="font-size: 1.5rem;">
+                    <div class="mx-5 flex-row w-100 text-right">
+                        <h5>这边可能需要可选参数</h5>
+                    </div>
+
+                    <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
+                        <span>原价：</span>
+                        <span>￥{{tempOrderDetail.price}}</span>
+                    </div>
+                    <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
+                        <span>折扣：</span>
+                        <input type="text" class="form-control h-100 text-right" placeholder=""
+                               oninput="value=value.replace(/[^\d.]/g,'')" v-model="tempOrderDetail.discount">
+                        <span class="ml-2">%</span>
+                    </div>
+                    <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
+                        <span>现价：</span>
+                        <span>￥{{tempOrderDetail.discount_price}}</span>
+                    </div>
+                    <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
+                        <span>数量：</span>
+                        <input type="text" class="form-control h-100 text-right" placeholder=""
+                               oninput="value=value.replace(/[^\d]/g,'')" v-model="tempOrderDetail.num">
+                    </div>
+                    <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
+                        <span>小计：</span>
+                        <span>￥{{tempOrderDetail.subtotal}}</span>
+                    </div>
+                    <div class="input-group mb-3 w-100 align-items-center mx-5">
+                        <span>备注：</span>
+                        <input type="text" class="form-control" placeholder=""
+                               aria-label="Example text with button addon"
+                               aria-describedby="button-addon1" v-model="tempOrderDetail.remark">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="modal_3_submit" @click="changeOrder">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="MyModal">
