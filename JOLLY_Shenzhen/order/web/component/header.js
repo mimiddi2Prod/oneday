@@ -15,6 +15,7 @@ Vue.component('get-backspace', {
     data: function () {
         return {}
     },
+    // window.history.back()
     template: '<div class="ml-2 nav align-items-center" style="line-height: 50px" onclick="history.go(-1)">\n' +
         '        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor"\n' +
         '             xmlns="http://www.w3.org/2000/svg">\n' +

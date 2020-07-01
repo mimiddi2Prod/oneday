@@ -61,6 +61,7 @@ var settleaccountsvm = new Vue({
     },
     mounted: function () {
         this.pay_price = this.total_price
+        console.info(sessionStorage.getItem("order"))
     },
     created: function () {
 

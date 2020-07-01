@@ -1,59 +1,84 @@
 var homevm = new Vue({
     el: "#home",
     data: {
+        current_category_id: 1,
         category: [{
-            name: '冷饮'
-        }, {
-            name: '冷饮'
-        }, {
-            name: '冷饮'
-        }, {
-            name: '冷饮'
-        }, {
-            name: '冷饮'
-        }, {
-            name: '冷饮'
-        }],
-        product: [{
             id: 1,
-            name: "白斩鸡白斩鸡白斩鸡白斩鸡",
-            price: 12,
-            img_url: '../images/logo.png'
+            name: '白斩鸡',
+            product: [{
+                id: 1,
+                name: "白斩鸡白斩鸡白斩鸡白斩鸡1",
+                price: 12,
+                img_url: '../images/logo.png'
+            }, {
+                id: 2,
+                name: "白斩鸡白斩鸡白斩鸡白斩鸡2",
+                price: 12,
+                img_url: '../images/logo.png'
+            }, {
+                id: 3,
+                name: "白斩鸡白斩鸡白斩鸡白斩鸡3",
+                price: 12,
+                img_url: '../images/logo.png'
+            }]
         }, {
             id: 2,
-            name: "白斩鸡白斩鸡白斩鸡白斩鸡",
-            price: 12,
-            img_url: '../images/logo.png'
+            name: '小鸡炖蘑菇',
+            product: [{
+                id: 1,
+                name: "小鸡炖蘑菇1",
+                price: 12,
+                img_url: '../images/logo.png'
+            }, {
+                id: 2,
+                name: "小鸡炖蘑菇2",
+                price: 12,
+                img_url: '../images/logo.png'
+            }, {
+                id: 3,
+                name: "小鸡炖蘑菇3",
+                price: 12,
+                img_url: '../images/logo.png'
+            }]
         }, {
             id: 3,
-            name: "白斩鸡白斩鸡白斩鸡白斩鸡",
-            price: 12,
-            img_url: '../images/logo.png'
+            name: '冷饮'
+        }, {
+            id: 4,
+            name: '冷饮'
+        }, {
+            id: 5,
+            name: '冷饮'
+        }, {
+            id: 6,
+            name: '冷饮'
         }],
+        product: [],
         trade: {
             total_num: 0,
             total_price: 0,
         },
         // 预下单，discount（0-100，100为原价）有值时计算折扣价，
-        order: [{
-            id: 1,
-            name: "白斩鸡白斩鸡白斩鸡白斩鸡",
-            price: 12,
-            discount: "",
-            discount_price: 12,
-            num: 1,
-            remark: '多放亿点辣椒',
-            subtotal: 12
-        }, {
-            id: 2,
-            name: "白斩鸡白斩鸡白斩鸡白斩鸡",
-            price: 14,
-            discount: 90,
-            discount_price: 12.6,
-            num: 2,
-            remark: '大分的，同样多放亿点辣椒',
-            subtotal: 28
-        }],
+        order: [],
+        // order: [{
+        //     id: 1,
+        //     name: "白斩鸡白斩鸡白斩鸡白斩鸡",
+        //     price: 12,
+        //     discount: "",
+        //     discount_price: 12,
+        //     num: 1,
+        //     remark: '多放亿点辣椒',
+        //     subtotal: 12
+        // }, {
+        //     id: 2,
+        //     name: "白斩鸡白斩鸡白斩鸡白斩鸡",
+        //     price: 14,
+        //     discount: 90,
+        //     discount_price: 12.6,
+        //     num: 2,
+        //     remark: '大分的，同样多放亿点辣椒',
+        //     subtotal: 28
+        // }],
         // 用于临时存放更改的商品
         type: '',
         tempDiscount: "",
@@ -72,8 +97,25 @@ var homevm = new Vue({
     },
     methods: {
         toSettleAccounts() {
+            if (!this.order.length) {
+                $('#modal_1').on('show.bs.modal', function (e) {
+                    let modal = $(this)
+                    modal.find('.modal-title').text('提示')
+                    modal.find('.modal-body').text('没有选择商品')
+                })
+                $('#modal_1').on('hidden.bs.modal', function (e) {
+                    $('#modal_1_submit')[0].removeEventListener("click", hideModal);
+                })
+                $('#modal_1').modal('show');
+                $('#modal_1_submit')[0].addEventListener("click", hideModal)
+                return
+            }
             sessionStorage.setItem('order', JSON.stringify(this.order))
             window.location.href = "settleaccounts"
+
+            function hideModal() {
+                $('#modal_1').modal('hide');
+            }
         },
         toOrderForm() {
             window.location.href = "orderform"
@@ -129,7 +171,6 @@ var homevm = new Vue({
             // $('#loading').modal('show');
             $('#modal_3').modal('hide');
             let self = this, temp = self.tempOrderDetail
-            console.info(self.tempOrderDetail)
             if (temp.orderIndex) {
                 // 编辑
             } else {
@@ -158,7 +199,6 @@ var homevm = new Vue({
         },
         _toFixed(obj) {
             for (let i in obj) {
-                console.info(obj[i])
                 if (typeof obj[i] == "number" && i != "id") {
                     obj[i] = obj[i].toFixed(2)
                 }
@@ -231,16 +271,14 @@ var homevm = new Vue({
         }
     },
     mounted: function () {
-        // this.showModalProduct({
-        //     id: 1,
-        //     name: "白斩鸡白斩鸡白斩鸡白斩鸡",
-        //     price: 14,
-        //     discount: "",
-        //     discount_price: 14,
-        //     num: 2,
-        //     remark: '大分的，同样多放亿点辣椒',
-        //     subtotal: 28
-        // })
+        if (this.category.length) {
+            this.current_category_id = this.category[0].id
+            this.product = this.category[0].product
+        }
+        if (sessionStorage.getItem("order")) {
+            this.order = JSON.parse(sessionStorage.getItem("order"))
+            this._calculationTotal()
+        }
     },
     created: function () {
 
