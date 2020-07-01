@@ -1,13 +1,14 @@
 var settleaccountsvm = new Vue({
     el: "#settleaccounts",
     data: {
+        // current_total_price: "",
         keyboard: [["1", "4", "7", "0"], ["2", "5", "8", "00"], ["3", "6", "9", "."], ["50", "100", "200", "300"], ["回退", "确认"]],
         discount_list: [95, 9, 85, 8, 75, 7, 6, 5],
         type: 0,
-        total_price: 894.32,
+        total_price: "",
         discount_price: "",
         pay_price: "",
-        change_price: "",
+        change_price: 0,
     },
     methods: {
         hitKeyboard(keyboard, m) {
@@ -60,8 +61,13 @@ var settleaccountsvm = new Vue({
         }
     },
     mounted: function () {
+        if (sessionStorage.getItem("trade")) {
+            let trade = JSON.parse(sessionStorage.getItem("trade"))
+            // this.current_total_price = trade.total_price
+            // this.total_price = this.current_total_price
+            this.total_price = trade.total_price
+        }
         this.pay_price = this.total_price
-        console.info(sessionStorage.getItem("order"))
     },
     created: function () {
 

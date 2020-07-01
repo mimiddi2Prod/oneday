@@ -110,7 +110,7 @@ var homevm = new Vue({
                 $('#modal_1_submit')[0].addEventListener("click", hideModal)
                 return
             }
-            sessionStorage.setItem('order', JSON.stringify(this.order))
+            sessionStorage.setItem('trade', JSON.stringify(Object.assign(this.trade, {order: this.order})))
             window.location.href = "settleaccounts"
 
             function hideModal() {
@@ -275,9 +275,11 @@ var homevm = new Vue({
             this.current_category_id = this.category[0].id
             this.product = this.category[0].product
         }
-        if (sessionStorage.getItem("order")) {
-            this.order = JSON.parse(sessionStorage.getItem("order"))
-            this._calculationTotal()
+        if (sessionStorage.getItem("trade")) {
+            let trade = JSON.parse(sessionStorage.getItem("trade"))
+            this.order = trade.order
+            // this._calculationTotal()
+            this.trade = trade
         }
     },
     created: function () {
