@@ -74,11 +74,6 @@ var homevm = new Vue({
         toOrderForm() {
             window.location.href = "orderform"
         },
-        cutOrderNum(index) {
-            this.order[index].num = this.order[index].num - 1
-            console.info(this.order[index].num)
-            this.order[index].subtotal = (Number(this.order[index].discount_price) * this.order[index].num).toFixed(2)
-        },
         showModalProduct(item, orderIndex) {
             let temp = item
             temp.orderIndex = orderIndex || null
@@ -107,10 +102,29 @@ var homevm = new Vue({
         InputType(type) {
             this.type = type
         },
+        cutOrderNum(index) {
+            this.order[index].num = this.order[index].num - 1
+            if (this.order[index].num > 0) {
+                this.order[index].subtotal = Number((Number(this.order[index].discount_price) * this.order[index].num).toFixed(2))
+            } else {
+                this.order.splice(index, 1)
+            }
+        },
+        addOrderNum(item) {
+            let temp = item
+            temp.discount = ""
+            temp.remark = ""
+            temp.discount_price = temp.price
+            temp.num = 1
+            temp.subtotal = temp.discount_price
+            this.tempOrderDetail = this._toFixed(Object.assign({}, temp))
+            this.changeOrder()
+        },
         changeOrder() {
             // $('#loading').modal('show');
             $('#modal_3').modal('hide');
             let self = this, temp = self.tempOrderDetail
+            console.info(self.tempOrderDetail)
             if (temp.orderIndex) {
                 // 编辑
             } else {
@@ -139,9 +153,15 @@ var homevm = new Vue({
         _toFixed(obj) {
             for (let i in obj) {
                 console.info(obj[i])
-                if (typeof obj[i] == "number") {
+                if (typeof obj[i] == "number" && i != "id") {
                     obj[i] = obj[i].toFixed(2)
                 }
+            }
+            if (obj["subtotal"]) {
+                obj["subtotal"] = Number(obj["subtotal"])
+            }
+            if (obj["discount_price"]) {
+                obj["discount_price"] = Number(obj["discount_price"])
             }
             if (obj["num"]) {
                 obj["num"] = Number(obj["num"]) >> 0
