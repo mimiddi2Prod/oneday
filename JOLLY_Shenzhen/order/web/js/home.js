@@ -51,7 +51,9 @@ var homevm = new Vue({
             subtotal: 28
         }],
         // 用于临时存放更改的商品
+        type: '',
         tempDiscount: "",
+        tempDiscountPrice: "",
         tempNum: 1,
         tempOrderDetail: {
             id: null,
@@ -72,6 +74,10 @@ var homevm = new Vue({
         toOrderForm() {
             window.location.href = "orderform"
         },
+        cutOrderNum(index) {
+            this.order[index].num = this.order[index].num - 1
+            console.info(this.order[index].num)
+        },
         showModalProduct(item, orderIndex) {
             let temp = item
             temp.orderIndex = orderIndex || null
@@ -80,10 +86,12 @@ var homevm = new Vue({
                 temp.remark = ""
                 temp.discount_price = temp.price
                 temp.num = temp.num || 1
+                temp.subtotal = temp.discount_price * temp.num
             }
-            temp.subtotal = temp.discount_price * temp.num
+            // temp.subtotal = temp.discount_price * temp.num
             // 初始化赋值
             this.tempDiscount = ""
+            this.tempDiscountPrice = temp.discount_price
             this.tempNum = 1
             this.tempOrderDetail = Object.assign({}, temp) // 新建对象，防止vue引用赋值
             $('#modal_3').on('show.bs.modal', function (e) {
@@ -92,8 +100,8 @@ var homevm = new Vue({
             })
             $('#modal_3').modal('show');
         },
-        calculationDiscount() {
-            console.info()
+        calculationDiscount(type) {
+            this.type = type
         },
         changeOrder() {
             // $('#loading').modal('show');
@@ -107,28 +115,53 @@ var homevm = new Vue({
                 let haveSame = self.order.some(value => {
                     return (value.id == temp.id && value.discount == temp.discount && value.remark == temp.remark)
                 })
-                temp.discount_price = temp.discount ? (Number(temp.discount) / 100) * temp.price : temp.price
+                // temp.discount_price = temp.discount ? (Number(temp.discount) / 100) * temp.price : temp.price
                 if (haveSame) {
                     self.order = self.order.map(value => {
                         if (value.id == temp.id && value.discount == temp.discount && value.remark == temp.remark) {
                             value.num = Number(value.num) + Number(temp.num)
-                            value.subtotal = Number(value.num) * value.discount_price
+                            // value.subtotal = Number(value.num) * value.discount_price
+                            value.subtotal = value.subtotal + temp.subtotal
                         }
                         return value
                     })
                 } else {
-                    temp.subtotal = temp.discount_price * temp.num
+                    // temp.subtotal = temp.subtotal || temp.discount_price * temp.num
                     self.order.push(temp)
                 }
             }
             // $('#loading').modal('hide');
         }
     },
+    computed: {
+        temp() {
+            const {tempDiscount, tempDiscountPrice} = this
+            return {
+                tempDiscount,
+                tempDiscountPrice
+            }
+        }
+    },
     watch: {
-        tempDiscount(val, oldVal) {
-            this.tempOrderDetail.discount = val
-            this.tempOrderDetail.discount_price = val ? this.tempOrderDetail.price * (Number(val) / 100) : this.tempOrderDetail.price
-            this.tempOrderDetail.subtotal = this.tempOrderDetail.discount_price * Number(this.tempOrderDetail.num)
+        temp: {
+            handler: function (val, oldVal) {
+                // console.log('address change: ', val, oldVal, this.type)
+                if (this.type == "Discount" && val.tempDiscount != oldVal.tempDiscount) {
+                    this.tempOrderDetail.discount = val.tempDiscount
+                    this.tempDiscountPrice = val.tempDiscount.toString().length ? (this.tempOrderDetail.price * (Number(val.tempDiscount) / 100)).toFixed(2) : this.tempOrderDetail.price
+                    this.tempOrderDetail.discount_price = this.tempDiscountPrice
+                    this.tempOrderDetail.subtotal = (this.tempDiscountPrice ? this.tempOrderDetail.discount_price : this.tempOrderDetail.price) * Number(this.tempOrderDetail.num)
+                    return
+                }
+                if (this.type == "Price" && val.tempDiscountPrice != oldVal.tempDiscountPrice) {
+                    this.tempOrderDetail.discount_price = val.tempDiscountPrice
+                    this.tempDiscount = val.tempDiscountPrice.toString().length ? ((this.tempOrderDetail.discount_price / this.tempOrderDetail.price) * 100).toFixed(2) : ""
+                    this.tempOrderDetail.discount = this.tempDiscount
+                    this.tempOrderDetail.subtotal = this.tempDiscount ? this.tempOrderDetail.discount_price * Number(this.tempOrderDetail.num) : this.tempOrderDetail.price
+                    return
+                }
+            },
+            deep: true
         },
         tempNum(val) {
             this.tempOrderDetail.num = val

@@ -52,7 +52,7 @@
         <div class="bg-success px-2 py-md-3 text-right pr-4">共 11 件</div>
         <div class="bd-sidebar bd-links">
             <div class="container">
-                <div class="border-bottom py-2" v-for="item in order">
+                <div class="border-bottom py-2" v-for="item,index in order">
                     <div class="row align-items-center">
                         <div class="col-sm-6 px-2">
                             {{item.name}}
@@ -61,7 +61,7 @@
                             ￥{{item.discount_price}}
                         </div>
                         <div class="col-sm-1 px-2 text-center">{{item.num}}</div>
-                        <div class="col-sm-2 px-2 text-center">
+                        <div class="col-sm-2 px-2 text-center" @click="cutOrderNum(index)">
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-dash-circle-fill"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -158,12 +158,14 @@
                     <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
                         <span>折扣：</span>
                         <input type="text" class="form-control h-100 text-right" placeholder=""
-                               oninput="value=value.replace(/[^\d.]/g,'')" v-model="tempDiscount" @change="calculationDiscount">
+                               oninput="value=value.replace(/[^\d.]/g,'')" v-model="tempDiscount" @click="calculationDiscount('Discount')">
                         <span class="ml-2">%</span>
                     </div>
                     <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
                         <span>现价：</span>
-                        <span>￥{{tempOrderDetail.discount_price}}</span>
+                        <!--<span>￥{{tempOrderDetail.discount_price}}</span>-->
+                        <input type="text" class="form-control h-100 text-right" placeholder=""
+                               oninput="value=value.replace(/[^\d.]/g,'')" v-model="tempDiscountPrice" @click="calculationDiscount('Price')">
                     </div>
                     <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
                         <span>数量：</span>
