@@ -30,6 +30,10 @@ var homevm = new Vue({
             price: 12,
             img_url: '../images/logo.png'
         }],
+        trade: {
+            total_num: 0,
+            total_price: 0,
+        },
         // 预下单，discount（0-100，100为原价）有值时计算折扣价，
         order: [{
             id: 1,
@@ -109,6 +113,7 @@ var homevm = new Vue({
             } else {
                 this.order.splice(index, 1)
             }
+            this._calculationTotal()
         },
         addOrderNum(item) {
             let temp = item
@@ -149,6 +154,7 @@ var homevm = new Vue({
                 }
             }
             // $('#loading').modal('hide');
+            this._calculationTotal()
         },
         _toFixed(obj) {
             for (let i in obj) {
@@ -167,6 +173,17 @@ var homevm = new Vue({
                 obj["num"] = Number(obj["num"]) >> 0
             }
             return obj
+        },
+        _calculationTotal() {
+            let total_num = 0, total_price = 0
+            this.order.forEach(value => {
+                total_num += value.num
+                total_price += value.subtotal
+            })
+            this.trade = {
+                total_num: total_num,
+                total_price: total_price
+            }
         }
     },
     computed: {
