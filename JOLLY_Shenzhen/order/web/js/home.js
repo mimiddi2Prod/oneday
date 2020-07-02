@@ -2,6 +2,7 @@ var homevm = new Vue({
     el: "#home",
     data: {
         current_category_id: 1,
+        current_sku_id: "",
         category: [{
             id: 1,
             name: '白斩鸡',
@@ -25,17 +26,17 @@ var homevm = new Vue({
             id: 2,
             name: '小鸡炖蘑菇',
             product: [{
-                id: 1,
+                id: 4,
                 name: "小鸡炖蘑菇1",
                 price: 12,
                 img_url: '../images/logo.png'
             }, {
-                id: 2,
+                id: 5,
                 name: "小鸡炖蘑菇2",
                 price: 12,
                 img_url: '../images/logo.png'
             }, {
-                id: 3,
+                id: 6,
                 name: "小鸡炖蘑菇3",
                 price: 12,
                 img_url: '../images/logo.png'
@@ -96,6 +97,7 @@ var homevm = new Vue({
         }
     },
     methods: {
+        // 去结账
         toSettleAccounts() {
             if (!this.order.length) {
                 $('#modal_1').on('show.bs.modal', function (e) {
@@ -117,9 +119,13 @@ var homevm = new Vue({
                 $('#modal_1').modal('hide');
             }
         },
+        // 历史订单，销售单据
         toOrderForm() {
+            // 仅为了对页面数据进行保持状态
+            sessionStorage.setItem('trade', JSON.stringify(Object.assign(this.trade, {order: this.order})))
             window.location.href = "orderform"
         },
+        // 展示参数选择/折扣/改价/数量添加
         showModalProduct(item, orderIndex) {
             let temp = item
             temp.orderIndex = orderIndex || null
@@ -132,6 +138,7 @@ var homevm = new Vue({
             }
             // temp.subtotal = temp.discount_price * temp.num
             // 初始化赋值
+            this.current_sku_id = temp.sku.length ? temp.sku[0].sku_id : 0
             this.tempDiscount = ""
             this.tempDiscountPrice = temp.discount_price
             this.tempNum = 1
@@ -142,12 +149,31 @@ var homevm = new Vue({
             })
             $('#modal_3').modal('show');
         },
+        // 在展示的参数选择中选中的
+        chooseSku(sku_id) {
+            let temp = this.tempOrderDetail, c_sku = temp.sku.filter(value => {
+                return value.sku_id == sku_id
+            })[0]
+            temp.sku_id = c_sku.sku_id
+            temp.name = c_sku.name
+            temp.price = c_sku.price
+            this.current_sku_id = c_sku.sku_id
+
+            temp.discount = ""
+            temp.remark = ""
+            temp.discount_price = temp.price
+            temp.num = temp.num || 1
+            temp.subtotal = temp.discount_price * temp.num
+            this.tempOrderDetail = temp
+        },
         calculationDiscount() {
 
         },
+        // 输入框 折扣和价格，根据类型判断只生效一个监听 watch，避免互相影响无限循环卡死
         InputType(type) {
             this.type = type
         },
+        // 减少预下单列表商品数量
         cutOrderNum(index) {
             this.order[index].num = this.order[index].num - 1
             if (this.order[index].num > 0) {
@@ -157,16 +183,21 @@ var homevm = new Vue({
             }
             this._calculationTotal()
         },
+        // 直接点击商品名,没有sku直接添加,有的话默认选择第一个sku
         addOrderNum(item) {
+            console.info(item)
             let temp = item
             temp.discount = ""
             temp.remark = ""
             temp.discount_price = temp.price
             temp.num = 1
             temp.subtotal = temp.discount_price
+            temp.name = temp.sku.length ? temp.sku[0].name : temp.name
+            temp.sku_id = temp.sku.length ? temp.sku[0].sku_id : 0
             this.tempOrderDetail = this._toFixed(Object.assign({}, temp))
             this.changeOrder()
         },
+        // 模态框确认按钮,对编辑好的添加到左侧订单中
         changeOrder() {
             // $('#loading').modal('show');
             $('#modal_3').modal('hide');
@@ -177,12 +208,12 @@ var homevm = new Vue({
                 // 添加
                 delete temp.orderIndex
                 let haveSame = self.order.some(value => {
-                    return (value.id == temp.id && value.discount == temp.discount && value.remark == temp.remark)
+                    return (value.id == temp.id && value.discount == temp.discount && value.remark == temp.remark && value.sku_id == temp.sku_id)
                 })
                 // temp.discount_price = temp.discount ? (Number(temp.discount) / 100) * temp.price : temp.price
                 if (haveSame) {
                     self.order = self.order.map(value => {
-                        if (value.id == temp.id && value.discount == temp.discount && value.remark == temp.remark) {
+                        if (value.id == temp.id && value.discount == temp.discount && value.remark == temp.remark && value.sku_id == temp.sku_id) {
                             value.num = Number(value.num) + Number(temp.num)
                             // value.subtotal = Number(value.num) * value.discount_price
                             value.subtotal = value.subtotal + temp.subtotal
@@ -197,6 +228,7 @@ var homevm = new Vue({
             // $('#loading').modal('hide');
             this._calculationTotal()
         },
+        // 对一些计算后出现的无限小数,进行只保留两位小数操作
         _toFixed(obj) {
             for (let i in obj) {
                 if (typeof obj[i] == "number" && i != "id") {
@@ -214,6 +246,7 @@ var homevm = new Vue({
             }
             return obj
         },
+        // 对左侧订单进行数量和应付款统计
         _calculationTotal() {
             let total_num = 0, total_price = 0
             this.order.forEach(value => {
@@ -224,6 +257,19 @@ var homevm = new Vue({
                 total_num: total_num,
                 total_price: total_price
             }
+        },
+        // 通过接口获取分类和商品
+        _getCategoryAndProduct() {
+            let self = this
+            Axios(api.getCategoryAndProduct, "POST").then(res => {
+                if (res.state == 0) {
+                    self.category = res.data
+                }
+                if (self.category.length) {
+                    self.current_category_id = self.category[0].id
+                    self.product = self.category[0].product
+                }
+            })
         }
     },
     computed: {
@@ -271,10 +317,12 @@ var homevm = new Vue({
         }
     },
     mounted: function () {
-        if (this.category.length) {
-            this.current_category_id = this.category[0].id
-            this.product = this.category[0].product
-        }
+        this._getCategoryAndProduct()
+        // if (this.category.length) {
+        //     this.current_category_id = this.category[0].id
+        //     this.product = this.category[0].product
+        // }
+        // 对页面返回时进行页面数据保持
         if (sessionStorage.getItem("trade")) {
             let trade = JSON.parse(sessionStorage.getItem("trade"))
             this.order = trade.order
