@@ -125,6 +125,9 @@ var homevm = new Vue({
             temp.num = temp.num || 1
             temp.subtotal = temp.discount_price * temp.num
             this.tempOrderDetail = temp
+
+            this.tempDiscount = ""
+            this.tempDiscountPrice = temp.discount_price
         },
         calculationDiscount() {
 
