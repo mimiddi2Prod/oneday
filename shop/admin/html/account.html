@@ -156,12 +156,24 @@
 
         <!-- 分页栏 -->
         <ul class="pagination">
+            <!--<li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li>-->
+            <!--<li v-for="item,index in pageList" v-on:click="getPage(index)"-->
+                <!--v-bind:class="(item == last_id+1 ? 'active' : '')"><a-->
+                    <!--href="javascript:;">{{item}}</a></li>-->
+            <!--<li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="javascript:;">&raquo;</a>-->
+            <!--</li>-->
+            <li v-on:click="getPage(0)"><a href="javascript:;">首页</a></li>
             <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li>
-            <li v-for="item,index in pageList" v-on:click="getPage(index)"
+            <li v-if="index >= last_id-5  && index < last_id+11" v-for="item,index in pageList" v-on:click="getPage(index)"
                 v-bind:class="(item == last_id+1 ? 'active' : '')"><a
                     href="javascript:;">{{item}}</a></li>
-            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a href="javascript:;">&raquo;</a>
+            <li v-if="pageList.length-1 != last_id && pageList.length-12 > last_id"><a href="javascript:;">...</a></li>
+            <li v-if="pageList.length-1 != last_id && pageList.length-11 > last_id" v-on:click="getPage(pageList.length-1)">
+                <a href="javascript:;">{{pageList.length}}</a></li>
+            <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a
+                    href="javascript:;">&raquo;</a>
             </li>
+            <li v-on:click="getPage(pageList.length-1)"><a href="javascript:;">尾页</a></li>
         </ul>
 
 
