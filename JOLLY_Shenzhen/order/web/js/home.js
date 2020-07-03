@@ -44,7 +44,9 @@ var homevm = new Vue({
                 return
             }
             this._storageData()
+            console.info(this.order)
             sessionStorage.setItem('trade', JSON.stringify(Object.assign(this.trade, {order: this.order})))
+            return
             window.location.href = "settleaccounts"
 
             function hideModal() {
@@ -87,7 +89,8 @@ var homevm = new Vue({
         showModalProduct(item, orderIndex) {
             let temp = item,
                 name = temp.sku.length ? temp.sku[0].name : temp.name,
-                sku_id = temp.sku.length ? temp.sku[0].sku_id : 0
+                sku_id = temp.sku.length ? temp.sku[0].sku_id : 0,
+                param = temp.sku.length ? temp.sku[0].param : ""
             temp.orderIndex = orderIndex || null
             if (!temp.discount) {
                 temp.discount = ""
@@ -102,7 +105,7 @@ var homevm = new Vue({
             this.tempDiscount = ""
             this.tempDiscountPrice = temp.discount_price
             this.tempNum = 1
-            this.tempOrderDetail = Object.assign({}, temp, {"name": name, "sku_id": sku_id}) // 新建对象，防止vue引用赋值
+            this.tempOrderDetail = Object.assign({}, temp, {"name": name, "sku_id": sku_id, "param": param}) // 新建对象，防止vue引用赋值
             $('#modal_3').on('show.bs.modal', function (e) {
                 let modal = $(this)
                 modal.find('.modal-title').text('点单详细-' + item.name)
@@ -116,6 +119,7 @@ var homevm = new Vue({
             })[0]
             temp.sku_id = c_sku.sku_id
             temp.name = c_sku.name
+            temp.param = c_sku.param
             temp.price = c_sku.price
             this.current_sku_id = c_sku.sku_id
 
@@ -150,13 +154,18 @@ var homevm = new Vue({
         addOrderNum(item) {
             let temp = item,
                 name = temp.sku.length ? temp.sku[0].name : temp.name,
-                sku_id = temp.sku.length ? temp.sku[0].sku_id : 0
+                sku_id = temp.sku.length ? temp.sku[0].sku_id : 0,
+                param = temp.sku.length ? temp.sku[0].param : ""
             temp.discount = ""
             temp.remark = ""
             temp.discount_price = temp.price
             temp.num = 1
             temp.subtotal = temp.discount_price
-            this.tempOrderDetail = this._toFixed(Object.assign({}, temp, {"name": name, "sku_id": sku_id}))
+            this.tempOrderDetail = Object.assign({}, temp, {
+                "name": name,
+                "sku_id": sku_id,
+                "param": param
+            })
             this.changeOrder()
         },
         // 模态框确认按钮,对编辑好的添加到左侧订单中
@@ -190,27 +199,6 @@ var homevm = new Vue({
             // $('#loading').modal('hide');
             this._calculationTotal()
         },
-        // 对一些计算后出现的无限小数,进行只保留两位小数操作
-        _toFixed(obj) {
-            for (let i in obj) {
-                if (typeof obj[i] == "number" && i != "id") {
-                    obj[i] = obj[i].toFixed(2)
-                }
-            }
-            if (obj["subtotal"]) {
-                obj["subtotal"] = Number(obj["subtotal"])
-            }
-            if (obj["discount_price"]) {
-                obj["discount_price"] = Number(obj["discount_price"])
-            }
-            if (obj["num"]) {
-                obj["num"] = Number(obj["num"]) >> 0
-            }
-            // if(obj["discount"] == "100.00"){
-            //     obj["discount"] = ""
-            // }
-            return obj
-        },
         // 对左侧订单进行数量和应付款统计
         _calculationTotal() {
             let total_num = 0, total_price = 0
@@ -222,7 +210,7 @@ var homevm = new Vue({
             }
             this.trade = {
                 total_num: total_num,
-                total_price: total_price
+                total_price: Math.round(total_price * 100) / 100
             }
         },
         // 通过接口获取分类和商品
@@ -254,27 +242,26 @@ var homevm = new Vue({
     watch: {
         temp: {
             handler: function (val, oldVal) {
-                // console.log('address change: ', val, oldVal, this.type)
                 let temp = this.tempOrderDetail
                 temp.price = Number(temp.price)
                 temp.num = Number(temp.num)
                 if (this.type == "Discount" && val.tempDiscount != oldVal.tempDiscount) {
                     temp.discount = val.tempDiscount ? Number(val.tempDiscount) : ""
                     this.tempDiscountPrice = temp.discount.toString().length ? temp.price * temp.discount / 100 : temp.price
+                    this.tempDiscountPrice = Math.round(this.tempDiscountPrice * 100) / 100 // 四舍五入保留两位小数
                     temp.discount_price = this.tempDiscountPrice
                     temp.subtotal = (temp.discount_price ? temp.discount_price : temp.price) * temp.num
-
-                    this.tempDiscountPrice = this._toFixed({"n": this.tempDiscountPrice})["n"]
                 }
                 if (this.type == "Price" && val.tempDiscountPrice != oldVal.tempDiscountPrice) {
                     temp.discount_price = Number(val.tempDiscountPrice)
                     this.tempDiscount = temp.discount_price >= 0 ? temp.discount_price / temp.price * 100 : ""
+                    this.tempDiscount = Math.round(this.tempDiscount * 100) / 100 // 四舍五入保留两位小数
                     temp.discount = this.tempDiscount
                     temp.subtotal = temp.discount ? temp.discount_price * temp.num : temp.price
-
-                    this.tempDiscount = this._toFixed({"n": this.tempDiscount})["n"]
                 }
-                this.tempOrderDetail = this._toFixed(temp)
+                temp.discount_price = Math.round(temp.discount_price * 100) / 100 // 四舍五入保留两位小数
+                temp.subtotal = Math.round(temp.subtotal * 100) / 100 // 四舍五入保留两位小数
+                this.tempOrderDetail = temp
             },
             deep: true
         },
@@ -282,8 +269,8 @@ var homevm = new Vue({
             let temp = this.tempOrderDetail
             temp.num = Number(val)
             temp.subtotal = temp.discount_price * temp.num
-
-            this.tempOrderDetail = this._toFixed(temp)
+            temp.subtotal = Math.round(temp.subtotal * 100) / 100 // 四舍五入保留两位小数
+            this.tempOrderDetail = temp
         }
     },
     mounted: function () {

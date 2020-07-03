@@ -37,7 +37,13 @@ async function getData(params) {
                     for (let i in param) {
                         name += "-" + param[i]
                     }
-                    m.sku.push({"sku_id": n["id"], "stock": n["stock"], "price": n["price"], "name": name})
+                    m.sku.push({
+                        "sku_id": n["id"],
+                        "stock": n["stock"],
+                        "price": n["price"],
+                        "name": name,
+                        "param": n["param"]
+                    })
                 }
             })
             if (value["id"] == m["category_id"]) {
