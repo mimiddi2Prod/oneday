@@ -12,13 +12,14 @@ exports.run = async function (params) {
             //     trade_state: 0,
             //     trade_no: params.xml.out_trade_no[0]
             // })
-            let result = await db.Query("select id from goods_order where pay_status = ?,trade_id = ?", [1, params.xml.out_trade_no[0]])
+            // let result = await db.Query("select id from goods_order where pay_status = ?,trade_id = ?", [1, params.xml.out_trade_no[0]])
+            let result = await db.Query("select id from goods_trade where pay_status = ?,trade_id = ?", [0, params.xml.out_trade_no[0]])
             if (result.length) {
                 // result = db.Update_ver_2({
                 //     trade_state: 1,
                 //     pay_time: new Date()
                 // }, "trade", {trade_no: params.xml.out_trade_no[0]})
-                result = await db.Query("update goods_order set pay_status = ? where trade_id = ?", [0, params.xml.out_trade_no[0]])
+                result = await db.Query("update goods_trade set pay_status = ?,pay_time = ? where trade_id = ?", [1, new Date(), params.xml.out_trade_no[0]])
                 if (result.changedRows == 1) {
                     // params.xml.total_fee 单位为 分
                     // calculate_point.run({

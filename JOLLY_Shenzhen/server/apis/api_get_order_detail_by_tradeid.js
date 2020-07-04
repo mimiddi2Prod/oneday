@@ -20,8 +20,8 @@ exports.run = async function (params) {
 };
 
 async function getData(params) {
-    let sql = "select `name`,`describe`,img,param,price,`number`,create_time,take_meal_style from goods_order where open_id = ? and trade_id = ? and pay_status = ?",
-    row = await db.Query(sql, [params["openid"], params["tradeid"], 0]);
+    let sql = "select `name`,`describe`,img,param,price,`number`,create_time,take_meal_style from goods_order where open_id = ? and trade_id = ?",
+    row = await db.Query(sql, [params["openid"], params["tradeid"]]);
     // if (row.length > 0) {
         // let order_list = row
 

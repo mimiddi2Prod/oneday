@@ -35,7 +35,6 @@ async function getData(params) {
         openid: params["openid"],
         out_trade_no: await wxPay.getTradeId(wxConfig.attach)
     }, call = await wxPay.payfee(payfeeData) || null;
-
     if (call) {
         // 获得订单号后，将订单添加到数据库 并且支付状态为未支付
         let order = Object.assign(params, {tradeId: call.out_trade_no})
