@@ -15,7 +15,7 @@ Page({
     create_time: '',
     take_meal_style: '',
     trade_id: '',
-    yinbao_order_no: '',
+    // yinbao_order_no: '',
 
     tableNumber: '',
 
@@ -65,7 +65,7 @@ Page({
           total_number: total_number,
           total_price: total_price,
           trade_id: tradeid,
-          yinbao_order_no: res.order_list[0].yinbao_order_no
+          // yinbao_order_no: res.order_list[0].yinbao_order_no
         })
       }
 

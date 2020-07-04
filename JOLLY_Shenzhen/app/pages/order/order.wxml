@@ -10,15 +10,15 @@
 </view>
 
 <view class="content">
-  <navigator class="card" wx:for="{{order}}" url="../pay_status/pay_status?tradeid={{item.trade_id}}" hover-class='none'>
+  <navigator class="card" wx:for="{{trade}}" url="../pay_status/pay_status?tradeid={{item.trade_id}}" hover-class='none'>
     <view class="goods-info">
       <view>oneday沙坡尾</view>
       <view>订单已完成</view>
     </view>
     <view class="line"></view>
     <view class="goods-info">
-      <view>菜单数量：共计{{item.total_number}}件菜品</view>
-      <view>￥{{item.total_price}}</view>
+      <view>菜单数量：共计{{item.goods_total_number}}件菜品</view>
+      <view>￥{{item.goods_total_price}}</view>
     </view>
     <view class="goods-info">
       <view>下单时间：{{item.create_time}}</view>

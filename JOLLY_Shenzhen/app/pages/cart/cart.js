@@ -223,7 +223,7 @@ Page({
     data.cart = self.data.cart
     data.tableNumber = app.globalData.tableNumber
     data.payMethod = 'Wxpay'
-    data.payStatus = 1
+    // data.payStatus = 0
     // data.customerUid = ''
     // if (app.globalData.customerUid) {
     //   data.customerUid = app.globalData.customerUid
@@ -304,7 +304,7 @@ Page({
     //   title: '',
     //   mask: true
     // })
-    self.addOrder(tradeId, 'CustomerBalance', 0)
+    self.addOrder(tradeId, 'CustomerBalance', 1)
     // self.addOrder('CustomerBalance', 0)
   },
 
