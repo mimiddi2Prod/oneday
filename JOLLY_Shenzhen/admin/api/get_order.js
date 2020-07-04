@@ -25,15 +25,29 @@ function getOrder() {
             // data.list = row
 
             // 新版本
+            // let trade_list = []
+            // if (param["status"] == -1) {
+            //     sql = "select count(id),trade_id,take_meal_style,table_number,dinners_number,create_time from goods_order where pay_status = ? group by trade_id ORDER BY create_time desc limit ?,?";
+            //     row = await db.Query(sql, [0, param['last_id'] * 5, 5]);
+            //     trade_list = row
+            //     data.number = trade_list.length
+            // } else {
+            //     sql = "select count(id),trade_id,take_meal_style,table_number,dinners_number,create_time from goods_order where take_meal_style = ? and pay_status = ? group by trade_id ORDER BY create_time desc limit ?,?";
+            //     row = await db.Query(sql, [param["status"], 0, param['last_id'] * 5, 5]);
+            //     trade_list = row
+            //     data.number = trade_list.length
+            // }
+
+            // 新新版本
             let trade_list = []
             if (param["status"] == -1) {
-                sql = "select count(id),trade_id,take_meal_style,table_number,dinners_number,create_time from goods_order where pay_status = ? group by trade_id ORDER BY create_time desc limit ?,?";
-                row = await db.Query(sql, [0, param['last_id'] * 5, 5]);
+                sql = "select trade_id,take_meal_style,table_number,dinners_number,create_time,goods_total_number,goods_total_price from goods_trade where pay_status = ? ORDER BY create_time desc limit ?,?";
+                row = await db.Query(sql, [1, param['last_id'] * 5, 5]);
                 trade_list = row
                 data.number = trade_list.length
             } else {
-                sql = "select count(id),trade_id,take_meal_style,table_number,dinners_number,create_time from goods_order where take_meal_style = ? and pay_status = ? group by trade_id ORDER BY create_time desc limit ?,?";
-                row = await db.Query(sql, [param["status"], 0, param['last_id'] * 5, 5]);
+                sql = "select trade_id,take_meal_style,table_number,dinners_number,create_time,goods_total_number,goods_total_price from goods_trade where take_meal_style = ? and pay_status = ? ORDER BY create_time desc limit ?,?";
+                row = await db.Query(sql, [param["status"], 1, param['last_id'] * 5, 5]);
                 trade_list = row
                 data.number = trade_list.length
             }
@@ -46,12 +60,12 @@ function getOrder() {
 
                 data.trade = trade_list.map(value => {
                     value.order = []
-                    value.total_price = 0
-                    value.total_num = 0
+                    // value.total_price = 0
+                    // value.total_num = 0
                     row.forEach(m => {
                         if (m.trade_id == value.trade_id) {
-                            value.total_num += m.number
-                            value.total_price += m.price * m.number
+                            // value.total_num += m.number
+                            // value.total_price += m.price * m.number
                             value.order.push(m)
                         }
                     })

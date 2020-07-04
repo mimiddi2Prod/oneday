@@ -151,8 +151,10 @@
                         </div>
                         <div class="item-title">
                             <!--<span>共{{item.number}}件商品</span>-->
-                            <span>共{{item.total_num}}件商品</span>
-                            <span>合计：¥{{item.total_price}}</span>
+                            <!--<span>共{{item.total_num}}件商品</span>-->
+                            <span>共{{item.goods_total_number}}件商品</span>
+                            <span>合计：¥{{item.goods_total_price}}</span>
+                            <!--<span>合计：¥{{item.total_price}}</span>-->
                             <span>{{item.take_meal_style == 0 ? '堂食' : '外带'}}</span>
                         </div>
                     </div>
