@@ -43,14 +43,27 @@ var homevm = new Vue({
                 $('#modal_1_submit')[0].addEventListener("click", hideModal)
                 return
             }
-            this._storageData()
-            console.info(this.order)
+            // else {
+            //     // 结算
+            //     $('#modal_order').on('show.bs.modal', function (e) {
+            //         let modal = $(this)
+            //         modal.find('.modal-title').text('收款')
+            //         // modal.find('.modal-body').text('没有选择商品')
+            //     })
+            //     $('#modal_order').on('hidden.bs.modal', function (e) {
+            //         $('#modal_order_submit')[0].removeEventListener("click", hideModal);
+            //     })
+            //     $('#modal_order').modal('show');
+            //     $('#modal_order_submit')[0].addEventListener("click", hideModal)
+            //     return
+            // }
+            // this._storageData()
             sessionStorage.setItem('trade', JSON.stringify(Object.assign(this.trade, {order: this.order})))
-            return
             window.location.href = "settleaccounts"
 
             function hideModal() {
                 $('#modal_1').modal('hide');
+                $('#modal_order').modal('hide');
             }
         },
         // 历史订单，销售单据
@@ -74,17 +87,17 @@ var homevm = new Vue({
 
                 return
             }
-            this._storageData()
+            // this._storageData()
             window.location.href = "orderform"
         },
-        _storageData() {
-            // 仅为了对页面数据进行保持状态
-            sessionStorage.setItem('base', JSON.stringify({
-                "current_category_id": this.current_category_id,
-                "category": this.category,
-                "product": this.product
-            }))
-        },
+        // _storageData() {
+        //     // 仅为了对页面数据进行保持状态
+        //     sessionStorage.setItem('base', JSON.stringify({
+        //         "current_category_id": this.current_category_id,
+        //         "category": this.category,
+        //         "product": this.product
+        //     }))
+        // },
         // 展示参数选择/折扣/改价/数量添加
         showModalProduct(item, orderIndex) {
             let temp = item,
@@ -274,22 +287,22 @@ var homevm = new Vue({
         }
     },
     mounted: function () {
-        // 对页面返回时进行页面数据保持
-        if (sessionStorage.getItem("base")) {
-            let base = JSON.parse(sessionStorage.getItem("base"))
-            this.category = base.category
-            this.current_category_id = base.current_category_id
-            this.product = base.product
-            sessionStorage.removeItem("base")
-        }
+        // 对页面返回时进行页面数据保持 结算页面在首页则没必要
+        // if (sessionStorage.getItem("base")) {
+        //     let base = JSON.parse(sessionStorage.getItem("base"))
+        //     this.category = base.category
+        //     this.current_category_id = base.current_category_id
+        //     this.product = base.product
+        //     sessionStorage.removeItem("base")
+        // }
         this._getCategoryAndProduct()
         // 对页面返回时进行页面数据保持
-        if (sessionStorage.getItem("trade")) {
-            let trade = JSON.parse(sessionStorage.getItem("trade"))
-            this.order = trade.order
-            this.trade = trade
-            sessionStorage.removeItem("trade")
-        }
+        // if (sessionStorage.getItem("trade")) {
+        //     let trade = JSON.parse(sessionStorage.getItem("trade"))
+        //     this.order = trade.order
+        //     this.trade = trade
+        //     sessionStorage.removeItem("trade")
+        // }
     },
     created: function () {
 
