@@ -8,6 +8,7 @@ var homevm = new Vue({
         trade: {
             total_num: 0,
             total_price: 0,
+            total_diacount_price: 0,
         },
         // 预下单，discount（0-100，100为原价）有值时计算折扣价，
         order: [],
@@ -25,7 +26,13 @@ var homevm = new Vue({
             num: null,
             remark: "",
             subtotal: null
-        }
+        },
+
+        /**
+         * 结算相关 包括trade
+         * */
+        discount_list: [95, 9, 85, 8, 75, 7, 6, 5],
+        type: 0,
     },
     methods: {
         // 去结账
@@ -42,24 +49,23 @@ var homevm = new Vue({
                 $('#modal_1').modal('show');
                 $('#modal_1_submit')[0].addEventListener("click", hideModal)
                 return
+            } else {
+                // 结算
+                $('#modal_order').on('show.bs.modal', function (e) {
+                    let modal = $(this)
+                    modal.find('.modal-title').text('收款')
+                    // modal.find('.modal-body').text('没有选择商品')
+                })
+                $('#modal_order').on('hidden.bs.modal', function (e) {
+                    $('#modal_order_submit')[0].removeEventListener("click", hideModal);
+                })
+                $('#modal_order').modal('show');
+                $('#modal_order_submit')[0].addEventListener("click", hideModal)
+                return
             }
-            // else {
-            //     // 结算
-            //     $('#modal_order').on('show.bs.modal', function (e) {
-            //         let modal = $(this)
-            //         modal.find('.modal-title').text('收款')
-            //         // modal.find('.modal-body').text('没有选择商品')
-            //     })
-            //     $('#modal_order').on('hidden.bs.modal', function (e) {
-            //         $('#modal_order_submit')[0].removeEventListener("click", hideModal);
-            //     })
-            //     $('#modal_order').modal('show');
-            //     $('#modal_order_submit')[0].addEventListener("click", hideModal)
-            //     return
-            // }
             // this._storageData()
-            sessionStorage.setItem('trade', JSON.stringify(Object.assign(this.trade, {order: this.order})))
-            window.location.href = "settleaccounts"
+            // sessionStorage.setItem('trade', JSON.stringify(Object.assign(this.trade, {order: this.order})))
+            // window.location.href = "settleaccounts"
 
             function hideModal() {
                 $('#modal_1').modal('hide');
@@ -241,7 +247,20 @@ var homevm = new Vue({
                     // 是否需要 检查数据是否有变化,并调整左侧订单价格等
                 }
             })
-        }
+        },
+
+        /**
+         * 订单结算
+         * */
+        getDiscountToCalculation(e) {
+            if (e == "抹零") {
+                this.trade.discount_price = this.trade.total_price - (this.trade.total_price % 1)
+            } else {
+                this.trade.discount_price = (this.trade.total_price * (e.toString().length == 1 ? e * 10 : e)) / 100
+            }
+            // 超出小数2位数，向上取整
+            this.trade.discount_price = Math.ceil(this.trade.discount_price * 100) / 100
+        },
     },
     computed: {
         temp() {
