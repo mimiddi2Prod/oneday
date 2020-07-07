@@ -39,6 +39,10 @@ var homevm = new Vue({
         totalPriceDiscount: ""
     },
     methods: {
+        _hideModal() {
+            $('#modal_1').modal('hide');
+            $('#modal_order').modal('hide');
+        },
         restoreStock() {
             let self = this
             Axios(api.restoreStock, "POST", {
@@ -59,10 +63,10 @@ var homevm = new Vue({
                     modal.find('.modal-body').text('没有选择商品')
                 })
                 $('#modal_1').on('hidden.bs.modal', function (e) {
-                    $('#modal_1_submit')[0].removeEventListener("click", hideModal);
+                    $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);
                 })
                 $('#modal_1').modal('show');
-                $('#modal_1_submit')[0].addEventListener("click", hideModal)
+                $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
                 return
             } else {
                 // 结算
@@ -85,10 +89,10 @@ var homevm = new Vue({
                             }))
                         })
                         $('#modal_1').on('hidden.bs.modal', function (e) {
-                            $('#modal_1_submit')[0].removeEventListener("click", hideModal);
+                            $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);
                         })
                         $('#modal_1').modal('show');
-                        $('#modal_1_submit')[0].addEventListener("click", hideModal)
+                        $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
                         return
                     }
                     $('#modal_order').on('show.bs.modal', function (e) {
@@ -96,10 +100,10 @@ var homevm = new Vue({
                         modal.find('.modal-title').text('收款')
                     })
                     $('#modal_order').on('hidden.bs.modal', function (e) {
-                        $('#modal_order_submit')[0].removeEventListener("click", hideModal);
+                        $('#modal_order_submit')[0].removeEventListener("click", this._hideModal);
                     })
                     $('#modal_order').modal('show');
-                    $('#modal_order_submit')[0].addEventListener("click", hideModal)
+                    $('#modal_order_submit')[0].addEventListener("click", this._hideModal)
                     return
                 })
             }
@@ -107,10 +111,10 @@ var homevm = new Vue({
             // sessionStorage.setItem('trade', JSON.stringify(Object.assign(this.trade, {order: this.order})))
             // window.location.href = "settleaccounts"
 
-            function hideModal() {
-                $('#modal_1').modal('hide');
-                $('#modal_order').modal('hide');
-            }
+            // function hideModal() {
+            //     $('#modal_1').modal('hide');
+            //     $('#modal_order').modal('hide');
+            // }
         },
         // 历史订单，销售单据
         toOrderForm() {
@@ -122,14 +126,14 @@ var homevm = new Vue({
                     modal.find('.modal-body').text('当前交易未结束,不能查看销售单据!')
                 })
                 $('#modal_1').on('hidden.bs.modal', function (e) {
-                    $('#modal_1_submit')[0].removeEventListener("click", hideModal);
+                    $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);
                 })
                 $('#modal_1').modal('show');
-                $('#modal_1_submit')[0].addEventListener("click", hideModal)
+                $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
 
-                function hideModal() {
-                    $('#modal_1').modal('hide');
-                }
+                // function hideModal() {
+                //     $('#modal_1').modal('hide');
+                // }
 
                 return
             }
@@ -306,11 +310,51 @@ var homevm = new Vue({
         },
         // 提交订单
         submitOrder() {
-            console.info(this.trade, this.order)
+            let self = this
             let data = Object.assign(this.trade, {order: this.order},)
             Axios(api.createOrder, "POST", data).then(res => {
-                console.info(res)
+                if (res.state == 0) {
+                    self._Init()
+                    $('#modal_1').on('show.bs.modal', function (e) {
+                        let modal = $(this)
+                        modal.find('.modal-title').text('提示')
+                        modal.find('.modal-body').text('订单已创建')
+                    })
+                    $('#modal_1').on('hidden.bs.modal', function (e) {
+                        $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);
+                    })
+                    $('#modal_1').modal('show');
+                    $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
+                }
             })
+        },
+        _Init() {
+            this.trade = {
+                total_num: 0,
+                total_price: 0,
+                total_diacount_price: "", // 订单结算，是否有折扣价
+                pay_type: "现金", // 订单结算，支付方式
+                table_number: "",
+                dinners_number: ""
+            }
+            // 预下单，discount（0-100，100为原价）有值时计算折扣价，
+            this.order = []
+            // 用于临时存放更改的商品
+            this.type = ''
+            this.tempDiscount = ""
+            this.tempDiscountPrice = ""
+            this.tempNum = 1
+            this.tempOrderDetail = {
+                id: null,
+                name: "",
+                price: null,
+                discount: "",
+                discount_price: null,
+                num: null,
+                remark: "",
+                subtotal: null
+            }
+            this.totalPriceDiscount = ""
         }
     },
     computed: {
