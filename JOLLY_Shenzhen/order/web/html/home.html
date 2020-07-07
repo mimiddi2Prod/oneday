@@ -76,7 +76,9 @@
         </div>
         <div class="db-btns card">
             <div class="card-body py-0 px-0">
-                <div class="text-center db-btn" @click="order=[];sessionStorage.removeItem('trade');_calculationTotal()">清空</div>
+                <div class="text-center db-btn"
+                     @click="order=[];sessionStorage.removeItem('trade');_calculationTotal()">清空
+                </div>
                 <div class="text-center db-btn" @click="toSettleAccounts">收款 ￥{{trade.total_price}}</div>
             </div>
 
@@ -144,12 +146,13 @@
                 </div>
                 <div class="modal-body row" style="font-size: 1.5rem;">
                     <div class="mx-5 flex-row w-100">
-                        <h5 class="border p-2" :class="current_sku_id == item.sku_id ? 'bg-info' : ''" v-for="item,index in tempOrderDetail.sku" @click="chooseSku(item.sku_id)">{{item.name}}</h5>
+                        <h5 class="border p-2" :class="current_sku_id == item.sku_id ? 'bg-info' : ''"
+                            v-for="item,index in tempOrderDetail.sku" @click="chooseSku(item.sku_id)">{{item.name}}</h5>
                         <!--<div class="form-check border p-2 align-items-center" v-for="item,index in tempOrderDetail.sku">-->
-                            <!--<input class="form-check-input" type="radio" name="skuRadios" :id="'sku'+index" value="option1" :checked="index == 0">-->
-                            <!--<label class="form-check-label" :for="'sku'+index">-->
-                                <!--{{item.name}}-->
-                            <!--</label>-->
+                        <!--<input class="form-check-input" type="radio" name="skuRadios" :id="'sku'+index" value="option1" :checked="index == 0">-->
+                        <!--<label class="form-check-label" :for="'sku'+index">-->
+                        <!--{{item.name}}-->
+                        <!--</label>-->
                         <!--</div>-->
                     </div>
 
@@ -160,21 +163,24 @@
                     <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
                         <span>折扣：</span>
                         <input type="text" class="form-control h-100 text-right" placeholder=""
-                               oninput="value=value.replace(/[^\d.]/g,'')" v-model="tempDiscount"
-                               @click="InputType('Discount')">
+                               oninput="value=value.replace(/[^\d.]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
+                               v-model="tempDiscount"
+                               @click="InputType('Discount')" :value="tempDiscount">
                         <span class="ml-2">%</span>
                     </div>
                     <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
                         <span>现价：</span>
                         <!--<span>￥{{tempOrderDetail.discount_price}}</span>-->
                         <input type="text" class="form-control h-100 text-right" placeholder=""
-                               oninput="value=value.replace(/[^\d.]/g,'')" v-model="tempDiscountPrice"
+                               oninput="value=value.replace(/[^\d.]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
+                               v-model="tempDiscountPrice"
                                @click="InputType('Price')">
                     </div>
                     <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
                         <span>数量：</span>
                         <input type="text" class="form-control h-100 text-right" placeholder=""
-                               oninput="value=value.replace(/[^\d]/g,'')" v-model="tempNum">
+                               oninput="value=value.replace(/[^\d]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
+                               v-model="tempNum">
                     </div>
                     <div class="input-group mb-3 w-100 align-items-center mx-5 justify-content-between">
                         <span>小计：</span>
@@ -196,47 +202,68 @@
     </div>
 
     <!--订单结算-->
-    <div class="modal fade" id="modal_order" tabindex="-1" role="dialog" aria-labelledby="myModalOrder" data-backdrop="static">
+    <div class="modal fade" id="modal_order" tabindex="-1" role="dialog" aria-labelledby="myModalOrder"
+         data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                        <!--<span aria-hidden="true">&times;</span>-->
+                    <!--</button>-->
                 </div>
                 <div class="modal-body row">
                     <div class="mx-5 flex-row w-100 text-right">
                         <h5>总额 ￥{{trade.total_price}}</h5>
-                        <h5>折扣价 ￥{{trade.total_diacount_price}}</h5>
+                        <h5 v-if="trade.total_diacount_price">折扣价 ￥{{trade.total_diacount_price}}</h5>
+                    </div>
+                    <div class="nav mx-5 flex-row w-100 mb-2 justify-content-between">
+                        <div><input type="text" class="form-control text-right" placeholder="桌号"
+                                    v-model="trade.table_number"></div>
+                        <div><input type="text" class="form-control text-right" placeholder="人数"
+                                    v-model="trade.dinners_number"></div>
                     </div>
                     <div class="input-group mb-3 w-100 align-items-center mx-5">
                         <input type="text" class="form-control text-right" placeholder=""
                                aria-label="Example text with button addon"
                                aria-describedby="button-addon1"
-                               oninput="value=value.replace(/[^\d.]/g,'')">
+                               oninput="value=value.replace(/[^\d.]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
+                               v-model="totalPriceDiscount">
                         <div class="input-group-prepend text-center ml-2">
                             <span>%</span>
                         </div>
                     </div>
+                    <div class="nav mx-5 flex-row w-100 text-center">
+                        <!--<div class="text-center col-3 mb-1">-->
+                        <!--<h5>支付方式:</h5>-->
+                        <!--</div>-->
+                        <div class="text-center col-4 mb-1" v-for="item in pay_type_list">
+                            <button class="btn py-2 px-1 w-100"
+                                    :class="item == trade.pay_type ? 'btn-dark' : 'btn-secondary'"
+                                    @click="trade.pay_type=item">
+                                <h5>{{item}}</h5></button>
+                        </div>
+                    </div>
                     <div class="nav mx-5 flex-row">
-                        <div class="text-center col-6 mb-2" v-for="item in discount_list">
-                            <button class="btn btn-info py-2 px-4 w-100" @click="getDiscountToCalculation(item)">
-                                <h5>{{item}} 折</h5></button>
+                        <div class="text-center col-3 mb-1" v-for="item in discount_list">
+                            <button class="btn btn-info py-2 px-1 w-100" @click="getDiscountToCalculation(item)">
+                                <h5>{{item}} {{item!="免单"&&item!="抹零" ? "折" : ""}}</h5></button>
                         </div>
-                        <div class="text-center col-6 mb-2">
-                            <button class="btn btn-info py-2 px-4 w-100" @click="getDiscountToCalculation(0)">
-                                <h5>免单</h5></button>
-                        </div>
-                        <div class="text-center col-6 mb-2">
-                            <button class="btn btn-info py-2 px-4 w-100" @click="getDiscountToCalculation('抹零')">
-                                <h5>抹零</h5></button>
-                        </div>
+                        <!--<div class="text-center col-3 mb-1">-->
+                        <!--<button class="btn btn-info py-2 px-1 w-100" @click="getDiscountToCalculation(0)">-->
+                        <!--<h5>免单</h5></button>-->
+                        <!--</div>-->
+                        <!--<div class="text-center col-3 mb-1">-->
+                        <!--<button class="btn btn-info py-2 px-1 w-100" @click="getDiscountToCalculation('抹零')">-->
+                        <!--<h5>抹零</h5></button>-->
+                        <!--</div>-->
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" id="modal_order_submit" @click="changeOrder">确定</button>
+                    <button type="button" class="btn btn-secondary flex-fill" data-dismiss="modal" @click="restoreStock">取消</button>
+                    <button type="button" class="btn btn-primary flex-fill" id="modal_order_submit"
+                            @click="submitOrder">确定
+                    </button>
                 </div>
             </div>
         </div>

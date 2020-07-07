@@ -8,7 +8,10 @@ var homevm = new Vue({
         trade: {
             total_num: 0,
             total_price: 0,
-            total_diacount_price: 0,
+            total_diacount_price: "", // 订单结算，是否有折扣价
+            pay_type: "现金", // 订单结算，支付方式
+            table_number: "",
+            dinners_number: ""
         },
         // 预下单，discount（0-100，100为原价）有值时计算折扣价，
         order: [],
@@ -31,10 +34,22 @@ var homevm = new Vue({
         /**
          * 结算相关 包括trade
          * */
-        discount_list: [95, 9, 85, 8, 75, 7, 6, 5],
-        type: 0,
+        pay_type_list: ["现金", "支付宝", "微信"],
+        discount_list: [95, 9, 85, 8, 75, 7, 6, 5, "免单", "抹零"],
+        totalPriceDiscount: ""
     },
     methods: {
+        restoreStock() {
+            let self = this
+            Axios(api.restoreStock, "POST", {
+                cart: self.order.map(value => {
+                    return {
+                        goodsId: value.id,
+                        number: value.num
+                    }
+                })
+            })
+        },
         // 去结账
         toSettleAccounts() {
             if (!this.order.length) {
@@ -51,17 +66,42 @@ var homevm = new Vue({
                 return
             } else {
                 // 结算
-                $('#modal_order').on('show.bs.modal', function (e) {
-                    let modal = $(this)
-                    modal.find('.modal-title').text('收款')
-                    // modal.find('.modal-body').text('没有选择商品')
+                let self = this
+                Axios(api.checkOrderStock, "POST", {
+                    cart: self.order.map(value => {
+                        return {
+                            goodsId: value.id,
+                            number: value.num
+                        }
+                    })
+                }).then(res => {
+                    if (res.canPay == 1) {
+                        // 库存不足
+                        $('#modal_1').on('show.bs.modal', function (e) {
+                            let modal = $(this)
+                            modal.find('.modal-title').text('库存不足')
+                            modal.find('.modal-body').text('剩余：' + res.shortageList.map(val => {
+                                return val.name + "*" + val.stock
+                            }))
+                        })
+                        $('#modal_1').on('hidden.bs.modal', function (e) {
+                            $('#modal_1_submit')[0].removeEventListener("click", hideModal);
+                        })
+                        $('#modal_1').modal('show');
+                        $('#modal_1_submit')[0].addEventListener("click", hideModal)
+                        return
+                    }
+                    $('#modal_order').on('show.bs.modal', function (e) {
+                        let modal = $(this)
+                        modal.find('.modal-title').text('收款')
+                    })
+                    $('#modal_order').on('hidden.bs.modal', function (e) {
+                        $('#modal_order_submit')[0].removeEventListener("click", hideModal);
+                    })
+                    $('#modal_order').modal('show');
+                    $('#modal_order_submit')[0].addEventListener("click", hideModal)
+                    return
                 })
-                $('#modal_order').on('hidden.bs.modal', function (e) {
-                    $('#modal_order_submit')[0].removeEventListener("click", hideModal);
-                })
-                $('#modal_order').modal('show');
-                $('#modal_order_submit')[0].addEventListener("click", hideModal)
-                return
             }
             // this._storageData()
             // sessionStorage.setItem('trade', JSON.stringify(Object.assign(this.trade, {order: this.order})))
@@ -152,9 +192,6 @@ var homevm = new Vue({
             this.tempDiscount = ""
             this.tempDiscountPrice = temp.discount_price
         },
-        calculationDiscount() {
-
-        },
         // 输入框 折扣和价格，根据类型判断只生效一个监听 watch，避免互相影响无限循环卡死
         InputType(type) {
             this.type = type
@@ -229,7 +266,11 @@ var homevm = new Vue({
             }
             this.trade = {
                 total_num: total_num,
-                total_price: Math.round(total_price * 100) / 100
+                total_price: Math.round(total_price * 100) / 100,
+                total_diacount_price: "",
+                pay_type: "现金",
+                table_number: "",
+                dinners_number: ""
             }
         },
         // 通过接口获取分类和商品
@@ -253,14 +294,24 @@ var homevm = new Vue({
          * 订单结算
          * */
         getDiscountToCalculation(e) {
+            this.totalPriceDiscount = ""
             if (e == "抹零") {
-                this.trade.discount_price = this.trade.total_price - (this.trade.total_price % 1)
+                this.trade.total_diacount_price = this.trade.total_price - (this.trade.total_price % 1)
             } else {
-                this.trade.discount_price = (this.trade.total_price * (e.toString().length == 1 ? e * 10 : e)) / 100
+                e == "免单" ? this.trade.total_diacount_price = 0 :
+                    this.trade.total_diacount_price = (this.trade.total_price * (e.toString().length == 1 ? e * 10 : e)) / 100
             }
             // 超出小数2位数，向上取整
-            this.trade.discount_price = Math.ceil(this.trade.discount_price * 100) / 100
+            this.trade.total_diacount_price = Math.ceil(this.trade.total_diacount_price * 100) / 100
         },
+        // 提交订单
+        submitOrder() {
+            console.info(this.trade, this.order)
+            let data = Object.assign(this.trade, {order: this.order},)
+            Axios(api.createOrder, "POST", data).then(res => {
+                console.info(res)
+            })
+        }
     },
     computed: {
         temp() {
@@ -303,6 +354,17 @@ var homevm = new Vue({
             temp.subtotal = temp.discount_price * temp.num
             temp.subtotal = Math.round(temp.subtotal * 100) / 100 // 四舍五入保留两位小数
             this.tempOrderDetail = temp
+        },
+        /**
+         * 订单结算
+         * 总价打折
+         * */
+        totalPriceDiscount(val) {
+            if (val == "") {
+                return
+            }
+            let discount = Number(val) / 100
+            this.trade.total_diacount_price = Math.round(this.trade.total_price * discount * 100) / 100  // 四舍五入保留两位小数
         }
     },
     mounted: function () {
