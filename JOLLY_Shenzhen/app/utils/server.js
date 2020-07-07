@@ -1,5 +1,12 @@
-const app = getApp()
-
+checkToken()
+function checkToken() {
+  let token_expire = wx.getStorageSync('token_expire')
+  if (token_expire) {
+    if (new Date().getTime() > token_expire) {
+      wx.removeStorageSync('token_expire')
+    }
+  }
+}
 /**
  * http请求封装
  * RequestType：小程序请求标记
@@ -45,12 +52,12 @@ function pay(url, data = {}, method = 'get') {
   // console.info('---请求微信支付---')
   data.RequestType = 'mini~niconiconi~program'
   data.token = wx.getStorageSync("token") || null
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     wx.request({
       url: url,
       data: data,
       method: method,
-      success: function(res) {
+      success: function (res) {
         // console.info(res)
         if (res.data.data.addOrderStatus.code == 1) {
           wx.hideLoading()
@@ -71,19 +78,19 @@ function pay(url, data = {}, method = 'get') {
           'package': res.data.data.package,
           'signType': 'MD5',
           'paySign': res.data.data.paySign,
-          'success': function(res) {
+          'success': function (res) {
             // console.info('---支付success返回---')
             // console.info(res)
             resolve(tradeId)
           },
-          'fail': function(res) {
+          'fail': function (res) {
             // console.info('---支付fail返回---')
             // console.info(res)
             reject(tradeId)
           }
         });
       },
-      fail: function(res) {
+      fail: function (res) {
         wx.showModal({
           content: '请求错误',
         })

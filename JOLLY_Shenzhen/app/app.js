@@ -3,7 +3,7 @@ const server = require('/utils/server.js')
 const api = require('/config/api.js')
 
 App({
-  onLaunch: function() {
+  onLaunch: function () {
     if (wx.canIUse("getUpdateManager")) {
       let updateManager = wx.getUpdateManager();
       updateManager.onCheckForUpdate((res) => {
@@ -48,6 +48,7 @@ App({
         }
         server.api(api.getOpenid, data, "POST").then((res) => {
           wx.setStorageSync('token', res.token)
+          wx.setStorageSync('token_expire', new Date().getTime() + 12 * 60 * 60 * 1000)
           if (res.userInfo) {
             res.userInfo.nickName = decodeURIComponent(res.userInfo.nickName)
             wx.setStorageSync('userInfo', res.userInfo)
