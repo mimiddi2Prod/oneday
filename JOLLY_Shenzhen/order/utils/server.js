@@ -44,6 +44,10 @@ API.prototype.run = async function (apiName, params) {
                 resolve(await require('../apis/api_get_trade.js').run(params))
                 break;
             }
+            case "after_sale": {
+                resolve(await require('../apis/api_after_sale.js').run(params))
+                break;
+            }
             default:
                 resolve({
                     errcode: 1,

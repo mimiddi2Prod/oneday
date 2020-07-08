@@ -36,10 +36,11 @@ async function getData(params) {
                 value.pay_time = formatTime(new Date(value.pay_time))
                 value.order = []
                 order.forEach(m => {
-                    let {goods_sku_id, goods_id, name, describe, img, param, price, discount_price, number} = m
-                    param = param ? JSON.parse(param) : ""
+                    let {id, goods_sku_id, goods_id, name, describe, img, param, price, discount_price, number, return_number} = m
+                    param = param ? JSON.parse(param) : param
                     if (value.trade_id == m.trade_id) {
                         value.order.push({
+                            id,
                             goods_sku_id,
                             goods_id,
                             name,
@@ -48,7 +49,8 @@ async function getData(params) {
                             param,
                             price,
                             discount_price,
-                            number
+                            number,
+                            return_number
                         })
                     }
                 })

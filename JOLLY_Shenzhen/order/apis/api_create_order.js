@@ -26,7 +26,7 @@ exports.run = async function (params) {
  * */
 async function getData(params) {
     let trade_platform = 2,
-        trade_id = 'sz' + formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, ""),
+        trade_id = 'qt' + formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, ""),
         order = params.order.map(value => {
             return {
                 "goods_sku_id": value.sku_id,
