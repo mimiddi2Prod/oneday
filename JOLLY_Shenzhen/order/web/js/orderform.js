@@ -1,7 +1,7 @@
 var orderformvm = new Vue({
     el: "#orderform",
     data: {
-        order: [{
+        trade: [{
             id: 1,
             trade_no: "1651651616156165",
             total_price: 1233,
@@ -29,11 +29,22 @@ var orderformvm = new Vue({
             create_time: formatTime(new Date()).substring(5, 16),
             table_num: ''
         }],
-        orderDetail: []
+        cursor_id: 0,
+        order: []
     },
-    methods: {},
+    methods: {
+        _getTrade() {
+            let self = this
+            Axios(api.getTrade, "POST", {}).then(res => {
+                console.info(res)
+                self.trade = res.trade
+                // self.trade.length ? self.order = self.trade[0].order : ''
+            })
+        },
+    },
     mounted: function () {
-        this.order.length ? this.orderDetail = this.order[0].orderDetail : ''
+        this._getTrade()
+
     },
     created: function () {
 

@@ -26,7 +26,7 @@ exports.run = async function (params) {
  * */
 async function getData(params) {
     let trade_platform = 2,
-        trade_id = formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, ""),
+        trade_id = 'sz' + formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, ""),
         order = params.order.map(value => {
             return {
                 "goods_sku_id": value.sku_id,
@@ -35,6 +35,7 @@ async function getData(params) {
                 "img": value.img,
                 "param": value.param,
                 "price": value.price,
+                "discount_price": value.discount_price,
                 "number": value.num,
                 "trade_id": trade_id,
                 "create_time": new Date()
@@ -48,7 +49,7 @@ async function getData(params) {
             "order_id_list": JSON.stringify(result.id_list),
             "goods_total_number": params.total_num,
             "goods_total_price": params.total_price,
-            "actually_total_price": params.total_diacount_price,
+            "actually_total_price": params.total_diacount_price ? params.total_diacount_price : params.total_price,
             "pay_status": 1,
             "pay_method": params.pay_type,
             "create_time": new Date(),

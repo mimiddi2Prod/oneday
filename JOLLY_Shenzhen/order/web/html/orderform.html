@@ -49,26 +49,27 @@
             <div>总额</div>
         </div>
         <div class="bd-sidebar bd-links">
-            <div class="container">
-                <div class="border-bottom py-2" v-for="item,index in order">
-                    <div class="row">
-                        <div class="col-sm-9 px-2">
-                            {{item.trade_no}}
-                        </div>
-                        <div class="col-sm-3 px-2 text-center price">
-                            ￥{{item.total_price}}
-                        </div>
+            <!--<div class="container">-->
+            <div class="border-bottom py-2 no-gutters" :class="cursor_id==index ? 'badge-info' : ''"
+                 v-for="item,index in trade" @click="cursor_id=index">
+                <div class="row no-gutters">
+                    <div class="col-sm-9 px-2">
+                        {{item.trade_id}}
                     </div>
-                    <div class="row">
-                        <div class="col-sm-9 px-2">
-                            {{item.table_num ? '桌号：'+item.table_num : ''}}
-                        </div>
-                        <div class="figure-caption text-right">
-                            {{item.create_time}}
-                        </div>
+                    <div class="col-sm-3 px-2 text-center price">
+                        ￥{{item.actually_total_price}}
+                    </div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-sm-9 px-2">
+                        {{item.table_number ? '桌号：'+item.table_number : ''}}
+                    </div>
+                    <div class="figure-caption text-right">
+                        {{item.create_time}}
                     </div>
                 </div>
             </div>
+            <!--</div>-->
         </div>
     </div>
     <main class="col-md-8 col-xl-9 py-md-0 pl-md-3 bd-content py-5" role="main">
@@ -80,22 +81,22 @@
             <div class="col-sm-1 px-2 text-center">数量</div>
         </div>
         <div class="bd-sidebar bd-links row px-2 py-md-3 order-detail">
-            <div class="nav flex-wrap flex-row align-items-center mb-2 pb-2 border-bottom" v-for="item in orderDetail">
+            <div class="nav flex-wrap flex-row align-items-center mb-2 pb-2 border-bottom" v-for="item in trade[cursor_id].order">
                 <!--订单商品详情-->
                 <div class="col-sm-5 px-2">
-                    <div>{{item.name}}</div>
-                    <div class="figure-caption">{{item.remark ? "备注："+item.remark : ""}}</div>
+                    <div>{{item.name}}<span class="figure-caption" v-for="sku,s in item.param"> —{{sku}}</span></div>
+                    <div class="figure-caption">{{item.note ? "备注："+item.note : ""}}</div>
                 </div>
                 <div class="col-sm-3 px-2 text-center">{{item.price}}</div>
                 <div class="col-sm-3 px-2 text-center">{{item.discount_price}}</div>
-                <div class="col-sm-1 px-2 text-center">{{item.num}}</div>
+                <div class="col-sm-1 px-2 text-center">{{item.number}}</div>
             </div>
         </div>
         <div class="db-btns card border-0">
             <div class="card-body py-0 px-0 ">
                 <div class="justify-content-between db-btn row mr-2">
-                    <div class="px-2">件数：2</div>
-                    <div class="ml-3 px-2">总额：10.2（现金：10.2）</div>
+                    <div class="px-2">件数：{{trade[cursor_id].goods_total_number}}</div>
+                    <div class="ml-3 px-2">总额（折扣后应收）：{{trade[cursor_id].actually_total_price}}（{{trade[cursor_id].pay_method}}：{{trade[cursor_id].actually_total_price}}）</div>
                 </div>
                 <div class="text-center row db-btn align-items-center bg-dark">
                     <div class="w-50">退货</div>
