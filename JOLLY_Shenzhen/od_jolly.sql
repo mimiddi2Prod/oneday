@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-07-08 18:31:00
+Date: 2020-07-09 17:35:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `admin` (
   `nick_name` varchar(255) DEFAULT NULL,
   `register_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_login_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `type` int(1) NOT NULL COMMENT '1:god 2:admin',
+  `type` int(1) NOT NULL COMMENT '1:god 2:admin 3employee_account',
   `position_id` int(12) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
   `token_expire` timestamp NULL DEFAULT NULL,
@@ -38,12 +38,13 @@ CREATE TABLE `admin` (
   `navigation` varchar(255) DEFAULT NULL,
   `waterfall` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-07-04 15:36:05', '0', null, 'cb1b43c3-1349-4ff4-9d6e-c762aed91a16', '2020-07-09 18:04:34', 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-07-04 15:36:05', '1', null, 'cc0ea6b3-8598-47c4-9f60-d76e229f63bc', '2020-07-09 18:41:36', 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('2', '1001', 's1001', null, '2019-05-14 13:58:38', '2020-07-04 15:36:05', '3', null, 'e5db67dc-1ce9-4e11-98bd-a36e387ef0c3', '2020-07-10 14:51:22', 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -144,10 +145,10 @@ CREATE TABLE `goods` (
 -- Records of goods
 -- ----------------------------
 INSERT INTO `goods` VALUES ('1', '鸡蛋盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '989', '1', '2', '2019-07-17 17:14:50', '1');
-INSERT INTO `goods` VALUES ('2', '炒肉盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '999', '1', '1', '2019-07-17 17:14:50', '1');
-INSERT INTO `goods` VALUES ('3', '西红柿鸡蛋面', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '营养丰富', '1.00', 'xmspw', '1', '9966', '1', '0', '2020-07-02 11:07:18', '1');
+INSERT INTO `goods` VALUES ('2', '炒肉盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '995', '1', '1', '2019-07-17 17:14:50', '1');
+INSERT INTO `goods` VALUES ('3', '西红柿鸡蛋面', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '营养丰富', '1.00', 'xmspw', '1', '9903', '1', '0', '2020-07-02 11:07:18', '1');
 INSERT INTO `goods` VALUES ('4', '鸡蛋盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '996', '1', '2', '2019-07-17 17:14:50', '1');
-INSERT INTO `goods` VALUES ('5', '鸡蛋盖浇饭带大家是大家', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '994', '1', '2', '2019-07-17 17:14:50', '1');
+INSERT INTO `goods` VALUES ('5', '鸡蛋盖浇饭带大家是大家', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '993', '1', '2', '2019-07-17 17:14:50', '1');
 INSERT INTO `goods` VALUES ('6', '鸡蛋盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '997', '1', '2', '2019-07-17 17:14:50', '1');
 INSERT INTO `goods` VALUES ('7', '鸡蛋盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '991', '1', '2', '2019-07-17 17:14:50', '1');
 INSERT INTO `goods` VALUES ('8', '鸡蛋盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '998', '1', '2', '2019-07-17 17:14:50', '1');
@@ -185,95 +186,15 @@ CREATE TABLE `goods_order` (
   `pay_method` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '支付方式 微信支付/余额支付',
   `return_number` int(6) DEFAULT NULL COMMENT '退货数量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of goods_order
 -- ----------------------------
-INSERT INTO `goods_order` VALUES ('1', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '16', '13', '1', '2', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '1.00', null, '1', null, 'test159246990466689087', '2020-06-18 16:45:05', '0', '0', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('2', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '17', '13', '1', '2', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"威威\"}', '2.00', null, '5', null, 'test159246990466689087', '2020-06-18 16:45:05', '0', '0', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('3', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159247043602471915', '2020-06-18 16:53:56', '0', '0', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('4', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '10', '3', '西红柿鸡蛋面', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"冰度\":\"热3432\"}', '9.00', null, '1', null, 'test159247043602471915', '2020-06-18 16:53:56', '0', '0', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('5', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '7', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159247043602471915', '2020-06-18 16:53:56', '0', '0', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('6', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159247055887550258', '2020-06-18 16:55:59', '0', '0', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('7', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '10', '3', '西红柿鸡蛋面', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"冰度\":\"热3432\"}', '9.00', null, '1', null, 'test159247055887550258', '2020-06-18 16:55:59', '0', '0', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('8', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '7', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159247055887550258', '2020-06-18 16:55:59', '0', '0', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('9', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '16', '13', '1', '2', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '1.00', null, '1', null, 'test159247124022795142', '2020-06-18 17:07:20', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('10', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '16', '13', '1', '2', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '1.00', null, '1', null, 'test159247130313280011', '2020-06-18 17:08:23', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('11', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '16', '13', '1', '2', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '1.00', null, '1', null, 'test159247131318267986', '2020-06-18 17:08:33', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('12', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '1', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '2', null, 'test159247176581871184', '2020-06-18 17:16:06', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('13', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '8', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159247322292031447', '2020-06-18 17:40:23', '1', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('14', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '1', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159247458345664895', '2020-06-18 18:03:03', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('15', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '13', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热wewe5\"}', '222.00', null, '1', null, 'test159255193382189854', '2020-06-19 15:32:14', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('16', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '2', '2', '炒肉盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '6.00', null, '1', null, 'test159255193382189854', '2020-06-19 15:32:14', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('17', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '4', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '2', null, 'test159374653755060745', '2020-07-03 11:22:17', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('18', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '6', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159374653755060745', '2020-07-03 11:22:17', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('19', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384394354985515', '2020-07-04 14:25:43', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('20', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384394354985515', '2020-07-04 14:25:43', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('21', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384394426018495', '2020-07-04 14:25:44', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('22', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384394426018495', '2020-07-04 14:25:44', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('23', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384398468106411', '2020-07-04 14:26:25', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('24', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384398468106411', '2020-07-04 14:26:25', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('25', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384398544423766', '2020-07-04 14:26:25', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('26', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384398544423766', '2020-07-04 14:26:25', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('27', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384408399551332', '2020-07-04 14:28:04', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('28', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384408399551332', '2020-07-04 14:28:04', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('29', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384408473332641', '2020-07-04 14:28:05', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('30', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384408473332641', '2020-07-04 14:28:05', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('31', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384411709667736', '2020-07-04 14:28:37', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('32', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384411709667736', '2020-07-04 14:28:37', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('33', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384411776921576', '2020-07-04 14:28:38', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('34', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384411776921576', '2020-07-04 14:28:38', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('35', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384419986577280', '2020-07-04 14:30:00', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('36', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384419986577280', '2020-07-04 14:30:00', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('37', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384420061893976', '2020-07-04 14:30:01', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('38', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384420061893976', '2020-07-04 14:30:01', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('39', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384423824936175', '2020-07-04 14:30:38', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('40', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384423824936175', '2020-07-04 14:30:38', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('41', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '12', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热344\"}', '9.00', null, '1', null, 'test159384604555200647', '2020-07-04 15:00:46', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('42', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '5', '鸡蛋盖浇饭带大家是大家', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '2', null, 'test159384604555200647', '2020-07-04 15:00:46', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('43', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '14', '借记卡金卡你2', '环境开会看见', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '\"\"', '10.00', null, '1', null, 'test159384604555200647', '2020-07-04 15:00:46', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('44', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '2', '2', '炒肉盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '6.00', null, '1', null, 'test159384604555200647', '2020-07-04 15:00:46', '0', '3', '1', '1', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('45', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159384676966617318', '2020-07-04 15:12:50', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('46', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '12', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热344\"}', '9.00', null, '1', null, 'test159384676966617318', '2020-07-04 15:12:50', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('47', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '2', null, '20200707164723', '2020-07-07 16:47:23', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('48', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '2', null, '20200707164910', '2020-07-07 16:49:10', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('49', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '2', null, '20200707165015', '2020-07-07 16:50:15', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('50', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '4', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159411394587684819', '2020-07-07 17:25:46', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('51', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '6', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159411394587684819', '2020-07-07 17:25:46', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('52', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '4', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159411410954148592', '2020-07-07 17:28:30', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('53', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '6', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159411410954148592', '2020-07-07 17:28:30', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('54', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159411410954148592', '2020-07-07 17:28:30', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('55', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '11', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热34343\"}', '9.00', null, '1', null, 'test159411410954148592', '2020-07-07 17:28:30', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('56', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '4', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159411432716143464', '2020-07-07 17:32:07', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('57', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '6', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159411432716143464', '2020-07-07 17:32:07', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('58', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159411432716143464', '2020-07-07 17:32:07', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('59', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '11', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热34343\"}', '9.00', null, '1', null, 'test159411432716143464', '2020-07-07 17:32:07', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('60', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159411438730422119', '2020-07-07 17:33:07', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('61', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '12', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热344\"}', '9.00', null, '1', null, 'test159411438730422119', '2020-07-07 17:33:07', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('62', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '5', '鸡蛋盖浇饭带大家是大家', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159411438730422119', '2020-07-07 17:33:07', '0', '3', '1', '0', 'Wxpay', null);
-INSERT INTO `goods_order` VALUES ('63', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '3', null, '20200707175645', '2020-07-07 17:56:45', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('64', '', '4', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"正常冰\"}', '7.00', null, '1', null, '20200707175645', '2020-07-07 17:56:45', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('65', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '2', null, '20200707180424', '2020-07-07 18:04:24', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('66', '', '11', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热34343\"}', '9.00', null, '1', null, '20200707180424', '2020-07-07 18:04:24', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('67', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '6', null, '20200707182051', '2020-07-07 18:20:51', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('68', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '8', null, '20200707182117', '2020-07-07 18:21:17', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('69', '', '14', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热346\"}', '9.00', null, '1', null, '20200707182117', '2020-07-07 18:21:17', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('70', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '2', null, '20200707184417', '2020-07-07 18:44:17', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('71', '', '0', '1', '鸡蛋盖浇饭', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '', '20.00', null, '2', null, '20200707184417', '2020-07-07 18:44:17', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('72', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '2', null, '20200707184752', '2020-07-07 18:47:52', '0', '0', '0', '0', '', '2');
-INSERT INTO `goods_order` VALUES ('73', '', '24', '15', '尽快把', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_33_17_0.jpg', '{\"糖度\":\"多糖\",\"冰度\":\"50度\"}', '10.00', null, '1', null, '20200707184752', '2020-07-07 18:47:52', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('74', '', '24', '15', '尽快把', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_33_17_0.jpg', '{\"糖度\":\"多糖\",\"冰度\":\"50度\"}', '10.00', null, '1', null, '20200707184752', '2020-07-07 18:47:52', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('75', '', '0', '5', '鸡蛋盖浇饭带大家是大家', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '', '20.00', null, '2', null, '20200707184752', '2020-07-07 18:47:52', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('76', '', '0', '5', '鸡蛋盖浇饭带大家是大家', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '', '20.00', null, '1', null, '20200707184752', '2020-07-07 18:47:52', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('77', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '2', null, 'sz20200708143348', '2020-07-08 14:33:48', '0', '0', '0', '0', '', '1');
-INSERT INTO `goods_order` VALUES ('78', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '2', null, 'sz20200708143506', '2020-07-08 14:35:06', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('79', '', '0', '1', '鸡蛋盖浇饭', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '', '20.00', null, '2', null, 'sz20200708143506', '2020-07-08 14:35:06', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('80', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '1', null, 'sz20200708145314', '2020-07-08 14:53:14', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('81', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '1', null, 'sz20200708145856', '2020-07-08 14:58:56', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('82', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', null, '1', null, 'sz20200708145856', '2020-07-08 14:58:56', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('83', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', '1.00', '1', null, 'sz20200708150026', '2020-07-08 15:00:26', '0', '0', '0', '0', '', '1');
-INSERT INTO `goods_order` VALUES ('84', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', '0.90', '3', null, 'sz20200708150026', '2020-07-08 15:00:26', '0', '0', '0', '0', '', '1');
+INSERT INTO `goods_order` VALUES ('89', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', '1.00', '2', null, 'qt20200709163644', '2020-07-09 16:36:44', '0', '0', '0', '0', '', null);
+INSERT INTO `goods_order` VALUES ('90', '', '5', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热\"}', '9.00', '9.00', '1', null, 'qt20200709163644', '2020-07-09 16:36:44', '0', '0', '0', '0', '', null);
+INSERT INTO `goods_order` VALUES ('91', '', '5', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热\"}', '9.00', '1.00', '1', null, 'qt20200709163644', '2020-07-09 16:36:44', '0', '0', '0', '0', '', null);
+INSERT INTO `goods_order` VALUES ('92', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', '1.00', '2', null, 'qt20200709171747', '2020-07-09 17:17:47', '0', '0', '0', '0', '', null);
 
 -- ----------------------------
 -- Table structure for goods_sku
@@ -348,25 +269,16 @@ CREATE TABLE `goods_trade` (
   `card_id` int(12) DEFAULT NULL COMMENT '优惠卡券',
   `after_sale_type` int(2) DEFAULT NULL COMMENT '售后类型 0不在售后 1反结账 2退货',
   `after_sale_remark` text COMMENT '反结账备注',
+  `employee_account` varchar(255) DEFAULT NULL COMMENT '前台收银记录',
+  `after_sale_price` decimal(10,2) DEFAULT NULL COMMENT '反结账为全款 退货为已退的价',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=226 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=230 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of goods_trade
 -- ----------------------------
-INSERT INTO `goods_trade` VALUES ('206', 'test159384423824936175', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[39,40]', '2', '16.00', '16.00', '1', 'Wxpay', '2020-07-04 14:30:38', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null);
-INSERT INTO `goods_trade` VALUES ('207', 'test159384604555200647', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[41,42,43,44]', '5', '65.00', '65.00', '1', 'Wxpay', '2020-07-04 15:00:46', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null);
-INSERT INTO `goods_trade` VALUES ('208', 'test159384676966617318', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[45,46]', '2', '15.00', '15.00', '1', 'Wxpay', '2020-07-04 15:12:50', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null);
-INSERT INTO `goods_trade` VALUES ('211', 'test159411394587684819', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[50,51]', '2', '40.00', '40.00', '0', 'Wxpay', '2020-07-07 17:25:46', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null);
-INSERT INTO `goods_trade` VALUES ('212', 'test159411410954148592', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[52,53,54,55]', '4', '55.00', '55.00', '0', 'Wxpay', '2020-07-07 17:28:30', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null);
-INSERT INTO `goods_trade` VALUES ('213', 'test159411432716143464', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[56,57,58,59]', '4', '55.00', '55.00', '0', 'Wxpay', '2020-07-07 17:32:07', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null);
-INSERT INTO `goods_trade` VALUES ('214', 'test159411438730422119', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[60,61,62]', '3', '35.00', '35.00', '0', 'Wxpay', '2020-07-07 17:33:07', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null);
-INSERT INTO `goods_trade` VALUES ('220', '20200707184752', '', '2', '[72,73,74,75,76]', '7', '80.90', '72.81', '1', '支付宝', '2020-07-07 18:47:52', '2020-07-07 18:47:52', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, '2', null);
-INSERT INTO `goods_trade` VALUES ('221', 'sz20200708143348', '', '2', '[77]', '2', '2.00', '0.00', '1', '现金', '2020-07-08 14:33:48', '2020-07-08 14:33:48', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, '2', null);
-INSERT INTO `goods_trade` VALUES ('222', 'sz20200708143506', '', '2', '[78,79]', '4', '42.00', '42.00', '1', '现金', '2020-07-08 14:35:06', '2020-07-08 14:35:06', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, '1', '我要反结账拉');
-INSERT INTO `goods_trade` VALUES ('223', 'sz20200708145314', '', '2', '[80]', '1', '0.90', '0.90', '1', '现金', '2020-07-08 14:53:14', '2020-07-08 14:53:14', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null);
-INSERT INTO `goods_trade` VALUES ('224', 'sz20200708145856', '', '2', '[81,82]', '2', '1.90', '1.90', '1', '现金', '2020-07-08 14:58:56', '2020-07-08 14:58:56', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null);
-INSERT INTO `goods_trade` VALUES ('225', 'sz20200708150026', '', '2', '[83,84]', '4', '3.70', '3.33', '1', '现金', '2020-07-08 15:00:26', '2020-07-08 15:00:26', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, '2', null);
+INSERT INTO `goods_trade` VALUES ('228', 'qt20200709163644', '', '2', '[89,90,91]', '4', '12.00', '12.00', '1', '现金', '2020-07-09 16:36:44', '2020-07-09 16:36:44', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, '1', 'd2w', '1001', '12.00');
+INSERT INTO `goods_trade` VALUES ('229', 'qt20200709171747', '', '2', '[92]', '2', '2.00', '0.00', '1', '现金', '2020-07-09 17:17:47', '2020-07-09 17:17:47', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null);
 
 -- ----------------------------
 -- Table structure for restaurant_user

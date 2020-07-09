@@ -231,24 +231,13 @@
                                         v-model="trade.dinners_number"></div>
                         </div>
                         <div class="input-group mb-3 w-100 align-items-center mx-5">
-                            <input type="text" class="form-control text-right" placeholder=""
+                            <input type="text" class="form-control text-right" placeholder="折扣"
                                    aria-label="Example text with button addon"
                                    aria-describedby="button-addon1"
                                    oninput="value=value.replace(/[^\d.]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
                                    v-model="totalPriceDiscount">
                             <div class="input-group-prepend text-center ml-2">
                                 <span>%</span>
-                            </div>
-                        </div>
-                        <div class="nav mx-5 flex-row w-100 text-center">
-                            <!--<div class="text-center col-3 mb-1">-->
-                            <!--<h5>支付方式:</h5>-->
-                            <!--</div>-->
-                            <div class="text-center col-4 mb-1" v-for="item in pay_type_list">
-                                <button class="btn py-2 px-1 w-100"
-                                        :class="item == trade.pay_type ? 'btn-dark' : 'btn-secondary'"
-                                        @click="trade.pay_type=item">
-                                    <h5>{{item}}</h5></button>
                             </div>
                         </div>
                         <div class="nav mx-5 flex-row">
@@ -264,6 +253,17 @@
                             <!--<button class="btn btn-info py-2 px-1 w-100" @click="getDiscountToCalculation('抹零')">-->
                             <!--<h5>抹零</h5></button>-->
                             <!--</div>-->
+                        </div>
+                        <div class="nav mx-5 flex-row w-100 text-center">
+                            <!--<div class="text-center col-3 mb-1">-->
+                            <!--<h5>支付方式:</h5>-->
+                            <!--</div>-->
+                            <div class="text-center col-4 mb-1" v-for="item in pay_type_list">
+                                <button class="btn py-2 px-1 w-100"
+                                        :class="item == trade.pay_type ? 'btn-dark' : 'btn-secondary'"
+                                        @click="trade.pay_type=item">
+                                    <h5>{{item}}</h5></button>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -50,6 +50,13 @@ var orderformvm = new Vue({
             $('#modal_return_of_goods').modal('show');
             $('#modal_return_of_goods_submit')[0].addEventListener("click", this._hideModal);
         },
+        // 取消退货 还原数据
+        cancleReturnOfGoods() {
+            this.trade[this.cursor_id].order.map(value => {
+                value.return_number = ""
+                return value
+            })
+        },
         // 退货
         ReturnOfGoods() {
             this.submitAfterSale({

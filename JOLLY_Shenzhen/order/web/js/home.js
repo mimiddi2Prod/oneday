@@ -37,7 +37,8 @@ var homevm = new Vue({
          * */
         pay_type_list: ["现金", "支付宝", "微信"],
         discount_list: [95, 9, 85, 8, 75, 7, 6, 5, "免单", "抹零"],
-        totalPriceDiscount: ""
+        totalPriceDiscount: "",
+        isKeyDownDiscount: 0  // 0输入的 1按键盘
     },
     methods: {
         _hideModal() {
@@ -305,6 +306,7 @@ var homevm = new Vue({
          * 订单结算
          * */
         getDiscountToCalculation(e) {
+            this.isKeyDownDiscount = 1
             this.totalPriceDiscount = ""
             if (e == "抹零") {
                 this.trade.total_diacount_price = this.trade.total_price - (this.trade.total_price % 1)
@@ -314,6 +316,7 @@ var homevm = new Vue({
             }
             // 超出小数2位数，向上取整
             this.trade.total_diacount_price = Math.ceil(this.trade.total_diacount_price * 100) / 100
+            this.trade.total_diacount_price =  this.trade.total_diacount_price.toString()
         },
         // 提交订单
         submitOrder() {
@@ -437,11 +440,17 @@ var homevm = new Vue({
          * 总价打折
          * */
         totalPriceDiscount(val) {
+            if (this.isKeyDownDiscount == 1) {
+                this.isKeyDownDiscount = 0
+                return
+            }
             if (val == "") {
+                this.trade.total_diacount_price = this.trade.total_price
                 return
             }
             let discount = Number(val) / 100
             this.trade.total_diacount_price = Math.round(this.trade.total_price * discount * 100) / 100  // 四舍五入保留两位小数
+            this.trade.total_diacount_price =  this.trade.total_diacount_price.toString()
         }
     },
     mounted: function () {
