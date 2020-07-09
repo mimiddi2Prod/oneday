@@ -321,50 +321,57 @@ var editGoodsVM = new Vue({
                 alert('请填写商品排序')
                 return
             }
-            // let price = ''
-            if (this.priceTypeId == 0) {
-                if (this.goods_price == '') {
-                    alert('请填写商品价格')
-                    return
-                }
-                if (this.goods_stock == '') {
-                    alert('请填写商品库存')
-                    return
-                }
-            } else if (this.priceTypeId == 1) {
-                if (this.table.length <= 0) {
-                    alert('请填写型号分类')
-                    return
-                } else {
-                    let havePriceAndStock = this.table.every(function (eData) {
-                        return eData.price != '' && eData.stock != ''
-                    })
-                    if (!havePriceAndStock) {
-                        alert('请填写好型号和价格')
-                        return
-                    } else {
-                        let self = this
-                        this.goods_price = function () {
-                            let min = self.table[0].price;
-                            let len = self.table.length;
-                            for (let i = 1; i < len; i++) {
-                                if (Number(self.table[i].price) < Number(min)) {
-                                    min = self.table[i].price;
-                                }
-                            }
-                            return min;
-                        }()
-                        this.goods_stock = function () {
-                            let stock = 0
-                            let len = self.table.length;
-                            for (let i = 0; i < len; i++) {
-                                stock = stock + self.table[i].stock;
-                            }
-                            return stock;
-                        }()
-                    }
-                }
+            if (this.goods_price == '') {
+                alert('请填写商品价格')
+                return
             }
+            if (this.goods_stock == '') {
+                alert('请填写商品库存')
+                return
+            }
+            // if (this.priceTypeId == 0) {
+            //     if (this.goods_price == '') {
+            //         alert('请填写商品价格')
+            //         return
+            //     }
+            //     if (this.goods_stock == '') {
+            //         alert('请填写商品库存')
+            //         return
+            //     }
+            // } else if (this.priceTypeId == 1) {
+            //     if (this.table.length <= 0) {
+            //         alert('请填写型号分类')
+            //         return
+            //     } else {
+            //         let havePriceAndStock = this.table.every(function (eData) {
+            //             return eData.price != '' && eData.stock != ''
+            //         })
+            //         if (!havePriceAndStock) {
+            //             alert('请填写好型号和价格')
+            //             return
+            //         } else {
+            //             let self = this
+            //             this.goods_price = function () {
+            //                 let min = self.table[0].price;
+            //                 let len = self.table.length;
+            //                 for (let i = 1; i < len; i++) {
+            //                     if (Number(self.table[i].price) < Number(min)) {
+            //                         min = self.table[i].price;
+            //                     }
+            //                 }
+            //                 return min;
+            //             }()
+            //             this.goods_stock = function () {
+            //                 let stock = 0
+            //                 let len = self.table.length;
+            //                 for (let i = 0; i < len; i++) {
+            //                     stock = stock + self.table[i].stock;
+            //                 }
+            //                 return stock;
+            //             }()
+            //         }
+            //     }
+            // }
 
             // 开始上传 需要loading 图标 防误触
 
@@ -431,9 +438,11 @@ function getCurrentGoodsInfo() {
     editGoodsVM.select_category_id = current_goods_info.category_id
     editGoodsVM.location_code = current_goods_info.location_code
     editGoodsVM.priceTypeId = current_goods_info.param.length > 0 ? 1 : 0
+
+    editGoodsVM.goods_price = current_goods_info.min_price
+    editGoodsVM.goods_stock = current_goods_info.stock
     if (current_goods_info.param.length <= 0) {
-        editGoodsVM.goods_price = current_goods_info.min_price
-        editGoodsVM.goods_stock = current_goods_info.stock
+        return
     } else {
         let param = JSON.parse(current_goods_info.param[0].param)
         let key_list = Object.keys(param)

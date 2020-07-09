@@ -117,14 +117,16 @@
             </div>
 
             <!--不需要参数-->
-            <div class="sort row-center" style="align-items: unset" v-if="priceTypeId == 0">
+            <!--<div class="sort row-center" style="align-items: unset" v-if="priceTypeId == 0">-->
+            <div class="sort row-center" style="align-items: unset">
                 <div class="index">商品价格</div>
                 <div class="item">
                     <input v-model="goods_price" type="text" class="form-control" name=""
                            oninput="value=value.replace(/[^\d.]/g,'')"/>
                 </div>
             </div>
-            <div class="sort row-center" style="align-items: unset" v-if="priceTypeId == 0">
+            <!--<div class="sort row-center" style="align-items: unset" v-if="priceTypeId == 0">-->
+            <div class="sort row-center" style="align-items: unset">
                 <div class="index">商品库存</div>
                 <div class="item">
                     <input v-model="goods_stock" type="text" class="form-control" name=""
@@ -195,60 +197,60 @@
             </div>
 
             <!--价格和库存-->
-            <div class="sort row-center" style="align-items: unset" v-if="classSubmitList.length > 0 && priceTypeId == 1">
-                <div class="index">价格与库存</div>
-                <div class="item">
-                    <div class="sort-title" style="margin-top: 0">
-                        <nav class="navbar navbar-default" role="navigation">
-                            <div class="item">
-                                <span class="first-title column-center" v-if="classSubmitList.length <= 0"></span>
-                                <span class="first-title column-center" v-else
-                                      v-for="item in classSubmitList" v-if="item.param.length>0">{{item.select}}</span>
-                                <span class="second-title column-center">价格</span>
-                                <span class="second-title column-center">库存</span>
-                                <!--<span class="second-title column-center">商品编号</span>-->
-                            </div>
-                        </nav>
-                    </div>
+            <!--<div class="sort row-center" style="align-items: unset" v-if="classSubmitList.length > 0 && priceTypeId == 1">-->
+                <!--<div class="index">价格与库存</div>-->
+                <!--<div class="item">-->
+                    <!--<div class="sort-title" style="margin-top: 0">-->
+                        <!--<nav class="navbar navbar-default" role="navigation">-->
+                            <!--<div class="item">-->
+                                <!--<span class="first-title column-center" v-if="classSubmitList.length <= 0"></span>-->
+                                <!--<span class="first-title column-center" v-else-->
+                                      <!--v-for="item in classSubmitList" v-if="item.param.length>0">{{item.select}}</span>-->
+                                <!--<span class="second-title column-center">价格</span>-->
+                                <!--<span class="second-title column-center">库存</span>-->
+                                <!--&lt;!&ndash;<span class="second-title column-center">商品编号</span>&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</nav>-->
+                    <!--</div>-->
 
-                    <div class="sort-title" style="margin-top: 0">
-                        <nav class="navbar navbar-default" role="navigation"
-                             style="background-color: #fff;border-left: 1px solid #F7F7F7;border-right: 1px solid #F7F7F7;margin-bottom:0;">
-                            <div class="item" style="height: auto;border-bottom:1px solid #f3f3f3;"
-                                 v-for="item in table">
-                                <div class="first-title column-center" v-for="item in JSON.parse(item.param)"
-                                     style="border-right: 1px solid #f3f3f3;">
-                                    <div style="padding: 10px 0;">{{item}}</div>
-                                </div>
-                                <div class="second-title row-center" style="width: 16%;justify-content: space-around">
-                                    <input class="form-control" v-model="item.price"
-                                           oninput="value=value.replace(/[^\d.]/g,'')" style="width: 45%"/>
-                                    <input class="form-control" v-model="item.stock"
-                                           oninput="value=value.replace(/[^\d]/g,'')" style="width: 45%"/>
-                                </div>
+                    <!--<div class="sort-title" style="margin-top: 0">-->
+                        <!--<nav class="navbar navbar-default" role="navigation"-->
+                             <!--style="background-color: #fff;border-left: 1px solid #F7F7F7;border-right: 1px solid #F7F7F7;margin-bottom:0;">-->
+                            <!--<div class="item" style="height: auto;border-bottom:1px solid #f3f3f3;"-->
+                                 <!--v-for="item in table">-->
+                                <!--<div class="first-title column-center" v-for="item in JSON.parse(item.param)"-->
+                                     <!--style="border-right: 1px solid #f3f3f3;">-->
+                                    <!--<div style="padding: 10px 0;">{{item}}</div>-->
+                                <!--</div>-->
+                                <!--<div class="second-title row-center" style="width: 16%;justify-content: space-around">-->
+                                    <!--<input class="form-control" v-model="item.price"-->
+                                           <!--oninput="value=value.replace(/[^\d.]/g,'')" style="width: 45%"/>-->
+                                    <!--<input class="form-control" v-model="item.stock"-->
+                                           <!--oninput="value=value.replace(/[^\d]/g,'')" style="width: 45%"/>-->
+                                <!--</div>-->
 
-                            </div>
-                        </nav>
-                    </div>
+                            <!--</div>-->
+                        <!--</nav>-->
+                    <!--</div>-->
 
-                    <div class="sort-title" style="margin-top: 0">
-                        <nav class="navbar navbar-default" role="navigation">
-                            <div class="item">
-                                <span class="first-title column-center">批量修改价格</span>
-                                <span class="second-title column-center">
-                                    <input class="form-control" v-model="batchPrice"
-                                           oninput="value=value.replace(/[^\d.]/g,'')" style="width: 90%"
-                                           v-on:keyUp.enter="batchChangePrice"/></span>
-                                <span class="second-title column-center">
-                                    <input class="form-control" v-model="batchStock"
-                                           oninput="value=value.replace(/[^\d]/g,'')" style="width: 90%"
-                                           v-on:keyUp.enter="batchChangeStock"/></span>
-                                <!--<span class="second-title column-center"><input class="form-control" style="width: 90%"/></span>-->
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
+                    <!--<div class="sort-title" style="margin-top: 0">-->
+                        <!--<nav class="navbar navbar-default" role="navigation">-->
+                            <!--<div class="item">-->
+                                <!--<span class="first-title column-center">批量修改价格</span>-->
+                                <!--<span class="second-title column-center">-->
+                                    <!--<input class="form-control" v-model="batchPrice"-->
+                                           <!--oninput="value=value.replace(/[^\d.]/g,'')" style="width: 90%"-->
+                                           <!--v-on:keyUp.enter="batchChangePrice"/></span>-->
+                                <!--<span class="second-title column-center">-->
+                                    <!--<input class="form-control" v-model="batchStock"-->
+                                           <!--oninput="value=value.replace(/[^\d]/g,'')" style="width: 90%"-->
+                                           <!--v-on:keyUp.enter="batchChangeStock"/></span>-->
+                                <!--&lt;!&ndash;<span class="second-title column-center"><input class="form-control" style="width: 90%"/></span>&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</nav>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
 
 

@@ -118,7 +118,7 @@ function getOrder() {
     data.status = orderVM.navId
     data.last_id = orderVM.last_id
     server(url, data, async, "post", function (res) {
-        // console.info(res)
+        console.info(res)
         if (res.number > 0) {
             res.trade = res.trade.map(function (eData) {
                 eData.create_time = formatTime(new Date(eData.create_time))
