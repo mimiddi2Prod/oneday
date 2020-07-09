@@ -1,6 +1,7 @@
 var homevm = new Vue({
     el: "#home",
     data: {
+        as: "",
         current_category_id: "",
         current_sku_id: "",
         category: [],
@@ -81,6 +82,7 @@ var homevm = new Vue({
                 }).then(res => {
                     if (res.canPay == 1) {
                         // 库存不足
+                        self._getCategoryAndProduct()
                         $('#modal_1').on('show.bs.modal', function (e) {
                             let modal = $(this)
                             modal.find('.modal-title').text('库存不足')
@@ -150,6 +152,7 @@ var homevm = new Vue({
         // },
         // 展示参数选择/折扣/改价/数量添加
         showModalProduct(item, orderIndex) {
+            // this._checkStock(item)
             let temp = item,
                 name = temp.sku.length ? temp.sku[0].name : temp.name,
                 sku_id = temp.sku.length ? temp.sku[0].sku_id : 0,
@@ -227,6 +230,10 @@ var homevm = new Vue({
                 "param": param
             })
             this.changeOrder()
+        },
+        // todo 添加商品到购物车前，检查本地库存 (或者服务器库存？)
+        _checkStock(goods) {
+            console.info(goods, this.order)
         },
         // 模态框确认按钮,对编辑好的添加到左侧订单中
         changeOrder() {
@@ -329,6 +336,8 @@ var homevm = new Vue({
             })
         },
         _Init() {
+            // 提交订单完成 或者 检查库存发现库存不足 或者 重新进入该页面（商品编辑啥的），更新一下列表
+            this._getCategoryAndProduct()
             this.trade = {
                 total_num: 0,
                 total_price: 0,
@@ -355,6 +364,30 @@ var homevm = new Vue({
                 subtotal: null
             }
             this.totalPriceDiscount = ""
+        },
+        signOut() {
+            $('#modal_1').on('show.bs.modal', function (e) {
+                let modal = $(this)
+                modal.find('.modal-title').text('提示')
+                // modal.find('.modal-body').text('是否退出登录？')
+                modal.find('.modal-body').text('是否进行交接班？')
+            })
+            $('#modal_1').on('hidden.bs.modal', function (e) {
+                $('#modal_1_submit')[0].removeEventListener("click", submit);
+            })
+            $('#modal_1').modal('show');
+            $('#modal_1_submit')[0].addEventListener("click", submit)
+
+            function submit() {
+                $('#modal_1').modal('hide');
+                Axios(api.signOut, "post", {}).then(function (res) {
+                    if (res == "sign out success") {
+                        window.location.href = "/"
+                    } else {
+                        loginvm.loginErr = res
+                    }
+                })
+            }
         }
     },
     computed: {
@@ -412,6 +445,7 @@ var homevm = new Vue({
         }
     },
     mounted: function () {
+        this.as = getCookie("as")
         // 对页面返回时进行页面数据保持 结算页面在首页则没必要
         // if (sessionStorage.getItem("base")) {
         //     let base = JSON.parse(sessionStorage.getItem("base"))

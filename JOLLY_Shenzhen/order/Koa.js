@@ -6,6 +6,7 @@ const bodyParser = require('koa-bodyparser');
 const router = require('koa-router')();
 const koaStatic = require('koa-static'); // 处理各种静态资源 图片、字体、样式表、脚本等
 const session = require('koa-session')
+const yly = require('./apis/yly_print')
 
 function Koa() {
 }
@@ -49,7 +50,7 @@ Koa.Init = function () {
                     ctx.response.body = fs.createReadStream('./web/html/index.html');
                 } else {
                     // pathList 所能打开的网页列表，可改为从文件public_data.js中获取
-                    const pathList = ["/test", "/home", "/settleaccounts", "/orderform", "/category", "/test-sidebar"]
+                    const pathList = ["/home", "/orderform", "/product"]
                     if (pathList.indexOf(path) == -1) {
                         ctx.response.type = 'html';
                         ctx.response.body = fs.createReadStream('./web/html/404.html');
@@ -92,6 +93,7 @@ Koa.Init = function () {
             let token = ctx.cookies.get('token');
             params.user_agent = user_agent
             if (apiName == "sign_out" && ctx.session.user.token == token) {
+                let username = ctx.cookies.get('as');
                 ctx.session.user = null
                 ctx.cookies.set('token', null);
                 ctx.cookies.set('page', null);
@@ -101,6 +103,7 @@ Koa.Init = function () {
                     errmsg: "request success",
                     data: "sign out success"
                 };
+                yly.run({"type": "sign_out", "username": username})
                 return
             }
             if (apiName != "sign_in") {
@@ -124,6 +127,10 @@ Koa.Init = function () {
                 let result = await Server.run(apiName, params)
                 if (result.data.token) {
                     ctx.cookies.set('token', result.data.token);
+                    ctx.cookies.set('as', result.data.user.username, {
+                        expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+                        httpOnly: false
+                    }); // 用于前端显示登录账号
                     // 当前加载页面
                     ctx.cookies.set('page', "home", {
                         expires: result.data.expires,

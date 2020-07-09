@@ -6,6 +6,10 @@ db.Init()
 var Koa = require('./Koa.js')
 Koa.Init()
 
+// 初始化易联云打单机api
+var yly = require('./utils/yly.js')
+yly.Init()
+
 // 初始化获取rsa密钥
 var privateKey = require("./utils/getPrivateKey");
 privateKey.Init()
