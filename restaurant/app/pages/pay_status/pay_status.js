@@ -27,7 +27,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.setData({
       restaurantTableName: app.globalData.restaurantTableName
     })
@@ -39,17 +39,17 @@ Page({
 
   },
 
-  getOrderDetailByTradeid: function(tradeid) {
+  getOrderDetailByTradeid: function (tradeid) {
     let self = this
     server.request(api.getOrderDetailByTradeid, {
       'openid': app.globalData.openid,
       'tradeid': tradeid
-    }, 'post').then(function(res) {
+    }, 'post').then(function (res) {
       console.info(res)
       if (res.order_list.length > 0) {
         let total_price = 0
         let total_number = 0
-        res.order_list = res.order_list.map(function(eData) {
+        res.order_list = res.order_list.map(function (eData) {
           eData.subTotalPrice = Number(eData.price) * Number(eData.number)
           total_number += Number(eData.number)
           total_price += eData.subTotalPrice
@@ -65,7 +65,8 @@ Page({
           total_number: total_number,
           total_price: total_price,
           trade_id: tradeid,
-          yinbao_order_no: res.order_list[0].yinbao_order_no
+          yinbao_order_no: res.order_list[0].yinbao_order_no,
+          table_number: res.order_list[0].table_number
         })
       }
 
@@ -93,49 +94,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

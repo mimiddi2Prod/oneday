@@ -67,6 +67,9 @@
       就餐方式：{{style == 0 ? '堂食' : '外带'}}
     </view>
     <view>
+      就餐桌号：{{table_number}}
+    </view>
+    <view>
       <!-- 订单份数：{{order.length}} -->
       订单份数：{{total_number}}
     </view>

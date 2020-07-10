@@ -35,7 +35,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     app.globalData.selectCard = null
     this.setData({
       restaurantTableName: app.globalData.restaurantTableName
@@ -59,14 +59,14 @@ Page({
   },
 
   // 输入用餐人数
-  dinnerNum: function(e) {
+  dinnerNum: function (e) {
     this.setData({
       dinnersNumber: Number(e.detail.value)
     })
   },
 
   // 防止输入的用餐人数小于1
-  blur: function(e) {
+  blur: function (e) {
     if (Number(e.detail.value) <= 0) {
       this.setData({
         dinnersNumber: 1
@@ -74,10 +74,10 @@ Page({
     }
   },
 
-  getCart: function() {
+  getCart: function () {
     let cart = app.globalData.cart
     let totalPrice = 0
-    cart = cart.map(function(eData) {
+    cart = cart.map(function (eData) {
       eData.subTotalPrice = eData.price * eData.number
       totalPrice = totalPrice + eData.subTotalPrice
       return eData
@@ -89,7 +89,7 @@ Page({
     console.info(this.data.cart)
   },
 
-  selectStyle: function(e) {
+  selectStyle: function (e) {
     this.setData({
       style: e.currentTarget.dataset.id
     })
@@ -97,7 +97,17 @@ Page({
 
 
 
-  submitOrder: function() {
+  submitOrder: function () {
+    let oet = wx.getStorageSync('order_expire_time')
+    if ((!oet.toString().length && Number(this.data.restaurantTableName) <= 8 && this.data.totalPrice < 160) ||
+      (oet.toString().length && oet < new Date().getTime())) {
+      wx.showModal({
+        title: '',
+        content: '您现在就坐的是Oneday Jolly最美景观区，为美买单，低消160元/桌',
+        showCancel: false
+      })
+      return;
+    }
     let current_time = new Date(),
       date = new Date(current_time.toDateString()).getTime(),
       start_time = new Date(date + (21 * 60 * 60 * 1000 + 30 * 60 * 1000))
@@ -113,7 +123,7 @@ Page({
       showPayMethodDialog: true
     })
     // 消息订阅
-    server.request(api.getSubscribeMessage, {}, "post").then(function(res) {
+    server.request(api.getSubscribeMessage, {}, "post").then(function (res) {
       if (res.length > 0) {
         let tmplIds = []
         for (let i in res) {
@@ -121,10 +131,10 @@ Page({
         }
         wx.requestSubscribeMessage({
           tmplIds: tmplIds,
-          success: function(e) {
+          success: function (e) {
             console.info(e)
           },
-          fail: function(e) {
+          fail: function (e) {
             console.info(e)
           }
         })
@@ -133,13 +143,13 @@ Page({
 
   },
 
-  payDialog: function() {
+  payDialog: function () {
     this.setData({
       showPayMethodDialog: false
     })
   },
 
-  checkStock: function(e) {
+  checkStock: function (e) {
     let payMethod = e.currentTarget.dataset.pay // 0微信支付 1余额支付
     let self = this,
       data = []
@@ -150,7 +160,7 @@ Page({
         wx.showModal({
           title: '支付失败',
           content: '您还没有办理会员卡，是否前往注册',
-          success: function(res) {
+          success: function (res) {
             if (res.confirm) {
               wx.navigateTo({
                 url: '../customer/customer',
@@ -183,7 +193,7 @@ Page({
         number: this.data.cart[i].number
       })
     }
-    server.request(api.checkOrderStock, data, "post").then(function(res) {
+    server.request(api.checkOrderStock, data, "post").then(function (res) {
       // console.info(res)
       if (res.code == 0) {
         if (res.canPay == 0) {
@@ -193,7 +203,7 @@ Page({
             self.balancePay()
           }
         } else {
-          let shortageName = res.shortageList.map(function(eData) {
+          let shortageName = res.shortageList.map(function (eData) {
             return eData.name + 'x' + eData.stock
           }).join(',')
           wx.hideLoading()
@@ -213,7 +223,7 @@ Page({
     })
   },
 
-  getWXPayOrder: function() {
+  getWXPayOrder: function () {
     let self = this
     let data = {}
     data.openid = app.globalData.openid
@@ -244,12 +254,12 @@ Page({
     return data
   },
 
-  wxPay: function(checkStockData) {
+  wxPay: function (checkStockData) {
     let self = this
 
     let orderData = self.getWXPayOrder()
     console.info(orderData)
-    server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, self.data.selcCardInfo, orderData, "post").then(function(res) {
+    server.pay(api.payfee, app.globalData.openid, self.data.totalPrice, self.data.selcCardInfo, orderData, "post").then(function (res) {
       // wx.showLoading({
       //   title: '已支付，勿重复下单，谢谢',
       //   mask: true
@@ -258,6 +268,11 @@ Page({
       wx.showToast({
         title: '支付成功',
       })
+
+      // 缓存订单信息 用于1-8号桌追加订单不会有低消限制
+      if (Number(self.data.restaurantTableName) <= 8) {
+        wx.setStorageSync('order_expire_time', new Date().getTime() + (5 * 60 * 60 * 1000))
+      }
 
       let tradeId = res
       app.globalData.cart = []
@@ -278,17 +293,17 @@ Page({
       //     }
       //   })
       // }
-    }).catch(function(res) {
+    }).catch(function (res) {
       // 支付失败 库存恢复
       // console.info(checkStockData)
       wx.hideLoading()
-      server.request(api.restoreStock, checkStockData, "post").then(function(e) {
+      server.request(api.restoreStock, checkStockData, "post").then(function (e) {
         // 支付失败提醒
         wx.showModal({
           title: '支付失败',
           content: '请重新支付，支付订单完成大厨就开工啦',
           showCancel: false,
-          success: function(res) {
+          success: function (res) {
             if (res.confirm) {
               wx.hideLoading()
             }
@@ -299,7 +314,7 @@ Page({
 
   },
 
-  balancePay: function() {
+  balancePay: function () {
     let self = this
     let data = {}
     // console.info(app.globalData.customerUid)
@@ -335,7 +350,7 @@ Page({
     // self.addOrder('CustomerBalance', 0)
   },
 
-  getTradeId: function() {
+  getTradeId: function () {
     var date = new Date().getTime().toString()
     var text = ""
     var possible = "0123456789"
@@ -347,7 +362,7 @@ Page({
     return tradeId
   },
 
-  addOrder: function(tradeId, payMethod, payStatus) {
+  addOrder: function (tradeId, payMethod, payStatus) {
     // addOrder: function(payMethod, payStatus) {
     let self = this
     // console.info(this.data.cart)
@@ -368,12 +383,18 @@ Page({
       data.customerUid = app.globalData.customerUid
     }
 
-    server.request(api.addOrderByYinbaoBalance, data, "post").then(function(res) {
+    server.request(api.addOrderByYinbaoBalance, data, "post").then(function (res) {
       console.info(res)
       self.getCustomerByPhone()
       if (res.code == 0) {
         wx.hideLoading()
         app.globalData.cart = []
+
+        // 缓存订单信息 用于1-8号桌追加订单不会有低消限制
+        if (Number(self.data.restaurantTableName) <= 8) {
+          wx.setStorageSync('order_expire_time', new Date().getTime() + (5 * 60 * 60 * 1000))
+        }
+
         wx.redirectTo({
           url: '../pay_status/pay_status?tradeid=' + data.tradeId,
         })
@@ -381,25 +402,25 @@ Page({
     })
   },
 
-  cutDinnersNumber: function() {
+  cutDinnersNumber: function () {
     this.setData({
       dinnersNumber: (this.data.dinnersNumber > 1 ? this.data.dinnersNumber - 1 : this.data.dinnersNumber)
     })
   },
 
-  addDinnersNumber: function() {
+  addDinnersNumber: function () {
     console.info(this.data.dinnersNumber)
     this.setData({
       dinnersNumber: (this.data.dinnersNumber + 1)
     })
   },
 
-  getCustomerByPhone: function() {
+  getCustomerByPhone: function () {
     let self = this
     if (app.globalData.phone) {
       server.request(api.getCustomerByPhone, {
         'phone': app.globalData.phone
-      }, 'post').then(function(res) {
+      }, 'post').then(function (res) {
         console.info(res)
         app.globalData.isCustomer = true
         app.globalData.point = res.point
@@ -413,14 +434,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     if (app.globalData.selectCard) {
       this.setData({
         // showCardUseInfo: "优惠" + app.globalData.selectCard.reduce_cost + "元",
@@ -432,15 +453,15 @@ Page({
   },
 
   // 优惠券相关，获取已领取优惠券信息
-  getHadCardList: function() {
+  getHadCardList: function () {
     let self = this
     server.request(api.getHadCard, {
       'openid': app.globalData.openid
-    }, 'post').then(function(res) {
+    }, 'post').then(function (res) {
       // console.info(res)
       if (res.length > 0) {
         // 去除过期优惠券
-        res = res.filter(function(item) {
+        res = res.filter(function (item) {
           return new Date(item.end_time).getTime() > new Date().getTime()
         })
         self.setData({
@@ -456,7 +477,7 @@ Page({
   },
 
   // 计算出优惠券最优使用
-  maxDiscount: function() {
+  maxDiscount: function () {
     let maxReduce = null,
       cardList = this.data.cardList,
       minLeast = cardList[0],
@@ -485,7 +506,7 @@ Page({
     }
   },
 
-  toCoupon: function() {
+  toCoupon: function () {
     if (!this.data.cardList) {
       wx.showModal({
         content: '暂无和使用的优惠券',
@@ -502,35 +523,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })
