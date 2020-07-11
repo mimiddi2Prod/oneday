@@ -108,7 +108,10 @@
                             <div @click="addOrderNum(item)" style="width: calc(14vh)">
                                 <div class="card-body p-0 ml-2 h-100 list-group justify-content-between">
                                     <div class="card-text flex-grow-1">{{item.name}}</div>
-                                    <div class="card-text flex-shrink-0 price">￥{{item.price}}</div>
+                                    <div class="card-text flex-shrink-0 price justify-content-between row-c">
+                                        <div>￥{{item.price}}</div>
+                                        <div v-if="item.stock <= 10">库存：{{item.stock}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
