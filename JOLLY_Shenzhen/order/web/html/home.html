@@ -129,8 +129,9 @@
                     <!--<div class="ml-3 alert-dark px-2">无码商品</div>-->
                     <!--</div>-->
                     <div class="text-center row db-btn align-items-center bg-dark">
-                        <div class="w-50" @click="signOut">交接班</div>
-                        <div class="w-50" @click="toOrderForm">销售单据</div>
+                        <div style="width: 33% !important;" @click="signOut">交接班</div>
+                        <div style="width: 33% !important;" @click="toPage('OrderForm')">销售单据</div>
+                        <div style="width: 33% !important;" @click="toPage('product')">商品总览</div>
                         <!--<div class="w-25">退货</div>-->
                         <!--<div class="w-25">消息中心</div>-->
                     </div>

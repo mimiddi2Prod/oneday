@@ -1,31 +1,35 @@
 var db = require("./../utils/dba");
 var utils = require("./../utils/utils.js")
 
-exports.run = async function (params) {
-    let data = null
-    return new Promise(async function (resolve, reject) {
-        data = await getData(params)
-        if (!data.err) {
-            resolve({
-                errcode: 0,
-                errmsg: "request success",
-                data: data
-            })
-        } else {
-            reject({
-                errcode: 2,
-                errmsg: "request fail"
-            })
-        }
-    })
+module.exports = {
+    run: async function (params) {
+        let data = null
+        return new Promise(async function (resolve, reject) {
+            data = await getData(params)
+            if (!data.err) {
+                resolve({
+                    errcode: 0,
+                    errmsg: "request success",
+                    data: data
+                })
+            } else {
+                reject({
+                    errcode: 2,
+                    errmsg: "request fail"
+                })
+            }
+        })
+    },
+    getData: getData
 };
 
 /**
- * state：状态：0 在售 1 下架 2 删除（不在后台展示）
+ * status：状态 0 下架 1 上架
  */
 async function getData(params) {
+    let status = params.type == "edit" ? "" : {"status": 1} // type： edit(编辑页)  否则首页
     let category = await db.Select("*", "category", {}, "order by sort"),
-        product = await db.Select("*", "goods", {"status": 1}, "order by sort"),
+        product = await db.Select("*", "goods", status, "order by sort"),
         sku = await db.Select("*", "goods_sku", {}, "order by price")
     let result = category.map(value => {
         value["product"] = []
@@ -53,12 +57,12 @@ async function getData(params) {
                     "img": m["img"],
                     "price": m["min_price"],
                     "stock": m["stock"],
-                    "sku": m["sku"]
+                    "sku": m["sku"],
+                    "status": m["status"]
                 })
             }
         })
         return value
     })
-    console.info(result[0].product.sku)
     return {state: 0, errmsg: "success", data: result}
 }

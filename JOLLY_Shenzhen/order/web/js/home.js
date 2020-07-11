@@ -120,7 +120,7 @@ var homevm = new Vue({
             // }
         },
         // 历史订单，销售单据
-        toOrderForm() {
+        toPage(page) {
             if (this.order.length) {
                 // 订单未结束,不能查看销售单据/退货
                 $('#modal_1').on('show.bs.modal', function (e) {
@@ -141,7 +141,11 @@ var homevm = new Vue({
                 return
             }
             // this._storageData()
-            window.location.href = "orderform"
+            if (page == "OrderForm") {
+                window.location.href = "orderform"
+            } else {
+                window.location.href = "product"
+            }
         },
         // _storageData() {
         //     // 仅为了对页面数据进行保持状态
@@ -316,7 +320,7 @@ var homevm = new Vue({
             }
             // 超出小数2位数，向上取整
             this.trade.total_diacount_price = Math.ceil(this.trade.total_diacount_price * 100) / 100
-            this.trade.total_diacount_price =  this.trade.total_diacount_price.toString()
+            this.trade.total_diacount_price = this.trade.total_diacount_price.toString()
         },
         // 提交订单
         submitOrder() {
@@ -450,7 +454,7 @@ var homevm = new Vue({
             }
             let discount = Number(val) / 100
             this.trade.total_diacount_price = Math.round(this.trade.total_price * discount * 100) / 100  // 四舍五入保留两位小数
-            this.trade.total_diacount_price =  this.trade.total_diacount_price.toString()
+            this.trade.total_diacount_price = this.trade.total_diacount_price.toString()
         }
     },
     mounted: function () {

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!--适配移动端 -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>销售单据</title>
+    <!--css-->
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/orderform.css" rel="stylesheet">
+    <!--js-->
+    <script type="text/javascript" src="/source/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/source/popper-2.1.1/popper.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/source/moment-2.24.0/moment-with-locales.js"></script>
+    <script type="text/javascript"
+            src="/source/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- 使用bootstrap-datetimepicker 需先引用 moment-with-locales -->
+    <script type="text/javascript" src="/source/vue/vue.min.js"></script>
+    <script type="text/javascript" src="/source/axios/axios.min.js"></script>
+    <script type="text/javascript" src="/source/chart/Chart.min.js"></script><!-- Chartjs -->
+    <script type="text/javascript" src="/utils/http.js"></script>
+    <script type="text/javascript" src="/utils/apis.js"></script>
+    <script type="text/javascript" src="/utils/util.js"></script>
+
+</head>
+<body>
+<div class="position-fixed w-100 text-center" style="line-height: 50px">编辑</div>
+<div id="GetHeader" class="position-fixed row w-100 no-gutters">
+    <div id="backspace">
+        <get-backspace></get-backspace>
+    </div>
+</div>
+<div class="nav pt-5" id="product">
+    <div id="GetSidebar" class="col-md-4 col-xl-3 border-bottom-0 px-0">
+        <div class="bg-success text-center py-3">
+            <div>分类</div>
+            <!--<div>总额</div>-->
+        </div>
+        <div class="bd-sidebar bd-links">
+            <div class="border-bottom py-4 no-gutters text-center" :class="cursor_id==index ? 'badge-info' : ''"
+                 v-for="item,index in category" @click="cursor_id=index;">
+                {{item.name}}
+            </div>
+        </div>
+    </div>
+    <main class="col-md-8 col-xl-9 py-md-0 pl-md-3 bd-content py-5" role="main">
+        <!--标题-->
+        <div class="nav justify-content-between bg-info px-2 py-md-3 row">
+            <div class="col-sm-5 px-2">商品名</div>
+            <div class="col-sm-1 px-2 text-center">状态</div>
+            <div class="col-sm-3 px-2 text-center">售价</div>
+            <div class="col-sm-3 px-2 text-center">库存</div>
+        </div>
+        <div class="bd-sidebar bd-links row px-2 py-md-3 order-detail" style="height: calc(100vh - 100px);"
+             v-if="category.length">
+            <div class="nav flex-wrap flex-row align-items-center mb-2 pb-2 py-3 border-bottom"
+                 v-for="item in category[cursor_id].product" @click="showEditProductModal(item)">
+                <!--订单商品详情-->
+                <div class="col-sm-5 px-2">
+                    <div>{{item.name}}</div>
+                </div>
+                <div class="col-sm-1 px-2 text-center">
+                    <span :class="item.status == 0 ? 'text-danger' : 'text-success'">{{item.status == 0 ? '下架' : '在售'}}</span>
+                </div>
+                <div class="col-sm-3 px-2 text-center">{{item.price}}</div>
+                <div class="col-sm-3 px-2 text-center">{{item.stock}}</div>
+            </div>
+            <div v-if="!category[cursor_id].product.length">暂无数据~</div>
+        </div>
+    </main>
+
+    <!--反结账-->
+    <!--<div class="modal fade" id="modal_anti_checkout" tabindex="-1" role="dialog"-->
+    <!--aria-labelledby="myModalReturnOfGoods" data-backdrop="static">-->
+    <!--<div class="modal-dialog" role="document">-->
+    <!--<div class="modal-content">-->
+    <!--<div class="modal-header">-->
+    <!--<h5 class="modal-title"></h5>-->
+    <!--</div>-->
+    <!--<div class="modal-body">-->
+    <!--<form>-->
+    <!--<div class="form-group">-->
+    <!--<label for="message-text" class="col-form-label">确认要反结账该单据吗？如果反结账请说明一下吧</label>-->
+    <!--<textarea class="form-control" style="min-height: 200px !important;" id="message-text"-->
+    <!--placeholder="在此输入反结账备注信息" v-model="anti_checkout_text"></textarea>-->
+    <!--</div>-->
+    <!--</form>-->
+    <!--</div>-->
+    <!--<div class="modal-footer">-->
+    <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>-->
+    <!--<button type="button" class="btn btn-primary" id="modal_anti_checkout_submit"-->
+    <!--@click="AntiCheckout">确定-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--退货-->
+    <div class="modal fade" id="modal_edit_goods" tabindex="-1" role="dialog"
+         aria-labelledby="myModalEditGoods" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 px-2 mb-2 nav align-items-center justify-content-center text-center">
+                        <div class="mr-5">分类</div>
+                        <select class="custom-select w-75" id="inputGroupSelect03"
+                                aria-label="Example select with button addon" v-model="editProduct.category_id">
+                            <option v-for="item in category" :value="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 px-2 mb-2 nav align-items-center justify-content-center text-center">
+                        <div class="mr-5">名称</div>
+                        <input type="text" class="form-control w-75 h-100 text-right"
+                               v-model="editProduct.name">
+                    </div>
+                    <div class="col-sm-12 px-2 mb-2 nav align-items-center justify-content-center text-center">
+                        <div class="mr-5">售价</div>
+                        <input type="text" class="form-control w-75 h-100 text-right"
+                               @input="editProduct.price=editProduct.price.replace(/[^\d.]/g,''),editProduct.price=editProduct.price.replace(/\.{2,}/g,'.'),editProduct.price=editProduct.price.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
+                               v-model="editProduct.price">
+                    </div>
+                    <div class="col-sm-12 px-2 mb-2 nav align-items-center justify-content-center text-center">
+                        <div class="mr-5">库存</div>
+                        <input type="text" class="form-control w-75 h-100 text-right"
+                               @input="editProduct.stock=editProduct.stock.replace(/[^\d]/g,'');editProduct.stock=editProduct.stock>editProduct.number?editProduct.number:editProduct.stock"
+                               v-model="editProduct.stock">
+                    </div>
+                    <div class="col-sm-12 px-2 mb-2 nav align-items-center justify-content-around text-center">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                   :checked="editProduct.status == 0" @click="editProduct.status=0">
+                            <label class="form-check-label" for="exampleRadios1">
+                                下架
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                   :checked="editProduct.status == 1" @click="editProduct.status=1">
+                            <label class="form-check-label" for="exampleRadios2">
+                                上架
+                            </label>
+                        </div>
+                    </div>
+                    <!--<div class="nav justify-content-between bg-info px-2 py-md-3 row no-gutters">-->
+                    <!--<div class="col-sm-4 px-2">商品名</div>-->
+                    <!--<div class="col-sm-2 px-2 text-center">售价</div>-->
+                    <!--<div class="col-sm-2 px-2 text-center">折扣价</div>-->
+                    <!--<div class="col-sm-2 px-2 text-center">数量</div>-->
+                    <!--<div class="col-sm-2 px-2 text-center">退货数量</div>-->
+                    <!--</div>-->
+                    <!--<div class="bd-sidebar bd-links row px-2 py-md-3 order-detail no-gutters h-auto">-->
+                    <!--<div class="nav flex-wrap flex-row align-items-center mb-2 pb-2 border-bottom"-->
+                    <!--v-for="item in editProduct">-->
+                    <!--&lt;!&ndash;订单商品详情&ndash;&gt;-->
+                    <!--<div class="col-sm-4 px-2">-->
+                    <!--<div>{{item.name}}<span class="figure-caption"-->
+                    <!--v-for="sku in item.param"> —{{sku}}</span>-->
+                    <!--</div>-->
+                    <!--<div class="figure-caption">{{item.note ? "备注："+item.note : ""}}</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-2 px-2 text-center">{{item.price}}</div>-->
+                    <!--<div class="col-sm-2 px-2 text-center">{{item.discount_price}}</div>-->
+                    <!--<div class="col-sm-2 px-2 text-center">{{item.number}}</div>-->
+                    <!--<div class="col-sm-2 px-2 text-center">-->
+                    <!--<input type="text" class="form-control h-100 text-right"-->
+                    <!--@input="item.return_number=item.return_number.replace(/[^\d]/g,'');item.return_number=item.return_number>item.number?item.number:item.return_number"-->
+                    <!--v-model="item.return_number">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-primary" id="modal_edit_goods_submit"
+                            @click="submitProduct">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="MyModal">
+        <my-loading></my-loading>
+        <my-modal-1></my-modal-1>
+    </div>
+</div>
+</body>
+<!--js-->
+<script type="text/javascript" src="/component/header.js"></script>
+<script type="text/javascript" src="/component/datetimepicker.js"></script>
+<script type="text/javascript" src="/component/modal.js"></script>
+<script type="text/javascript" src="/js/product.js"></script>
+</html>

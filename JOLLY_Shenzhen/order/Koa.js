@@ -50,7 +50,7 @@ Koa.Init = function () {
                     ctx.response.body = fs.createReadStream('./web/html/index.html');
                 } else {
                     // pathList 所能打开的网页列表，可改为从文件public_data.js中获取
-                    const pathList = ["/home", "/orderform", "/pendingorder"]
+                    const pathList = ["/home", "/orderform", "/product", "/pendingorder"]
                     if (pathList.indexOf(path) == -1) {
                         ctx.response.type = 'html';
                         ctx.response.body = fs.createReadStream('./web/html/404.html');

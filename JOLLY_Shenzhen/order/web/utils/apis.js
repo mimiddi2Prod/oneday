@@ -8,6 +8,7 @@ var api = {
     restoreStock: "/apis/restore_stock",
     getTrade: "/apis/get_trade",
     afterSale: "/apis/after_sale",
+    setProduct: "/apis/set_product",
 
     getCategoryAndProduct: "/apis/get_category_and_product",
     test: "/apis/test"
