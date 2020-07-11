@@ -86,6 +86,8 @@ app.use(function (req, res, next) {
                     showPaper('html/category.html');
                 } else if (type[1] == 'order') {
                     showPaper('html/order.html');
+                } else if (type[1] == 'account') {
+                    showPaper('html/account.html');
                 } else {
                     showPaper('html/404.html')
                 }

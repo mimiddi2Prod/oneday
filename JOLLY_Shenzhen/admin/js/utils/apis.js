@@ -11,5 +11,8 @@ var api = {
     delCategory: '../api/del_category',
     getOrder: '../api/get_order',
     getOrderBySearch: '../api/get_order_by_search',
-    updateGoods:'../api/update_goods',
+    updateGoods: '../api/update_goods',
+
+    getAccount: '../api/get_account',
+    setAccount: '../api/set_account',
 }

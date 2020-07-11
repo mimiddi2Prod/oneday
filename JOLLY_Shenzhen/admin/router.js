@@ -62,6 +62,14 @@ function Router() {
                 var updateGoods = require("./api/update_goods.js");
                 baseApi = new updateGoods;
                 break;
+            case "get_account":
+                var getAccount = require("./api/get_account.js");
+                baseApi = new getAccount;
+                break;
+            case "set_account":
+                var setAccount = require("./api/set_account.js");
+                baseApi = new setAccount;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

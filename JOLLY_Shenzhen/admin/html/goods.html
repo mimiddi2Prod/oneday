@@ -176,12 +176,12 @@
                         <!--<button type="button" class="btn btn-link">删除</button>-->
                     </div>
                 </div>
-                <div class="p borderBotm" v-if="item.param.length > 0">
-                    <div class="param" v-for="paramItem,paramIndex in item.param"
-                         :class="(paramIndex >= 2 && !item.showMoreParam ? 'none' : '')">
-                        <div style="text-align: end;flex:2">
-                            <span style="padding-right: 20px">{{paramItem.param}}</span>
-                        </div>
+                <!--<div class="p borderBotm" v-if="item.param.length > 0">-->
+                    <!--<div class="param" v-for="paramItem,paramIndex in item.param"-->
+                         <!--:class="(paramIndex >= 2 && !item.showMoreParam ? 'none' : '')">-->
+                        <!--<div style="text-align: end;flex:2">-->
+                            <!--<span style="padding-right: 20px">{{paramItem.param}}</span>-->
+                        <!--</div>-->
                         <!--<div class="column-center" style="flex:1">-->
                             <!--{{paramItem.price}}-->
                         <!--</div>-->
@@ -192,15 +192,15 @@
                         <!--<div class="column-center" style="flex:1">-->
                             <!--{{paramItem.stock}}-->
                         <!--</div>-->
-                    </div>
-                    <div class="param">
-                        <div style="text-align: center;flex:2">
-                        <span style="margin-left: 160px;color: #337ab7;cursor: pointer"
-                              v-on:click="showMoreParam(item.id)">{{item.showMoreParam ? '收起' : '查看更多'}}</span>
-                        </div>
-                    </div>
+                    <!--</div>-->
+                    <!--<div class="param">-->
+                        <!--<div style="text-align: center;flex:2">-->
+                        <!--<span style="margin-left: 160px;color: #337ab7;cursor: pointer"-->
+                              <!--v-on:click="showMoreParam(item.id)">{{item.showMoreParam ? '收起' : '查看更多'}}</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
-                </div>
+                <!--</div>-->
             </div>
 
         </div>

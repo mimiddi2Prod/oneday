@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!--适配移动端 -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>销售单据</title>
+    <!--css-->
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/orderform.css" rel="stylesheet">
+    <!--js-->
+    <script type="text/javascript" src="/source/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/source/popper-2.1.1/popper.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/source/moment-2.24.0/moment-with-locales.js"></script>
+    <script type="text/javascript"
+            src="/source/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- 使用bootstrap-datetimepicker 需先引用 moment-with-locales -->
+    <script type="text/javascript" src="/source/vue/vue.min.js"></script>
+    <script type="text/javascript" src="/source/axios/axios.min.js"></script>
+    <script type="text/javascript" src="/source/chart/Chart.min.js"></script><!-- Chartjs -->
+    <script type="text/javascript" src="/utils/http.js"></script>
+    <script type="text/javascript" src="/utils/apis.js"></script>
+    <script type="text/javascript" src="/utils/util.js"></script>
+
+</head>
+<body>
+<div class="position-fixed w-100 text-center" style="line-height: 50px">收款</div>
+<div id="GetHeader" class="position-fixed row w-100 no-gutters">
+    <div id="backspace">
+        <get-backspace></get-backspace>
+    </div>
+</div>
+<div class="nav pt-5" id="orderform">
+    <div id="GetSidebar" class="col-md-4 col-xl-3 border-bottom-0 px-0">
+        <div class="nav justify-content-between bg-success px-2 py-md-3 text-right pr-4">
+            <div>列表</div>
+        </div>
+        <div class="bd-sidebar bd-links">
+            <!--<div class="container">-->
+            <div class="border-bottom py-2 no-gutters" :class="cursor_id==index ? 'badge-info' : ''"
+                 v-for="item,index in trade" @click="cursor_id=index;order=trade[cursor_id].order">
+                <div class="row no-gutters">
+                    <div>牌号：</div>
+                    <!--<div class="col-sm-9 px-2">-->
+                        <!--{{item.trade_id}}-->
+                        <!--<span class="alert-danger btn-sm" v-if="item.after_sale_type==1">反</span>-->
+                        <!--<span class="alert-warning btn-sm" v-if="item.after_sale_type==2">退</span>-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-3 px-2 text-center price">-->
+                        <!--￥{{item.actually_total_price}}-->
+                    <!--</div>-->
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-sm-9 px-2">
+                        {{item.table_number ? '桌号：'+item.table_number : ''}}
+                    </div>
+                    <div class="figure-caption text-right">
+                        {{item.create_time}}
+                    </div>
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
+    <main class="col-md-8 col-xl-9 py-md-0 pl-md-3 bd-content py-5" role="main">
+        <!--标题-->
+        <div class="nav justify-content-between bg-info px-2 py-md-3 row">
+            <div class="col-sm-4 px-2">商品名</div>
+            <div class="col-sm-3 px-2 text-center">售价</div>
+            <div class="col-sm-3 px-2 text-center">折扣价</div>
+            <div class="col-sm-2 px-2 text-center">数量</div>
+        </div>
+        <div class="bd-sidebar bd-links row px-2 py-md-3 order-detail" v-if="trade.length">
+            <div class="nav flex-wrap flex-row align-items-center mb-2 pb-2 border-bottom"
+                 v-for="item in trade[cursor_id].order">
+                <!--订单商品详情-->
+                <div class="col-sm-4 px-2">
+                    <div>{{item.name}}<span class="figure-caption" v-for="sku in item.param"> —{{sku}}</span></div>
+                    <div class="figure-caption">{{item.note ? "备注："+item.note : ""}}</div>
+                </div>
+                <div class="col-sm-3 px-2 text-center">{{item.price}}</div>
+                <div class="col-sm-3 px-2 text-center">{{item.discount_price}}</div>
+                <div class="col-sm-2 px-2 text-center">{{item.number}}
+                    <span class="badge-success btn-sm" v-if="item.return_number">退{{item.return_number}}</span>
+                </div>
+            </div>
+            <div class="alert-info p-2" v-if="trade[cursor_id].after_sale_type == 1">备注：{{trade[cursor_id].after_sale_remark}}</div>
+        </div>
+        <div class="db-btns card border-0" v-if="trade.length">
+            <div class="card-body py-0 px-0">
+                <div class="justify-content-between db-btn row mr-2">
+                    <div class="px-2">件数：{{trade[cursor_id].goods_total_number}}</div>
+                    <div class="ml-3 px-2">总计：{{trade[cursor_id].goods_total_price}}&nbsp;&nbsp;&nbsp;应收(计算折扣后)：{{trade[cursor_id].actually_total_price}}&nbsp;&nbsp;&nbsp;{{trade[cursor_id].pay_method}}</div>
+                </div>
+                <div class="text-center row db-btn align-items-center bg-dark" v-if="!trade[cursor_id].after_sale_type">
+                    <div class="w-50" @click="showReturnModal">退货</div>
+                    <div class="w-50" @click="showAntiCheckoutModal">反结账</div>
+                </div>
+                <div class="text-center row db-btn align-items-center bg-secondary"
+                     v-if="trade[cursor_id].after_sale_type">
+                    <div class="w-50">退货</div>
+                    <div class="w-50">反结账</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!--反结账-->
+    <div class="modal fade" id="modal_anti_checkout" tabindex="-1" role="dialog"
+         aria-labelledby="myModalReturnOfGoods" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">确认要反结账该单据吗？如果反结账请说明一下吧</label>
+                            <textarea class="form-control" style="min-height: 200px !important;" id="message-text"
+                                      placeholder="在此输入反结账备注信息" v-model="anti_checkout_text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="modal_anti_checkout_submit"
+                            @click="AntiCheckout">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--退货-->
+    <div class="modal fade" id="modal_return_of_goods" tabindex="-1" role="dialog"
+         aria-labelledby="myModalReturnOfGoods" data-backdrop="static">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="nav justify-content-between bg-info px-2 py-md-3 row no-gutters">
+                        <div class="col-sm-4 px-2">商品名</div>
+                        <div class="col-sm-2 px-2 text-center">售价</div>
+                        <div class="col-sm-2 px-2 text-center">折扣价</div>
+                        <div class="col-sm-2 px-2 text-center">数量</div>
+                        <div class="col-sm-2 px-2 text-center">退货数量</div>
+                    </div>
+                    <div class="bd-sidebar bd-links row px-2 py-md-3 order-detail no-gutters h-auto"
+                         v-if="trade.length">
+                        <div class="nav flex-wrap flex-row align-items-center mb-2 pb-2 border-bottom"
+                             v-for="item in trade[cursor_id].order">
+                            <!--订单商品详情-->
+                            <div class="col-sm-4 px-2">
+                                <div>{{item.name}}<span class="figure-caption"
+                                                        v-for="sku in item.param"> —{{sku}}</span>
+                                </div>
+                                <div class="figure-caption">{{item.note ? "备注："+item.note : ""}}</div>
+                            </div>
+                            <div class="col-sm-2 px-2 text-center">{{item.price}}</div>
+                            <div class="col-sm-2 px-2 text-center">{{item.discount_price}}</div>
+                            <div class="col-sm-2 px-2 text-center">{{item.number}}</div>
+                            <div class="col-sm-2 px-2 text-center">
+                                <input type="text" class="form-control h-100 text-right"
+                                       @input="item.return_number=item.return_number.replace(/[^\d]/g,'');item.return_number=item.return_number>item.number?item.number:item.return_number"
+                                       v-model="item.return_number">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancleReturnOfGoods">取消</button>
+                    <button type="button" class="btn btn-primary" id="modal_return_of_goods_submit"
+                            @click="ReturnOfGoods">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="MyModal">
+        <my-loading></my-loading>
+        <my-modal-1></my-modal-1>
+    </div>
+</div>
+</body>
+<!--js-->
+<script type="text/javascript" src="/component/header.js"></script>
+<script type="text/javascript" src="/component/datetimepicker.js"></script>
+<script type="text/javascript" src="/component/modal.js"></script>
+<script type="text/javascript" src="/js/orderform.js"></script>
+</html>

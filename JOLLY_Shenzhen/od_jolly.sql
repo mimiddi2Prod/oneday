@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-07-09 17:35:52
+Date: 2020-07-11 12:31:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,6 +27,7 @@ CREATE TABLE `admin` (
   `register_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_login_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `type` int(1) NOT NULL COMMENT '1:god 2:admin 3employee_account',
+  `state` int(2) DEFAULT NULL COMMENT '0 删除 1 启用 2 禁用',
   `position_id` int(12) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
   `token_expire` timestamp NULL DEFAULT NULL,
@@ -38,13 +39,14 @@ CREATE TABLE `admin` (
   `navigation` varchar(255) DEFAULT NULL,
   `waterfall` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-07-04 15:36:05', '1', null, 'cc0ea6b3-8598-47c4-9f60-d76e229f63bc', '2020-07-09 18:41:36', 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1', null, null, null, null, null, null);
-INSERT INTO `admin` VALUES ('2', '1001', 's1001', null, '2019-05-14 13:58:38', '2020-07-04 15:36:05', '3', null, 'e5db67dc-1ce9-4e11-98bd-a36e387ef0c3', '2020-07-10 14:51:22', 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-07-11 11:49:33', '1', null, null, 'f08e3ae9-251c-40c8-8dfe-4aa24a65fea6', '2020-07-11 23:49:33', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('2', '1001', 's1001', null, '2019-05-14 13:58:38', '2020-07-04 15:36:05', '3', '2', null, 'e5db67dc-1ce9-4e11-98bd-a36e387ef0c3', '2020-07-10 14:51:22', 'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('6', 'd2qwe', '2312', null, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '3', '0', null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -59,7 +61,7 @@ CREATE TABLE `admin_menu` (
   `sort` int(12) NOT NULL,
   `tag` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin_menu
@@ -69,6 +71,7 @@ INSERT INTO `admin_menu` VALUES ('2', '商品', '2019-07-24 17:53:47', '../../im
 INSERT INTO `admin_menu` VALUES ('3', '商品管理', '2019-07-24 17:53:51', '', '2', '0', 'goods');
 INSERT INTO `admin_menu` VALUES ('4', '分类管理', '2019-07-24 17:54:11', '', '2', '0', 'category');
 INSERT INTO `admin_menu` VALUES ('5', '订单', '2019-07-24 17:54:14', '../../images/logo.png', '0', '0', 'order');
+INSERT INTO `admin_menu` VALUES ('6', '员工账号', '2019-07-24 17:54:14', '../../images/logo.png', '0', '0', 'account');
 
 -- ----------------------------
 -- Table structure for banner
@@ -106,7 +109,7 @@ CREATE TABLE `category` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of category
@@ -119,7 +122,6 @@ INSERT INTO `category` VALUES ('5', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48
 INSERT INTO `category` VALUES ('6', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48:13', '1');
 INSERT INTO `category` VALUES ('7', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48:13', '1');
 INSERT INTO `category` VALUES ('8', '盖浇饭', 'xmspw', '1', '2019-07-17 18:48:13', '1');
-INSERT INTO `category` VALUES ('9', 'dwq 111', 'xmspw', '0', '2020-06-19 11:30:16', '0');
 
 -- ----------------------------
 -- Table structure for goods
@@ -139,14 +141,14 @@ CREATE TABLE `goods` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
 INSERT INTO `goods` VALUES ('1', '鸡蛋盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '989', '1', '2', '2019-07-17 17:14:50', '1');
 INSERT INTO `goods` VALUES ('2', '炒肉盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '995', '1', '1', '2019-07-17 17:14:50', '1');
-INSERT INTO `goods` VALUES ('3', '西红柿鸡蛋面', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '营养丰富', '1.00', 'xmspw', '1', '9903', '1', '0', '2020-07-02 11:07:18', '1');
+INSERT INTO `goods` VALUES ('3', '西红柿鸡蛋面', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '营养丰富', '1.00', 'xmspw', '1', '9902', '1', '0', '2020-07-10 16:21:12', '1');
 INSERT INTO `goods` VALUES ('4', '鸡蛋盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '996', '1', '2', '2019-07-17 17:14:50', '1');
 INSERT INTO `goods` VALUES ('5', '鸡蛋盖浇饭带大家是大家', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '993', '1', '2', '2019-07-17 17:14:50', '1');
 INSERT INTO `goods` VALUES ('6', '鸡蛋盖浇饭', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '营养丰富', '20.00', 'xmspw', '2', '997', '1', '2', '2019-07-17 17:14:50', '1');
@@ -159,6 +161,7 @@ INSERT INTO `goods` VALUES ('12', '他说他', 'http://yanyanqiniu.youyueworld.c
 INSERT INTO `goods` VALUES ('13', '1', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '2', '1.00', 'xmspw', '3', '991', '1', '1', '2020-03-07 15:25:09', '1');
 INSERT INTO `goods` VALUES ('14', '借记卡金卡你2', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '环境开会看见', '10.00', 'xmspw', '2', '0', '1', '1', '2020-06-19 15:32:57', '1');
 INSERT INTO `goods` VALUES ('15', '尽快把', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_33_17_0.jpg', '开局良好开局', '10.00', 'xmspw', '2', '18', '1', '5', '2020-06-19 15:34:02', '1');
+INSERT INTO `goods` VALUES ('16', '吃的', 'http://onedayqiniu.minidope.com/goods_2020_7_9_17_59_40_0.png', '好好吃', '23.00', 'sz', '4', '2', '1', '1', '2020-07-09 18:07:45', '1');
 
 -- ----------------------------
 -- Table structure for goods_order
@@ -186,7 +189,7 @@ CREATE TABLE `goods_order` (
   `pay_method` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '支付方式 微信支付/余额支付',
   `return_number` int(6) DEFAULT NULL COMMENT '退货数量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of goods_order
@@ -195,6 +198,17 @@ INSERT INTO `goods_order` VALUES ('89', '', '15', '3', '西红柿鸡蛋面', '',
 INSERT INTO `goods_order` VALUES ('90', '', '5', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热\"}', '9.00', '9.00', '1', null, 'qt20200709163644', '2020-07-09 16:36:44', '0', '0', '0', '0', '', null);
 INSERT INTO `goods_order` VALUES ('91', '', '5', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热\"}', '9.00', '1.00', '1', null, 'qt20200709163644', '2020-07-09 16:36:44', '0', '0', '0', '0', '', null);
 INSERT INTO `goods_order` VALUES ('92', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', '1.00', '2', null, 'qt20200709171747', '2020-07-09 17:17:47', '0', '0', '0', '0', '', null);
+INSERT INTO `goods_order` VALUES ('93', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '3', '3', '西红柿鸡蛋面', '营养丰富', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"冰\"}', '6.00', null, '1', null, 'test159434794908302582', '2020-07-10 10:25:49', '0', '3', '1', '0', 'Wxpay', null);
+INSERT INTO `goods_order` VALUES ('94', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '6', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159434828833550763', '2020-07-10 10:31:30', '0', '3', '1', '0', 'Wxpay', null);
+INSERT INTO `goods_order` VALUES ('95', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '6', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '2', null, 'test159434836310647221', '2020-07-10 10:32:43', '0', '3', '1', '0', 'Wxpay', null);
+INSERT INTO `goods_order` VALUES ('96', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '7', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '2', null, 'test159434841969462324', '2020-07-10 10:33:40', '0', '3', '1', '0', 'Wxpay', null);
+INSERT INTO `goods_order` VALUES ('97', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '5', '鸡蛋盖浇饭带大家是大家', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '2', null, 'test159434894936443815', '2020-07-10 10:42:29', '0', '3', '1', '0', 'Wxpay', null);
+INSERT INTO `goods_order` VALUES ('98', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '8', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '3', null, 'test159434930026270360', '2020-07-10 10:48:21', '0', '3', '1', '0', 'Wxpay', null);
+INSERT INTO `goods_order` VALUES ('99', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '1', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159435034044568671', '2020-07-10 11:05:41', '0', '3', '1', '0', 'Wxpay', null);
+INSERT INTO `goods_order` VALUES ('100', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '1', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '8', null, 'test159435089071509223', '2020-07-10 11:14:51', '0', '3', '1', '0', 'Wxpay', null);
+INSERT INTO `goods_order` VALUES ('101', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '6', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '1', null, 'test159435104009135747', '2020-07-10 11:17:20', '0', '9', '1', '0', 'Wxpay', null);
+INSERT INTO `goods_order` VALUES ('102', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '0', '7', '鸡蛋盖浇饭', '营养丰富', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '\"\"', '20.00', null, '8', null, 'test159435108221687807', '2020-07-10 11:18:02', '0', '3', '1', '0', 'Wxpay', null);
+INSERT INTO `goods_order` VALUES ('103', '', '15', '3', '西红柿鸡蛋面', '', 'http://onedayqiniu.minidope.com/goods_2020_6_19_11_21_11_0.png', '{\"冰度\":\"热7\"}', '1.00', '0.12', '1', null, 'qt20200710143912', '2020-07-10 14:39:12', '0', '0', '0', '0', '', null);
 
 -- ----------------------------
 -- Table structure for goods_sku
@@ -209,26 +223,17 @@ CREATE TABLE `goods_sku` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of goods_sku
 -- ----------------------------
 INSERT INTO `goods_sku` VALUES ('1', '999', '5.00', '2', '{\"冰度\":\"冰\",\"甜度\":\"半糖\"}', '0000-00-00 00:00:00', '0');
 INSERT INTO `goods_sku` VALUES ('2', '999', '6.00', '2', '{\"冰度\":\"冰\",\"甜度\":\"无糖\"}', '0000-00-00 00:00:00', '0');
-INSERT INTO `goods_sku` VALUES ('3', '999', '6.00', '3', '{\"冰度\":\"冰\"}', '2020-07-02 11:07:18', '1');
-INSERT INTO `goods_sku` VALUES ('4', '999', '7.00', '3', '{\"冰度\":\"正常冰\"}', '2020-07-02 11:07:18', '1');
-INSERT INTO `goods_sku` VALUES ('5', '999', '9.00', '3', '{\"冰度\":\"热\"}', '2020-07-02 11:07:18', '1');
 INSERT INTO `goods_sku` VALUES ('6', '2', '34.00', '12', '{\"糖度\":\"多糖\",\"冰度\":\"50度\"}', '2019-07-30 18:19:45', '1');
 INSERT INTO `goods_sku` VALUES ('7', '4', '23.00', '12', '{\"糖度\":\"多糖\",\"冰度\":\"100度\"}', '2019-07-30 18:19:45', '1');
 INSERT INTO `goods_sku` VALUES ('8', '4', '3.00', '12', '{\"糖度\":\"单糖\",\"冰度\":\"50度\"}', '2019-07-30 18:19:45', '1');
 INSERT INTO `goods_sku` VALUES ('9', '3', '22.00', '12', '{\"糖度\":\"单糖\",\"冰度\":\"100度\"}', '2019-07-30 18:19:45', '1');
-INSERT INTO `goods_sku` VALUES ('10', '999', '9.00', '3', '{\"冰度\":\"热3432\"}', '2020-07-02 11:07:18', '1');
-INSERT INTO `goods_sku` VALUES ('11', '999', '9.00', '3', '{\"冰度\":\"热34343\"}', '2020-07-02 11:07:18', '1');
-INSERT INTO `goods_sku` VALUES ('12', '999', '9.00', '3', '{\"冰度\":\"热344\"}', '2020-07-02 11:07:18', '1');
-INSERT INTO `goods_sku` VALUES ('13', '999', '222.00', '3', '{\"冰度\":\"热wewe5\"}', '2020-07-02 11:07:18', '1');
-INSERT INTO `goods_sku` VALUES ('14', '999', '9.00', '3', '{\"冰度\":\"热346\"}', '2020-07-02 11:07:18', '1');
-INSERT INTO `goods_sku` VALUES ('15', '15', '1.00', '3', '{\"冰度\":\"热7\"}', '2020-07-02 11:07:18', '1');
 INSERT INTO `goods_sku` VALUES ('16', '3', '1.00', '13', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '2020-03-07 15:25:09', '1');
 INSERT INTO `goods_sku` VALUES ('17', '3', '2.00', '13', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"威威\"}', '2020-03-07 15:25:09', '1');
 INSERT INTO `goods_sku` VALUES ('18', '3', '3.00', '13', '{\"糖度\":\"半糖\",\"冰度\":\"100度\",\"第三\":\"七期\"}', '2020-03-07 15:25:09', '1');
@@ -239,6 +244,9 @@ INSERT INTO `goods_sku` VALUES ('22', '3', '7.00', '13', '{\"糖度\":\"多糖\"
 INSERT INTO `goods_sku` VALUES ('23', '3', '8.00', '13', '{\"糖度\":\"多糖\",\"冰度\":\"100度\",\"第三\":\"威威\"}', '2020-03-07 15:25:09', '1');
 INSERT INTO `goods_sku` VALUES ('24', '10', '10.00', '15', '{\"糖度\":\"多糖\",\"冰度\":\"50度\"}', '2020-06-19 15:34:02', '1');
 INSERT INTO `goods_sku` VALUES ('25', '10', '10.00', '15', '{\"糖度\":\"多糖\",\"冰度\":\"100度\"}', '2020-06-19 15:34:02', '1');
+INSERT INTO `goods_sku` VALUES ('26', '0', '0.00', '16', '{\"糖度\":\"多糖\"}', '2020-07-09 18:07:45', '1');
+INSERT INTO `goods_sku` VALUES ('27', '0', '0.00', '3', '{\"冰度\":\"冰\"}', '2020-07-10 16:21:12', '1');
+INSERT INTO `goods_sku` VALUES ('28', '0', '0.00', '3', '{\"冰度\":\"热\"}', '2020-07-10 16:21:12', '1');
 
 -- ----------------------------
 -- Table structure for goods_trade
@@ -272,13 +280,24 @@ CREATE TABLE `goods_trade` (
   `employee_account` varchar(255) DEFAULT NULL COMMENT '前台收银记录',
   `after_sale_price` decimal(10,2) DEFAULT NULL COMMENT '反结账为全款 退货为已退的价',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=230 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of goods_trade
 -- ----------------------------
 INSERT INTO `goods_trade` VALUES ('228', 'qt20200709163644', '', '2', '[89,90,91]', '4', '12.00', '12.00', '1', '现金', '2020-07-09 16:36:44', '2020-07-09 16:36:44', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, '1', 'd2w', '1001', '12.00');
 INSERT INTO `goods_trade` VALUES ('229', 'qt20200709171747', '', '2', '[92]', '2', '2.00', '0.00', '1', '现金', '2020-07-09 17:17:47', '2020-07-09 17:17:47', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null);
+INSERT INTO `goods_trade` VALUES ('230', 'test159434794908302582', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[93]', '1', '6.00', '6.00', '0', 'Wxpay', '2020-07-10 10:25:49', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, null, null);
+INSERT INTO `goods_trade` VALUES ('231', 'test159434828833550763', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[94]', '1', '20.00', '20.00', '0', 'Wxpay', '2020-07-10 10:31:30', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, null, null);
+INSERT INTO `goods_trade` VALUES ('232', 'test159434836310647221', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[95]', '2', '40.00', '40.00', '0', 'Wxpay', '2020-07-10 10:32:43', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, null, null);
+INSERT INTO `goods_trade` VALUES ('233', 'test159434841969462324', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[96]', '2', '40.00', '40.00', '0', 'Wxpay', '2020-07-10 10:33:40', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, null, null);
+INSERT INTO `goods_trade` VALUES ('234', 'test159434894936443815', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[97]', '2', '40.00', '40.00', '0', 'Wxpay', '2020-07-10 10:42:29', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, null, null);
+INSERT INTO `goods_trade` VALUES ('235', 'test159434930026270360', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[98]', '3', '60.00', '60.00', '0', 'Wxpay', '2020-07-10 10:48:21', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, null, null);
+INSERT INTO `goods_trade` VALUES ('236', 'test159435034044568671', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[99]', '1', '20.00', '20.00', '0', 'Wxpay', '2020-07-10 11:05:41', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, null, null);
+INSERT INTO `goods_trade` VALUES ('237', 'test159435089071509223', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[100]', '8', '160.00', '160.00', '0', 'Wxpay', '2020-07-10 11:14:51', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, null, null);
+INSERT INTO `goods_trade` VALUES ('238', 'test159435104009135747', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[101]', '1', '20.00', '20.00', '0', 'Wxpay', '2020-07-10 11:17:20', '0000-00-00 00:00:00', '0', '9', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, null, null);
+INSERT INTO `goods_trade` VALUES ('239', 'test159435108221687807', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', '1', '[102]', '8', '160.00', '160.00', '0', 'Wxpay', '2020-07-10 11:18:02', '0000-00-00 00:00:00', '0', '3', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, null, null);
+INSERT INTO `goods_trade` VALUES ('240', 'qt20200710143912', '', '2', '[103]', '1', '0.12', '0.11', '1', '现金', '2020-07-10 14:39:12', '2020-07-10 14:39:12', '0', '12', '1', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, 'admin', null);
 
 -- ----------------------------
 -- Table structure for restaurant_user
@@ -361,7 +380,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('28', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', 'P7XZ1ZY0PsF2fJeBLyRzUw==', null, '2020-03-07 16:09:31', '2020-07-07 17:32:40', 'eMaTmCuf15941143608080eOnMJXZ', '2020-07-08 17:32:40', 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1 wechatdevtools/1.03.2005140 MicroMessenger/7.0.4 Language/zh_CN webview/', null, null, null, null, null, null);
+INSERT INTO `user` VALUES ('28', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', 'U9s4Fpo8D2juDeq+gCvDxQ==', null, '2020-03-07 16:09:31', '2020-07-10 11:59:06', 'lp3cO9H01594353546792unAr6ffh', '2020-07-11 11:59:06', 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1 wechatdevtools/1.03.2005140 MicroMessenger/7.0.4 Language/zh_CN webview/', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for wow_cat
