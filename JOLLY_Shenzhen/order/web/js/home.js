@@ -38,12 +38,17 @@ var homevm = new Vue({
         pay_type_list: ["现金", "支付宝", "微信"],
         discount_list: [95, 9, 85, 8, 75, 7, 6, 5, "免单", "抹零"],
         totalPriceDiscount: "",
-        isKeyDownDiscount: 0  // 0输入的 1按键盘
+        isKeyDownDiscount: 0,  // 0输入的 1按键盘
+        /**
+         * 挂单
+         */
+        pending_order: {}
     },
     methods: {
         _hideModal() {
             $('#modal_1').modal('hide');
             $('#modal_order').modal('hide');
+            $('#modal_pending_order').modal('hide');
         },
         restoreStock() {
             let self = this
@@ -325,7 +330,7 @@ var homevm = new Vue({
         // 提交订单
         submitOrder() {
             let self = this
-            let data = Object.assign(this.trade, {order: this.order},)
+            let data = Object.assign(this.trade, {order: this.order})
             Axios(api.createOrder, "POST", data).then(res => {
                 if (res.state == 0) {
                     self._Init()
@@ -395,7 +400,28 @@ var homevm = new Vue({
                     }
                 })
             }
-        }
+        },
+        /**
+         * 挂单
+         */
+        showPendingOrderModal() {
+            this.pending_order = {
+                remark: "",
+                table_number: "",
+                trade: Object.assign({}, this.trade),
+                order: Object.assign({}, this.order)
+            }
+            console.info(this.pending_order)
+            $('#modal_pending_order').on('show.bs.modal', function (e) {
+                let modal = $(this)
+                modal.find('.modal-title').text('挂单')
+            })
+            $('#modal_pending_order').on('hidden.bs.modal', function (e) {
+                $('#modal_pending_submit')[0].removeEventListener("click", this._hideModal);
+            })
+            $('#modal_pending_order').modal('show');
+            $('#modal_pending_submit')[0].addEventListener("click", this._hideModal)
+        },
     },
     computed: {
         temp() {

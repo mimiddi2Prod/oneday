@@ -21,6 +21,12 @@ body {
     color: #fff;
 }
 
+.db-btns .pending-order:last-child  {
+    border-bottom: 0;
+    background-color: #fff;
+    color: #212529;
+}
+
 /*侧边栏*/
 .bd-links {
     /*padding-top: 1rem;*/
