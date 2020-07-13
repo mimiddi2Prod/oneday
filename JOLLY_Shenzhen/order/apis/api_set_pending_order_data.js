@@ -25,8 +25,14 @@ exports.run = async function (params) {
  * state：状态：0 在售 1 下架 2 删除（不在后台展示）
  */
 async function getData(params) {
-    // let result = await db.Query("select * from goods_pending_order where id = ")
-    let result = await db.Query("update goods_pending_order set `number` = `number` - 1 where `number` > 0 and id = ?", [params.id])
+    let result
+    if (params.type == "cuteNum") {
+        result = await db.Query("update goods_pending_order set `number` = `number` - 1 where `number` > 0 and id = ?", [params.id])
+    } else if (params.type == "updateNum") {
+        result = await db.Query("update goods_pending_order set `number` = ? where id = ?", [params.number, params.id])
+    } else if (params.type == "updateDiscountPrice") {
+        result = await db.Query("update goods_pending_order set `discount_price` = ? where id = ?", [params.discount_price, params.id])
+    }
     if (result.affectedRows) {
         return {code: 0, errmsg: "success", data: await get_pending_order.getData()}
     } else {

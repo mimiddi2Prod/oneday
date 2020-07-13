@@ -69,15 +69,56 @@ var orderformvm = new Vue({
         //         })
         //     })
         // },
-        cutOrderNum(order) {
+        // cutOrderNum(order) {
+        //     let self = this
+        //     $('#loading').modal('show')
+        //     console.info(order)
+        //     Axios(api.setPendingOrderData, "POST", {id: order.id, type: "cuteNum"}).then(res => {
+        //         console.info(res)
+        //         if (res.code == 0) {
+        //             self.trade = res.data.data
+        //             console.info(self.trade, self.cursor_id)
+        //             self.order = self.trade[self.cursor_id].order
+        //         }
+        //         setTimeout(() => {
+        //             self._hideModal()
+        //         }, 500)
+        //     })
+        // },
+        updatePendingOrderData(order, type) {
             let self = this
             $('#loading').modal('show')
-            console.info(order)
-            Axios(api.setPendingOrderNum, "POST", {id: order.id}).then(res => {
+            let data = {}
+            switch (type) {
+                case "cuteNum": {
+                    data = {
+                        id: order.id,
+                        type: type
+                    }
+                    break;
+                }
+                case "updateNum": {
+                    data = {
+                        id: order.id,
+                        type: type,
+                        number: order.number
+                    }
+                    break;
+                }
+                case "updateDiscountPrice": {
+                    data = {
+                        id: order.id,
+                        type: type,
+                        discount_price: order.discount_price
+                    }
+                    break;
+                }
+            }
+            Axios(api.setPendingOrderData, "POST", data).then(res => {
                 console.info(res)
                 if (res.code == 0) {
                     self.trade = res.data.data
-                    console.info(self.trade,self.cursor_id)
+                    console.info(self.trade, self.cursor_id)
                     self.order = self.trade[self.cursor_id].order
                 }
                 setTimeout(() => {
