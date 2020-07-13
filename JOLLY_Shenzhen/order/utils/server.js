@@ -48,6 +48,18 @@ API.prototype.run = async function (apiName, params) {
                 resolve(await require('../apis/api_after_sale.js').run(params))
                 break;
             }
+            case "set_pending_order": {
+                resolve(await require('../apis/api_set_pending_order.js').run(params))
+                break;
+            }
+            case "get_pending_order": {
+                resolve(await require('../apis/api_get_pending_order.js').run(params))
+                break;
+            }
+            case "set_pending_order_num": {
+                resolve(await require('../apis/api_set_pending_order_num.js').run(params))
+                break;
+            }
             default:
                 resolve({
                     errcode: 1,

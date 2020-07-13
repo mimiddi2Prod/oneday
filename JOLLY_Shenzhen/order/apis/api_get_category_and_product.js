@@ -1,5 +1,6 @@
 var db = require("./../utils/dba");
 var utils = require("./../utils/utils.js")
+var get_pending_order = require("./api_get_pending_order")
 
 module.exports = {
     run: async function (params) {
@@ -64,5 +65,9 @@ async function getData(params) {
         })
         return value
     })
-    return {state: 0, errmsg: "success", data: result}
+    return {
+        state: 0,
+        errmsg: "success",
+        data: {list: result, pending_order: await get_pending_order.getData()}
+    }
 }

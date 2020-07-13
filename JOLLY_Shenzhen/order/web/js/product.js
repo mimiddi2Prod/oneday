@@ -12,7 +12,7 @@ var productvm = new Vue({
             Axios(api.getCategoryAndProduct, "POST", {type: "edit"}).then(res => {
                 // console.info(res)
                 if (res.state == 0) {
-                    self.category = res.data
+                    self.category = res.data.list
                 }
                 setTimeout(() => {
                     self._hideModal()

@@ -78,12 +78,14 @@
             </div>
             <div class="db-btns card">
                 <div class="card-body py-0 px-0">
-                    <div class="text-center db-btn" v-if="trade.total_num <= 0">取单</div>
+                    <div class="text-center db-btn" :class="pending_order_num ? '' : 'text-secondary'" v-if="trade.total_num <= 0" @click="pending_order_num ? toPage('pendingorder') : ''">取单<span style="color:red" v-if="pending_order_num">({{pending_order_num}})</span></div>
                     <div class="nav" v-if="trade.total_num > 0">
                         <div class="text-center db-btn col-6"
                              @click="order=[];sessionStorage.removeItem('trade');_calculationTotal()">清空
                         </div>
-                        <div class="text-center db-btn pending-order col-6 border-left text-danger" @click="showPendingOrderModal">挂单</div>
+                        <div class="text-center db-btn pending-order col-6 border-left text-danger"
+                             @click="showPendingOrderModal">挂单
+                        </div>
                     </div>
                     <div class="text-center db-btn" @click="toSettleAccounts">
                         收款 ￥{{trade.total_price}}
@@ -139,7 +141,7 @@
                     <!--</div>-->
                     <div class="text-center row db-btn align-items-center bg-dark">
                         <div style="width: 33% !important;" @click="signOut">交接班</div>
-                        <div style="width: 33% !important;" @click="toPage('OrderForm')">销售单据</div>
+                        <div style="width: 33% !important;" @click="toPage('orderform')">销售单据</div>
                         <div style="width: 33% !important;" @click="toPage('product')">商品总览</div>
                     </div>
                 </div>
@@ -295,13 +297,26 @@
                         <h5 class="modal-title"></h5>
                     </div>
                     <div class="modal-body">
-
+                        <form>
+                            <span>牌号：</span>
+                            <input type="text" class="form-control" placeholder="牌号"
+                                   aria-label="Example text with button addon"
+                                   aria-describedby="button-addon1" v-model="pending_order.table_number">
+                        </form>
+                        <form>
+                            <div class="form-group">
+                                <label for="pending_order_remark" class="col-form-label">备注：</label>
+                                <textarea class="form-control" style="min-height: 200px !important;"
+                                          id="pending_order_remark"
+                                          placeholder="在此输入备注信息" v-model="pending_order.remark"></textarea>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary flex-fill" data-dismiss="modal">取消
                         </button>
                         <button type="button" class="btn btn-primary flex-fill" id="modal_pending_submit"
-                                @click="submitOrder">确定
+                                @click="submitPendingOrder">确定
                         </button>
                     </div>
                 </div>

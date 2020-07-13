@@ -42,7 +42,8 @@ var homevm = new Vue({
         /**
          * 挂单
          */
-        pending_order: {}
+        pending_order: {},
+        pending_order_num: 0,
     },
     methods: {
         _hideModal() {
@@ -138,19 +139,14 @@ var homevm = new Vue({
                 })
                 $('#modal_1').modal('show');
                 $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
-
-                // function hideModal() {
-                //     $('#modal_1').modal('hide');
-                // }
-
                 return
             }
-            // this._storageData()
-            if (page == "OrderForm") {
-                window.location.href = "orderform"
-            } else {
-                window.location.href = "product"
-            }
+            window.location.href = page
+            // if (page == "OrderForm") {
+            //     window.location.href = "orderform"
+            // } else {
+            //     window.location.href = "product"
+            // }
         },
         // _storageData() {
         //     // 仅为了对页面数据进行保持状态
@@ -298,8 +294,10 @@ var homevm = new Vue({
         _getCategoryAndProduct() {
             let self = this
             Axios(api.getCategoryAndProduct, "POST").then(res => {
+                console.info(res)
                 if (res.state == 0) {
-                    self.category = res.data
+                    self.category = res.data.list
+                    self.pending_order_num = res.data.pending_order.data.length
                 }
                 if (self.category.length) {
                     self.current_category_id = self.current_category_id ? self.current_category_id : self.category[0].id
@@ -409,9 +407,8 @@ var homevm = new Vue({
                 remark: "",
                 table_number: "",
                 trade: Object.assign({}, this.trade),
-                order: Object.assign({}, this.order)
+                order: [].concat(this.order)
             }
-            console.info(this.pending_order)
             $('#modal_pending_order').on('show.bs.modal', function (e) {
                 let modal = $(this)
                 modal.find('.modal-title').text('挂单')
@@ -422,6 +419,22 @@ var homevm = new Vue({
             $('#modal_pending_order').modal('show');
             $('#modal_pending_submit')[0].addEventListener("click", this._hideModal)
         },
+        submitPendingOrder() {
+            let self = this
+            Axios(api.setPendingOrder, "POST", self.pending_order).then(res => {
+                console.info(res)
+                self._Init()
+                self.pending_order_num = res.data.length
+            })
+        },
+        getPendingOrderNum() {
+            // let self = this
+            // Axios(api.getPendingOrder, "POST", self.pending_order).then(res => {
+            //     console.info(res)
+            //     self._Init()
+            //     self.pending_order_num = res.data.length
+            // })
+        }
     },
     computed: {
         temp() {
