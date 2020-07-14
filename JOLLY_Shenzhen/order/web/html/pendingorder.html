@@ -148,7 +148,7 @@
                     <!--<div class="w-25" @click="updatePendingOrderData('','invalidRemark')">作废</div>-->
                     <div class="w-25" @click="showInvalidRemarkModal">作废</div>
                     <div class="w-25" @click="appendTrade">追加</div>
-                    <div class="w-25">收银</div>
+                    <div class="w-25" @click="calculationTotal">收银</div>
                 </div>
             </div>
         </div>
@@ -181,109 +181,64 @@
         </div>
     </div>
 
-    <!--退货-->
-    <!--<div class="modal fade" id="modal_return_of_goods" tabindex="-1" role="dialog"-->
-    <!--aria-labelledby="myModalReturnOfGoods" data-backdrop="static">-->
-    <!--<div class="modal-dialog modal-xl" role="document">-->
-    <!--<div class="modal-content">-->
-    <!--<div class="modal-header">-->
-    <!--<h5 class="modal-title"></h5>-->
-    <!--</div>-->
-    <!--<div class="modal-body">-->
-    <!--<div class="nav justify-content-between bg-info px-2 py-md-3 row no-gutters">-->
-    <!--<div class="col-sm-4 px-2">商品名</div>-->
-    <!--<div class="col-sm-2 px-2 text-center">售价</div>-->
-    <!--<div class="col-sm-2 px-2 text-center">折扣价</div>-->
-    <!--<div class="col-sm-2 px-2 text-center">数量</div>-->
-    <!--<div class="col-sm-2 px-2 text-center">退货数量</div>-->
-    <!--</div>-->
-    <!--<div class="bd-sidebar bd-links row px-2 py-md-3 order-detail no-gutters h-auto"-->
-    <!--v-if="trade.length">-->
-    <!--<div class="nav flex-wrap flex-row align-items-center mb-2 pb-2 border-bottom"-->
-    <!--v-for="item in trade[cursor_id].order">-->
-    <!--&lt;!&ndash;订单商品详情&ndash;&gt;-->
-    <!--<div class="col-sm-4 px-2">-->
-    <!--<div>{{item.name}}<span class="figure-caption"-->
-    <!--v-for="sku in item.param"> —{{sku}}</span>-->
-    <!--</div>-->
-    <!--<div class="figure-caption">{{item.note ? "备注："+item.note : ""}}</div>-->
-    <!--</div>-->
-    <!--<div class="col-sm-2 px-2 text-center">{{item.price}}</div>-->
-    <!--<div class="col-sm-2 px-2 text-center">{{item.discount_price}}</div>-->
-    <!--<div class="col-sm-2 px-2 text-center">{{item.number}}</div>-->
-    <!--<div class="col-sm-2 px-2 text-center">-->
-    <!--<input type="text" class="form-control h-100 text-right"-->
-    <!--@input="item.return_number=item.return_number.replace(/[^\d]/g,'');item.return_number=item.return_number>item.number?item.number:item.return_number"-->
-    <!--v-model="item.return_number">-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="modal-footer">-->
-    <!--<button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancleReturnOfGoods">取消</button>-->
-    <!--<button type="button" class="btn btn-primary" id="modal_return_of_goods_submit"-->
-    <!--@click="ReturnOfGoods">确定-->
-    <!--</button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="modal fade" id="modal_order" tabindex="-1" role="dialog" aria-labelledby="myModalOrder"-->
-    <!--data-backdrop="static">-->
-    <!--<div class="modal-dialog" role="document">-->
-    <!--<div class="modal-content">-->
-    <!--<div class="modal-header">-->
-    <!--<h5 class="modal-title"></h5>-->
-    <!--</div>-->
-    <!--<div class="modal-body row">-->
-    <!--<div class="mx-5 flex-row w-100 text-right">-->
-    <!--<h5>总额 ￥{{trade.total_price}}</h5>-->
-    <!--<h5 v-if="trade.total_diacount_price">折扣价 ￥{{trade.total_diacount_price}}</h5>-->
-    <!--</div>-->
-    <!--<div class="nav mx-5 flex-row w-100 mb-2 justify-content-between">-->
-    <!--<div><input type="text" class="form-control text-right" placeholder="桌号"-->
-    <!--v-model="trade.table_number"></div>-->
-    <!--<div><input type="text" class="form-control text-right" placeholder="人数"-->
-    <!--v-model="trade.dinners_number"></div>-->
-    <!--</div>-->
-    <!--<div class="input-group mb-3 w-100 align-items-center mx-5">-->
-    <!--<input type="text" class="form-control text-right" placeholder="折扣"-->
-    <!--aria-label="Example text with button addon"-->
-    <!--aria-describedby="button-addon1"-->
-    <!--oninput="value=value.replace(/[^\d.]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"-->
-    <!--v-model="totalPriceDiscount">-->
-    <!--<div class="input-group-prepend text-center ml-2">-->
-    <!--<span>%</span>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="nav mx-5 flex-row">-->
-    <!--<div class="text-center col-3 mb-1" v-for="item in discount_list">-->
-    <!--<button class="btn btn-info py-2 px-1 w-100" @click="getDiscountToCalculation(item)">-->
-    <!--<h5>{{item}} {{item!="免单"&&item!="抹零" ? "折" : ""}}</h5></button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="nav mx-5 flex-row w-100 text-center">-->
-    <!--<div class="text-center col-4 mb-1" v-for="item in pay_type_list">-->
-    <!--<button class="btn py-2 px-1 w-100"-->
-    <!--:class="item == trade.pay_type ? 'btn-dark' : 'btn-secondary'"-->
-    <!--@click="trade.pay_type=item">-->
-    <!--<h5>{{item}}</h5></button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="modal-footer">-->
-    <!--&lt;!&ndash;<button type="button" class="btn btn-secondary flex-fill" data-dismiss="modal"&ndash;&gt;-->
-    <!--&lt;!&ndash;@click="restoreStock">取消&ndash;&gt;-->
-    <!--&lt;!&ndash;</button>&ndash;&gt;-->
-    <!--<button type="button" class="btn btn-secondary flex-fill" data-dismiss="modal">取消-->
-    <!--</button>-->
-    <!--<button type="button" class="btn btn-primary flex-fill" id="modal_order_submit"-->
-    <!--@click="submitOrder">确定-->
-    <!--</button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
+    <!--订单结算-->
+    <div class="modal fade" id="modal_order" tabindex="-1" role="dialog" aria-labelledby="myModalOrder"
+         data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body row">
+                    <div class="mx-5 flex-row w-100 text-right">
+                        <h5>总额 ￥{{submit_trade.total_price}}</h5>
+                        <h5 v-if="submit_trade.total_diacount_price">折扣价 ￥{{submit_trade.total_diacount_price}}</h5>
+                    </div>
+                    <div class="nav mx-5 flex-row w-100 mb-2 justify-content-between">
+                        <div><input type="text" class="form-control text-right" placeholder="桌号"
+                                    v-model="submit_trade.table_number"></div>
+                        <div><input type="text" class="form-control text-right" placeholder="人数"
+                                    v-model="submit_trade.dinners_number"></div>
+                    </div>
+                    <div class="input-group mb-3 w-100 align-items-center mx-5">
+                        <input type="text" class="form-control text-right" placeholder="折扣"
+                               aria-label="Example text with button addon"
+                               aria-describedby="button-addon1"
+                               oninput="value=value.replace(/[^\d.]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
+                               v-model="totalPriceDiscount">
+                        <div class="input-group-prepend text-center ml-2">
+                            <span>%</span>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3 w-100 align-items-center mx-5">
+                        <input type="text" class="form-control" placeholder="备注"
+                               v-model="submit_trade.remark">
+                    </div>
+                    <div class="nav mx-5 flex-row">
+                        <div class="text-center col-3 mb-1" v-for="item in discount_list">
+                            <button class="btn btn-info py-2 px-1 w-100" @click="getDiscountToCalculation(item)">
+                                <h5>{{item}} {{item!="免单"&&item!="抹零" ? "折" : ""}}</h5></button>
+                        </div>
+                    </div>
+                    <div class="nav mx-5 flex-row w-100 text-center">
+                        <div class="text-center col-4 mb-1" v-for="item in pay_type_list">
+                            <button class="btn py-2 px-1 w-100"
+                                    :class="item == submit_trade.pay_type ? 'btn-dark' : 'btn-secondary'"
+                                    @click="submit_trade.pay_type=item">
+                                <h5>{{item}}</h5></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary flex-fill" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary flex-fill" id="modal_order_submit"
+                            @click="submitOrder">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="MyModal">
         <my-loading></my-loading>

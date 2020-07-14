@@ -3,16 +3,35 @@ var orderformvm = new Vue({
     data: {
         trade: [],
         cursor_id: 0,
-        invalid_remark: ""
+        invalid_remark: "",
+        /**
+         * 收银结算
+         */
+        submit_trade: {
+            total_num: 0,
+            total_price: 0,
+            total_diacount_price: "", // 订单结算，是否有折扣价
+            pay_type: "现金", // 订单结算，支付方式
+            table_number: "",
+            dinners_number: "",
+            remark: "",
+            trade_id: ""
+        },
+        // 预下单，discount（0-100，100为原价）有值时计算折扣价，
+        order: [],
+        submit_order: [],
+        pay_type_list: ["现金", "支付宝", "微信"],
+        discount_list: [95, 9, 85, 8, 75, 7, 6, 5, "免单", "抹零"],
+        totalPriceDiscount: "",
+        isKeyDownDiscount: 0,  // 0输入的 1按键盘
     },
     methods: {
         _getPendingTrade() {
             let self = this
             Axios(api.getPendingTrade, "POST", {}).then(res => {
-                console.info(res)
                 if (res.code == 0) {
                     self.trade = res.data
-                    self.order = self.trade[self.cursor_id].order
+                    self.order = self.trade.length ? self.trade[self.cursor_id].order : []
                 }
                 setTimeout(() => {
                     self._hideModal()
@@ -31,60 +50,6 @@ var orderformvm = new Vue({
             $('#modal_invalid_remark').modal('show');
             $('#modal_invalid_remark_submit')[0].addEventListener("click", this._hideModal);
         },
-        // // 反结账
-        // AntiCheckout() {
-        //     this.submitAfterSale({
-        //         "type": 1,
-        //         "trade_id": this.trade[this.cursor_id].id,
-        //         "after_sale_remark": this.anti_checkout_text
-        //     })
-        // },
-        // // 展示退货框
-        // showReturnModal() {
-        //     let self = this
-        //     $('#modal_return_of_goods').on('show.bs.modal', function (e) {
-        //         let modal = $(this)
-        //         modal.find('.modal-title').text('单号：' + self.trade[self.cursor_id].trade_id);
-        //     })
-        //     $('#modal_return_of_goods').on('hidden.bs.modal', function (e) {
-        //         $('#modal_return_of_goods_submit')[0].removeEventListener("click", this._hideModal);
-        //     })
-        //     $('#modal_return_of_goods').modal('show');
-        //     $('#modal_return_of_goods_submit')[0].addEventListener("click", this._hideModal);
-        // },
-        // // 取消退货 还原数据
-        // cancleReturnOfGoods() {
-        //     this.trade[this.cursor_id].order.map(value => {
-        //         value.return_number = ""
-        //         return value
-        //     })
-        // },
-        // // 退货
-        // ReturnOfGoods() {
-        //     this.submitAfterSale({
-        //         "type": 2,
-        //         "trade_id": this.trade[this.cursor_id].id,
-        //         "order": this.trade[this.cursor_id].order.filter(value => {
-        //             return value.return_number
-        //         })
-        //     })
-        // },
-        // cutOrderNum(order) {
-        //     let self = this
-        //     $('#loading').modal('show')
-        //     console.info(order)
-        //     Axios(api.setPendingOrderData, "POST", {id: order.id, type: "cuteNum"}).then(res => {
-        //         console.info(res)
-        //         if (res.code == 0) {
-        //             self.trade = res.data.data
-        //             console.info(self.trade, self.cursor_id)
-        //             self.order = self.trade[self.cursor_id].order
-        //         }
-        //         setTimeout(() => {
-        //             self._hideModal()
-        //         }, 500)
-        //     })
-        // },
         updatePendingOrderData(order, type) {
             let self = this
             $('#loading').modal('show')
@@ -128,11 +93,10 @@ var orderformvm = new Vue({
                 }
             }
             Axios(api.setPendingOrderData, "POST", data).then(res => {
-                console.info(res)
                 if (res.code == 0) {
                     self.trade = res.data.data
                     console.info(self.trade, self.cursor_id)
-                    self.order = self.trade[self.cursor_id].order
+                    self.order = self.trade.length ? self.trade[self.cursor_id].order : []
                 } else {
                     alert(res.errmsg)
                 }
@@ -157,7 +121,129 @@ var orderformvm = new Vue({
         },
         _hideModal() {
             $('#modal_invalid_remark').modal('hide');
+            $('#modal_1').modal('hide');
+            $('#modal_order').modal('hide');
             $('#loading').modal('hide')
+        },
+        /**
+         * 订单结算
+         * */
+        // 先对整个订单进行数据初始化
+        calculationTotal() {
+            $('#modal_order').on('show.bs.modal', function (e) {
+                let modal = $(this)
+                modal.find('.modal-title').text('收款')
+            })
+            $('#modal_order').on('hidden.bs.modal', function (e) {
+                $('#modal_order_submit')[0].removeEventListener("click", this._hideModal);
+            })
+            $('#modal_order').modal('show');
+            $('#modal_order_submit')[0].addEventListener("click", this._hideModal)
+
+            let total_num = 0, total_price = 0
+            if (this.order.length) {
+                this.submit_order = this.order.map(val => {
+                    return {
+                        "id": val.goods_id,
+                        "sku_id": val.goods_sku_id,
+                        "name": val.name,
+                        "img": val.img,
+                        "param": val.param ? JSON.stringify(val.param) : null,
+                        "price": val.price,
+                        "discount_price": val.discount_price,
+                        "num": val.number,
+                        "subtotal": val.number * val.discount_price
+                        // "trade_id": val.trade_id
+                    }
+                })
+                this.submit_order.forEach(value => {
+                    total_num += value.num
+                    total_price += value.subtotal
+                })
+            }
+            this.submit_trade = {
+                total_num: total_num,
+                total_price: Math.round(total_price * 100) / 100,
+                total_diacount_price: "",
+                pay_type: "现金",
+                table_number: "",
+                dinners_number: "",
+                remark: "",
+                trade_id: this.trade[this.cursor_id].trade_id, // 与首页相比多了trade_id
+            }
+        },
+        getDiscountToCalculation(e) {
+            this.isKeyDownDiscount = 1
+            this.totalPriceDiscount = ""
+            if (e == "抹零") {
+                this.submit_trade.total_diacount_price = this.submit_trade.total_price - (this.submit_trade.total_price % 1)
+            } else {
+                e == "免单" ? this.submit_trade.total_diacount_price = 0 :
+                    this.submit_trade.total_diacount_price = (this.submit_trade.total_price * (e.toString().length == 1 ? e * 10 : e)) / 100
+            }
+            // 超出小数2位数，向上取整
+            this.submit_trade.total_diacount_price = Math.ceil(this.submit_trade.total_diacount_price * 100) / 100
+            this.submit_trade.total_diacount_price = this.submit_trade.total_diacount_price.toString()
+        },
+        // 提交订单
+        submitOrder() {
+            let self = this
+            let data = Object.assign(this.submit_trade, {order: this.submit_order})
+            console.info(data)
+            Axios(api.createOrder, "POST", data).then(res => {
+                if (res.state == 0) {
+                    self._Init()
+                    $('#modal_1').on('show.bs.modal', function (e) {
+                        let modal = $(this)
+                        modal.find('.modal-title').text('提示')
+                        modal.find('.modal-body').text('订单已创建')
+                    })
+                    $('#modal_1').on('hidden.bs.modal', function (e) {
+                        $('#modal_1_submit')[0].removeEventListener("click", self._hideModal);
+                    })
+                    $('#modal_1').modal('show');
+                    $('#modal_1_submit')[0].addEventListener("click", self._hideModal)
+                }
+            })
+        },
+        _Init() {
+            // 提交订单完成 或者 检查库存发现库存不足 或者 重新进入该页面（商品编辑啥的），更新一下列表
+            this._getPendingTrade()
+            this.submit_trade = {
+                total_num: 0,
+                total_price: 0,
+                total_diacount_price: "", // 订单结算，是否有折扣价
+                pay_type: "现金", // 订单结算，支付方式
+                table_number: "",
+                dinners_number: "",
+                remark: "",
+                trade_id: ""
+            }
+            // 预下单，discount（0-100，100为原价）有值时计算折扣价，
+            this.order = []
+            this.submit_order = []
+            this.totalPriceDiscount = ""
+            this.appendTrade = null
+            sessionStorage.removeItem("appendTrade")
+        },
+    },
+    watch: {
+        /**
+         * 订单结算
+         * 总价打折
+         * */
+        totalPriceDiscount(val) {
+            if (this.isKeyDownDiscount == 1) {
+                this.isKeyDownDiscount = 0
+                return
+            }
+            if (val == "") {
+                this.submit_trade.total_diacount_price = this.submit_trade.total_price
+                return
+            }
+            let discount = Number(val) / 100
+            this.submit_trade.total_diacount_price = Math.round(this.submit_trade.total_price * discount * 100) / 100  // 四舍五入保留两位小数
+            this.submit_trade.total_diacount_price = this.submit_trade.total_diacount_price.toString()
         }
     },
     mounted: function () {

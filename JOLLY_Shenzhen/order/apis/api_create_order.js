@@ -25,9 +25,15 @@ exports.run = async function (params) {
  * trade_platform为2时 open_id为null
  * */
 async function getData(params) {
+    console.info(params, 6666666666)
     let trade_platform = 2,
-        trade_id = 'qt' + formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, ""),
-        order = params.order.map(value => {
+        trade_id
+    if (params.trade_id) {
+        trade_id = params.trade_id
+    } else {
+        trade_id = 'qt' + formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, "")
+    }
+    let order = params.order.map(value => {
             return {
                 "goods_sku_id": value.sku_id,
                 "goods_id": value.id,
@@ -57,11 +63,16 @@ async function getData(params) {
             "take_meal_style": 0,  // 0堂食 1外带 目前默认
             "table_number": params.table_number,
             "dinners_number": params.dinners_number,
-            "employee_account": params.user.username
+            "employee_account": params.user.username,
+            "remark": params.remark
 
         }])
     }
     if (result.errmsg == "success") {
+        if (params.trade_id) {
+            // 改变挂单状态
+            db.Query("update goods_pending_trade set state = ? where trade_id = ?", [2, params.trade_id])
+        }
         return {state: 0, errmsg: "success"}
     } else {
         return {state: 1, errmsg: "fail"}

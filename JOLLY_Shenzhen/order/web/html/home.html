@@ -267,6 +267,10 @@
                                 <span>%</span>
                             </div>
                         </div>
+                        <div class="input-group mb-3 w-100 align-items-center mx-5">
+                            <input type="text" class="form-control" placeholder="备注"
+                                   v-model="trade.remark">
+                        </div>
                         <div class="nav mx-5 flex-row">
                             <div class="text-center col-3 mb-1" v-for="item in discount_list">
                                 <button class="btn btn-info py-2 px-1 w-100" @click="getDiscountToCalculation(item)">

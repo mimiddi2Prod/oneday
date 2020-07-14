@@ -12,7 +12,8 @@ var homevm = new Vue({
             total_diacount_price: "", // 订单结算，是否有折扣价
             pay_type: "现金", // 订单结算，支付方式
             table_number: "",
-            dinners_number: ""
+            dinners_number: "",
+            remark: ""
         },
         // 预下单，discount（0-100，100为原价）有值时计算折扣价，
         order: [],
@@ -280,7 +281,8 @@ var homevm = new Vue({
                 total_diacount_price: "",
                 pay_type: "现金",
                 table_number: "",
-                dinners_number: ""
+                dinners_number: "",
+                remark: ""
             }
         },
         // 通过接口获取分类和商品
@@ -347,7 +349,8 @@ var homevm = new Vue({
                 total_diacount_price: "", // 订单结算，是否有折扣价
                 pay_type: "现金", // 订单结算，支付方式
                 table_number: "",
-                dinners_number: ""
+                dinners_number: "",
+                remark: ""
             }
             // 预下单，discount（0-100，100为原价）有值时计算折扣价，
             this.order = []
