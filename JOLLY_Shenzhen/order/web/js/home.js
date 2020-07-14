@@ -116,14 +116,6 @@ var homevm = new Vue({
                     return
                 })
             }
-            // this._storageData()
-            // sessionStorage.setItem('trade', JSON.stringify(Object.assign(this.trade, {order: this.order})))
-            // window.location.href = "settleaccounts"
-
-            // function hideModal() {
-            //     $('#modal_1').modal('hide');
-            //     $('#modal_order').modal('hide');
-            // }
         },
         // 历史订单，销售单据
         toPage(page) {
@@ -403,21 +395,67 @@ var homevm = new Vue({
          * 挂单
          */
         showPendingOrderModal() {
-            this.pending_order = {
-                remark: "",
-                table_number: "",
-                trade: Object.assign({}, this.trade),
-                order: [].concat(this.order)
+            if (!this.order.length) {
+                $('#modal_1').on('show.bs.modal', function (e) {
+                    let modal = $(this)
+                    modal.find('.modal-title').text('提示')
+                    modal.find('.modal-body').text('没有选择商品')
+                })
+                $('#modal_1').on('hidden.bs.modal', function (e) {
+                    $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);
+                })
+                $('#modal_1').modal('show');
+                $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
+                return
+            } else {
+                // 结算
+                let self = this
+                Axios(api.checkOrderStock, "POST", {
+                    cart: self.order.map(value => {
+                        return {
+                            goodsId: value.id,
+                            number: value.num
+                        }
+                    })
+                }).then(res => {
+                    if (res.canPay == 1) {
+                        // 库存不足
+                        self._getCategoryAndProduct()
+                        $('#modal_1').on('show.bs.modal', function (e) {
+                            let modal = $(this)
+                            modal.find('.modal-title').text('库存不足')
+                            modal.find('.modal-body').text('剩余：' + res.shortageList.map(val => {
+                                return val.name + "*" + val.stock
+                            }))
+                        })
+                        $('#modal_1').on('hidden.bs.modal', function (e) {
+                            $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);
+                        })
+                        $('#modal_1').modal('show');
+                        $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
+                        return
+                    }
+                    /**
+                     * 库存充足
+                     * @type {{trade: any, table_number: string, remark: string, order: *[]}}
+                     */
+                    self.pending_order = {
+                        remark: "",
+                        table_number: "",
+                        trade: Object.assign({}, self.trade),
+                        order: [].concat(self.order)
+                    }
+                    $('#modal_pending_order').on('show.bs.modal', function (e) {
+                        let modal = $(this)
+                        modal.find('.modal-title').text('挂单')
+                    })
+                    $('#modal_pending_order').on('hidden.bs.modal', function (e) {
+                        $('#modal_pending_submit')[0].removeEventListener("click", self._hideModal);
+                    })
+                    $('#modal_pending_order').modal('show');
+                    $('#modal_pending_submit')[0].addEventListener("click", self._hideModal)
+                })
             }
-            $('#modal_pending_order').on('show.bs.modal', function (e) {
-                let modal = $(this)
-                modal.find('.modal-title').text('挂单')
-            })
-            $('#modal_pending_order').on('hidden.bs.modal', function (e) {
-                $('#modal_pending_submit')[0].removeEventListener("click", this._hideModal);
-            })
-            $('#modal_pending_order').modal('show');
-            $('#modal_pending_submit')[0].addEventListener("click", this._hideModal)
         },
         submitPendingOrder() {
             let self = this

@@ -78,7 +78,9 @@
             </div>
             <div class="db-btns card">
                 <div class="card-body py-0 px-0">
-                    <div class="text-center db-btn" :class="pending_order_num ? '' : 'text-secondary'" v-if="trade.total_num <= 0" @click="pending_order_num ? toPage('pendingorder') : ''">取单<span style="color:red" v-if="pending_order_num">({{pending_order_num}})</span></div>
+                    <div class="text-center db-btn" :class="pending_order_num ? '' : 'text-secondary'"
+                         v-if="trade.total_num <= 0" @click="pending_order_num ? toPage('pendingorder') : ''">取单<span
+                            style="color:red" v-if="pending_order_num">({{pending_order_num}})</span></div>
                     <div class="nav" v-if="trade.total_num > 0">
                         <div class="text-center db-btn col-6"
                              @click="order=[];sessionStorage.removeItem('trade');_calculationTotal()">清空
@@ -313,7 +315,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary flex-fill" data-dismiss="modal">取消
+                        <button type="button" class="btn btn-secondary flex-fill" data-dismiss="modal"
+                                @click="restoreStock">取消
                         </button>
                         <button type="button" class="btn btn-primary flex-fill" id="modal_pending_submit"
                                 @click="submitPendingOrder">确定

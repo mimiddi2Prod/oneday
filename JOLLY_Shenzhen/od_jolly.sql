@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-07-13 16:29:51
+Date: 2020-07-14 11:57:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -158,7 +158,7 @@ INSERT INTO `goods` VALUES ('9', '鸡蛋盖浇饭', 'http://yanyanqiniu.youyuewo
 INSERT INTO `goods` VALUES ('10', '阿文', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '32', '23.00', 'xmspw', '3', '316', '1', '43', '2019-07-30 18:10:19', '1');
 INSERT INTO `goods` VALUES ('11', '阿文', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '32', '3.00', 'xmspw', '3', '44', '1', '43', '2019-07-30 18:16:02', '1');
 INSERT INTO `goods` VALUES ('12', '他说他', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '特舒服', '3.00', 'xmspw', '3', '2443', '1', '3', '2019-07-30 18:19:45', '1');
-INSERT INTO `goods` VALUES ('13', '11', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '2', '11.00', 'xmspw', '1', '991', '1', '1', '2020-03-07 15:25:09', '1');
+INSERT INTO `goods` VALUES ('13', '11', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '2', '11.00', 'xmspw', '1', '0', '1', '1', '2020-03-07 15:25:09', '1');
 INSERT INTO `goods` VALUES ('14', '借记卡金卡你2', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_32_31_0.png', '环境开会看见', '10.00', 'xmspw', '2', '10', '1', '1', '2020-06-19 15:32:57', '1');
 INSERT INTO `goods` VALUES ('15', '尽快把', 'http://onedayqiniu.minidope.com/goods_2020_6_19_15_33_17_0.jpg', '开局良好开局', '10.00', 'xmspw', '2', '18', '1', '5', '2020-06-19 15:34:02', '1');
 INSERT INTO `goods` VALUES ('16', '吃的', 'http://onedayqiniu.minidope.com/goods_2020_7_9_17_59_40_0.png', '好好吃', '23.00', 'sz', '4', '2', '1', '1', '2020-07-09 18:07:45', '1');
@@ -236,7 +236,7 @@ CREATE TABLE `goods_pending_order` (
   `pay_method` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '支付方式 微信支付/余额支付',
   `return_number` int(6) DEFAULT NULL COMMENT '退货数量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of goods_pending_order
@@ -244,7 +244,9 @@ CREATE TABLE `goods_pending_order` (
 INSERT INTO `goods_pending_order` VALUES ('104', '', '16', '13', '11', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '11.00', '11.00', '0', null, 'qt20200713142853', '2020-07-13 14:28:53', '0', '0', '0', '0', '', null);
 INSERT INTO `goods_pending_order` VALUES ('105', '', '16', '13', '11', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '11.00', '11.00', '0', null, 'qt20200713143003', '2020-07-13 14:30:03', '0', '0', '0', '0', '', null);
 INSERT INTO `goods_pending_order` VALUES ('106', '', '16', '13', '11', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '11.00', '11.00', '0', null, 'qt20200713143041', '2020-07-13 14:30:41', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_pending_order` VALUES ('107', '', '16', '13', '11', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '11.00', '11.00', '1', null, 'qt20200713143107', '2020-07-13 14:31:07', '0', '0', '0', '0', '', null);
+INSERT INTO `goods_pending_order` VALUES ('107', '', '16', '13', '11', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '11.00', '123.00', '15', null, 'qt20200713143107', '2020-07-13 14:31:07', '0', '0', '0', '0', '', null);
+INSERT INTO `goods_pending_order` VALUES ('108', '', '16', '13', '11', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '11.00', '11.00', '2', null, 'qt20200714105258', '2020-07-14 10:52:58', '0', '0', '0', '0', '', null);
+INSERT INTO `goods_pending_order` VALUES ('109', '', '16', '13', '11', '', 'http://yanyanqiniu.youyueworld.com/goods_2019_12_24_15_40_57_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"50度\",\"第三\":\"七期\"}', '11.00', '11.00', '3', null, 'qt20200714105422', '2020-07-14 10:54:22', '0', '0', '0', '0', '', null);
 
 -- ----------------------------
 -- Table structure for goods_pending_trade
@@ -256,39 +258,24 @@ CREATE TABLE `goods_pending_trade` (
   `open_id` varchar(32) NOT NULL COMMENT '下单用户openid',
   `trade_platform` int(2) NOT NULL COMMENT '下单平台: 1 小程序下单 2 前台点单',
   `order_id_list` text NOT NULL COMMENT '这一订单的商品订单id列表 [1,2,3,...]',
-  `goods_total_number` int(6) NOT NULL COMMENT '餐品总数',
-  `goods_total_price` decimal(10,2) NOT NULL COMMENT '商品总价',
-  `actually_total_price` decimal(10,2) NOT NULL COMMENT '实际支付总价 扣除优惠后 算配送费',
-  `pay_status` int(2) NOT NULL COMMENT '支付状态：-2支付超时（每天凌晨计算一次就行） -1取消 0未付款 1已付款 2已收货',
-  `pay_method` varchar(255) NOT NULL COMMENT '支付方式 微信支付/余额支付',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '下单时间',
-  `pay_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '支付时间',
-  `take_meal_style` int(2) NOT NULL COMMENT '0 堂食 1 外带',
   `table_number` int(4) NOT NULL COMMENT '桌位号',
   `dinners_number` int(3) NOT NULL COMMENT '用餐人数',
-  `note` text COMMENT '订单备注',
-  `expire_time` timestamp NULL DEFAULT NULL COMMENT '订单过期时间',
-  `cancle_time` timestamp NULL DEFAULT '0000-00-00 00:00:00' COMMENT '主动取消订单时间',
-  `delivery_price` decimal(10,2) DEFAULT NULL COMMENT '配送费',
-  `discount_price` decimal(10,2) DEFAULT NULL COMMENT '卡券 优惠价 或 前台点单直接减免',
-  `is_delete` int(1) NOT NULL COMMENT '用户前端不展示该订单 0 不删除 1 删除',
-  `card_id` int(12) DEFAULT NULL COMMENT '优惠卡券',
-  `after_sale_type` int(2) DEFAULT NULL COMMENT '售后类型 0不在售后 1反结账 2退货',
-  `after_sale_remark` text COMMENT '反结账备注',
   `employee_account` varchar(255) DEFAULT NULL COMMENT '前台收银记录',
-  `after_sale_price` decimal(10,2) DEFAULT NULL COMMENT '反结账为全款 退货为已退的价',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `state` int(11) NOT NULL COMMENT '状态  1 未支付 2 支付 3作废',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of goods_pending_trade
 -- ----------------------------
-INSERT INTO `goods_pending_trade` VALUES ('241', 'qt20200713142853', '', '2', '[104]', '2', '22.00', '22.00', '0', '', '2020-07-13 14:28:53', '0000-00-00 00:00:00', '0', '12', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, 'admin', null, '12222', '1');
-INSERT INTO `goods_pending_trade` VALUES ('242', 'qt20200713143003', '', '2', '[105]', '2', '22.00', '22.00', '0', '', '2020-07-13 14:30:03', '0000-00-00 00:00:00', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, 'admin', null, null, '1');
-INSERT INTO `goods_pending_trade` VALUES ('243', 'qt20200713143041', '', '2', '[106]', '2', '22.00', '22.00', '0', '', '2020-07-13 14:30:41', '0000-00-00 00:00:00', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, 'admin', null, null, '1');
-INSERT INTO `goods_pending_trade` VALUES ('244', 'qt20200713143107', '', '2', '[107]', '2', '22.00', '22.00', '0', '', '2020-07-13 14:31:07', '0000-00-00 00:00:00', '0', '11', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, 'admin', null, null, '1');
+INSERT INTO `goods_pending_trade` VALUES ('241', 'qt20200713142853', '', '2', '[104]', '2020-07-13 14:28:53', '12', '0', 'admin', '12222', '1');
+INSERT INTO `goods_pending_trade` VALUES ('242', 'qt20200713143003', '', '2', '[105]', '2020-07-13 14:30:03', '0', '0', 'admin', null, '1');
+INSERT INTO `goods_pending_trade` VALUES ('243', 'qt20200713143041', '', '2', '[106]', '2020-07-13 14:30:41', '0', '0', 'admin', null, '1');
+INSERT INTO `goods_pending_trade` VALUES ('244', 'qt20200713143107', '', '2', '[107]', '2020-07-13 14:31:07', '11', '0', 'admin', null, '1');
+INSERT INTO `goods_pending_trade` VALUES ('245', 'qt20200714105258', '', '2', '[108]', '2020-07-14 10:52:58', '22', '0', 'admin', null, '1');
+INSERT INTO `goods_pending_trade` VALUES ('246', 'qt20200714105422', '', '2', '[109]', '2020-07-14 10:54:22', '22', '0', 'admin', '为而外呃额额', '1');
 
 -- ----------------------------
 -- Table structure for goods_sku

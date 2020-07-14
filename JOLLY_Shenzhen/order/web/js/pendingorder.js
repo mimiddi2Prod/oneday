@@ -93,15 +93,18 @@ var orderformvm = new Vue({
                 case "cuteNum": {
                     data = {
                         id: order.id,
+                        IncrementNum: -1,
+                        goodsId: order.goods_id,
                         type: type
                     }
                     break;
                 }
-                case "updateNum": {
+                case "addNum": {
                     data = {
                         id: order.id,
                         type: type,
-                        number: order.number
+                        goodsId: order.goods_id,
+                        IncrementNum: 1,
                     }
                     break;
                 }
@@ -114,12 +117,19 @@ var orderformvm = new Vue({
                     break;
                 }
             }
+            // console.info(order, type)
+            // setTimeout(() => {
+            //     self._hideModal()
+            // }, 500)
+            // return
             Axios(api.setPendingOrderData, "POST", data).then(res => {
                 console.info(res)
                 if (res.code == 0) {
                     self.trade = res.data.data
                     console.info(self.trade, self.cursor_id)
                     self.order = self.trade[self.cursor_id].order
+                } else {
+                    alert(res.errmsg)
                 }
                 setTimeout(() => {
                     self._hideModal()

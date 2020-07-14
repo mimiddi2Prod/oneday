@@ -48,10 +48,10 @@ async function getData(params) {
             "trade_id": trade_id,
             "trade_platform": trade_platform,
             "order_id_list": JSON.stringify(result.id_list),
-            "goods_total_number": params.trade.total_num,
-            "goods_total_price": params.trade.total_price,
-            "actually_total_price": params.trade.total_diacount_price ? params.trade.total_diacount_price : params.trade.total_price,
-            "pay_status": 0,
+            // "goods_total_number": params.trade.total_num,
+            // "goods_total_price": params.trade.total_price,
+            // "actually_total_price": params.trade.total_diacount_price ? params.trade.total_diacount_price : params.trade.total_price,
+            // "pay_status": 0,
             // "pay_method": params.pay_type,
             "create_time": new Date(),
             // "pay_time": new Date(),
@@ -59,6 +59,7 @@ async function getData(params) {
             "table_number": params.table_number,
             // "dinners_number": params.dinners_number,
             "employee_account": params.user.username,
+            "remark": params.remark,
             "state": 1
         }])
     }
