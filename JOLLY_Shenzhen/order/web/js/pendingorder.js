@@ -146,6 +146,11 @@ var orderformvm = new Vue({
                 }
             })
         },
+        appendTrade() {
+            // console.info(this.trade[this.cursor_id].trade_id)
+            sessionStorage.setItem("appendTrade", this.trade[this.cursor_id].trade_id)
+            history.go(-1);
+        },
         _hideModal() {
             $('#modal_anti_checkout').modal('hide');
             $('#modal_return_of_goods').modal('hide');

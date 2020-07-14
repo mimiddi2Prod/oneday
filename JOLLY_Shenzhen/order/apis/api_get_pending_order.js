@@ -37,7 +37,7 @@ async function getData(params) {
                 val.order = []
                 order.forEach(m => {
                     if (val.trade_id == m.trade_id && m.number) {
-                        m.param = JSON.parse(m.param)
+                        m.param = m.param ? JSON.parse(m.param) : null
                         val.order.push(m)
                     }
                 })

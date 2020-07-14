@@ -25,29 +25,35 @@ exports.run = async function (params) {
  * state：状态：0 在售 1 下架 2 删除（不在后台展示）
  */
 async function getData(params) {
-    console.info(params, 22222222222222)
     let trade_platform = 2,
-        trade_id = 'qt' + formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, ""),
-        order = params.order.map(value => {
-            return {
-                "goods_sku_id": value.sku_id,
-                "goods_id": value.id,
-                "name": value.name.split("-")[0],
-                "img": value.img,
-                "param": value.param,
-                "price": value.price,
-                "discount_price": value.discount_price,
-                "number": value.num,
-                "trade_id": trade_id,
-                "create_time": new Date()
-            }
-        })
+        trade_id = null
+    if (params.trade_id) {
+        // 挂单追加
+        trade_id = params.trade_id
+    } else {
+        // 新增挂单
+        trade_id = 'qt' + formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, "")
+    }
+    let order = params.order.map(value => {
+        return {
+            "goods_sku_id": value.sku_id,
+            "goods_id": value.id,
+            "name": value.name.split("-")[0],
+            "img": value.img,
+            "param": value.param,
+            "price": value.price,
+            "discount_price": value.discount_price,
+            "number": value.num,
+            "trade_id": trade_id,
+            "create_time": new Date()
+        }
+    })
     let result = await db.BulkInsert("goods_pending_order", order)
-    if (result.errmsg == "success") {
+    if (result.errmsg == "success" && !params.trade_id) {
         result = await db.BulkInsert("goods_pending_trade", [{
             "trade_id": trade_id,
             "trade_platform": trade_platform,
-            "order_id_list": JSON.stringify(result.id_list),
+            // "order_id_list": JSON.stringify(result.id_list),
             // "goods_total_number": params.trade.total_num,
             // "goods_total_price": params.trade.total_price,
             // "actually_total_price": params.trade.total_diacount_price ? params.trade.total_diacount_price : params.trade.total_price,

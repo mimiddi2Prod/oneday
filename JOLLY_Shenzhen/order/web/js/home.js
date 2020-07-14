@@ -44,6 +44,7 @@ var homevm = new Vue({
          */
         pending_order: {},
         pending_order_num: 0,
+        appendTrade: null, // 追加挂单id 有则追加
     },
     methods: {
         _hideModal() {
@@ -366,6 +367,8 @@ var homevm = new Vue({
                 subtotal: null
             }
             this.totalPriceDiscount = ""
+            this.appendTrade = null
+            sessionStorage.removeItem("appendTrade")
         },
         signOut() {
             $('#modal_1').on('show.bs.modal', function (e) {
@@ -408,7 +411,7 @@ var homevm = new Vue({
                 $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
                 return
             } else {
-                // 结算
+                // 挂单
                 let self = this
                 Axios(api.checkOrderStock, "POST", {
                     cart: self.order.map(value => {
@@ -443,7 +446,13 @@ var homevm = new Vue({
                         remark: "",
                         table_number: "",
                         trade: Object.assign({}, self.trade),
-                        order: [].concat(self.order)
+                        order: [].concat(self.order),
+                        trade_id: self.appendTrade || null
+                    }
+                    // 如果有订单id,即处于追加模式,则直接追加,否则需要桌牌号那些
+                    if (self.appendTrade) {
+                        self.submitPendingOrder()
+                        return
                     }
                     $('#modal_pending_order').on('show.bs.modal', function (e) {
                         let modal = $(this)
@@ -465,14 +474,21 @@ var homevm = new Vue({
                 self.pending_order_num = res.data.length
             })
         },
-        getPendingOrderNum() {
-            // let self = this
-            // Axios(api.getPendingOrder, "POST", self.pending_order).then(res => {
-            //     console.info(res)
-            //     self._Init()
-            //     self.pending_order_num = res.data.length
-            // })
-        }
+        // 取消挂单追加
+        cancleAppendTrade() {
+            this.appendTrade = null
+            sessionStorage.removeItem("appendTrade")
+            this.order = [];
+            this._calculationTotal()
+        },
+        // getPendingOrderNum() {
+        //     // let self = this
+        //     // Axios(api.getPendingOrder, "POST", self.pending_order).then(res => {
+        //     //     console.info(res)
+        //     //     self._Init()
+        //     //     self.pending_order_num = res.data.length
+        //     // })
+        // }
     },
     computed: {
         temp() {
@@ -552,6 +568,8 @@ var homevm = new Vue({
         //     this.trade = trade
         //     sessionStorage.removeItem("trade")
         // }
+        this.appendTrade = sessionStorage.getItem("appendTrade") || null
+        console.info(this.appendTrade)
     },
     created: function () {
 

@@ -78,10 +78,25 @@
             </div>
             <div class="db-btns card">
                 <div class="card-body py-0 px-0">
+                    <!--追加挂单-->
                     <div class="text-center db-btn" :class="pending_order_num ? '' : 'text-secondary'"
-                         v-if="trade.total_num <= 0" @click="pending_order_num ? toPage('pendingorder') : ''">取单<span
-                            style="color:red" v-if="pending_order_num">({{pending_order_num}})</span></div>
-                    <div class="nav" v-if="trade.total_num > 0">
+                         v-if="trade.total_num <= 0 && appendTrade"
+                         @click="cancleAppendTrade">取消追加
+                    </div>
+                    <div class="nav" v-if="trade.total_num > 0 && appendTrade">
+                        <div class="text-center db-btn col-6"
+                             @click="cancleAppendTrade">取消
+                        </div>
+                        <div class="text-center db-btn pending-order col-6 border-left text-danger"
+                             @click="showPendingOrderModal">追加
+                        </div>
+                    </div>
+                    <!--正常 不在追加挂单模式中-->
+                    <div class="text-center db-btn" :class="pending_order_num ? '' : 'text-secondary'"
+                         v-if="trade.total_num <= 0 && !appendTrade"
+                         @click="pending_order_num ? toPage('pendingorder') : ''">取单
+                        <span style="color:red" v-if="pending_order_num">({{pending_order_num}})</span></div>
+                    <div class="nav" v-if="trade.total_num > 0 && !appendTrade">
                         <div class="text-center db-btn col-6"
                              @click="order=[];sessionStorage.removeItem('trade');_calculationTotal()">清空
                         </div>
