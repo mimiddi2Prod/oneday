@@ -3,7 +3,7 @@ var orderformvm = new Vue({
     data: {
         trade: [],
         cursor_id: 0,
-        anti_checkout_text: ""
+        invalid_remark: ""
     },
     methods: {
         _getPendingTrade() {
@@ -19,18 +19,18 @@ var orderformvm = new Vue({
                 }, 500)
             })
         },
-        // // 反结账备注
-        // showAntiCheckoutModal() {
-        //     $('#modal_anti_checkout').on('show.bs.modal', function (e) {
-        //         let modal = $(this)
-        //         modal.find('.modal-title').text('正在进行反结账单据');
-        //     })
-        //     $('#modal_anti_checkout').on('hidden.bs.modal', function (e) {
-        //         $('#modal_anti_checkout_submit')[0].removeEventListener("click", this._hideModal);
-        //     })
-        //     $('#modal_anti_checkout').modal('show');
-        //     $('#modal_anti_checkout_submit')[0].addEventListener("click", this._hideModal);
-        // },
+        // 挂单作废备注
+        showInvalidRemarkModal() {
+            $('#modal_invalid_remark').on('show.bs.modal', function (e) {
+                let modal = $(this)
+                modal.find('.modal-title').text('挂单作废');
+            })
+            $('#modal_invalid_remark').on('hidden.bs.modal', function (e) {
+                $('#modal_invalid_remark_submit')[0].removeEventListener("click", this._hideModal);
+            })
+            $('#modal_invalid_remark').modal('show');
+            $('#modal_invalid_remark_submit')[0].addEventListener("click", this._hideModal);
+        },
         // // 反结账
         // AntiCheckout() {
         //     this.submitAfterSale({
@@ -116,12 +116,17 @@ var orderformvm = new Vue({
                     }
                     break;
                 }
+                case "invalidRemark": {
+                    // 订单作废
+                    data = {
+                        trade_id: this.trade[this.cursor_id].trade_id,
+                        type: type,
+                        invalid_remark: this.invalid_remark
+                    }
+                    self.cursor_id = 0
+                    break;
+                }
             }
-            // console.info(order, type)
-            // setTimeout(() => {
-            //     self._hideModal()
-            // }, 500)
-            // return
             Axios(api.setPendingOrderData, "POST", data).then(res => {
                 console.info(res)
                 if (res.code == 0) {
@@ -147,13 +152,11 @@ var orderformvm = new Vue({
             })
         },
         appendTrade() {
-            // console.info(this.trade[this.cursor_id].trade_id)
             sessionStorage.setItem("appendTrade", this.trade[this.cursor_id].trade_id)
             history.go(-1);
         },
         _hideModal() {
-            $('#modal_anti_checkout').modal('hide');
-            $('#modal_return_of_goods').modal('hide');
+            $('#modal_invalid_remark').modal('hide');
             $('#loading').modal('hide')
         }
     },

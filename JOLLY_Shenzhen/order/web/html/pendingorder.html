@@ -145,7 +145,8 @@
                 <!--<div class="ml-3 px-2">总计：{{trade[cursor_id].goods_total_price}}&nbsp;&nbsp;&nbsp;应收(计算折扣后)：{{trade[cursor_id].actually_total_price}}&nbsp;&nbsp;&nbsp;{{trade[cursor_id].pay_method}}</div>-->
                 <!--</div>-->
                 <div class="text-center row db-btn align-items-center justify-content-end bg-dark">
-                    <div class="w-25">作废</div>
+                    <!--<div class="w-25" @click="updatePendingOrderData('','invalidRemark')">作废</div>-->
+                    <div class="w-25" @click="showInvalidRemarkModal">作废</div>
                     <div class="w-25" @click="appendTrade">追加</div>
                     <div class="w-25">收银</div>
                 </div>
@@ -153,32 +154,32 @@
         </div>
     </main>
 
-    <!--反结账-->
-    <!--<div class="modal fade" id="modal_anti_checkout" tabindex="-1" role="dialog"-->
-    <!--aria-labelledby="myModalReturnOfGoods" data-backdrop="static">-->
-    <!--<div class="modal-dialog" role="document">-->
-    <!--<div class="modal-content">-->
-    <!--<div class="modal-header">-->
-    <!--<h5 class="modal-title"></h5>-->
-    <!--</div>-->
-    <!--<div class="modal-body">-->
-    <!--<form>-->
-    <!--<div class="form-group">-->
-    <!--<label for="message-text" class="col-form-label">确认要反结账该单据吗？如果反结账请说明一下吧</label>-->
-    <!--<textarea class="form-control" style="min-height: 200px !important;" id="message-text"-->
-    <!--placeholder="在此输入反结账备注信息" v-model="anti_checkout_text"></textarea>-->
-    <!--</div>-->
-    <!--</form>-->
-    <!--</div>-->
-    <!--<div class="modal-footer">-->
-    <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>-->
-    <!--<button type="button" class="btn btn-primary" id="modal_anti_checkout_submit"-->
-    <!--@click="AntiCheckout">确定-->
-    <!--</button>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
+    <!--挂单作废-->
+    <div class="modal fade" id="modal_invalid_remark" tabindex="-1" role="dialog"
+         aria-labelledby="myModalInvalidRemark" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">备注</label>
+                            <textarea class="form-control" style="min-height: 200px !important;" id="message-text"
+                                      placeholder="备注" v-model="invalid_remark"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="modal_invalid_remark_submit"
+                            @click="updatePendingOrderData('','invalidRemark')">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--退货-->
     <!--<div class="modal fade" id="modal_return_of_goods" tabindex="-1" role="dialog"-->

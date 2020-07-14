@@ -25,7 +25,21 @@ exports.run = async function (params) {
 
 async function getData(params) {
     let result
-    if (params.type == "cuteNum" || params.type == "addNum") {
+    if (params.type == "invalidRemark") {
+        // trade_id 此处为订单号
+        // 订单作废先找出这一订单的商品，并进行库存恢复
+        result = await db.Query("select * from goods_pending_order where trade_id = ?", [params.trade_id])
+        if (result.length) {
+            let cart = result.map(val => {
+                return {
+                    goodsId: val.goods_id,
+                    number: val.number
+                }
+            })
+            restoreStock.run({"cart": cart})
+        }
+        result = await db.Query("update goods_pending_trade set invalid_remark = ?,state = ? where trade_id = ?", [params.invalid_remark, 3, params.trade_id])
+    } else if (params.type == "cuteNum" || params.type == "addNum") {
         // 数量增加先检查库存 数量减少恢复库存
         if (params.type == "addNum") {
             result = await checkStock.run({"cart": [{"goodsId": params.goodsId, "number": 1}]})
