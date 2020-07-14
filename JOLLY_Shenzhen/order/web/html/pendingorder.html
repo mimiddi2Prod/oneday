@@ -47,7 +47,7 @@
         <div class="nav justify-content-between bg-success px-2 py-md-3 text-right pr-4">
             <div>列表</div>
         </div>
-        <div class="bd-sidebar bd-links">
+        <div class="bd-sidebar bd-links" style="height:calc(100vh - 106px)">
             <!--<div class="container">-->
             <div class="border-bottom py-2 no-gutters" :class="cursor_id==index ? 'badge-info' : ''"
                  v-for="item,index in trade" @click="cursor_id=index;order=trade[cursor_id].order">
@@ -217,7 +217,7 @@
                     <div class="nav mx-5 flex-row">
                         <div class="text-center col-3 mb-1" v-for="item in discount_list">
                             <button class="btn btn-info py-2 px-1 w-100" @click="getDiscountToCalculation(item)">
-                                <h5>{{item}} {{item!="免单"&&item!="抹零" ? "折" : ""}}</h5></button>
+                                <h5>{{item}} {{item!="免单"&&item!="抹零"&&item!="原价" ? "折" : ""}}</h5></button>
                         </div>
                     </div>
                     <div class="nav mx-5 flex-row w-100 text-center">

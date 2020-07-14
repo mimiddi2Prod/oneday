@@ -37,7 +37,7 @@ var homevm = new Vue({
          * 结算相关 包括trade
          * */
         pay_type_list: ["现金", "支付宝", "微信"],
-        discount_list: [95, 9, 85, 8, 75, 7, 6, 5, "免单", "抹零"],
+        discount_list: ["原价", 95, 9, 85, 8, 75, 7, 6, 5, "免单", "抹零"],
         totalPriceDiscount: "",
         isKeyDownDiscount: 0,  // 0输入的 1按键盘
         /**
@@ -312,6 +312,8 @@ var homevm = new Vue({
             this.totalPriceDiscount = ""
             if (e == "抹零") {
                 this.trade.total_diacount_price = this.trade.total_price - (this.trade.total_price % 1)
+            } else if (e == "原价") {
+                this.trade.total_diacount_price = this.trade.total_price
             } else {
                 e == "免单" ? this.trade.total_diacount_price = 0 :
                     this.trade.total_diacount_price = (this.trade.total_price * (e.toString().length == 1 ? e * 10 : e)) / 100

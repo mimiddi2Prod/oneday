@@ -48,7 +48,7 @@
             <div>流水号</div>
             <div>总额</div>
         </div>
-        <div class="bd-sidebar bd-links">
+        <div class="bd-sidebar bd-links" style="height:calc(100vh - 106px)">
             <!--<div class="container">-->
             <div class="border-bottom py-2 no-gutters" :class="cursor_id==index ? 'badge-info' : ''"
                  v-for="item,index in trade" @click="cursor_id=index;order=trade[cursor_id].order">
@@ -96,7 +96,9 @@
                     <span class="badge-success btn-sm" v-if="item.return_number">退{{item.return_number}}</span>
                 </div>
             </div>
-            <div class="alert-info p-2" v-if="trade[cursor_id].after_sale_type == 1">备注：{{trade[cursor_id].after_sale_remark}}</div>
+            <div class="alert-info p-2" v-if="trade[cursor_id].after_sale_type == 1">
+                备注：{{trade[cursor_id].after_sale_remark}}
+            </div>
         </div>
         <div class="db-btns card border-0" v-if="trade.length">
             <div class="card-body py-0 px-0">
@@ -183,7 +185,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancleReturnOfGoods">取消</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancleReturnOfGoods">
+                        取消
+                    </button>
                     <button type="button" class="btn btn-primary" id="modal_return_of_goods_submit"
                             @click="ReturnOfGoods">确定
                     </button>

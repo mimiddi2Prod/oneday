@@ -177,6 +177,8 @@ var orderformvm = new Vue({
             this.totalPriceDiscount = ""
             if (e == "抹零") {
                 this.submit_trade.total_diacount_price = this.submit_trade.total_price - (this.submit_trade.total_price % 1)
+            } else if (e == "原价") {
+                this.trade.total_diacount_price = this.trade.total_price
             } else {
                 e == "免单" ? this.submit_trade.total_diacount_price = 0 :
                     this.submit_trade.total_diacount_price = (this.submit_trade.total_price * (e.toString().length == 1 ? e * 10 : e)) / 100
