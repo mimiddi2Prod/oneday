@@ -1,5 +1,6 @@
 var db = require("./../utils/dba");
 var {formatTime} = require("./../utils/utils.js")
+var restoreStock = require("./api_restore_stock")
 
 exports.run = async function (params) {
     let data = null
@@ -22,6 +23,7 @@ exports.run = async function (params) {
 
 /**
  * type: 1反结账 2退货
+ * 反结账不恢复库存， 退货会对库存进行恢复
  */
 async function getData(params) {
     let data, result, call
@@ -42,7 +44,8 @@ async function getData(params) {
                 }
             })
             // 先查询订单中退货商品的单价 计算出总退款金额
-            let after_sale_price = 0,
+            let willRestoreStock = [], // 对退货商品进行库存恢复
+                after_sale_price = 0,
                 order = await db.Query("select * from goods_order where id in (?)", [data.map(value => {
                     return value.id
                 })])
@@ -50,10 +53,16 @@ async function getData(params) {
                 data.forEach(n => {
                     if (m.id == n.id) {
                         after_sale_price += m.discount_price * n.return_number
+                        willRestoreStock.push({
+                            goodsId: m.goods_id,
+                            number: Number(n.return_number)
+                        })
                     }
                 })
             })
-
+            // 退货库存恢复
+            console.info(willRestoreStock,1111111111111)
+            restoreStock.run({"cart": willRestoreStock})
             result = await db.BulkInsertOrDuplicateUpdate("goods_order", data, {str: 'return_number = VALUES (return_number)'})
             result.errmsg == "success" ? (() => {
                 result = db.Update({
