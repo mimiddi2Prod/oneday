@@ -166,7 +166,7 @@ var orderformvm = new Vue({
                 total_price: Math.round(total_price * 100) / 100,
                 total_diacount_price: "",
                 pay_type: "现金",
-                table_number: "",
+                table_number: this.trade[this.cursor_id].table_number,
                 dinners_number: "",
                 remark: "",
                 trade_id: this.trade[this.cursor_id].trade_id, // 与首页相比多了trade_id
