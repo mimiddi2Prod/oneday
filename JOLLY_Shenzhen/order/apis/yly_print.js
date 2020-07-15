@@ -81,55 +81,58 @@ async function printSignOut(params) {
         total_price: 0,
         number: 0
     }
-    result.forEach(m => {
-        if (m.pay_method == "Wxpay") {
-            // 小程序
-            Online.total_price += m.actually_total_price
-            Online.number++
+    if (result.length) {
+        result.forEach(m => {
+            if (m.pay_method == "Wxpay") {
+                // 小程序
+                Online.total_price += m.actually_total_price
+                Online.number++
 
-            wxpay.total_price += m.actually_total_price
-            wxpay.number++
-        } else if (new RegExp(m.pay_method).test("现金支付宝微信")) {
-            Reception.total_price += m.actually_total_price
-            Reception.number++
-        }
+                wxpay.total_price += m.actually_total_price
+                wxpay.number++
+            } else if (new RegExp(m.pay_method).test("现金支付宝微信")) {
+                Reception.total_price += m.actually_total_price
+                Reception.number++
+            }
 
-        if (m.pay_method == "微信") {
-            wxpay.total_price += m.actually_total_price
-            wxpay.number++
-        } else if (m.pay_method == "支付宝") {
-            alipay.total_price += m.actually_total_price
-            alipay.number++
-        } else if (m.pay_method == "现金") {
-            cash.total_price += m.actually_total_price
-            cash.number++
-        }
-    })
+            if (m.pay_method == "微信") {
+                wxpay.total_price += m.actually_total_price
+                wxpay.number++
+            } else if (m.pay_method == "支付宝") {
+                alipay.total_price += m.actually_total_price
+                alipay.number++
+            } else if (m.pay_method == "现金") {
+                cash.total_price += m.actually_total_price
+                cash.number++
+            }
+        })
+    }
+
     TotalIncome.total_price = Online.total_price + Reception.total_price
     TotalIncome.number = Online.number + Reception.number
     // 查询今日结账等数据并打印
     var content = "<MN>1</MN>";
     content += "<FS2><center>**#1 Oneday 森南店交接班**</center></FS2>";
     content += repeat('.', 32);
-    content += "<FS2><center>--Oneday 森南店--</center></FS2>";
+    content += "<FS2><center>-Oneday 森南店-</center></FS2>";
     // content += "<FS><center>张周兄弟烧烤</center></FS>";
     content += "开始时间:" + formatTime(last_login_time) + "\n";
     content += "结束时间:" + formatTime(new Date()) + "\n";
-    content += repeat('-', 28);
+    content += repeat('-', 20) + "\n";
     content += "<table>";
     content += "<tr><td>" + Online.name + "</td><td>" + Online.total_price + "元</td><td>共" + Online.number + "笔</td></tr>";
     content += "<tr><td>" + Reception.name + "</td><td>" + Reception.total_price + "元</td><td>共" + Reception.number + "笔</td></tr>";
     content += "<tr><td>" + Topup.name + "</td><td>" + Topup.total_price + "元</td><td>共" + Topup.number + "笔</td></tr>";
     content += "<tr><td>" + TotalIncome.name + "</td><td>" + TotalIncome.total_price + "元</td><td>共" + TotalIncome.number + "笔</td></tr>";
     content += "</table>";
-    content += repeat('-', 28);
+    content += repeat('-', 20) + "\n";
     content += "<table>";
-    content += "<tr><td>支付统计</td></tr>";
+    content += "<tr><td>支付统计</td><td></td><td></td></tr>";
     content += "<tr><td>微信</td><td>" + wxpay.total_price + "元</td><td>共" + wxpay.number + "笔</td></tr>";
     content += "<tr><td>支付宝</td><td>" + alipay.total_price + "元</td><td>共" + alipay.number + "笔</td></tr>";
     content += "<tr><td>现金</td><td>" + cash.total_price + "元</td><td>共" + cash.number + "笔</td></tr>";
     content += "</table>";
-    content += repeat('-', 28);
+    content += repeat('-', 20) + "\n";
     // content += "<QR>this is qrcode,you can write Officical Account url or Mini Program and so on</QR>";
     // content += "小计:￥82\n";
     // content += "折扣:￥４ \n";
@@ -138,11 +141,10 @@ async function printSignOut(params) {
     // content += "130515456456 \n";
     // content += "厦门市集美区sxxxxx \n";
     content += "<table>";
-    content += "<tr><td>店铺地址</td><td>深圳市王母社区大鹏山庄中区13号101</td></tr>";
+    content += "<tr><td>店铺地址</td><td>深圳市王母社区大鹏山庄中区13号101</td><td></td></tr>";
     content += "</table>";
     content += "<FS2><center>**#1 完**</center></FS2>";
 
-    console.info(yly.Machine)
     let machineCode = yly.Machine.filter(val => {
             return val.name == "前台"
         })[0].machine_code, //一台设备
