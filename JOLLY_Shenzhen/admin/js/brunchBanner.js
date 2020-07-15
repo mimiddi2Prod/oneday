@@ -62,7 +62,7 @@ function getBrunchBanner() {
     data.last_id = brunchBannerVM.last_id
     data.status = brunchBannerVM.navId == 1 ? 0 : 1
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.number > 0) {
             res.bannerList.map(function (fn) {
                 fn.create_time = formatTime(new Date(fn.create_time))
@@ -79,12 +79,12 @@ function getBrunchBanner() {
 }
 
 function delBrunchBanner() {
-    console.info(brunchBannerVM.del_id)
+    // console.info(brunchBannerVM.del_id)
     const url = api.delBrunchBanner, async = true
     let data = {}
     data.del_id = brunchBannerVM.del_id
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.code == 0) {
             $('#myModal').modal('hide')
             getBrunchBanner()
@@ -111,7 +111,7 @@ function updateSort(id, sort) {
     data.id = id
     data.sort = sort
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.code == 0) {
             getBrunchBanner()
         }

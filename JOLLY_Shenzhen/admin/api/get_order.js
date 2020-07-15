@@ -62,7 +62,7 @@ function getOrder() {
             }
 
             if (trade_list.length) {
-                sql = "select `name`,`describe`,img,param,price,`number`,trade_id,discount_price from goods_order where trade_id in (?)"
+                sql = "select `name`,`describe`,img,param,price,`number`,trade_id,discount_price,return_number from goods_order where trade_id in (?)"
                 row = await db.Query(sql, [trade_list.map(value => {
                     return value.trade_id
                 })]);

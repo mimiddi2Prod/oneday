@@ -80,7 +80,7 @@ function getAccount() {
     const url = api.getAccount, async = true
     let data = {}
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         accountVM.account_list = res
     })
 }
