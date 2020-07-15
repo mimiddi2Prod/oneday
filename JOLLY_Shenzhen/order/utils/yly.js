@@ -45,7 +45,6 @@ YLY.Init = async function () {
         });
     }
     let token = require('./../config/ylyToken')
-    console.info(token)
     if (token.access_token) {
         let RpcClient = new ylysdk.RpcClient(token.access_token, ylyConfig);
         YLY.Print = new ylysdk.Print(RpcClient);

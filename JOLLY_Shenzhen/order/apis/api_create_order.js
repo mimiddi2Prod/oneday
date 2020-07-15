@@ -1,5 +1,6 @@
 var db = require("./../utils/dba");
 var {formatTime} = require("./../utils/utils.js")
+var yly = require("./yly_print")
 
 exports.run = async function (params) {
     let data = null
@@ -25,15 +26,14 @@ exports.run = async function (params) {
  * trade_platform为2时 open_id为null
  * */
 async function getData(params) {
-    console.info(params, 6666666666)
     let trade_platform = 2,
         trade_id
     if (params.trade_id) {
         trade_id = params.trade_id
     } else {
-        trade_id = 'qt' + formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, "")
+        trade_id = formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, "")
     }
-    let order = params.order.map(value => {
+    let trade, order = params.order.map(value => {
             return {
                 "goods_sku_id": value.sku_id,
                 "goods_id": value.id,
@@ -49,7 +49,7 @@ async function getData(params) {
         }),
         result = await db.BulkInsert("goods_order", order)
     if (result.errmsg == "success") {
-        result = await db.BulkInsert("goods_trade", [{
+        trade = {
             "trade_id": trade_id,
             "trade_platform": trade_platform,
             "order_id_list": JSON.stringify(result.id_list),
@@ -65,10 +65,32 @@ async function getData(params) {
             "dinners_number": params.dinners_number,
             "employee_account": params.user.username,
             "remark": params.remark
-
-        }])
+        }
+        result = await db.BulkInsert("goods_trade", [trade])
     }
     if (result.errmsg == "success") {
+        // 打单
+        yly.run({
+            "type": "order",
+            "trade": Object.assign(trade, {
+                "order": params.order.map(value => {
+                    return {
+                        "goods_sku_id": value.sku_id,
+                        "goods_id": value.id,
+                        "name": value.name.split("-")[0],
+                        "img": value.img,
+                        "param": value.param,
+                        "price": value.price,
+                        "discount_price": value.discount_price,
+                        "number": value.num,
+                        "trade_id": trade_id,
+                        "create_time": new Date(),
+                        "remark": value.remark
+                    }
+                })
+            })
+        })
+
         if (params.trade_id) {
             // 改变挂单状态
             db.Query("update goods_pending_trade set state = ? where trade_id = ?", [2, params.trade_id])

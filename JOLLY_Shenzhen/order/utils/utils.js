@@ -15,6 +15,20 @@ function getNonceStr() {
 }
 
 /**
+ * 订单号专用
+ */
+function getTradeId() {
+    var date = new Date().getTime().toString()
+    var text = ""
+    var possible = "0123456789"
+    for (var i = 0; i < 5; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    var tradeId = date + text
+    return tradeId
+}
+
+/**
  * rsa解密
  * */
 var crypto = require('crypto')
@@ -69,6 +83,7 @@ const formatNumber = n => {
 
 module.exports = {
     getNonceStr: getNonceStr,
+    getTradeId: getTradeId,
     Decrypt: Decrypt,
     isEmpty: isEmpty,
     formatTime: formatTime

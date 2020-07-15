@@ -32,7 +32,7 @@ async function getData(params) {
         trade_id = params.trade_id
     } else {
         // 新增挂单
-        trade_id = 'qt' + formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, "")
+        trade_id = formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, "")
     }
     let order = params.order.map(value => {
         return {

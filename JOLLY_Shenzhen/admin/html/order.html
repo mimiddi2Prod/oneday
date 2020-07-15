@@ -172,7 +172,7 @@
                                 </div>
                                 <div class="b">
                                     <span>{{order.name}}</span>
-                                    <span v-if="order.param" v-for="item in JSON.parse(order.param)">-{{item}}</span>
+                                    <span v-if="order.param" v-for="item in order.param">-{{item}}</span>
                                 </div>
                                 <div class="c">
                                     <div>单价￥{{order.price}}</div>
