@@ -15,4 +15,12 @@ var api = {
 
     getAccount: '../api/get_account',
     setAccount: '../api/set_account',
+
+    getBrunchBanner: '../api/get_brunch_banner',
+    delBrunchBanner: '../api/del_brunch_banner',
+    updateBrunchBannerStatus: '../api/update_brunch_banner_status',
+    getBrunchCategory: '../api/get_brunch_category',
+    getGoodsByBrunchCategory: '../api/get_goods_by_brunch_category',
+    addBrunchBanner: '../api/add_brunch_banner',
+    updateBrunchBannerSort: '../api/update_brunch_banner_sort',
 }

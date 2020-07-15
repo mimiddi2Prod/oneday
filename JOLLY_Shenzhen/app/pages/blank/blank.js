@@ -13,7 +13,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     wx.showLoading({
       title: '加载中',
     })
@@ -26,14 +26,19 @@ Page({
     // console.info('当前时间' + current_time)
     let number = options.id ? options.id : app.globalData.number //桌号
     app.globalData.number = number
-    let locationCode = 'xmspw'
+    let locationCode = 'szsn'
     if (expire_time >= current_time) {
       status = true
     }
     if (status) {
-      wx.redirectTo({
-        url: '../index/index?number=' + number + '&locationCode=' + locationCode,
-      })
+      let Interval = setInterval(() => {
+        if (wx.getStorageSync("token")) {
+          wx.redirectTo({
+            url: '../index/index?number=' + number + '&locationCode=' + locationCode,
+          })
+          clearInterval(Interval)
+        }
+      }, 500)
     } else {
       wx.redirectTo({
         url: '../index/timeout',
@@ -45,49 +50,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

@@ -38,18 +38,27 @@ function getOrder() {
             //     data.number = trade_list.length
             // }
 
+            console.info(param)
             // 新新版本
             let trade_list = []
-            if (param["status"] == -1) {
+            if (param["trade_platform"] == 0) {
+                sql = "select count(id) as number from goods_trade where pay_status = 1"
+                row = await db.Query(sql);
+                data.number = row[0].number
+
                 sql = "select * from goods_trade where pay_status = ? ORDER BY create_time desc limit ?,?";
-                row = await db.Query(sql, [1, param['last_id'] * 5, 5]);
+                row = await db.Query(sql, [1, param['last_id'] * 20, 20]);
                 trade_list = row
-                data.number = trade_list.length
+
             } else {
-                sql = "select * from goods_trade where take_meal_style = ? and pay_status = ? ORDER BY create_time desc limit ?,?";
-                row = await db.Query(sql, [param["status"], 1, param['last_id'] * 5, 5]);
+                sql = "select count(id) as number from goods_trade where trade_platform = ? and pay_status = 1"
+                row = await db.Query(sql, [param["trade_platform"]]);
+                data.number = row[0].number
+
+                sql = "select * from goods_trade where trade_platform = ? and pay_status = ? ORDER BY create_time desc limit ?,?";
+                row = await db.Query(sql, [param["trade_platform"], 1, param['last_id'] * 20, 20]);
                 trade_list = row
-                data.number = trade_list.length
+                // data.number = trade_list.length
             }
 
             if (trade_list.length) {

@@ -1,7 +1,7 @@
 var orderVM = new Vue({
     el: '#order',
     data: {
-        navList: ['全部', '堂食', '外带'],
+        navList: ['全部', '网单单据', '店内单据'],
         navId: -1,
         select_1: '商品ID',
         id_or_name: '',
@@ -115,7 +115,7 @@ function getOrder() {
     orderVM.orderList = []
     const url = api.getOrder, async = true
     let data = {}
-    data.status = orderVM.navId
+    data.trade_platform = orderVM.navId + 1
     data.last_id = orderVM.last_id
     server(url, data, async, "post", function (res) {
         console.info(res)
@@ -128,7 +128,7 @@ function getOrder() {
             })
             orderVM.orderList = res.trade
             // 分页栏
-            for (let i = 0; i < res.number / 5; i++) {
+            for (let i = 0; i < res.number / 20; i++) {
                 orderVM.pageList.push(i + 1)
             }
         }

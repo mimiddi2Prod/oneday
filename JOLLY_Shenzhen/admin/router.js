@@ -70,6 +70,34 @@ function Router() {
                 var setAccount = require("./api/set_account.js");
                 baseApi = new setAccount;
                 break;
+            case "get_brunch_banner":
+                var getBrunchBanner = require("./api/get_brunch_banner.js");
+                baseApi = new getBrunchBanner;
+                break;
+            case "del_brunch_banner":
+                var delBrunchBanner = require("./api/delete_brunch_banner.js");
+                baseApi = new delBrunchBanner;
+                break;
+            case "update_brunch_banner_status":
+                var updateBrunchBannerStatus = require("./api/update_brunch_banner_status.js");
+                baseApi = new updateBrunchBannerStatus;
+                break;
+            case "get_brunch_category":
+                var getBrunchCategory = require("./api/get_brunch_category.js");
+                baseApi = new getBrunchCategory;
+                break;
+            case "get_goods_by_brunch_category":
+                var getGoodsByBrunchCategory = require("./api/get_goods_by_brunch_category.js");
+                baseApi = new getGoodsByBrunchCategory;
+                break;
+            case "add_brunch_banner":
+                var addBrunchBanner = require("./api/add_brunch_banner.js");
+                baseApi = new addBrunchBanner;
+                break;
+            case "update_brunch_banner_sort":
+                var updateBrunchBannerSort = require("./api/update_brunch_banner_sort.js");
+                baseApi = new updateBrunchBannerSort;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

@@ -88,6 +88,10 @@ app.use(function (req, res, next) {
                     showPaper('html/order.html');
                 } else if (type[1] == 'account') {
                     showPaper('html/account.html');
+                } else if (type[1] == 'brunchBanner') {
+                    showPaper('html/brunchBanner.html');
+                } else if (type[1] == 'addBrunchBanner') {
+                    showPaper('html/addBrunchBanner.html');
                 } else {
                     showPaper('html/404.html')
                 }
