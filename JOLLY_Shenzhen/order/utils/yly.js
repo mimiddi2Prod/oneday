@@ -5,11 +5,12 @@
 let ylysdk = require('yly-nodejs-sdk')
 var fs = require('fs')
 const path = require('path')
+const db = require('./dba')
 
 function YLY() {
 }
 
-YLY.Init = function () {
+YLY.Init = async function () {
     let yly = require('./../config/ylyConfig')
     let ylyConfig = new ylysdk.Config({
         'cid': yly.cid,
@@ -34,7 +35,7 @@ YLY.Init = function () {
             if (res.body.machine_code != null) {
                 tokenData.machineCode = res.body.machine_code;
             }
-            console.log(tokenData);
+            // console.log(tokenData);
             // write
             fs.appendFileSync('./config/ylyToken.js', 'module.exports = {\n' +
                 '    access_token: \'' + tokenData.access_token + '\',\n' +
@@ -44,9 +45,11 @@ YLY.Init = function () {
         });
     }
     let token = require('./../config/ylyToken')
+    console.info(token)
     if (token.access_token) {
         let RpcClient = new ylysdk.RpcClient(token.access_token, ylyConfig);
         YLY.Print = new ylysdk.Print(RpcClient);
+        YLY.Machine = await db.Query("select * from yly_machine")
     }
     return YLY.Print;
 }

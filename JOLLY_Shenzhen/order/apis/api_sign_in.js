@@ -31,13 +31,15 @@ async function getData(params) {
     }
     const privateKey = require('./../utils/getPrivateKey').Get()
     const password = utils.Decrypt(params['password'], privateKey)
-    let result = await db.Select("*", "admin", {"username": params["username"], "password": password})
+    // state 0 删除 1 启用 2 禁用
+    let result = await db.Select("*", "admin", {"username": params["username"], "password": password, "state": 1})
     if (result.length) {
         let expiredTime = new Date(new Date().getTime() + (24 * 60 * 60 * 1000))
         call.token = uuid.v4()
         call.expires = expiredTime
         db.Update({
             "token": call.token,
+            "last_login_time": new Date(),
             "token_expire": expiredTime,
             "user_agent": params["user_agent"],
             "id": result[0].id
