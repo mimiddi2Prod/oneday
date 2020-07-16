@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-07-15 17:55:11
+Date: 2020-07-16 15:23:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,7 +44,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-07-15 17:25:35', '1', null, null, '89b35736-9524-40f9-ac5d-793739c8b7fc', '2020-07-16 05:25:35', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-07-16 14:31:11', '1', null, null, '365c9a41-5162-4b59-a07a-d6ed5c4d192b', '2020-07-17 02:31:11', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', null, null, null, null, null, null);
 INSERT INTO `admin` VALUES ('2', '1001', 's1001', null, '2019-05-14 13:58:38', '2020-07-15 16:05:03', '3', '1', null, 'ede33cb9-84cd-4a18-89ca-a4671350234d', '2020-07-16 16:05:03', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', null, null, null, null, null, null);
 INSERT INTO `admin` VALUES ('6', 'd2qwe', '2312', null, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '3', '0', null, null, null, null, null, null, null, null, null, null);
 
@@ -484,7 +484,30 @@ INSERT INTO `goods_trade` VALUES ('264', '20200715161623', '', '2', '[139]', '2'
 INSERT INTO `goods_trade` VALUES ('265', '20200715163002', '', '2', '[140,141,142]', '7', '90.80', '45.40', '1', '现金', '2020-07-15 16:30:02', '2020-07-15 16:30:02', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null, '');
 INSERT INTO `goods_trade` VALUES ('266', '20200715163216', '', '2', '[143,144]', '3', '60.00', '60.00', '1', '现金', '2020-07-15 16:32:16', '2020-07-15 16:32:16', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null, '');
 INSERT INTO `goods_trade` VALUES ('267', '20200715163627', '', '2', '[145,146,147,148,149]', '7', '115.40', '57.70', '1', '现金', '2020-07-15 16:36:27', '2020-07-15 16:36:27', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null, '打5折，跳楼价，血亏');
-INSERT INTO `goods_trade` VALUES ('268', '20200715164513', '', '2', '[150]', '1', '20.00', '10.00', '1', '现金', '2020-07-15 16:45:13', '2020-07-15 16:45:13', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null, '');
+INSERT INTO `goods_trade` VALUES ('268', '20200715164513', '', '2', '[150]', '1', '20.00', '10.00', '1', '现金', '2020-07-16 01:45:13', '2020-07-15 16:45:13', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null, '');
+
+-- ----------------------------
+-- Table structure for home_data
+-- ----------------------------
+DROP TABLE IF EXISTS `home_data`;
+CREATE TABLE `home_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_date` date DEFAULT NULL COMMENT '当日时间',
+  `mini_program_income` decimal(10,2) DEFAULT NULL COMMENT '当日小程序收入',
+  `reception_income` decimal(10,2) DEFAULT NULL COMMENT '当日前台收入',
+  `actually_income` decimal(10,2) DEFAULT NULL COMMENT '当日总营收',
+  `refund_price` decimal(10,2) DEFAULT NULL COMMENT '当日退款',
+  `refund_order_number` int(11) DEFAULT NULL COMMENT '当日反结账+退货 数',
+  `order_number` int(12) DEFAULT NULL COMMENT '当日订单总数',
+  `increase_user` varchar(255) DEFAULT NULL COMMENT '当日小程序新增用户',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=702 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of home_data
+-- ----------------------------
+INSERT INTO `home_data` VALUES ('2', '2020-07-15', '0.00', '60.00', '61.00', '0.00', '0', '6', '0');
+INSERT INTO `home_data` VALUES ('700', '2020-07-16', '0.00', '10.00', '10.00', '0.00', '0', '1', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_user

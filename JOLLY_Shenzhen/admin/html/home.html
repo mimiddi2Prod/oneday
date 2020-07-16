@@ -20,6 +20,12 @@
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/menu.css" rel="stylesheet">
     <link href="../css/home.css" rel="stylesheet">
+
+    <script type="text/javascript" src="../layDate-v5.0.9/laydate/laydate.js"></script> <!--时间控件-->
+    <!--图表-->
+    <script type="text/javascript" src="../moment-2.24.0/moment-with-locales.js"></script>
+    <script type="text/javascript" src="../../chart/Chart.min.js"></script><!-- Chartjs -->
+    <script type="text/javascript" src="../js/utils/util.js"></script>
 </head>
 
 <body>
@@ -38,99 +44,126 @@
         <div class="home-title">
             <nav role="navigation" class="navbar navbar-default">
                 <div class="item">
-                    <div class="column-center" v-on:click="changePage('order',0)" style="cursor: pointer">
-                        <div><h1>{{waitShipNum}}</h1></div>
-                        <div><h5>待发货订单</h5></div>
-                    </div>
-                    <div class="column-center" v-on:click="changePage('order',3)" style="cursor: pointer">
-                        <div><h1>0</h1></div>
-                        <div><h5>退款售后订单</h5></div>
+                    <div class="column-center">
+                        <div><h1>{{data.total_order_number}}</h1></div>
+                        <div><h5>订单总数</h5></div>
                     </div>
                     <div class="column-center">
-                        <div><h1>0</h1></div>
-                        <div><h5>待查看消息</h5></div>
+                        <div><h1>{{data.today_order_number}}</h1></div>
+                        <div><h5>今日订单</h5></div>
                     </div>
                     <div class="column-center">
-                        <div><h1>0.00</h1></div>
-                        <div><h5>待提现金额</h5></div>
+                        <div><h1>{{data.total_actually_income}}</h1></div>
+                        <div><h5>营业实收</h5></div>
                     </div>
-
-                </div>
-            </nav>
-        </div>
-
-        <div class="title row-center">
-            <div>
-                <h4>关键指数</h4>
-            </div>
-            <div class="column-center">7天</div>
-            <div class="column-center">30天</div>
-        </div>
-
-        <div class="zhishu row-center">
-            <nav role="navigation" class="navbar navbar-default">
-                <div class="item">
                     <div class="column-center">
-                        <span>访问人数</span>
+                        <div><h1>{{data.total_refund}}</h1></div>
+                        <div><h5>退款金额</h5></div>
                     </div>
-                    <div class="row-center">
-                        <div>100.00%</div>
-                        <div style="margin-left: 10px;">0</div>
-                    </div>
-                </div>
-            </nav>
 
-            <nav role="navigation" class="navbar navbar-default">
-                <div class="item">
-                    <div class="column-center">
-                        <span>成交客户</span>
-                    </div>
-                    <div class="row-center">
-                        <div>100.00%</div>
-                        <div style="margin-left: 10px;">0</div>
-                    </div>
-                </div>
-            </nav>
-
-            <nav role="navigation" class="navbar navbar-default">
-                <div class="item">
-                    <div class="column-center">
-                        <span>支付订单</span>
-                    </div>
-                    <div class="row-center">
-                        <div>100.00%</div>
-                        <div style="margin-left: 10px;">0</div>
-                    </div>
-                </div>
-            </nav>
-
-            <nav role="navigation" class="navbar navbar-default">
-                <div class="item">
-                    <div class="column-center">
-                        <span>支付金额</span>
-                    </div>
-                    <div class="row-center">
-                        <div>100.00%</div>
-                        <div style="margin-left: 10px;">0</div>
-                    </div>
                 </div>
             </nav>
         </div>
 
         <!--<div class="title row-center">-->
-            <!--&lt;!&ndash;<div>&ndash;&gt;-->
-                <!--<h4>更新银豹收银后台数据到服务器</h4>-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--<div>-->
+                <!--<h4>关键指数</h4>-->
+            <!--</div>-->
+            <!--<div class="column-center">7天</div>-->
+            <!--<div class="column-center">30天</div>-->
+        <!--</div>-->
+
+        <!--<div class="zhishu row-center">-->
+            <!--<nav role="navigation" class="navbar navbar-default">-->
+                <!--<div class="item">-->
+                    <!--<div class="column-center">-->
+                        <!--<span>访问人数</span>-->
+                    <!--</div>-->
+                    <!--<div class="row-center">-->
+                        <!--<div>100.00%</div>-->
+                        <!--<div style="margin-left: 10px;">0</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</nav>-->
+
+            <!--<nav role="navigation" class="navbar navbar-default">-->
+                <!--<div class="item">-->
+                    <!--<div class="column-center">-->
+                        <!--<span>成交客户</span>-->
+                    <!--</div>-->
+                    <!--<div class="row-center">-->
+                        <!--<div>100.00%</div>-->
+                        <!--<div style="margin-left: 10px;">0</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</nav>-->
+
+            <!--<nav role="navigation" class="navbar navbar-default">-->
+                <!--<div class="item">-->
+                    <!--<div class="column-center">-->
+                        <!--<span>支付订单</span>-->
+                    <!--</div>-->
+                    <!--<div class="row-center">-->
+                        <!--<div>100.00%</div>-->
+                        <!--<div style="margin-left: 10px;">0</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</nav>-->
+
+            <!--<nav role="navigation" class="navbar navbar-default">-->
+                <!--<div class="item">-->
+                    <!--<div class="column-center">-->
+                        <!--<span>支付金额</span>-->
+                    <!--</div>-->
+                    <!--<div class="row-center">-->
+                        <!--<div>100.00%</div>-->
+                        <!--<div style="margin-left: 10px;">0</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</nav>-->
+        <!--</div>-->
+
+        <!--<div>-->
+        <div class="row-center">
+            <span>时间：</span>
+            <input type="text" class="form-control" id="test5_1" style="width: auto;display: inline-block;"
+                   placeholder="选择起始时间">
+            <div class="line"></div>
+            <input type="text" class="form-control" id="test5_2" style="width: auto;display: inline-block;"
+                   placeholder="选择截止时间">
+            <button class="btn btn-secondary" @click="submit('order')">确定</button>
+        </div>
+        <div class="chart-container" style="position: relative; height:400px;"> <!--width:80vw height:40vh;-->
+            <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart"></canvas>
+        </div>
+        <div class="row-center">
+            <span>时间：</span>
+            <input type="text" class="form-control" id="test5_3" style="width: auto;display: inline-block;"
+                   placeholder="选择起始时间">
+            <div class="line"></div>
+            <input type="text" class="form-control" id="test5_4" style="width: auto;display: inline-block;"
+                   placeholder="选择截止时间">
+            <button class="btn btn-secondary" @click="submit('user')">确定</button>
+        </div>
+        <div class="chart-container" style="position: relative; height:400px;"> <!--width:80vw-->
+            <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart2"></canvas>
+        </div>
+        <!--</div>-->
+
+        <!--<div class="title row-center">-->
+        <!--&lt;!&ndash;<div>&ndash;&gt;-->
+        <!--<h4>更新银豹收银后台数据到服务器</h4>-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
         <!--</div>-->
 
         <!--<div class="zhishu">-->
-            <!--<button class="btn btn-secondary" v-on:click="yinbaoGetGoodsToUpdate">更新商品列表</button>-->
-            <!--&lt;!&ndash;<button class="btn btn-secondary">更新商品列表</button>&ndash;&gt;-->
+        <!--<button class="btn btn-secondary" v-on:click="yinbaoGetGoodsToUpdate">更新商品列表</button>-->
+        <!--&lt;!&ndash;<button class="btn btn-secondary">更新商品列表</button>&ndash;&gt;-->
         <!--</div>-->
 
         <!--<div class="zhishu">-->
-            <!--<button class="btn btn-secondary" v-on:click="yinbaoGetCustomerByTel">根据手机号查询会员信息</button>-->
-            <!--&lt;!&ndash;<button class="btn btn-secondary">更新商品列表</button>&ndash;&gt;-->
+        <!--<button class="btn btn-secondary" v-on:click="yinbaoGetCustomerByTel">根据手机号查询会员信息</button>-->
+        <!--&lt;!&ndash;<button class="btn btn-secondary">更新商品列表</button>&ndash;&gt;-->
         <!--</div>-->
 
     </div>

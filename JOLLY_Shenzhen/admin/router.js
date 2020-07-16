@@ -98,6 +98,10 @@ function Router() {
                 var updateBrunchBannerSort = require("./api/update_brunch_banner_sort.js");
                 baseApi = new updateBrunchBannerSort;
                 break;
+            case "get_home":
+                var getHome = require("./api/get_home.js");
+                baseApi = new getHome;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

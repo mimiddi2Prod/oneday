@@ -12,6 +12,7 @@ var api = {
     getOrder: '../api/get_order',
     getOrderBySearch: '../api/get_order_by_search',
     updateGoods: '../api/update_goods',
+    getHome: '../api/get_home',
 
     getAccount: '../api/get_account',
     setAccount: '../api/set_account',

@@ -201,7 +201,7 @@ async function printOrder(params) {
         content += repeat('*', 32);
         content += "订单总价:￥" + trade.actually_total_price + "\n";
         if (trade.remark.length) {
-            content += "订单备注:￥" + trade.remark + "\n";
+            content += "订单备注:" + trade.remark + "\n";
         }
         // content += "130515456456 \n";
         // content += "厦门市集美区sxxxxx \n";
