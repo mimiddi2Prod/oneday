@@ -34,9 +34,11 @@ function autoStatisticsOrderData() {
                 if (m.after_sale_type) {
                     refund_price += m.after_sale_price
                     refund_order_number++
-                } else {
-                    order_number++
                 }
+                // else {
+                //     order_number++
+                // }
+                order_number++  // 包括退单
             })
             actually_income = mini_program_income + reception_income
 
