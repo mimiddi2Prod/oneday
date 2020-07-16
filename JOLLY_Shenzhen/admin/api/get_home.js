@@ -23,7 +23,7 @@ function getHome() {
             row = await db.Query("select * from home_data")
             row.forEach(m => {
                 data["total_order_number"] += m.order_number - m.refund_order_number // 总单数减去有售后的
-                data["today_order_number"] = m.create_date == today ? (m.order_number - m.refund_order_number) : data["today_order_number"]
+                data["today_order_number"] = new Date(m.create_date).getTime() == new Date(today).getTime() ? (m.order_number - m.refund_order_number) : data["today_order_number"]
                 data["total_actually_income"] += m.actually_income - m.refund_price  // 营业额减退款的 为 实收
                 data["total_refund"] += m.refund_price
 
