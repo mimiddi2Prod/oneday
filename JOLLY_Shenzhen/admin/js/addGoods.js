@@ -448,7 +448,7 @@ function addGoods() {
     data.param_list = (addGoodsVM.priceTypeId == 1 ? addGoodsVM.table : [])
     data.goods_status = addGoodsVM.goods_status
     data.stock = addGoodsVM.goods_stock
-    data.location_code = "sz"
+    data.location_code = "szsn"
     data.sort = addGoodsVM.sort
     // if (addGoodsVM.integralSelect == 0) {
     //     data.type = addGoodsVM.typeValue

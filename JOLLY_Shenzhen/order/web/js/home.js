@@ -266,17 +266,24 @@ var homevm = new Vue({
             // $('#loading').modal('hide');
             this._calculationTotal()
         },
+        /**
+         * total_num 商品总数量
+         * total_price 商品折扣后计算的总价 （结算时订单还可再进行一次折扣计算）
+         * total_original_price 商品在数据库中的原价
+         */
         // 对左侧订单进行数量和应付款统计
         _calculationTotal() {
-            let total_num = 0, total_price = 0
+            let total_num = 0, total_price = 0, total_original_price = 0
             if (this.order.length) {
                 this.order.forEach(value => {
                     total_num += value.num
+                    total_original_price += value.num * value.price
                     total_price += value.subtotal
                 })
             }
             this.trade = {
                 total_num: total_num,
+                total_original_price: Math.round(total_original_price * 100) / 100,
                 total_price: Math.round(total_price * 100) / 100,
                 total_diacount_price: "",
                 pay_type: "现金",

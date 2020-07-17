@@ -55,6 +55,7 @@ async function getData(params) {
             "order_id_list": JSON.stringify(result.id_list),
             "goods_total_number": params.total_num,
             "goods_total_price": params.total_price,
+            "goods_total_original_price": params.total_original_price,
             "actually_total_price": params.total_diacount_price ? params.total_diacount_price : params.total_price,
             "pay_status": 1,
             "pay_method": params.pay_type,
@@ -82,6 +83,7 @@ async function getData(params) {
                         "param": value.param,
                         "price": value.price,
                         "discount_price": value.discount_price,
+                        "subtotal": value.subtotal, // 小计
                         "number": value.num,
                         "trade_id": trade_id,
                         "create_time": new Date(),
