@@ -7,9 +7,8 @@ function updateGoods() {
         var data = {}
         var row = []
         try {
-            console.info(param)
+            // console.info(param)
             let img = ''
-            console.info()
             if (param["img_list"].indexOf(qiniuRootUrl) != -1) {
                 img = param["img_list"]
             } else {
@@ -18,7 +17,7 @@ function updateGoods() {
             sql = "update goods set `name` = ?,img = ?,`describe` = ?,min_price = ?,location_code = ?,category_id = ?,stock = ?,status = ?,sort = ?,create_time = current_timestamp ,user_id = ? where id = ?"
             // sql = "select id,`name`,image,tag from admin_menu where sup_id = ?";
             row = await db.Query(sql, [param["goods_title"], img, param["goods_desc"], param["goods_min_price"], param["location_code"], param["select_category_id"], param["stock"], param["goods_status"], param["sort"], param["user_id"], param["goods_id"]]);
-            console.info(row)
+            // console.info(row)
             if (param["haveParam"] == 0) {
                 // 不需要参数 删除旧的 重新设置
                 sql = "delete from goods_sku where goods_id = ?"

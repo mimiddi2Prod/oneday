@@ -8,7 +8,7 @@ function delBrunchBanner() {
         try {
             sql = "delete from banner where id = ?";
             row = await db.Query(sql, param['del_id']);
-            console.info(row)
+            // console.info(row)
             if (row.affectedRows == 1) {
                 data.code = 0
                 data.text = '删除成功'

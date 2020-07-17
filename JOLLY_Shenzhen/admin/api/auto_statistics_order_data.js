@@ -70,7 +70,7 @@ function autoStatisticsOrderData() {
                 db.Query("update home_data set mini_program_income=?,reception_income=?,actually_income=?,refund_price=?,refund_order_number=?,order_number=?,increase_user=? where create_date = ?",
                     [mini_program_income, reception_income, actually_income, refund_price, refund_order_number, order_number, increase_user, today])
             } else {
-                db.Query("insert into home_data(mini_program_income,reception_income,actually_income,refund_price,refund_order_number,order_number,increase_user)value(?,?,?,?,?,?,?) where create_date = ?",
+                db.Query("insert into home_data(mini_program_income,reception_income,actually_income,refund_price,refund_order_number,order_number,increase_user,create_date)value(?,?,?,?,?,?,?,?)",
                     [mini_program_income, reception_income, actually_income, refund_price, refund_order_number, order_number, increase_user, today])
             }
         }, 10 * 1000)

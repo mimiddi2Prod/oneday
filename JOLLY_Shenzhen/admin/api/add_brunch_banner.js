@@ -12,7 +12,7 @@ function addBrunchBanner() {
 
             sql = "insert into banner(category_id,goods_id,`name`,image,status,sort,user_id,`type`,create_time)values(?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
             row = await db.Query(sql, [param['category_id'], param['goods_id'], param['name'], img, param['status'], param['sort'], param['user_id'], param['type']]);
-            console.info(row)
+            // console.info(row)
             if (row.insertId) {
                 data.code = 0
                 data.text = '添加成功'

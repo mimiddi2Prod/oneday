@@ -23,7 +23,7 @@ function shopRefund() {
             for(let i in row){
                 total_fee = total_fee + Number(row[i].single_price) * Number(row[i].number)
             }
-            console.info(total_fee)
+            // console.info(total_fee)
             // 总金额需要查相同订单号的金额合计 tradeId
             // var total_fee = param['total_fee']
 

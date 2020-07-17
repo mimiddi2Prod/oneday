@@ -10,7 +10,7 @@ function delCategory() {
         try {
             sql = "delete from category where id = ?"
             row = await db.Query(sql, param["id"]);
-            console.info(row)
+            // console.info(row)
             data.code = 0
 
             return callback(data);

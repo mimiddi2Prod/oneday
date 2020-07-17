@@ -8,7 +8,7 @@ function getMenu() {
         try {
             sql = "select id,`name`,image,tag from admin_menu where sup_id = ?";
             row = await db.Query(sql, 0);
-            console.info(row)
+            // console.info(row)
             if (row.length > 0) {
                 data.menu = row
                 for (let i in data.menu) {

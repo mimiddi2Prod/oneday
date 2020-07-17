@@ -215,6 +215,7 @@ var editGoodsVM = new Vue({
                             this.paramList[i].param = this.tempParamModal.param
                         }
                     }
+                    self.paramModalText = ""
                     // $('#classModal').modal('hide')
                 } else {
                     alert('你添加了相同的参数了！')
@@ -517,7 +518,10 @@ function updateGoods() {
     data.location_code = editGoodsVM.location_code
     data.sort = editGoodsVM.sort
     data.paramIsChange = editGoodsVM.paramIsChange
-
+    data.param_list = data.param_list.map(val => {
+        val.price = data.goods_min_price
+        return val
+    })
     server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.code == 0) {

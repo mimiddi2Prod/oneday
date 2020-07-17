@@ -2,7 +2,7 @@ var db = require("./../utils/dba");
 
 module.exports = async function (cookie) {
     let data = {}
-    console.info(cookie)
+    // console.info(cookie)
     if (!cookie.token) {
         data.text = false
         return data

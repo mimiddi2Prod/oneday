@@ -10,7 +10,7 @@ function updateCategory() {
         try {
             sql = "update category set `name` = ?,location_code = ?,sort = ?,create_time = current_timestamp,user_id = ? where id = ?"
             row = await db.Query(sql, [param["name"], param["location_code"], param["sort"], param["user_id"], param['id']]);
-            console.info(row)
+            // console.info(row)
             data.code = 0
 
             return callback(data);

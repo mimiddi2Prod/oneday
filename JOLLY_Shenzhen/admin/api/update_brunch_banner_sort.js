@@ -9,7 +9,7 @@ function updateBrunchBannerSort() {
         try {
             sql = "update banner set sort = ? where id = ?";
             row = await db.Query(sql, [param['sort'], param['id']]);
-            console.info(row)
+            // console.info(row)
             if (row.changedRows == 1) {
                 data.code = 0
                 data.text = '编辑成功'

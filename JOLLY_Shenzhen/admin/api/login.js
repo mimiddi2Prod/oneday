@@ -23,7 +23,7 @@ function shopLogin() {
                 // param['username'] = encodeURIComponent(param['username'])
                 sql = "select id,`type` from admin where username = ? and password = ?";
                 row = await db.Query(sql, [param['username'], password]);
-                console.info(row)
+                // console.info(row)
                 if (row.length > 0) {
                     data.text = "login is success"
                     data.id = row[0].id

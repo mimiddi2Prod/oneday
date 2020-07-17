@@ -209,7 +209,9 @@ var addGoodsVM = new Vue({
                             this.paramList[i].param = this.tempParamModal.param
                         }
                     }
+                    self.paramModalText = ""
                     // $('#classModal').modal('hide')
+
                 } else {
                     alert('你添加了相同的参数了！')
                 }
@@ -476,6 +478,11 @@ function addGoods() {
     //     return res.key
     // })
     // data.state = addGoodsVM.state
+    // 由于参数只是类似口味的东西，故不需要附加值，故都添加为原价的
+    data.param_list = data.param_list.map(val => {
+        val.price = data.goods_min_price
+        return val
+    })
     server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.code == 0) {

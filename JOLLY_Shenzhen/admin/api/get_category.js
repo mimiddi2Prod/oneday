@@ -18,7 +18,7 @@ function getCategory() {
                     } else {
                         data[i].goods_number = 0
                     }
-                    console.info(row)
+                    // console.info(row)
                 }
             }
 
