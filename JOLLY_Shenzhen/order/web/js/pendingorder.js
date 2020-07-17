@@ -125,6 +125,10 @@ var orderformvm = new Vue({
                 }, 500)
             })
         },
+        cancleDataUpdate() {
+            let self = this
+            self.order = self.trade.length ? JSON.parse(JSON.stringify(self.trade[self.cursor_id].order)) : []
+        },
         submitAfterSale(data) {
             let self = this
             Axios(api.afterSale, "POST", data).then(res => {

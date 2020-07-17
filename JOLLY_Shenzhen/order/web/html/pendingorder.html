@@ -103,6 +103,9 @@
                     <button type="button" class="btn btn-secondary"
                             @click="updatePendingOrderData(item,'updateDiscountPrice')">确定
                     </button>
+                    <button type="button" class="btn btn-secondary"
+                            @click="cancleDataUpdate()">取消
+                    </button>
                 </div>
                 <div class="col-sm-3 px-2 text-center">
                     <div class="nav justify-content-center align-items-center">
@@ -114,12 +117,15 @@
                             </svg>
                         </div>
                         <!--<div class="mx-2">{{item.number}}</div>-->
-                        <div class="nav justify-content-center mx-2 w-50">
+                        <div class="row-c mx-2 w-50">
                             <input type="text" class="form-control h-100 w-50"
                                    @input="item.number=item.number.replace(/[^\d]/g,'')"
                                    v-model="item.number">
                             <button type="button" class="btn btn-secondary"
                                     @click="updatePendingOrderData(item,'updateNum',index)">确定
+                            </button>
+                            <button type="button" class="btn btn-secondary"
+                                    @click="cancleDataUpdate()">取消
                             </button>
                         </div>
                         <div class="text-center" @click="updatePendingOrderData(item,'addNum')">
