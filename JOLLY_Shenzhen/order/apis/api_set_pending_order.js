@@ -46,7 +46,8 @@ async function getData(params) {
             "discount_price": value.discount_price,
             "number": value.num,
             "trade_id": trade_id,
-            "create_time": new Date()
+            "create_time": new Date(),
+            "remark": value.remark
         }
     })
     let result = await db.BulkInsert("goods_pending_order", order)

@@ -140,7 +140,7 @@ var orderformvm = new Vue({
             $('#modal_order').modal('show');
             $('#modal_order_submit')[0].addEventListener("click", this._hideModal)
 
-            let total_num = 0, total_price = 0
+            let total_num = 0, total_price = 0, total_original_price = 0
             if (this.order.length) {
                 this.submit_order = this.order.map(val => {
                     return {
@@ -152,17 +152,20 @@ var orderformvm = new Vue({
                         "price": val.price,
                         "discount_price": val.discount_price,
                         "num": val.number,
-                        "subtotal": val.number * val.discount_price
+                        "subtotal": val.number * val.discount_price,
+                        "remark": val.remark
                         // "trade_id": val.trade_id
                     }
                 })
                 this.submit_order.forEach(value => {
                     total_num += value.num
+                    total_original_price += value.num * value.price
                     total_price += value.subtotal
                 })
             }
             this.submit_trade = {
                 total_num: total_num,
+                total_original_price: Math.round(total_original_price * 100) / 100,
                 total_price: Math.round(total_price * 100) / 100,
                 total_diacount_price: "",
                 pay_type: "现金",
