@@ -26,12 +26,17 @@ var orderformvm = new Vue({
         isKeyDownDiscount: 0,  // 0输入的 1按键盘
     },
     methods: {
+        // 切换订单
+        cursor(index) {
+            this.cursor_id = index;
+            this.order = JSON.parse(JSON.stringify(this.trade[this.cursor_id].order))
+        },
         _getPendingTrade() {
             let self = this
             Axios(api.getPendingTrade, "POST", {}).then(res => {
                 if (res.code == 0) {
                     self.trade = res.data
-                    self.order = self.trade.length ? self.trade[self.cursor_id].order : []
+                    self.order = self.trade.length ? JSON.parse(JSON.stringify(self.trade[self.cursor_id].order)) : []
                 }
                 setTimeout(() => {
                     self._hideModal()
@@ -50,7 +55,7 @@ var orderformvm = new Vue({
             $('#modal_invalid_remark').modal('show');
             $('#modal_invalid_remark_submit')[0].addEventListener("click", this._hideModal);
         },
-        updatePendingOrderData(order, type) {
+        updatePendingOrderData(order, type, index) {
             let self = this
             $('#loading').modal('show')
             let data = {}
@@ -70,6 +75,16 @@ var orderformvm = new Vue({
                         type: type,
                         goodsId: order.goods_id,
                         IncrementNum: 1,
+                    }
+                    break;
+                }
+                case "updateNum": {
+                    let IncrementNum = order.number - this.trade[this.cursor_id].order[index].number
+                    data = {
+                        id: order.id,
+                        type: IncrementNum > 0 ? "addNum" : "cuteNum",
+                        goodsId: order.goods_id,
+                        IncrementNum: IncrementNum,
                     }
                     break;
                 }
@@ -98,8 +113,11 @@ var orderformvm = new Vue({
                         self.cursor_id = 0
                     }
                     self.trade = res.data.data
-                    self.order = self.trade.length ? self.trade[self.cursor_id].order : []
+                    self.order = self.trade.length ? JSON.parse(JSON.stringify(self.trade[self.cursor_id].order)) : []
                 } else {
+                    if (res.errmsg == "库存不足") {
+                        self.order = self.trade.length ? JSON.parse(JSON.stringify(self.trade[self.cursor_id].order)) : []
+                    }
                     alert(res.errmsg)
                 }
                 setTimeout(() => {
@@ -144,7 +162,8 @@ var orderformvm = new Vue({
 
             let total_num = 0, total_price = 0, total_original_price = 0
             if (this.order.length) {
-                this.submit_order = this.order.map(val => {
+                // this.submit_order = this.order.map(val => {
+                this.submit_order = this.trade[this.cursor_id].order.map(val => {
                     return {
                         "id": val.goods_id,
                         "sku_id": val.goods_sku_id,

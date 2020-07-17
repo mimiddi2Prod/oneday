@@ -50,7 +50,7 @@
         <div class="bd-sidebar bd-links" style="height:calc(100vh - 106px)">
             <!--<div class="container">-->
             <div class="border-bottom py-2 no-gutters" :class="cursor_id==index ? 'badge-info' : ''"
-                 v-for="item,index in trade" @click="cursor_id=index;order=trade[cursor_id].order">
+                 v-for="item,index in trade" @click="cursor(index)">
                 <!--<div class="row no-gutters">-->
                 <!--<div>牌号：</div>-->
                 <!--<div class="col-sm-9 px-2">-->
@@ -89,7 +89,7 @@
         <div class="bd-sidebar bd-links row px-2 py-md-3 order-detail" style="height:calc(100vh - 150px)"
              v-if="trade.length">
             <div class="nav flex-wrap flex-row align-items-center mb-2 pb-2 border-bottom"
-                 v-for="item in trade[cursor_id].order" v-if="item.number">
+                 v-for="item,index in order" v-if="item.number"> <!--此处用order（编辑中数据）  结算用trade[cuursor].order(服务器数据)-->
                 <!--订单商品详情-->
                 <div class="col-sm-5 px-2">
                     <div>{{item.name}}<span class="figure-caption" v-for="sku in item.param"> —{{sku}}</span></div>
@@ -105,7 +105,7 @@
                     </button>
                 </div>
                 <div class="col-sm-3 px-2 text-center">
-                    <div class="nav justify-content-center">
+                    <div class="nav justify-content-center align-items-center">
                         <div class="text-center" @click="updatePendingOrderData(item,'cuteNum')">
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-dash-circle-fill"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -113,7 +113,15 @@
                                       d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4 7.5a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1H4z"/>
                             </svg>
                         </div>
-                        <div class="mx-2">{{item.number}}</div>
+                        <!--<div class="mx-2">{{item.number}}</div>-->
+                        <div class="nav justify-content-center mx-2 w-50">
+                            <input type="text" class="form-control h-100 w-50"
+                                   @input="item.number=item.number.replace(/[^\d]/g,'')"
+                                   v-model="item.number">
+                            <button type="button" class="btn btn-secondary"
+                                    @click="updatePendingOrderData(item,'updateNum',index)">确定
+                            </button>
+                        </div>
                         <div class="text-center" @click="updatePendingOrderData(item,'addNum')">
                             <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
