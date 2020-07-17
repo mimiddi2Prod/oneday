@@ -3,6 +3,7 @@ var {formatTime} = require("./../utils/utils.js")
 var get_pending_order = require("./api_get_pending_order")
 var checkStock = require("./api_check_order_stock")
 var restoreStock = require("./api_restore_stock")
+var yly = require("./yly_print")
 
 exports.run = async function (params) {
     let data = null
@@ -51,6 +52,9 @@ async function getData(params) {
             restoreStock.run({"cart": [{"goodsId": params.goodsId, "number": 1}]})
         }
         result = await db.Query("update goods_pending_order set `number` = `number` + ? where `number` > 0 and id = ?", [params.IncrementNum, params.id])
+
+        // todo 更新数量则需要打印追加
+        // yly.run({})
     } else if (params.type == "updateDiscountPrice") {
         result = await db.Query("update goods_pending_order set `discount_price` = ? where id = ?", [params.discount_price, params.id])
     }

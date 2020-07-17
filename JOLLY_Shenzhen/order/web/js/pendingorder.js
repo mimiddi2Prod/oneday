@@ -3,7 +3,9 @@ var orderformvm = new Vue({
     data: {
         trade: [],
         cursor_id: 0,
-        invalid_remark: "",
+        invalid_remark: "", // 作废备注
+        update_remark: "", // 更新数据备注
+        tempUpdateData: {},
         /**
          * 收银结算
          */
@@ -55,9 +57,17 @@ var orderformvm = new Vue({
             $('#modal_invalid_remark').modal('show');
             $('#modal_invalid_remark_submit')[0].addEventListener("click", this._hideModal);
         },
-        updatePendingOrderData(order, type, index) {
-            let self = this
-            $('#loading').modal('show')
+        updateNum(order, type, index) {
+            $('#modal_update_remark').on('show.bs.modal', function (e) {
+                let modal = $(this)
+                modal.find('.modal-title').text('挂单数量更改备注');
+            })
+            $('#modal_update_remark').on('hidden.bs.modal', function (e) {
+                $('#modal_update_remark_submit')[0].removeEventListener("click", this._hideModal);
+            })
+            $('#modal_update_remark').modal('show');
+            $('#modal_update_remark_submit')[0].addEventListener("click", this._hideModal);
+
             let data = {}
             switch (type) {
                 case "cuteNum": {
@@ -88,6 +98,42 @@ var orderformvm = new Vue({
                     }
                     break;
                 }
+            }
+            this.tempUpdateData = data
+        },
+        updatePendingOrderData(order, type, index) {
+            let self = this
+            $('#loading').modal('show')
+            let data = {}
+            switch (type) {
+                // case "cuteNum": {
+                //     data = {
+                //         id: order.id,
+                //         IncrementNum: -1,
+                //         goodsId: order.goods_id,
+                //         type: type
+                //     }
+                //     break;
+                // }
+                // case "addNum": {
+                //     data = {
+                //         id: order.id,
+                //         type: type,
+                //         goodsId: order.goods_id,
+                //         IncrementNum: 1,
+                //     }
+                //     break;
+                // }
+                // case "updateNum": {
+                //     let IncrementNum = order.number - this.trade[this.cursor_id].order[index].number
+                //     data = {
+                //         id: order.id,
+                //         type: IncrementNum > 0 ? "addNum" : "cuteNum",
+                //         goodsId: order.goods_id,
+                //         IncrementNum: IncrementNum,
+                //     }
+                //     break;
+                // }
                 case "updateDiscountPrice": {
                     data = {
                         id: order.id,
@@ -104,6 +150,10 @@ var orderformvm = new Vue({
                         invalid_remark: this.invalid_remark
                     }
                     self.cursor_id = 0
+                    break;
+                }
+                default: {
+                    data = Object.assign(this.tempUpdateData, {"update_remark": this.update_remark})
                     break;
                 }
             }
@@ -145,6 +195,7 @@ var orderformvm = new Vue({
         },
         _hideModal() {
             $('#modal_invalid_remark').modal('hide');
+            $('#modal_update_remark').modal('hide');
             $('#modal_1').modal('hide');
             $('#modal_order').modal('hide');
             $('#loading').modal('hide')
