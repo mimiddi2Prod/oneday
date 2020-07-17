@@ -94,8 +94,10 @@ var orderformvm = new Vue({
             }
             Axios(api.setPendingOrderData, "POST", data).then(res => {
                 if (res.code == 0) {
+                    if (self.trade.length != res.data.data.length) {
+                        self.cursor_id = 0
+                    }
                     self.trade = res.data.data
-                    console.info(self.trade, self.cursor_id)
                     self.order = self.trade.length ? self.trade[self.cursor_id].order : []
                 } else {
                     alert(res.errmsg)
