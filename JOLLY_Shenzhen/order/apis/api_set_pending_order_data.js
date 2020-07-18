@@ -40,14 +40,13 @@ async function getData(params) {
             restoreStock.run({"cart": cart})
         }
         result = await db.Query("update goods_pending_trade set invalid_remark = ?,state = ? where trade_id = ?", [params.invalid_remark, 3, params.trade_id])
-        let trade = await db.Query("select * from goods_pending_trade where trade_id = ?", [params.trade_id])
         // 打印作废
         yly.run({
             "type": "invalid_order", "trade": {
                 "title": "作废",
                 "trade_id": params.trade_id,
                 "invalid_remark": params.invalid_remark,
-                "table_number": trade[0].table_number,
+                "table_number": params.tableNumber,
                 "order": order.filter(val => {
                     return val.number > 0
                 }).map(val => {

@@ -69,6 +69,7 @@ var orderformvm = new Vue({
             $('#modal_update_remark_submit')[0].addEventListener("click", this._hideModal);
 
             let data = {}
+            console.info()
             switch (type) {
                 case "cuteNum": {
                     data = {
@@ -77,7 +78,7 @@ var orderformvm = new Vue({
                         goodsId: order.goods_id,
                         IncrementNum: -1,
                         update_remark: this.update_remark,
-                        tableNumber: order.table_number,
+                        tableNumber: this.trade[this.cursor_id].table_number,
                         name: order.name,
                         param: order.param,
                         trade_id: this.trade[this.cursor_id].trade_id
@@ -91,7 +92,7 @@ var orderformvm = new Vue({
                         goodsId: order.goods_id,
                         IncrementNum: 1,
                         update_remark: this.update_remark,
-                        tableNumber: order.table_number,
+                        tableNumber: this.trade[this.cursor_id].table_number,
                         name: order.name,
                         param: order.param,
                         trade_id: this.trade[this.cursor_id].trade_id
@@ -106,7 +107,7 @@ var orderformvm = new Vue({
                         goodsId: order.goods_id,
                         IncrementNum: IncrementNum,
                         update_remark: this.update_remark,
-                        tableNumber: order.table_number,
+                        tableNumber: this.trade[this.cursor_id].table_number,
                         name: order.name,
                         param: order.param,
                         trade_id: this.trade[this.cursor_id].trade_id
@@ -162,7 +163,8 @@ var orderformvm = new Vue({
                     data = {
                         trade_id: this.trade[this.cursor_id].trade_id,
                         type: type,
-                        invalid_remark: this.invalid_remark
+                        invalid_remark: this.invalid_remark,
+                        tableNumber: this.trade[this.cursor_id].table_number
                     }
                     self.cursor_id = 0
                     break;

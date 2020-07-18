@@ -71,6 +71,8 @@ async function getData(params) {
     }
     if (result.errmsg == "success" && !params.trade_id) {
         result = await db.BulkInsert("goods_pending_trade", [trade])
+    } else {
+        trade.table_number = (await db.Query("select * from goods_pending_trade where trade_id = ?", [params.trade_id]))[0].table_number
     }
     if (result.errmsg == "success") {
         // 打单 挂单 和 追加
