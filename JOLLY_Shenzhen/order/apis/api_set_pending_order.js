@@ -51,34 +51,35 @@ async function getData(params) {
         }
     })
     let result = await db.BulkInsert("goods_pending_order", order)
+    trade = {
+        "trade_id": trade_id,
+        "trade_platform": trade_platform,
+        // "order_id_list": JSON.stringify(result.id_list),
+        // "goods_total_number": params.trade.total_num,
+        // "goods_total_price": params.trade.total_price,
+        // "actually_total_price": params.trade.total_diacount_price ? params.trade.total_diacount_price : params.trade.total_price,
+        // "pay_status": 0,
+        // "pay_method": params.pay_type,
+        "create_time": new Date(),
+        // "pay_time": new Date(),
+        // "take_meal_style": 0,  // 0堂食 1外带 目前默认
+        "table_number": params.table_number,
+        // "dinners_number": params.dinners_number,
+        "employee_account": params.user.username,
+        "remark": params.remark,
+        "state": 1
+    }
     if (result.errmsg == "success" && !params.trade_id) {
-        trade = {
-            "trade_id": trade_id,
-            "trade_platform": trade_platform,
-            // "order_id_list": JSON.stringify(result.id_list),
-            // "goods_total_number": params.trade.total_num,
-            // "goods_total_price": params.trade.total_price,
-            // "actually_total_price": params.trade.total_diacount_price ? params.trade.total_diacount_price : params.trade.total_price,
-            // "pay_status": 0,
-            // "pay_method": params.pay_type,
-            "create_time": new Date(),
-            // "pay_time": new Date(),
-            // "take_meal_style": 0,  // 0堂食 1外带 目前默认
-            "table_number": params.table_number,
-            // "dinners_number": params.dinners_number,
-            "employee_account": params.user.username,
-            "remark": params.remark,
-            "state": 1
-        }
         result = await db.BulkInsert("goods_pending_trade", [trade])
     }
     if (result.errmsg == "success") {
-        // 打单
+        // 打单 挂单 和 追加
         yly.run({
-            "type": "pending_order",
+            "type": !params.trade_id ? "pending_order" : "pending_order_append",
             "trade": Object.assign(trade, {
                 "goods_total_price": params.trade.total_price,
-                "goods_total_original_price": params.trade.total_original_price
+                "goods_total_original_price": params.trade.total_original_price,
+                "title": params.trade_id ? "追加" : "", // 追加需要
             }, {
                 "order": params.order.map(value => {
                     return {

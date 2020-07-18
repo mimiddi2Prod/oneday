@@ -73,9 +73,14 @@ var orderformvm = new Vue({
                 case "cuteNum": {
                     data = {
                         id: order.id,
-                        IncrementNum: -1,
+                        type: type,
                         goodsId: order.goods_id,
-                        type: type
+                        IncrementNum: -1,
+                        update_remark: this.update_remark,
+                        tableNumber: order.table_number,
+                        name: order.name,
+                        param: order.param,
+                        trade_id: this.trade[this.cursor_id].trade_id
                     }
                     break;
                 }
@@ -85,6 +90,11 @@ var orderformvm = new Vue({
                         type: type,
                         goodsId: order.goods_id,
                         IncrementNum: 1,
+                        update_remark: this.update_remark,
+                        tableNumber: order.table_number,
+                        name: order.name,
+                        param: order.param,
+                        trade_id: this.trade[this.cursor_id].trade_id
                     }
                     break;
                 }
@@ -95,6 +105,11 @@ var orderformvm = new Vue({
                         type: IncrementNum > 0 ? "addNum" : "cuteNum",
                         goodsId: order.goods_id,
                         IncrementNum: IncrementNum,
+                        update_remark: this.update_remark,
+                        tableNumber: order.table_number,
+                        name: order.name,
+                        param: order.param,
+                        trade_id: this.trade[this.cursor_id].trade_id
                     }
                     break;
                 }

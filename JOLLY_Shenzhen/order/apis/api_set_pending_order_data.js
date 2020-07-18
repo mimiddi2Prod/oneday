@@ -29,9 +29,9 @@ async function getData(params) {
     if (params.type == "invalidRemark") {
         // trade_id 此处为订单号
         // 订单作废先找出这一订单的商品，并进行库存恢复
-        result = await db.Query("select * from goods_pending_order where trade_id = ?", [params.trade_id])
-        if (result.length) {
-            let cart = result.map(val => {
+        let order = await db.Query("select * from goods_pending_order where trade_id = ?", [params.trade_id])
+        if (order.length) {
+            let cart = order.map(val => {
                 return {
                     goodsId: val.goods_id,
                     number: val.number
@@ -40,21 +40,52 @@ async function getData(params) {
             restoreStock.run({"cart": cart})
         }
         result = await db.Query("update goods_pending_trade set invalid_remark = ?,state = ? where trade_id = ?", [params.invalid_remark, 3, params.trade_id])
+        let trade = await db.Query("select * from goods_pending_trade where trade_id = ?", [params.trade_id])
+        // 打印作废
+        yly.run({
+            "type": "invalid_order", "trade": {
+                "title": "作废",
+                "trade_id": params.trade_id,
+                "invalid_remark": params.invalid_remark,
+                "table_number": trade[0].table_number,
+                "order": order.filter(val => {
+                    return val.number > 0
+                }).map(val => {
+                    return {
+                        "number": val.number,
+                        "name": val.name,
+                        "param": val.param
+                    }
+                })
+            }
+        })
     } else if (params.type == "cuteNum" || params.type == "addNum") {
         // 数量增加先检查库存 数量减少恢复库存
         if (params.type == "addNum") {
-            result = await checkStock.run({"cart": [{"goodsId": params.goodsId, "number": 1}]})
+            result = await checkStock.run({"cart": [{"goodsId": params.goodsId, "number": params.IncrementNum}]})
             if (result.data.canPay == 1) {
                 return {code: 2, errmsg: "库存不足"}
             }
         }
         if (params.type == "cuteNum") {
-            restoreStock.run({"cart": [{"goodsId": params.goodsId, "number": 1}]})
+            restoreStock.run({"cart": [{"goodsId": params.goodsId, "number": Math.abs(params.IncrementNum)}]})
         }
         result = await db.Query("update goods_pending_order set `number` = `number` + ? where `number` > 0 and id = ?", [params.IncrementNum, params.id])
 
-        // todo 更新数量则需要打印追加
-        // yly.run({})
+        // 更新数量则需要打印追加
+        yly.run({
+            "type": "pending_order_append", "trade": {
+                "title": params.type == "addNum" ? "追加" : "减少",
+                "trade_id": params.trade_id,
+                "update_remark": params.update_remark,
+                "table_number": params.tableNumber,
+                "order": [{
+                    "number": Math.abs(params.IncrementNum),
+                    "name": params.name,
+                    "param": JSON.stringify(params.param)
+                }]
+            }
+        })
     } else if (params.type == "updateDiscountPrice") {
         result = await db.Query("update goods_pending_order set `discount_price` = ? where id = ?", [params.discount_price, params.id])
     }
