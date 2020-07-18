@@ -23,7 +23,7 @@ var orderformvm = new Vue({
         order: [],
         submit_order: [],
         pay_type_list: ["现金", "支付宝", "微信"],
-        discount_list: [95, 9, 85, 8, 75, 7, 6, 5, "免单", "抹零"],
+        discount_list: ["原价", 95, 9, 85, 8, 75, 7, 6, 5, "免单", "抹零"],
         totalPriceDiscount: "",
         isKeyDownDiscount: 0,  // 0输入的 1按键盘
     },
@@ -71,34 +71,35 @@ var orderformvm = new Vue({
             let data = {}
             console.info()
             switch (type) {
-                case "cuteNum": {
-                    data = {
-                        id: order.id,
-                        type: type,
-                        goodsId: order.goods_id,
-                        IncrementNum: -1,
-                        update_remark: this.update_remark,
-                        tableNumber: this.trade[this.cursor_id].table_number,
-                        name: order.name,
-                        param: order.param,
-                        trade_id: this.trade[this.cursor_id].trade_id
-                    }
-                    break;
-                }
-                case "addNum": {
-                    data = {
-                        id: order.id,
-                        type: type,
-                        goodsId: order.goods_id,
-                        IncrementNum: 1,
-                        update_remark: this.update_remark,
-                        tableNumber: this.trade[this.cursor_id].table_number,
-                        name: order.name,
-                        param: order.param,
-                        trade_id: this.trade[this.cursor_id].trade_id
-                    }
-                    break;
-                }
+                // 注：去掉点击 加减号 都去实时更新
+                // case "cuteNum": {
+                //     data = {
+                //         id: order.id,
+                //         type: type,
+                //         goodsId: order.goods_id,
+                //         IncrementNum: -1,
+                //         update_remark: this.update_remark,
+                //         tableNumber: this.trade[this.cursor_id].table_number,
+                //         name: order.name,
+                //         param: order.param,
+                //         trade_id: this.trade[this.cursor_id].trade_id
+                //     }
+                //     break;
+                // }
+                // case "addNum": {
+                //     data = {
+                //         id: order.id,
+                //         type: type,
+                //         goodsId: order.goods_id,
+                //         IncrementNum: 1,
+                //         update_remark: this.update_remark,
+                //         tableNumber: this.trade[this.cursor_id].table_number,
+                //         name: order.name,
+                //         param: order.param,
+                //         trade_id: this.trade[this.cursor_id].trade_id
+                //     }
+                //     break;
+                // }
                 case "updateNum": {
                     let IncrementNum = order.number - this.trade[this.cursor_id].order[index].number
                     data = {
@@ -274,7 +275,7 @@ var orderformvm = new Vue({
             if (e == "抹零") {
                 this.submit_trade.total_diacount_price = this.submit_trade.total_price - (this.submit_trade.total_price % 1)
             } else if (e == "原价") {
-                this.trade.total_diacount_price = this.trade.total_price
+                this.submit_trade.total_diacount_price = this.submit_trade.total_price
             } else {
                 e == "免单" ? this.submit_trade.total_diacount_price = 0 :
                     this.submit_trade.total_diacount_price = (this.submit_trade.total_price * (e.toString().length == 1 ? e * 10 : e)) / 100
@@ -306,6 +307,7 @@ var orderformvm = new Vue({
         },
         _Init() {
             // 提交订单完成 或者 检查库存发现库存不足 或者 重新进入该页面（商品编辑啥的），更新一下列表
+            this.cursor_id = 0;
             this._getPendingTrade()
             this.submit_trade = {
                 total_num: 0,
