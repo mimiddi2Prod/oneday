@@ -33,6 +33,9 @@ async function getData(params) {
             let order = await db.Query("select * from goods_pending_order where trade_id in (?)", [trade.map(val => {
                 return val.trade_id
             })])
+            order = order.filter(val => {
+                return val.number > 0
+            })
             trade = trade.map(val => {
                 val.order = []
                 order.forEach(m => {

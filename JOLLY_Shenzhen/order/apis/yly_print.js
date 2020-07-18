@@ -174,7 +174,7 @@ async function printOrder(params) {
         let trade = params.trade, order = trade.order
         let order_str = ""
         order.forEach(m => {
-            order_str += "<tr><td>" + m.name + "</td><td>x" + m.price + "</td><td>" + m.number + "</td><td>" + m.subtotal + "</td></tr>";
+            order_str += "<tr><td>" + m.name + "</td><td>" + m.price + "</td><td>x" + m.number + "</td><td>" + m.subtotal + "</td></tr>";
             if (m.param.length) {
                 m.param = JSON.parse(m.param)
                 let text = "---"
