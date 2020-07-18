@@ -241,6 +241,30 @@ async function printPendingOrder(params) {
     return new Promise(async function (resolve, reject) {
         let trade = params.trade, order = trade.order
         let order_str = ""
+
+        /**
+         * 订单相同 名称、参数、备注 数量合并打印
+         */
+        let temp = []
+        for (let i in order) {
+            let haveSameGoods = temp.some(function (item) {
+                return item.name == order[i].name && item.param == order[i].param && item.remark == order[i].remark
+            })
+            if (!haveSameGoods) {
+                temp.push(order[i])
+            } else {
+                for (let j in temp) {
+                    if (temp.name == order[i].name && temp.param == order[i].param && temp.remark == order[i].remark) {
+                        temp[j].number = temp[j].number + order[i].number
+                    }
+                }
+            }
+        }
+        order = temp
+
+        /**
+         * 生成打印模板
+         */
         order.forEach(m => {
             // order_str += "<tr><td>" + m.name + "</td><td>x" + m.price + "</td><td>" + m.number + "</td><td>" + m.subtotal + "</td></tr>";
             order_str += "<tr><td>" + m.name + "</td><td></td><td>" + m.number + "</td></tr>";
@@ -296,6 +320,30 @@ async function printPendingOrderAppend(params) {
     return new Promise(async function (resolve, reject) {
         let trade = params.trade, order = trade.order
         let order_str = ""
+
+        /**
+         * 订单相同 名称、参数、备注 数量合并打印
+         */
+        let temp = []
+        for (let i in order) {
+            let haveSameGoods = temp.some(function (item) {
+                return item.name == order[i].name && item.param == order[i].param && item.remark == order[i].remark
+            })
+            if (!haveSameGoods) {
+                temp.push(order[i])
+            } else {
+                for (let j in temp) {
+                    if (temp.name == order[i].name && temp.param == order[i].param && temp.remark == order[i].remark) {
+                        temp[j].number = temp[j].number + order[i].number
+                    }
+                }
+            }
+        }
+        order = temp
+
+        /**
+         * 生成打印模板
+         */
         order.forEach(m => {
             order_str += "<tr><td>" + m.name + "</td><td></td><td>" + m.number + "</td></tr>";
             if (m.param.length) {
@@ -362,6 +410,30 @@ async function printInvalidOrder(params) {
     return new Promise(async function (resolve, reject) {
         let trade = params.trade, order = trade.order
         let order_str = ""
+
+        /**
+         * 订单相同 名称、参数、备注 数量合并打印
+         */
+        let temp = []
+        for (let i in order) {
+            let haveSameGoods = temp.some(function (item) {
+                return item.name == order[i].name && item.param == order[i].param && item.remark == order[i].remark
+            })
+            if (!haveSameGoods) {
+                temp.push(order[i])
+            } else {
+                for (let j in temp) {
+                    if (temp.name == order[i].name && temp.param == order[i].param && temp.remark == order[i].remark) {
+                        temp[j].number = temp[j].number + order[i].number
+                    }
+                }
+            }
+        }
+        order = temp
+
+        /**
+         * 生成打印模板
+         */
         order.forEach(m => {
             order_str += "<tr><td>" + m.name + "</td><td></td><td>" + m.number + "</td></tr>";
             if (m.param.length) {

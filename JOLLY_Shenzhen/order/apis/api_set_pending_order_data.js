@@ -72,19 +72,25 @@ async function getData(params) {
         result = await db.Query("update goods_pending_order set `number` = `number` + ? where `number` > 0 and id = ?", [params.IncrementNum, params.id])
 
         // 更新数量则需要打印追加
-        yly.run({
-            "type": "pending_order_append", "trade": {
-                "title": params.type == "addNum" ? "追加" : "减少",
-                "trade_id": params.trade_id,
-                "update_remark": params.update_remark,
-                "table_number": params.tableNumber,
-                "order": [{
-                    "number": Math.abs(params.IncrementNum),
-                    "name": params.name,
-                    "param": JSON.stringify(params.param)
-                }]
-            }
-        })
+        let number = Math.abs(params.IncrementNum), title = params.type == "addNum" ? "追加" : "减少"
+        if (number == 0 && params.update_remark.length) {
+            title = "备注"
+        }
+        if (number > 0 || params.update_remark.length) {
+            yly.run({
+                "type": "pending_order_append", "trade": {
+                    "title": title,
+                    "trade_id": params.trade_id,
+                    "update_remark": params.update_remark,
+                    "table_number": params.tableNumber,
+                    "order": [{
+                        "number": number,
+                        "name": params.name,
+                        "param": JSON.stringify(params.param)
+                    }]
+                }
+            })
+        }
     } else if (params.type == "updateDiscountPrice") {
         result = await db.Query("update goods_pending_order set `discount_price` = ? where id = ?", [params.discount_price, params.id])
     }
