@@ -173,6 +173,30 @@ async function printOrder(params) {
     return new Promise(async function (resolve, reject) {
         let trade = params.trade, order = trade.order
         let order_str = ""
+
+        /**
+         * 订单相同 名称、参数、备注 数量合并打印
+         */
+        let temp = []
+        for (let i in order) {
+            let haveSameGoods = temp.some(function (item) {
+                return item.name == order[i].name && item.param == order[i].param && item.remark == order[i].remark &&
+                    item.price == order[i].price && item.discount_price == order[i].discount_price
+            })
+            if (!haveSameGoods) {
+                temp.push(order[i])
+            } else {
+                for (let j in temp) {
+                    if (temp[j].name == order[i].name && temp[j].param == order[i].param && temp[j].remark == order[i].remark &&
+                        temp[j].price == order[i].price && temp[j].discount_price == order[i].discount_price) {
+                        temp[j].number = temp[j].number + order[i].number
+                        temp[j].subtotal = temp[j].subtotal + order[i].subtotal
+                    }
+                }
+            }
+        }
+        order = temp
+
         order.forEach(m => {
             order_str += "<tr><td>" + m.name + "</td><td>" + m.price + "</td><td>x" + m.number + "</td><td>" + m.subtotal + "</td></tr>";
             if (m.param.length) {
@@ -254,7 +278,7 @@ async function printPendingOrder(params) {
                 temp.push(order[i])
             } else {
                 for (let j in temp) {
-                    if (temp.name == order[i].name && temp.param == order[i].param && temp.remark == order[i].remark) {
+                    if (temp[j].name == order[i].name && temp[j].param == order[i].param && temp[j].remark == order[i].remark) {
                         temp[j].number = temp[j].number + order[i].number
                     }
                 }
@@ -294,9 +318,9 @@ async function printPendingOrder(params) {
         content += "<tr><td>商品</td><td></td><td>数量</td></tr>";
         content += order_str
         content += "</table>";
-        content += repeat('.', 32);
-        content += "原价:￥" + trade.goods_total_original_price + "\n";
-        content += "小计:￥" + trade.goods_total_price + "\n";
+        // content += repeat('.', 32);
+        // content += "原价:￥" + trade.goods_total_original_price + "\n";
+        // content += "小计:￥" + trade.goods_total_price + "\n";
         content += repeat('*', 32);
         if (trade.remark.length) {
             content += "订单备注:" + trade.remark + "\n";
@@ -333,7 +357,7 @@ async function printPendingOrderAppend(params) {
                 temp.push(order[i])
             } else {
                 for (let j in temp) {
-                    if (temp.name == order[i].name && temp.param == order[i].param && temp.remark == order[i].remark) {
+                    if (temp[j].name == order[i].name && temp[j].param == order[i].param && temp[j].remark == order[i].remark) {
                         temp[j].number = temp[j].number + order[i].number
                     }
                 }
@@ -423,7 +447,7 @@ async function printInvalidOrder(params) {
                 temp.push(order[i])
             } else {
                 for (let j in temp) {
-                    if (temp.name == order[i].name && temp.param == order[i].param && temp.remark == order[i].remark) {
+                    if (temp[j].name == order[i].name && temp[j].param == order[i].param && temp[j].remark == order[i].remark) {
                         temp[j].number = temp[j].number + order[i].number
                     }
                 }

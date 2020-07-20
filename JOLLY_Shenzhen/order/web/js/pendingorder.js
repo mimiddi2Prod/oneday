@@ -288,27 +288,27 @@ var orderformvm = new Vue({
         submitOrder() {
             let self = this
             let data = Object.assign(this.submit_trade, {order: this.submit_order})
-            console.info(data)
+            // console.info(data)
             Axios(api.createOrder, "POST", data).then(res => {
                 if (res.state == 0) {
                     self._Init()
-                    $('#modal_1').on('show.bs.modal', function (e) {
-                        let modal = $(this)
-                        modal.find('.modal-title').text('提示')
-                        modal.find('.modal-body').text('订单已创建')
-                    })
-                    $('#modal_1').on('hidden.bs.modal', function (e) {
-                        $('#modal_1_submit')[0].removeEventListener("click", self._hideModal);
-                    })
-                    $('#modal_1').modal('show');
-                    $('#modal_1_submit')[0].addEventListener("click", self._hideModal)
+                    setTimeout(()=>{
+                        $('#modal_1').on('show.bs.modal', function (e) {
+                            let modal = $(this)
+                            modal.find('.modal-title').text('提示')
+                            modal.find('.modal-body').text('订单已创建')
+                        })
+                        $('#modal_1').on('hidden.bs.modal', function (e) {
+                            $('#modal_1_submit')[0].removeEventListener("click", self._hideModal);
+                        })
+                        $('#modal_1').modal('show');
+                        $('#modal_1_submit')[0].addEventListener("click", self._hideModal)
+                    },1000)
                 }
             })
         },
         _Init() {
             // 提交订单完成 或者 检查库存发现库存不足 或者 重新进入该页面（商品编辑啥的），更新一下列表
-            this.cursor_id = 0;
-            this._getPendingTrade()
             this.submit_trade = {
                 total_num: 0,
                 total_price: 0,
@@ -325,6 +325,8 @@ var orderformvm = new Vue({
             this.totalPriceDiscount = ""
             this.appendTrade = null
             sessionStorage.removeItem("appendTrade")
+            this.cursor_id = 0;
+            this._getPendingTrade()
         },
     },
     watch: {

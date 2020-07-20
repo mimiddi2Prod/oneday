@@ -185,7 +185,7 @@
                             <div class="" v-for="item,index in valueArray">
                                 <div>{{item.text}}</div>
                                 <div class="row-c">
-                                    <div :class="sku.select ? 'text-danger' : ''" v-for="sku in item.param"
+                                    <div class="border m-2 p-2" :class="sku.select ? 'text-danger border-danger' : ''" v-for="sku in item.param"
                                          @click="selectParam(sku.text,index)">{{sku.text}}
                                     </div>
                                 </div>
