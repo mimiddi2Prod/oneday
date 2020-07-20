@@ -64,7 +64,7 @@ async function getData(params) {
         // "pay_time": new Date(),
         // "take_meal_style": 0,  // 0堂食 1外带 目前默认
         "table_number": params.table_number,
-        // "dinners_number": params.dinners_number,
+        "dinners_number": params.dinners_number,
         "employee_account": params.user.username,
         "remark": params.remark,
         "state": 1

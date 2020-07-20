@@ -545,6 +545,7 @@ var homevm = new Vue({
                     self.pending_order = {
                         remark: "",
                         table_number: "",
+                        dinners_number: "",
                         trade: Object.assign({}, self.trade),
                         order: [].concat(self.order),
                         trade_id: self.appendTrade || null

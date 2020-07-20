@@ -220,8 +220,8 @@ async function printOrder(params) {
         content += "订单时间:" + formatTime(trade.create_time) + "\n";
         content += "订单编号:" + trade.trade_id + "\n";
         content += "支付方式:" + trade.pay_method + "\n";
-        content += "桌号:" + trade.table_number + "\n";
-        content += "人数:" + trade.dinners_number + "\n";
+        content += "桌号:" + (trade.table_number || '') + "\n";
+        content += "人数:" + (trade.dinners_number || '') + "\n";
         content += repeat('*', 14) + "商品" + repeat("*", 14);
         content += "<table>";
         content += "<tr><td>商品</td><td>单价</td><td>数量</td><td>小计</td></tr>";
@@ -311,7 +311,8 @@ async function printPendingOrder(params) {
         content += "<FS2><center>--挂单--</center></FS2>";
         content += "订单时间:" + formatTime(trade.create_time) + "\n";
         content += "订单编号:" + trade.trade_id + "\n";
-        content += "桌号:" + trade.table_number + "\n";
+        content += "桌号:" + (trade.table_number || '') + "\n";
+        content += "人数:" + (trade.dinners_number || '') + "\n";
         content += repeat('*', 14) + "商品" + repeat("*", 14);
         content += "<table>";
         // content += "<tr><td>商品</td><td>单价</td><td>数量</td><td>小计</td></tr>";
@@ -391,7 +392,8 @@ async function printPendingOrderAppend(params) {
         content += "打单时间:" + formatTime(new Date()) + "\n";
         content += "订单编号:" + trade.trade_id + "\n";
         // content += "支付方式:" + trade.pay_method + "\n";
-        content += "桌号:" + trade.table_number + "\n";
+        content += "桌号:" + (trade.table_number || '') + "\n";
+        content += "人数:" + (trade.dinners_number || '') + "\n";
         content += repeat('*', 14) + "商品" + repeat("*", 14);
         content += "<table>";
         content += "<tr><td>商品</td><td></td><td>数量</td></tr>";
@@ -480,7 +482,8 @@ async function printInvalidOrder(params) {
         // content += "<FS><center>Onday 森南店</center></FS>";
         content += "打单时间:" + formatTime(new Date()) + "\n";
         content += "订单编号:" + trade.trade_id + "\n";
-        content += "桌号:" + trade.table_number + "\n";
+        content += "桌号:" + (trade.table_number || '') + "\n";
+        content += "人数:" + (trade.dinners_number || '') + "\n";
         content += repeat('*', 14) + "商品" + repeat("*", 14);
         content += "<table>";
         content += "<tr><td>商品</td><td></td><td>数量</td></tr>";

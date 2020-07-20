@@ -264,7 +264,7 @@ var orderformvm = new Vue({
                 total_diacount_price: "",
                 pay_type: "现金",
                 table_number: this.trade[this.cursor_id].table_number,
-                dinners_number: "",
+                dinners_number: this.trade[this.cursor_id].dinners_number,
                 remark: "",
                 trade_id: this.trade[this.cursor_id].trade_id, // 与首页相比多了trade_id
             }
