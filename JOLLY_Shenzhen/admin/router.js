@@ -102,6 +102,10 @@ function Router() {
                 var getHome = require("./api/get_home.js");
                 baseApi = new getHome;
                 break;
+            case "get_goods_by_search":
+                var getGoodsBySearch = require("./api/shop_get_goods_by_search.js");
+                baseApi = new getGoodsBySearch;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

@@ -48,8 +48,52 @@ var goodsVM = new Vue({
         calc_number_two: '',
         previewGoodsPrice: [],
 
+        searchString: '',
     },
     methods: {
+        searchGoods: function () {
+            goodsVM.pageList = []
+            goodsVM.goodsList = []
+            let url = api.getGoodsBySearch, async = true
+            let data = {}
+            data.searchString = this.searchString
+            server(url, data, async, "post", function (res) {
+                console.info(res)
+                if (res.list.length) {
+                    res.list = res.list.map(function (eData) {
+                        eData.min_price = Number(eData.min_price).toFixed(2)
+                        eData.create_time = formatTime(new Date(eData.create_time))
+                        eData.showMoreParam = false
+                        // let total_stock = 0
+                        for (let i in eData.param) {
+                            //     total_stock = total_stock + eData.param[i].stock
+                            eData.param[i].price = Number(eData.param[i].price).toFixed(2)
+                            // eData.param[i].param = JSON.parse(eData.param[i].param)
+                        }
+                        // eData.total_stock = total_stock
+                        eData.checked = false
+                        return eData
+                    })
+                    // console.info(res.list)
+                    goodsVM.goodsList = res.list
+                    // 分页栏
+                    // for (let i = 0; i < res.number / 5; i++) {
+                    //     goodsVM.pageList.push(i + 1)
+                    // }
+
+                }
+                // if (res.length > 0) {
+                //     res = res.map(function (resData) {
+                //         resData.price = Number(resData.price).toFixed(2)
+                //         resData.create_time = formatTime(new Date(resData.create_time))
+                //         resData.checked = false
+                //         return resData
+                //     })
+                //     goodsVM.goodsList = res
+                // }
+            })
+        },
+
         // 上下架
         changeGoodsStatus: function (id, nowStatus) {
             // console.info(id)

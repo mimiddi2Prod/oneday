@@ -24,4 +24,7 @@ var api = {
     getGoodsByBrunchCategory: '../api/get_goods_by_brunch_category',
     addBrunchBanner: '../api/add_brunch_banner',
     updateBrunchBannerSort: '../api/update_brunch_banner_sort',
+
+    // 搜索
+    getGoodsBySearch: '../api/get_goods_by_search'
 }

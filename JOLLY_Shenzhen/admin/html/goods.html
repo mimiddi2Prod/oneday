@@ -38,9 +38,9 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="input-group">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" v-model="searchString">
                                 <span class="input-group-btn">
- 								<button class="btn btn-default" type="button">搜索</button>
+ 								<button class="btn btn-default" type="button" v-on:click="searchGoods">搜索</button>
  							</span>
                             </div><!-- /input-group -->
                         </div><!-- /.col-lg-6 -->
@@ -56,7 +56,7 @@
                     v-on:click="changeNav(index)"><a href="javascript:;">{{item}}</a></li>
             </ul>
             <div class="row-center">
-                <button type="button" class="btn btn-secondary" v-on:click="down('tableExcel')">批量导出商品</button>
+                <!--<button type="button" class="btn btn-secondary" v-on:click="down('tableExcel')">批量导出商品</button>-->
                 <!--<button type="button" class="btn btn-danger" v-on:click="changePage('goods-add')">添加商品</button>-->
                 <button type="button" class="btn btn-danger" v-on:click="window.location.href = 'addGoods'">添加商品
                 </button>
@@ -90,31 +90,31 @@
             <!--</nav>-->
         <!--</div>-->
         <!-- 批量操作 -->
-        <div class="nav-3" style="margin-top: 20px">
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="conshowPriceModaltainer-fluid">
-                    <!--<label class="form-check-label row-center" v-on:click="checkAll($event)">-->
-                    <label class="form-check-label row-center" v-on:change="checkAll()">
-                        <input type="checkbox" name="checkbox-all" v-model="checkboxAll">
-                        <span>全选</span>
-                    </label>
-                    <button type="button" class="btn btn-secondary" v-on:click="no()">
-                        批量分类
-                    </button>
-                    <button type="button" class="btn btn-secondary" v-on:click="no()">批量改价
-                    </button>
-                    <button type="button" class="btn btn-secondary" v-on:click="no()">批量下架</button>
-                    <!--<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#categoryModal">-->
-                    <!--批量分类-->
+        <!--<div class="nav-3" style="margin-top: 20px">-->
+            <!--<nav class="navbar navbar-default" role="navigation">-->
+                <!--<div class="conshowPriceModaltainer-fluid">-->
+                    <!--&lt;!&ndash;<label class="form-check-label row-center" v-on:click="checkAll($event)">&ndash;&gt;-->
+                    <!--<label class="form-check-label row-center" v-on:change="checkAll()">-->
+                        <!--<input type="checkbox" name="checkbox-all" v-model="checkboxAll">-->
+                        <!--<span>全选</span>-->
+                    <!--</label>-->
+                    <!--<button type="button" class="btn btn-secondary" v-on:click="no()">-->
+                        <!--批量分类-->
                     <!--</button>-->
-                    <!--<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#priceModal"-->
-                    <!--v-on:click="showPriceModal()">批量改价-->
+                    <!--<button type="button" class="btn btn-secondary" v-on:click="no()">批量改价-->
                     <!--</button>-->
-                    <!--<button type="button" class="btn btn-secondary" v-on:click="showObtainedModal()">批量下架</button>-->
-                    <!--<button type="button" class="btn btn-secondary">批量删除</button>-->
-                </div>
-            </nav>
-        </div>
+                    <!--<button type="button" class="btn btn-secondary" v-on:click="no()">批量下架</button>-->
+                    <!--&lt;!&ndash;<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#categoryModal">&ndash;&gt;-->
+                    <!--&lt;!&ndash;批量分类&ndash;&gt;-->
+                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#priceModal"&ndash;&gt;-->
+                    <!--&lt;!&ndash;v-on:click="showPriceModal()">批量改价&ndash;&gt;-->
+                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button type="button" class="btn btn-secondary" v-on:click="showObtainedModal()">批量下架</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button type="button" class="btn btn-secondary">批量删除</button>&ndash;&gt;-->
+                <!--</div>-->
+            <!--</nav>-->
+        <!--</div>-->
 
         <div class="goods">
             <!-- 商品标题 -->
@@ -138,7 +138,7 @@
                         <label class="form-check-label row-center">
                             <div class="a" v-on:change="checkOne()">
                                 <input type="checkbox" name="checkGoods" v-model="item.checked">
-                                {{item.sort}}
+                                <!--{{item.sort}}-->
                                 <img :src="item.img">
                             </div>
                             <div class="b">
