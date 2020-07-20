@@ -3,7 +3,8 @@ var orderformvm = new Vue({
     data: {
         trade: [],
         cursor_id: 0,
-        anti_checkout_text: ""
+        anti_checkout_text: "",
+        return_text: ""
     },
     methods: {
         _getTrade() {
@@ -33,7 +34,7 @@ var orderformvm = new Vue({
         AntiCheckout() {
             this.submitAfterSale({
                 "type": 1,
-                "trade_id": this.trade[this.cursor_id].id,
+                "trade_id": this.trade[this.cursor_id].trade_id,
                 "after_sale_remark": this.anti_checkout_text
             })
         },
@@ -50,6 +51,18 @@ var orderformvm = new Vue({
             $('#modal_return_of_goods').modal('show');
             $('#modal_return_of_goods_submit')[0].addEventListener("click", this._hideModal);
         },
+        ShowReturnRemarkModal() {
+            let self = this
+            $('#modal_return_of_goods_remark').on('show.bs.modal', function (e) {
+                let modal = $(this)
+                modal.find('.modal-title').text('正在进行退货');
+            })
+            // $('#modal_return_of_goods_remark').on('hidden.bs.modal', function (e) {
+            //     $('#modal_return_of_goods_remark_submit')[0].removeEventListener("click", this._hideModal);
+            // })
+            $('#modal_return_of_goods_remark').modal('show');
+            // $('#modal_return_of_goods_remark_submit')[0].addEventListener("click", this._hideModal);
+        },
         // 取消退货 还原数据
         cancleReturnOfGoods() {
             this.trade[this.cursor_id].order.map(value => {
@@ -58,13 +71,14 @@ var orderformvm = new Vue({
             })
         },
         // 退货
-        ReturnOfGoods() {
+        ReturnOfGoods(tag) {
             this.submitAfterSale({
                 "type": 2,
-                "trade_id": this.trade[this.cursor_id].id,
+                "trade_id": this.trade[this.cursor_id].trade_id,
                 "order": this.trade[this.cursor_id].order.filter(value => {
                     return value.return_number
-                })
+                }),
+                "return_text": tag ? this.return_text : ''
             })
         },
         submitAfterSale(data) {

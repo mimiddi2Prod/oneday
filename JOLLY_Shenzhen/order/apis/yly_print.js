@@ -49,6 +49,10 @@ async function print(params) {
             call = await printInvalidOrder(params)
             break;
         }
+        case "after_sale": {
+            call = await printAfterSale(params)
+            break;
+        }
     }
     return call
 }
@@ -199,7 +203,7 @@ async function printOrder(params) {
 
         order.forEach(m => {
             order_str += "<tr><td>" + m.name + "</td><td>" + m.price + "</td><td>x" + m.number + "</td><td>" + m.subtotal + "</td></tr>";
-            if (m.param.length) {
+            if (m.param && m.param.length) {
                 m.param = JSON.parse(m.param)
                 let text = "---"
                 for (let i in m.param) {
@@ -207,7 +211,7 @@ async function printOrder(params) {
                 }
                 order_str += "<tr><td>" + text + "</td></tr>";
             }
-            if (m.remark.length) {
+            if (m.remark && m.remark.length) {
                 order_str += "<tr><td>---备注:" + m.remark + "</td></tr>";
             }
         })
@@ -239,7 +243,7 @@ async function printOrder(params) {
         content += "折扣:￥" + (trade.goods_total_price - Number(trade.actually_total_price)).toFixed(2) + " \n";
         content += repeat('*', 32);
         content += "订单实付:￥" + trade.actually_total_price + "\n";
-        if (trade.remark.length) {
+        if (trade.remark && trade.remark.length) {
             content += "订单备注:" + trade.remark + "\n";
         }
         // content += "130515456456 \n";
@@ -292,7 +296,7 @@ async function printPendingOrder(params) {
         order.forEach(m => {
             // order_str += "<tr><td>" + m.name + "</td><td>x" + m.price + "</td><td>" + m.number + "</td><td>" + m.subtotal + "</td></tr>";
             order_str += "<tr><td>" + m.name + "</td><td></td><td>" + m.number + "</td></tr>";
-            if (m.param.length) {
+            if (m.param && m.param.length) {
                 m.param = JSON.parse(m.param)
                 let text = "---"
                 for (let i in m.param) {
@@ -300,7 +304,7 @@ async function printPendingOrder(params) {
                 }
                 order_str += "<tr><td>" + text + "</td></tr>";
             }
-            if (m.remark.length) {
+            if (m.remark && m.remark.length) {
                 order_str += "<tr><td>---备注:" + m.remark + "</td></tr>";
             }
         })
@@ -323,7 +327,7 @@ async function printPendingOrder(params) {
         // content += "原价:￥" + trade.goods_total_original_price + "\n";
         // content += "小计:￥" + trade.goods_total_price + "\n";
         content += repeat('*', 32);
-        if (trade.remark.length) {
+        if (trade.remark && trade.remark.length) {
             content += "订单备注:" + trade.remark + "\n";
         }
         content += "<FS2><center>**#1 完**</center></FS2>";
@@ -371,7 +375,7 @@ async function printPendingOrderAppend(params) {
          */
         order.forEach(m => {
             order_str += "<tr><td>" + m.name + "</td><td></td><td>" + m.number + "</td></tr>";
-            if (m.param.length) {
+            if (m.param && m.param.length) {
                 m.param = JSON.parse(m.param)
                 let text = "---"
                 for (let i in m.param) {
@@ -462,7 +466,7 @@ async function printInvalidOrder(params) {
          */
         order.forEach(m => {
             order_str += "<tr><td>" + m.name + "</td><td></td><td>" + m.number + "</td></tr>";
-            if (m.param.length) {
+            if (m.param && m.param.length) {
                 m.param = JSON.parse(m.param)
                 let text = "---"
                 for (let i in m.param) {
@@ -492,6 +496,81 @@ async function printInvalidOrder(params) {
         content += repeat('*', 32);
         if (trade.invalid_remark && trade.invalid_remark.length) {
             content += (trade.invalid_remark ? "备注:" + trade.invalid_remark : null) + "\n";
+        }
+        content += "<FS2><center>**#1 完**</center></FS2>";
+
+        let machineCode = yly.Machine.filter(val => {
+                return val.name == "前台"
+            })[0].machine_code, //一台设备
+            originId = "order"
+        yly.Print.index(machineCode, originId, content).then(function (res) {
+            resolve(res);
+        });
+    })
+}
+
+async function printAfterSale(params) {
+    return new Promise(async function (resolve, reject) {
+        let trade = params.trade, order = trade.order
+        let order_str = ""
+
+        /**
+         * 订单相同 名称、参数、备注 数量合并打印
+         */
+        let temp = []
+        for (let i in order) {
+            let haveSameGoods = temp.some(function (item) {
+                return item.name == order[i].name && item.param == order[i].param
+            })
+            if (!haveSameGoods) {
+                temp.push(order[i])
+            } else {
+                for (let j in temp) {
+                    if (temp[j].name == order[i].name && temp[j].param == order[i].param) {
+                        temp[j].return_number = temp[j].return_number + order[i].return_number
+                    }
+                }
+            }
+        }
+        order = temp
+
+        /**
+         * 生成打印模板
+         */
+        order.forEach(m => {
+            order_str += "<tr><td>" + m.name + "</td><td></td><td>" + m.return_number + "</td></tr>";
+            if (m.param && m.param.length) {
+                m.param = JSON.parse(m.param)
+                let text = "---"
+                for (let i in m.param) {
+                    text += m.param[i] + " "
+                }
+                order_str += "<tr><td>" + text + "</td></tr>";
+            }
+            // if (m.remark && m.remark.length) {
+            //     order_str += "<tr><td>---备注:" + m.remark + "</td></tr>";
+            // }
+        })
+        // return
+        var content = "<MN>1</MN>"; // 打印两联
+        content += "<FS2><center>Oneday 森南店</center></FS2>";
+        content += repeat('.', 32);
+        content += "<FS2><center>--" + trade.title + "--</center></FS2>";
+        // content += "<FS><center>Onday 森南店</center></FS>";
+        content += "打单时间:" + formatTime(new Date()) + "\n";
+        content += "订单编号:" + trade.trade_id + "\n";
+        content += "桌号:" + (trade.table_number || '') + "\n";
+        // content += "人数:" + (trade.dinners_number || '') + "\n";
+        content += repeat('*', 14) + "商品" + repeat("*", 14);
+        content += "<table>";
+        content += "<tr><td>商品</td><td></td><td>数量</td></tr>";
+        content += order_str
+        content += "</table>";
+        content += repeat('.', 32);
+        content += "小计:￥" + trade.after_sale_price + "\n";
+        content += repeat('*', 32);
+        if (trade.after_sale_remark && trade.after_sale_remark.length) {
+            content += (trade.after_sale_remark ? "备注:" + trade.after_sale_remark : null) + "\n";
         }
         content += "<FS2><center>**#1 完**</center></FS2>";
 

@@ -188,8 +188,39 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancleReturnOfGoods">
                         取消
                     </button>
+                    <!--<button type="button" class="btn btn-primary" id="modal_return_of_goods_submit"-->
+                    <!--@click="ReturnOfGoods">确定-->
+                    <!--</button>-->
+                    <!--修改，多了备注框-->
                     <button type="button" class="btn btn-primary" id="modal_return_of_goods_submit"
-                            @click="ReturnOfGoods">确定
+                            @click="ShowReturnRemarkModal">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--退货备注-->
+    <div class="modal fade" id="modal_return_of_goods_remark" tabindex="-1" role="dialog"
+         aria-labelledby="myModalReturnOfGoods" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">请填写退货说明吧</label>
+                            <textarea class="form-control" style="min-height: 200px !important;"
+                                      placeholder="在此输入退货备注信息" v-model="return_text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="ReturnOfGoods(0)">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="ReturnOfGoods(1)">确定
                     </button>
                 </div>
             </div>

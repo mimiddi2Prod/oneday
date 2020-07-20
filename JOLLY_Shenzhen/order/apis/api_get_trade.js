@@ -25,7 +25,7 @@ exports.run = async function (params) {
  */
 async function getData(params) {
     try {
-        let trade = await db.Query("select * from goods_trade where trade_platform = ? and pay_status = ?", [2, 1])
+        let trade = await db.Query("select * from goods_trade where trade_platform = ? and pay_status = ? order by create_time desc", [2, 1])
         if (trade.length) {
             let order = await db.Query("select * from goods_order where trade_id in (?)", [trade.map(value => {
                 return value.trade_id
