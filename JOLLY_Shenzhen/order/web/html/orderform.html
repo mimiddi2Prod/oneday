@@ -104,7 +104,9 @@
             <div class="card-body py-0 px-0">
                 <div class="justify-content-between db-btn row mr-2">
                     <div class="px-2">件数：{{trade[cursor_id].goods_total_number}}</div>
-                    <div class="ml-3 px-2">总计：{{trade[cursor_id].goods_total_price}}&nbsp;&nbsp;&nbsp;应收(计算折扣后)：{{trade[cursor_id].actually_total_price}}&nbsp;&nbsp;&nbsp;{{trade[cursor_id].pay_method}}</div>
+                    <div class="ml-3 px-2">总计：{{trade[cursor_id].goods_total_price}}&nbsp;&nbsp;&nbsp;应收(计算折扣后)：{{trade[cursor_id].actually_total_price}}&nbsp;&nbsp;&nbsp;{{trade[cursor_id].pay_method}}
+                        <span v-if="trade[cursor_id].after_sale_type" class="text-danger">&nbsp;&nbsp;退：{{trade[cursor_id].after_sale_price}}</span>
+                    </div>
                 </div>
                 <div class="text-center row db-btn align-items-center bg-dark" v-if="!trade[cursor_id].after_sale_type">
                     <div class="w-50" @click="showReturnModal">退货</div>
