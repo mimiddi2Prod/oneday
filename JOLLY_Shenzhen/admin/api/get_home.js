@@ -20,7 +20,7 @@ function getHome() {
             }
         }, row = [], today = new Date().toLocaleDateString()
         try {
-            row = await db.Query("select * from home_data")
+            row = await db.Query("select * from home_data order by create_date")
             row.forEach(m => {
                 // data["total_order_number"] += m.order_number - m.refund_order_number // 总单数减去有售后的
                 data["total_order_number"] += m.order_number // 总单数减去有售后的
@@ -31,7 +31,7 @@ function getHome() {
                 data["total_refund"] += m.refund_price
 
                 if (!param.type) {
-                    if (new Date(m.create_date).getTime() >= (new Date(today).getTime() - (7 * 24 * 60 * 60 * 1000))) {
+                    if (new Date(m.create_date).getTime() >= (new Date(today).getTime() - (6 * 24 * 60 * 60 * 1000))) {
                         data["order_list"].xLabels.push(new Date(m.create_date).toLocaleDateString().slice(5, 10))
                         data["order_list"].yData.forEach(n => {
                             // n.title == "订单收入" ? n.data.push(Math.round(Number(m.actually_income - m.refund_price) * 100) / 100) : n.data.push(m.refund_price)
