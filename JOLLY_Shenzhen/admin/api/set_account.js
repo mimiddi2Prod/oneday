@@ -6,7 +6,7 @@ function setAccount() {
         var data = {}
         var row = []
         try {
-            if (param.state.toString().length) {
+            if (param.id) {
                 sql = "update admin set state = ? where id = ?"
                 row = await db.Query(sql, [param.state, param.id])
                 if (row.affectedRows) {

@@ -74,7 +74,7 @@ function getOrder() {
                     // value.total_num = 0
                     row.forEach(m => {
                         if (m.trade_id == value.trade_id) {
-                            m.param = m.param ? JSON.parse(m.param) : ""
+                            m.param = m.param ? typeof m.param == "string" ? JSON.parse(m.param) : m.param : ""
                             // value.total_num += m.number
                             // value.total_price += m.price * m.number
                             value.order.push(m)
@@ -86,6 +86,7 @@ function getOrder() {
 
             return callback(data);
         } catch (e) {
+            console.info(e)
             console.info('boom!!!!!!!!!!!!!')
         }
     }
