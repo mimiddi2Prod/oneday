@@ -46,6 +46,11 @@ var homevm = new Vue({
         pending_order: {},
         pending_order_num: 0,
         appendTrade: null, // 追加挂单id 有则追加
+
+        /**
+         * sku 改
+         */
+        valueArray: []
     },
     methods: {
         _hideModal() {
@@ -152,7 +157,6 @@ var homevm = new Vue({
         // },
         // 展示参数选择/折扣/改价/数量添加
         showModalProduct(item, orderIndex) {
-            // this._checkStock(item)
             let temp = item,
                 name = temp.sku.length ? temp.sku[0].name : temp.name,
                 sku_id = temp.sku.length ? temp.sku[0].sku_id : 0,
@@ -165,19 +169,103 @@ var homevm = new Vue({
                 temp.num = temp.num || 1
                 temp.subtotal = temp.discount_price * temp.num
             }
-            // temp.subtotal = temp.discount_price * temp.num
             // 初始化赋值
             this.current_sku_id = temp.sku.length ? temp.sku[0].sku_id : 0
             this.tempDiscount = ""
             this.tempDiscountPrice = temp.discount_price
             this.tempNum = 1
             this.tempOrderDetail = Object.assign({}, temp, {"name": name, "sku_id": sku_id, "param": param}) // 新建对象，防止vue引用赋值
+
+            /**
+             * sku
+             *
+             * 添加，不使用 name-sku1-sku2 name-sku1-sku3选择形式
+             * 改为，sku1
+             *       sku2 sku3
+             * 选择组合
+             */
+                // 根据参数数量生成对应参数组{[],[]}
+            let goodsInfo = Object.assign({}, this.tempOrderDetail.sku.map(val => {
+                    val.param = typeof val.param == "string" ? JSON.parse(val.param) : val.param
+                    return val
+                }))
+            this.keyArray = Object.keys(goodsInfo[0].param)
+            this.valueArray = []
+            let length = this.keyArray.length
+            for (let i = 0; i < length; i++) this.valueArray.push({
+                id: i,
+                text: this.keyArray[i],
+                param: [],
+            });
+            // 给参数分组
+            for (let j in goodsInfo) {
+                for (let k = 0; k < length; k++) {
+                    this.valueArray[k].param.push(Object.values(goodsInfo[j].param)[k])
+                }
+            }
+            for (let i in this.valueArray) {
+                this.valueArray[i].param = unique(this.valueArray[i].param)
+            }
+            for (let i in this.valueArray) {
+                this.valueArray[i].param = this.valueArray[i].param.map(function (eData, index) {
+                    let temp = {
+                        text: eData,
+                        select: (index == 0 ? true : false)
+                    }
+                    return temp
+                })
+            }
+
+            // 去除分组重复
+            function unique(arr) {
+                var hash = [];
+                for (var i = 0; i < arr.length; i++) {
+                    if (hash.indexOf(arr[i]) == -1) {
+                        hash.push(arr[i]);
+                    }
+                }
+                return hash;
+            }
+
             $('#modal_3').on('show.bs.modal', function (e) {
                 let modal = $(this)
                 modal.find('.modal-title').text('点单详细-' + item.name)
             })
             $('#modal_3').modal('show');
         },
+        /**
+         * sku 改
+         */
+        selectParam(param, index) {
+            this.valueArray[index].param = this.valueArray[index].param.map(val => {
+                val.select = false
+                if (val.text == param) {
+                    val.select = true
+                }
+                return val;
+            })
+
+            let name = this.tempOrderDetail.name.split("-")[0], sku_id = 0
+            this.valueArray.forEach(m => {
+                m.param.forEach(n => {
+                    if (n.select) {
+                        name += "-" + n.text
+                    }
+                })
+            })
+            this.tempOrderDetail.name = name
+            this.tempOrderDetail.sku.forEach(m => {
+                m.param = typeof m.param == "object" ? JSON.stringify(m.param) : m.param
+                if (m.name == name) {
+                    sku_id = m.sku_id
+                }
+            })
+            this.tempOrderDetail.sku_id = sku_id
+            this.chooseSku(sku_id)
+        },
+        /**
+         * chooseSku
+         */
         // 在展示的参数选择中选中的
         chooseSku(sku_id) {
             let temp = this.tempOrderDetail, c_sku = temp.sku.filter(value => {
