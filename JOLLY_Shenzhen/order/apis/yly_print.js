@@ -393,7 +393,7 @@ async function printPendingOrderAppend(params) {
         content += "订单编号:" + trade.trade_id + "\n";
         // content += "支付方式:" + trade.pay_method + "\n";
         content += "桌号:" + (trade.table_number || '') + "\n";
-        content += "人数:" + (trade.dinners_number || '') + "\n";
+        // content += "人数:" + (trade.dinners_number || '') + "\n";
         content += repeat('*', 14) + "商品" + repeat("*", 14);
         content += "<table>";
         content += "<tr><td>商品</td><td></td><td>数量</td></tr>";
@@ -483,7 +483,7 @@ async function printInvalidOrder(params) {
         content += "打单时间:" + formatTime(new Date()) + "\n";
         content += "订单编号:" + trade.trade_id + "\n";
         content += "桌号:" + (trade.table_number || '') + "\n";
-        content += "人数:" + (trade.dinners_number || '') + "\n";
+        // content += "人数:" + (trade.dinners_number || '') + "\n";
         content += repeat('*', 14) + "商品" + repeat("*", 14);
         content += "<table>";
         content += "<tr><td>商品</td><td></td><td>数量</td></tr>";
