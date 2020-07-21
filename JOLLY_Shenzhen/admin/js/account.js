@@ -108,7 +108,7 @@ function addAccount() {
 //     data.id = categoryVM.choose_id
 //     data.name = categoryVM.submitName
 //     data.sort = categoryVM.submitSort
-//     data.location_code = 'xmspw'
+//     data.location_code = 'szsn'
 //     // data.user_id = sessionStorage.getItem('user_id')
 //     data.user_id = 0
 //     server(url, data, async, "post", function (res) {
