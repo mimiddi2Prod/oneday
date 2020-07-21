@@ -2,6 +2,7 @@ var Cmd = require('./utils/cmd.js');
 // var fs = require('fs')
 var path = require('path')
 var koa = require('koa');
+const xmlParser = require('koa-xml-body')
 const bodyParser = require('koa-bodyparser');
 const router = require('koa-router')();
 const koaStatic = require('koa-static'); // 处理各种静态资源 图片、字体、样式表、脚本等
@@ -43,18 +44,18 @@ Koa.Init = function () {
         router.post('/apis/:apiName', async (ctx, next) => {
             let apiName = ctx.params.apiName;
             let params = ctx.request.body
-            let user_agent = ctx.request.header["user-agent"]
-            params.user_agent = user_agent
             // 判断是否是微信小程序请求
-            if (params.RequestType == "mini~niconiconi~program") {
+            if (apiName == "wxPayNotify") {
+                // 返回xml格式
+                ctx.response.body = await Server.run(apiName, params)
+            } else if (params.RequestType == "mini~niconiconi~program") {
+                let user_agent = ctx.request.header["user-agent"]
+                params.user_agent = user_agent
                 // 非get_openid需要做登录验证
                 if (apiName == "get_openid") {
                     // debug 调试需要，方便查看传递过来的参数，上线需去掉
                     // console.info(params)
                     // todo post处理
-                    ctx.response.body = await Server.run(apiName, params)
-                } else if (apiName == "wxPayNotify") {
-                    // 返回xml格式
                     ctx.response.body = await Server.run(apiName, params)
                 } else {
                     let check = require("./utils/check_login_status")
@@ -82,6 +83,7 @@ Koa.Init = function () {
             ctx.response.body = '<h1>Index</h1>';
         });
 
+        Koa.app.use(xmlParser())
         Koa.app.use(bodyParser());
         Koa.app.use(router.routes());
         Koa.app.use(koaStatic(path.join(__dirname)));

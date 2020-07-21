@@ -16,7 +16,7 @@ const attach = 'szsn' // attach 是一个任意的字符串, 会原样返回, �
 const body = 'jolly森南店'
 const mch_id = "1600949561" // 商户号
 const PAY_API_KEY = '0cfe7e1172bcd83bcc110762ec6d901e' // 商户密钥
-const notify_url = 'https://miniszsn.jolly.youyueworld.com/apis/restaurant_wxPay_notify' //通知地址  确保外网能正常访问
+const notify_url = 'https://miniszsn.jolly.youyueworld.com/apis/wxPayNotify' //通知地址  确保外网能正常访问
 const spbill_create_ip = '120.79.94.138' // 终端IP
 
 // const qqMapSubkey = "AUNBZ-4JZL4-NPYUP-XY5GK-OTW6F-6IFTO" // 腾讯地图

@@ -33,6 +33,7 @@ async function getData(params) {
                 img: value.goodsImage || '',
                 param: JSON.stringify(value.goodsParam),
                 price: value.price,
+                discount_price: value.price,  // 小程序暂无折扣价 , 以原价显示
                 number: value.number,
                 coupon: params.selcCardInfo,
                 trade_id: params.tradeId,
@@ -54,6 +55,7 @@ async function getData(params) {
                 "order_id_list": JSON.stringify(result.id_list),
                 "goods_total_number": goods_total_number,
                 "goods_total_price": params.totalPrice,
+                "goods_total_original_price": params.totalPrice,
                 "actually_total_price": params.totalPrice,
                 "pay_status": 0, // 付款状态 0 未付款 1已付款
                 "pay_method": params.payMethod, // 'Wxpay' / 其他方式
