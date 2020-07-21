@@ -50,7 +50,7 @@ Koa.Init = function () {
                 // 非get_openid需要做登录验证
                 if (apiName == "get_openid") {
                     // debug 调试需要，方便查看传递过来的参数，上线需去掉
-                    console.info(params)
+                    // console.info(params)
                     // todo post处理
                     ctx.response.body = await Server.run(apiName, params)
                 } else if (apiName == "wxPayNotify") {
@@ -63,7 +63,7 @@ Koa.Init = function () {
                     if (isLogin.errcode == 10000) {
                         params.openid = isLogin.openid
                         // debug 调试需要，方便查看传递过来的参数，上线需去掉
-                        console.info(params)
+                        // console.info(params)
                         ctx.response.body = await Server.run(apiName, params)
                     } else {
                         // 重新登录
