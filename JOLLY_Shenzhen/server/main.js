@@ -5,3 +5,7 @@ db.Init()
 // 初始化HTTP
 var Koa = require('./Koa.js')
 Koa.Init()
+
+// 初始化易联云打单机api
+var yly = require('./utils/yly.js')
+yly.Init()

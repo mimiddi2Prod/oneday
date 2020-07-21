@@ -1,5 +1,5 @@
-const appid = 'wx14dd6120d4882a81'  // 不浪费
-const secret = 'b77ba947d1168d6eff00816ea2f0cf5d'
+const appid = 'wx98a0eb2df04ce3cc'  // jolly森南
+const secret = '0cfe7e1172bcd83bcc110762ec6d901e'
 
 /**
  * mch_id:商户号
@@ -12,11 +12,11 @@ const secret = 'b77ba947d1168d6eff00816ea2f0cf5d'
 /**
  * wxpay
  */
-const attach = 'test' // attach 是一个任意的字符串, 会原样返回, 可以用作一个标记
-const body = 'BrunchTest'
+const attach = 'szsn' // attach 是一个任意的字符串, 会原样返回, 可以用作一个标记
+const body = 'jolly森南店'
 const mch_id = "1508603281" // 商户号
 const PAY_API_KEY = '81ef119935811ab9339b8c802a2ffc7B' // 商户密钥
-const notify_url = 'https://brunch.minidope.com/apis/restaurant_wxPay_notify' //通知地址  确保外网能正常访问
+const notify_url = 'https://miniszsn.jolly.youyueworld.com/apis/restaurant_wxPay_notify' //通知地址  确保外网能正常访问
 const spbill_create_ip = '120.79.94.138' // 终端IP
 
 // const qqMapSubkey = "AUNBZ-4JZL4-NPYUP-XY5GK-OTW6F-6IFTO" // 腾讯地图
