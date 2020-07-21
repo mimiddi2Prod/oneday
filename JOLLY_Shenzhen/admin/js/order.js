@@ -21,6 +21,11 @@ var orderVM = new Vue({
         // 改版
         start_time: formatTime(new Date()).slice(0, 10).split('/').join('-') + ' 00:00:00',
         end_time: formatTime(new Date()).slice(0, 10).split('/').join('-') + ' 23:59:59',
+
+        goods_price: 0,
+        actually_income: 0,
+        sale_number: 0,
+        refund_fee: 0,
     },
     methods: {
         changePage: function (e, id) {
@@ -104,7 +109,7 @@ laydate.render({
     , calendar: true
     , max: 0
     , value: orderVM.start_time
-    , done: function(value, date){
+    , done: function (value, date) {
         orderVM.start_time = value
         // alert('你选择的日期是：' + value + '\n获得的对象是' + JSON.stringify(date));
     }
@@ -116,7 +121,7 @@ laydate.render({
     , calendar: true
     , max: 0
     , value: orderVM.end_time
-    , done: function(value, date){
+    , done: function (value, date) {
         orderVM.end_time = value
         // alert('你选择的日期是：' + value + '\n获得的对象是' + JSON.stringify(date));
     }
@@ -142,7 +147,7 @@ $(document).ready(function () {
 function getOrder() {
     orderVM.pageList = []
     orderVM.orderList = []
-    console.info(orderVM.start_time)
+    // console.info(orderVM.start_time)
     const url = api.getOrder, async = true
     let data = {}
     data.trade_platform = orderVM.navId + 1
@@ -150,7 +155,7 @@ function getOrder() {
     data.start_time = document.getElementById("test5_1").value
     data.end_time = document.getElementById("test5_2").value
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.number > 0) {
             res.trade = res.trade.map(function (eData) {
                 eData.create_time = formatTime(new Date(eData.create_time))
@@ -159,11 +164,26 @@ function getOrder() {
                 return eData
             })
             orderVM.orderList = res.trade
+
+            orderVM.orderList.forEach(m => {
+                orderVM.goods_price += m.goods_total_original_price
+                orderVM.actually_income += m.actually_total_price
+                orderVM.sale_number += m.goods_total_number
+                orderVM.refund_fee += m.after_sale_price ? m.after_sale_price : 0
+            })
             // 分页栏
             for (let i = 0; i < res.number / 20; i++) {
                 orderVM.pageList.push(i + 1)
             }
+        } else {
+            orderVM.actually_income = 0
+            orderVM.sale_number = 0
+            orderVM.refund_fee = 0
         }
+
+        orderVM.goods_price = Math.round(orderVM.goods_price * 100) / 100
+        orderVM.actually_income = Math.round(orderVM.actually_income * 100) / 100
+        orderVM.refund_fee = Math.round(orderVM.refund_fee * 100) / 100
     })
 }
 

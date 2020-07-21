@@ -37,45 +37,45 @@
         </div>
 
         <!--<div class="order-title">-->
-            <!--<nav role="navigation" class="navbar navbar-default">-->
-                <!--<div class="select">-->
-                    <!--<form role="form">-->
-                        <!--<div class="form-group">-->
-                            <!--<select class="form-control" v-model="select_1">-->
-                                <!--<option>商品ID</option>-->
-                                <!--<option>商品名称</option>-->
-                            <!--</select>-->
-                        <!--</div>-->
-                    <!--</form>-->
-                    <!--<input type="text" class="form-control"-->
-                           <!--style="width: auto; display: inline-block;margin-right: 50px;" v-model="id_or_name">-->
-                    <!--<span>下单时间：</span>-->
-                    <!--<input type="text" class="form-control" id="test5_1" style="width: auto;display: inline-block;"-->
-                           <!--placeholder="选择起始时间" v-model="start_time">-->
-                    <!--<div class="line"></div>-->
-                    <!--<input type="text" class="form-control" id="test5_2" style="width: auto;display: inline-block;"-->
-                           <!--placeholder="选择截止时间" v-model="end_time">-->
-                <!--</div>-->
+        <!--<nav role="navigation" class="navbar navbar-default">-->
+        <!--<div class="select">-->
+        <!--<form role="form">-->
+        <!--<div class="form-group">-->
+        <!--<select class="form-control" v-model="select_1">-->
+        <!--<option>商品ID</option>-->
+        <!--<option>商品名称</option>-->
+        <!--</select>-->
+        <!--</div>-->
+        <!--</form>-->
+        <!--<input type="text" class="form-control"-->
+        <!--style="width: auto; display: inline-block;margin-right: 50px;" v-model="id_or_name">-->
+        <!--<span>下单时间：</span>-->
+        <!--<input type="text" class="form-control" id="test5_1" style="width: auto;display: inline-block;"-->
+        <!--placeholder="选择起始时间" v-model="start_time">-->
+        <!--<div class="line"></div>-->
+        <!--<input type="text" class="form-control" id="test5_2" style="width: auto;display: inline-block;"-->
+        <!--placeholder="选择截止时间" v-model="end_time">-->
+        <!--</div>-->
 
-                <!--<div class="select">-->
-                    <!--<form role="form">-->
-                        <!--<div class="form-group">-->
-                            <!--<select class="form-control">-->
-                                <!--<option>订单编号</option>-->
-                                <!--&lt;!&ndash;<option>物流编号</option>&ndash;&gt;-->
-                            <!--</select>-->
-                        <!--</div>-->
-                    <!--</form>-->
-                    <!--<input type="text" class="form-control"-->
-                           <!--style="width: auto; display: inline-block;margin-right: 50px;" v-model="trade_id">-->
-                <!--</div>-->
+        <!--<div class="select">-->
+        <!--<form role="form">-->
+        <!--<div class="form-group">-->
+        <!--<select class="form-control">-->
+        <!--<option>订单编号</option>-->
+        <!--&lt;!&ndash;<option>物流编号</option>&ndash;&gt;-->
+        <!--</select>-->
+        <!--</div>-->
+        <!--</form>-->
+        <!--<input type="text" class="form-control"-->
+        <!--style="width: auto; display: inline-block;margin-right: 50px;" v-model="trade_id">-->
+        <!--</div>-->
 
-                <!--<div class="select">-->
-                    <!--<button type="button" class="btn btn-danger btn-margin-right" v-on:click="getOrderBySearch()">筛选订单-->
-                    <!--</button>-->
-                    <!--<button type="button" class="btn btn-secondary btn-margin-right">清空筛选条件</button>-->
-                <!--</div>-->
-            <!--</nav>-->
+        <!--<div class="select">-->
+        <!--<button type="button" class="btn btn-danger btn-margin-right" v-on:click="getOrderBySearch()">筛选订单-->
+        <!--</button>-->
+        <!--<button type="button" class="btn btn-secondary btn-margin-right">清空筛选条件</button>-->
+        <!--</div>-->
+        <!--</nav>-->
         <!--</div>-->
         <div style="display: flex;justify-content: space-between">
             <div></div>
@@ -97,6 +97,12 @@
                 <li v-bind:class="(index == navId+1 ? 'active' : '')" v-for="item,index in navList"
                     v-on:click="changeNav(index)"><a href="javascript:;">{{item}}</a></li>
             </ul>
+            <div class="row-center">
+                商品总售价:{{goods_price}}&nbsp;&nbsp;
+                实付:{{actually_income}}&nbsp;&nbsp;
+                售出数量:{{sale_number}}&nbsp;&nbsp;
+                总退款:{{refund_fee}}
+            </div>
             <!--<div class="row-center">-->
             <!--<button type="button" class="btn btn-secondary btn-margin-left">打印订单</button>-->
             <!--<button type="button" class="btn btn-secondary btn-margin-left">批量修改发货</button>-->
@@ -207,18 +213,20 @@
         <ul class="pagination">
             <!--<li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li>-->
             <!--<li v-for="item,index in pageList" v-on:click="getPage(index)"-->
-                <!--v-bind:class="(item == last_id+1 ? 'active' : '')"><a-->
-                    <!--href="javascript:;">{{item}}</a></li>-->
+            <!--v-bind:class="(item == last_id+1 ? 'active' : '')"><a-->
+            <!--href="javascript:;">{{item}}</a></li>-->
             <!--<li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a-->
-                    <!--href="javascript:;">&raquo;</a>-->
+            <!--href="javascript:;">&raquo;</a>-->
             <!--</li>-->
             <li v-on:click="getPage(0)"><a href="javascript:;">首页</a></li>
             <li v-on:click="getPage(last_id-1 >= 0 ? last_id-1 : last_id)"><a href="javascript:;">&laquo;</a></li>
-            <li v-if="index >= last_id-5  && index < last_id+11" v-for="item,index in pageList" v-on:click="getPage(index)"
+            <li v-if="index >= last_id-5  && index < last_id+11" v-for="item,index in pageList"
+                v-on:click="getPage(index)"
                 v-bind:class="(item == last_id+1 ? 'active' : '')"><a
                     href="javascript:;">{{item}}</a></li>
             <li v-if="pageList.length-1 != last_id && pageList.length-12 > last_id"><a href="javascript:;">...</a></li>
-            <li v-if="pageList.length-1 != last_id && pageList.length-11 > last_id" v-on:click="getPage(pageList.length-1)">
+            <li v-if="pageList.length-1 != last_id && pageList.length-11 > last_id"
+                v-on:click="getPage(pageList.length-1)">
                 <a href="javascript:;">{{pageList.length}}</a></li>
             <li v-on:click="getPage(last_id+1 < pageList[pageList.length-1] ? last_id+1 : last_id)"><a
                     href="javascript:;">&raquo;</a>
