@@ -6,7 +6,7 @@ var path = require('path');
 var ContentType = require("./content-type.js");
 var optfile = require('./utils/readImage.js');
 var router = new Router();
-var port = 9250;
+var port = 10003;
 
 // 初始化数据库连接池
 var db = require("./utils/dba");

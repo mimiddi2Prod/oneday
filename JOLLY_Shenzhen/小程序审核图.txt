@@ -1,0 +1,2 @@
+通过 createQRcode.js 文件 生成审核图 放七牛云上
+请扫描二维码审核 http://onedayqiniu.minidope.com/szsnshenhe.png
