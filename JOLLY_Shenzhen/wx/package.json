@@ -1,0 +1,28 @@
+{
+  "name": "wechatofficialaccounts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "crypto": "^1.0.1",
+    "fs": "0.0.1-security",
+    "js-sha1": "^0.6.0",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "mysql": "^2.17.1",
+    "path": "^0.12.7",
+    "qr-image": "^3.2.0",
+    "url": "^0.11.0",
+    "wechat-api": "^1.35.1",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
