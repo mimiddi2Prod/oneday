@@ -5,8 +5,8 @@ var orderVM = new Vue({
         navId: -1,
         select_1: '商品ID',
         id_or_name: '',
-        start_time: '',
-        end_time: '',
+        // start_time: '',
+        // end_time: '',
         trade_id: '',
 
         orderList: [],
@@ -17,6 +17,10 @@ var orderVM = new Vue({
         logistics_order_id: '',
         logistics_code: '',
         logistics_tel: '', //顺丰快递查询还需要电话号码 后四位 格式-> 单号:号码后四位
+
+        // 改版
+        start_time: formatTime(new Date()).slice(0, 10).split('/').join('-') + ' 00:00:00',
+        end_time: formatTime(new Date()).slice(0, 10).split('/').join('-') + ' 23:59:59',
     },
     methods: {
         changePage: function (e, id) {
@@ -83,20 +87,45 @@ var orderVM = new Vue({
     }
 })
 
+// laydate.render({
+//     elem: '#test5_1'
+//     , type: 'datetime'
+//     , calendar: true
+// });
+//
+// laydate.render({
+//     elem: '#test5_2'
+//     , type: 'datetime'
+//     , calendar: true
+// });
 laydate.render({
     elem: '#test5_1'
     , type: 'datetime'
     , calendar: true
+    , max: 0
+    , value: orderVM.start_time
+    , done: function(value, date){
+        orderVM.start_time = value
+        // alert('你选择的日期是：' + value + '\n获得的对象是' + JSON.stringify(date));
+    }
 });
 
 laydate.render({
     elem: '#test5_2'
     , type: 'datetime'
     , calendar: true
+    , max: 0
+    , value: orderVM.end_time
+    , done: function(value, date){
+        orderVM.end_time = value
+        // alert('你选择的日期是：' + value + '\n获得的对象是' + JSON.stringify(date));
+    }
 });
 
 
 $(document).ready(function () {
+    // document.getElementById("test5_1").value = orderVM.start_time
+    // document.getElementById("test5_2").value = orderVM.end_time
     getOrder()
 
     // let navId = sessionStorage.getItem('orderNav')
@@ -113,10 +142,13 @@ $(document).ready(function () {
 function getOrder() {
     orderVM.pageList = []
     orderVM.orderList = []
+    console.info(orderVM.start_time)
     const url = api.getOrder, async = true
     let data = {}
     data.trade_platform = orderVM.navId + 1
     data.last_id = orderVM.last_id
+    data.start_time = document.getElementById("test5_1").value
+    data.end_time = document.getElementById("test5_2").value
     server(url, data, async, "post", function (res) {
         console.info(res)
         if (res.number > 0) {
@@ -136,8 +168,8 @@ function getOrder() {
 }
 
 function getOrderBySearch() {
-    let start_time = document.getElementById('test5_1').value,
-        end_time = document.getElementById('test5_2').value
+    let start_time = orderVM.start_time,
+        end_time = orderVM.end_time
     if (orderVM.id_or_name.length <= 0 && !start_time && !end_time && orderVM.trade_id.length <= 0) {
         alert('请至少填写一项筛选条件！')
         return

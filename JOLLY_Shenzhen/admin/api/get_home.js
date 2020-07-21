@@ -5,6 +5,10 @@ var db = require("./../utils/dba");
  */
 function getHome() {
     this.Service = async function (version, param, callback) {
+        if (param.start_time && param.end_time) {
+            param.start_time = param.start_time + ' 00:00:00'
+            param.end_time = param.end_time + ' 23:59:59'
+        }
         var data = {
             "total_order_number": 0,
             "today_order_number": 0,

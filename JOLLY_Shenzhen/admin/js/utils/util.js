@@ -68,7 +68,11 @@ function MakeChart(id, title, type = "line", xLabels = [], ...yData) {
             borderSkipped: "bottom",
         } : null
     })
-    return new Chart(ctx, {
+    // 重新赋值时,应销毁之前的
+    if (this["_chart" + id]) {
+        this["_chart" + id].destroy()
+    }
+    this["_chart" + id] = new Chart(ctx, {
         type: type,
         data: {
             labels: xLabels,
