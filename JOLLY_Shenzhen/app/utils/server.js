@@ -1,12 +1,12 @@
-checkToken()
-function checkToken() {
-  let token_expire = wx.getStorageSync('token_expire')
-  if (token_expire) {
-    if (new Date().getTime() > token_expire) {
-      wx.removeStorageSync('token_expire')
-    }
-  }
-}
+// checkToken()
+// function checkToken() {
+//   let token_expire = wx.getStorageSync('token_expire')
+//   if (token_expire) {
+//     if (new Date().getTime() > token_expire) {
+//       wx.removeStorageSync('token_expire')
+//     }
+//   }
+// }
 /**
  * http请求封装
  * RequestType：小程序请求标记
@@ -26,7 +26,7 @@ function api(url, data = {}, method = "GET") {
         } else if (res.data.errcode == 10001) {
           // 重新登录
           wx.reLaunch({
-            url: '/pages/index/index',
+            url: '/pages/blank/blank',
           })
         } else {
           wx.hideLoading()

@@ -208,9 +208,9 @@
 </view>
 <image class="banner" src="/images/banner.png" mode="widthFix"></image>
 <!-- 跳转会员界面 -->
-<navigator url="../customer/customer" hover-class='none'>
+<!-- <navigator url="../customer/customer" hover-class='none'>
   <image class="banner" style="padding-top:0" src="/images/card.png" mode="widthFix"></image>
-</navigator>
+</navigator> -->
 
 <!-- 内容 -->
 <view class="content" style="height:{{winHeight}}rpx">
