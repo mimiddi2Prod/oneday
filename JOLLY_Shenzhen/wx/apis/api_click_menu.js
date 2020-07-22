@@ -34,7 +34,7 @@ function send(param){
             break;
         }
         case "item3_1":{
-            url = './images/item3_1.jpg'
+            url = './images/item3_1.png'
             break;
         }
         case "item3_4":{

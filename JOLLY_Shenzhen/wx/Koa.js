@@ -30,9 +30,9 @@ Koa.Init = function () {
         var Server = new server
 
         /**临时使用 之后写编辑后台 则不需要*/
-        setTimeout(()=>{
-            createMenu()
-        },2000)
+        // setTimeout(()=>{
+            // createMenu()
+        // },2000)
         function createMenu() {
             Server.run('create_menu', "")
         }
