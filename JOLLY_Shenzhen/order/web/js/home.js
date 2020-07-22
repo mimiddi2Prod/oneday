@@ -184,48 +184,54 @@ var homevm = new Vue({
              *       sku2 sku3
              * 选择组合
              */
+            if (this.tempOrderDetail.sku.length) {
                 // 根据参数数量生成对应参数组{[],[]}
-            let goodsInfo = Object.assign({}, this.tempOrderDetail.sku.map(val => {
+                let goodsInfo = Object.assign({}, this.tempOrderDetail.sku.map(val => {
                     val.param = typeof val.param == "string" ? JSON.parse(val.param) : val.param
                     return val
                 }))
-            this.keyArray = Object.keys(goodsInfo[0].param)
-            this.valueArray = []
-            let length = this.keyArray.length
-            for (let i = 0; i < length; i++) this.valueArray.push({
-                id: i,
-                text: this.keyArray[i],
-                param: [],
-            });
-            // 给参数分组
-            for (let j in goodsInfo) {
-                for (let k = 0; k < length; k++) {
-                    this.valueArray[k].param.push(Object.values(goodsInfo[j].param)[k])
-                }
-            }
-            for (let i in this.valueArray) {
-                this.valueArray[i].param = unique(this.valueArray[i].param)
-            }
-            for (let i in this.valueArray) {
-                this.valueArray[i].param = this.valueArray[i].param.map(function (eData, index) {
-                    let temp = {
-                        text: eData,
-                        select: (index == 0 ? true : false)
+                this.keyArray = Object.keys(goodsInfo[0].param)
+                this.valueArray = []
+                let length = this.keyArray.length
+                for (let i = 0; i < length; i++) this.valueArray.push({
+                    id: i,
+                    text: this.keyArray[i],
+                    param: [],
+                });
+                // 给参数分组
+                for (let j in goodsInfo) {
+                    for (let k = 0; k < length; k++) {
+                        this.valueArray[k].param.push(Object.values(goodsInfo[j].param)[k])
                     }
-                    return temp
-                })
+                }
+                for (let i in this.valueArray) {
+                    this.valueArray[i].param = unique(this.valueArray[i].param)
+                }
+                for (let i in this.valueArray) {
+                    this.valueArray[i].param = this.valueArray[i].param.map(function (eData, index) {
+                        let temp = {
+                            text: eData,
+                            select: (index == 0 ? true : false)
+                        }
+                        return temp
+                    })
+                }
+
+                // 去除分组重复
+                function unique(arr) {
+                    var hash = [];
+                    for (var i = 0; i < arr.length; i++) {
+                        if (hash.indexOf(arr[i]) == -1) {
+                            hash.push(arr[i]);
+                        }
+                    }
+                    return hash;
+                }
+            } else {
+                this.keyArray = []
+                this.valueArray = []
             }
 
-            // 去除分组重复
-            function unique(arr) {
-                var hash = [];
-                for (var i = 0; i < arr.length; i++) {
-                    if (hash.indexOf(arr[i]) == -1) {
-                        hash.push(arr[i]);
-                    }
-                }
-                return hash;
-            }
 
             $('#modal_3').on('show.bs.modal', function (e) {
                 let modal = $(this)
