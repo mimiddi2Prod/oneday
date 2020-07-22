@@ -30,8 +30,9 @@ async function getData(params) {
     delete col.id;
     delete col.price;
     let result = await db.Update(col, "goods", {id})
+    db.Query("update goods_sku set price = ? where goods_id = ?", [col.min_price, id])
     if (result.errmsg == 'success') {
-        return cate_and_pro.getData(Object.assign(params, {type: "edit"}))
+        return await cate_and_pro.getData(Object.assign(params, {type: "edit"}))
     }
     return {state: 1, errmsg: "fail"}
 }

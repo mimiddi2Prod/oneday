@@ -176,6 +176,7 @@ var orderformvm = new Vue({
                 }
             }
             Axios(api.setPendingOrderData, "POST", data).then(res => {
+                console.info(res)
                 if (res.code == 0) {
                     if (self.trade.length != res.data.data.length) {
                         self.cursor_id = 0
@@ -186,7 +187,19 @@ var orderformvm = new Vue({
                     if (res.errmsg == "库存不足") {
                         self.order = self.trade.length ? JSON.parse(JSON.stringify(self.trade[self.cursor_id].order)) : []
                     }
-                    alert(res.errmsg)
+                    // alert(res.errmsg)
+                    setTimeout(() => {
+                        $('#modal_1').on('show.bs.modal', function (e) {
+                            let modal = $(this)
+                            modal.find('.modal-title').text('提示')
+                            modal.find('.modal-body').text(res.errmsg)
+                        })
+                        $('#modal_1').on('hidden.bs.modal', function (e) {
+                            $('#modal_1_submit')[0].removeEventListener("click", self._hideModal);
+                        })
+                        $('#modal_1').modal('show');
+                        $('#modal_1_submit')[0].addEventListener("click", self._hideModal)
+                    }, 1000)
                 }
                 setTimeout(() => {
                     self._hideModal()
@@ -292,7 +305,7 @@ var orderformvm = new Vue({
             Axios(api.createOrder, "POST", data).then(res => {
                 if (res.state == 0) {
                     self._Init()
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         $('#modal_1').on('show.bs.modal', function (e) {
                             let modal = $(this)
                             modal.find('.modal-title').text('提示')
@@ -303,7 +316,7 @@ var orderformvm = new Vue({
                         })
                         $('#modal_1').modal('show');
                         $('#modal_1_submit')[0].addEventListener("click", self._hideModal)
-                    },1000)
+                    }, 1000)
                 }
             })
         },

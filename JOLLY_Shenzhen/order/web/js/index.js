@@ -20,6 +20,8 @@ var loginvm = new Vue({
                 encrypt.setPublicKey(loginvm.publicKey)
                 return encrypt.encrypt(loginvm.password)
             })()
+
+            $('#loading').modal('show')
             Axios(api.signIn, "post", {
                 username: username,
                 password: password
@@ -29,6 +31,9 @@ var loginvm = new Vue({
                 } else {
                     loginvm.loginErr = res
                 }
+                setTimeout(()=>{
+                    $('#loading').modal('hide')
+                },500)
             })
         },
     },

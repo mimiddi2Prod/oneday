@@ -38,7 +38,7 @@ var productvm = new Vue({
             price = Math.round(Number(price) * 100) / 100
             Axios(api.setProduct, "POST", {product: {id, name, price, stock, category_id, status}}).then(res => {
                 if (res.state == 0) {
-                    self.category = res.data
+                    self.category = res.data.list
                 }
                 setTimeout(() => {
                     self._hideModal()

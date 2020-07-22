@@ -15,6 +15,11 @@
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/index.css" rel="stylesheet">
     <!--js-->
+    <script type="text/javascript" src="/source/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/source/popper-2.1.1/popper.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/source/moment-2.24.0/moment-with-locales.js"></script>
     <script type="text/javascript" src="/source/rsa/jsencrypt.min.js"></script>
     <script type="text/javascript" src="/source/vue/vue.min.js"></script>
     <script type="text/javascript" src="/source/axios/axios.min.js"></script>
@@ -41,7 +46,12 @@
     <button class="btn btn-lg btn-primary btn-block" id="enter" v-on:click="signIn">登录
     </button>
 </div>
+<div id="MyModal">
+    <my-loading></my-loading>
+    <my-modal-1></my-modal-1>
+</div>
 </body>
 <!--js-->
+<script type="text/javascript" src="/component/modal.js"></script>
 <script type="text/javascript" src="/js/index.js"></script>
 </html>
