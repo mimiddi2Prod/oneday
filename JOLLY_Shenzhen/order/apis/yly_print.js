@@ -70,7 +70,7 @@ async function printSignOut(params) {
             return {code: 0, errmsg: "不是员工账号或不存在"};
         }
         let last_login_time = new Date(result[0].last_login_time)
-        result = await db.Query("select * from goods_trade where employee_account = ? and pay_status = ? and create_time >= ?", [params.username, 1, last_login_time])
+        result = await db.Query("select * from goods_trade where (employee_account = ? or trade_platform = 1) and pay_status = ? and create_time >= ?", [params.username, 1, last_login_time])
         let Online = {
             name: "网单单据",
             total_price: 0,
