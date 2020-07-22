@@ -21,7 +21,7 @@ function shopLogin() {
                 // const privateKey = fs.readFileSync(path.join(__dirname, '../rsa/pem/private.pem')).toString('utf-8')
                 const password = Decrypt(param['password'], privateKey)
                 // param['username'] = encodeURIComponent(param['username'])
-                sql = "select id,`type` from admin where username = ? and password = ?";
+                sql = "select id,`type` from admin where username = ? and password = ? where type != 3";
                 row = await db.Query(sql, [param['username'], password]);
                 // console.info(row)
                 if (row.length > 0) {
