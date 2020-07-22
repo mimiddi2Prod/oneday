@@ -84,7 +84,7 @@ Page({
     })
     this.setData({
       cart: cart,
-      totalPrice: totalPrice
+      totalPrice: Math.round(totalPrice * 100) / 100
     })
     console.info(this.data.cart)
   },

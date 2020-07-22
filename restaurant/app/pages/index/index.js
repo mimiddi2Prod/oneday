@@ -59,17 +59,17 @@ Page({
     opening: []
   },
 
-  showBannerModal: function() {
+  showBannerModal: function () {
     this.setData({
       showBannerModal: false
     })
   },
 
   // 页面高度 scroll-view需要防止整个页面跟着拖动
-  setWinHeight: function() {
+  setWinHeight: function () {
     var self = this;
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         var clientHeight = res.windowHeight,
           clientWidth = res.windowWidth,
           rpxR = 750 / clientWidth;
@@ -84,7 +84,7 @@ Page({
     });
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     // 公众号进入
     console.info(options)
     if (options.number) {
@@ -109,11 +109,11 @@ Page({
     this.getCustomerByPhone()
   },
 
-  ad: function() {
+  ad: function () {
     let self = this
     server.request(api.getBanner, {
       'phone': app.globalData.phone
-    }, 'post').then(function(res) {
+    }, 'post').then(function (res) {
       console.info(res)
       if (res && res.opening.length > 0) {
         self.setData({
@@ -123,14 +123,14 @@ Page({
     })
   },
 
-  getCustomerByPhone: function() {
+  getCustomerByPhone: function () {
     let self = this
-    let interval = setInterval(function() {
+    let interval = setInterval(function () {
       if (app.globalData.phone) {
         clearInterval(interval)
         server.request(api.getCustomerByPhone, {
           'phone': app.globalData.phone
-        }, 'post').then(function(res) {
+        }, 'post').then(function (res) {
           console.info(res)
           if (res.customerUid) {
             app.globalData.isCustomer = true
@@ -152,7 +152,7 @@ Page({
     }, 500)
   },
 
-  onShow: function() {
+  onShow: function () {
     this.setData({
       point: app.globalData.point,
       balance: app.globalData.balance,
@@ -178,18 +178,22 @@ Page({
 
   },
   // 关闭选择规格弹窗 
-  closeModal: function() {
+  closeModal: function () {
     this.setData({
       showModal: false
     })
   },
 
   // 购物车弹窗切换
-  showCart: function() {
+  showCart: function () {
     // console.info(this.data.cart)
     this.setData({
       showCart: !this.data.showCart
     })
+    this._calcCartHeight()
+  },
+
+  _calcCartHeight() {
     let winCartHeight = this.data.cart.length * 82
     if (winCartHeight > this.data.winCartHeightInit) {
       winCartHeight = this.data.winCartHeightInit
@@ -197,11 +201,9 @@ Page({
     this.setData({
       winCartHeight: winCartHeight
     })
-    // console.info(this.data.cart)
-    // if (this.data.winCartHeight)
   },
 
-  showGoodsDetail: function(e) {
+  showGoodsDetail: function (e) {
     this.setData({
       showBannerModal: false
     })
@@ -223,7 +225,7 @@ Page({
       for (let i in this.data.goods) {
         if (this.data.goods[i].category_id == cateid) {
           index = i
-          goods_detail = this.data.goods[index].list.filter(function(eData) {
+          goods_detail = this.data.goods[index].list.filter(function (eData) {
             return eData.id == goods_id
           })[0]
           break;
@@ -240,7 +242,7 @@ Page({
     }
   },
 
-  showSearch: function(e) {
+  showSearch: function (e) {
     let self = this
     if (self.data.showSearch) {
       self.data.showSearch = false
@@ -265,7 +267,7 @@ Page({
     }
   },
 
-  searchInput: function(e) {
+  searchInput: function (e) {
     let char = e.detail.value
     this.data.char = char
     const reg = /^[A-Za-z]+$/;
@@ -309,7 +311,7 @@ Page({
     // console.info(this.data.searchList)
   },
 
-  getGoodsDetail: function(e) {
+  getGoodsDetail: function (e) {
     this.setData({
       showDetail: !this.data.showDetail
     })
@@ -318,15 +320,15 @@ Page({
   },
 
   // 获取商品列表 包括类别 和 商品
-  getCategory: function(locationCode) {
+  getCategory: function (locationCode) {
     let self = this
     server.request(api.getCategoryByLocationCode, {
       'location_code': locationCode
-    }, 'post').then(function(res) {
+    }, 'post').then(function (res) {
       // console.info(res)
       // self.data.initGoodsList = res.goods
       if (res.category && res.category.length > 0) {
-        self.data.categories = res.category.map(function(eData) {
+        self.data.categories = res.category.map(function (eData) {
           eData.scrollId = 's' + eData.id
           return eData
         })
@@ -349,7 +351,7 @@ Page({
             category_id: self.data.categories[i].id,
             scrollId: 's' + self.data.categories[i].id,
             category_name: self.data.categories[i].name,
-            list: res.goods.filter(function(e) {
+            list: res.goods.filter(function (e) {
               return e.category_id == self.data.categories[i].id
             })
           })
@@ -368,7 +370,7 @@ Page({
     })
   },
 
-  toSubmitOrder: function() {
+  toSubmitOrder: function () {
     app.globalData.cart = this.data.cart
     wx.navigateTo({
       url: '../cart/cart',
@@ -376,7 +378,7 @@ Page({
   },
 
   // 类别切换 对应的商品展示跟着类别切换
-  onCategoryClick: function(e) {
+  onCategoryClick: function (e) {
     // let self = this
     // let id = e.currentTarget.dataset.id,
     //   name = e.currentTarget.dataset.name;
@@ -399,7 +401,7 @@ Page({
   },
 
   // 单属性 添加购物车
-  addSingleParamCart: function(e) {
+  addSingleParamCart: function (e) {
     // console.info(e)
     let self = this
     let goodsId = e.currentTarget.dataset.id,
@@ -414,7 +416,7 @@ Page({
     self.addCart(goodsId, price, paramId, goodsName, goodsDescribe, goodsImage, goodsParam, goodsStock)
   },
 
-  cutSingleParamCart: function(e) {
+  cutSingleParamCart: function (e) {
     let self = this
     let goodsId = e.currentTarget.dataset.id,
       paramId = Number(e.currentTarget.dataset.paramid),
@@ -424,7 +426,7 @@ Page({
   },
 
   // 多属性 添加购物车
-  addMoreParamCart: function(e) {
+  addMoreParamCart: function (e) {
     let self = this
     let goodsId = self.data.goodsId
     let price = self.data.goodsPrice
@@ -437,7 +439,7 @@ Page({
     self.addCart(goodsId, price, paramId, goodsName, goodsDescribe, goodsImage, goodsParam, goodsStock)
   },
 
-  cutMoreParamCart: function() {
+  cutMoreParamCart: function () {
     let self = this
     let goodsId = self.data.goodsId
     let price = self.data.goodsPrice
@@ -445,19 +447,19 @@ Page({
     self.cutCart(goodsId, price, paramId)
   },
 
-  cutCart: function(goodsId, price, paramId) {
+  cutCart: function (goodsId, price, paramId) {
     let self = this
     let cart = self.data.cart
 
     // 检查购物车是否有相同规格商品 有则减少
-    let haveGoods = cart.some(function(eData) {
+    let haveGoods = cart.some(function (eData) {
       if (goodsId == eData.goodsId && paramId == eData.paramId) {
         return true
       }
       return false
     })
     if (haveGoods) {
-      cart = cart.map(function(eData) {
+      cart = cart.map(function (eData) {
         if (goodsId == eData.goodsId && paramId == eData.paramId) {
           eData.number--
         }
@@ -465,14 +467,14 @@ Page({
       })
     }
     let totelGoodsPrice = 0
-    let checkCart = cart.filter(function(eData) {
+    let checkCart = cart.filter(function (eData) {
       if (eData.number > 0) {
         totelGoodsPrice = totelGoodsPrice + (eData.price * eData.number)
       }
       return (eData.number > 0)
     })
     self.data.cart = checkCart
-    self.data.totalGoodsPrice = totelGoodsPrice
+    self.data.totalGoodsPrice = Math.round(totelGoodsPrice * 100) / 100
     // 主界面商品添加购物车的数量展示
     for (let i in self.data.goods) {
       for (let j in self.data.goods[i].list) {
@@ -486,21 +488,23 @@ Page({
       self.data.showCart = false
     }
     self.setData(self.data)
+
+    this._calcCartHeight()
   },
 
-  addCart: function(goodsId, price, paramId, goodsName, goodsDesc, goodsImage, goodsParam, goodsStock) {
+  addCart: function (goodsId, price, paramId, goodsName, goodsDesc, goodsImage, goodsParam, goodsStock) {
     let self = this
     let cart = self.data.cart
     let canAddNumber = true
     // 检查购物车是否有相同规格商品 有则增加数量 无则新增数组
-    let haveGoods = cart.some(function(eData) {
+    let haveGoods = cart.some(function (eData) {
       if (goodsId == eData.goodsId && paramId == eData.paramId) {
         return true
       }
       return false
     })
     if (haveGoods) {
-      cart = cart.map(function(eData) {
+      cart = cart.map(function (eData) {
         if (goodsId == eData.goodsId && paramId == eData.paramId) {
           // 新增对库存的判断
           if (goodsStock <= eData.number) {
@@ -536,7 +540,7 @@ Page({
       totalGoodsPrice = totalGoodsPrice + (cart[i].price * cart[i].number)
     }
     this.setData({
-      totalGoodsPrice: totalGoodsPrice
+      totalGoodsPrice: Math.round(totalGoodsPrice * 100) / 100
     })
     let goods = self.data.goods
     // 主界面商品添加购物车的数量展示
@@ -558,14 +562,14 @@ Page({
   },
 
   // 选择商品规格 多属性
-  selectParam: function(e) {
+  selectParam: function (e) {
     let self = this
     let selectParamId = e.currentTarget.dataset.selectparamid,
       selectText = e.currentTarget.dataset.selecttext
     for (let i in self.data.showParam) {
       if (self.data.showParam[i].id == selectParamId) {
         // console.info(selectParamId)
-        self.data.showParam[i].param = self.data.showParam[i].param.map(function(eData) {
+        self.data.showParam[i].param = self.data.showParam[i].param.map(function (eData) {
           if (eData.text == selectText) {
             eData.select = true
           } else {
@@ -583,7 +587,7 @@ Page({
     let selectParamArray = {}
     for (let j = 0; j < length; j++) {
       let key = self.data.showParam[j].text
-      let value = self.data.showParam[j].param.filter(function(eData) {
+      let value = self.data.showParam[j].param.filter(function (eData) {
         if (eData.select) {
           return eData
         }
@@ -614,7 +618,7 @@ Page({
   },
 
   // 初始选择商品时 初始化规格分组
-  getGoodsParam: function(e) {
+  getGoodsParam: function (e) {
     // console.info(e)
     this.setData({
       showDetail: false
@@ -626,10 +630,10 @@ Page({
     let goodsDescribe = e.currentTarget.dataset.describe
     let index = e.currentTarget.dataset.index
     let stock = e.currentTarget.dataset.stock
-    let goodsInfo = self.data.goods[index].list.filter(function(item) {
+    let goodsInfo = self.data.goods[index].list.filter(function (item) {
       return (item.id == goodsId)
     })[0].sku
-    self.data.selectGoods = self.data.goods[index].list.filter(function(item) {
+    self.data.selectGoods = self.data.goods[index].list.filter(function (item) {
       return (item.id == goodsId)
     })[0]
     self.data.index = index
@@ -661,7 +665,7 @@ Page({
       param[i].param = this.unique(param[i].param)
     }
     for (let i in param) {
-      param[i].param = param[i].param.map(function(eData, index) {
+      param[i].param = param[i].param.map(function (eData, index) {
         let temp = {
           text: eData,
           select: (index == 0 ? true : false)
@@ -677,7 +681,7 @@ Page({
   },
 
   // 去除分组重复
-  unique: function(arr) {
+  unique: function (arr) {
     var hash = [];
     for (var i = 0; i < arr.length; i++) {
       if (hash.indexOf(arr[i]) == -1) {
@@ -690,7 +694,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
@@ -703,7 +707,7 @@ Page({
   //   })
   // },
 
-  scroll: function(e) {
+  scroll: function (e) {
     if (this.categoryClick) {
       this.categoryClick = false;
       return;
@@ -762,31 +766,31 @@ Page({
   /**
    * 优惠券相关
    * */
-  getCouponCard: function() {
+  getCouponCard: function () {
     let self = this
     server.request(api.getCouponCard, {
       'openid': app.globalData.openid,
       'type': 'opening'
-    }, 'post').then(function(res) {
+    }, 'post').then(function (res) {
       // console.info(res)
       wx.addCard({
         cardList: res.cardList,
-        success: function(e) {
+        success: function (e) {
           // console.info(e)
           self.saveCard(JSON.stringify(e))
         },
-        complete: function(e) {
+        complete: function (e) {
           // console.info(e)
         }
       })
     })
   },
 
-  saveCard: function(data) {
+  saveCard: function (data) {
     server.request(api.saveCard, {
       'openid': app.globalData.openid,
       'cardList': data
-    }, 'post').then(function(res) {
+    }, 'post').then(function (res) {
       // console.info(res)
     })
   },

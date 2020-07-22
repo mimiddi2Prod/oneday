@@ -63,7 +63,7 @@ Page({
           create_time: res.order_list[0].create_time,
           style: res.order_list[0].style,
           total_number: total_number,
-          total_price: total_price,
+          total_price: Math.round(total_price * 100) / 100,
           trade_id: tradeid,
           yinbao_order_no: res.order_list[0].yinbao_order_no,
           table_number: res.order_list[0].table_number
