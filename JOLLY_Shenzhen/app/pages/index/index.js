@@ -137,6 +137,10 @@ Page({
     this.setData({
       showCart: !this.data.showCart
     })
+    this._calcCartHeight()
+  },
+
+  _calcCartHeight(){
     let winCartHeight = this.data.cart.length * 82
     if (winCartHeight > this.data.winCartHeightInit) {
       winCartHeight = this.data.winCartHeightInit
@@ -423,6 +427,8 @@ Page({
       self.data.showCart = false
     }
     self.setData(self.data)
+
+    this._calcCartHeight()
   },
 
   addCart: function (goodsId, price, paramId, goodsName, goodsDesc, goodsImage, goodsParam, goodsStock) {

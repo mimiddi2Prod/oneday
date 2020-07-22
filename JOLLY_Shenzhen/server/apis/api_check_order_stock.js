@@ -57,7 +57,7 @@ async function getData(params) {
         let haveStock = getRow.every(function (item) {
             for (let i in cart) {
                 if (item.id == cart[i].goodsId) {
-                    if (item.stock >= cart[i].number) {
+                    if (item.stock >= cart[i].number && item.status) {
                         return true
                     }
                 }

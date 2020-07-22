@@ -375,6 +375,7 @@ page {
 
 .cart-item > .goods-add {
   width: 120rpx;
+  min-width: 120rpx;
 }
 
 .goods-add > .price {

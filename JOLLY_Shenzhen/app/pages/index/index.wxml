@@ -111,9 +111,9 @@
         <view class="price">
           ￥{{item.price}}
         </view>
-        <view bindtap="cutSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" style='font-size:40rpx;padding:0 6rpx'>-</view>
+        <view bindtap="cutSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" style='font-size:40rpx;padding:10rpx 20rpx'>-</view>
         <view>{{item.number}}</view>
-        <view bindtap="addSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" data-name="{{goods.goodsName}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}" data-stock="{{item.stock}}" style='font-size:40rpx;padding:0 6rpx'>+</view>
+        <view bindtap="addSingleParamCart" data-id="{{item.goodsId}}" data-paramid="{{item.paramId}}" data-price="{{item.price}}" data-name="{{goods.goodsName}}" data-image="{{goods.img}}" data-desc="{{goods.describe}}" data-stock="{{item.stock}}" style='font-size:40rpx;padding:10rpx 20rpx'>+</view>
       </view>
     </view>
   </scroll-view>
