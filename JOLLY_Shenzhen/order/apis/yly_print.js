@@ -76,7 +76,7 @@ async function printSignOut(params) {
             total_price: 0,
             number: 0
         }, Reception = {
-            name: "店内单据",
+            name: "前台单据",
             total_price: 0,
             number: 0
         }, Topup = {
@@ -84,9 +84,18 @@ async function printSignOut(params) {
             total_price: 0,
             number: 0
         }, TotalIncome = {
-            name: "营业实收",
+            name: "总销售额",
             total_price: 0,
             number: 0
+        }
+        let Refund = {
+            name: "退款/反结账",
+            total_price: 0,
+            number: 0
+        }, ActuallySubTotal = {
+            name: "营业实收",
+            total_price: 0,
+            // number: 0
         }
         let wxpay = {
             total_price: 0,
@@ -122,11 +131,33 @@ async function printSignOut(params) {
                     cash.total_price += m.actually_total_price
                     cash.number++
                 }
+
+                // 售后类型 0不在售后 1反结账 2退货
+                if (m.after_sale_type) {
+                    Refund.total_price += m.after_sale_price
+                    Refund.number++
+                }
             })
         }
 
         TotalIncome.total_price = Online.total_price + Reception.total_price
         TotalIncome.number = Online.number + Reception.number
+
+        // 计算退货/反结账后的实收金额
+        ActuallySubTotal.total_price = TotalIncome.total_price - Refund.total_price
+
+        // 防止出现无限循环小数
+        Online.total_price = Math.round(Online.total_price * 100) / 100
+        Reception.total_price = Math.round(Reception.total_price * 100) / 100
+        TotalIncome.total_price = Math.round(TotalIncome.total_price * 100) / 100
+
+        Refund.total_price = Math.round(Refund.total_price * 100) / 100
+        ActuallySubTotal.total_price = Math.round(ActuallySubTotal.total_price * 100) / 100
+
+        wxpay.total_price = Math.round(wxpay.total_price * 100) / 100
+        alipay.total_price = Math.round(alipay.total_price * 100) / 100
+        cash.total_price = Math.round(cash.total_price * 100) / 100
+
         // 查询今日结账等数据并打印
         var content = "<MN>1</MN>";
         content += "<FS2><center>Oneday 森南店</center></FS2>";
@@ -140,8 +171,14 @@ async function printSignOut(params) {
         content += "<table>";
         content += "<tr><td>" + Online.name + "</td><td>" + Online.total_price + "元</td><td>共" + Online.number + "笔</td></tr>";
         content += "<tr><td>" + Reception.name + "</td><td>" + Reception.total_price + "元</td><td>共" + Reception.number + "笔</td></tr>";
-        content += "<tr><td>" + Topup.name + "</td><td>" + Topup.total_price + "元</td><td>共" + Topup.number + "笔</td></tr>";
+        // content += "<tr><td>" + Topup.name + "</td><td>" + Topup.total_price + "元</td><td>共" + Topup.number + "笔</td></tr>";
         content += "<tr><td>" + TotalIncome.name + "</td><td>" + TotalIncome.total_price + "元</td><td>共" + TotalIncome.number + "笔</td></tr>";
+        content += "</table>";
+        content += repeat('-', 20) + "\n";
+        content += "<table>";
+        content += "<tr><td>实收统计</td><td></td><td></td></tr>";
+        content += "<tr><td>" + Refund.name + "</td><td>" + Refund.total_price + "元</td><td>共" + Refund.number + "笔</td></tr>";
+        content += "<tr><td>" + ActuallySubTotal.name + "</td><td>" + ActuallySubTotal.total_price + "元</td><td></td></tr>";
         content += "</table>";
         content += repeat('-', 20) + "\n";
         content += "<table>";

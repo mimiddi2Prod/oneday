@@ -167,7 +167,7 @@ var homevm = new Vue({
                 temp.remark = ""
                 temp.discount_price = temp.price
                 temp.num = temp.num || 1
-                temp.subtotal = temp.discount_price * temp.num
+                temp.subtotal = Math.round(temp.discount_price * temp.num * 100) / 100
             }
             // 初始化赋值
             this.current_sku_id = temp.sku.length ? temp.sku[0].sku_id : 0
@@ -287,7 +287,7 @@ var homevm = new Vue({
             temp.remark = ""
             temp.discount_price = temp.price
             temp.num = temp.num || 1
-            temp.subtotal = temp.discount_price * temp.num
+            temp.subtotal = Math.round(temp.discount_price * temp.num * 100) / 100
             this.tempOrderDetail = temp
 
             this.tempDiscount = ""
