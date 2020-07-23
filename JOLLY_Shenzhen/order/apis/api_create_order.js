@@ -34,6 +34,7 @@ async function getData(params) {
         trade_id = formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, "")
     }
     let trade, order = params.order.map(value => {
+            value.discount_price = Math.round(value.discount_price * 100) / 100
             return {
                 "goods_sku_id": value.sku_id,
                 "goods_id": value.id,
@@ -48,6 +49,10 @@ async function getData(params) {
             }
         }),
         result = await db.BulkInsert("goods_order", order)
+
+    params.total_price = Math.round(params.total_price * 100) / 100
+    params.total_original_price = Math.round(params.total_original_price * 100) / 100
+    params.total_diacount_price = Math.round(params.total_diacount_price * 100) / 100
     if (result.errmsg == "success") {
         trade = {
             "trade_id": trade_id,
@@ -83,7 +88,7 @@ async function getData(params) {
                         "param": value.param,
                         "price": value.price,
                         "discount_price": value.discount_price,
-                        "subtotal": value.subtotal, // 小计
+                        "subtotal": Math.round(Number(value.subtotal) * 100) / 100, // 小计
                         "number": value.num,
                         "trade_id": trade_id,
                         "create_time": new Date(),

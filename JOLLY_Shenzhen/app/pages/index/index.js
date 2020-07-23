@@ -140,7 +140,7 @@ Page({
     this._calcCartHeight()
   },
 
-  _calcCartHeight(){
+  _calcCartHeight() {
     let winCartHeight = this.data.cart.length * 82
     if (winCartHeight > this.data.winCartHeightInit) {
       winCartHeight = this.data.winCartHeightInit
@@ -376,6 +376,7 @@ Page({
     let goodsDescribe = self.data.goodsDescribe
     let goodsStock = self.data.goodsStock
     self.addCart(goodsId, price, paramId, goodsName, goodsDescribe, goodsImage, goodsParam, goodsStock)
+    self.closeModal()
   },
 
   cutMoreParamCart: function () {
@@ -435,6 +436,23 @@ Page({
     let self = this
     let cart = self.data.cart
     let canAddNumber = true
+
+    // 规则改变 参数不带库存 只根据商品库存判断
+    let temp = 0
+    cart.forEach(m => {
+      if (goodsId == m.goodsId) {
+        temp += m.number
+      }
+    })
+    if (goodsStock <= temp) {
+      canAddNumber = false
+      wx.showToast({
+        title: '库存不足',
+        icon: 'none'
+      })
+      return
+    }
+
     // 检查购物车是否有相同规格商品 有则增加数量 无则新增数组
     let haveGoods = cart.some(function (eData) {
       if (goodsId == eData.goodsId && paramId == eData.paramId) {

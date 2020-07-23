@@ -327,7 +327,7 @@ var homevm = new Vue({
         },
         // todo 添加商品到购物车前，检查本地库存 (或者服务器库存？)
         _checkStock(goods) {
-            console.info(goods, this.order)
+            // console.info(goods, this.order)
         },
         // 模态框确认按钮,对编辑好的添加到左侧订单中
         changeOrder() {
@@ -350,6 +350,7 @@ var homevm = new Vue({
                             value.num = Number(value.num) + Number(temp.num)
                             value.subtotal = value.subtotal + temp.subtotal
                         }
+                        value.subtotal = Math.round(value.subtotal * 100) / 100
                         return value
                     })
                 } else {
@@ -390,7 +391,7 @@ var homevm = new Vue({
         _getCategoryAndProduct() {
             let self = this
             Axios(api.getCategoryAndProduct, "POST").then(res => {
-                console.info(res)
+                // console.info(res)
                 if (res.state == 0) {
                     self.category = res.data.list
                     self.pending_order_num = res.data.pending_order.data.length
@@ -576,7 +577,7 @@ var homevm = new Vue({
         submitPendingOrder() {
             let self = this
             Axios(api.setPendingOrder, "POST", self.pending_order).then(res => {
-                console.info(res)
+                // console.info(res)
                 self._Init()
                 self.pending_order_num = res.data.length
             })
@@ -676,7 +677,7 @@ var homevm = new Vue({
         //     sessionStorage.removeItem("trade")
         // }
         this.appendTrade = sessionStorage.getItem("appendTrade") || null
-        console.info(this.appendTrade)
+        // console.info(this.appendTrade)
     },
     created: function () {
 

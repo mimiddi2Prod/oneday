@@ -526,3 +526,14 @@ button[plain]{
 .gray{
   color:#CBCBCB
 }
+
+/* 选好了 按钮 */
+.add-btn{
+  text-align: center;
+  padding: 20rpx;
+  background-color: #879d89;
+  color:#fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

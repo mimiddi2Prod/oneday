@@ -232,6 +232,8 @@ async function printOrder(params) {
                         temp[j].price == order[i].price && temp[j].discount_price == order[i].discount_price) {
                         temp[j].number = temp[j].number + order[i].number
                         temp[j].subtotal = temp[j].subtotal + order[i].subtotal
+
+                        temp[j].subtotal = Math.round(temp[j].subtotal * 100) / 100
                     }
                 }
             }
@@ -277,7 +279,7 @@ async function printOrder(params) {
         // content += "<QR>this is qrcode,you can write Officical Account url or Mini Program and so on</QR>";
         content += "原价:￥" + trade.goods_total_original_price + "\n";
         content += "小计:￥" + trade.goods_total_price + "\n";
-        content += "折扣:￥" + (trade.goods_total_price - Number(trade.actually_total_price)).toFixed(2) + " \n";
+        content += "折扣:￥" + (Number(trade.goods_total_price) - Number(trade.actually_total_price)).toFixed(2) + " \n";
         content += repeat('*', 32);
         content += "订单实付:￥" + trade.actually_total_price + "\n";
         if (trade.remark && trade.remark.length) {

@@ -86,6 +86,7 @@ async function getData(params) {
             let trade = await db.Query("select * from goods_trade where trade_id = ?", [params.trade_id])
             after_sale_price = (trade[0].actually_total_price / trade[0].goods_total_price) * after_sale_price
 
+            after_sale_price = Math.round(Number(after_sale_price) * 100) / 100
             // 退货库存恢复
             restoreStock.run({"cart": willRestoreStock})
             result = await db.BulkInsertOrDuplicateUpdate("goods_order", data, {str: 'return_number = VALUES (return_number)'})

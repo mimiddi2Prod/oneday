@@ -92,7 +92,9 @@ async function getData(params) {
             for (let i in getRow) {
                 for (let j in cart) {
                     if (getRow[i].id == cart[j].goodsId) {
-                        if (getRow[i].stock < cart[j].number) {
+                        if (!getRow[i].status) {
+                            shortageList.push({"name": getRow[i].name, "stock": 0})
+                        } else if (getRow[i].stock < cart[j].number) {
                             shortageList.push(getRow[i])
                         }
                     }

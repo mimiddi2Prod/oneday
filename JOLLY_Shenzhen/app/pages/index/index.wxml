@@ -24,12 +24,13 @@
             <text style="font-size:24rpx">{{goodsStock < 10 ? '剩余 '+goodsStock+' 份' : ''}}</text>
           </view>
           <!-- 购买数量选择 -->
-          <view class="goods-add-cart" wx:if="{{selectGoods.cartNumber <= 0}}" bindtap="addMoreParamCart">加入购物车</view>
+          <!-- 改为底部按钮 选好了 -->
+          <!-- <view class="goods-add-cart" wx:if="{{selectGoods.cartNumber <= 0}}" bindtap="addMoreParamCart">加入购物车</view>
           <view class="goods-add-cart-have" wx:else>
             <view bindtap="cutMoreParamCart">-</view>
             <view>{{selectGoods.cartNumber}}</view>
             <view bindtap="addMoreParamCart">+</view>
-          </view>
+          </view> -->
         </view>
       </view>
     </view>
@@ -49,6 +50,8 @@
         </view>
       </view>
     </view>
+
+    <view class="add-btn" bindtap="addMoreParamCart">选好了</view>
   </view>
 </view>
 
