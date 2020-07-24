@@ -70,6 +70,7 @@ function getHome() {
             })
 
             data["total_actually_income"] = Number(data["total_actually_income"]).toFixed(2)
+            data["total_refund"] = Number(data["total_refund"]).toFixed(2)
             return callback(data);
         } catch (e) {
             console.info(e)

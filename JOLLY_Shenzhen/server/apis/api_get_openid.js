@@ -129,7 +129,9 @@ async function saveOpenid(data, token, expire_time, user_agent) {
         await db.Update(columnList, "user", conditionList)
         call = {
             avatarUrl: result[0].avatar_url,
-            nickName: result[0].nick_name
+            nickName: result[0].nick_name,
+            balance: result[0].balance,
+            isCustomer: result[0].phone_number ? true : false
         }
     }
     return call

@@ -141,48 +141,55 @@ Page({
 
   checkStock: function (e) {
     let payMethod = e.currentTarget.dataset.pay // 0微信支付 1余额支付
-    let self = this,
-      data = {}
+    let self = this
 
     // 余额支付的话 先检查是否有绑定会员卡/余额是否足够
-    // if (payMethod == 1) {
-    //   if (!app.globalData.isCustomer) {
-    //     wx.showModal({
-    //       title: '支付失败',
-    //       content: '您还没有办理会员卡，是否前往注册',
-    //       success: function(res) {
-    //         if (res.confirm) {
-    //           wx.navigateTo({
-    //             url: '../customer/customer',
-    //           })
-    //         }
-    //       }
-    //     })
-    //     return
-    //   }
-    //   if (self.data.totalPrice > app.globalData.balance) {
-    //     wx.showModal({
-    //       title: '支付失败',
-    //       content: '会员卡余额不足，请前往前台充值',
-    //       showCancel: false
-    //     })
-    //     return
-    //   }
-    // }
+    if (payMethod == 1) {
+      if (!app.globalData.isCustomer) {
+        notCustomer()
+        return
+      }
+      // 检查余额是否足够支付
+      server.api(api.checkBalance, { "totalPrice": self.data.totalPrice }, "POST").then(res => {
+        if (res.code == 0) {
+          this._check(payMethod)
+        } else if (res.code == 1) {
+          wx.showModal({
+            title: '支付失败',
+            content: '会员卡余额不足，请前往前台充值',
+            showCancel: false
+          })
+          return
+        } else {
+          notCustomer()
+        }
+      })
 
+      function notCustomer() {
+        wx.showModal({
+          title: '支付失败',
+          content: '您还没有开通会员，是否前往开通',
+          success: function (res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '../customer/customer',
+              })
+            }
+          }
+        })
+      }
+    } else {
+      // 微信支付
+      this._check(payMethod)
+    }
+  },
+  _check(payMethod) {
+    let self = this,
+      data = {}
     wx.showLoading({
       title: '请稍后...',
       mask: true
     })
-
-    // todo 商品库存验证
-    // for (let i in this.data.cart) {
-    //   data.push({
-    //     goodsId: this.data.cart[i].goodsId,
-    //     goodsName: this.data.cart[i].goodsName,
-    //     number: this.data.cart[i].number
-    //   })
-    // }
     data.cart = this.data.cart
     server.api(api.checkOrderStock, data, "post").then(function (res) {
       console.info(res)
@@ -274,38 +281,49 @@ Page({
 
   balancePay: function () {
     let self = this
-    let data = {}
-    // console.info(app.globalData.customerUid)
-    // if (!app.globalData.isCustomer) {
-    //   wx.showModal({
-    //     title: '支付失败',
-    //     content: '您还没有办理会员卡，是否前往注册',
-    //     success: function(res) {
-    //       if (res.confirm) {
-    //         wx.navigateTo({
-    //           url: '../customer/customer',
-    //         })
-    //       }
-    //     }
-    //   })
-    //   return
-    // }
-    // if (self.data.totalPrice > app.globalData.balance) {
-    //   wx.showModal({
-    //     title: '支付失败',
-    //     content: '会员卡余额不足，请前往前台充值',
-    //     showCancel: false
-    //   })
-    //   return
-    // }
+    let data = self.getWXPayOrder()
+    // let tradeId = self.getTradeId()
+    data.payMethod = "Balance"
+    data.tradeId = self.getTradeId()
+    data.payStatus = 1
+    // self.addOrder(tradeId, 'CustomerBalance', 1)
 
-    let tradeId = self.getTradeId()
-    // wx.showLoading({
-    //   title: '',
-    //   mask: true
-    // })
-    self.addOrder(tradeId, 'CustomerBalance', 1)
-    // self.addOrder('CustomerBalance', 0)
+    server.api(api.addOrder, data, "post").then(function (res) {
+      wx.hideLoading()
+      if (res.code == 0) {
+        app.globalData.balance = res.data.balance
+        wx.showToast({
+          title: '支付成功',
+        })
+        let tradeId = res.data.trade_id
+        app.globalData.cart = []
+        wx.redirectTo({
+          url: '../pay_status/pay_status?tradeid=' + tradeId,
+        })
+      } else {
+        server.api(api.restoreStock, checkStockData, "post").then(function (e) {
+          // 支付失败提醒
+          wx.showModal({
+            title: '支付失败',
+            content: '请重新支付，支付订单完成大厨就开工啦',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                wx.hideLoading()
+              }
+            }
+          })
+        })
+      }
+      // self.getCustomerByPhone()
+      // if (res.code == 0) {
+      //   wx.hideLoading()
+      //   app.globalData.cart = []
+      //   wx.redirectTo({
+      //     url: '../pay_status/pay_status?tradeid=' + data.tradeId,
+      //   })
+      // }
+    })
   },
 
   getTradeId: function () {
@@ -315,44 +333,44 @@ Page({
     for (var i = 0; i < 5; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length))
     }
-    var tradeId = 'br_' + date + text + 'y'
+    var tradeId = 'szsn' + date + text
     console.info(tradeId)
     return tradeId
   },
 
-  addOrder: function (tradeId, payMethod, payStatus) {
-    // addOrder: function(payMethod, payStatus) {
-    let self = this
-    // console.info(this.data.cart)
-    let data = {}
-    data.openid = app.globalData.openid
-    data.takeMealStyle = self.data.takeMealStyle
-    data.dinnersNumber = self.data.dinnersNumber
-    data.tradeId = tradeId
-    data.cart = self.data.cart
-    data.tableNumber = app.globalData.tableNumber
-    data.payMethod = payMethod
-    if (payMethod == 'CustomerBalance') {
-      data.customerNumber = app.globalData.customerNumber
-    }
-    data.payStatus = payStatus
+  // addOrder: function (tradeId, payMethod, payStatus) {
+  //   // addOrder: function(payMethod, payStatus) {
+  //   let self = this
+  //   // console.info(this.data.cart)
+  //   let data = {}
+  //   data.openid = app.globalData.openid
+  //   data.takeMealStyle = self.data.takeMealStyle
+  //   data.dinnersNumber = self.data.dinnersNumber
+  //   data.tradeId = tradeId
+  //   data.cart = self.data.cart
+  //   data.tableNumber = app.globalData.tableNumber
+  //   data.payMethod = payMethod
+  //   if (payMethod == 'CustomerBalance') {
+  //     data.customerNumber = app.globalData.customerNumber
+  //   }
+  //   data.payStatus = payStatus
 
-    if (app.globalData.customerUid) {
-      data.customerUid = app.globalData.customerUid
-    }
+  //   if (app.globalData.customerUid) {
+  //     data.customerUid = app.globalData.customerUid
+  //   }
 
-    server.request(api.addOrderByYinbaoBalance, data, "post").then(function (res) {
-      console.info(res)
-      self.getCustomerByPhone()
-      if (res.code == 0) {
-        wx.hideLoading()
-        app.globalData.cart = []
-        wx.redirectTo({
-          url: '../pay_status/pay_status?tradeid=' + data.tradeId,
-        })
-      }
-    })
-  },
+  //   server.request(api.addOrderByYinbaoBalance, data, "post").then(function (res) {
+  //     console.info(res)
+  //     self.getCustomerByPhone()
+  //     if (res.code == 0) {
+  //       wx.hideLoading()
+  //       app.globalData.cart = []
+  //       wx.redirectTo({
+  //         url: '../pay_status/pay_status?tradeid=' + data.tradeId,
+  //       })
+  //     }
+  //   })
+  // },
 
   cutDinnersNumber: function () {
     this.setData({

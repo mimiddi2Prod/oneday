@@ -223,7 +223,7 @@ async function printOrder(params) {
         // content += "<FS><center>Onday 森南店</center></FS>";
         content += "订单时间:" + formatTime(new Date(trade.create_time)) + "\n";
         content += "订单编号:" + trade.trade_id + "\n";
-        content += "支付方式:微信支付\n";
+        content += "支付方式:" + (trade.pay_method == 'Wxpay' ? '微信支付' : '余额支付') + "\n";
         content += "桌号:" + (trade.table_number || '') + "\n";
         content += "人数:" + (trade.dinners_number || '') + "\n";
         content += "用餐方式:" + (trade.take_meal_style == 0 ? '堂食' : '外带') + "\n";
@@ -242,6 +242,7 @@ async function printOrder(params) {
         content += "原价:￥" + trade.goods_total_original_price + "\n";
         content += "小计:￥" + trade.goods_total_price + "\n";
         content += "折扣:￥" + (trade.goods_total_price - Number(trade.actually_total_price)).toFixed(2) + " \n";
+        content += (trade.pay_method == 'Balance' ? "会员余额:" + trade.balance + " \n" : '')
         content += repeat('*', 32);
         content += "订单实付:￥" + trade.actually_total_price + "\n";
         if (trade.remark && trade.remark.length) {

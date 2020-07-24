@@ -195,10 +195,13 @@
   <view class="header-middle">
     <!-- <navigator url="../customer/customer" hover-class='none' wx:if="{{!isCustomer}}">
       会员登录
-    </navigator> -->
-    <!-- <navigator url="../customer/customer" hover-class='none' wx:if="{{isCustomer}}" style="font-size:26rpx">
+    </navigator>
+    <navigator url="../customer/customer" hover-class='none' wx:if="{{isCustomer}}" style="font-size:26rpx">
       余额{{balance}}，积分{{point}}
     </navigator> -->
+    <navigator url="../customer/customer" hover-class='none'>
+      {{!isCustomer ? '会员登录' : '余额：'+balance}}
+    </navigator>
   </view>
   <view class="header_right">
     <view bindtap='showSearch'>
@@ -211,9 +214,9 @@
 </view>
 <image class="banner" src="/images/banner.png" mode="widthFix"></image>
 <!-- 跳转会员界面 -->
-<!-- <navigator url="../customer/customer" hover-class='none'>
+<navigator url="../customer/customer" hover-class='none'>
   <image class="banner" style="padding-top:0" src="/images/card.png" mode="widthFix"></image>
-</navigator> -->
+</navigator>
 
 <!-- 内容 -->
 <view class="content" style="height:{{winHeight}}rpx">

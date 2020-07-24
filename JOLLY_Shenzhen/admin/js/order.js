@@ -152,8 +152,8 @@ function getOrder() {
     let data = {}
     data.trade_platform = orderVM.navId + 1
     data.last_id = orderVM.last_id
-    data.start_time = document.getElementById("test5_1").value
-    data.end_time = document.getElementById("test5_2").value
+    data.start_time = document.getElementById("test5_1").value || orderVM.start_time
+    data.end_time = document.getElementById("test5_2").value || orderVM.end_time
     server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.number > 0) {

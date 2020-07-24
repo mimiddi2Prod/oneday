@@ -123,6 +123,10 @@ Page({
       // 获取商品列表 包括类别 和 商品
       this.getCategory(this.data.locationCode)
     }
+    this.setData({
+      isCustomer: app.globalData.isCustomer,
+      balance: app.globalData.balance
+    })
   },
   // 关闭选择规格弹窗 
   closeModal: function () {

@@ -12,7 +12,7 @@
 <view class="content">
   <navigator class="card" wx:for="{{trade}}" url="../pay_status/pay_status?tradeid={{item.trade_id}}" hover-class='none'>
     <view class="goods-info">
-      <view>oneday沙坡尾</view>
+      <view>oneday森南店</view>
       <view>订单已完成</view>
     </view>
     <view class="line"></view>

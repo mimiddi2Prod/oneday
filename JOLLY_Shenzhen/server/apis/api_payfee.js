@@ -37,7 +37,7 @@ async function getData(params) {
     }, call = await wxPay.payfee(payfeeData) || null;
     if (call) {
         // 获得订单号后，将订单添加到数据库 并且支付状态为未支付
-        let order = Object.assign(params, {tradeId: call.out_trade_no})
+        let order = Object.assign(params, {tradeId: call.out_trade_no, payStatus: 0})
         // 新增 优惠券信息
         // order.coupon = params["selcCardInfo"]
         let callback = await addOrder.run(order)

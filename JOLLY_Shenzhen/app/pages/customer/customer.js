@@ -33,22 +33,22 @@ Page({
         data.iv = e.detail.iv
         data.openid = app.globalData.openid
 
-        server.request(api.getUserPhone, data, "post").then(function(res) {
+        server.api(api.getUserPhone, data, "post").then(function(res) {
           console.info(res)
           if (res.code == 0) {
-            app.globalData.point = res.data.point //积分
+            // app.globalData.point = res.data.point //积分
             app.globalData.balance = res.data.balance //余额
-            app.globalData.discount = res.data.discount //折扣 100无折扣 70表示7折
-            app.globalData.phone = res.data.phone
+            // app.globalData.discount = res.data.discount //折扣 100无折扣 70表示7折
+            // app.globalData.phone = res.data.phone
             app.globalData.isCustomer = true
-            app.globalData.customerUid = res.data.customerUid
-            app.globalData.customerNumber = res.data.number
+            // app.globalData.customerUid = res.data.customerUid
+            // app.globalData.customerNumber = res.data.number
             self.setData({
               isCustomer: app.globalData.isCustomer
             })
 
             wx.showModal({
-              content: '绑定成功',
+              content: res.errmsg,
               showCancel: false,
               confirmText:'确定',
               success: function(eData) {

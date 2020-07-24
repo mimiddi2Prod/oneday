@@ -50,6 +50,8 @@ App({
           wx.setStorageSync('token', res.token)
           // wx.setStorageSync('token_expire', new Date().getTime() + 12 * 60 * 60 * 1000)
           if (res.userInfo) {
+            self.globalData.balance = res.userInfo.balance
+            self.globalData.isCustomer = res.userInfo.isCustomer
             res.userInfo.nickName = decodeURIComponent(res.userInfo.nickName)
             wx.setStorageSync('userInfo', res.userInfo)
           }
@@ -63,9 +65,9 @@ App({
     cart: [],
 
     // point: 0,
-    // balance: 0,
+    balance: 0,
     // discount: 0,
-    // isCustomer: false,
+    isCustomer: false,
     // customerUid: 0,
     // customerNumber: 0,
 

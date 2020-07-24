@@ -48,6 +48,18 @@ API.prototype.run = async function (apiName, params) {
                 resolve(await require('../apis/notify_wxPay.js').run(params))
                 break;
             }
+            case "get_user_phone": {
+                resolve(await require('../apis/api_get_user_phone.js').run(params))
+                break;
+            }
+            case "check_balance": {
+                resolve(await require('../apis/api_check_balance.js').run(params))
+                break;
+            }
+            case "add_order": {
+                resolve(await require('../apis/api_add_order.js').run(params))
+                break;
+            }
 
             // no use
             case "save_user_info": {

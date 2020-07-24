@@ -1,4 +1,5 @@
 var db = require("./../utils/dba");
+let yly = require("./yly_print")
 
 exports.run = async function (params) {
     let data = null
@@ -41,7 +42,7 @@ async function getData(params) {
                 take_meal_style: params.takeMealStyle,
                 table_number: params.tableNumber,
                 // pay_status: params.payStatus,
-                pay_status: 0,
+                pay_status: params.payStatus,
                 dinners_number: params.dinnersNumber,
                 pay_method: params.payMethod
             }
@@ -57,15 +58,25 @@ async function getData(params) {
                 "goods_total_price": params.totalPrice,
                 "goods_total_original_price": params.totalPrice,
                 "actually_total_price": params.totalPrice,
-                "pay_status": 0, // 付款状态 0 未付款 1已付款
-                "pay_method": params.payMethod, // 'Wxpay' / 其他方式
+                "pay_status": params.payStatus, // 付款状态 0 未付款 1已付款
+                "pay_method": params.payMethod, // 'Wxpay' / ‘Balance’
                 "create_time": new Date(),
                 "take_meal_style": params.takeMealStyle, // 0 堂食 1 外带
                 "table_number": params.tableNumber, // 桌号
                 "dinners_number": params.dinnersNumber, // 用餐人数
             }])
             if (result.id_list.length) {
-                return {code: 0, text: '添加订单成功'}
+                // 余额支付还需计算金额扣除 并打印订单
+                let balance = 0
+                if (params.payMethod == "Balance") {
+                    let r = await db.Query("update `user` set balance = balance - ? where openid = ?", [params.totalPrice, params.openid])
+                    if (r.affectedRows) {
+                        balance = (await db.Query("select * from `user` where openid = ?", [params.openid]))[0].balance
+                        BalancePay(params, balance)
+                        // todo 做更新余额失败和打单失败的处理
+                    }
+                }
+                return {code: 0, text: '添加订单成功', data: {trade_id: params.tradeId, balance: balance}}
             } else {
                 return {code: 1, text: '添加订单失败'}
             }
@@ -76,4 +87,24 @@ async function getData(params) {
         console.info(e)
     }
 
+}
+
+async function BalancePay(params, balance) {
+    // 打单
+    let trade = await db.Query("select * from goods_trade where trade_id = ?", [params.tradeId]),
+        order = await db.Query("select * from goods_order where trade_id = ?", [params.tradeId])
+    yly.run({
+        "type": "order", "trade": Object.assign(trade[0], {
+            "order": order.map(val => {
+                return {
+                    "name": val.name,
+                    "param": val.param,
+                    "number": val.number,
+                    "price": val.price,
+                    "discount_price": val.discount_price,
+                    "subtotal": Math.round(val.discount_price * val.number * 100) / 100
+                }
+            })
+        }, {"balance": balance})
+    })
 }
