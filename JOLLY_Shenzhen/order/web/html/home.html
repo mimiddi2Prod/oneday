@@ -186,7 +186,8 @@
                             <div class="" v-for="item,index in valueArray">
                                 <div>{{item.text}}</div>
                                 <div class="row">
-                                    <div class="border m-2 p-2" :class="sku.select ? 'text-danger border-danger' : ''" v-for="sku in item.param"
+                                    <div class="border m-2 p-2" :class="sku.select ? 'text-danger border-danger' : ''"
+                                         v-for="sku in item.param"
                                          @click="selectParam(sku.text,index)">{{sku.text}}
                                     </div>
                                 </div>
@@ -296,8 +297,12 @@
                             <div class="text-center col-4 mb-1" v-for="item in pay_type_list">
                                 <button class="btn py-2 px-1 w-100"
                                         :class="item == trade.pay_type ? 'btn-dark' : 'btn-secondary'"
-                                        @click="trade.pay_type=item">
+                                        @click="payType(item)">
                                     <h5>{{item}}</h5></button>
+                            </div>
+                            <div v-if="member && member.phone_number">
+                                <div>会员手机号：{{member.phone_number}}</div>
+                                <div>会员余额：{{member.balance}}</div>
                             </div>
                         </div>
                     </div>
@@ -347,6 +352,37 @@
                         </button>
                         <button type="button" class="btn btn-primary flex-fill" id="modal_pending_submit"
                                 @click="submitPendingOrder">确定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--余额支付输入会员号-->
+        <div class="modal fade" id="modal_balance" tabindex="-1" role="dialog" aria-labelledby="myModalOrder"
+             data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <span>会员手机号：（请输入会员手机号，如果没有注册请让顾客先在小程序完成注册）</span>
+                            <input type="text" class="form-control" placeholder="会员手机号"
+                                   aria-label="Example text with button addon"
+                                   oninput="value=value.replace(/[^\d]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
+                                   aria-describedby="button-addon1" v-model="tempPhoneNumber">
+
+                        </form>
+                        <div class="text-danger" v-if="member_tag">{{member_tag}}</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary flex-fill" data-dismiss="modal"
+                                @click="notUseBalance">取消
+                        </button>
+                        <button type="button" class="btn btn-primary flex-fill" id="modal_balance_submit"
+                                @click="useBalance">确定
                         </button>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 var db = require("./../utils/dba");
 var {formatTime} = require("./../utils/utils.js")
 var yly = require("./yly_print")
+var _calcBalance = require("./_calc_balance")
 
 exports.run = async function (params) {
     let data = null
@@ -26,6 +27,28 @@ exports.run = async function (params) {
  * trade_platform为2时 open_id为null
  * */
 async function getData(params) {
+    /**
+     * 会员余额支付
+     */
+    let member
+    if (params.pay_type == "余额") {
+        // 进行会员余额的计算
+        let price = params.total_diacount_price ? params.total_diacount_price : params.total_price
+        member = await _calcBalance.getData({
+            "increment_balance": -(price),
+            "phone_number": params.member.phone_number
+        })
+        if (member.data.balance < 0) {
+            // 余额不足，恢复
+            _calcBalance.getData({
+                "increment_balance": price,
+                "phone_number": params.member.phone_number
+            })
+            return {state: 2, errmsg: "余额不足，请确认余额足够支付"}
+        }
+    }
+    // 顶部新增会员余额支付
+
     let trade_platform = 2,
         trade_id
     if (params.trade_id) {
@@ -76,6 +99,7 @@ async function getData(params) {
     }
     if (result.errmsg == "success") {
         // 打单
+        // 新增会员支付 {"balance": member.data.balance}
         yly.run({
             "type": "order",
             "trade": Object.assign(trade, {
@@ -95,7 +119,7 @@ async function getData(params) {
                         "remark": value.remark
                     }
                 })
-            })
+            }, {"balance": member.data.balance})
         })
 
         if (params.trade_id) {

@@ -22,12 +22,53 @@ var orderformvm = new Vue({
         // 预下单，discount（0-100，100为原价）有值时计算折扣价，
         order: [],
         submit_order: [],
-        pay_type_list: ["现金", "支付宝", "微信"],
+        pay_type_list: ["现金", "支付宝", "微信", "余额"],
         discount_list: ["原价", 95, 9, 85, 8, 75, 7, 6, 5, "免单", "抹零"],
         totalPriceDiscount: "",
         isKeyDownDiscount: 0,  // 0输入的 1按键盘
+
+        /**
+         * 新增会员 余额支付
+         */
+        tempPhoneNumber: "",
+        member_tag: "",
+        member: {},
     },
     methods: {
+        payType(item) {
+            let self = this
+            this.trade.pay_type = item
+            if (item == "余额") {
+                $('#modal_balance').on('show.bs.modal', function (e) {
+                    let modal = $(this)
+                    modal.find('.modal-title').text('提示')
+                })
+                $('#modal_balance').modal('show');
+            }
+        },
+        useBalance() {
+            let self = this
+            if (!self.tempPhoneNumber) {
+                self.member_tag = "请输入会员手机号"
+                return
+            }
+            // let trade_cost = self.trade.total_diacount_price ? self.trade.total_diacount_price : self.trade.total_price
+            Axios(api.checkMember, "POST", {"phone_number": self.tempPhoneNumber}).then(res => {
+                if (res.code == 1) {
+                    self.member_tag = res.errmsg
+                } else {
+                    self.member_tag = ""
+                    self.tempPhoneNumber = ""
+                    self.member = res.data
+                    $('#modal_balance').modal('hide');
+                }
+            })
+        },
+        notUseBalance() {
+            let self = this
+            self.member_tag = ''
+            self.tempPhoneNumber = ''
+        },
         // 切换订单
         cursor(index) {
             this.cursor_id = index;
@@ -301,6 +342,30 @@ var orderformvm = new Vue({
         submitOrder() {
             let self = this
             let data = Object.assign(this.submit_trade, {order: this.submit_order})
+            if (data.pay_type == "余额") {
+                let text
+                if (!this.member.phone_number) {
+                    text = "没有会员信息"
+                }
+                let pay = this.trade.total_diacount_price ? this.trade.total_diacount_price : this.trade.total_price
+                if (this.member.balance < pay) {
+                    text = "余额不足"
+                }
+                if (text) {
+                    $('#modal_1').on('show.bs.modal', function (e) {
+                        let modal = $(this)
+                        modal.find('.modal-title').text('提示')
+                        modal.find('.modal-body').text(text)
+                    })
+                    $('#modal_1').on('hidden.bs.modal', function (e) {
+                        $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);
+                    })
+                    $('#modal_1').modal('show');
+                    $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
+                    return
+                }
+                data = Object.assign(data, {"member": this.member})
+            }
             // console.info(data)
             Axios(api.createOrder, "POST", data).then(res => {
                 if (res.state == 0) {
@@ -317,6 +382,22 @@ var orderformvm = new Vue({
                         $('#modal_1').modal('show');
                         $('#modal_1_submit')[0].addEventListener("click", self._hideModal)
                     }, 1000)
+                } else if (res.state == 2) {
+                    self.tempPhoneNumber = ""
+                    self.member_tag = ""
+                    self.member = {}
+                    // 恢复库存
+                    self.restoreStock()
+                    $('#modal_1').on('show.bs.modal', function (e) {
+                        let modal = $(this)
+                        modal.find('.modal-title').text('提示')
+                        modal.find('.modal-body').text(res.errmsg)
+                    })
+                    $('#modal_1').on('hidden.bs.modal', function (e) {
+                        $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);
+                    })
+                    $('#modal_1').modal('show');
+                    $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
                 }
             })
         },

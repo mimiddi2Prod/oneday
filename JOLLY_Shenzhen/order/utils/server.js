@@ -68,6 +68,10 @@ API.prototype.run = async function (apiName, params) {
                 resolve(await require('../apis/api_set_member.js').run(params))
                 break;
             }
+            case "check_member": {
+                resolve(await require('../apis/api_check_member.js').run(params))
+                break;
+            }
             default:
                 resolve({
                     errcode: 1,

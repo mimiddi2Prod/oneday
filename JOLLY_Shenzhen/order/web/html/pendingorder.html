@@ -222,7 +222,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancleDataUpdate()">取消</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancleDataUpdate()">
+                        取消
+                    </button>
                     <button type="button" class="btn btn-primary" id="modal_update_remark_submit"
                             @click="updatePendingOrderData()">确定
                     </button>
@@ -246,9 +248,9 @@
                     </div>
                     <div class="nav mx-5 flex-row w-100 mb-2 justify-content-between">
                         <div>桌号<input type="text" class="form-control text-right" placeholder="桌号"
-                                    v-model="submit_trade.table_number"></div>
+                                      v-model="submit_trade.table_number"></div>
                         <div>人数<input type="text" class="form-control text-right" placeholder="人数"
-                                    v-model="submit_trade.dinners_number"></div>
+                                      v-model="submit_trade.dinners_number"></div>
                     </div>
                     <div class="input-group mb-3 w-100 align-items-center mx-5">
                         <input type="text" class="form-control text-right" placeholder="折扣"
@@ -274,8 +276,12 @@
                         <div class="text-center col-4 mb-1" v-for="item in pay_type_list">
                             <button class="btn py-2 px-1 w-100"
                                     :class="item == submit_trade.pay_type ? 'btn-dark' : 'btn-secondary'"
-                                    @click="submit_trade.pay_type=item">
+                                    @click="payType(item)">
                                 <h5>{{item}}</h5></button>
+                        </div>
+                        <div v-if="member && member.phone_number">
+                            <div>会员手机号：{{member.phone_number}}</div>
+                            <div>会员余额：{{member.balance}}</div>
                         </div>
                     </div>
                 </div>
@@ -284,6 +290,37 @@
                     </button>
                     <button type="button" class="btn btn-primary flex-fill" id="modal_order_submit"
                             @click="submitOrder">确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--余额支付输入会员号-->
+    <div class="modal fade" id="modal_balance" tabindex="-1" role="dialog" aria-labelledby="myModalOrder"
+         data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <span>会员手机号：（请输入会员手机号，如果没有注册请让顾客先在小程序完成注册）</span>
+                        <input type="text" class="form-control" placeholder="会员手机号"
+                               aria-label="Example text with button addon"
+                               oninput="value=value.replace(/[^\d]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
+                               aria-describedby="button-addon1" v-model="tempPhoneNumber">
+
+                    </form>
+                    <div class="text-danger" v-if="member_tag">{{member_tag}}</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary flex-fill" data-dismiss="modal"
+                            @click="notUseBalance">取消
+                    </button>
+                    <button type="button" class="btn btn-primary flex-fill" id="modal_balance_submit"
+                            @click="useBalance">确定
                     </button>
                 </div>
             </div>

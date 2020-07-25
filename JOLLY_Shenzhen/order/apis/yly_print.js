@@ -286,6 +286,12 @@ async function printOrder(params) {
         content += "折扣:￥" + (Number(trade.goods_total_price) - Number(trade.actually_total_price)).toFixed(2) + " \n";
         content += repeat('*', 32);
         content += "订单实付:￥" + trade.actually_total_price + "\n";
+        /**
+         * 会员余额支付
+         */
+        if (trade.pay_method == "余额") {
+            content += "剩余余额:￥" + trade.balance + "\n";
+        }
         if (trade.remark && trade.remark.length) {
             content += "订单备注:" + trade.remark + "\n";
         }
