@@ -99,7 +99,8 @@ async function getData(params) {
     }
     if (result.errmsg == "success") {
         // 打单
-        // 新增会员支付 {"balance": member.data.balance}
+        // 新增会员支付 {"balance": member.data.balance, "phone_number": member.phone_number}
+        let t = params.pay_type == "余额" ? {"balance": member.data.balance, "phone_number": member.data.phone_number} : {}
         yly.run({
             "type": "order",
             "trade": Object.assign(trade, {
@@ -116,10 +117,11 @@ async function getData(params) {
                         "number": value.num,
                         "trade_id": trade_id,
                         "create_time": new Date(),
-                        "remark": value.remark
+                        "remark": value.remark,
+                        "phone_number": params.pay_type == "余额" ? params.member.phone_number : ''
                     }
                 })
-            }, {"balance": member.data.balance, "phone_number": member.phone_number})
+            }, t)
         })
 
         if (params.trade_id) {

@@ -2,6 +2,7 @@ var db = require("./../utils/dba");
 var {formatTime} = require("./../utils/utils.js")
 var restoreStock = require("./api_restore_stock")
 var yly = require("./yly_print")
+var _calcBalance = require("./_calc_balance")
 
 exports.run = async function (params) {
     let data = null
@@ -27,7 +28,7 @@ exports.run = async function (params) {
  * 反结账不恢复库存， 退货会对库存进行恢复
  */
 async function getData(params) {
-    let data, result, call
+    let data, result, call, member
     try {
         if (params.type == 1) {
             // result = await db.Update({
@@ -41,6 +42,24 @@ async function getData(params) {
             // 反结账打单
             let order = await db.Query("select * from goods_order where trade_id = ?", [params.trade_id]),
                 trade = await db.Query("select * from goods_trade where trade_id = ?", [params.trade_id])
+
+            /**
+             * 新增会员余额
+             */
+            if (trade[0].pay_method == "余额") {
+                // 进行会员余额的计算
+                let price = trade[0].after_sale_price
+                member = await _calcBalance.getData({
+                    "increment_balance": price,
+                    "phone_number": trade[0].phone_number
+                })
+            }
+            let t = trade[0].pay_method == "余额" ? {
+                "balance": member.data.balance,
+                "phone_number": member.data.phone_number
+            } : {}
+            // 会员
+
             yly.run({
                 "type": "after_sale",
                 "trade": Object.assign(trade[0], {
@@ -50,7 +69,7 @@ async function getData(params) {
                         value.return_number = value.number
                         return value
                     })
-                })
+                }, t)
             })
         } else if (params.type == 2) {
             data = params.order.map(value => {
@@ -101,6 +120,23 @@ async function getData(params) {
                 call = {code: 1, errmsg: "fail", text: "退货失败"}
             })()
 
+            /**
+             * 新增会员余额
+             */
+            if (trade[0].pay_method == "余额") {
+                // 进行会员余额的计算
+                let price = after_sale_price
+                member = await _calcBalance.getData({
+                    "increment_balance": price,
+                    "phone_number": trade[0].phone_number
+                })
+            }
+            let t = trade[0].pay_method == "余额" ? {
+                "balance": member.data.balance,
+                "phone_number": member.data.phone_number
+            } : {}
+            // 会员
+
             // 退货打单
             yly.run({
                 "type": "after_sale",
@@ -112,7 +148,7 @@ async function getData(params) {
                     "after_sale_remark": params.return_text
                 }, {
                     "order": willPrint
-                })
+                }, t)
             })
         }
         return call

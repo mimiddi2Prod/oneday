@@ -620,6 +620,16 @@ async function printAfterSale(params) {
         content += repeat('.', 32);
         content += "小计:￥" + trade.after_sale_price + "\n";
         content += repeat('*', 32);
+        /**
+         * 余额支付的 退货/反结账 打印剩余余额
+         */
+        console.info(trade,333333333)
+        if (trade.phone_number) {
+            content += "会员号:" + trade.phone_number + "\n";
+            content += "剩余余额:￥" + trade.balance + "\n";
+            content += repeat('*', 32);
+        }
+
         if (trade.after_sale_remark && trade.after_sale_remark.length) {
             content += (trade.after_sale_remark ? "备注:" + trade.after_sale_remark : null) + "\n";
         }

@@ -82,21 +82,23 @@ var orderformvm = new Vue({
             })
         },
         submitAfterSale(data) {
-            let haveNum = data.order.some(val => {
-                return val.return_number > 0
-            })
-            if (!haveNum) {
-                $('#modal_1').on('show.bs.modal', function (e) {
-                    let modal = $(this)
-                    modal.find('.modal-title').text('提示')
-                    modal.find('.modal-body').text('退货数量需大于0！')
+            if (data.type == 2) {
+                let haveNum = data.order.some(val => {
+                    return val.return_number > 0
                 })
-                $('#modal_1').on('hidden.bs.modal', function (e) {
-                    $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);
-                })
-                $('#modal_1').modal('show');
-                $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
-                return
+                if (!haveNum) {
+                    $('#modal_1').on('show.bs.modal', function (e) {
+                        let modal = $(this)
+                        modal.find('.modal-title').text('提示')
+                        modal.find('.modal-body').text('退货数量需大于0！')
+                    })
+                    $('#modal_1').on('hidden.bs.modal', function (e) {
+                        $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);
+                    })
+                    $('#modal_1').modal('show');
+                    $('#modal_1_submit')[0].addEventListener("click", this._hideModal)
+                    return
+                }
             }
             let self = this
             Axios(api.afterSale, "POST", data).then(res => {
