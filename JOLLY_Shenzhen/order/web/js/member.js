@@ -98,8 +98,6 @@ var membervm = new Vue({
         },
     },
     mounted: function () {
-        this.phone_number = 13055257913
-        this.getMember()
 
     },
     created: function () {
