@@ -53,6 +53,10 @@ async function print(params) {
             call = await printAfterSale(params)
             break;
         }
+        case "member": {
+            call = await printMember(params)
+            break;
+        }
     }
     return call
 }
@@ -611,6 +615,33 @@ async function printAfterSale(params) {
         if (trade.after_sale_remark && trade.after_sale_remark.length) {
             content += (trade.after_sale_remark ? "备注:" + trade.after_sale_remark : null) + "\n";
         }
+        content += "<FS2><center>**#1 完**</center></FS2>";
+
+        let machineCode = yly.Machine.filter(val => {
+                return val.name == "前台"
+            })[0].machine_code, //一台设备
+            originId = "order"
+        yly.Print.index(machineCode, originId, content).then(function (res) {
+            resolve(res);
+        });
+    })
+}
+
+async function printMember(params) {
+    return new Promise(async function (resolve, reject) {
+        var content = "<MN>1</MN>"; // 打印两联
+        content += "<FS2><center>Oneday 森南店</center></FS2>";
+        content += repeat('.', 32);
+        content += "<FS2><center>--会员充值--</center></FS2>";
+        // content += "<FS><center>Onday 森南店</center></FS>";
+        content += "收银员:" + params.member.employee_account + "\n";
+        content += "打单时间:" + formatTime(new Date()) + "\n";
+        content += repeat('*', 32);
+        content += "充值账号:￥" + params.member.phone_number + "\n";
+        content += "充值金额:￥" + params.member.increment_balance + "\n";
+        content += "赠送金额:￥" + params.member.handsel_balance + "\n";
+        content += "当前金额:￥" + params.member.calcBalance + "\n";
+        content += repeat('*', 32);
         content += "<FS2><center>**#1 完**</center></FS2>";
 
         let machineCode = yly.Machine.filter(val => {

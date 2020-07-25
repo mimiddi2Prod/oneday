@@ -60,6 +60,14 @@ API.prototype.run = async function (apiName, params) {
                 resolve(await require('../apis/api_set_pending_order_data.js').run(params))
                 break;
             }
+            case "get_member": {
+                resolve(await require('../apis/api_get_member.js').run(params))
+                break;
+            }
+            case "set_member": {
+                resolve(await require('../apis/api_set_member.js').run(params))
+                break;
+            }
             default:
                 resolve({
                     errcode: 1,

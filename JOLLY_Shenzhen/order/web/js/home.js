@@ -126,12 +126,27 @@ var homevm = new Vue({
         },
         // 历史订单，销售单据
         toPage(page) {
+            let content = ""
+            switch (page) {
+                case "orderform": {
+                    content = "销售单据"
+                    break;
+                }
+                case "product": {
+                    content = "商品总览"
+                    break;
+                }
+                case "member": {
+                    content = "会员充值"
+                    break;
+                }
+            }
             if (this.order.length) {
                 // 订单未结束,不能查看销售单据/退货
                 $('#modal_1').on('show.bs.modal', function (e) {
                     let modal = $(this)
                     modal.find('.modal-title').text('提示')
-                    modal.find('.modal-body').text('当前交易未结束,不能查看销售单据!')
+                    modal.find('.modal-body').text('当前交易未结束,不能查看' + content + '!')
                 })
                 $('#modal_1').on('hidden.bs.modal', function (e) {
                     $('#modal_1_submit')[0].removeEventListener("click", this._hideModal);

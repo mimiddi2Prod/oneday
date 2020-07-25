@@ -12,6 +12,8 @@ var api = {
     setPendingOrder: "/apis/set_pending_order",
     getPendingTrade: "/apis/get_pending_order",
     setPendingOrderData: "/apis/set_pending_order_data",
+    getMember: "/apis/get_member",
+    setMember: "/apis/set_member",
 
     getCategoryAndProduct: "/apis/get_category_and_product",
     test: "/apis/test"

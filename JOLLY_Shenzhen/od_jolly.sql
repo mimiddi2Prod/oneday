@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-07-24 19:53:06
+Date: 2020-07-25 15:21:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,7 +45,7 @@ CREATE TABLE `admin` (
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-07-21 09:40:48', '1', null, null, '9654446e-23fd-46d6-b84f-5b5e9568be2e', '2020-07-21 21:40:48', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', null, null, null, null, null, null);
-INSERT INTO `admin` VALUES ('2', '1001', 's1001', null, '2019-05-14 13:58:38', '2020-07-23 14:31:20', '3', '1', null, '028b1f17-2cbf-4437-8645-fced7973e487', '2020-07-24 14:31:20', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('2', '1001', 's1001', null, '2019-05-14 13:58:38', '2020-07-25 10:52:09', '3', '1', null, '9acca9eb-a140-4cbd-a2b8-fd7169c61cd9', '2020-07-26 10:52:09', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -388,8 +388,8 @@ CREATE TABLE `user` (
   `avatar_url` text,
   `phone_number` varchar(16) DEFAULT NULL COMMENT '会员手机号 余额以该手机号为准 只提供小程序注册',
   `balance` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '剩余余额',
-  `total_balance` decimal(10,2) DEFAULT NULL COMMENT '历史累计充值',
-  `total_handsel` decimal(10,2) DEFAULT NULL COMMENT '历史累计赠送',
+  `total_balance` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '历史累计充值',
+  `total_handsel` decimal(10,2) NOT NULL COMMENT '历史累计赠送',
   `get_phone_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -397,8 +397,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', 'APLjfj0H7ojO0626QvDFrg==', null, '2020-07-21 14:16:53', '2020-07-21 16:40:02', 'pdaMhTWz15953208025000GbCUt50', '2020-07-22 16:40:02', 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1 wechatdevtools/1.03.2005140 MicroMessenger/7.0.4 Language/zh_CN webview/', null, null, null, null, null, null, null, '0.00', null, null, null);
-INSERT INTO `user` VALUES ('2', 'o-yn35edGw2vbn74Q8crwNvJ1z7Y', 'qyjGdoredcJ9Pb93cusu4g==', null, '2020-07-21 16:41:59', '2020-07-24 19:52:51', 'uP6smZat1595591571285ZohZHvJq', '2020-07-25 19:52:51', 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1 wechatdevtools/1.03.2005140 MicroMessenger/7.0.4 Language/zh_CN webview/', null, null, null, null, null, null, '13055257913', '8524.20', null, null, '2020-07-24 18:21:17');
+INSERT INTO `user` VALUES ('1', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', 'APLjfj0H7ojO0626QvDFrg==', null, '2020-07-21 14:16:53', '2020-07-21 16:40:02', 'pdaMhTWz15953208025000GbCUt50', '2020-07-22 16:40:02', 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1 wechatdevtools/1.03.2005140 MicroMessenger/7.0.4 Language/zh_CN webview/', null, null, null, null, null, null, null, '0.00', '0.00', '0.00', null);
+INSERT INTO `user` VALUES ('2', 'o-yn35edGw2vbn74Q8crwNvJ1z7Y', 'qyjGdoredcJ9Pb93cusu4g==', null, '2020-07-21 16:41:59', '2020-07-24 19:52:51', 'uP6smZat1595591571285ZohZHvJq', '2020-07-25 19:52:51', 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1 wechatdevtools/1.03.2005140 MicroMessenger/7.0.4 Language/zh_CN webview/', null, null, null, null, null, null, '13055257913', '8534.20', '-2.00', '12.00', '2020-07-24 18:21:17');
 
 -- ----------------------------
 -- Table structure for user_recharge_record
@@ -411,12 +411,16 @@ CREATE TABLE `user_recharge_record` (
   `handsel_balance` decimal(10,2) NOT NULL COMMENT '充值赠送余额',
   `current_balance` decimal(10,2) NOT NULL COMMENT '充值后的当前余额',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `employee_account` int(12) NOT NULL COMMENT '前台收银记录',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_recharge_record
 -- ----------------------------
+INSERT INTO `user_recharge_record` VALUES ('3', '13055257913', '2.00', '4.00', '8530.20', '2020-07-25 15:07:11', '1001');
+INSERT INTO `user_recharge_record` VALUES ('4', '13055257913', '-2.00', '4.00', '8532.20', '2020-07-25 15:07:29', '1001');
+INSERT INTO `user_recharge_record` VALUES ('5', '13055257913', '-2.00', '4.00', '8534.20', '2020-07-25 15:07:38', '1001');
 
 -- ----------------------------
 -- Table structure for wow_cat

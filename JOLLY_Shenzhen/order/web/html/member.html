@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!--适配移动端 -->
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>会员充值</title>
+    <!--css-->
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-4.4.1-dist/css/bootstrap-reboot.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="/source/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/orderform.css" rel="stylesheet">
+    <!--js-->
+    <script type="text/javascript" src="/source/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/source/popper-2.1.1/popper.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/source/bootstrap-4.4.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/source/moment-2.24.0/moment-with-locales.js"></script>
+    <script type="text/javascript"
+            src="/source/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- 使用bootstrap-datetimepicker 需先引用 moment-with-locales -->
+    <script type="text/javascript" src="/source/vue/vue.min.js"></script>
+    <script type="text/javascript" src="/source/axios/axios.min.js"></script>
+    <script type="text/javascript" src="/source/chart/Chart.min.js"></script><!-- Chartjs -->
+    <script type="text/javascript" src="/utils/http.js"></script>
+    <script type="text/javascript" src="/utils/apis.js"></script>
+    <script type="text/javascript" src="/utils/util.js"></script>
+
+</head>
+<body>
+<div class="position-fixed w-100 text-center" style="line-height: 50px">会员充值</div>
+<div id="GetHeader" class="position-fixed row w-100 no-gutters">
+    <div id="backspace">
+        <get-backspace></get-backspace>
+    </div>
+</div>
+<div class="nav pt-5" id="member">
+    <!--<div id="GetSidebar" class="col-md-4 col-xl-3 border-bottom-0 px-0">-->
+    <!--<div class="bg-success text-center py-3">-->
+    <!--<div>分类</div>-->
+    <!--</div>-->
+    <!--<div class="bd-sidebar bd-links">-->
+    <!--<div class="border-bottom py-4 no-gutters text-center" :class="cursor_id==index ? 'badge-info' : ''"-->
+    <!--v-for="item,index in category" @click="cursor_id=index;">-->
+    <!--{{item.name}}-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <main class="container-fluid col-md-8 col-xl-9 py-md-0 pl-md-3 bd-content py-5" role="main">
+        <!--标题-->
+        <!--<div class="nav justify-content-between bg-info px-2 py-md-3 row">-->
+        <!--<div class="col-sm-5 px-2">商品名</div>-->
+        <!--<div class="col-sm-1 px-2 text-center">状态</div>-->
+        <!--<div class="col-sm-3 px-2 text-center">售价</div>-->
+        <!--<div class="col-sm-3 px-2 text-center">库存</div>-->
+        <!--</div>-->
+        <div class="bd-sidebar bd-links row px-2 py-md-3 order-detail border" style="height: calc(100vh - 60px);">
+            <div class="text-center db-btn container-sm">
+                <div class="input-group align-items-center">
+                    <input type="text" class="form-control" placeholder="输入会员手机号"
+                           aria-label="Recipient's username" aria-describedby="button-addon2"
+                           oninput="value=value.replace(/[^\d]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
+                           v-model="phone_number">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="getMember">
+                            确定
+                        </button>
+                    </div>
+                </div>
+                <!--<div class="ml-3 alert-dark px-2">无码商品</div>-->
+            </div>
+            <div class="container-sm flex-wrap flex-row align-items-center mb-2 pb-2 py-3 border-bottom"
+                 v-if="member.phone_number">
+                <!--订单商品详情-->
+                <div class="row no-gutters justify-content-around">
+                    <div>
+                        <div class="p-2">会员手机号：{{member.phone_number}}</div>
+                        <div class="p-2">注册时间：{{member.get_phone_time}}</div>
+                    </div>
+                    <div>
+                        <div class="p-2">余额：{{member.balance}}</div>
+                        <div class="p-2">历史充值总计：{{member.total_balance}}</div>
+                    </div>
+                </div>
+
+                <div class="container row justify-content-around">
+                    <div class="row-c">
+                        充值金额：<input type="text" class="form-control w-auto" placeholder="充值金额"
+                                    aria-label="Recipient's username" aria-describedby="button-addon2"
+                                    oninput="value=value.replace(/[^\-?\d.]/g,'')"
+                                    v-model="increment_balance"></div>
+                    <div class="row-c">
+                        赠送金额：<input type="text" class="form-control w-auto" placeholder="赠送金额"
+                                    aria-label="Recipient's username" aria-describedby="button-addon2"
+                                    oninput="value=value.replace(/[^\d.]/g,''),value=value.replace(/\.{2,}/g,'.'),value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"
+                                    v-model="handsel_balance"></div>
+                </div>
+                <div class="input-group-append justify-content-end">
+                    <button class="btn btn-danger" type="button" @click="submit">
+                        确认充值
+                    </button>
+                </div>
+            </div>
+            <!--历史充值记录-->
+            <div v-if="member.history && member.history.length">
+                <div class="container text-center"><h5>充值记录</h5></div>
+                <div class="nav justify-content-between bg-info px-2 py-md-3 row no-gutters">
+                    <div class="col-sm-3 px-2">充值时间</div>
+                    <div class="col-sm-3 px-2 text-center">收银账号</div>
+                    <div class="col-sm-3 px-2 text-center">充值金额</div>
+                    <div class="col-sm-3 px-2 text-center">赠送金额</div>
+                </div>
+                <div class="nav justify-content-between px-2 py-md-3 row no-gutters"
+                     v-for="item in member.history">
+                    <div class="col-sm-3 px-2">{{item.create_time}}</div>
+                    <div class="col-sm-3 px-2 text-center">{{item.employee_account}}</div>
+                    <div class="col-sm-3 px-2 text-center">{{item.increment_balance}}</div>
+                    <div class="col-sm-3 px-2 text-center">{{item.handsel_balance}}</div>
+                </div>
+            </div>
+            <!--<div v-if="!category[cursor_id].product.length">暂无数据~</div>-->
+        </div>
+    </main>
+
+    <div id="MyModal">
+        <my-loading></my-loading>
+        <my-modal-1></my-modal-1>
+    </div>
+</div>
+</body>
+<!--js-->
+<script type="text/javascript" src="/component/header.js"></script>
+<script type="text/javascript" src="/component/datetimepicker.js"></script>
+<script type="text/javascript" src="/component/modal.js"></script>
+<script type="text/javascript" src="/js/member.js"></script>
+</html>
