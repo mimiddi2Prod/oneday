@@ -33,6 +33,11 @@ async function getData(params) {
                 calcBalance = balance + params.increment_balance + params.handsel_balance,
                 calcTotalBalance = total_balance + params.increment_balance,
                 calcTotalHandsel = total_handsel + params.handsel_balance
+
+            calcBalance = Math.round(calcBalance * 100) / 100
+            calcTotalBalance = Math.round(calcTotalBalance * 100) / 100
+            calcTotalHandsel = Math.round(calcTotalHandsel * 100) / 100
+
             db.Query("insert into user_recharge_record(phone_number,increment_balance,handsel_balance,current_balance,create_time,employee_account)value(?,?,?,?,?,?)",
                 [params.phone_number, params.increment_balance, params.handsel_balance, calcBalance, new Date(), params.user.username])
             result = await db.Query("update `user` set balance = ?,total_balance = ?,total_handsel = ? where phone_number = ?",
