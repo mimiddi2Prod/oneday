@@ -290,6 +290,8 @@ async function printOrder(params) {
          * 会员余额支付
          */
         if (trade.pay_method == "余额") {
+            content += repeat('*', 32);
+            content += "会员号:" + trade.phone_number + "\n";
             content += "剩余余额:￥" + trade.balance + "\n";
         }
         if (trade.remark && trade.remark.length) {
@@ -643,7 +645,7 @@ async function printMember(params) {
         content += "收银员:" + params.member.employee_account + "\n";
         content += "打单时间:" + formatTime(new Date()) + "\n";
         content += repeat('*', 32);
-        content += "充值账号:￥" + params.member.phone_number + "\n";
+        content += "会员号:" + params.member.phone_number + "\n";
         content += "充值金额:￥" + params.member.increment_balance + "\n";
         content += "赠送金额:￥" + params.member.handsel_balance + "\n";
         content += "当前金额:￥" + params.member.calcBalance + "\n";

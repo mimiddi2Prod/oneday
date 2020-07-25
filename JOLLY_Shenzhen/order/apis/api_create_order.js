@@ -119,7 +119,7 @@ async function getData(params) {
                         "remark": value.remark
                     }
                 })
-            }, {"balance": member.data.balance})
+            }, {"balance": member.data.balance, "phone_number": member.phone_number})
         })
 
         if (params.trade_id) {
