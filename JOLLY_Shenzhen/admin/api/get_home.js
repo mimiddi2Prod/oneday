@@ -20,7 +20,7 @@ function getHome() {
             },
             "increase_user_list": {
                 xLabels: [],
-                yData: [{title: "小程序新增用户", data: []}]
+                yData: [{title: "小程序新增用户", data: []}, {title: "小程序新增会员", data: []}]
             }
         }, row = [], today = new Date().toLocaleDateString()
         try {
@@ -45,7 +45,7 @@ function getHome() {
                         // 新增用户
                         data["increase_user_list"].xLabels.push(new Date(m.create_date).toLocaleDateString().slice(5, 10))
                         data["increase_user_list"].yData.forEach(n => {
-                            n.title == "小程序新增用户" ? n.data.push(m.increase_user) : ''
+                            n.title == "小程序新增用户" ? n.data.push(m.increase_user) : n.data.push(m.increase_member)
                         })
                     }
                 } else {
@@ -62,7 +62,7 @@ function getHome() {
                             // 新增用户
                             data["increase_user_list"].xLabels.push(new Date(m.create_date).toLocaleDateString().slice(5, 10))
                             data["increase_user_list"].yData.forEach(n => {
-                                n.title == "小程序新增用户" ? n.data.push(m.increase_user) : ''
+                                n.title == "小程序新增用户" ? n.data.push(m.increase_user) : n.data.push(m.increase_member)
                             })
                         }
                     }

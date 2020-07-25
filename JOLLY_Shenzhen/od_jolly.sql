@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-07-25 18:51:19
+Date: 2020-07-25 21:38:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,8 +44,8 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-07-21 09:40:48', '1', null, null, '9654446e-23fd-46d6-b84f-5b5e9568be2e', '2020-07-21 21:40:48', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', null, null, null, null, null, null);
-INSERT INTO `admin` VALUES ('2', '1001', 's1001', null, '2019-05-14 13:58:38', '2020-07-25 10:52:09', '3', '1', null, '9acca9eb-a140-4cbd-a2b8-fd7169c61cd9', '2020-07-26 10:52:09', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-07-25 19:45:11', '1', null, null, '4142c93e-7683-4434-9b76-d8f4dae7cc20', '2020-07-26 07:45:11', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('2', '1001', 's1001', null, '2019-05-14 13:58:38', '2020-07-25 21:14:14', '3', '1', null, '95779c45-5339-4edb-9650-bf5fbbbdcc6c', '2020-07-26 21:14:14', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for admin_menu
@@ -137,7 +137,7 @@ CREATE TABLE `goods` (
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES ('1', 'joker', 'http://onedayqiniu.minidope.com/goods_2020_7_21_14_14_35_0.jpg', 'why so serious？', '158.60', 'szsn', '1', '35', '1', '1', '2020-07-21 14:16:43', '1');
+INSERT INTO `goods` VALUES ('1', 'joker', 'http://onedayqiniu.minidope.com/goods_2020_7_21_14_14_35_0.jpg', 'why so serious？', '158.60', 'szsn', '1', '30', '1', '1', '2020-07-21 14:16:43', '1');
 
 -- ----------------------------
 -- Table structure for goods_order
@@ -165,7 +165,7 @@ CREATE TABLE `goods_order` (
   `pay_method` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '支付方式 微信支付/余额支付',
   `return_number` int(6) DEFAULT NULL COMMENT '退货数量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of goods_order
@@ -185,7 +185,9 @@ INSERT INTO `goods_order` VALUES ('12', '', '1', '1', 'joker', '', 'http://oneda
 INSERT INTO `goods_order` VALUES ('13', '', '1', '1', 'joker', '', 'http://onedayqiniu.minidope.com/goods_2020_7_21_14_14_35_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"0度\"}', '158.60', '158.60', '1', null, '20200725174648', '2020-07-25 17:46:48', '0', '0', '0', '0', '', null);
 INSERT INTO `goods_order` VALUES ('14', '', '1', '1', 'joker', '', 'http://onedayqiniu.minidope.com/goods_2020_7_21_14_14_35_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"0度\"}', '158.60', '158.60', '1', null, '20200725174848', '2020-07-25 17:48:48', '0', '0', '0', '0', '', null);
 INSERT INTO `goods_order` VALUES ('15', '', '1', '1', 'joker', '', 'http://onedayqiniu.minidope.com/goods_2020_7_21_14_14_35_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"0度\"}', '158.60', '158.60', '1', null, '20200725180357', '2020-07-25 18:03:57', '0', '0', '0', '0', '', null);
-INSERT INTO `goods_order` VALUES ('16', '', '1', '1', 'joker', '', 'http://onedayqiniu.minidope.com/goods_2020_7_21_14_14_35_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"0度\"}', '158.60', '158.60', '1', null, '20200725181728', '2020-07-25 18:17:28', '0', '0', '0', '0', '', '1');
+INSERT INTO `goods_order` VALUES ('16', '', '1', '1', 'joker', '', 'http://onedayqiniu.minidope.com/goods_2020_7_21_14_14_35_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"0度\"}', '158.60', '158.60', '1', null, '20200725181728', '2020-07-25 18:17:28', '0', '0', '0', '0', '', null);
+INSERT INTO `goods_order` VALUES ('17', '', '1', '1', 'joker', '', 'http://onedayqiniu.minidope.com/goods_2020_7_21_14_14_35_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"0度\"}', '158.60', '158.60', '1', null, '20200725211430', '2020-07-25 21:14:30', '0', '0', '0', '0', '', null);
+INSERT INTO `goods_order` VALUES ('18', '', '1', '1', 'joker', '', 'http://onedayqiniu.minidope.com/goods_2020_7_21_14_14_35_0.jpg', '{\"糖度\":\"半糖\",\"冰度\":\"0度\"}', '158.60', '158.60', '1', null, '20200725212236', '2020-07-25 21:22:36', '0', '0', '0', '0', '', null);
 
 -- ----------------------------
 -- Table structure for goods_pending_order
@@ -302,9 +304,9 @@ CREATE TABLE `goods_trade` (
   `employee_account` varchar(255) DEFAULT NULL COMMENT '前台收银记录',
   `after_sale_price` decimal(10,2) DEFAULT NULL COMMENT '反结账为全款 退货为已退的价',
   `remark` varchar(255) DEFAULT NULL COMMENT '订单备注，区别于商品单品备注',
-  `phone_number` int(16) DEFAULT NULL COMMENT '余额支付的会员号',
+  `phone_number` varchar(16) DEFAULT NULL COMMENT '余额支付的会员号',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of goods_trade
@@ -322,7 +324,9 @@ INSERT INTO `goods_trade` VALUES ('10', '20200725155252', '', '2', '[12]', '1', 
 INSERT INTO `goods_trade` VALUES ('11', '20200725174648', '', '2', '[13]', '1', '158.60', '158.60', '1.59', '1', '余额', '2020-07-25 17:46:48', '2020-07-25 17:46:48', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null, '', null);
 INSERT INTO `goods_trade` VALUES ('12', '20200725174848', '', '2', '[14]', '1', '158.60', '158.60', '1.59', '1', '余额', '2020-07-25 17:48:48', '2020-07-25 17:48:48', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null, '', null);
 INSERT INTO `goods_trade` VALUES ('13', '20200725180357', '', '2', '[15]', '1', '158.60', '158.60', '1.59', '1', '余额', '2020-07-25 18:03:57', '2020-07-25 18:03:57', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null, '', null);
-INSERT INTO `goods_trade` VALUES ('14', '20200725181728', '', '2', '[16]', '1', '158.60', '158.60', '1.59', '1', '余额', '2020-07-25 18:17:28', '2020-07-25 18:17:28', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, '2', '156156', '1001', '1.59', '', null);
+INSERT INTO `goods_trade` VALUES ('14', '20200725181728', '', '2', '[16]', '1', '158.60', '158.60', '1.59', '1', '余额', '2020-07-25 18:17:28', '2020-07-25 18:17:28', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, '1', 'e2e', '1001', '1.59', '', '13055257913');
+INSERT INTO `goods_trade` VALUES ('15', '20200725211430', '', '2', '[17]', '1', '158.60', '158.60', '158.60', '1', '现金', '2020-07-25 21:14:30', '2020-07-25 21:14:30', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, '1', '222', '1001', '158.60', '', null);
+INSERT INTO `goods_trade` VALUES ('16', '20200725212236', '', '2', '[18]', '1', '158.60', '158.60', '7.93', '1', '余额', '2020-07-25 21:22:36', '2020-07-25 21:22:36', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null, '', null);
 
 -- ----------------------------
 -- Table structure for home_data
@@ -331,20 +335,31 @@ DROP TABLE IF EXISTS `home_data`;
 CREATE TABLE `home_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_date` date DEFAULT NULL COMMENT '当日时间',
-  `mini_program_income` decimal(10,2) DEFAULT NULL COMMENT '当日小程序收入',
-  `reception_income` decimal(10,2) DEFAULT NULL COMMENT '当日前台收入',
-  `actually_income` decimal(10,2) DEFAULT NULL COMMENT '当日总营收',
-  `refund_price` decimal(10,2) DEFAULT NULL COMMENT '当日退款',
-  `refund_order_number` int(11) DEFAULT NULL COMMENT '当日反结账+退货 数',
-  `order_number` int(12) DEFAULT NULL COMMENT '当日订单总数',
-  `increase_user` varchar(255) DEFAULT NULL COMMENT '当日小程序新增用户',
+  `mini_program_income` decimal(10,2) NOT NULL COMMENT '当日小程序收入',
+  `reception_income` decimal(10,2) NOT NULL COMMENT '当日前台收入',
+  `actually_income` decimal(10,2) NOT NULL COMMENT '当日总营收（非余额部分） 前台+小程序收入-退款',
+  `order_number` int(12) NOT NULL COMMENT '当日订单总数',
+  `refund_price` decimal(10,2) NOT NULL COMMENT '当日退款',
+  `refund_order_number` int(11) NOT NULL COMMENT '当日反结账+退货 数',
+  `increase_user` int(32) NOT NULL COMMENT '当日小程序新增用户',
+  `increase_member` int(32) NOT NULL COMMENT '当日注册为会员的',
+  `member_recharge` decimal(10,2) NOT NULL COMMENT '会员充值',
+  `member_recharge_handsel` decimal(10,2) NOT NULL COMMENT '会员充值赠送',
+  `member_recharge_number` int(11) NOT NULL COMMENT '充值的笔数',
+  `mini_program_income_balance` decimal(10,2) NOT NULL COMMENT '当日小程序余额下单部分',
+  `reception_income_balance` decimal(10,2) NOT NULL COMMENT '当日前台余额下单部分',
+  `order_number_balance` int(12) NOT NULL,
+  `refund_price_balance` decimal(10,2) NOT NULL COMMENT '当日余额退款',
+  `refund_order_number_balance` int(12) NOT NULL,
+  `actually_income_balance` decimal(10,2) NOT NULL COMMENT '小程序余额+前台余额-退款余额',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of home_data
 -- ----------------------------
-INSERT INTO `home_data` VALUES ('1', '2020-07-21', '0.00', '0.00', '0.00', '0.00', '0', '0', '1');
+INSERT INTO `home_data` VALUES ('1', '2020-07-21', '0.00', '0.00', '0.00', '0', '0.00', '0', '1', '0', '0.00', '0.00', '0', '0.00', '0.00', '0', '0.00', '0', '0.00');
+INSERT INTO `home_data` VALUES ('4', '2020-07-25', '0.00', '158.60', '0.00', '0', '158.60', '1', '0', '1', '28.00', '16.00', '0', '0.00', '172.89', '5', '1.59', '1', '171.30');
 
 -- ----------------------------
 -- Table structure for subscribe_message
@@ -409,7 +424,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'o1ocv5ektU9hHLmbWQ0DFwN9I9OE', 'APLjfj0H7ojO0626QvDFrg==', null, '2020-07-21 14:16:53', '2020-07-21 16:40:02', 'pdaMhTWz15953208025000GbCUt50', '2020-07-22 16:40:02', 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1 wechatdevtools/1.03.2005140 MicroMessenger/7.0.4 Language/zh_CN webview/', null, null, null, null, null, null, null, '0.00', '0.00', '0.00', null);
-INSERT INTO `user` VALUES ('2', 'o-yn35edGw2vbn74Q8crwNvJ1z7Y', 'qyjGdoredcJ9Pb93cusu4g==', null, '2020-07-21 16:41:59', '2020-07-24 19:52:51', 'uP6smZat1595591571285ZohZHvJq', '2020-07-25 19:52:51', 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1 wechatdevtools/1.03.2005140 MicroMessenger/7.0.4 Language/zh_CN webview/', null, null, null, null, null, null, '13055257913', '14.41', '8.00', '14.00', '2020-07-24 18:21:17');
+INSERT INTO `user` VALUES ('2', 'o-yn35edGw2vbn74Q8crwNvJ1z7Y', 'qyjGdoredcJ9Pb93cusu4g==', null, '2020-07-21 16:41:59', '2020-07-24 19:52:51', 'uP6smZat1595591571285ZohZHvJq', '2020-07-25 19:52:51', 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1 wechatdevtools/1.03.2005140 MicroMessenger/7.0.4 Language/zh_CN webview/', null, null, null, null, null, null, '13055257913', '34.84', '28.00', '16.00', '2020-07-25 18:21:17');
 
 -- ----------------------------
 -- Table structure for user_recharge_record
@@ -424,7 +439,7 @@ CREATE TABLE `user_recharge_record` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `employee_account` int(12) NOT NULL COMMENT '前台收银记录',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_recharge_record
@@ -433,6 +448,7 @@ INSERT INTO `user_recharge_record` VALUES ('3', '13055257913', '2.00', '4.00', '
 INSERT INTO `user_recharge_record` VALUES ('4', '13055257913', '-2.00', '4.00', '8532.20', '2020-07-25 15:07:29', '1001');
 INSERT INTO `user_recharge_record` VALUES ('5', '13055257913', '-2.00', '4.00', '8534.20', '2020-07-25 15:07:38', '1001');
 INSERT INTO `user_recharge_record` VALUES ('6', '13055257913', '10.00', '2.00', '14.41', '2020-07-25 18:19:14', '1001');
+INSERT INTO `user_recharge_record` VALUES ('7', '13055257913', '20.00', '2.00', '42.77', '2020-07-25 19:38:08', '1001');
 
 -- ----------------------------
 -- Table structure for wow_cat

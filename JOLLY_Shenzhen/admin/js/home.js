@@ -40,7 +40,7 @@ var homeVM = new Vue({
             if (type == "user" || !type) {
                 this.myChart2 = MakeChart("myChart2", "小程序新增用户", "bar",
                     data.increase_user_list.xLabels,
-                    data.increase_user_list.yData[0])
+                    data.increase_user_list.yData[0], data.increase_user_list.yData[1])
             }
         },
         submit(type, day) {
