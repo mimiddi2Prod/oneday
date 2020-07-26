@@ -25,6 +25,7 @@ var api = {
     addBrunchBanner: '../api/add_brunch_banner',
     updateBrunchBannerSort: '../api/update_brunch_banner_sort',
     getUser: '../api/get_user',
+    getUserBySearch: '../api/get_user_by_search',
 
     // 搜索
     getGoodsBySearch: '../api/get_goods_by_search'

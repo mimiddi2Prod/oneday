@@ -25,7 +25,7 @@ async function getData(params) {
     //     call = await db.Query(sql, [params["openid"], 0]);
     // return {order: call}
     try {
-        let trade = await db.Query("select * from goods_trade where open_id = ? and pay_status = ?", [params["openid"], 1])
+        let trade = await db.Query("select * from goods_trade where open_id = ? and pay_status = ? order by create_time desc", [params["openid"], 1])
         if (trade.length) {
             let order = await db.Query("select * from goods_order where trade_id in (?)", [trade.map(value => {
                 return value.trade_id

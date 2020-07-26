@@ -34,6 +34,20 @@
         <!-- 类目 搜索栏 -->
         <div class="title item">
             <h4>用户</h4>
+            <div class="search">
+                <form class="bs-example bs-example-form" role="form">
+                    <div class="row">
+                        <!--<div>-->
+                            <div class="input-group">
+                                <input type="text" class="form-control" v-model="searchString">
+                                <span class="input-group-btn">
+ 								<button class="btn btn-default" type="button" v-on:click="searchUser">搜索</button>
+ 							</span>
+                            </div><!-- /input-group -->
+                        <!--</div>&lt;!&ndash; /.col-lg-6 &ndash;&gt;-->
+                    </div><!-- /.row -->
+                </form>
+            </div>
         </div>
 
         <!--<div class="order-title">-->
@@ -145,27 +159,28 @@
                     <!--<div class="goods-container" v-if="item.after_sale_type == 1 && item.after_sale_remark">-->
                     <!--<span>反结账备注:{{item.after_sale_remark}}</span>-->
                     <!--</div>-->
-                    <div class="goods-container" v-for="record in item.history" style="padding: 10px;display: flex;flex-direction: row;justify-content: space-around;">
+                    <div class="goods-container" v-for="record in item.history"
+                         style="padding: 10px;display: flex;flex-direction: row;justify-content: space-around;">
                         <!--<div style="padding: 10px">-->
-                            <!--<label class="form-check-label row">-->
-                            <!--<div class="col-lg-offset-4">充值时间：{{record.create_time}}</div>-->
-                            <!--<div class="col-lg-offset-4">收银账号：{{record.employee_account}}</div>-->
-                            <!--<div class="col-lg-offset-4">充值金额：{{record.increment_balance}}</div>-->
-                            <!--<div class="col-lg-offset-4">赠送金额：{{record.handsel_balance}}</div>-->
-                            <div style="width: 25%">充值时间：{{record.create_time}}</div>
-                            <div style="width: 25%;text-align: center">收银账号{{record.employee_account}}</div>
-                            <div style="width: 25%;text-align: center">充值金额：{{record.increment_balance}}</div>
-                            <div style="width: 25%;text-align: end">赠送金额：{{record.handsel_balance}}</div>
-                            <!--<div class="c">-->
-                            <!--<div>单价￥{{order.price}}</div>-->
-                            <!--<div v-if="order.discount_price">折扣价￥{{order.discount_price}}</div>-->
-                            <!--<div>x{{order.number}}</div>-->
-                            <!--<div style="color:red" v-if="item.after_sale_type == 2 && order.return_number">-->
-                            <!--退货x{{order.return_number}}-->
-                            <!--</div>-->
-                            <!--&lt;!&ndash;<div>{{item.take_meal_style == 0 ? '堂食' : '外带'}}</div>&ndash;&gt;-->
-                            <!--</div>-->
-                            <!--</label>-->
+                        <!--<label class="form-check-label row">-->
+                        <!--<div class="col-lg-offset-4">充值时间：{{record.create_time}}</div>-->
+                        <!--<div class="col-lg-offset-4">收银账号：{{record.employee_account}}</div>-->
+                        <!--<div class="col-lg-offset-4">充值金额：{{record.increment_balance}}</div>-->
+                        <!--<div class="col-lg-offset-4">赠送金额：{{record.handsel_balance}}</div>-->
+                        <div style="width: 25%">充值时间：{{record.create_time}}</div>
+                        <div style="width: 25%;text-align: center">收银账号{{record.employee_account}}</div>
+                        <div style="width: 25%;text-align: center">充值金额：{{record.increment_balance}}</div>
+                        <div style="width: 25%;text-align: end">赠送金额：{{record.handsel_balance}}</div>
+                        <!--<div class="c">-->
+                        <!--<div>单价￥{{order.price}}</div>-->
+                        <!--<div v-if="order.discount_price">折扣价￥{{order.discount_price}}</div>-->
+                        <!--<div>x{{order.number}}</div>-->
+                        <!--<div style="color:red" v-if="item.after_sale_type == 2 && order.return_number">-->
+                        <!--退货x{{order.return_number}}-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div>{{item.take_meal_style == 0 ? '堂食' : '外带'}}</div>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--</label>-->
                         <!--</div>-->
 
                         <!--<div class="second-title column">-->

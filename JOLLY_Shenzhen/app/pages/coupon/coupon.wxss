@@ -89,7 +89,7 @@
 }
 
 .topay {
-  background-color: #879d89;
+  background-color: #FBE9D6;
   color: white;
   font-size: 40rpx;
   padding: 12rpx 30rpx;

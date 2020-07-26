@@ -27,8 +27,47 @@ var userVM = new Vue({
         total_handsel: 0,
         total_recharge_number: 0,
         // refund_fee: 0,
+
+        // 新增搜索用户
+        searchString: "",
     },
     methods: {
+        searchUser() {
+            const url = api.getUserBySearch, async = true
+            let self = this, data = {
+                searchString: this.searchString
+            }
+            server(url, data, async, "post", function (res) {
+                if (res.user.length) {
+                    res.user = res.user.map(function (eData) {
+                        eData.register_time = formatTime(new Date(eData.register_time))
+                        eData.get_phone_time = eData.get_phone_time ? formatTime(new Date(eData.get_phone_time)) : eData.get_phone_time
+                        if (eData.get_phone_time) {
+                            eData.history.forEach(m => {
+                                m.create_time = formatTime(new Date(m.create_time))
+                                self.total_recharge += m.increment_balance
+                                self.total_handsel += m.handsel_balance
+                                self.total_recharge_number++
+                            })
+                        }
+                        return eData
+                    })
+                    self.userList = res.user
+                    self.pageList = [1]
+                    // 分页栏
+                    // for (let i = 0; i < res.number / 20; i++) {
+                    //     userVM.pageList.push(i + 1)
+                    // }
+                } else {
+                    self.total_recharge = 0
+                    self.total_handsel = 0
+                    self.total_recharge_number = 0
+                }
+
+                self.total_recharge = Math.round(self.total_recharge * 100) / 100
+                self.total_handsel = Math.round(self.total_handsel * 100) / 100
+            })
+        },
         changePage: function (e, id) {
             var href = './' + e + '.html'
             $("#container").load(href);

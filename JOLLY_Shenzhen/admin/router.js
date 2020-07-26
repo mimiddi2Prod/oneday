@@ -110,6 +110,10 @@ function Router() {
                 var getUser = require("./api/get_user.js");
                 baseApi = new getUser;
                 break;
+            case "get_user_by_search":
+                var getUserBySearch = require("./api/get_user_by_search.js");
+                baseApi = new getUserBySearch;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;
