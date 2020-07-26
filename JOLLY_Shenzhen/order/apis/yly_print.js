@@ -77,6 +77,18 @@ async function printSignOut(params) {
         result = await db.Query("select * from goods_trade where (employee_account = ? or trade_platform = 1) and pay_status = ? and create_time >= ?", [params.username, 1, last_login_time])
         /**
          * 新增会员
+         * Online：小程序订单（不包含余额支付）
+         * Reception：前台订单（不包含余额支付）
+         * Topup：会员充值
+         * TotalIncome：Online + Reception + Topup
+         *
+         * Refund：退款/反结账（不包含余额支付的单）
+         * ActuallySubTotal：TotalIncome - Refund
+         *
+         * wxpay：小程序微信支付 + 前台微信支付
+         * alipay：前台支付宝支付
+         * cash：前台现金
+         * balancepay：余额支付单独列出来（与上面的数据无关）
          */
         let member = await db.Query("select * from user_recharge_record where employee_account = ? and create_time >= ?", [params.username, last_login_time])
         let Online = {
@@ -114,6 +126,9 @@ async function printSignOut(params) {
         }, cash = {
             total_price: 0,
             number: 0
+        }, balancepay = {
+            total_price: 0,
+            number: 0
         }
         if (result.length) {
             result.forEach(m => {
@@ -141,9 +156,14 @@ async function printSignOut(params) {
                 }
 
                 // 售后类型 0不在售后 1反结账 2退货
-                if (m.after_sale_type) {
+                if (m.after_sale_type && m.pay_method != "Balance" && m.pay_method != "余额") {
                     Refund.total_price += m.after_sale_price
                     Refund.number++
+                }
+
+                if (m.pay_method == "Balance" || m.pay_method == "余额") {
+                    balancepay.total_price += m.actually_total_price
+                    balancepay.number++
                 }
             })
         }
@@ -153,16 +173,16 @@ async function printSignOut(params) {
          */
         if (member.length) {
             member.forEach(m => {
-                Reception.total_price += m.increment_balance
-                Reception.number++
                 Topup.total_price += m.increment_balance
                 Topup.number++
             })
         }
 
-
-        TotalIncome.total_price = Online.total_price + Reception.total_price
-        TotalIncome.number = Online.number + Reception.number
+        /**
+         * 营业额 = 前台（不含余额支付） + 后台（不含余额支付） + 充值
+         */
+        TotalIncome.total_price = Online.total_price + Reception.total_price + Topup.total_price
+        TotalIncome.number = Online.number + Reception.number + Topup.number
 
         // 计算退货/反结账后的实收金额
         ActuallySubTotal.total_price = TotalIncome.total_price - Refund.total_price
@@ -170,6 +190,7 @@ async function printSignOut(params) {
         // 防止出现无限循环小数
         Online.total_price = Math.round(Online.total_price * 100) / 100
         Reception.total_price = Math.round(Reception.total_price * 100) / 100
+        Topup.total_price = Math.round(Topup.total_price * 100) / 100
         TotalIncome.total_price = Math.round(TotalIncome.total_price * 100) / 100
 
         Refund.total_price = Math.round(Refund.total_price * 100) / 100
@@ -178,6 +199,8 @@ async function printSignOut(params) {
         wxpay.total_price = Math.round(wxpay.total_price * 100) / 100
         alipay.total_price = Math.round(alipay.total_price * 100) / 100
         cash.total_price = Math.round(cash.total_price * 100) / 100
+
+        balancepay.total_price = Math.round(balancepay.total_price * 100) / 100
 
         // 查询今日结账等数据并打印
         var content = "<MN>1</MN>";
@@ -192,7 +215,7 @@ async function printSignOut(params) {
         content += "<table>";
         content += "<tr><td>" + Online.name + "</td><td>" + Online.total_price + "元</td><td>共" + Online.number + "笔</td></tr>";
         content += "<tr><td>" + Reception.name + "</td><td>" + Reception.total_price + "元</td><td>共" + Reception.number + "笔</td></tr>";
-        // content += "<tr><td>" + Topup.name + "</td><td>" + Topup.total_price + "元</td><td>共" + Topup.number + "笔</td></tr>";
+        content += "<tr><td>" + Topup.name + "</td><td>" + Topup.total_price + "元</td><td>共" + Topup.number + "笔</td></tr>";
         content += "<tr><td>" + TotalIncome.name + "</td><td>" + TotalIncome.total_price + "元</td><td>共" + TotalIncome.number + "笔</td></tr>";
         content += "</table>";
         content += repeat('-', 20) + "\n";
@@ -207,7 +230,11 @@ async function printSignOut(params) {
         content += "<tr><td>微信</td><td>" + wxpay.total_price + "元</td><td>共" + wxpay.number + "笔</td></tr>";
         content += "<tr><td>支付宝</td><td>" + alipay.total_price + "元</td><td>共" + alipay.number + "笔</td></tr>";
         content += "<tr><td>现金</td><td>" + cash.total_price + "元</td><td>共" + cash.number + "笔</td></tr>";
-        content += "<tr><td>会员充值</td><td>" + Topup.total_price + "元</td><td>共" + Topup.number + "笔</td></tr>";
+        // content += "<tr><td>会员充值</td><td>" + Topup.total_price + "元</td><td>共" + Topup.number + "笔</td></tr>";
+        content += "</table>";
+        content += repeat('-', 20) + "\n";
+        content += "<table>";
+        content += "<tr><td>余额支付</td><td>" + balancepay.total_price + "元</td><td>共" + balancepay.number + "笔</td></tr>";
         content += "</table>";
         content += repeat('-', 20) + "\n";
         content += "店铺地址: 深圳市王母社区大鹏山庄中区13号101 \n";

@@ -67,16 +67,23 @@ async function getData(params) {
             }])
             if (result.id_list.length) {
                 // 余额支付还需计算金额扣除 并打印订单
-                let balance = 0
+                let balance = 0, phone_number = ""
                 if (params.payMethod == "Balance") {
                     let r = await db.Query("update `user` set balance = balance - ? where openid = ?", [params.totalPrice, params.openid])
                     if (r.affectedRows) {
-                        balance = (await db.Query("select * from `user` where openid = ?", [params.openid]))[0].balance
-                        BalancePay(params, balance)
+                        let member = (await db.Query("select * from `user` where openid = ?", [params.openid]))[0]
+                        balance = member.balance
+                        phone_number = member.phone_number
+                        db.Query("update goods_trade set phone_number = ? where trade_id = ?", [phone_number, params.tradeId])
+                        BalancePay(params, balance, phone_number)
                         // todo 做更新余额失败和打单失败的处理
                     }
                 }
-                return {code: 0, text: '添加订单成功', data: {trade_id: params.tradeId, balance: balance}}
+                return {
+                    code: 0,
+                    text: '添加订单成功',
+                    data: {trade_id: params.tradeId, balance: balance}
+                }
             } else {
                 return {code: 1, text: '添加订单失败'}
             }
@@ -89,7 +96,7 @@ async function getData(params) {
 
 }
 
-async function BalancePay(params, balance) {
+async function BalancePay(params, balance, phone_number) {
     // 打单
     let trade = await db.Query("select * from goods_trade where trade_id = ?", [params.tradeId]),
         order = await db.Query("select * from goods_order where trade_id = ?", [params.tradeId])
@@ -105,6 +112,6 @@ async function BalancePay(params, balance) {
                     "subtotal": Math.round(val.discount_price * val.number * 100) / 100
                 }
             })
-        }, {"balance": balance})
+        }, {"balance": balance, "phone_number": phone_number})
     })
 }

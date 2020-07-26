@@ -242,9 +242,14 @@ async function printOrder(params) {
         content += "原价:￥" + trade.goods_total_original_price + "\n";
         content += "小计:￥" + trade.goods_total_price + "\n";
         content += "折扣:￥" + (trade.goods_total_price - Number(trade.actually_total_price)).toFixed(2) + " \n";
-        content += (trade.pay_method == 'Balance' ? "会员余额:" + trade.balance + " \n" : '')
+        // content += (trade.pay_method == 'Balance' ? "会员余额:" + trade.balance + " \n" : '')
         content += repeat('*', 32);
         content += "订单实付:￥" + trade.actually_total_price + "\n";
+        if (trade.pay_method == 'Balance') {
+            content += repeat('*', 32);
+            content += "会员号:" + trade.phone_number + " \n";
+            content += "剩余余额:" + trade.balance + " \n";
+        }
         if (trade.remark && trade.remark.length) {
             content += "订单备注:" + trade.remark + "\n";
         }
