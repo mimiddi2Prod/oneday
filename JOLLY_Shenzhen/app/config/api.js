@@ -1,5 +1,5 @@
-const rootUrl = "http://127.0.0.1:10002/apis/"
-// const rootUrl = "https://miniszsn.jolly.youyueworld.com/apis/"
+// const rootUrl = "http://127.0.0.1:10002/apis/"
+const rootUrl = "https://miniszsn.jolly.youyueworld.com/apis/"
 
 module.exports = {
   getOpenid: rootUrl + 'get_openid', // 获取用户在小程序中openid

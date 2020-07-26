@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-07-26 18:08:18
+Date: 2020-07-26 18:15:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -285,7 +285,6 @@ CREATE TABLE `goods_trade` (
 -- ----------------------------
 -- Records of goods_trade
 -- ----------------------------
-INSERT INTO `goods_trade` VALUES ('23', '20200726180319', '', '2', '[27]', '100', '1.00', '1.00', '0.75', '1', '余额', '2020-07-26 18:03:19', '2020-07-26 18:03:19', '0', '0', '0', null, null, '0000-00-00 00:00:00', null, null, '0', null, null, null, '1001', null, '', null);
 
 -- ----------------------------
 -- Table structure for home_data
@@ -317,7 +316,6 @@ CREATE TABLE `home_data` (
 -- ----------------------------
 -- Records of home_data
 -- ----------------------------
-INSERT INTO `home_data` VALUES ('6', '2020-07-26', '0.00', '0.00', '0.00', '0', '0.00', '0', '0', '0', '0.00', '0.00', '0', '0.00', '0.75', '1', '0.00', '0', '0.75');
 
 -- ----------------------------
 -- Table structure for subscribe_message
