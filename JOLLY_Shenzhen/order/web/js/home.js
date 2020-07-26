@@ -494,6 +494,8 @@ var homevm = new Vue({
                     text = "余额不足"
                 }
                 if (text) {
+                    // 恢复库存
+                    self.restoreStock()
                     $('#modal_1').on('show.bs.modal', function (e) {
                         let modal = $(this)
                         modal.find('.modal-title').text('提示')

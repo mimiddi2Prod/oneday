@@ -75,7 +75,7 @@ async function getData(params) {
 
     params.total_price = Math.round(params.total_price * 100) / 100
     params.total_original_price = Math.round(params.total_original_price * 100) / 100
-    params.total_diacount_price = Math.round(params.total_diacount_price * 100) / 100
+    params.total_diacount_price = params.total_diacount_price ? Math.round(params.total_diacount_price * 100) / 100 : params.total_price
     if (result.errmsg == "success") {
         trade = {
             "trade_id": trade_id,
