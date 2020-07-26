@@ -146,7 +146,7 @@ function getUser() {
     data.start_time = document.getElementById("test5_1").value || userVM.start_time
     data.end_time = document.getElementById("test5_2").value || userVM.end_time
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.number > 0) {
             res.user = res.user.map(function (eData) {
                 eData.register_time = formatTime(new Date(eData.register_time))
