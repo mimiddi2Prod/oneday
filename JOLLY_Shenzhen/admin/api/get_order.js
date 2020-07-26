@@ -70,6 +70,8 @@ function getOrder() {
                 data.trade = trade_list.map(value => {
                     delete value.open_id;
                     value.order = []
+                    value.pay_method = value.pay_method == "Balance" ? "余额" : value.pay_method
+                    value.pay_method = value.pay_method == "Wxpay" ? "微信" : value.pay_method
                     // value.total_price = 0
                     // value.total_num = 0
                     row.forEach(m => {

@@ -16,7 +16,7 @@ function getHome() {
             "total_refund": 0,
             "order_list": {
                 xLabels: [],
-                yData: [{title: "订单收入", data: []}, {title: "退款", data: []}]
+                yData: [{title: "营业实收", data: []}, {title: "退款", data: []}]
             },
             "increase_user_list": {
                 xLabels: [],
@@ -26,20 +26,16 @@ function getHome() {
         try {
             row = await db.Query("select * from home_data order by create_date")
             row.forEach(m => {
-                // data["total_order_number"] += m.order_number - m.refund_order_number // 总单数减去有售后的
-                data["total_order_number"] += m.order_number // 总单数减去有售后的
-                // data["today_order_number"] = new Date(m.create_date).getTime() == new Date(today).getTime() ? (m.order_number - m.refund_order_number) : data["today_order_number"]
-                data["today_order_number"] = new Date(m.create_date).getTime() == new Date(today).getTime() ? m.order_number : data["today_order_number"]
-                // data["total_actually_income"] += m.actually_income - m.refund_price  // 营业额减退款的 为 实收
-                data["total_actually_income"] += m.actually_income  // 营业额减退款的 为 实收
+                data["total_order_number"] += m.order_number + m.order_number_balance // (order_number和order_number_balance:不包含反结账)
+                data["today_order_number"] = new Date(m.create_date).getTime() == new Date(today).getTime() ? (m.order_number + m.order_number_balance) : data["today_order_number"]
+                data["total_actually_income"] += m.actually_income + m.member_recharge  // 营业实收（前台（不含余额支付）+后台（不含余额支付）+充值）
                 data["total_refund"] += m.refund_price
 
                 if (!param.type) {
                     if (new Date(m.create_date).getTime() >= (new Date(today).getTime() - (6 * 24 * 60 * 60 * 1000))) {
                         data["order_list"].xLabels.push(new Date(m.create_date).toLocaleDateString().slice(5, 10))
                         data["order_list"].yData.forEach(n => {
-                            // n.title == "订单收入" ? n.data.push(Math.round(Number(m.actually_income - m.refund_price) * 100) / 100) : n.data.push(m.refund_price)
-                            n.title == "订单收入" ? n.data.push(m.actually_income) : n.data.push(m.refund_price)
+                            n.title == "营业实收" ? n.data.push(Math.round((m.actually_income + m.member_recharge) * 100) / 100) : n.data.push(m.refund_price)
                         })
 
                         // 新增用户
@@ -53,8 +49,7 @@ function getHome() {
                         if (new Date(m.create_date).getTime() >= new Date(param.start_time).getTime() && new Date(m.create_date).getTime() <= new Date(param.end_time).getTime()) {
                             data["order_list"].xLabels.push(new Date(m.create_date).toLocaleDateString().slice(5, 10))
                             data["order_list"].yData.forEach(n => {
-                                // n.title == "订单收入" ? n.data.push(Math.round(Number(m.actually_income - m.refund_price) * 100) / 100) : n.data.push(m.refund_price)
-                                n.title == "订单收入" ? n.data.push(m.actually_income) : n.data.push(m.refund_price)
+                                n.title == "营业实收" ? n.data.push(Math.round((m.actually_income + m.member_recharge) * 100) / 100) : n.data.push(m.refund_price)
                             })
                         }
                     } else if (param.type == "user") {

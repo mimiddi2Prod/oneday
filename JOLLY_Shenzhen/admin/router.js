@@ -106,6 +106,10 @@ function Router() {
                 var getGoodsBySearch = require("./api/shop_get_goods_by_search.js");
                 baseApi = new getGoodsBySearch;
                 break;
+            case "get_user":
+                var getUser = require("./api/get_user.js");
+                baseApi = new getUser;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

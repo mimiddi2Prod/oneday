@@ -145,6 +145,10 @@ $(document).ready(function () {
 })
 
 function getOrder() {
+    orderVM.goods_price = 0
+    orderVM.actually_income = 0
+    orderVM.sale_number = 0
+    orderVM.refund_fee = 0
     orderVM.pageList = []
     orderVM.orderList = []
     // console.info(orderVM.start_time)
@@ -155,7 +159,7 @@ function getOrder() {
     data.start_time = document.getElementById("test5_1").value || orderVM.start_time
     data.end_time = document.getElementById("test5_2").value || orderVM.end_time
     server(url, data, async, "post", function (res) {
-        // console.info(res)
+        console.info(res)
         if (res.number > 0) {
             res.trade = res.trade.map(function (eData) {
                 eData.create_time = formatTime(new Date(eData.create_time))
@@ -176,6 +180,7 @@ function getOrder() {
                 orderVM.pageList.push(i + 1)
             }
         } else {
+            orderVM.goods_price = 0
             orderVM.actually_income = 0
             orderVM.sale_number = 0
             orderVM.refund_fee = 0
