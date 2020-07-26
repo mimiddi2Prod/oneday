@@ -33,11 +33,16 @@ var orderformvm = new Vue({
         tempPhoneNumber: "",
         member_tag: "",
         member: {},
+
+        /**
+         * 防止下单或挂单连击
+         */
+        canTouch: true,
     },
     methods: {
         payType(item) {
             let self = this
-            this.trade.pay_type = item
+            this.submit_trade.pay_type = item
             if (item == "余额") {
                 $('#modal_balance').on('show.bs.modal', function (e) {
                     let modal = $(this)
@@ -340,7 +345,15 @@ var orderformvm = new Vue({
         },
         // 提交订单
         submitOrder() {
+            $('#modal_order').modal('hide');
+            if (!this.canTouch) {
+                return
+            }
             let self = this
+            this.canTouch = false
+            setTimeout(()=>{
+                self.canTouch = true
+            },1000)
             let data = Object.assign(this.submit_trade, {order: this.submit_order})
             if (data.pay_type == "余额") {
                 let text
@@ -353,7 +366,7 @@ var orderformvm = new Vue({
                 }
                 if (text) {
                     // 恢复库存
-                    self.restoreStock()
+                    // self.restoreStock()
                     $('#modal_1').on('show.bs.modal', function (e) {
                         let modal = $(this)
                         modal.find('.modal-title').text('提示')
@@ -389,7 +402,7 @@ var orderformvm = new Vue({
                     self.member_tag = ""
                     self.member = {}
                     // 恢复库存
-                    self.restoreStock()
+                    // self.restoreStock()
                     $('#modal_1').on('show.bs.modal', function (e) {
                         let modal = $(this)
                         modal.find('.modal-title').text('提示')

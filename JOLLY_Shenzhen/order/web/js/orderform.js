@@ -20,6 +20,7 @@ var orderformvm = new Vue({
         },
         // 反结账备注
         showAntiCheckoutModal() {
+            this.anti_checkout_text = ""
             $('#modal_anti_checkout').on('show.bs.modal', function (e) {
                 let modal = $(this)
                 modal.find('.modal-title').text('正在进行反结账单据');
@@ -53,6 +54,7 @@ var orderformvm = new Vue({
         },
         ShowReturnRemarkModal() {
             let self = this
+            this.return_text = ""
             $('#modal_return_of_goods_remark').on('show.bs.modal', function (e) {
                 let modal = $(this)
                 modal.find('.modal-title').text('正在进行退货');

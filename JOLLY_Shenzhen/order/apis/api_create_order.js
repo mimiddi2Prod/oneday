@@ -93,7 +93,8 @@ async function getData(params) {
             "table_number": params.table_number,
             "dinners_number": params.dinners_number,
             "employee_account": params.user.username,
-            "remark": params.remark
+            "remark": params.remark,
+            "phone_number": params.pay_type == "余额" ? member.data.phone_number : ''  // 会员积分补充，用于退货反结账能还原积分
         }
         result = await db.BulkInsert("goods_trade", [trade])
     }

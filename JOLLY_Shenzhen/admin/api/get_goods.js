@@ -59,15 +59,16 @@ function getGoods() {
                     let total_volume = 0
                     if (data.list[i].param.length > 0) {
                         for (let j in data.list[i].param) {
-                            sql = "select sum(`number`) from goods_order where goods_id = ? and goods_sku_id = ?"
+                            // 处理为支付的单据也算在销量里
+                            sql = "select sum(`number`),sum(return_number) from goods_order where goods_id = ? and goods_sku_id = ? and trade_id in (select trade_id from goods_trade where pay_status = 1)"
                             row = await db.Query(sql, [data.list[i].id, data.list[i].param[j].id])
-                            data.list[i].param[j].volume = row[0]['sum(`number`)'] ? row[0]['sum(`number`)'] : 0
+                            data.list[i].param[j].volume = row[0]['sum(`number`)'] ? row[0]['sum(`number`)'] - row[0]['sum(return_number)'] : 0
                             total_volume = total_volume + data.list[i].param[j].volume
                         }
                     } else {
-                        sql = "select sum(`number`) from goods_order where goods_id = ?"
+                        sql = "select sum(`number`),sum(return_number) from goods_order where goods_id = ? and trade_id in (select trade_id from goods_trade where pay_status = 1)"
                         row = await db.Query(sql, data.list[i].id)
-                        total_volume = row[0]['sum(`number`)'] ? row[0]['sum(`number`)'] : 0
+                        total_volume = row[0]['sum(`number`)'] ? row[0]['sum(`number`)'] - row[0]['sum(return_number)'] : 0
                     }
                     data.list[i].volume = total_volume
                 }

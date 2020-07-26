@@ -33,6 +33,8 @@ async function getData(params) {
             })])
             trade = trade.map(value => {
                 delete value.open_id;
+                value.pay_method = value.pay_method == "Balance" ? "余额" : value.pay_method
+                value.pay_method = value.pay_method == "Wxpay" ? "微信" : value.pay_method
                 value.create_time = formatTime(new Date(value.create_time))
                 value.pay_time = formatTime(new Date(value.pay_time))
                 value.order = []

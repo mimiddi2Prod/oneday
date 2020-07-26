@@ -58,6 +58,11 @@ var homevm = new Vue({
         tempPhoneNumber: "",
         member_tag: "",
         member: {},
+
+        /**
+         * 防止下单或挂单连击
+         */
+        canTouch: true,
     },
     methods: {
         payType(item) {
@@ -482,7 +487,15 @@ var homevm = new Vue({
         },
         // 提交订单
         submitOrder() {
+            $('#modal_order').modal('hide');
+            if (!this.canTouch) {
+                return
+            }
             let self = this
+            this.canTouch = false
+            setTimeout(()=>{
+                self.canTouch = true
+            },1000)
             let data = Object.assign(this.trade, {order: this.order})
             if (data.pay_type == "余额") {
                 let text
@@ -673,7 +686,15 @@ var homevm = new Vue({
             }
         },
         submitPendingOrder() {
+            $('#modal_pending_order').modal('hide');
+            if (!this.canTouch) {
+                return
+            }
             let self = this
+            this.canTouch = false
+            setTimeout(()=>{
+                self.canTouch = true
+            },1000)
             Axios(api.setPendingOrder, "POST", self.pending_order).then(res => {
                 // console.info(res)
                 self._Init()

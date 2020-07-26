@@ -46,7 +46,7 @@ async function getData(params) {
             /**
              * 新增会员余额
              */
-            if (trade[0].pay_method == "余额") {
+            if (trade[0].pay_method == "余额" || trade[0].pay_method == "Balance") {
                 // 进行会员余额的计算
                 let price = trade[0].after_sale_price
                 member = await _calcBalance.getData({
@@ -54,7 +54,7 @@ async function getData(params) {
                     "phone_number": trade[0].phone_number
                 })
             }
-            let t = trade[0].pay_method == "余额" ? {
+            let t = (trade[0].pay_method == "余额" || trade[0].pay_method == "Balance") ? {
                 "balance": member.data.balance,
                 "phone_number": member.data.phone_number
             } : {}
@@ -123,7 +123,7 @@ async function getData(params) {
             /**
              * 新增会员余额
              */
-            if (trade[0].pay_method == "余额") {
+            if (trade[0].pay_method == "余额" || trade[0].pay_method == "Balance") {
                 // 进行会员余额的计算
                 let price = after_sale_price
                 member = await _calcBalance.getData({
@@ -131,7 +131,7 @@ async function getData(params) {
                     "phone_number": trade[0].phone_number
                 })
             }
-            let t = trade[0].pay_method == "余额" ? {
+            let t = (trade[0].pay_method == "余额" || trade[0].pay_method == "Balance") ? {
                 "balance": member.data.balance,
                 "phone_number": member.data.phone_number
             } : {}
