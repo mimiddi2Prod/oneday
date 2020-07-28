@@ -16,9 +16,14 @@ exports.run = async function (params) {
                     "key": "item1_2",
                     "sub_button": []
                 }, {
+                    "type": "click",
+                    "name": "深圳森南店优惠订",
+                    "key": "item1_3",
+                    "sub_button": []
+                }, {
 					"type": "click",
                     "name": "大理店优惠预定",
-                    "key": "item1_3",
+                    "key": "item1_4",
                     "sub_button": []
                 }, {
                     "type": "miniprogram",

@@ -25,6 +25,10 @@ function send(param){
             url = './images/item1_3.png'
             break;
         }
+        case "item1_4":{
+            url = './images/item1_4.png'
+            break;
+        }
         case "item2_1":{
             message = '关于设计改造，可添加微信：sm278118152 或 tina7640 沟通：）'
             break;
