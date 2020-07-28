@@ -711,7 +711,7 @@ async function printMember(params) {
         content += "会员号:" + params.member.phone_number + "\n";
         content += "充值金额:￥" + params.member.increment_balance + "\n";
         content += "赠送金额:￥" + params.member.handsel_balance + "\n";
-        content += "当前金额:￥" + params.member.calcBalance + "\n";
+        content += "当前余额:￥" + params.member.calcBalance + "\n";
         content += repeat('*', 32);
         content += "<FS2><center>**#1 完**</center></FS2>";
 

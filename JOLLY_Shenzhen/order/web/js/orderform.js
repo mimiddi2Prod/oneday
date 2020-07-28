@@ -11,8 +11,10 @@ var orderformvm = new Vue({
             let self = this
             Axios(api.getTrade, "POST", {}).then(res => {
                 console.info(res)
-                self.trade = res.trade
-                self.order = self.trade[self.cursor_id].order
+                if (res.trade.length) {
+                    self.trade = res.trade
+                    self.order = self.trade[self.cursor_id].order
+                }
                 setTimeout(() => {
                     self._hideModal()
                 }, 500)
