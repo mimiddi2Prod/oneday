@@ -129,6 +129,9 @@ async function printSignOut(params) {
         }, balancepay = {
             total_price: 0,
             number: 0
+        }, balancepayRefund = {
+            total_price: 0,
+            number: 0
         }
         if (result.length) {
             result.forEach(m => {
@@ -164,6 +167,10 @@ async function printSignOut(params) {
                 if (m.pay_method == "Balance" || m.pay_method == "余额") {
                     balancepay.total_price += m.actually_total_price
                     balancepay.number++
+                    if (m.after_sale_type) {
+                        balancepayRefund.total_price += m.after_sale_price
+                        balancepayRefund.number++
+                    }
                 }
             })
         }
@@ -235,6 +242,7 @@ async function printSignOut(params) {
         content += repeat('-', 20) + "\n";
         content += "<table>";
         content += "<tr><td>余额支付</td><td>" + balancepay.total_price + "元</td><td>共" + balancepay.number + "笔</td></tr>";
+        content += "<tr><td>余额支付退款</td><td>" + balancepayRefund.total_price + "元</td><td>共" + balancepayRefund.number + "笔</td></tr>";
         content += "</table>";
         content += repeat('-', 20) + "\n";
         content += "店铺地址: 深圳市王母社区大鹏山庄中区13号101 \n";

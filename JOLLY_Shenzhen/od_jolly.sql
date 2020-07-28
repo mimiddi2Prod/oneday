@@ -70,7 +70,7 @@ INSERT INTO `admin_menu` VALUES ('2', '商品', '2019-07-24 17:53:47', '../../im
 INSERT INTO `admin_menu` VALUES ('3', '商品管理', '2019-07-24 17:53:51', '', '2', '0', 'goods');
 INSERT INTO `admin_menu` VALUES ('4', '分类管理', '2019-07-24 17:54:11', '', '2', '0', 'category');
 INSERT INTO `admin_menu` VALUES ('5', '订单', '2019-07-24 17:54:14', '../../images/logo.png', '0', '0', 'order');
-INSERT INTO `admin_menu` VALUES ('6', '用户', '2020-07-26 15:27:48', '../../images/logo.png', '0', '0', 'user');
+INSERT INTO `admin_menu` VALUES ('6', '用户管理', '2020-07-26 15:27:48', '../../images/logo.png', '0', '0', 'user');
 INSERT INTO `admin_menu` VALUES ('7', '员工账号', '2020-07-26 15:27:30', '../../images/logo.png', '0', '0', 'account');
 INSERT INTO `admin_menu` VALUES ('8', '餐品推荐', '2020-07-26 15:27:28', '../../images/logo.png', '0', '0', 'brunchBanner');
 
