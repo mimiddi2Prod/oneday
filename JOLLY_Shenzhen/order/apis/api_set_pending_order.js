@@ -36,6 +36,7 @@ async function getData(params) {
         trade_id = formatTime(new Date()).replace(/\//g, "").replace(/:/g, "").replace(/ /g, "")
     }
     let trade, order = params.order.map(value => {
+        value.param = typeof value.param == "object" ? JSON.stringify(value.param) : value.param
         return {
             "goods_sku_id": value.sku_id,
             "goods_id": value.id,

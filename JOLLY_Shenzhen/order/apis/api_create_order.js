@@ -58,6 +58,7 @@ async function getData(params) {
     }
     let trade, order = params.order.map(value => {
             value.discount_price = Math.round(value.discount_price * 100) / 100
+            value.param = typeof value.param == "object" ? JSON.stringify(value.param) : value.param
             return {
                 "goods_sku_id": value.sku_id,
                 "goods_id": value.id,
