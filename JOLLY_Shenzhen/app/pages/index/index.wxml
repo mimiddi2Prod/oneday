@@ -240,12 +240,17 @@
       </view>
       <!-- <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex" wx:if="{{goods.stock > 0}}"> -->
       <block wx:for="{{item.list}}" wx:for-item="goods" wx:for-index="goodsIndex">
-        <view class='goods-item' data-id="{{goods.id}}">
+        <view class='goods-item' data-id="{{goods.id}}" style="{{goods.stock <= 0 ? 'opacity:0.5' : ''}}">
           <!-- 新增加data-cateid 为了配合开门广告 -->
           <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='showGoodsDetail' data-id="{{goods.id}}" data-index="{{index}}" data-cateid="{{goods.category_id}}"></image>
           <!-- <image class='goods-pic' mode='aspectFill' lazy-load="true" src="{{goods.img}}" bindtap='getGoodsDetail' data-id='{{goods.id}}' data-name='{{goods.name}}' data-describe="{{goods.describe}}" data-image="{{goods.img}}" wx:if="{{goods.sku.length > 0}}"></image> -->
           <view class='goods-info'>
-            <text class='goodsName {{goods.stock > 0 ? "" : "gray"}}'>{{goods.name}}</text>
+            <!-- <text class='goodsName {{goods.stock > 0 ? "" : "gray"}}'>{{goods.name}}</text> -->
+            <!-- 改，写死的8折，开店活动，之后可去掉-->
+            <view style="flex-grow:1">
+              <view class='goodsName {{goods.stock > 0 ? "" : "gray"}}' style="flex-grow: 0;margin-bottom:10rpx">{{goods.name}}</view>
+              <text style="color:#fff;background-color:#e5b6b5;border-radius:10rpx;padding:4rpx 6rpx;font-size:24rpx" space="true">8 折</text> 
+            </view>
             <text class='goodsPrice'>￥{{goods.min_price}} <text style="font-size:24rpx">{{goods.stock < 10 ? '剩余 '+goods.stock+' 份' : ''}}</text></text>
           </view>
           <view class="goods-add">
