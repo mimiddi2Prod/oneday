@@ -33,10 +33,10 @@ var db = require("./../utils/dba");
 function autoStatisticsOrderData() {
     var data = {}, row = []
     try {
-        let today = new Date().toLocaleDateString()
-        let time = today + " 00:00:00"
         // 每30分钟检查一次
         setInterval(async () => {
+            let today = new Date().toLocaleDateString()
+            let time = today + " 00:00:00"
             let mini_program_income = 0, reception_income = 0, actually_income = 0,
                 refund_price = 0, refund_order_number = 0, order_number = 0,
                 increase_user = 0, increase_member = 0
