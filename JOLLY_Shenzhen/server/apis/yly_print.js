@@ -128,7 +128,7 @@ async function printSignOut(params) {
         TotalIncome.total_price = Online.total_price + Reception.total_price
         TotalIncome.number = Online.number + Reception.number
         // 查询今日结账等数据并打印
-        var content = "<MN>1</MN>";
+        var content = "<MN>2</MN>";
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--交接班--</center></FS2>";
@@ -216,7 +216,7 @@ async function printOrder(params) {
             }
         })
         // return
-        var content = "<MN>1</MN>"; // 打印两联
+        var content = "<MN>2</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--线上订单--</center></FS2>";
@@ -316,7 +316,7 @@ async function printPendingOrder(params) {
             }
         })
         // return
-        var content = "<MN>1</MN>"; // 打印两联
+        var content = "<MN>2</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--挂单--</center></FS2>";
@@ -395,7 +395,7 @@ async function printPendingOrderAppend(params) {
             }
         })
         // return
-        var content = "<MN>1</MN>"; // 打印两联
+        var content = "<MN>2</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--" + trade.title + "--</center></FS2>";
@@ -486,7 +486,7 @@ async function printInvalidOrder(params) {
             // }
         })
         // return
-        var content = "<MN>1</MN>"; // 打印两联
+        var content = "<MN>2</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--" + trade.title + "--</center></FS2>";
@@ -559,7 +559,7 @@ async function printAfterSale(params) {
             // }
         })
         // return
-        var content = "<MN>1</MN>"; // 打印两联
+        var content = "<MN>2</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--" + trade.title + "--</center></FS2>";
