@@ -312,7 +312,7 @@ async function printOrder(params) {
             }
         })
         // return
-        var content = "<MN>2</MN>"; // 打印两联
+        var content = "<MN>3</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--线下订单--</center></FS2>";
@@ -413,7 +413,7 @@ async function printPendingOrder(params) {
             }
         })
         // return
-        var content = "<MN>2</MN>"; // 打印两联
+        var content = "<MN>3</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--挂单--</center></FS2>";
@@ -492,7 +492,7 @@ async function printPendingOrderAppend(params) {
             }
         })
         // return
-        var content = "<MN>2</MN>"; // 打印两联
+        var content = "<MN>3</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--" + trade.title + "--</center></FS2>";
@@ -583,7 +583,7 @@ async function printInvalidOrder(params) {
             // }
         })
         // return
-        var content = "<MN>2</MN>"; // 打印两联
+        var content = "<MN>3</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--" + trade.title + "--</center></FS2>";
@@ -700,7 +700,7 @@ async function printAfterSale(params) {
 
 async function printMember(params) {
     return new Promise(async function (resolve, reject) {
-        var content = "<MN>2</MN>"; // 打印两联
+        var content = "<MN>1</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--会员充值--</center></FS2>";
