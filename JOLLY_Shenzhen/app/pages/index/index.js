@@ -290,6 +290,7 @@ Page({
       if (res.goods && res.goods.length > 0) {
         // 每个商品加入购物车的数量
         for (let i in res.goods) {
+          res.goods[i].img = res.goods[i].img + "?imageView2/2/w/800/h/800"
           res.goods[i].cartNumber = 0
           res.goods[i].isSearch = false
         }
