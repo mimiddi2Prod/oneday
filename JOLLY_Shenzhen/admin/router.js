@@ -114,6 +114,10 @@ function Router() {
                 var getUserBySearch = require("./api/get_user_by_search.js");
                 baseApi = new getUserBySearch;
                 break;
+            case "get_history_order":
+                var getHistoryOrder = require("./api/get_history_order.js");
+                baseApi = new getHistoryOrder;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

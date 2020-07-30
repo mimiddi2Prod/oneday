@@ -5,6 +5,9 @@ var homeVM = new Vue({
         myChart: null,
         myChart2: null,
         data: {},
+        start_time: formatTime(new Date()).slice(0, 10).split('/').join('-') + ' 00:00:00',
+        end_time: formatTime(new Date()).slice(0, 10).split('/').join('-') + ' 23:59:59',
+        goodsList: []
     },
     methods: {
         // yinbaoGetGoodsToUpdate: function () {
@@ -98,7 +101,70 @@ var homeVM = new Vue({
             server(url, data, async, "post", function (res) {
                 self._chart(res, type)
             })
-        }
+        },
+        // 新增 获取时间内商品销量表格
+        getHistoryOrder() {
+            let self = this
+            let url = api.getHistoryOrder, async = true, data = {}
+            data = {
+                start_time: document.getElementById("test5_5").value,
+                end_time: document.getElementById("test5_6").value
+            }
+            if (!data.start_time) {
+                document.getElementById("test5_5").style = "border:1px solid red;width:196px"
+            } else {
+                document.getElementById("test5_5").style = "border:1px solid #ccc;width:196px"
+            }
+            if (!data.end_time) {
+                document.getElementById("test5_6").style = "border:1px solid red;width:196px"
+            } else {
+                document.getElementById("test5_6").style = "border:1px solid #ccc;width:196px"
+            }
+            if (!data.start_time || !data.end_time) {
+                return
+            } else if (data.start_time > data.end_time) {
+                alert("时间错误")
+                return
+            }
+            server(url, data, async, "post", function (res) {
+                // console.info(res)
+                self.goodsList = res
+                setTimeout(()=>{
+                    self.down('tableExcel')
+                },2000)
+            })
+        },
+        // 导出到excel start
+        down: function (tableid) {
+            if (getExplorer() == 'ie') {
+                var curTbl = document.getElementById(tableid);
+                var oXL = new ActiveXObject("Excel.Application");
+                var oWB = oXL.Workbooks.Add();
+                var xlsheet = oWB.Worksheets(1);
+                var sel = document.body.createTextRange();
+                sel.moveToElementText(curTbl);
+                sel.select();
+                sel.execCommand("Copy");
+                xlsheet.Paste();
+                oXL.Visible = true;
+
+                try {
+                    var fname = oXL.Application.GetSaveAsFilename("Excel.xls", "Excel Spreadsheets (*.xls), *.xls");
+                } catch (e) {
+                    print("Nested catch caught " + e);
+                } finally {
+                    oWB.SaveAs(fname);
+                    oWB.Close(savechanges = false);
+                    oXL.Quit();
+                    oXL = null;
+                    idTmr = window.setInterval("Cleanup();", 1);
+                }
+
+            } else {
+                tableToExcel(tableid)
+            }
+        },
+        // 导出到excel end
     },
     mounted: function () {
         this._getHome()
@@ -134,3 +200,80 @@ laydate.render({
     , max: 0
 });
 
+laydate.render({
+    elem: '#test5_5'
+    , type: 'datetime'
+    , calendar: true
+    , max: 0
+    , value: homeVM.start_time
+    , done: function (value, date) {
+        homeVM.start_time = value
+        // alert('你选择的日期是：' + value + '\n获得的对象是' + JSON.stringify(date));
+    }
+});
+
+laydate.render({
+    elem: '#test5_6'
+    , type: 'datetime'
+    , calendar: true
+    , max: 0
+    , value: homeVM.end_time
+    , done: function (value, date) {
+        homeVM.end_time = value
+        // alert('你选择的日期是：' + value + '\n获得的对象是' + JSON.stringify(date));
+    }
+});
+
+
+// 导出excel start
+// 判断浏览器
+var idTmr;
+
+function getExplorer() {
+    var explorer = window.navigator.userAgent;
+//ie
+    if (explorer.indexOf("MSIE") >= 0) {
+        return 'ie';
+    }
+//firefox
+    else if (explorer.indexOf("Firefox") >= 0) {
+        return 'Firefox';
+    }
+//Chrome
+    else if (explorer.indexOf("Chrome") >= 0) {
+        return 'Chrome';
+    }
+//Opera
+    else if (explorer.indexOf("Opera") >= 0) {
+        return 'Opera';
+    }
+//Safari
+    else if (explorer.indexOf("Safari") >= 0) {
+        return 'Safari';
+    }
+}
+
+// function Cleanup() {
+//     window.clearInterval(idTmr);
+//     CollectGarbage();
+// }
+
+var tableToExcel = (function () {
+    var uri = 'data:application/vnd.ms-excel;base64,',
+        template = '<html><head><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',
+        base64 = function (s) {
+            return window.btoa(unescape(encodeURIComponent(s)))
+        },
+        format = function (s, c) {
+            return s.replace(/{(\w+)}/g,
+                function (m, p) {
+                    return c[p];
+                })
+        }
+    return function (table, name) {
+        if (!table.nodeType) table = document.getElementById(table)
+        var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+        window.location.href = uri + base64(format(template, ctx))
+    }
+})()
+// 导出excel end

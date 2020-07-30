@@ -172,6 +172,40 @@
         <!--&lt;!&ndash;<button class="btn btn-secondary">更新商品列表</button>&ndash;&gt;-->
         <!--</div>-->
 
+        <!--下载表格-->
+        <div>获取时间内销量表格</div>
+        <div class="row-center">
+            <span>时间：</span>
+            <input type="text" class="form-control" id="test5_5" style="width: auto;display: inline-block;"
+                   placeholder="选择起始时间">
+            <div class="line"></div>
+            <input type="text" class="form-control" id="test5_6" style="width: auto;display: inline-block;"
+                   placeholder="选择截止时间">
+            <button class="btn btn-danger" @click="getHistoryOrder">确定</button>
+        </div>
+        <!--用于导出excel-->
+        <table id="tableExcel" style="display: none">
+            <tr>
+                <td>分类</td>
+                <td>商品名</td>
+                <td>单价</td>
+                <td>当前库存</td>
+                <td>销量</td>
+                <td>总实收</td>
+                <td>开始日期</td>
+                <td>结束日期</td>
+            </tr>
+            <tr v-for="item in goodsList">
+                <td>{{item.category}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.min_price}}</td>
+                <td>{{item.stock}}</td>
+                <td>{{item.sales}}</td>
+                <td>{{item.sales_total_price}}</td>
+                <td>{{start_time}}</td>
+                <td>{{end_time}}</td>
+            </tr>
+        </table>
     </div>
 </div>
 
