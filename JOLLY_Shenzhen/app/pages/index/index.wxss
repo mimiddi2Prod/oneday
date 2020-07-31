@@ -537,3 +537,10 @@ button[plain]{
   flex-direction: column;
   align-items: center;
 }
+
+.original-price{
+  margin: 0 10rpx;
+  text-decoration: line-through;
+  font-size:24rpx;
+  color:#999
+}

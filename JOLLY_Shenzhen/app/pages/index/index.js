@@ -291,6 +291,7 @@ Page({
         // 每个商品加入购物车的数量
         for (let i in res.goods) {
           res.goods[i].img = res.goods[i].img + "?imageView2/2/w/800/h/800"
+          res.goods[i].original_price = Math.round(res.goods[i].min_price/0.8)
           res.goods[i].cartNumber = 0
           res.goods[i].isSearch = false
         }
