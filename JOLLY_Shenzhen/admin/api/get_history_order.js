@@ -8,7 +8,7 @@ function getHistoryOrder() {
         try {
             console.info(param)
             let goods = await db.Query("select * from goods")
-            let order = await db.Query("select * from goods_order where trade_id in (select trade_id from goods_trade where pay_status = 1 and after_sale_type != 1 and create_time >= ? and create_time <= ?)",
+            let order = await db.Query("select * from goods_order where trade_id in (select trade_id from goods_trade where pay_status = 1 and (after_sale_type != 1 or after_sale_type is null) and create_time >= ? and create_time <= ?)",
                 [new Date(param.start_time), new Date(param.end_time)])
             let category = await db.Query("select * from category")
             // 先把商品添加上分类名
