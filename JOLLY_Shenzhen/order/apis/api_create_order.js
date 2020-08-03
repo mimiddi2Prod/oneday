@@ -33,7 +33,7 @@ async function getData(params) {
     let member
     if (params.pay_type == "余额") {
         // 进行会员余额的计算
-        let price = params.total_diacount_price ? params.total_diacount_price : params.total_price
+        let price = params.total_diacount_price || params.total_diacount_price.length ? Number(params.total_diacount_price) : params.total_price
         member = await _calcBalance.getData({
             "increment_balance": -(price),
             "phone_number": params.member.phone_number
@@ -76,7 +76,7 @@ async function getData(params) {
 
     params.total_price = Math.round(params.total_price * 100) / 100
     params.total_original_price = Math.round(params.total_original_price * 100) / 100
-    params.total_diacount_price = params.total_diacount_price ? Math.round(params.total_diacount_price * 100) / 100 : params.total_price
+    params.total_diacount_price = params.total_diacount_price || params.total_diacount_price.length ? Math.round(params.total_diacount_price * 100) / 100 : params.total_price
     if (result.errmsg == "success") {
         trade = {
             "trade_id": trade_id,
@@ -85,7 +85,8 @@ async function getData(params) {
             "goods_total_number": params.total_num,
             "goods_total_price": params.total_price,
             "goods_total_original_price": params.total_original_price,
-            "actually_total_price": params.total_diacount_price ? params.total_diacount_price : params.total_price,
+            // "actually_total_price": params.total_diacount_price ? params.total_diacount_price : params.total_price,
+            "actually_total_price": params.total_diacount_price,
             "pay_status": 1,
             "pay_method": params.pay_type,
             "create_time": new Date(),
