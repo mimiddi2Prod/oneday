@@ -186,24 +186,27 @@
         <!--用于导出excel-->
         <table id="tableExcel" style="display: none">
             <tr>
-                <td>分类</td>
-                <td>商品名</td>
-                <td>单价</td>
-                <td>当前库存</td>
-                <td>销量</td>
-                <td>总实收</td>
-                <td>开始日期</td>
-                <td>结束日期</td>
+                <td colspan="7">{{start_time}} ~ {{end_time}}</td>
             </tr>
-            <tr v-for="item in goodsList">
+            <tr>
+                <td>序号</td>
+                <td>品类</td>
+                <td>产品名称</td>
+                <td>数量</td>
+                <td>单价</td>
+                <td>金额</td>
+                <td>备注</td>
+            </tr>
+            <tr v-for="item,index in goodsList">
+                <td>{{index+1}}</td>
                 <td>{{item.category}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.min_price}}</td>
-                <td>{{item.stock}}</td>
                 <td>{{item.sales}}</td>
+                <td>{{item.min_price}}</td>
                 <td>{{item.sales_total_price}}</td>
-                <td>{{start_time}}</td>
-                <td>{{end_time}}</td>
+                <!--<td>{{item.stock}}</td>-->
+                <!--<td>{{start_time}}</td>-->
+                <td>{{item.remark ? item.remark : ''}}</td>
             </tr>
         </table>
     </div>
