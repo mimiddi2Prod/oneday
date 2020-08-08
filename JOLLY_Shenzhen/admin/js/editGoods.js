@@ -57,6 +57,9 @@ var editGoodsVM = new Vue({
         // 批量改价
         batchPrice: '',
         batchStock: '',
+
+        // 打单
+        machineList: []
     },
     methods: {
         // -----> 商品图片存储七牛云前的处理
@@ -424,6 +427,7 @@ $(document).ready(function () {
     // check_login()
     getCurrentGoodsInfo()
     getCategory()
+    getMachine()
 })
 
 function getCurrentGoodsInfo() {
@@ -501,6 +505,27 @@ function getCategory() {
     })
 }
 
+// 打单tag
+function getMachine() {
+    const url = api.getMachine
+    let data = {}, async = true
+    server(url, data, async, "post", function (res) {
+        editGoodsVM.machineList = res
+        let current_goods_info = JSON.parse(sessionStorage.getItem('editGoods'))
+        if (current_goods_info.machine_tag) {
+            setTimeout(() => {
+                // 新增打单
+                var check = document.getElementsByName('ylyCheckbox')
+                for (let i in check) {
+                    if (new RegExp(check[i].defaultValue).test(current_goods_info.machine_tag) && new RegExp(check[i].defaultValue).test(editGoodsVM.machineList.join(','))) {
+                        check[i].checked = true
+                    }
+                }
+            }, 500)
+        }
+    })
+}
+
 function updateGoods() {
     const url = api.updateGoods, async = true
     let data = {}
@@ -522,6 +547,15 @@ function updateGoods() {
         val.price = data.goods_min_price
         return val
     })
+    // 新增打单
+    var check = document.getElementsByName('ylyCheckbox')
+    let selectTag = []
+    for (let i in check) {
+        if (new RegExp(i).test('0123456789') && check[i].checked) {
+            selectTag.push(editGoodsVM.machineList[i])
+        }
+    }
+    data.machine_tag = selectTag.join(',')
     server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.code == 0) {

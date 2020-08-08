@@ -51,6 +51,9 @@ var addGoodsVM = new Vue({
         // 批量改价
         batchPrice: '',
         batchStock: '',
+
+        // 打单
+        machineList: []
     },
     methods: {
         // -----> 商品图片存储七牛云前的处理
@@ -411,6 +414,7 @@ var addGoodsVM = new Vue({
 $(document).ready(function () {
     // check_login()
     getCategory()
+    getMachine()
 })
 
 // 批量分类
@@ -420,6 +424,15 @@ function getCategory() {
     server(url, data, async, "post", function (res) {
         // console.info(res)
         addGoodsVM.category = res
+    })
+}
+
+// 打单tag
+function getMachine() {
+    const url = api.getMachine
+    let data = {}, async = true
+    server(url, data, async, "post", function (res) {
+        addGoodsVM.machineList = res
     })
 }
 
@@ -483,6 +496,16 @@ function addGoods() {
         val.price = data.goods_min_price
         return val
     })
+
+    // 新增打单
+    var check = document.getElementsByName('ylyCheckbox')
+    let selectTag = []
+    for (let i in check) {
+        if (check[i].checked) {
+            selectTag.push(addGoodsVM.machineList[i])
+        }
+    }
+    data.machine_tag = selectTag.join(',')
     server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res.code == 0) {

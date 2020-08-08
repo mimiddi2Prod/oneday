@@ -125,6 +125,7 @@
                     <span class="second-title have-border column-center">销量</span>
                     <span class="second-title have-border column-center">库存</span>
                     <span class="second-title have-border column-center">分类</span>
+                    <span class="second-title have-border column-center">打单</span>
                     <!--<span class="second-title have-border column-center" v-if="navTwoId == 1">购买积分</span>-->
                     <span class="second-title have-border column-center">创建时间</span>
                     <span class="second-title column-center">操作</span>
@@ -157,6 +158,9 @@
                     </div>
                     <div class="second-title column-center" v-if="navTwoId == 0">
                         {{item.category_name}}
+                    </div>
+                    <div class="second-title column-center" v-if="navTwoId == 0">
+                        {{item.machine_tag}}
                     </div>
                     <div class="second-title column-center" v-if="navTwoId == 1">
                         {{item.integral_price}}

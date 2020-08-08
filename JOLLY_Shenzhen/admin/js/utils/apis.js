@@ -29,5 +29,7 @@ var api = {
     getHistoryOrder: '../api/get_history_order',
 
     // 搜索
-    getGoodsBySearch: '../api/get_goods_by_search'
+    getGoodsBySearch: '../api/get_goods_by_search',
+    // 打单
+    getMachine: '../api/get_machine'
 }

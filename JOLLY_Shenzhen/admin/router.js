@@ -118,6 +118,10 @@ function Router() {
                 var getHistoryOrder = require("./api/get_history_order.js");
                 baseApi = new getHistoryOrder;
                 break;
+            case "get_machine":
+                var getMachine = require("./api/get_machine.js");
+                baseApi = new getMachine;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

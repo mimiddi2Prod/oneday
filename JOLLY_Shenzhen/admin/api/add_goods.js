@@ -9,9 +9,9 @@ function addGoods() {
         try {
             // console.info(param)
             let img = qiniuRootUrl + param["img_list"]
-            sql = "insert into goods(`name`,img,`describe`,min_price,location_code,category_id,stock,status,sort,create_time,user_id)values(?,?,?,?,?,?,?,?,?,current_timestamp,?)"
+            sql = "insert into goods(`name`,img,`describe`,min_price,location_code,category_id,stock,status,sort,create_time,user_id,machine_tag)values(?,?,?,?,?,?,?,?,?,current_timestamp,?,?)"
             // sql = "select id,`name`,image,tag from admin_menu where sup_id = ?";
-            row = await db.Query(sql, [param["goods_title"], img, param["goods_desc"], param["goods_min_price"], param["location_code"], param["select_category_id"], param["stock"], param["goods_status"], param["sort"], param["user_id"]]);
+            row = await db.Query(sql, [param["goods_title"], img, param["goods_desc"], param["goods_min_price"], param["location_code"], param["select_category_id"], param["stock"], param["goods_status"], param["sort"], param["user_id"], param["machine_tag"]]);
             // console.info(row)
             if (param["param_list"].length <= 0) {
                 data.code = 0
