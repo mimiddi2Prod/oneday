@@ -311,12 +311,10 @@ async function printOrder(params) {
                 order_str += "<tr><td>---备注:" + m.remark + "</td></tr>";
             }
         })
-        // return
         var content = "<MN>3</MN>"; // 打印两联
         content += "<FS2><center>Oneday 森南店</center></FS2>";
         content += repeat('.', 32);
         content += "<FS2><center>--线下订单--</center></FS2>";
-        // content += "<FS><center>Onday 森南店</center></FS>";
         content += "订单时间:" + formatTime(trade.create_time) + "\n";
         content += "订单编号:" + trade.trade_id + "\n";
         content += "支付方式:" + trade.pay_method + "\n";
@@ -326,14 +324,8 @@ async function printOrder(params) {
         content += "<table>";
         content += "<tr><td>商品</td><td>单价</td><td>数量</td><td>小计</td></tr>";
         content += order_str
-        // content += "<tr><td>烤土豆(超级辣)</td><td>x3</td><td>5.96</td></tr>";
-        // content += "<tr><td>烤豆干(超级辣)</td><td>x2</td><td>3.88</td></tr>";
-        // content += "<tr><td>烤鸡翅(超级辣)</td><td>x3</td><td>17.96</td></tr>";
-        // content += "<tr><td>烤排骨(香辣)</td><td>x3</td><td>12.44</td></tr>";
-        // content += "<tr><td>烤韭菜(超级辣)</td><td>x3</td><td>8.96</td></tr>";
         content += "</table>";
         content += repeat('.', 32);
-        // content += "<QR>this is qrcode,you can write Officical Account url or Mini Program and so on</QR>";
         content += "原价:￥" + trade.goods_total_original_price + "\n";
         content += "小计:￥" + trade.goods_total_price + "\n";
         content += "折扣:￥" + (Number(trade.goods_total_price) - Number(trade.actually_total_price)).toFixed(2) + " \n";
@@ -350,8 +342,6 @@ async function printOrder(params) {
         if (trade.remark && trade.remark.length) {
             content += "订单备注:" + trade.remark + "\n";
         }
-        // content += "130515456456 \n";
-        // content += "厦门市集美区sxxxxx \n";
         content += "<FS2><center>**#1 完**</center></FS2>";
 
         let machineCode = yly.Machine.filter(val => {
@@ -361,6 +351,62 @@ async function printOrder(params) {
         yly.Print.index(machineCode, originId, content).then(function (res) {
             resolve(res);
         });
+
+        /**
+         * 后厨打单
+         */
+        let goods = await db.Query("select * from goods")
+        let order2 = []
+        order.forEach(m => {
+            goods.forEach(n => {
+                if (m.goods_id == n.id && new RegExp("后厨").test(n.machine_tag)) {
+                    order2.push(m)
+                }
+            })
+        })
+        if (order2.length) {
+            let order_str_2 = "", content2
+            order2.forEach(m => {
+                order_str_2 += "<tr><td>" + m.name + "</td><td>" + m.price + "</td><td>x" + m.number + "</td><td>" + m.subtotal + "</td></tr>";
+                if (m.param && m.param.length) {
+                    m.param = JSON.parse(m.param)
+                    let text = "---"
+                    for (let i in m.param) {
+                        text += m.param[i] + " "
+                    }
+                    order_str_2 += "<tr><td>" + text + "</td></tr>";
+                }
+                if (m.remark && m.remark.length) {
+                    order_str_2 += "<tr><td>---备注:" + m.remark + "</td></tr>";
+                }
+            })
+            content2 = "<MN>2</MN>"; // 打印两联
+            content2 += "<FS2><center>Oneday 森南店</center></FS2>";
+            content2 += repeat('.', 32);
+            content2 += "<FS2><center>--线下订单--</center></FS2>";
+            content2 += "订单时间:" + formatTime(trade.create_time) + "\n";
+            content2 += "订单编号:" + trade.trade_id + "\n";
+            content2 += "支付方式:" + trade.pay_method + "\n";
+            content2 += "桌号:" + (trade.table_number || '') + "\n";
+            content2 += "人数:" + (trade.dinners_number || '') + "\n";
+            content2 += repeat('*', 14) + "商品" + repeat("*", 14);
+            content2 += "<table>";
+            content2 += "<tr><td>商品</td><td>单价</td><td>数量</td><td>小计</td></tr>";
+            content2 += order_str_2
+            content2 += "</table>";
+            content2 += repeat('.', 32);
+            if (trade.remark && trade.remark.length) {
+                content2 += "订单备注:" + trade.remark + "\n";
+            }
+            content2 += "<FS2><center>**#1 完**</center></FS2>";
+            let machineCode2 = yly.Machine.filter(val => {
+                return val.name == "后厨"
+            })[0].machine_code //一台设备
+            yly.Print.index(machineCode2, originId, content2).then(function (res) {
+                // console.log(res);
+                resolve(res);
+            });
+        }
     })
 }
 
@@ -443,6 +489,58 @@ async function printPendingOrder(params) {
         yly.Print.index(machineCode, originId, content).then(function (res) {
             resolve(res);
         });
+
+        /**
+         * 后厨打单
+         */
+        let goods = await db.Query("select * from goods")
+        let order2 = []
+        order.forEach(m => {
+            goods.forEach(n => {
+                if (m.goods_id == n.id && new RegExp("后厨").test(n.machine_tag)) {
+                    order2.push(m)
+                }
+            })
+        })
+        if (order2.length) {
+            let order_str_2 = "", content2
+            order2.forEach(m => {
+                order_str_2 += "<tr><td>" + m.name + "</td><td></td><td>" + m.number + "</td></tr>";
+                if (m.param && m.param.length) {
+                    m.param = JSON.parse(m.param)
+                    let text = "---"
+                    for (let i in m.param) {
+                        text += m.param[i] + " "
+                    }
+                    order_str_2 += "<tr><td>" + text + "</td></tr>";
+                }
+                if (m.remark && m.remark.length) {
+                    order_str_2 += "<tr><td>---备注:" + m.remark + "</td></tr>";
+                }
+            })
+            content2 = "<MN>2</MN>"; // 打印两联
+            content2 += "<FS2><center>Oneday 森南店</center></FS2>";
+            content2 += repeat('.', 32);
+            content2 += "<FS2><center>--线下订单--</center></FS2>";
+            content2 += "订单时间:" + formatTime(trade.create_time) + "\n";
+            content2 += "订单编号:" + trade.trade_id + "\n";
+            content2 += "支付方式:" + trade.pay_method + "\n";
+            content2 += "桌号:" + (trade.table_number || '') + "\n";
+            content2 += "人数:" + (trade.dinners_number || '') + "\n";
+            content2 += repeat('*', 14) + "商品" + repeat("*", 14);
+            content2 += "<table>";
+            content2 += "<tr><td>商品</td><td>单价</td><td>数量</td><td>小计</td></tr>";
+            content2 += order_str_2
+            content2 += "</table>";
+            content2 += repeat('.', 32);
+            let machineCode2 = yly.Machine.filter(val => {
+                return val.name == "后厨"
+            })[0].machine_code //一台设备
+            yly.Print.index(machineCode2, originId, content2).then(function (res) {
+                // console.log(res);
+                resolve(res);
+            });
+        }
     })
 }
 
@@ -533,6 +631,61 @@ async function printPendingOrderAppend(params) {
         yly.Print.index(machineCode, originId, content).then(function (res) {
             resolve(res);
         });
+
+
+        /**
+         * 后厨打单
+         */
+        let goods = await db.Query("select * from goods")
+        let order2 = []
+        order.forEach(m => {
+            goods.forEach(n => {
+                if (m.goods_id == n.id && new RegExp("后厨").test(n.machine_tag)) {
+                    order2.push(m)
+                }
+            })
+        })
+        if (order2.length) {
+            let order_str_2 = "", content2
+            order2.forEach(m => {
+                order_str_2 += "<tr><td>" + m.name + "</td><td></td><td>" + m.number + "</td></tr>";
+                if (m.param && m.param.length) {
+                    m.param = JSON.parse(m.param)
+                    let text = "---"
+                    for (let i in m.param) {
+                        text += m.param[i] + " "
+                    }
+                    order_str_2 += "<tr><td>" + text + "</td></tr>";
+                }
+                if (m.remark && m.remark.length) {
+                    order_str_2 += "<tr><td>---备注:" + m.remark + "</td></tr>";
+                }
+            })
+            content2 = "<MN>2</MN>"; // 打印两联
+            content2 += "<FS2><center>Oneday 森南店</center></FS2>";
+            content2 += repeat('.', 32);
+            content2 += "<FS2><center>--" + trade.title + "--</center></FS2>";
+            content2 += "打单时间:" + formatTime(new Date()) + "\n";
+            content2 += "订单编号:" + trade.trade_id + "\n";
+            content2 += "桌号:" + (trade.table_number || '') + "\n";
+            content2 += repeat('*', 14) + "商品" + repeat("*", 14);
+            content2 += "<table>";
+            content2 += "<tr><td>商品</td><td></td><td>数量</td></tr>";
+            content2 += order_str_2
+            content2 += "</table>";
+            content2 += repeat('*', 32);
+            if (trade.update_remark && trade.update_remark.length) {
+                content2 += (trade.update_remark ? "备注:" + trade.update_remark : null) + "\n";
+            }
+            content2 += "<FS2><center>**#1 完**</center></FS2>";
+            let machineCode2 = yly.Machine.filter(val => {
+                return val.name == "后厨"
+            })[0].machine_code //一台设备
+            yly.Print.index(machineCode2, originId, content2).then(function (res) {
+                // console.log(res);
+                resolve(res);
+            });
+        }
     })
 }
 
@@ -610,6 +763,61 @@ async function printInvalidOrder(params) {
         yly.Print.index(machineCode, originId, content).then(function (res) {
             resolve(res);
         });
+
+
+        /**
+         * 后厨打单
+         */
+        let goods = await db.Query("select * from goods")
+        let order2 = []
+        order.forEach(m => {
+            goods.forEach(n => {
+                if (m.goods_id == n.id && new RegExp("后厨").test(n.machine_tag)) {
+                    order2.push(m)
+                }
+            })
+        })
+        if (order2.length) {
+            let order_str_2 = "", content2
+            order2.forEach(m => {
+                order_str_2 += "<tr><td>" + m.name + "</td><td></td><td>" + m.number + "</td></tr>";
+                if (m.param && m.param.length) {
+                    m.param = JSON.parse(m.param)
+                    let text = "---"
+                    for (let i in m.param) {
+                        text += m.param[i] + " "
+                    }
+                    order_str_2 += "<tr><td>" + text + "</td></tr>";
+                }
+                // if (m.remark && m.remark.length) {
+                //     order_str += "<tr><td>---备注:" + m.remark + "</td></tr>";
+                // }
+            })
+            content2 = "<MN>2</MN>"; // 打印两联
+            content2 += "<FS2><center>Oneday 森南店</center></FS2>";
+            content2 += repeat('.', 32);
+            content2 += "<FS2><center>--" + trade.title + "--</center></FS2>";
+            content2 += "打单时间:" + formatTime(new Date()) + "\n";
+            content2 += "订单编号:" + trade.trade_id + "\n";
+            content2 += "桌号:" + (trade.table_number || '') + "\n";
+            content2 += repeat('*', 14) + "商品" + repeat("*", 14);
+            content2 += "<table>";
+            content2 += "<tr><td>商品</td><td></td><td>数量</td></tr>";
+            content2 += order_str_2
+            content2 += "</table>";
+            content2 += repeat('*', 32);
+            if (trade.invalid_remark && trade.invalid_remark.length) {
+                content2 += (trade.invalid_remark ? "备注:" + trade.invalid_remark : null) + "\n";
+            }
+            content2 += "<FS2><center>**#1 完**</center></FS2>";
+            let machineCode2 = yly.Machine.filter(val => {
+                return val.name == "后厨"
+            })[0].machine_code //一台设备
+            yly.Print.index(machineCode2, originId, content2).then(function (res) {
+                // console.log(res);
+                resolve(res);
+            });
+        }
     })
 }
 
@@ -695,6 +903,63 @@ async function printAfterSale(params) {
         yly.Print.index(machineCode, originId, content).then(function (res) {
             resolve(res);
         });
+
+
+        /**
+         * 后厨打单
+         */
+        let goods = await db.Query("select * from goods")
+        let order2 = []
+        order.forEach(m => {
+            goods.forEach(n => {
+                if (m.goods_id == n.id && new RegExp("后厨").test(n.machine_tag)) {
+                    order2.push(m)
+                }
+            })
+        })
+        if (order2.length) {
+            let order_str_2 = "", content2
+            order2.forEach(m => {
+                order_str_2 += "<tr><td>" + m.name + "</td><td></td><td>" + m.return_number + "</td></tr>";
+                if (m.param && m.param.length) {
+                    m.param = JSON.parse(m.param)
+                    let text = "---"
+                    for (let i in m.param) {
+                        text += m.param[i] + " "
+                    }
+                    order_str_2 += "<tr><td>" + text + "</td></tr>";
+                }
+                // if (m.remark && m.remark.length) {
+                //     order_str += "<tr><td>---备注:" + m.remark + "</td></tr>";
+                // }
+            })
+            content2 = "<MN>2</MN>"; // 打印两联
+            content2 += "<FS2><center>Oneday 森南店</center></FS2>";
+            content2 += repeat('.', 32);
+            content2 += "<FS2><center>--" + trade.title + "--</center></FS2>";
+            content2 += "打单时间:" + formatTime(new Date()) + "\n";
+            content2 += "订单编号:" + trade.trade_id + "\n";
+            content2 += "桌号:" + (trade.table_number || '') + "\n";
+            content2 += repeat('*', 14) + "商品" + repeat("*", 14);
+            content2 += "<table>";
+            content2 += "<tr><td>商品</td><td></td><td>数量</td></tr>";
+            content2 += order_str_2
+            content2 += "</table>";
+            // content2 += repeat('.', 32);
+            // content2 += "小计:￥" + trade.after_sale_price + "\n";
+            content2 += repeat('*', 32);
+            if (trade.after_sale_remark && trade.after_sale_remark.length) {
+                content2 += (trade.after_sale_remark ? "备注:" + trade.after_sale_remark : null) + "\n";
+            }
+            content2 += "<FS2><center>**#1 完**</center></FS2>";
+            let machineCode2 = yly.Machine.filter(val => {
+                return val.name == "后厨"
+            })[0].machine_code //一台设备
+            yly.Print.index(machineCode2, originId, content2).then(function (res) {
+                // console.log(res);
+                resolve(res);
+            });
+        }
     })
 }
 
