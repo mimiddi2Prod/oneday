@@ -1,6 +1,6 @@
 // const rootUrl = "http://127.0.0.1:9001/apis/"
-const rootUrl = "https://brunch.minidope.com/apis/"
-// const rootUrl = "https://test.youyueworld.com/apis/" // 测试环境
+// const rootUrl = "https://brunch.minidope.com/apis/"
+const rootUrl = "https://odjolly.xmspwmini.youyueworld.com/apis/"
 
 module.exports = {
   getCategoryByLocationCode: rootUrl + 'restaurant_get_category_by_location_code',
