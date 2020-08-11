@@ -109,7 +109,8 @@ async function BalancePay(params, balance, phone_number) {
                     "number": val.number,
                     "price": val.price,
                     "discount_price": val.discount_price,
-                    "subtotal": Math.round(val.discount_price * val.number * 100) / 100
+                    "subtotal": Math.round(val.discount_price * val.number * 100) / 100,
+                    "goods_id": val.goods_id
                 }
             })
         }, {"balance": balance, "phone_number": phone_number})
