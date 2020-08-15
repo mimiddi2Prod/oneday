@@ -31,7 +31,7 @@ async function getData(params) {
     // const log = console.log.bind(console)
     // log(params)
     let payfeeData = {
-        total_fee: params["selcCardInfo"] ? (params['totalPrice'] - params["selcCardInfo"].reduce_cost) : params['totalPrice'],
+        total_fee: Math.round((params["selcCardInfo"] ? (params['totalPrice'] - params["selcCardInfo"].reduce_cost) : params['totalPrice'])*100)/100,
         openid: params["openid"],
         out_trade_no: await wxPay.getTradeId(wxConfig.attach)
     }, call = await wxPay.payfee(payfeeData) || null;
