@@ -1,5 +1,6 @@
 // const rootUrl = "http://127.0.0.1:9001/apis/"
-const rootUrl = "https://shop.minidope.com/apis/"
+// const rootUrl = "https://shop.minidope.com/apis/"
+const rootUrl = "https://odshop.youyueworld.com/apis/"
 
 module.exports = {
   queue: rootUrl + 'queue',
