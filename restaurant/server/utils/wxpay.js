@@ -35,8 +35,7 @@ async function payfee(data = {}) {
         // 商品简单描述 如：腾讯充值中心-QQ会员充值
         const productIntro = data.body
         //通知地址  确保外网能正常访问
-        // const notifyUrl = 'https://brunch.minidope.com/apis/restaurant_wxPay_notify'
-        const notifyUrl = 'https://odjolly.xmspwmini.youyueworld.com/apis/restaurant_wxPay_notify'
+        const notifyUrl = 'https://brunch.minidope.com/apis/restaurant_wxPay_notify'
         // 生成商家内部自定义的订单号, 商家内部的系统用的, 理论上只要不和其他订单重复, 使用任意的字符串都是可以的
         const tradeId = getTradeId(attach)
         // 生成签名
