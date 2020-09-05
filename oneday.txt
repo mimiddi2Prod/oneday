@@ -20,7 +20,8 @@
 公众号：
 	oneday设计师民宿:
 		账号：oneday830@163.com
-		密码：oneday830830830
+		密码：oneday830
+		AppSecret:3d7ed9894c6616365a0ddce67f616702
 
 	Oneday Jolly:
 		账号：onedayjolly@163.com
