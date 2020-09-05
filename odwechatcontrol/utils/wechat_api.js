@@ -1,14 +1,15 @@
 var db = require("./../utils/dba");
 var sql = ""
 var row = ""
+const appid = "wx9a7f04eeea0842be"
 
 function WXApi() {
 }
 
 WXApi.Init = async function () {
     if (!WXApi.wxConfig) {
-        sql = "select * from wechat_config";
-        row = await db.Query(sql);
+        sql = "select * from wechat_config where appid = ?";
+        row = await db.Query(sql, appid);
         WXApi.wxConfig = {
             appid: row[0].appid,
             secret: row[0].secret,
@@ -24,8 +25,8 @@ WXApi.Init = async function () {
             // if (err) {return callback(err);}
             // callback(null, JSON.parse(txt));
             // });
-            sql = "select AccessToken from wechat_access_token"
-            row = db.Query(sql)
+            sql = "select AccessToken from wechat_access_token where appid = ?"
+            row = db.Query(sql, appid)
             row.then(function (e) {
                 let AccessToken = JSON.parse(e[0].AccessToken)
                 callback(null, AccessToken)
@@ -34,8 +35,8 @@ WXApi.Init = async function () {
             // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
             // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
             // fs.writeFile('access_token.txt', JSON.stringify(token), callback);
-            sql = "update wechat_access_token set AccessToken = ?"
-            row = db.Query(sql, JSON.stringify(token))
+            sql = "update wechat_access_token set AccessToken = ? where appid = ?"
+            row = db.Query(sql, [JSON.stringify(token), appid])
             callback(null)
         });
 
@@ -58,8 +59,8 @@ function getTicketToken(type, callback) {
     //     if (err) return callback(err);
     //     callback(null, setting.value);
     // });
-    sql = "select Ticket from wechat_ticket where `type` = ?"
-    row = db.Query(sql, type)
+    sql = "select Ticket from wechat_ticket where `type` = ? where appid = ?"
+    row = db.Query(sql, [type, appid])
     row.then(function (e) {
         let Ticket = JSON.parse(e[0].Ticket)
         callback(null, Ticket)
@@ -72,8 +73,8 @@ function saveTicketToken(type, _ticketToken, callback) {
     //     if (err) return callback(err);
     //     callback(null);
     // });
-    sql = "update wechat_ticket set `type` = ?,Ticket = ?"
-    row = db.Query(sql, [type, JSON.stringify(_ticketToken)])
+    sql = "update wechat_ticket set `type` = ?,Ticket = ? where appid = ?"
+    row = db.Query(sql, [type, JSON.stringify(_ticketToken), appid])
     callback(null)
 }
 
