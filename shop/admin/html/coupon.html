@@ -72,7 +72,8 @@
                     <span class="second-title column-center " v-if="item.type">{{item.type == 'opening' ? '首页弹窗' : '首单奖励'}}</span>
                     <span class="second-title column-center " v-else>待投放</span>
                     <span class="first-title column-center">{{item.cash.base_info.title}}</span>
-                    <span class="first-title column-center" v-if="item.cash.base_info.date_info.type == 'DATE_TYPE_FIX_TIME_RANGE'">固定日期区间:{{item.cash.base_info.date_info.begin_timestamp}} ~ {{item.cash.base_info.date_info.end_timestamp}}</span>
+                    <span class="first-title column-center" style="line-height: normal" v-if="item.cash.base_info.date_info.type == 'DATE_TYPE_FIX_TIME_RANGE'">固定日期区间:{{item.cash.base_info.date_info.begin_timestamp}} ~ {{item.cash.base_info.date_info.end_timestamp}}</span>
+                    <span class="first-title column-center" v-if="item.cash.base_info.date_info.type == 'DATE_TYPE_FIX_TERM'">领取后{{item.cash.base_info.date_info.fixed_begin_term == 0 ? "当天生效" : item.cash.base_info.date_info.fixed_begin_term + "天后生效"}},有效期{{item.cash.base_info.date_info.fixed_term}}</span>
                     <!--<span class="second-title column-center">{{item.number}}</span>-->
                     <span class="second-title column-center" v-if="item.type">
                     <button type="button" class="btn btn-link" v-if="item.type == 'newCustomer'" v-on:click="setType(item.id,'opening')">设为首页弹窗</button>
@@ -83,10 +84,10 @@
                     <button type="button" class="btn btn-link" v-on:click="setType(item.id,'opening')">设为首页弹窗</button>
                     <!-- <button type="button" class="btn btn-link" v-on:click="setType(item.id,'newCustomer')">设为首单奖励</button> -->
                 </span>
-                
+
                 </div>
 
-                
+
         </div>
 
         <!-- 分页栏 -->
