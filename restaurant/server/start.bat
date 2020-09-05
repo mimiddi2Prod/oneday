@@ -1,4 +1,4 @@
-title jolly_xmspw
+title od_jolly_xmspw_mini
 :start
-node main.js --port 9200
+node main.js --port 11000
 goto start
