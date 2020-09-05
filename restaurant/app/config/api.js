@@ -1,5 +1,4 @@
-// const rootUrl = "http://127.0.0.1:9001/apis/"
-// const rootUrl = "https://brunch.minidope.com/apis/"
+// const rootUrl = "http://127.0.0.1:11000/apis/"
 const rootUrl = "https://odjolly.xmspwmini.youyueworld.com/apis/"
 
 module.exports = {

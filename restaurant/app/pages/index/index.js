@@ -777,7 +777,13 @@ Page({
         cardList: res.cardList,
         success: function (e) {
           // console.info(e)
-          self.saveCard(JSON.stringify(e))
+          if(e.cardList.length){
+            e.cardList = e.cardList.filter(val=>{
+              return val.code && val.code != "null"
+            })
+            self.saveCard(JSON.stringify(e))
+          }
+          // self.saveCard(JSON.stringify(e))
         },
         complete: function (e) {
           // console.info(e)

@@ -16,28 +16,31 @@ function RestaurantGetCategoryByLocationCode() {
         } else {
             try {
             	sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [14, '下单前必看']);
+            	row = await query(sql, [15, '下单前必看']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [13, '全日套餐']);
+            	row = await query(sql, [14, '全日套餐']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [12, '甜品']);
+            	row = await query(sql, [13, '甜品']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [11, '苏打']);
+            	row = await query(sql, [12, '苏打']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [10, '果茶']);
+            	row = await query(sql, [11, '果茶']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [9, '夏季限定']);
+            	row = await query(sql, [10, '夏季限定']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [8, '意式咖啡']);
+            	row = await query(sql, [9, '意式咖啡']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [7, '手冲咖啡']);
+            	row = await query(sql, [8, '手冲咖啡']);
+
+            	sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [7, '咖啡特调']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
             	row = await query(sql, [6, '冰酿']);
