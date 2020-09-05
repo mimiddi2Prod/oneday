@@ -16,37 +16,110 @@ function RestaurantGetCategoryByLocationCode() {
         } else {
             try {
             	sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [11, '下单前必看']);
+            	row = await query(sql, [14, '下单前必看']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [10, '新春套餐']);
+            	row = await query(sql, [13, '全日套餐']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [9, '甜品']);
+            	row = await query(sql, [12, '甜品']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [8, '软饮']);
+            	row = await query(sql, [11, '苏打']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [7, '冰酿']);
+            	row = await query(sql, [10, '果茶']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [6, '意式咖啡']);
+            	row = await query(sql, [9, '夏季限定']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [5, '精品咖啡']);
+            	row = await query(sql, [8, '意式咖啡']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [4, 'Brunch早午餐']);
+            	row = await query(sql, [7, '手冲咖啡']);
 				
 				sql = "update restaurant_category set sort = ? where name = ?"
-            	row = await query(sql, [3, 'All Day全天供应']);
+            	row = await query(sql, [6, '冰酿']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [5, '热饮']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [4, '酒水']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [3, 'Brunch早午餐']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [2, 'All Day全天供应']);
+				
+				sql = "update restaurant_category set sort = ? where name = ?"
+            	row = await query(sql, [1, 'Dinner晚餐']);
 				
 				// sql = "update restaurant_category set sort = ? where name = ?"
             	// row = await query(sql, [3, 'Dinner晚餐']);
 				
 				sql = "update restaurant_goods set sort = ? where id in(?,?)"
             	row = await query(sql, [1, '377817133878507704','142572163614065663']);
+				
+				// 商品排序
+				// 早午餐
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [6, '仅在此时间段供应：10:00-15:00（其余时间请勿下单）']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [5, '牛油果鸡肉三明治']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [4, '大孔烟熏牛肉三明治']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [3, '大虾果泥可颂']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [2, 'Jolly晨餐拼盘']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [1, 'NYC美式全餐']);
+				// 全日供应
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [21, '手撕烤鸡沙拉']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [20, '意式水牛沙拉']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [19, '明太子辣味薯条']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [18, '松露薯条']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [17, '咸趣薯饼']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [16, '薄荷炸鱼柳']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [15, '避风坞炒鸡翼']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [14, 'jolly炸物拼盘']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [13, '辣拌海鲜&小卷饼']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [12, '香草红酱&饺子皮塔']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [11, '菌菇三重奏']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [10, '芝士焗土豆泥']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [9, '夏季青豆汤']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [8, '南瓜汤']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [7, '菌菇汤']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [6, '西班牙腊肠意面']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [5, '奶油蘑菇培根意面']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [4, '猪颈肉豆子拌饭']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [3, '手制汉堡咖哩饭']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [2, '香橙烟熏鸭胸']);
+				sql = "update restaurant_goods set sort = ? where name = ?"
+            	row = await query(sql, [1, '澳洲西冷牛排']);
 
                 sql = "select id,`name` from restaurant_category where location_code = ? order by sort desc";
                 row = await query(sql, param['location_code']);
