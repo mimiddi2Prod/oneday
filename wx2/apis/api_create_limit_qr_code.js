@@ -12,7 +12,7 @@ exports.run = async function (params) {
         if (!fs.existsSync(fileSrc)) {
             fs.mkdirSync(fileSrc);
         }
-        for (let i = 1; i <= 2; i++) {
+        for (let i = 101; i <= 150; i++) {
             wechatApi.api.createLimitQRCode(i, function (err, result) {
                 console.info(result)
                 var temp_qrcode = qr_image.image(result.url, {ec_level: 'H'})//设置容错率level为30%

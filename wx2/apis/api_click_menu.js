@@ -17,6 +17,10 @@ function send(param){
             url = './images/wanshang.jpg'
             break;
         }
+		case "item2_3":{
+            url = './images/kecheng.jpg'
+            break;
+        }
         case "item2_4":{
             url = './images/traffic.jpg'
             break;
