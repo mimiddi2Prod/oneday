@@ -99,6 +99,10 @@ Page({
 
   submitOrder: function () {
     let oet = wx.getStorageSync('order_expire_time')
+    if (oet < new Date().getTime()) {
+      wx.removeStorageSync('order_expire_time')
+      oet = ""
+    }
     if ((!oet.toString().length && Number(this.data.restaurantTableName) <= 8 && this.data.totalPrice < 160) ||
       (oet.toString().length && oet < new Date().getTime())) {
       wx.showModal({
