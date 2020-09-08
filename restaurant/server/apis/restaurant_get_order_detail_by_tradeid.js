@@ -25,7 +25,7 @@ function RestaurantGetOrderDetailByTradeid() {
 
                     if(row[0].restaurant_card_id){
                         sql = "select * from restaurant_card where id = ?";
-                        row = await query(sql, result[0].restaurant_card_id);
+                        row = await query(sql, row[0].restaurant_card_id);
 
                         sql = "select * from restaurant_card_info where card_id = ?";
                         row = await query(sql, row[0].card_id);

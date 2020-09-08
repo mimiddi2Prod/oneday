@@ -4,12 +4,12 @@
 function request(url, data = {}, method = "GET") {
   console.info('---postData:---')
   console.info(data)
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     wx.request({
       url: url,
       data: data,
       method: method,
-      success: function(res) {
+      success: function (res) {
         console.info('---success---')
         console.info(res)
         if (res.data.res.code == 0) {
@@ -28,10 +28,10 @@ function request(url, data = {}, method = "GET") {
 // 微信登录
 function login() {
   wx.login({
-    success: function(res) {
+    success: function (res) {
       request('http://127.0.0.1', data = {
         code: res.code
-      }, "post").then(function(res) {
+      }, "post").then(function (res) {
         console.info(res)
       })
     },
@@ -45,17 +45,18 @@ function pay(url, openid, money, coupon, order, method = 'get') {
   // console.info(money)
   // console.info(coupon)
   // console.info(order)
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     wx.request({
       url: url,
       data: {
         openid: openid,
         money: money,
         order: order,
-        coupon: coupon
+        coupon: coupon,
+        // test: true
       },
       method: method,
-      success: function(res) {
+      success: function (res) {
         console.info(res)
         if (res.data.data.addOrderStatus.code == 1) {
           wx.hideLoading()
@@ -76,19 +77,19 @@ function pay(url, openid, money, coupon, order, method = 'get') {
           'package': res.data.data.package,
           'signType': 'MD5',
           'paySign': res.data.data.paySign,
-          'success': function(res) {
+          'success': function (res) {
             console.info('---支付success返回---')
             console.info(res)
             resolve(tradeId)
           },
-          'fail': function(res) {
+          'fail': function (res) {
             console.info('---支付fail返回---')
             console.info(res)
             reject(tradeId)
           }
         });
       },
-      fail: function(res) {
+      fail: function (res) {
         wx.showModal({
           content: '请求错误',
         })
@@ -100,7 +101,7 @@ function pay(url, openid, money, coupon, order, method = 'get') {
 
 // 七牛云图片存储
 function qiniuUpload(data = {}) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     wx.uploadFile({
       url: 'https://up.qiniup.com/',
       filePath: data.tempFilePath,
@@ -109,7 +110,7 @@ function qiniuUpload(data = {}) {
         'key': data.key,
         'token': data.uploadToken
       },
-      success: function(res) {
+      success: function (res) {
         // console.info(res)
         if (res.statusCode == 200) {
           resolve(res.statusCode)

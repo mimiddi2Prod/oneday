@@ -386,6 +386,8 @@ Page({
     if (app.globalData.customerUid) {
       data.customerUid = app.globalData.customerUid
     }
+    // 优惠券
+    data.coupon = self.data.selcCardInfo
 
     server.request(api.addOrderByYinbaoBalance, data, "post").then(function (res) {
       console.info(res)
@@ -453,6 +455,14 @@ Page({
         reducePrice: this.data.totalPrice - app.globalData.selectCard.reduce_cost,
         selcCardInfo: app.globalData.selectCard
       })
+    } else {
+      this.setData({
+        // showCardUseInfo: "优惠" + app.globalData.selectCard.reduce_cost + "元",
+        // showCardUseInfo: app.globalData.selectCard.cash.base_info.title,
+        reducePrice: 0,
+        selcCardInfo: null
+      })
+      this.maxDiscount()
     }
   },
 
@@ -487,7 +497,7 @@ Page({
       minLeast = cardList[0],
       canUseNumber = 0
     for (let i in cardList) {
-      if (cardList[i].least_cost <= this.data.totalPrice) {
+      if (cardList[i].least_cost <= this.data.totalPrice && new Date() >= new Date(cardList[i].begin_time) && new Date() <= new Date(cardList[i].end_time)) {
         canUseNumber++
         if (!maxReduce) {
           maxReduce = cardList[i]
@@ -495,6 +505,12 @@ Page({
         maxReduce = cardList[i].reduce_cost > maxReduce.reduce_cost ? cardList[i] : maxReduce
       }
       minLeast = cardList[i].least_cost < minLeast.least_cost ? cardList[i] : minLeast
+    }
+    if (canUseNumber <= 0) {
+      this.setData({
+        showCardUseInfo: "暂无可使用优惠券"
+      })
+      return
     }
     if (!maxReduce) {
       this.setData({
@@ -513,7 +529,7 @@ Page({
   toCoupon: function () {
     if (!this.data.cardList) {
       wx.showModal({
-        content: '暂无和使用的优惠券',
+        content: '暂无可使用的优惠券',
         showCancel: false
       })
       return false

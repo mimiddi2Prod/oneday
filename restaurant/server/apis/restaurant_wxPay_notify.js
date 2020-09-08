@@ -52,6 +52,13 @@ function RestaurantWxPayNotify() {
                         eData.goodsParam = JSON.parse(eData.param)
                         return eData
                     })
+                    // 使用优惠券
+                    // param.totalAmount = totalPrice
+                    if (rowData[0].restaurant_card_id) {
+                        sql = "select cash from restaurant_card_info where card_id = (select card_id from restaurant_card where id = ?)"
+                        let c = await query(sql, rowData[0].restaurant_card_id)
+                        param.CouponTitle = typeof c[0].cash == "string" ? JSON.parse(c[0].cash).base_info.title : c[0].cash.base_info.title
+                    }
 
                     var yinbaoAddOrder = require("./yinbao_add_onLineOrder")
                     let AddOrderCall = await yinbaoAddOrder(param)
@@ -93,38 +100,40 @@ function RestaurantWxPayNotify() {
                      * 如果有使用优惠券，就进行核销
                      * select_card_id:数据库中用户领取优惠券的存储id restaurant_card:id
                      * */
-                    // let select_card_id = rowData[0].restaurant_card_id
-                    // sql = "update restaurant_card set trade_id = ? where id = ?"
-                    // row = await query(sql, [tradeId, select_card_id])
-                    //
-                    // sql = "select * from restaurant_card where id = ?"
-                    // row = await query(sql, select_card_id)
-                    //
-                    // var postDataJson = JSON.stringify({
-                    //     card_id: row[0].card_id,
-                    //     encrypt_code: row[0].code
-                    // })
-                    // var options = {
-                    //     host: '127.0.0.1',
-                    //     port: '9131',
-                    //     path: '/apis/consumeCard',
-                    //     method: 'POST',
-                    //     form: postDataJson,
-                    //     headers: {
-                    //         'Content-Type': 'application/json;charset=utf-8',
-                    //     },
-                    // }
-                    //
-                    // async function Call() {
-                    //     let e = await HttpPost(options, postDataJson)
-                    //     e = JSON.parse(e)
-                    //     console.info(e)
-                    //     // if (e.code == 0) {
-                    //     //     data.cardList = e.data
-                    //     // }
-                    // }
-                    //
-                    // await Call()
+                    if (rowData[0].restaurant_card_id) {
+                        let select_card_id = rowData[0].restaurant_card_id
+                        sql = "update restaurant_card set trade_id = ? where id = ?"
+                        row = await query(sql, [tradeId, select_card_id])
+
+                        sql = "select * from restaurant_card where id = ?"
+                        row = await query(sql, select_card_id)
+
+                        var postDataJson = JSON.stringify({
+                            card_id: row[0].card_id,
+                            encrypt_code: row[0].code
+                        })
+                        var options = {
+                            host: '127.0.0.1',
+                            port: '9131',
+                            path: '/apis/consumeCard',
+                            method: 'POST',
+                            form: postDataJson,
+                            headers: {
+                                'Content-Type': 'application/json;charset=utf-8',
+                            },
+                        }
+
+                        async function Call() {
+                            let e = await HttpPost(options, postDataJson)
+                            e = JSON.parse(e)
+                            console.info(e)
+                            // if (e.code == 0) {
+                            //     data.cardList = e.data
+                            // }
+                        }
+
+                        await Call()
+                    }
                 }
 
             }

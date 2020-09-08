@@ -20,7 +20,7 @@ Page({
     cardList = cardList.map(function(e) {
       e.begin_time = util.formatTime(new Date(e.begin_time))
       e.end_time = util.formatTime(new Date(e.end_time))
-      if (e.least_cost <= price) {
+      if (e.least_cost <= price && new Date() >= new Date(e.begin_time) && new Date() <= new Date(e.end_time)) {
         e.canUseCoupon = true
       } else {
         e.canUseCoupon = false

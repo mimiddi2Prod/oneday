@@ -38,6 +38,7 @@ function RestaurantGetHadCard() {
                     row = row.filter(function (e) {
                         let date_info = JSON.parse(e.cash).base_info.date_info
                         if (date_info.type == "DATE_TYPE_FIX_TIME_RANGE") {
+                            // 固定日期区间
                             return (new Date(date_info.begin_timestamp * 1000).getTime() < ctime && new Date(date_info.end_timestamp * 1000).getTime() > ctime)
                         } else {
                             return true

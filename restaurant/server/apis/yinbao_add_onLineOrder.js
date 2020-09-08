@@ -1,5 +1,8 @@
 // var db = require("./../utils/dba");
-// var tools = require("./../tool");
+var tools = require("./../tool");
+var tool = new tools;
+var query = tool.query;
+
 var appId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 var fm = require('./../utils/formatTime')
@@ -18,6 +21,7 @@ async function yinbaoAddOnLineOrder(data = {}) {
     // let deliveryType = data.style == 1 ? 0 : 1
     let deliveryType = 1
     let cart = []
+    // let totalAmount = "" // 余额使用，优惠券
     for (let i in data.cart) {
         let valueList = Object.values(data.cart[i].goodsParam)
         let comment = (valueList.length > 0 ? data.cart[i].number + '份' + function () {
@@ -33,6 +37,7 @@ async function yinbaoAddOnLineOrder(data = {}) {
             goodsPrice: data.cart[i].price,
             comment: comment
         })
+        // totalAmount += data.cart[i].number * data.cart[i].price
     }
     let newArr = []
     cart.forEach(el => {
@@ -90,6 +95,12 @@ async function yinbaoAddOnLineOrder(data = {}) {
                 "contactTel": "contactTel",
                 "items": items
             }
+            // if (data.totalAmount) {
+            //     postData.totalAmount = data.totalAmount
+            // }
+            if (data.CouponTitle) {
+                postData.orderRemark = postData.orderRemark + ' ' + data.CouponTitle
+            }
         } else if (data.payMethod == 'CustomerBalance') {
             postData = {
                 "appId": appId,
@@ -105,6 +116,15 @@ async function yinbaoAddOnLineOrder(data = {}) {
                 "contactName": "contactName",
                 "contactTel": "contactTel",
                 "items": items
+            }
+            if (data.coupon) {
+                // postData.orderSource = "openApi"
+                // postData.totalAmount = totalAmount - data.coupon.reduce_cost
+
+                let sql = "select cash from restaurant_card_info where card_id = (select card_id from restaurant_card where id = ?)"
+                let row = await query(sql, data.coupon.id)
+                let CouponTitle = typeof row[0].cash == "string" ? JSON.parse(row[0].cash).base_info.title : row[0].cash.base_info.title
+                postData.orderRemark = postData.orderRemark + ' ' + CouponTitle
             }
         }
 

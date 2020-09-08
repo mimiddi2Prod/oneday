@@ -43,6 +43,7 @@ Page({
           for (let i in arr_price) {
             eData.total_price += Number(arr_price[i]) * Number(arr_number[i])
           }
+          eData.total_price = eData.coupon ? eData.total_price - eData.coupon : eData.total_price
           eData.create_time = util.formatTime(new Date(eData.create_time))
           return eData
         })

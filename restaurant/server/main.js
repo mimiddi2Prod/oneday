@@ -24,7 +24,7 @@ http.createServer(function (req, res) {
         res.end();
         return;
     }
-    //var ext = path.extname(urls);    
+    //var ext = path.extname(urls);
     let postRaw = '';
     req.on('data', function (chunk) {
         postRaw += chunk;
@@ -32,6 +32,11 @@ http.createServer(function (req, res) {
             var wxPayNotify = require("./apis/restaurant_wxPay_notify")
             var work = new wxPayNotify()
             work.run(postRaw)
+        }
+        if (reqUrl == '/apis/restaurant_wxPay_notify_test') {
+            var wxPayNotifyTest = require("./apis/restaurant_wxPay_notify_test")
+            var works = new wxPayNotifyTest()
+            works.run(postRaw)
         }
     })
     req.on('end', function () {

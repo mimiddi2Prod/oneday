@@ -72,6 +72,7 @@ Page({
 
       // 优惠券
       if (res.card) {
+        res.card.cash = typeof res.card.cash == "string" ? JSON.parse(res.card.cash) : res.card.cash
         self.setData({
           card: res.card,
           discount_total_price: self.data.total_price - (res.card.cash.reduce_cost / 100)
