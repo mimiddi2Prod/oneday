@@ -182,6 +182,15 @@ Page({
         })
         return
       }
+      // 余额支付不可使用优惠券
+      if (self.data.selcCardInfo) {
+        wx.showModal({
+          title: '支付失败',
+          content: '余额支付不可使用优惠券',
+          showCancel: false
+        })
+        return
+      }
     }
 
     wx.showLoading({
@@ -462,7 +471,9 @@ Page({
         reducePrice: 0,
         selcCardInfo: null
       })
-      this.maxDiscount()
+      if (this.data.cardList) {
+        this.maxDiscount()
+      }
     }
   },
 

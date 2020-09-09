@@ -153,6 +153,7 @@ Page({
   },
 
   onShow: function () {
+    app.globalData.selectCard = null
     this.setData({
       point: app.globalData.point,
       balance: app.globalData.balance,
