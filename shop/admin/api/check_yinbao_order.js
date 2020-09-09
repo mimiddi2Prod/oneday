@@ -49,8 +49,8 @@ function getOrder(data) {
             //     sql = 'update yinbao_order_sellprice set total_price = ?'
             //     row = db.Query(sql, sellprice)
             // } else {
-                sql = 'insert into yinbao_order_sellprice (total_price,start_time,end_time)values(?,?,?)'
-                row = db.Query(sql, [day_sellprice, data.start_time, data.end_time])
+            sql = 'insert into yinbao_order_sellprice (total_price,start_time,end_time)values(?,?,?)'
+            row = db.Query(sql, [day_sellprice, data.start_time, data.end_time])
             // }
 
         }
@@ -62,6 +62,23 @@ function getOrder(data) {
         } else {
             sql = "update yinbao_update_time set last_update_time = ?"
             row = db.Query(sql, data.end_time)
+
+            // 拉取完银豹数据后，计算我放使用优惠券情况
+            // 1.拉取我方数据库中，前一天的有效订单
+            sql = "select * from restaurant_goods_order where create_time >= ? and create_time <= ? and pay_status = 0 and restaurant_card_id is not null"
+            row = db.Query(sql, [data.start_time, data.end_time])
+            let day_coupon = 0
+            row.then(function (eData) {
+                if (eData.length > 0) {
+                    for (let i in eData) {
+                        day_coupon += eData[i].coupon
+                    }
+                    day_coupon = -day_coupon
+
+                    sql = 'insert into yinbao_order_sellprice (total_price,start_time,end_time)values(?,?,?)'
+                    row = db.Query(sql, [day_coupon, data.start_time, data.end_time])
+                }
+            })
         }
 
     })
