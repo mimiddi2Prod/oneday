@@ -26,24 +26,29 @@ function RestaurantGetHadCard() {
                 row = await tool.query(sql, param["openid"])
                 let myCard = row
                 if (myCard.length > 0) {
-                    let myCardIdList = myCard.map(function (fn) {
+                    let myCardIdList = myCard.filter(val => {
+                        // 去除已过期不可用的优惠券
+                        return new Date(val.end_time) >= new Date()
+                    }).map(function (fn) {
                         return fn.card_id
                     })
-                    let ctime = new Date()
-                    // console.info(current_time)
+                    // let myCardIdList = myCard.map(function (fn) {
+                    //     return fn.card_id
+                    // })
+                    // let ctime = new Date()
                     sql = "select * from restaurant_card_info where card_id in (?)"
                     row = await tool.query(sql, [myCardIdList.map(function (e) {
                         return e
                     })])
-                    row = row.filter(function (e) {
-                        let date_info = JSON.parse(e.cash).base_info.date_info
-                        if (date_info.type == "DATE_TYPE_FIX_TIME_RANGE") {
-                            // 固定日期区间
-                            return (new Date(date_info.begin_timestamp * 1000).getTime() < ctime && new Date(date_info.end_timestamp * 1000).getTime() > ctime)
-                        } else {
-                            return true
-                        }
-                    })
+                    // row = row.filter(function (e) {
+                    //     let date_info = JSON.parse(e.cash).base_info.date_info
+                    //     if (date_info.type == "DATE_TYPE_FIX_TIME_RANGE") {
+                    //         // 固定日期区间
+                    //         return (new Date(date_info.begin_timestamp * 1000).getTime() < ctime && new Date(date_info.end_timestamp * 1000).getTime() > ctime)
+                    //     } else {
+                    //         return true
+                    //     }
+                    // })
                     for (let i in row) {
                         let cash = JSON.parse(row[i].cash)
                         let base_info = cash.base_info

@@ -34,11 +34,21 @@ function CCSGetCouponCard() {
                 // console.info(row)
                 if (row.length > 0) {
                     let current_time = new Date().getTime() / 1000
+                    // let card_id = row.filter(function (e) {
+                    //     e.cash = JSON.parse(e.cash)
+                    //     if (e.cash.base_info.date_info.type == 'DATE_TYPE_FIX_TIME_RANGE') {
+                    //         return (current_time >= e.cash.base_info.date_info.begin_timestamp && current_time <= e.cash.base_info.date_info.end_timestamp)
+                    //     } else {
+                    //         return true
+                    //     }
+                    // }).map(function (e) {
+                    //     return e.card_id
+                    // })
                     let card_id = row.filter(function (e) {
-                        e.cash = JSON.parse(e.cash)
-                        // console.info(e.cash)
+                        e.cash = typeof e.cash == "string" ? JSON.parse(e.cash) : e.cash
                         if (e.cash.base_info.date_info.type == 'DATE_TYPE_FIX_TIME_RANGE') {
-                            return (current_time >= e.cash.base_info.date_info.begin_timestamp && current_time <= e.cash.base_info.date_info.end_timestamp)
+                            // 只要固定日期最后使用时间还没过，就可以领
+                            return current_time <= e.cash.base_info.date_info.end_timestamp
                         } else {
                             return true
                         }
