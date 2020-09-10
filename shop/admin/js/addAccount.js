@@ -24,7 +24,7 @@ var addAccountVM = new Vue({
     },
     methods: {
         checkedCate: function (id) {
-            console.info(addAccountVM.categoryList)
+            // console.info(addAccountVM.categoryList)
             for (let i in addAccountVM.categoryList) {
                 if (addAccountVM.categoryList[i].id == id) {
                     addAccountVM.categoryList[i].menu = addAccountVM.categoryList[i].menu.map(function (eData) {
@@ -140,7 +140,7 @@ function getBrand() {
     const url = api.getBrand, async = true
     let data = {}
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         for (let i in res) {
             res[i].checked = false
         }
@@ -163,7 +163,7 @@ function addAccount(state) {
     data.waterfall = addAccountVM.waterfall ? 1 : 0
 
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.text == '添加成功') {
             alert('添加成功')
             if (state == 1) {

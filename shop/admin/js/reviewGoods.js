@@ -14,7 +14,7 @@ var reviewVM = new Vue({
     methods: {
         // 删除按钮弹窗
         delReview: function (index) {
-            console.info(index)
+            // console.info(index)
             const body = this.reviewList[index].text
             this.del_review_id = this.reviewList[index].id
             $('#myModal').on('show.bs.modal', function () {
@@ -32,7 +32,7 @@ var reviewVM = new Vue({
             data.best_review_id = this.goodsInfo.review_id
             data.item_id = this.goodsInfo.item_id
             server(url, data, async, "post", function (res) {
-                console.info(res)
+                // console.info(res)
                 if (res.text == '删除成功') {
                     sessionStorage.setItem('goods_review', JSON.stringify(res.goodsInfo))
                     self.goodsInfo = res.goodsInfo
@@ -58,8 +58,8 @@ var reviewVM = new Vue({
             server(url, data, async, "post", function (res) {
                 if (res.text == '更改成功') {
                     self.review_id = ''
-                    console.info(self.goodsInfo.item_id)
-                    console.info(self.goodsInfo.review_id)
+                    // console.info(self.goodsInfo.item_id)
+                    // console.info(self.goodsInfo.review_id)
                     getReview(self.goodsInfo.item_id, self.goodsInfo.review_id)
                 }
             })
@@ -104,7 +104,7 @@ function getReview(item_id, review_id) {
     data.item_id = item_id
     data.review_id = review_id
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (!res.reviewList && res.number > 0) {
             location.reload()
             return

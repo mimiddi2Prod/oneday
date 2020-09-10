@@ -160,7 +160,7 @@ function getOrder() {
 
 $(document).ready(function () {
     let navId = sessionStorage.getItem('orderNav')
-    console.info(navId)
+    // console.info(navId)
     if (navId == 0 || navId == 3) {
         orderVM.navId = Number(navId)
     } else {
@@ -208,10 +208,10 @@ function getOrderBySearch() {
     data.end_time = end_time
     data.tradeId_or_logistics = orderVM.tradeId_or_logistics
     data.userName_or_phone = orderVM.userName_or_phone
-    console.info(data)
+    // console.info(data)
 
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.list && res.list.length > 0) {
             res.list = res.list.map(function (eData) {
                 if (new Date() - new Date(eData.create_time) < 60 * 60 * 1000) {

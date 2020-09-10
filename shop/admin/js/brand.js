@@ -91,7 +91,7 @@ function getBrand() {
     data.state = brandVM.navId
     // data.type = brandVM.navIdnavId
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.number > 0) {
             res.brandList.map(function (fn) {
                 fn.create_time = formatTime(new Date(fn.create_time))

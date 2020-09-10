@@ -231,7 +231,7 @@ function getCategory() {
     let data = {}
     data.last_id = categoryVM.last_id
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.number > 0) {
             res.sortList.map(function (fn) {
                 fn.create_time = formatTime(new Date(fn.create_time))
@@ -299,7 +299,7 @@ function updateCategorySort(id, sort) {
     data.id = id
     data.sort = sort
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.code == 0) {
             getCategory()
         }

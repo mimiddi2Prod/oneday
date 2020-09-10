@@ -138,7 +138,7 @@ function updateAd(id, sort) {
     data.id = id
     data.sort = sort
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.code == 0) {
             getAd()
         }

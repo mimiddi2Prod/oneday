@@ -98,7 +98,7 @@ var goodsVM = new Vue({
             this.navId = index
             this.last_id = 0
             // state -1全部 0在售 1售罄 2下架
-            console.info(index)
+            // console.info(index)
             if (index == 0) {
                 this.goods_state = -1
             } else if (index == 1) {
@@ -114,7 +114,7 @@ var goodsVM = new Vue({
             this.navTwoId = index
             this.last_id = 0
             // state -1全部 0在售 1售罄 2下架
-            console.info(index)
+            // console.info(index)
             if (index == 0) {
                 this.need_integral = 0
             } else if (index == 1) {
@@ -230,7 +230,7 @@ var goodsVM = new Vue({
                 fn.price_max = temp
                 return fn.checked
             })
-            console.info(this.previewGoodsPrice)
+            // console.info(this.previewGoodsPrice)
         },
         submitPrice: function () {
             if ((this.choose_type == 1 && !this.calc_number_one) || (this.choose_type == 2 && !this.calc_number_two)) {
@@ -472,7 +472,7 @@ function updateGoodsState(id_list, state) {
     let data = {}
     data.goods_id_list = id_list
     data.state = state
-    console.info(data)
+    // console.info(data)
     server(url, data, async, "post", function (res) {
         // console.info(res)
         if (res == '更新商品状态成功') {
@@ -506,7 +506,7 @@ function getGoods() {
         url = api.getGoodsByCate
     }
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.number > 0) {
             res.list = res.list.map(function (resData) {
                 resData.price = Number(resData.price).toFixed(2)
@@ -556,7 +556,7 @@ function updateGoodsCategory(goods_id_list, category_id) {
     data.goods_id_list = goods_id_list
     data.category_id = category_id
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.text == '编辑成功') {
             getGoods()
             // getCategory(0, 0)
@@ -571,7 +571,7 @@ function updateGoodsPrice(goods_list) {
     let data = {}
     data.goods_list = goods_list
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.text == '编辑成功') {
             getGoods()
             goodsVM.checkboxAll = false

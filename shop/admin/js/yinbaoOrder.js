@@ -31,8 +31,8 @@ var yinbaoOrderVM = new Vue({
 
             let end_time = eyear + '-' + (emonth + 1) + '-' + etoday + ' 00:00:00'
             let start_time = oyear + '-' + (omonth + 1) + '-' + otoday + ' 00:00:00'
-            console.info(end_time)
-            console.info(start_time)
+            // console.info(end_time)
+            // console.info(start_time)
             getToday(start_time, end_time)
         }
     }

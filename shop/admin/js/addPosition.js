@@ -89,7 +89,7 @@ function addPosition(state) {
     data.order_update_price = Number(!addPositionVM.order_update_price)
     data.order_refund = Number(!addPositionVM.order_refund)
     data.order_other = Number(!addPositionVM.order_other)
-    console.info(data)
+    // console.info(data)
     server(url, data, "post", function (res) {
         if (res.text == '添加成功') {
             alert('添加成功')

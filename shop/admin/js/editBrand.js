@@ -133,7 +133,7 @@ $(document).ready(function () {
 
 function getCurrentBrandInfo() {
     let current_brand_List = JSON.parse(sessionStorage.getItem('editBrand'))[0]
-    console.info('获取当前商品数据\n' + JSON.stringify(current_brand_List))
+    // console.info('获取当前商品数据\n' + JSON.stringify(current_brand_List))
     if (current_brand_List.image.length > 0) {
         editBrandVM.imageList.push({
             tempFilePath: current_brand_List.image

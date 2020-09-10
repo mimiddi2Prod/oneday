@@ -84,7 +84,7 @@ var editRecommendVM = new Vue({
                 alert('请填写广告描述')
                 return
             }
-            console.info(this.sort)
+            // console.info(this.sort)
             if (this.sort.toString() == '') {
                 alert('请填写排序')
                 return
@@ -166,7 +166,7 @@ function getCategory(type, parent_id) {
 
 function getCurrentAdInfo() {
     let current_ad_List = JSON.parse(sessionStorage.getItem('editRecoList'))[0]
-    console.info('获取当前商品数据\n' + JSON.stringify(current_ad_List))
+    // console.info('获取当前商品数据\n' + JSON.stringify(current_ad_List))
     if (current_ad_List.image.length > 0) {
         editRecommendVM.imageList.push({
             tempFilePath: current_ad_List.image

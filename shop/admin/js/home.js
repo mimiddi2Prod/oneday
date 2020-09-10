@@ -174,7 +174,7 @@ function getSales(time) {
     data.start_time = new Date(new Date(start_time).getTime() - (24 * 60 * 60 *1000))
     data.end_time = new Date(new Date(end_time).getTime())
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         // homeVM.sales = res.number
         start_time = start_time.getTime() - (24 * 60 * 60 *1000)
         end_time = end_time.getTime()
@@ -314,7 +314,7 @@ function getPeople(time) {
     data.end_time = end_time
     server(url, data, async, "post", function (res) {
         homeVM.people_total = res.total
-        console.info(res)
+        // console.info(res)
         // homeVM.sales = res.number
         start_time = start_time.getTime()
         end_time = end_time.getTime()
@@ -460,7 +460,7 @@ function getPeopleShop(time) {
     data.end_time = end_time
     server(url, data, async, "post", function (res) {
         homeVM.people_shop_total = res.total
-        console.info(res)
+        // console.info(res)
         // homeVM.sales = res.number
         start_time = start_time.getTime()
         end_time = end_time.getTime()

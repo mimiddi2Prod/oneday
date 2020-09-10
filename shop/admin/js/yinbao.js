@@ -20,7 +20,7 @@ var yinbaoVM = new Vue({
             const url = '../api/yinbao_update_data', async = true
             let data = {}
             server(url, data, async, "post", function (res) {
-                console.info(res)
+                // console.info(res)
                 if (res.code == 1) {
                     //影藏
                     $('#myModal').modal('hide');
@@ -29,9 +29,9 @@ var yinbaoVM = new Vue({
             })
         },
         updateRefund: function (day, refund) {
-            console.info(refund)
+            // console.info(refund)
             let time = this.year + '-' + this.month + '-' + day
-            console.info(time)
+            // console.info(time)
 
             const url = '../api/yinbao_record_refund', async = true
             let data = {}
@@ -46,7 +46,7 @@ var yinbaoVM = new Vue({
             const url = '../api/yinbao_get_API_access_times', async = true
             let data = {}
             server(url, data, async, "post", function (res) {
-                console.info(res)
+                // console.info(res)
                 if (res.code == 1) {
                     self.accessTimesData = res.data
                 }
@@ -131,7 +131,7 @@ function getYinbaoRefund(year, month) {
     data.start_time = year + '-' + month + '-1'
     data.end_time = year + '-' + Number(month + 1) + '-1'
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.length > 0) {
             for (let i in res) {
                 for (let j in yinbaoVM.dayList) {

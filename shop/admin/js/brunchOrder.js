@@ -58,7 +58,7 @@ function getSales(start_time, end_time) {
     data.start_time = start_time
     data.end_time = end_time
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.code == 0) {
             brunchOrderVM.total = res.total.map(function (eData) {
                 // 格式化时间

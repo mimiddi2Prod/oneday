@@ -36,7 +36,7 @@ function getUser() {
     let data = {}
     data.last_id = customerVM.last_id
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.number > 0) {
             res.userList.map(function (fn) {
                 fn.register_time = formatTime(new Date(fn.register_time))

@@ -20,7 +20,7 @@ var menuVM = new Vue({
                 data.user_id = sessionStorage.getItem('user_id')
             }
             server(url, data, async, "post", function (res) {
-                console.info(res)
+                // console.info(res)
                 self.menu = res.menu
             })
         },

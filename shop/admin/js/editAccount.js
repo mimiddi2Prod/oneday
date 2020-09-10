@@ -25,7 +25,7 @@ var editAccountVM = new Vue({
     },
     methods: {
         checkedCate: function (id) {
-            console.info(editAccountVM.categoryList)
+            // console.info(editAccountVM.categoryList)
             for (let i in editAccountVM.categoryList) {
                 if (editAccountVM.categoryList[i].id == id) {
                     editAccountVM.categoryList[i].menu = editAccountVM.categoryList[i].menu.map(function (eData) {
@@ -217,7 +217,7 @@ function updateAccount(state) {
     data.waterfall = editAccountVM.waterfall ? 1 : 0
 
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.text == '编辑成功') {
             alert('编辑成功')
             if (state == 1) {

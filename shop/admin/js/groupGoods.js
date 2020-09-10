@@ -137,7 +137,7 @@ function getGroup() {
     data.last_id = groupVM.last_id
     data.state = groupVM.navId
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.number > 0) {
             res.list = res.list.map(function (resData) {
                 resData.price = Number(resData.price).toFixed(2)

@@ -128,7 +128,7 @@ function getaccount() {
     data.last_id = accountVM.last_id
     data.position_id = accountVM.position_id
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.number > 0) {
             // res.accountList.map(function (fn) {
             //     fn.create_time = formatTime(new Date(fn.create_time))
@@ -145,12 +145,12 @@ function getaccount() {
 }
 
 function delaccount() {
-    console.info(accountVM.del_id)
+    // console.info(accountVM.del_id)
     const url = api.delAccount, async = true
     let data = {}
     data.del_id = accountVM.del_id
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.code == 0) {
             alert('删除成功')
             location.reload()

@@ -204,7 +204,7 @@ function getCard() {
     let data = {}
     // data.last_id = categoryVM.last_id
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.number > 0) {
             res.cardList.map(function (fn) {
                 fn.create_time = formatTime(new Date(fn.create_time))
@@ -216,7 +216,7 @@ function getCard() {
                 return fn
             })
             couponVM.cardList = res.cardList
-            console.info(res.cardList)
+            // console.info(res.cardList)
             // 分页栏
             // for (let i = 0; i < res.number / 5; i++) {
             //     categoryVM.pageList.push(i + 1)
@@ -230,7 +230,7 @@ function addCard() {
     let data = {}
     data.card_id = couponVM.card_id
     server(url, data, async, "post", function (res) {
-        console.info(res)
+        // console.info(res)
         if (res.code) {
             alert(res.text)
             window.location.reload()

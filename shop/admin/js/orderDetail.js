@@ -37,7 +37,7 @@ var orderDetailVM = new Vue({
             data.after_sale_state = 6
             // console.info(data)
             server(url, data, async, "post", function (res) {
-                console.info(res)
+                // console.info(res)
                 if (res.code == 0) {
                     // 售后完成
                     alert(res.text)
@@ -101,7 +101,7 @@ function cutIntegral(refund, user_id) {
     data.integral = parseInt(refund)
     data.user_id = user_id
     data.state = 1 // 0 增加 1 减少
-    console.info(data)
+    // console.info(data)
     server(url, data, async, "post", function (res) {
         // console.info(res)
     })

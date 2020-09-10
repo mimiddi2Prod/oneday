@@ -528,13 +528,13 @@ var editGoodsVM = new Vue({
         // 批量改价
         batchChangePrice: function () {
             let self = this
-            console.info(this.sizeAndPrice)
-            console.info(this.SortItem)
+            // console.info(this.sizeAndPrice)
+            // console.info(this.SortItem)
             self.sizeAndPrice = self.sizeAndPrice.map(function (eData) {
                 eData.price = Number(self.batchPrice)
                 let tag = 'paramPrice_'
                 let id = tag + eData.param_1 + '_' + eData.param_2
-                console.info(id)
+                // console.info(id)
                 document.getElementById(id).value = Number(self.batchPrice)
                 return eData
             })
@@ -686,7 +686,7 @@ var editGoodsVM = new Vue({
                                 // flag 图片上传完毕之后才提交
                                 flag++
                                 if (flag == keyNum) {
-                                    console.info('上传完毕')
+                                    // console.info('上传完毕')
                                     imgUploadIsOkNum = imgUploadIsOkNum + 1
                                 }
                             })
@@ -694,7 +694,7 @@ var editGoodsVM = new Vue({
                     }
                 } else {
                     imgUploadIsOkNum = imgUploadIsOkNum + 1
-                    console.info('imgList没有新图片')
+                    // console.info('imgList没有新图片')
                 }
             }
             for (let i in this.SortItem) {
@@ -712,7 +712,7 @@ var editGoodsVM = new Vue({
                                     // flag 图片上传完毕之后才提交
                                     flag++
                                     if (flag == keyNum) {
-                                        console.info('上传完毕')
+                                        // console.info('上传完毕')
                                         imgUploadIsOkNum = imgUploadIsOkNum + 1
                                     }
                                 })
@@ -720,7 +720,7 @@ var editGoodsVM = new Vue({
                         }
                     } else {
                         imgUploadIsOkNum = imgUploadIsOkNum + 1
-                        console.info('SortItem没有新图片')
+                        // console.info('SortItem没有新图片')
                     }
                 }
             }
@@ -738,7 +738,7 @@ var editGoodsVM = new Vue({
                                 // flag 图片上传完毕之后才提交
                                 flag++
                                 if (flag == keyNum) {
-                                    console.info('上传完毕')
+                                    // console.info('上传完毕')
                                     imgUploadIsOkNum = imgUploadIsOkNum + 1
                                 }
                             })
@@ -775,7 +775,7 @@ $(document).ready(function () {
 
 function getCurrentGoodsInfo() {
     let current_goods_List = JSON.parse(sessionStorage.getItem('editGoods'))[0]
-    console.info('获取当前商品数据\n' + JSON.stringify(current_goods_List))
+    // console.info('获取当前商品数据\n' + JSON.stringify(current_goods_List))
     if (current_goods_List.image.length > 0) {
         current_goods_List.image.map(function (res) {
             editGoodsVM.imgList.push({
