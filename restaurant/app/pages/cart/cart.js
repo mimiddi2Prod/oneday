@@ -160,6 +160,15 @@ Page({
 
     // 余额支付的话 先检查是否有绑定会员卡/余额是否足够
     if (payMethod == 1) {
+      // 余额支付不可使用优惠券
+      if (self.data.selcCardInfo) {
+        wx.showModal({
+          title: '支付失败',
+          content: '余额支付不可使用优惠券',
+          showCancel: false
+        })
+        return
+      }
       if (!app.globalData.isCustomer) {
         wx.showModal({
           title: '支付失败',
@@ -178,15 +187,6 @@ Page({
         wx.showModal({
           title: '支付失败',
           content: '会员卡余额不足，请前往前台充值',
-          showCancel: false
-        })
-        return
-      }
-      // 余额支付不可使用优惠券
-      if (self.data.selcCardInfo) {
-        wx.showModal({
-          title: '支付失败',
-          content: '余额支付不可使用优惠券',
           showCancel: false
         })
         return
@@ -471,6 +471,8 @@ Page({
         reducePrice: 0,
         selcCardInfo: null
       })
+      // 用于在优惠券页面，取消已选优惠券返回该页面是
+      // 对优惠券显示标题进行重新计算显示
       if (this.data.cardList) {
         this.maxDiscount()
       }
@@ -502,41 +504,102 @@ Page({
   },
 
   // 计算出优惠券最优使用
+  // maxDiscount: function () {
+  //   let maxReduce = null,
+  //     cardList = this.data.cardList,
+  //     minLeast = cardList[0],
+  //     canUseNumber = 0
+  //   for (let i in cardList) {
+  //     if (cardList[i].least_cost <= this.data.totalPrice && new Date() >= new Date(cardList[i].begin_time) && new Date() <= new Date(cardList[i].end_time)) {
+  //       canUseNumber++
+  //       if (!maxReduce) {
+  //         maxReduce = cardList[i]
+  //       }
+  //       maxReduce = cardList[i].reduce_cost > maxReduce.reduce_cost ? cardList[i] : maxReduce
+  //     }
+  //     minLeast = cardList[i].least_cost < minLeast.least_cost ? cardList[i] : minLeast
+  //   }
+  //   if (canUseNumber <= 0) {
+  //     this.setData({
+  //       showCardUseInfo: "暂无可使用优惠券"
+  //     })
+  //     return
+  //   }
+  //   if (!maxReduce) {
+  //     this.setData({
+  //       showCardUseInfo: "差" + (minLeast.least_cost - this.data.totalPrice) + "元即可减免" + (minLeast.reduce_cost) + "元"
+  //     })
+  //   } else {
+  //     this.setData({
+  //       showCardUseInfo: "可用" + canUseNumber + "张",
+  //       // showCardUseInfo: "优惠" + maxReduce.reduce_cost + "元",
+  //       // reducePrice: this.data.totalPrice - maxReduce.reduce_cost,
+  //       // selcCardInfo: maxReduce
+  //     })
+  //   }
+  // },
+  /**
+   * 1.先筛选出 cardList 里面在可用时间范围内的
+   * 2.对购物车总价与每一张在时间范围内的卡券做最低要求消费对比
+   *    如果在要求消费线内，即计数可用卡券数量 canUseNumber
+   *    如果不在消费范围内，则比较出最低消费线，用于提示用户 “差x元即可减免y元”
+   * 
+   */
   maxDiscount: function () {
-    let maxReduce = null,
-      cardList = this.data.cardList,
-      minLeast = cardList[0],
+    // let maxReduce = null,
+    let cardList = this.data.cardList,
+      minLeast = null,
       canUseNumber = 0
     for (let i in cardList) {
-      if (cardList[i].least_cost <= this.data.totalPrice && new Date() >= new Date(cardList[i].begin_time) && new Date() <= new Date(cardList[i].end_time)) {
-        canUseNumber++
-        if (!maxReduce) {
-          maxReduce = cardList[i]
+      if (new Date() >= new Date(cardList[i].begin_time) && new Date() <= new Date(cardList[i].end_time)) {
+        if (cardList[i].least_cost <= this.data.totalPrice) {
+          canUseNumber++
+        } else {
+          // if (!maxReduce) {
+          //   maxReduce = cardList[i]
+          // }
+          if (!minLeast) {
+            minLeast = cardList[i]
+          }
+          // maxReduce = cardList[i].reduce_cost > maxReduce.reduce_cost ? cardList[i] : maxReduce
+          minLeast = cardList[i].least_cost < minLeast.least_cost ? cardList[i] : minLeast
         }
-        maxReduce = cardList[i].reduce_cost > maxReduce.reduce_cost ? cardList[i] : maxReduce
       }
-      minLeast = cardList[i].least_cost < minLeast.least_cost ? cardList[i] : minLeast
     }
-    if (canUseNumber <= 0) {
+
+    /**
+     * 如果有可用优惠券直接显示可用几张，
+     * 否则如果没有可用数量，但是在日期内有优惠券，则显示 "差x元即可减免y元"
+     * 即没有可用，又没有在日期内消费线外的卡券，显示 "暂无可使用优惠券"
+     */
+    if (canUseNumber > 0) {
       this.setData({
-        showCardUseInfo: "暂无可使用优惠券"
+        showCardUseInfo: "可用" + canUseNumber + "张",
       })
-      return
-    }
-    if (!maxReduce) {
+    } else if (minLeast) {
+      // 从最低消费要求里面，选出折扣最多的
+      for (let i in cardList) {
+        if (new Date() >= new Date(cardList[i].begin_time) && new Date() <= new Date(cardList[i].end_time)) {
+          if (cardList[i].least_cost == minLeast.least_cost && cardList[i].reduce_cost > minLeast.reduce_cost) {
+            minLeast = cardList[i]
+          }
+        }
+      }
       this.setData({
         showCardUseInfo: "差" + (minLeast.least_cost - this.data.totalPrice) + "元即可减免" + (minLeast.reduce_cost) + "元"
       })
     } else {
       this.setData({
-        showCardUseInfo: "可用" + canUseNumber + "张",
-        // showCardUseInfo: "优惠" + maxReduce.reduce_cost + "元",
-        // reducePrice: this.data.totalPrice - maxReduce.reduce_cost,
-        // selcCardInfo: maxReduce
+        showCardUseInfo: "暂无可使用优惠券"
       })
     }
   },
 
+  /**
+   * 由于去除了过期的优惠券，
+   * 所以拿到的优惠券数据必然实在有效区间内的
+   * 所以能跳转页面的情况下，cardList是必然有数量的
+   */
   toCoupon: function () {
     if (!this.data.cardList) {
       wx.showModal({
