@@ -31,7 +31,7 @@ Page({
     // 优化 可以使用的优惠券置顶
     cardList.sort(sortCanUse)
     function sortCanUse(a, b) {
-      return !a.canUseCoupon && b.canUseCoupon
+      return b.canUseCoupon - a.canUseCoupon
     }
     this.setData({
       cardList: cardList,
