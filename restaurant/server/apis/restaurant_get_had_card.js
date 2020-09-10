@@ -50,7 +50,7 @@ function RestaurantGetHadCard() {
                     //     }
                     // })
                     for (let i in row) {
-                        let cash = JSON.parse(row[i].cash)
+                        let cash = typeof row[i].cash == "string" ? JSON.parse(row[i].cash) : row[i].cash
                         let base_info = cash.base_info
                         for (let j in myCard) {
                             if (myCard[j].card_id == base_info.id) {

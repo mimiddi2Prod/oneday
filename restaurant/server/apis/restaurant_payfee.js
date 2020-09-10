@@ -22,7 +22,7 @@ function RestaurantPayfee() {
                 // payData.total_fee = param['money'] * 100
                 // 改动 根据优惠情况计算 param["coupon"] null/object
                 payData.total_fee = param["coupon"] ? (param['money'] - param["coupon"].reduce_cost) * 100 : param['money'] * 100
-
+                payData.total_fee = Math.round(payData.total_fee * 100) / 100
                 // todo test
                 if (param["test"]) {
                     var payfee = require("./../utils/wxpay_test");
@@ -44,6 +44,7 @@ function RestaurantPayfee() {
                     data.addOrderStatus = callback
 
                 }
+
                 await Call()
 
             } catch (err) {
