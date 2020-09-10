@@ -17,6 +17,9 @@ var addBrunchBannerVM = new Vue({
         }, {
             id: 2,
             name: '无事件'
+        }, {
+            id: 3,
+            name: '代金券入口'
         }],
         adSelect: 0
     },
@@ -101,6 +104,8 @@ function addAdvertisement(status) {
         data.name = '跳转客服'
     } else if (data.type == 2) {
         data.name = '无事件'
+    } else if (data.type == 3) {
+        data.name = '代金券入口'
     }
     // data.name = data.type == 0 ? addBrunchBannerVM.goodsList.filter(function (eData) {
     //     return eData.id == data.goods_id
