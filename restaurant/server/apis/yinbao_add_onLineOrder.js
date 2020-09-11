@@ -31,6 +31,13 @@ async function yinbaoAddOnLineOrder(data = {}) {
             }
             return temp
         }() : '')
+        /**
+         * 这块判断只单独针对168元套餐打印描述部分
+         */
+        if (data.cart[i].goodsId == "825780101831397651") {
+            comment = data.cart[i].describe
+        }
+
         cart.push({
             goodsId: data.cart[i].goodsId,
             goodsNumber: data.cart[i].number,

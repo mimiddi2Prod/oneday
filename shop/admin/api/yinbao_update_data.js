@@ -1,8 +1,56 @@
 var db = require("./../utils/dba");
 var appId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
-var jsonBigInt = require('json-bigint')({"storeAsString": true});
+var jsonBigInt = require('json-bigint')({"storeAsString": true});
 
+const subCateSort = [
+    {"name": '下单前必看', "sort": 15, "id": "1569869512395692333"},
+    {"name": '全日套餐', "sort": 14, "id": "1594283188415108183"},
+    {"name": '甜品', "sort": 13, "id": "1568275399601392239"},
+    {"name": '苏打', "sort": 12, "id": "1568279585429681103"},
+    {"name": '果茶', "sort": 11, "id": "1588180180862946560"},
+    {"name": '夏季限定', "sort": 10, "id": "1588180137523421765"},
+    {"name": '意式咖啡', "sort": 9, "id": "1578710652581467865"},
+    {"name": '手冲咖啡', "sort": 8, "id": "1578710715068922686"},
+    {"name": '咖啡特调', "sort": 7, "id": "1593231144526239701"},
+    {"name": '冰酿', "sort": 6, "id": "1578727942468338965"},
+    {"name": '热饮', "sort": 5, "id": "1588180185064710012"},
+    {"name": '酒水', "sort": 4, "id": "1579447782571865752"},
+    {"name": 'Brunch早午餐', "sort": 3, "id": "1568298367465952365"},
+    {"name": 'All Day全天供应', "sort": 2, "id": "1578711812465842988"},
+    {"name": 'Dinner晚餐', "sort": 1}
+]
+const goods = [
+    // 早午餐
+    {"name": "仅在此时间段供应：10:00-15:00（其余时间请勿下单）", "sort": 6},
+    {"name": "牛油果鸡肉三明治", "sort": 5},
+    {"name": "大孔烟熏牛肉三明治", "sort": 4},
+    {"name": "大虾果泥可颂", "sort": 3},
+    {"name": "Jolly晨餐拼盘", "sort": 2},
+    {"name": "NYC美式全餐", "sort": 1},
+    // 全日供应
+    {"name": "手撕烤鸡沙拉", "sort": 21},
+    {"name": "意式水牛沙拉", "sort": 20},
+    {"name": "明太子辣味薯条", "sort": 19},
+    {"name": "松露薯条", "sort": 18},
+    {"name": "咸趣薯饼", "sort": 17},
+    {"name": "薄荷炸鱼柳", "sort": 16},
+    {"name": "避风坞炒鸡翼", "sort": 15},
+    {"name": "jolly炸物拼盘", "sort": 14},
+    {"name": "辣拌海鲜&小卷饼", "sort": 13},
+    {"name": "香草红酱&饺子皮塔", "sort": 12},
+    {"name": "菌菇三重奏", "sort": 11},
+    {"name": "芝士焗土豆泥", "sort": 10},
+    {"name": "夏季青豆汤", "sort": 9},
+    {"name": "南瓜汤", "sort": 8},
+    {"name": "菌菇汤", "sort": 7},
+    {"name": "西班牙腊肠意面", "sort": 6},
+    {"name": "奶油蘑菇培根意面", "sort": 5},
+    {"name": "猪颈肉豆子拌饭", "sort": 4},
+    {"name": "手制汉堡咖哩饭", "sort": 3},
+    {"name": "香橙烟熏鸭胸", "sort": 2},
+    {"name": "澳洲西冷牛排", "sort": 1},
+]
 
 function yinbaoUpdateData() {
     this.Service = async function (version, param, callback) {
@@ -18,10 +66,10 @@ function yinbaoUpdateData() {
             let router = "queryProductCategoryPages"
             let e = await request(router, postDataJson)
             e = jsonBigInt.parse(e)
-            console.info("获得分类数据：")
+            // console.info("获得分类数据：")
 
             let CategoryResult = ""
-            let bigCateUid = '', littleCateUidList = [] // 分类获取商品信息需要
+            let bigCateUid = '', littleCateUidList = [], InsertCategory = []// 分类获取商品信息需要
             if (e.status == "success" && e.data.result.length > 0) {
                 CategoryResult = e.data.result
                 // 先清除原有的数据
@@ -30,11 +78,7 @@ function yinbaoUpdateData() {
 
                 // 插入现有的银豹分类数据
                 for (let i in CategoryResult) {
-                    // CategoryResult[i].uid = CategoryResult[i].uid.c.join("")
-                    // if (CategoryResult[i].parentUid != 0) {
-                    //     CategoryResult[i].parentUid = CategoryResult[i].parentUid.c.join("")
-                    // }
-                    console.info(CategoryResult[i])
+                    // console.info(CategoryResult[i])
                     if (CategoryResult[i].name == "食品") {
                         bigCateUid = CategoryResult[i].uid
                     }
@@ -43,12 +87,29 @@ function yinbaoUpdateData() {
                             name: CategoryResult[i].name,
                             uid: CategoryResult[i].uid
                         })
+                        // 新增
+                        InsertCategory.push({
+                            "name": CategoryResult[i].name,
+                            "id": CategoryResult[i].uid,
+                            "location_code": "xmspw",
+                            "create_time": new Date()
+                        })
                     }
                 }
-                for(let i in littleCateUidList){
-                    sql = "insert into restaurant_category(`name`,id,location_code,create_time) values (?,?,?,current_timestamp )"
-                    row = await db.Query(sql, [littleCateUidList[i].name, littleCateUidList[i].uid, "xmspw"])
-                }
+                // for(let i in littleCateUidList){
+                //     sql = "insert into restaurant_category(`name`,id,location_code,create_time) values (?,?,?,current_timestamp )"
+                //     row = await db.Query(sql, [littleCateUidList[i].name, littleCateUidList[i].uid, "xmspw"])
+                // }
+                // 新增
+                InsertCategory = InsertCategory.map(val => {
+                    subCateSort.forEach(m => {
+                        if (val.name == m.name) {
+                            val.sort = m.sort
+                        }
+                    })
+                    return val
+                })
+                await db.BulkInsert("restaurant_category", InsertCategory)
             }
 
 
@@ -69,35 +130,48 @@ function yinbaoUpdateData() {
                 postDataJson = JSON.stringify(postData)
                 router = "queryProductPages"
                 e = await request(router, postDataJson)
-                console.info("获得商品数据：")
+                // console.info("获得商品数据：")
                 e = jsonBigInt.parse(e)
 
                 if (e.status == "success" && e.data.result.length > 0) {
                     ProductResult = e.data.result
-                    // // 先清除原有的数据
-                    // sql = "delete from restaurant_goods"
-                    // row = await db.Query(sql)
-                    console.info(ProductResult)
+                    // console.info(ProductResult)
 
                     // 插入现有的银豹商品数据（没有图片，需另外获取）
-                    for (let i in ProductResult) {
-                        // ProductResult[i].uid = ProductResult[i].uid.c.join("")
-                        // ProductResult[i].categoryUid = ProductResult[i].categoryUid.c.join("")
-                        let description = ''
-                        if(ProductResult[i].description){
-                            description = ProductResult[i].description
+                    // for (let i in ProductResult) {
+                    //     let description = ''
+                    //     if (ProductResult[i].description) {
+                    //         description = ProductResult[i].description
+                    //     }
+                    //     sql = "insert into restaurant_goods(`name`,id,`describe`,min_price,category_id,stock,status,location_code,create_time) values (?,?,?,?,?,?,?,?,current_timestamp )"
+                    //     row = await db.Query(sql, [ProductResult[i].name, ProductResult[i].uid, description, ProductResult[i].sellPrice, ProductResult[i].categoryUid, ProductResult[i].stock, ProductResult[i].enable, "xmspw"])
+                    // }
+                    // 新增
+                    let DATA = ProductResult.map(val => {
+                        goods.forEach(m => {
+                            if (val.name == m.name) {
+                                val.sort = m.sort
+                            }
+                        })
+                        return {
+                            "name": val.name,
+                            "id": val.uid,
+                            "describe": val.description ? val.description : '',
+                            "min_price": val.sellPrice,
+                            "category_id": val.categoryUid,
+                            "stock": val.stock,
+                            "status": val.enable,
+                            "location_code": "xmspw",
+                            "create_time": new Date(),
+                            "sort": val.sort || 0
                         }
-                        sql = "insert into restaurant_goods(`name`,id,`describe`,min_price,category_id,stock,status,location_code,create_time) values (?,?,?,?,?,?,?,?,current_timestamp )"
-                        row = await db.Query(sql, [ProductResult[i].name, ProductResult[i].uid, description, ProductResult[i].sellPrice, ProductResult[i].categoryUid, ProductResult[i].stock, ProductResult[i].enable, "xmspw"])
-                    }
-                    console.info(ProductResult)
+                    })
+                    await db.BulkInsert("restaurant_goods", DATA)
+                    // console.info(ProductResult)
 
                     // 将备注里的数据格式 放到参数表上
-                    // // 先清除原有的数据
-                    // sql = "delete from restaurant_goods_sku"
-                    // row = await db.Query(sql)
-
                     // 插入现有的银豹商品数据（没有图片，需另外获取）
+                    let PARAM = [] // 新增
                     for (let i in ProductResult) {
                         let tempList = (ProductResult[i].attribute2 ? ProductResult[i].attribute2 : '')
                         if (tempList.length > 0) {
@@ -127,9 +201,20 @@ function yinbaoUpdateData() {
                                             param: JSON.stringify(temp)
                                         })
                                     }
+                                    // for (let j in list) {
+                                    //     sql = "insert into restaurant_goods_sku(stock,price,goods_id,param,create_time,user_id)values(?,?,?,?,current_timestamp,?)"
+                                    //     row = await db.Query(sql, [stock, price, goods_id, list[j].param, 0])
+                                    // }
+                                    // 新增
                                     for (let j in list) {
-                                        sql = "insert into restaurant_goods_sku(stock,price,goods_id,param,create_time,user_id)values(?,?,?,?,current_timestamp,?)"
-                                        row = await db.Query(sql, [stock, price, goods_id, list[j].param, 0])
+                                        PARAM.push({
+                                            "stock": stock,
+                                            "price": price,
+                                            "goods_id": goods_id,
+                                            "param": list[j].param,
+                                            "create_time": new Date(),
+                                            "user_id": 0
+                                        })
                                     }
                                     // console.info(this.table)
                                 }
@@ -138,33 +223,13 @@ function yinbaoUpdateData() {
                         }
 
                     }
+                    // 新增
+                    // console.info(PARAM)
+                    if(PARAM.length){
+                        await db.BulkInsert("restaurant_goods_sku", PARAM)
+                    }
                 }
             }
-
-
-            // 2.更新商品列表图片
-            // 银豹只会给有图片的信息
-            // let ProductImgResult = ""
-            // postData = {
-            //     "appId": appId,
-            // }
-            // postDataJson = JSON.stringify(postData)
-            // router = "queryProductImagePages"
-            // e = await request(router, postDataJson)
-            // console.info("获得商品图片数据：")
-            // console.info(e)
-
-            // e = jsonBigInt.parse(e)
-
-            // if (e.status == "success" && e.data.result.length > 0) {
-            //     ProductImgResult = e.data.result
-
-            //     // 根据productUid更新商品图片
-            //     for (let i in ProductImgResult) {
-            //         sql = "update restaurant_goods set img = ? where id = ?"
-            //         row = await db.Query(sql, [ProductImgResult[i].imageUrl, ProductImgResult[i].productUid])
-            //     }
-            // }
             postData = {
                 "appId": appId,
             }
@@ -173,6 +238,7 @@ function yinbaoUpdateData() {
             data.code = 1
             return callback(data);
         } catch (e) {
+            console.info(e)
             console.info('boom!!!!!!!!!!!!!')
         }
     }
@@ -206,18 +272,18 @@ function digui(models) {
     } else {
         resultArr = models[0];
     }
-    console.log(resultArr);
+    // console.log(resultArr);
     return resultArr
 }
 
-async function getYinBaoImg(postData){
+async function getYinBaoImg(postData) {
     let ProductImgResult = ""
-    
-    postDataJson = JSON.stringify(postData)
-    router = "queryProductImagePages"
-    e = await request(router, postDataJson)
-    console.info("获得商品图片数据：")
-    console.info(e)
+
+    let postDataJson = JSON.stringify(postData)
+    let router = "queryProductImagePages"
+    let e = await request(router, postDataJson)
+    // console.info("获得商品图片数据：")
+    // console.info(e)
 
     e = jsonBigInt.parse(e)
 
@@ -225,12 +291,20 @@ async function getYinBaoImg(postData){
         ProductImgResult = e.data.result
 
         // 根据productUid更新商品图片
-        for (let i in ProductImgResult) {
-            sql = "update restaurant_goods set img = ? where id = ?"
-            row = await db.Query(sql, [ProductImgResult[i].imageUrl, ProductImgResult[i].productUid])
-        }
+        // for (let i in ProductImgResult) {
+        //     let sql = "update restaurant_goods set img = ? where id = ?"
+        //     let row = await db.Query(sql, [ProductImgResult[i].imageUrl, ProductImgResult[i].productUid])
+        // }
+        let sql_data = []
+        ProductImgResult.forEach(m => {
+            sql_data.push({
+                when: {"id": m.productUid},
+                then: {"img": m.imageUrl}
+            })
+        })
+        db.BulkUpdate("restaurant_goods", sql_data)
     }
-    if(e.data.result.length >= 100){
+    if (e.data.result.length >= 100) {
         postData.postBackParameter = e.data.postBackParameter
         await getYinBaoImg(postData)
     }
