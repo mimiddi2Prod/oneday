@@ -344,6 +344,7 @@ Page({
         for (let i in res.goods) {
           res.goods[i].cartNumber = 0
           res.goods[i].isSearch = false
+          res.goods[i].tag = (res.goods[i].tag.length && typeof res.goods[i].tag == "string") ? JSON.parse(res.goods[i].tag) : ''
         }
         let goods = []
         // 相同类别的商品放到筛选放一起

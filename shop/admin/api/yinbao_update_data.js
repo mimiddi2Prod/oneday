@@ -163,7 +163,8 @@ function yinbaoUpdateData() {
                             "status": val.enable,
                             "location_code": "xmspw",
                             "create_time": new Date(),
-                            "sort": val.sort || 0
+                            "sort": val.sort || 0,
+                            "tag": val.attribute3
                         }
                     })
                     await db.BulkInsert("restaurant_goods", DATA)
@@ -225,7 +226,7 @@ function yinbaoUpdateData() {
                     }
                     // 新增
                     // console.info(PARAM)
-                    if(PARAM.length){
+                    if (PARAM.length) {
                         await db.BulkInsert("restaurant_goods_sku", PARAM)
                     }
                 }

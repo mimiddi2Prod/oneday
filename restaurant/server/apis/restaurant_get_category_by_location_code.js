@@ -21,7 +21,7 @@ function RestaurantGetCategoryByLocationCode() {
                     data.category = row
                 }
 
-                sql = "select id,`name`,img,`describe`,min_price,category_id,stock from restaurant_goods where location_code = ? and status = ? order by sort desc";
+                sql = "select id,`name`,img,`describe`,min_price,category_id,stock,tag from restaurant_goods where location_code = ? and status = ? order by sort desc";
                 row = await query(sql, [param['location_code'], 1]);
                 if (row.length > 0) {
                     data.goods = row
