@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 3306
-Source Server Version : 100119
+Source Server Version : 100125
 Source Host           : localhost:3306
 Source Database       : oneday
 
 Target Server Type    : MYSQL
-Target Server Version : 100119
+Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-09-14 21:49:09
+Date: 2020-09-15 11:52:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -63,7 +63,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-09-05 14:14:14', '0', null, '0fba8c0b-69b9-4c3e-97d4-c6bbf5f7a664', '2020-09-06 02:14:14', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-09-15 11:42:49', '0', null, 'a7b7bfb6-3c85-400a-9d7d-7929cf49596c', '2020-09-15 23:42:49', null, null, null, null, null, null);
 INSERT INTO `admin` VALUES ('3', 'test11', 'test11', null, '2019-09-12 15:07:48', '2020-09-03 16:11:54', '2', null, 'df6ba934-63c5-43ed-9f00-d84f640215a1', '2020-09-04 04:11:54', null, null, null, null, null, null);
 INSERT INTO `admin` VALUES ('8', 'admin', 'admin', null, '0000-00-00 00:00:00', '2020-07-01 11:01:07', '0', null, '6dc5d6f3-4ea8-4a7d-9d42-0fce4c408c7b', '2020-07-01 23:01:07', null, null, null, null, null, null);
 INSERT INTO `admin` VALUES ('9', 'test', 'onedaytest', null, '2019-09-18 13:18:59', '2020-09-05 11:43:53', '0', null, 'bb7f1803-22ad-4ca4-9c20-7250e329a0ee', '2020-09-05 23:43:53', null, null, null, null, null, null);
@@ -537,13 +537,14 @@ CREATE TABLE `restaurant_card_info` (
   `cash` text NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` varchar(255) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL COMMENT '优惠券使用状态 0 删除 1 可用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of restaurant_card_info
 -- ----------------------------
-INSERT INTO `restaurant_card_info` VALUES ('21', 'pmwdi1coc-xqWjnewTR1Em82nGIg', 'CASH', '{\"base_info\":{\"id\":\"pmwdi1coc-xqWjnewTR1Em82nGIg\",\"logo_url\":\"http://mmbiz.qpic.cn/mmbiz_png/WU6QvXpVJzPwn2PZgKj3yWOT45zm2DlwgNhwMDuYoVsRzLXfgXjA1SVicItg62gBIxSqxVFHFsLPvz7v4f2Q3Sw/0?wx_fmt=png\",\"code_type\":\"CODE_TYPE_QRCODE\",\"brand_name\":\"Oneday Jolly\",\"title\":\"满100减1代金券\",\"sub_title\":\"\",\"date_info\":{\"type\":\"DATE_TYPE_FIX_TIME_RANGE\",\"begin_timestamp\":1563811200,\"end_timestamp\":1582991999},\"color\":\"#D54036\",\"notice\":\"请到店内与店员确认后完成购买\",\"description\":\"Jolly 开业有礼\",\"location_id_list\":[],\"get_limit\":2,\"can_share\":true,\"can_give_friend\":true,\"status\":\"CARD_STATUS_VERIFY_OK\",\"sku\":{\"quantity\":58,\"total_quantity\":60},\"create_time\":1563879649,\"update_time\":1581343461,\"custom_url_name\":\"\",\"custom_url\":\"\",\"custom_url_sub_title\":\"\",\"use_all_locations\":true,\"area_code_list\":[]},\"least_cost\":10000,\"reduce_cost\":100,\"advanced_info\":{\"time_limit\":[{\"type\":\"MONDAY\"},{\"type\":\"TUESDAY\"},{\"type\":\"WEDNESDAY\"},{\"type\":\"THURSDAY\"},{\"type\":\"FRIDAY\"},{\"type\":\"SATURDAY\"},{\"type\":\"SUNDAY\"}],\"text_image_list\":[],\"business_service\":[],\"consume_share_card_list\":[],\"abstract\":{\"abstract\":\"Jolly 开业有礼\",\"icon_url_list\":[\"http://mmbiz.qpic.cn/mmbiz_jpg/WU6QvXpVJzMPEALY1vsRXuSeibIUJ8VhbZxS95WSgatqnicKxzNhvT5amNyFvpTGa9dqNSzY9M5y9AO8tdzicpz6Q/0?wx_fmt=jpeg\"]},\"use_condition\":{\"least_cost\":10000,\"can_use_with_other_discount\":false,\"can_use_with_membercard\":false},\"share_friends\":false}}', '2020-02-11 15:30:14', 'opening');
+INSERT INTO `restaurant_card_info` VALUES ('21', 'pmwdi1coc-xqWjnewTR1Em82nGIg', 'CASH', '{\"base_info\":{\"id\":\"pmwdi1coc-xqWjnewTR1Em82nGIg\",\"logo_url\":\"http://mmbiz.qpic.cn/mmbiz_png/WU6QvXpVJzPwn2PZgKj3yWOT45zm2DlwgNhwMDuYoVsRzLXfgXjA1SVicItg62gBIxSqxVFHFsLPvz7v4f2Q3Sw/0?wx_fmt=png\",\"code_type\":\"CODE_TYPE_QRCODE\",\"brand_name\":\"Oneday Jolly\",\"title\":\"满100减1代金券\",\"sub_title\":\"\",\"date_info\":{\"type\":\"DATE_TYPE_FIX_TIME_RANGE\",\"begin_timestamp\":1563811200,\"end_timestamp\":1582991999},\"color\":\"#D54036\",\"notice\":\"请到店内与店员确认后完成购买\",\"description\":\"Jolly 开业有礼\",\"location_id_list\":[],\"get_limit\":2,\"can_share\":true,\"can_give_friend\":true,\"status\":\"CARD_STATUS_VERIFY_OK\",\"sku\":{\"quantity\":58,\"total_quantity\":60},\"create_time\":1563879649,\"update_time\":1581343461,\"custom_url_name\":\"\",\"custom_url\":\"\",\"custom_url_sub_title\":\"\",\"use_all_locations\":true,\"area_code_list\":[]},\"least_cost\":10000,\"reduce_cost\":100,\"advanced_info\":{\"time_limit\":[{\"type\":\"MONDAY\"},{\"type\":\"TUESDAY\"},{\"type\":\"WEDNESDAY\"},{\"type\":\"THURSDAY\"},{\"type\":\"FRIDAY\"},{\"type\":\"SATURDAY\"},{\"type\":\"SUNDAY\"}],\"text_image_list\":[],\"business_service\":[],\"consume_share_card_list\":[],\"abstract\":{\"abstract\":\"Jolly 开业有礼\",\"icon_url_list\":[\"http://mmbiz.qpic.cn/mmbiz_jpg/WU6QvXpVJzMPEALY1vsRXuSeibIUJ8VhbZxS95WSgatqnicKxzNhvT5amNyFvpTGa9dqNSzY9M5y9AO8tdzicpz6Q/0?wx_fmt=jpeg\"]},\"use_condition\":{\"least_cost\":10000,\"can_use_with_other_discount\":false,\"can_use_with_membercard\":false},\"share_friends\":false}}', '2020-09-15 11:49:40', null, '0');
 
 -- ----------------------------
 -- Table structure for restaurant_category
@@ -1169,7 +1170,7 @@ CREATE TABLE `yinbao_order` (
   `uid` varchar(255) DEFAULT NULL,
   `webOrderNo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40560 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40954 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of yinbao_order
@@ -1185,7 +1186,7 @@ CREATE TABLE `yinbao_order_sellprice` (
   `start_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=616 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=621 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of yinbao_order_sellprice
@@ -1266,4 +1267,4 @@ CREATE TABLE `yinbao_update_time` (
 -- ----------------------------
 -- Records of yinbao_update_time
 -- ----------------------------
-INSERT INTO `yinbao_update_time` VALUES ('1', '2019-09-13 00:00:00', '2020-09-05 00:00:00');
+INSERT INTO `yinbao_update_time` VALUES ('1', '2019-09-13 00:00:00', '2038-01-01 00:00:00');
