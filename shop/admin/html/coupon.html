@@ -79,9 +79,11 @@
                     <button type="button" class="btn btn-link" v-if="item.type == 'newCustomer'" v-on:click="setType(item.id,'opening')">设为首页弹窗</button>
                     <!-- <button type="button" class="btn btn-link" v-if="item.type == 'opening'"  v-on:click="setType(item.id,'newCustomer')">设为首单奖励</button> -->
                     <button type="button" class="btn btn-link" v-on:click="setType(item.id,null)">不投放</button>
+                    <button type="button" class="btn btn-link" v-on:click="setType(item.id,null,true)">删除</button>
                 </span>
                     <span class="second-title column-center" v-if="!item.type">
                     <button type="button" class="btn btn-link" v-on:click="setType(item.id,'opening')">设为首页弹窗</button>
+                        <button type="button" class="btn btn-link" v-on:click="setType(item.id,null,true)">删除</button>
                     <!-- <button type="button" class="btn btn-link" v-on:click="setType(item.id,'newCustomer')">设为首单奖励</button> -->
                 </span>
 

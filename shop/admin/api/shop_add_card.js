@@ -32,8 +32,8 @@ function shopAddCard() {
                     //     data.cardList = e.data
                     // }
                     if (e.code == 0) {
-                        sql = "insert into restaurant_card_info(card_id,card_type,cash,create_time)values(?,?,?,CURRENT_TIMESTAMP)";
-                        row = await db.Query(sql, [e.data.card.cash.base_info.id, e.data.card.card_type, JSON.stringify(e.data.card.cash)]);
+                        sql = "insert into restaurant_card_info(card_id,card_type,cash,status,create_time)values(?,?,?,?,CURRENT_TIMESTAMP)";
+                        row = await db.Query(sql, [e.data.card.cash.base_info.id, e.data.card.card_type, JSON.stringify(e.data.card.cash), 0]);
 
                         if (row.insertId) {
                             data.code = 1

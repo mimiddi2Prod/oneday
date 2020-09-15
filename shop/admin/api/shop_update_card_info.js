@@ -9,8 +9,8 @@ function shopUpdateCardInfo() {
         var data = {}
         var row = []
         try {
-            sql = "update restaurant_card_info set type = ? where id = ?";
-            row = await db.Query(sql, [param['type'], param['id']]);
+            sql = "update restaurant_card_info set type = ?,status = ? where id = ?";
+            row = await db.Query(sql, [param['type'], param['is_del'], param['id']]);
             console.info(row)
             if (row.changedRows == 1) {
                 data.text = '更新成功'

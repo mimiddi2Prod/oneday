@@ -8,11 +8,11 @@ function shopGetCard() {
         var data = {}
         var row = []
         try {
-            sql = "select count(id) from restaurant_card_info";
+            sql = "select count(id) from restaurant_card_info where status = 0";
             row = await db.Query(sql);
             data.number = row[0]['count(id)']
 
-            sql = "select * from restaurant_card_info"
+            sql = "select * from restaurant_card_info where status = 0"
             row = await db.Query(sql)
             if (row.length > 0) {
                 data.cardList = row

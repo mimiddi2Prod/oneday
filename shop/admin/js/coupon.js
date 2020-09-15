@@ -81,12 +81,13 @@ var couponVM = new Vue({
             //     })
             // }
         },
-        setType: function (id, type) {
+        setType: function (id, type, is_del) {
             couponVM.cardList = []
             const url = api.updateCardInfo, async = true
             let data = {}
             data.id = id
             data.type = type
+            data.is_del = is_del ? 1 : 0
             server(url, data, async, "post", function (res) {
                 // console.info(res)
                 if (res.text == '更新成功') {
