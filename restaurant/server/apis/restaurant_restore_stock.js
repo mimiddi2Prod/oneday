@@ -34,7 +34,7 @@ function RestaurantRestoreStock() {
                     }
                 }
                 param = temp
-                
+
                 sql = "select * from restaurant_goods where id in (?)";
                 row = await query(sql, [param.map(function (eData) {
                     return eData.goodsId
@@ -67,9 +67,9 @@ function RestaurantRestoreStock() {
         // }
 
 
-        if (response.code != tool.error.OKCode) {
-            log.warn(name, JSON.stringify(response));
-        }
+        // if (response.code != tool.error.OKCode) {
+        //     log.warn(name, JSON.stringify(response));
+        // }
 
         tool.MakeResponse(200,
             {

@@ -5,45 +5,18 @@ function CCSGetCouponCard() {
     var tool = new tools;
     this.Run = async function (ver, param, res) {
         var name = "CCSGetCouponCard::Run";
-        // tool.log.debug(name + ".in");
         var data = {};
         var response = tool.error.OK;
-        // tool.log.debug(param)
         if (!param["openid"]) {
             tool.log.warn(name, 'openid is not defined')
         } else {
             var row = [];
             var sql = ""
             try {
-                /* get
-                    var options = {
-                        host: '127.0.0.1',
-                        port: 9900,
-                        path: '/apis/test',
-                        method: 'get',
-                        headers: {
-                            'Content-Type': 'application/json;charset=utf-8',
-                        },
-                    }
-                    let e = await HttpGet(options)
-                    console.info(e)
-                    data = e
-                */
                 sql = "select * from restaurant_card_info where `type` = ?"
                 row = await tool.query(sql, param["type"])
-                // console.info(row)
                 if (row.length > 0) {
                     let current_time = new Date().getTime() / 1000
-                    // let card_id = row.filter(function (e) {
-                    //     e.cash = JSON.parse(e.cash)
-                    //     if (e.cash.base_info.date_info.type == 'DATE_TYPE_FIX_TIME_RANGE') {
-                    //         return (current_time >= e.cash.base_info.date_info.begin_timestamp && current_time <= e.cash.base_info.date_info.end_timestamp)
-                    //     } else {
-                    //         return true
-                    //     }
-                    // }).map(function (e) {
-                    //     return e.card_id
-                    // })
                     let card_id = row.filter(function (e) {
                         e.cash = typeof e.cash == "string" ? JSON.parse(e.cash) : e.cash
                         if (e.cash.base_info.date_info.type == 'DATE_TYPE_FIX_TIME_RANGE') {
@@ -75,18 +48,13 @@ function CCSGetCouponCard() {
                             method: 'POST',
                             form: postDataJson,
                             headers: {
-                                // 'User-Agent': 'openApi',
-                                'Content-Type': 'application/json;charset=utf-8',
-                                // 'accept-encoding': 'gzip,deflate',
-                                // 'time-stamp': timeStamp,
-                                // 'data-signature': sign,
+                                'Content-Type': 'application/json;charset=utf-8'
                             },
                         }
 
                         async function Call() {
                             let e = await HttpPost(options, postDataJson)
                             e = JSON.parse(e)
-                            // console.info(e)
                             if (e.code == 0) {
                                 data.cardList = e.data
                             }
@@ -110,50 +78,17 @@ function CCSGetCouponCard() {
             {
                 res: response,
                 data: data,
-                action: "add_address",
+                action: "get_coupon_card",
             }, res);
-        // tool.log.debug("CCSGetCouponCard::Run.out");
     }
 }
 
 module.exports = CCSGetCouponCard;
 
-// async function HttpsGet(option) {
-//     return new Promise(function (resolve, reject) {
-//         https.get(option, function (res) {
-//             let data = ''
-//             res.on('data', function (chunk) {
-//                 data += chunk;
-//             })
-//             res.on('end', function (e) {
-//                 resolve(data)
-//             })
-//         })
-//     })
-// }
-
-async function HttpGet(option) {
-    return new Promise(function (resolve, reject) {
-        http.get(option, function (res) {
-            let data = ''
-            res.on('data', function (chunk) {
-                data += chunk;
-            })
-            res.on('end', function (e) {
-                resolve(data)
-            })
-        })
-    })
-}
-
 async function HttpPost(option, postData) {
     return new Promise(function (resolve, reject) {
         var req = http.request(option, function (res) {
             let data = '';
-            // res.headers = {
-            //     'data-signature': sign,
-            //     'Content-Type': 'application/json;charset=UTF-8'
-            // }
             res.setEncoding('utf8');
             res.on('data', function (chunk) {
                 data += chunk;

@@ -118,9 +118,9 @@ function RestaurantGetUserPhone() {
         }
 
 
-        if (response.code != tool.error.OKCode) {
-            log.warn(name, JSON.stringify(response));
-        }
+        // if (response.code != tool.error.OKCode) {
+        //     log.warn(name, JSON.stringify(response));
+        // }
 
         tool.MakeResponse(200,
             {

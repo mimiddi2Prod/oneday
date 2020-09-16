@@ -3,7 +3,7 @@ var yinbaoAppId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 // var https = require('https');
 // var secret = wxConfig.secret
-var jsonBigInt = require('json-bigint')({"storeAsString": true});
+var jsonBigInt = require('json-bigint')({"storeAsString": true});
 
 function YinbaoGetPhone() {
     var tool = new tools;
@@ -46,40 +46,40 @@ function YinbaoGetPhone() {
                         data.number = e.data[0].number
                     }
                 }
-        // else {
-        //             // 2.没查询到对应的会员卡 注册
-        //             let text = ''
-        //             var possible = "0123456789"
-        //             for (var i = 0; i < 2; i++) {
-        //                 text += possible.charAt(Math.floor(Math.random() * possible.length))
-        //             }
-        //             let postData = {
-        //                 "appId": yinbaoAppId,
-        //                 "customerInfo": {
-        //                     "number": param["phone"] + text,
-        //                     "phone": param["phone"]
-        //                 }
-        //             }
-        //             let postDataJson = JSON.stringify(postData)
-        //             console.info(postDataJson)
-        //             let router = "add"
-        //             let e = await request(router, postDataJson)
-        //             e = jsonBigInt.parse(e)
-        //             console.info("获得新增用户数据：")
-        //             console.info(e)
-        //             // e = JSON.parse(e)
-        //             if (e.data) {
-        //                 if (e.data.number.length > 0 && e.data.number == param["phone"]) {
-        //                     // data.code = 0
-        //                     // data.text = "success"
-        //                     // data.data = {}
-        //                     data.point = e.data.point
-        //                     data.balance = e.data.balance
-        //                     data.discount = e.data.discount
-        //                     data.customerUid = e.data.customerUid
-        //                 }
-        //             }
-        //         }
+                // else {
+                //             // 2.没查询到对应的会员卡 注册
+                //             let text = ''
+                //             var possible = "0123456789"
+                //             for (var i = 0; i < 2; i++) {
+                //                 text += possible.charAt(Math.floor(Math.random() * possible.length))
+                //             }
+                //             let postData = {
+                //                 "appId": yinbaoAppId,
+                //                 "customerInfo": {
+                //                     "number": param["phone"] + text,
+                //                     "phone": param["phone"]
+                //                 }
+                //             }
+                //             let postDataJson = JSON.stringify(postData)
+                //             console.info(postDataJson)
+                //             let router = "add"
+                //             let e = await request(router, postDataJson)
+                //             e = jsonBigInt.parse(e)
+                //             console.info("获得新增用户数据：")
+                //             console.info(e)
+                //             // e = JSON.parse(e)
+                //             if (e.data) {
+                //                 if (e.data.number.length > 0 && e.data.number == param["phone"]) {
+                //                     // data.code = 0
+                //                     // data.text = "success"
+                //                     // data.data = {}
+                //                     data.point = e.data.point
+                //                     data.balance = e.data.balance
+                //                     data.discount = e.data.discount
+                //                     data.customerUid = e.data.customerUid
+                //                 }
+                //             }
+                //         }
 
             } catch (err) {
                 if (err.code) {
@@ -93,9 +93,9 @@ function YinbaoGetPhone() {
         }
 
 
-        if (response.code != tool.error.OKCode) {
-            log.warn(name, JSON.stringify(response));
-        }
+        // if (response.code != tool.error.OKCode) {
+        //     log.warn(name, JSON.stringify(response));
+        // }
 
         tool.MakeResponse(200,
             {

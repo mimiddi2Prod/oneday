@@ -7,7 +7,7 @@ function RestaurantSaveCard() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantSaveCard::Run";
-        log.debug("RestaurantSaveCard::Run.in");
+        // log.debug("RestaurantSaveCard::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -70,6 +70,7 @@ function RestaurantSaveCard() {
                     await BulkInsert('restaurant_card', list)
                     data.text = "添加成功"
                 }
+
                 async function BulkInsert(table, list) {
                     let keys = Object.keys(list[0])
                     let sql = "insert into " + "`" + table + "` (`" + keys.join("`,`") + "`) values "

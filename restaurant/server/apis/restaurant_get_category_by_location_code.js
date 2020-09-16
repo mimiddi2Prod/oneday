@@ -12,7 +12,7 @@ function RestaurantGetCategoryByLocationCode() {
         var response = tool.error.OK;
         var sql = '', row = [];
         if (param['location_code'].length <= 0) {
-            console.info('没有地区代码')
+            log.warn(name, '没有地区代码')
         } else {
             try {
                 sql = "select id,`name` from restaurant_category where location_code = ? order by sort desc";
@@ -45,20 +45,21 @@ function RestaurantGetCategoryByLocationCode() {
                 }
 
             } catch (err) {
-                if (err.code) {
-                    response = tool.error.ErrorSQL;
-                    log.warn(name, "code:", err.code, ", sql:", err.sql);
-                } else {
-                    log.warn(name, JSON.stringify(response));
-                    response = tool.error.ErrorCatch;
-                }
+                log.error(name, err)
+                // if (err.code) {
+                //     response = tool.error.ErrorSQL;
+                //     log.warn(name, "code:", err.code, ", sql:", err.sql);
+                // } else {
+                //     log.warn(name, JSON.stringify(response));
+                //     response = tool.error.ErrorCatch;
+                // }
             }
         }
 
 
-        if (response.code != tool.error.OKCode) {
-            log.warn(name, JSON.stringify(response));
-        }
+        // if (response.code != tool.error.OKCode) {
+        //     log.warn(name, JSON.stringify(response));
+        // }
 
         tool.MakeResponse(200,
             {

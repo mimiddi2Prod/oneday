@@ -4,45 +4,66 @@ var http = require("http")
 function RestaurantAddOrderByYinbaoBalance() {
     var tool = new tools;
     var log = tool.log;
-    var query = tool.query;
+    // var query = tool.query;
+    var BulkInsert = tool.BulkInsert
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantAddOrderByYinbaoBalance::Run";
-        // log.debug("RestaurantAddOrderByYinbaoBalance::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
         if (param['tradeId'].length <= 0) {
-            console.info('没有收到订单号')
+            log.warn(name, '没有收到订单号')
         } else if (param['cart'].length <= 0) {
-            console.info('没有收到订单数据')
+            log.warn(name, '没有收到订单数据')
         } else if (param['openid'].length <= 0) {
-            console.info('没有收到用户的openid')
+            log.warn(name, '没有收到用户的openid')
         } else {
             try {
                 var yinbaoAddOrder = require("./yinbao_add_onLineOrder")
                 let call = await yinbaoAddOrder(param)
-                // console.info(call)
-                if (call.code == 0) {
-                    let yinbao_orderNo = call.orderNo
+                if (call["code"] == 0) {
+                    let yinbao_orderNo = call["orderNo"]
                     let cart = param['cart']
-                    let length = cart.length, flag = 0
-                    // 新增优惠券id: restaurant_card_id
-                    if (param["coupon"]) {
-                        for (let i in cart) {
-                            cart[i].goodsParam = JSON.stringify(cart[i].goodsParam)
-                            let img = (cart[i].goodsImage ? cart[i].goodsImage : '')
-                            sql = "insert into restaurant_goods_order (`name`,`describe`,img,goods_id,open_id,param,goods_sku_id,`number`,trade_id,price,style,yinbao_order_no,create_time,pay_status,dinners_number,pay_method,table_number,customer_uid,restaurant_card_id,coupon) values (?,?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?,?,?)";
-                            row = await query(sql, [cart[i].goodsName, cart[i].goodsDesc, img, cart[i].goodsId, param['openid'], cart[i].goodsParam, cart[i].paramId, cart[i].number, param['tradeId'], cart[i].price, param['style'], yinbao_orderNo, param['payStatus'], param['dinnersNumber'], param['payMethod'], param['restaurantTableName'], param['customerUid'], param["coupon"].id, param["coupon"].reduce_cost]);
-                            if (row.insertId) {
-                                flag++
-                            }
+                    let current_time = new Date()
+                    let DATA = cart.map(val => {
+                        return {
+                            "name": val["goodsName"],
+                            "describe": val["goodsDesc"],
+                            "img": val["goodsImage"] ? val["goodsImage"] : '',
+                            "goods_id": val["goodsId"],
+                            "open_id": param['openid'],
+                            "param": JSON.stringify(val["goodsParam"]),
+                            "goods_sku_id": val["paramId"],
+                            "number": val["number"],
+                            "trade_id": param['tradeId'],
+                            "price": val["price"],
+                            "style": param['style'],
+                            "yinbao_order_no": yinbao_orderNo,
+                            "create_time": current_time,
+                            "pay_status": param['payStatus'],
+                            "dinners_number": param['dinnersNumber'],
+                            "pay_method": param['payMethod'],
+                            "table_number": param['restaurantTableName'],
+                            "customer_uid": param['customerUid'],
+                            "restaurant_card_id": param["coupon"] ? param["coupon"].id : null,
+                            "coupon": param["coupon"] ? param["coupon"].reduce_cost : null
                         }
+                    })
+                    let result = await BulkInsert("restaurant_goods_order", DATA)
+                    if (result["id_list"].length == cart.length) {
+                        data.code = 0
+                        data.text = "订单插入成功"
+                    } else {
+                        data.code = 1
+                        data.text = "订单插入失败"
+                    }
 
-                        /**
-                         * 如果有使用优惠券，就进行核销
-                         * select_card_id:数据库中用户领取优惠券的存储id restaurant_card:id
-                         * */
+                    /**
+                     * 如果有使用优惠券，就进行核销
+                     * select_card_id:数据库中用户领取优惠券的存储id restaurant_card:id
+                     * */
+                    if (param["coupon"]) {
                         let select_card_id = param["coupon"].id
                         sql = "update restaurant_card set trade_id = ? where id = ?"
                         row = await query(sql, [param['tradeId'], select_card_id])
@@ -68,56 +89,18 @@ function RestaurantAddOrderByYinbaoBalance() {
                         async function Call() {
                             let e = await HttpPost(options, postDataJson)
                             e = JSON.parse(e)
-                            console.info(e)
-                            // if (e.code == 0) {
-                            //     data.cardList = e.data
-                            // }
                         }
 
                         await Call()
-
-                    } else {
-                        for (let i in cart) {
-                            cart[i].goodsParam = JSON.stringify(cart[i].goodsParam)
-                            let img = (cart[i].goodsImage ? cart[i].goodsImage : '')
-                            sql = "insert into restaurant_goods_order (`name`,`describe`,img,goods_id,open_id,param,goods_sku_id,`number`,trade_id,price,style,yinbao_order_no,create_time,pay_status,dinners_number,pay_method,table_number,customer_uid) values (?,?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?)";
-                            row = await query(sql, [cart[i].goodsName, cart[i].goodsDesc, img, cart[i].goodsId, param['openid'], cart[i].goodsParam, cart[i].paramId, cart[i].number, param['tradeId'], cart[i].price, param['style'], yinbao_orderNo, param['payStatus'], param['dinnersNumber'], param['payMethod'], param['restaurantTableName'], param['customerUid']]);
-                            if (row.insertId) {
-                                flag++
-                            }
-                        }
-                    }
-
-                    if (flag == length) {
-                        data.code = 0
-                        data.text = "订单插入成功"
-                    } else {
-                        data.code = 1
-                        data.text = "订单插入失败"
                     }
                 } else {
                     data.code = 1
                     data.text = "订单推送失败"
                 }
 
-
             } catch (err) {
-                console.info(err)
-                if (err.code) {
-                    response = tool.error.ErrorSQL;
-                    log.warn(name, "code:", err.code, ", sql:", err.sql);
-                } else {
-                    log.warn(name, JSON.stringify(response));
-                    response = tool.error.ErrorCatch;
-                }
+                log.error(name, err)
             }
-
-
-        }
-
-
-        if (response.code != tool.error.OKCode) {
-            log.warn(name, JSON.stringify(response));
         }
 
         tool.MakeResponse(200,
@@ -126,7 +109,6 @@ function RestaurantAddOrderByYinbaoBalance() {
                 data: data,
                 action: "add_order",
             }, res);
-        // tool.log.debug("RestaurantAddOrderByYinbaoBalance::Run.out");
     }
 }
 
@@ -136,10 +118,6 @@ async function HttpPost(option, postData) {
     return new Promise(function (resolve, reject) {
         var req = http.request(option, function (res) {
             let data = '';
-            // res.headers = {
-            //     'data-signature': sign,
-            //     'Content-Type': 'application/json;charset=UTF-8'
-            // }
             res.setEncoding('utf8');
             res.on('data', function (chunk) {
                 data += chunk;

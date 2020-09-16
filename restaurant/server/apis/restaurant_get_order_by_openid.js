@@ -7,12 +7,12 @@ function RestaurantGetOrderByOpenid() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantGetOrderByOpenid::Run";
-        log.debug("RestaurantGetOrderByOpenid::Run.in");
+        // log.debug("RestaurantGetOrderByOpenid::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
         if (param['openid'].length <= 0) {
-            console.info('没有收到用户的openid')
+            log.warn(name, '没有收到用户的openid')
         } else {
             try {
                 sql = "select trade_id,yinbao_order_no,group_concat(price),group_concat(number),coupon,create_time from restaurant_goods_order where open_id = ? and pay_status = ? group by trade_id order by create_time desc";
@@ -23,20 +23,21 @@ function RestaurantGetOrderByOpenid() {
                 }
 
             } catch (err) {
-                if (err.code) {
-                    response = tool.error.ErrorSQL;
-                    log.warn(name, "code:", err.code, ", sql:", err.sql);
-                } else {
-                    log.warn(name, JSON.stringify(response));
-                    response = tool.error.ErrorCatch;
-                }
+                log.error(name, err)
+                // if (err.code) {
+                //     response = tool.error.ErrorSQL;
+                //     log.warn(name, "code:", err.code, ", sql:", err.sql);
+                // } else {
+                //     log.warn(name, JSON.stringify(response));
+                //     response = tool.error.ErrorCatch;
+                // }
             }
         }
 
 
-        if (response.code != tool.error.OKCode) {
-            log.warn(name, JSON.stringify(response));
-        }
+        // if (response.code != tool.error.OKCode) {
+        //     log.warn(name, JSON.stringify(response));
+        // }
 
         tool.MakeResponse(200,
             {
@@ -44,7 +45,7 @@ function RestaurantGetOrderByOpenid() {
                 data: data,
                 action: "get_order",
             }, res);
-        tool.log.debug("RestaurantGetOrderByOpenid::Run.out");
+        // tool.log.debug("RestaurantGetOrderByOpenid::Run.out");
     }
 }
 

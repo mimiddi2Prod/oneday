@@ -2,116 +2,61 @@ var tools = require("./../tool");
 
 async function RestaurantAddOrder(param) {
     var tool = new tools;
-    // var log = tool.log;
-    var query = tool.query;
+    var log = tool.log;
+    // var query = tool.query;
+    var BulkInsert = tool.BulkInsert
+    var name = "RestaurantAddOrder::Run";
 
     var data = {};
-    var sql = '', row = [];
+    // var sql = '', row = [];
 
     if (param['tradeId'].length <= 0) {
-        console.info('没有收到订单号')
+        log.warn(name, '没有收到订单号')
     } else if (param['cart'].length <= 0) {
-        console.info('没有收到订单数据')
+        log.warn(name, '没有收到订单数据')
     } else if (param['openid'].length <= 0) {
-        console.info('没有收到用户的openid')
+        log.warn(name, '没有收到用户的openid')
     } else {
-        let cart = param['cart']
-        let length = cart.length, flag = 0
-        for (let i in cart) {
-            cart[i].goodsParam = JSON.stringify(cart[i].goodsParam)
-            let img = (cart[i].goodsImage ? cart[i].goodsImage : '')
-            // 新增优惠券id: restaurant_card_id
-            if (param["coupon"]) {
-                sql = "insert into restaurant_goods_order (`name`,`describe`,img,goods_id,open_id,param,goods_sku_id,`number`,trade_id,price,style,create_time,pay_status,dinners_number,pay_method,table_number,customer_uid,restaurant_card_id,coupon) values (?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?,?,?)";
-                row = await query(sql, [cart[i].goodsName, cart[i].goodsDesc, img, cart[i].goodsId, param['openid'], cart[i].goodsParam, cart[i].paramId, cart[i].number, param['tradeId'], cart[i].price, param['style'], param['payStatus'], param['dinnersNumber'], param['payMethod'], param['restaurantTableName'], param['customerUid'], param["coupon"].id, param["coupon"].reduce_cost]);
+        try {
+            let cart = param['cart']
+            let current_time = new Date()
+            let DATA = cart.map(val => {
+                return {
+                    "name": val["goodsName"],
+                    "describe": val["goodsDesc"],
+                    "img": val["goodsImage"] ? val["goodsImage"] : '',
+                    "goods_id": val["goodsId"],
+                    "open_id": param["openid"],
+                    "param": JSON.stringify(val["goodsParam"]),
+                    "goods_sku_id": val["paramId"],
+                    "number": val["number"],
+                    "trade_id": param['tradeId'],
+                    "price": val["price"],
+                    "style": param['style'],
+                    "pay_status": param['payStatus'],
+                    "dinners_number": param['dinnersNumber'],
+                    "pay_method": param['payMethod'],
+                    "table_number": param['restaurantTableName'],
+                    "customer_uid": param['customerUid'],
+                    "restaurant_card_id": param["coupon"] ? param["coupon"].id : null,
+                    "coupon": param["coupon"] ? param["coupon"].reduce_cost : null,
+                    "create_time": current_time
+                }
+            })
+            let result = await BulkInsert("restaurant_goods_order", DATA)
+            if (result["id_list"].length == cart.length) {
+                data.code = 0
+                data.text = "添加订单成功"
             } else {
-                sql = "insert into restaurant_goods_order (`name`,`describe`,img,goods_id,open_id,param,goods_sku_id,`number`,trade_id,price,style,create_time,pay_status,dinners_number,pay_method,table_number,customer_uid) values (?,?,?,?,?,?,?,?,?,?,?,current_timestamp,?,?,?,?,?)";
-                row = await query(sql, [cart[i].goodsName, cart[i].goodsDesc, img, cart[i].goodsId, param['openid'], cart[i].goodsParam, cart[i].paramId, cart[i].number, param['tradeId'], cart[i].price, param['style'], param['payStatus'], param['dinnersNumber'], param['payMethod'], param['restaurantTableName'], param['customerUid']]);
+                data.code = 1
+                data.text = "添加订单失败"
             }
-            if (row.insertId) {
-                flag++
-            }
-        }
-        if (flag == length) {
-            data.code = 0
-            data.text = "添加订单成功"
-        } else {
-            data.code = 1
-            data.text = "添加订单失败"
+
+            return data
+        } catch (e) {
+            log.error(name, e)
         }
 
-        return data
-
-        // this.Run = async function (ver, param, res) {
-        //     var name = "RestaurantAddOrder::Run";
-        //     log.debug("RestaurantAddOrder::Run.in");
-        //     var data = {};
-        //     var response = tool.error.OK;
-        //     var sql = '', row = [];
-        //     // if (param['tradeId'].length <= 0) {
-        //     //     console.info('没有收到订单号')
-        //     // } else
-        //     if (param['cart'].length <= 0) {
-        //         console.info('没有收到订单数据')
-        //     } else if (param['openid'].length <= 0) {
-        //         console.info('没有收到用户的openid')
-        //     } else {
-        //             try {
-        // 				var yinbaoAddOrder = require("./yinbao_add_onLineOrder")
-        // 				let call = await yinbaoAddOrder(param)
-        // 				console.info(call)
-        // 				if(call.code == 0){
-        // 					let yinbao_orderNo = call.orderNo
-        // 					let cart = param['cart']
-        // 					let length = cart.length, flag = 0
-        // 					for (let i in cart) {
-        // 						cart[i].goodsParam = JSON.stringify(cart[i].goodsParam)
-        // 						let img = (cart[i].goodsImage ? cart[i].goodsImage : '')
-        // 						sql = "insert into restaurant_goods_order (`name`,`describe`,img,goods_id,open_id,param,goods_sku_id,`number`,trade_id,price,style,yinbao_order_no,create_time) values (?,?,?,?,?,?,?,?,?,?,?,?,current_timestamp)";
-        // 						row = await query(sql, [cart[i].goodsName, cart[i].goodsDesc, img, cart[i].goodsId, param['openid'], cart[i].goodsParam, cart[i].paramId, cart[i].number, param['tradeId'], cart[i].price, param['style'], yinbao_orderNo]);
-        // 						if (row.insertId) {
-        // 							flag++
-        // 						}
-        // 					}
-        // 					if (flag == length) {
-        // 						data.code = 0
-        // 						data.text = "订单插入成功"
-        // 					} else {
-        // 						data.code = 1
-        // 						data.text = "订单插入失败"
-        // 					}
-        // 				}else{
-        // 					data.code = 1
-        // 					data.text = "订单推送失败"
-        // 				}
-        //
-        //
-        //             } catch (err) {
-        //                 if (err.code) {
-        //                     response = tool.error.ErrorSQL;
-        //                     log.warn(name, "code:", err.code, ", sql:", err.sql);
-        //                 } else {
-        //                     log.warn(name, JSON.stringify(response));
-        //                     response = tool.error.ErrorCatch;
-        //                 }
-        //             }
-        //
-        //
-        //     }
-        //
-        //
-        //     if (response.code != tool.error.OKCode) {
-        //         log.warn(name, JSON.stringify(response));
-        //     }
-        //
-        //     tool.MakeResponse(200,
-        //         {
-        //             res: response,
-        //             data: data,
-        //             action: "add_order",
-        //         }, res);
-        //     tool.log.debug("RestaurantAddOrder::Run.out");
-        // }
     }
 }
 

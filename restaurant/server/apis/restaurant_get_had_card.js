@@ -7,7 +7,7 @@ function RestaurantGetHadCard() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantGetHadCard::Run";
-        log.debug("RestaurantGetHadCard::Run.in");
+        // log.debug("RestaurantGetHadCard::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -74,15 +74,16 @@ function RestaurantGetHadCard() {
                 }
 
             } catch (err) {
-                response = tool.error.ErrorSQL;
-                tool.log.error("RestaurantGetHadCard::Run", "code:", err.code, ", sql:", err.sql);
+                log.error(name, err)
+                // response = tool.error.ErrorSQL;
+                // tool.log.error("RestaurantGetHadCard::Run", "code:", err.code, ", sql:", err.sql);
             }
         }
 
 
-        if (response.code != tool.error.OKCode) {
-            log.warn(name, JSON.stringify(response));
-        }
+        // if (response.code != tool.error.OKCode) {
+        //     log.warn(name, JSON.stringify(response));
+        // }
 
         tool.MakeResponse(200,
             {
@@ -90,7 +91,7 @@ function RestaurantGetHadCard() {
                 data: data,
                 action: "get_had_card",
             }, res);
-        tool.log.debug("RestaurantGetHadCard::Run.out");
+        // tool.log.debug("RestaurantGetHadCard::Run.out");
     }
 }
 

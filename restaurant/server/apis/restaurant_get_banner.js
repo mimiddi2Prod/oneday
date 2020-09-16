@@ -23,20 +23,21 @@ function RestaurantGetBanner() {
             }
 
         } catch (err) {
-            if (err.code) {
-                response = tool.error.ErrorSQL;
-                log.warn(name, "code:", err.code, ", sql:", err.sql);
-            } else {
-                log.warn(name, JSON.stringify(response));
-                response = tool.error.ErrorCatch;
-            }
+            log.error(name, err)
+            // if (err.code) {
+            //     response = tool.error.ErrorSQL;
+            //     log.warn(name, "code:", err.code, ", sql:", err.sql);
+            // } else {
+            //     log.warn(name, JSON.stringify(response));
+            //     response = tool.error.ErrorCatch;
+            // }
         }
         // }
 
 
-        if (response.code != tool.error.OKCode) {
-            log.warn(name, JSON.stringify(response));
-        }
+        // if (response.code != tool.error.OKCode) {
+        //     log.warn(name, JSON.stringify(response));
+        // }
 
         tool.MakeResponse(200,
             {

@@ -7,7 +7,7 @@ function RestaurantCheckOrderStock() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantCheckOrderStock::Run";
-        log.debug("RestaurantCheckOrderStock::Run.in");
+        // log.debug("RestaurantCheckOrderStock::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -88,20 +88,21 @@ function RestaurantCheckOrderStock() {
             }
 
         } catch (err) {
-            if (err.code) {
-                response = tool.error.ErrorSQL;
-                log.warn(name, "code:", err.code, ", sql:", err.sql);
-            } else {
-                log.warn(name, JSON.stringify(response));
-                response = tool.error.ErrorCatch;
-            }
+            log.error(name, err)
+            // if (err.code) {
+            //     response = tool.error.ErrorSQL;
+            //     log.warn(name, "code:", err.code, ", sql:", err.sql);
+            // } else {
+            //     log.warn(name, JSON.stringify(response));
+            //     response = tool.error.ErrorCatch;
+            // }
         }
         // }
 
 
-        if (response.code != tool.error.OKCode) {
-            log.warn(name, JSON.stringify(response));
-        }
+        // if (response.code != tool.error.OKCode) {
+        //     log.warn(name, JSON.stringify(response));
+        // }
 
         tool.MakeResponse(200,
             {
@@ -109,7 +110,7 @@ function RestaurantCheckOrderStock() {
                 data: data,
                 action: "check_stock",
             }, res);
-        tool.log.debug("RestaurantCheckOrderStock::Run.out");
+        // tool.log.debug("RestaurantCheckOrderStock::Run.out");
     }
 }
 

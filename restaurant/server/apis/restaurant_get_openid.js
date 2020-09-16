@@ -1,7 +1,6 @@
 var tools = require("./../tool");
 var https = require('https');
 var wxConfig = require("./../config/wxConfig")
-// var HttpsGet = require("./../utils/httpRequest")
 var appid = wxConfig.appid
 var secret = wxConfig.secret
 
@@ -12,7 +11,6 @@ function RestaurantGetOpenid() {
 
     this.Run = async function (ver, param, res) {
         var name = "RestaurantGetOpenid::Run";
-        log.debug("RestaurantGetOpenid::Run.in");
         var data = {};
         var response = tool.error.OK;
         var sql = '', row = [];
@@ -36,9 +34,8 @@ function RestaurantGetOpenid() {
                     var e = await HttpsGet(options)
                     let openid = JSON.parse(e).openid
                     let sessionkey = JSON.parse(e).session_key
-                    // console.info(e)
-                    var sql = 'select id from restaurant_user where open_id = ?'
-                    var row = await query(sql, openid)
+                    sql = 'select id from restaurant_user where open_id = ?'
+                    row = await query(sql, openid)
                     if (row.length <= 0) {
                         sql = 'insert into restaurant_user (open_id,session_key,register_time,last_login_time)values(?,?,current_timestamp,current_timestamp)'
                         row = await query(sql, [openid, sessionkey])
@@ -55,13 +52,6 @@ function RestaurantGetOpenid() {
                         }
                     }
                     data.openid = openid
-
-                    // let getCustomer = require('./yinbao_get_customer_copy')
-                    // let callData = await getCustomer(data.phone)
-                    // console.info(callData)
-                    // if(callData.code == 0){
-                    //     data.customer = callData
-                    // }
                 }
 
                 await Call()
@@ -78,9 +68,9 @@ function RestaurantGetOpenid() {
         }
 
 
-        if (response.code != tool.error.OKCode) {
-            log.warn(name, JSON.stringify(response));
-        }
+        // if (response.code != tool.error.OKCode) {
+        //     log.warn(name, JSON.stringify(response));
+        // }
 
         tool.MakeResponse(200,
             {
@@ -88,7 +78,6 @@ function RestaurantGetOpenid() {
                 data: data,
                 action: "get_openid",
             }, res);
-        tool.log.debug("RestaurantGetOpenid::Run.out");
     }
 }
 

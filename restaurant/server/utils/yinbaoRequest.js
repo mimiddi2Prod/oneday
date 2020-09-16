@@ -6,8 +6,6 @@ const https = require('https');
 const yinbaoConfig = require('./../config/yinbaoConfig')
 
 module.exports = async function request(router, postDataJson) {
-    // console.info(router)
-    // console.info(postDataJson)
     const appKey = yinbaoConfig.appKey
     let timeStamp = new Date().getTime()
 
