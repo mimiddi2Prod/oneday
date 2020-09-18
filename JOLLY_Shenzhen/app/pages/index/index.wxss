@@ -313,7 +313,7 @@ page {
 
 .footer-submit {
   display: inline-block;
-  background-color: #FBE9D6;
+  background-color: #95BB99;
   border-radius: 50rpx;
   height: 100rpx;
   line-height: 100rpx;
@@ -531,7 +531,8 @@ button[plain]{
 .add-btn{
   text-align: center;
   padding: 20rpx;
-  background-color: #FBE9D6;
+  /* background-color: #FBE9D6; */
+  background-color: #95BB99;
   color:#fff;
   display: flex;
   flex-direction: column;
