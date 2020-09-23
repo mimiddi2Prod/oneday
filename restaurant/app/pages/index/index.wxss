@@ -113,8 +113,10 @@ page {
 }
 
 .goods-pic {
-  width: 80px;
-  height: 80px;
+  /* width: 80px;
+  height: 80px; */
+  width: 90px;
+  height: 90px;
   flex-shrink: 0;
 }
 
@@ -122,8 +124,11 @@ page {
   display: flex;
   flex-direction: column;
   padding: 0px 5px 0px 5px;
-  height: 80px;
-  width: 300rpx;
+  /* height: 80px; */
+  height: 90px;
+  max-height: 90px;
+  /* width: 300rpx; */
+  width: 290rpx;
   /* max-width: 300rpx */
 }
 

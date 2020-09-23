@@ -746,7 +746,8 @@ Page({
       }
 
       for (let i = 0; i < goodWrap.list.length; i++) {
-        offset += 90;
+        // offset += 90;
+        offset += 100;
         if (scrollTop <= offset) {
           if (this.data.categoryToView != goodWrap.scrollId) {
             this.setData({

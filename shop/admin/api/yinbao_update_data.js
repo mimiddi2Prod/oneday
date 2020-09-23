@@ -50,6 +50,19 @@ const goods = [
     {"name": "手制汉堡咖哩饭", "sort": 3},
     {"name": "香橙烟熏鸭胸", "sort": 2},
     {"name": "澳洲西冷牛排", "sort": 1},
+    // 甜品
+    {"name": "青柚满满小日式", "sort": 12},
+    {"name": "芋泥白金沙卷", "sort": 11},
+    {"name": "椰子凤梨慕斯（椰子，凤梨，芒果））", "sort": 10},
+    {"name": "茉莉蜜桃慕斯", "sort": 9},
+    {"name": "蒙布朗", "sort": 8},
+    {"name": "无花果满满", "sort": 7},
+    {"name": "芝士厚金烧", "sort": 6},
+    {"name": "海盐香草千层", "sort": 5},
+    {"name": "帕芭娜戚风切件", "sort": 4},
+    {"name": "蓝莓伯爵戚风切件", "sort": 3},
+    {"name": "蜜桃香草戚风切件", "sort": 2},
+    {"name": "玫珑蜜瓜草莓戚风切件", "sort": 1},
 ]
 
 function yinbaoUpdateData() {
