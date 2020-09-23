@@ -63,6 +63,9 @@ const goods = [
     {"name": "蓝莓伯爵戚风切件", "sort": 3},
     {"name": "蜜桃香草戚风切件", "sort": 2},
     {"name": "玫珑蜜瓜草莓戚风切件", "sort": 1},
+    // 热饮
+    {"name": "热纯茶—竹林（烟小种）", "sort": -1},
+    {"name": "热纯茶—山行（小赤甘）", "sort": -1},
 ]
 
 function yinbaoUpdateData() {
@@ -166,6 +169,12 @@ function yinbaoUpdateData() {
                                 val.sort = m.sort
                             }
                         })
+                        if (val.attribute3) {
+                            let tag = typeof val.attribute3 == "string" ? JSON.parse(val.attribute3) : val.attribute3
+                            if (tag.text == "店长推荐") {
+                                val.sort = 50
+                            }
+                        }
                         return {
                             "name": val.name,
                             "id": val.uid,
