@@ -394,6 +394,7 @@ Page({
   },
 
   cutCart: function (goodsId, price, paramId) {
+    this.data.goodsToView = "" // 防止页面回滚
     let self = this
     let cart = self.data.cart
 
@@ -584,7 +585,8 @@ Page({
   getGoodsParam: function (e) {
     // console.info(e)
     this.setData({
-      showDetail: false
+      showDetail: false,
+      goodsToView: "" // 防止页面回滚
     })
     let self = this
     let goodsId = e.currentTarget.dataset.id
