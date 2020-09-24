@@ -450,6 +450,7 @@ Page({
   },
 
   cutCart: function (goodsId, price, paramId) {
+    this.data.goodsToView = "" // 防止页面回滚
     let self = this
     let cart = self.data.cart
 
@@ -623,7 +624,8 @@ Page({
   getGoodsParam: function (e) {
     // console.info(e)
     this.setData({
-      showDetail: false
+      showDetail: false,
+      goodsToView: "" // 防止页面回滚
     })
     let self = this
     let goodsId = e.currentTarget.dataset.id
@@ -780,8 +782,8 @@ Page({
         cardList: res.cardList,
         success: function (e) {
           // console.info(e)
-          if(e.cardList.length){
-            e.cardList = e.cardList.filter(val=>{
+          if (e.cardList.length) {
+            e.cardList = e.cardList.filter(val => {
               return val.code && val.code != "null"
             })
             self.saveCard(JSON.stringify(e))
