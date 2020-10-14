@@ -78,19 +78,19 @@ function sendText(openid, message, flag) {
         // console.info(result)
         if (result.errcode == 0) {
             if (flag == 0) {
-                sendText(openid, '厦门店及大理店进入公众 “厦门oneday设计师民宿”，点击左下角   “民宿预定”', '0_3')
+                sendText(openid, '若需预定房间，请点击左下角“民宿预定”进入“公众号预定”噢：）')
             }
             if (flag == 1) {
-                sendText(openid, '厦门店及大理店进入公众 “厦门oneday设计师民宿”，点击左下角   “民宿预定”', '0_3')
+                sendText(openid, '若需预定房间，请点击左下角“民宿预定”进入“公众号预定”噢：）')
             }
             if (flag == 2) {
                 sendText(openid, 'Wi-Fi密码：oneday830')
             }
 
             // 自动回复
-            if (flag == '0_3') {
-                sendText(openid, '点击   “XX店优惠订”  即可优惠价入住oneday民宿的设计型房间噢：）')
-            }
+            // if (flag == '0_3') {
+            //     sendText(openid, '点击   “XX店优惠订”  即可优惠价入住oneday民宿的设计型房间噢：）')
+            // }
         }
     });
 }
