@@ -4,8 +4,20 @@ var config = require("./../config/wxConfig")
 
 exports.run = async function (params) {
     return new Promise(async function (resolve, reject) {
-        let condition = [{key: 'appid', value: wechatApi.wxConfig.appid}]
-        let row = await db.Select("message", "subscribe_message", condition, "", "sort")
+        // let condition = [{key: 'appid', value: wechatApi.wxConfig.appid}]
+        // let row = await db.Select("message", "subscribe_message", condition, "", "sort")
+        let row = [
+            {
+                "message": 'HELLO 欢迎您来Jolly这是一整栋独立而幽静的白色城堡满足您对理想生活向往的“惬意”与“愉悦”' +
+                    '\n \n我们有Cafe+Brunch+Shop+Play+photography等多种分享方式为一体的全新综合美学空间希望通过新旧交汇，给您时空碰撞的奇妙感受一起探索，美好生活吧' +
+                    '\n \nEnjoy a nice day with Oneday ❤'
+            },
+            {
+                "message": '如果正巧你在Jolly可以连接我们的无线网络' +
+                    '\n \n账户：oneday jolly2F/3F' +
+                    '\n密码：oneday830'
+            }
+        ]
         if (row.length > 0) {
             let i = 0
             sendText(params, row, i);
