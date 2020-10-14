@@ -4,8 +4,16 @@ var config = require("./../config/wxConfig")
 
 exports.run = async function (params) {
     return new Promise(async function (resolve, reject) {
-        let condition = [{key: 'appid', value: wechatApi.wxConfig.appid}]
-        let row = await db.Select("message", "subscribe_message", condition, "", "sort")
+        // let condition = [{key: 'appid', value: wechatApi.wxConfig.appid}]
+        // let row = await db.Select("message", "subscribe_message", condition, "", "sort")
+        let row = [
+            {
+                "message": 'Hi  感谢遇见，Enjoy a nice day with oneday ：）'
+            },
+            {
+                "message": '若需预定房间，请点击左下角“民宿预定”进入“公众号预定”噢：）'
+            }
+        ]
         if (row.length > 0) {
             let i = 0
             sendText(params, row, i);
