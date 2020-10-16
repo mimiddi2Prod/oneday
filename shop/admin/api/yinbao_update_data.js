@@ -66,6 +66,10 @@ const goods = [
     // 热饮
     {"name": "热纯茶—竹林（烟小种）", "sort": -1},
     {"name": "热纯茶—山行（小赤甘）", "sort": -1},
+    // 全日套餐
+    {"name": "Jolly全日双人餐", "sort": 3},
+    {"name": "2~3人下午茶套餐", "sort": 2},
+    {"name": "68元下午茶套餐", "sort": 1},
 ]
 
 function yinbaoUpdateData() {
