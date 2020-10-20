@@ -371,6 +371,18 @@ function Router() {
                 var shopUpdateCardInfo = require("./api/shop_update_card_info.js");
                 baseApi = new shopUpdateCardInfo;
                 break;
+            case "yinbao_get_default_sort":
+                var YinbaoGetDefaultSort = require("./api/yinbao_get_default_sort.js");
+                baseApi = new YinbaoGetDefaultSort;
+                break;
+            case "yinbao_set_default_sort":
+                var YinbaoSetDefaultSort = require("./api/yinbao_set_default_sort.js");
+                baseApi = new YinbaoSetDefaultSort;
+                break;
+            case "yinbao_del_default_sort":
+                var YinbaoDelDefaultSort = require("./api/yinbao_del_default_sort.js");
+                baseApi = new YinbaoDelDefaultSort;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

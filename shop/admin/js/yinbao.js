@@ -11,7 +11,16 @@ var yinbaoVM = new Vue({
 
         accessTimesData: null,
 
-        isPhone: false
+        isPhone: false,
+
+        // 排序相关
+        goodsList: [],
+        type_select: "",
+        Type: ["分类", "商品"],
+        ModalName: "",
+        ModalSort: "",
+        navList: ['分类', '商品'],
+        navId: 0,
     },
     methods: {
         yinbaoGetGoodsToUpdate: function () {
@@ -51,7 +60,93 @@ var yinbaoVM = new Vue({
                     self.accessTimesData = res.data
                 }
             })
-        }
+        },
+
+        // 银豹数据排序
+        getYinbaoDataDefaultSort() {
+            let self = this
+            const url = '../api/yinbao_get_default_sort', async = true
+            let data = {}
+            server(url, data, async, "post", function (res) {
+                console.info(res)
+                self.goodsList = res
+            })
+        },
+        addSort: function () {
+            $('#myModals').on('show.bs.modal', function () {
+                var modal = $(this)
+                modal.find('.modal-title').text('添加分类')
+            })
+        },
+        submitSortBtn() {
+            let NotEmpty = [this.type_select, this.ModalName, this.ModalSort].every(val => {
+                return val
+            })
+            if (!NotEmpty) {
+                alert("请确保数据填写完整")
+                return
+            }
+            let self = this
+            const url = '../api/yinbao_set_default_sort', async = true
+            let data = {
+                type: this.type_select,
+                name: this.ModalName,
+                sort: this.ModalSort
+            }
+            server(url, data, async, "post", function (res) {
+                console.info(res)
+                if (res.code == 1) {
+                    alert(res.msg)
+                } else {
+                    alert(res.msg)
+                    $('#myModals').modal('hide')
+                    self.getYinbaoDataDefaultSort()
+                }
+            })
+        },
+        updateSort(id) {
+            let data
+            if (this.navId == 0) {
+                data = this.goodsList.subCateSort.filter(e => {
+                    return e.id == id
+                })[0]
+            } else {
+                data = this.goodsList.goods.filter(e => {
+                    return e.id == id
+                })[0]
+            }
+            let self = this
+            const url = '../api/yinbao_set_default_sort', async = true
+            server(url, data, async, "post", function (res) {
+                if (res.code == 1) {
+                    alert(res.msg)
+                } else {
+                    alert(res.msg)
+                    $('#myModals').modal('hide')
+                    self.getYinbaoDataDefaultSort()
+                }
+            })
+        },
+        delSort(id) {
+            let data
+            if (this.navId == 0) {
+                data = this.goodsList.subCateSort.filter(e => {
+                    return e.id == id
+                })[0]
+            } else {
+                data = this.goodsList.goods.filter(e => {
+                    return e.id == id
+                })[0]
+            }
+            let self = this
+            const url = '../api/yinbao_del_default_sort', async = true
+            server(url, data, async, "post", function (res) {
+                self.getYinbaoDataDefaultSort()
+            })
+        },
+    },
+    created() {
+        this.getYinbaoDataDefaultSort()
     }
 })
 
@@ -112,11 +207,11 @@ function getDate(n) {
     // let number = Number(allDay / 7).toFixed(0)
     // yinbaoVM.number = (allDay % 7 >= 5 ? number : Number(number) + 1)
     // yinbaoVM.n = n
-    if(!yinbaoVM.isPhone){
+    if (!yinbaoVM.isPhone) {
         let number = Number(allDay / 7).toFixed(0)
         yinbaoVM.number = (allDay % 7 >= 5 ? number : Number(number) + 1)
         yinbaoVM.n = n
-    }else{
+    } else {
         let number = Number(allDay / 3).toFixed(0)
         yinbaoVM.number = (allDay % 3 >= 11 ? number : Number(number) + 1)
         yinbaoVM.n = n

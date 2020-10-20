@@ -3,74 +3,74 @@ var appId = require('./../config/yinbaoConfig').appId
 var request = require('../utils/yinbaoRequest')
 var jsonBigInt = require('json-bigint')({"storeAsString": true});
 
-const subCateSort = [
-    {"name": '下单前必看', "sort": 15, "id": "1569869512395692333"},
-    {"name": '全日套餐', "sort": 14, "id": "1594283188415108183"},
-    {"name": '甜品', "sort": 13, "id": "1568275399601392239"},
-    {"name": '热饮', "sort": 12, "id": "1588180185064710012"},
-    {"name": '苏打', "sort": 11, "id": "1568279585429681103"},
-    {"name": '果茶', "sort": 10, "id": "1588180180862946560"},
-    {"name": '夏季限定', "sort": 9, "id": "1588180137523421765"},
-    {"name": '意式咖啡', "sort": 8, "id": "1578710652581467865"},
-    {"name": '手冲咖啡', "sort": 7, "id": "1578710715068922686"},
-    {"name": '咖啡特调', "sort": 6, "id": "1593231144526239701"},
-    {"name": '冰酿', "sort": 5, "id": "1578727942468338965"},
-    {"name": '酒水', "sort": 4, "id": "1579447782571865752"},
-    {"name": 'Brunch早午餐', "sort": 3, "id": "1568298367465952365"},
-    {"name": 'All Day全天供应', "sort": 2, "id": "1578711812465842988"},
-    {"name": 'Dinner晚餐', "sort": 1}
-]
-const goods = [
-    // 早午餐
-    {"name": "仅在此时间段供应：10:00-15:00（其余时间请勿下单）", "sort": 6},
-    {"name": "牛油果鸡肉三明治", "sort": 5},
-    {"name": "大孔烟熏牛肉三明治", "sort": 4},
-    {"name": "大虾果泥可颂", "sort": 3},
-    {"name": "Jolly晨餐拼盘", "sort": 2},
-    {"name": "NYC美式全餐", "sort": 1},
-    // 全日供应
-    {"name": "手撕烤鸡沙拉", "sort": 21},
-    {"name": "意式水牛沙拉", "sort": 20},
-    {"name": "明太子辣味薯条", "sort": 19},
-    {"name": "松露薯条", "sort": 18},
-    {"name": "咸趣薯饼", "sort": 17},
-    {"name": "薄荷炸鱼柳", "sort": 16},
-    {"name": "避风坞炒鸡翼", "sort": 15},
-    {"name": "jolly炸物拼盘", "sort": 14},
-    {"name": "辣拌海鲜&小卷饼", "sort": 13},
-    {"name": "香草红酱&饺子皮塔", "sort": 12},
-    {"name": "菌菇三重奏", "sort": 11},
-    {"name": "芝士焗土豆泥", "sort": 10},
-    {"name": "夏季青豆汤", "sort": 9},
-    {"name": "南瓜汤", "sort": 8},
-    {"name": "菌菇汤", "sort": 7},
-    {"name": "西班牙腊肠意面", "sort": 6},
-    {"name": "奶油蘑菇培根意面", "sort": 5},
-    {"name": "猪颈肉豆子拌饭", "sort": 4},
-    {"name": "手制汉堡咖哩饭", "sort": 3},
-    {"name": "香橙烟熏鸭胸", "sort": 2},
-    {"name": "澳洲西冷牛排", "sort": 1},
-    // 甜品
-    {"name": "青柚满满小日式", "sort": 12},
-    {"name": "芋泥白金沙卷", "sort": 11},
-    {"name": "椰子凤梨慕斯（椰子，凤梨，芒果））", "sort": 10},
-    {"name": "茉莉蜜桃慕斯", "sort": 9},
-    {"name": "蒙布朗", "sort": 8},
-    {"name": "无花果满满", "sort": 7},
-    {"name": "芝士厚金烧", "sort": 6},
-    {"name": "海盐香草千层", "sort": 5},
-    {"name": "帕芭娜戚风切件", "sort": 4},
-    {"name": "蓝莓伯爵戚风切件", "sort": 3},
-    {"name": "蜜桃香草戚风切件", "sort": 2},
-    {"name": "玫珑蜜瓜草莓戚风切件", "sort": 1},
-    // 热饮
-    {"name": "热纯茶—竹林（烟小种）", "sort": -1},
-    {"name": "热纯茶—山行（小赤甘）", "sort": -1},
-    // 全日套餐
-    {"name": "Jolly全日双人餐", "sort": 3},
-    {"name": "2~3人下午茶套餐", "sort": 2},
-    {"name": "68元下午茶套餐", "sort": 1},
-]
+// const subCateSort = [
+//     {"name": '下单前必看', "sort": 15, "id": "1569869512395692333"},
+//     {"name": '全日套餐', "sort": 14, "id": "1594283188415108183"},
+//     {"name": '甜品', "sort": 13, "id": "1568275399601392239"},
+//     {"name": '热饮', "sort": 12, "id": "1588180185064710012"},
+//     {"name": '苏打', "sort": 11, "id": "1568279585429681103"},
+//     {"name": '果茶', "sort": 10, "id": "1588180180862946560"},
+//     {"name": '夏季限定', "sort": 9, "id": "1588180137523421765"},
+//     {"name": '意式咖啡', "sort": 8, "id": "1578710652581467865"},
+//     {"name": '手冲咖啡', "sort": 7, "id": "1578710715068922686"},
+//     {"name": '咖啡特调', "sort": 6, "id": "1593231144526239701"},
+//     {"name": '冰酿', "sort": 5, "id": "1578727942468338965"},
+//     {"name": '酒水', "sort": 4, "id": "1579447782571865752"},
+//     {"name": 'Brunch早午餐', "sort": 3, "id": "1568298367465952365"},
+//     {"name": 'All Day全天供应', "sort": 2, "id": "1578711812465842988"},
+//     {"name": 'Dinner晚餐', "sort": 1}
+// ]
+// const goods = [
+//     // 早午餐
+//     {"name": "仅在此时间段供应：10:00-15:00（其余时间请勿下单）", "sort": 6},
+//     {"name": "牛油果鸡肉三明治", "sort": 5},
+//     {"name": "大孔烟熏牛肉三明治", "sort": 4},
+//     {"name": "大虾果泥可颂", "sort": 3},
+//     {"name": "Jolly晨餐拼盘", "sort": 2},
+//     {"name": "NYC美式全餐", "sort": 1},
+//     // 全日供应
+//     {"name": "手撕烤鸡沙拉", "sort": 21},
+//     {"name": "意式水牛沙拉", "sort": 20},
+//     {"name": "明太子辣味薯条", "sort": 19},
+//     {"name": "松露薯条", "sort": 18},
+//     {"name": "咸趣薯饼", "sort": 17},
+//     {"name": "薄荷炸鱼柳", "sort": 16},
+//     {"name": "避风坞炒鸡翼", "sort": 15},
+//     {"name": "jolly炸物拼盘", "sort": 14},
+//     {"name": "辣拌海鲜&小卷饼", "sort": 13},
+//     {"name": "香草红酱&饺子皮塔", "sort": 12},
+//     {"name": "菌菇三重奏", "sort": 11},
+//     {"name": "芝士焗土豆泥", "sort": 10},
+//     {"name": "夏季青豆汤", "sort": 9},
+//     {"name": "南瓜汤", "sort": 8},
+//     {"name": "菌菇汤", "sort": 7},
+//     {"name": "西班牙腊肠意面", "sort": 6},
+//     {"name": "奶油蘑菇培根意面", "sort": 5},
+//     {"name": "猪颈肉豆子拌饭", "sort": 4},
+//     {"name": "手制汉堡咖哩饭", "sort": 3},
+//     {"name": "香橙烟熏鸭胸", "sort": 2},
+//     {"name": "澳洲西冷牛排", "sort": 1},
+//     // 甜品
+//     {"name": "青柚满满小日式", "sort": 12},
+//     {"name": "芋泥白金沙卷", "sort": 11},
+//     {"name": "椰子凤梨慕斯（椰子，凤梨，芒果））", "sort": 10},
+//     {"name": "茉莉蜜桃慕斯", "sort": 9},
+//     {"name": "蒙布朗", "sort": 8},
+//     {"name": "无花果满满", "sort": 7},
+//     {"name": "芝士厚金烧", "sort": 6},
+//     {"name": "海盐香草千层", "sort": 5},
+//     {"name": "帕芭娜戚风切件", "sort": 4},
+//     {"name": "蓝莓伯爵戚风切件", "sort": 3},
+//     {"name": "蜜桃香草戚风切件", "sort": 2},
+//     {"name": "玫珑蜜瓜草莓戚风切件", "sort": 1},
+//     // 热饮
+//     {"name": "热纯茶—竹林（烟小种）", "sort": -1},
+//     {"name": "热纯茶—山行（小赤甘）", "sort": -1},
+//     // 全日套餐
+//     {"name": "Jolly全日双人餐", "sort": 3},
+//     {"name": "2~3人下午茶套餐", "sort": 2},
+//     {"name": "68元下午茶套餐", "sort": 1},
+// ]
 
 function yinbaoUpdateData() {
     this.Service = async function (version, param, callback) {
@@ -78,6 +78,9 @@ function yinbaoUpdateData() {
         var data = {}
         var row = []
         try {
+            const subCateSort = await db.Query("select * from yinbao_sort where `type` = ? order by sort desc", ["分类"])
+            const goods = await db.Query("select * from yinbao_sort where `type` = ? order by sort desc", ["商品"])
+
             // 1.更新分类
             let postData = {
                 "appId": appId,
@@ -176,7 +179,7 @@ function yinbaoUpdateData() {
                         if (val.attribute3) {
                             let tag = typeof val.attribute3 == "string" ? JSON.parse(val.attribute3) : val.attribute3
                             if (tag.text == "店长推荐") {
-                                val.sort = 50
+                                val.sort = 5050
                             }
                         }
                         return {

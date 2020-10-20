@@ -40,8 +40,12 @@
         </div>
 
         <div class="zhishu">
-            <button class="btn btn-secondary" v-on:click="yinbaoGetGoodsToUpdate" style="margin-bottom: 6px">更新brunch商品列表</button>
-            <button class="btn btn-secondary" v-on:click="yinbaoGetAPIAccessTimes" style="margin-bottom: 6px">获取银豹7天内接口剩余次数</button>
+            <button class="btn btn-secondary" v-on:click="yinbaoGetGoodsToUpdate" style="margin-bottom: 6px">
+                更新brunch商品列表
+            </button>
+            <button class="btn btn-secondary" v-on:click="yinbaoGetAPIAccessTimes" style="margin-bottom: 6px">
+                获取银豹7天内接口剩余次数
+            </button>
         </div>
 
         <div class="zhishu">
@@ -53,58 +57,188 @@
         </div>
 
 
-        <div class="time">
-            <!--<span>时间：</span>-->
-            <!--<input type="text" class="form-control" id="test5_1" style="width: auto;margin-right: 20px"-->
-            <!--placeholder="选择起始时间" v-model="start_time">-->
-            <!--<div class="line"></div>-->
-            <!--<input type="text" class="form-control" id="test5_2" style="width: auto;"-->
-            <!--placeholder="选择截止时间" v-model="end_time">-->
+        <div class="time"></div>
+
+        <p>多参数示例：（name为参数标题，text为可选集合），银豹商品编辑 自定义1</p>
+        <pre>
+[
+    {
+        "name":"4寸可2选1",
+        "text":["提拉米苏","芝士厚金烧"]
+    },
+    {
+        "name":"JOLLY炸物拼盘",
+        "text":["薯饼/香肠/鸡翅/薯格"]
+    },
+    {
+        "name":"饮品",
+        "text":["莓果苏打（冰）& 纯热茶-山竹（小赤甘）"]
+    },
+]
+
+无空格版：[{"name":"4寸可2选1","text":["提拉米苏","芝士厚金烧"]},{"name":"JOLLY炸物拼盘","text":["薯饼/香肠/鸡翅/薯格"]},{"name":"饮品","text":["莓果苏打（冰）& 纯热茶-山竹（小赤甘）"]},]
+        </pre>
+
+        <p>标签示例：（text为标签文案，background为背景色，color为字体颜色），银豹商品编辑 自定义2</p>
+        <pre>{"text":"店长推荐","background":"#90A691","color":"#FFFFFF"}</pre>
+
+        <p>银豹商品编辑 备注 为商品描述</p>
+        <!--排序相关-->
+        <div class="addSort">
+            <span style="font-size: 20px">(排序从大到小,商品在每个分类中的排序独立)</span>
+            <button type="button" class="btn btn-danger addSort" data-toggle="modal" data-target="#myModals"
+                    v-on:click="addSort()">添加排序
+            </button>
+        </div>
+        <ul class="nav nav-tabs">
+            <li v-bind:class="(index == navId ? 'active' : '')" v-for="item,index in navList" @click="navId = index">
+                <a href="javascript:;">{{item}}</a>
+            </li>
+        </ul>
+        <div class="goods">
+            <!-- 商品标题 -->
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="item">
+                    <span class="first-title have-border column-center">{{navId == 0 ? '分类名' : '商品名'}}</span>
+                    <span class="second-title have-border column-center">排序</span>
+                    <span class="second-title column-center">操作</span>
+                </div>
+            </nav>
+
+            <!-- 商品详情 -->
+            <div class="goods-container" v-for="item,index in navId == 0 ? goodsList.subCateSort : goodsList.goods">
+                <div class="m">
+                    <div class="first-title">
+                        <!--<label class="form-check-label row-center">-->
+                        <!--<div class="a" v-on:change="checkOne()">-->
+                        <!--<input type="checkbox" name="checkGoods" v-model="item.checked">-->
+                        <!--<img :src="item.image[0]">-->
+                        <!--</div>-->
+                        <!--<div class="b">-->
+                        <!---->
+                        <!--</div>-->
+                        <!--</label>-->
+                        <span>{{item.name}}</span>
+                    </div>
+                    <!--<div class="second-title column-center">-->
+                    <!--<input class="form-control" v-bind:value="item.price"-->
+                    <!--v-model="item.price" oninput="value=value.replace(/[^\d.]/g,'')" style="min-width: 70px"/>-->
+                    <!--</div>-->
+                    <!--<div class="second-title column-center">-->
+                    <!--{{item.volume}}-->
+                    <!--</div>-->
+                    <!--<div class="second-title column-center">-->
+                    <!--<input class="form-control" v-bind:value="item.stock"-->
+                    <!--v-model="item.stock" oninput="value=value.replace(/[^\d]/g,'')" style="min-width: 70px"/>-->
+                    <!--</div>-->
+                    <!--<div class="second-title column-center">-->
+                    <!--<input class="form-control" v-bind:value="item.sort2"-->
+                    <!--v-model="item.sort2" oninput="value=value.replace(/[^\d]/g,'')" style="min-width: 70px"/>-->
+                    <!--</div>-->
+                    <!--<div class="second-title column-center">-->
+                    <!--<input class="form-control" v-bind:value="item.limit"-->
+                    <!--v-model="item.limit" oninput="value=value.replace(/[^\d]/g,'')" style="min-width: 70px"/>-->
+                    <!--</div>-->
+                    <!--<div class="second-title column-center" v-if="navTwoId == 0">-->
+                    <!--{{item.category_name_1}}-->
+                    <!--</div>-->
+                    <!--<div class="second-title column-center" v-if="navTwoId == 1">-->
+                    <!--{{item.integral_price}}-->
+                    <!--</div>-->
+                    <!--<div class="second-title column-center">-->
+                    <!--{{item.create_time}}-->
+                    <!--</div>-->
+                    <div class="second-title column-center">
+                        <input class="form-control" v-bind:value="item.sort"
+                               v-model="item.sort" oninput="value=value.replace(/[^\d]/g,'')" style="min-width: 70px"/>
+                    </div>
+                    <div class="second-title column-center">
+                        <button type="button" class="btn btn-link" v-on:click="updateSort(item.id)">
+                            确定
+                        </button>
+                        <button type="button" class="btn btn-link" v-on:click="delSort(item.id)">
+                            删除
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="calendar" style="margin: 0 0 10px 0">
-            <h4>{{year}}年{{month}}月</h4>
-            <button class="btn btn-secondary" v-on:click="getDate(n - 1)">上月</button>
-            <button class="btn btn-secondary" v-on:click="getDate(n + 1)">下月</button>
-            <!--<span v-on:click="getDate(n - 1)">上月</span>-->
-            <!--<span v-on:click="getDate(n + 1)">下月</span>-->
+
+        <!--补差价用的 现在没用了-->
+        <!--<div id="calendar" style="margin: 0 0 10px 0">-->
+        <!--<h4>{{year}}年{{month}}月</h4>-->
+        <!--<button class="btn btn-secondary" v-on:click="getDate(n - 1)">上月</button>-->
+        <!--<button class="btn btn-secondary" v-on:click="getDate(n + 1)">下月</button>-->
+        <!--</div>-->
+
+        <!--<table class="table table-bordered">-->
+        <!--<thead v-if="!isPhone">-->
+        <!--<tr v-for="item in number">-->
+        <!--<th v-for="item1 in dayList" v-if="(item1.day / 7 <= item) && (item1.day / 7 > item - 1)" style="width: auto;">-->
+        <!--<div style="width: 100%;min-width: 90px">{{item1.day}}</div>-->
+        <!--<input type="text" class="form-control" style="width: 100%;" v-bind:value="item1.refund"-->
+        <!--v-model="item1.refund" v-on:keyUp.enter="updateRefund(item1.day,item1.refund)">-->
+        <!--</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+
+        <!--<thead v-if="isPhone">-->
+        <!--<tr v-for="item in number">-->
+        <!--<th v-for="item1 in dayList" v-if="(item1.day / 3 <= item) && (item1.day / 3 > item - 1)" style="width: auto;">-->
+        <!--<div style="width: 100%;min-width: 90px">{{item1.day}}</div>-->
+        <!--<input type="text" class="form-control" style="width: 100%;" v-bind:value="item1.refund"-->
+        <!--v-model="item1.refund" v-on:keyUp.enter="updateRefund(item1.day,item1.refund)">-->
+        <!--</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--</table>-->
+
+        <div class="modal fade" id="myModals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="sort row-center">
+                            <!--<div class="index">类型</div>-->
+                            <div class="item">
+                                <div class="select">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <select class="form-control" v-model="type_select">
+                                                <option disabled="" value="" selected="selected">请选择分类或商品</option>
+                                                <option v-for="item in Type" v-bind:value="item">{{item}}</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="sortModalText" type="text" name=""
+                               v-model="ModalName" style="margin-bottom: 6px" placeholder="商品名"/>
+                        <input type="text" class="form-control" id="sortModalSort" type="text" name=""
+                               v-model="ModalSort" style="margin-bottom: 6px" placeholder="排序"/>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" v-on:click="submitSortBtn()">确定</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
         </div>
-
-        <table class="table table-bordered">
-            <!--<caption>边框表格布局</caption>-->
-            <thead v-if="!isPhone">
-            <tr v-for="item in number">
-                <th v-for="item1 in dayList" v-if="(item1.day / 7 <= item) && (item1.day / 7 > item - 1)" style="width: auto;">
-                    <div style="width: 100%;min-width: 90px">{{item1.day}}</div>
-                    <input type="text" class="form-control" style="width: 100%;" v-bind:value="item1.refund"
-                           v-model="item1.refund" v-on:keyUp.enter="updateRefund(item1.day,item1.refund)">
-                </th>
-            </tr>
-            </thead>
-
-            <thead v-if="isPhone">
-            <tr v-for="item in number">
-                <th v-for="item1 in dayList" v-if="(item1.day / 3 <= item) && (item1.day / 3 > item - 1)" style="width: auto;">
-                    <div style="width: 100%;min-width: 90px">{{item1.day}}</div>
-                    <input type="text" class="form-control" style="width: 100%;" v-bind:value="item1.refund"
-                           v-model="item1.refund" v-on:keyUp.enter="updateRefund(item1.day,item1.refund)">
-                </th>
-            </tr>
-            </thead>
-        </table>
     </div>
 </div>
 
-<!--<div class="container">-->
-<!--<div class="row">-->
-<!--<button id="load" onclick="HtmlLoad()">加载页面</button>-->
-<!--</div>-->
 <div id="myModal" class="modal fade" data-keyboard="false"
      data-backdrop="static" data-role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div id="loading" class="loading">更新中...</div>
 </div>
-<!--</div>-->
 
 <script type="text/javascript" src="../js/menu.js"></script>
 <script type="text/javascript" src="../js/yinbao.js"></script>
