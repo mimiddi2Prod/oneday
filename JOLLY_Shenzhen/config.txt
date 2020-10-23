@@ -1,0 +1,21 @@
+图片使用七牛云
+账号:onedayjolly@163.com
+密码:oneday123
+
+商户号：
+1600949561 // 商户号
+0cfe7e1172bcd83bcc110762ec6d901e // 商户密钥
+
+小程序：
+域名：https://miniszsn.jolly.youyueworld.com
+wx98a0eb2df04ce3cc
+0cfe7e1172bcd83bcc110762ec6d901e
+
+小程序后台：
+地址：http://adminszsn.jolly.youyueworld.com
+
+前台点单：http://jolly.oneday.youyueworld.com/
+
+公众号：
+域名：https://hotel.oneday.youyueworld.com
+wx21cf2922d0a597b4

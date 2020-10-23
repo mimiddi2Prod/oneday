@@ -1,0 +1,17 @@
+JOLLY_Shenzhen：森南店 使用公众号为onedayonehome
+	admin:编辑后台
+	app：小程序
+	order:前台点单网页版
+	server：小程序服务
+	WebView：安卓app，首页内嵌order网页网址
+	wx:onedayonehome公众号开发的
+
+odwechatcontrol：公众号单独的红包的 （onedayonehome 和 jolly 共用）
+
+restaurant：厦门沙坡尾店
+shop：厦门沙坡尾店商城 
+wx：jolly公众号开发的
+oneday.sql：商城和brunch一起公用的数据库
+
+config.txt : 一些账号密码密钥等 跟 oneday.txt 合起来看
+oneday.txt : 一些账号密码密钥等 跟 config.txt 合起来看
