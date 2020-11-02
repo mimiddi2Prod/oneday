@@ -13,28 +13,46 @@ function send(param){
     let message = ''
     let url = ''
     switch (key) {
+        case "item1_1":{
+            url = './images/item1_1.png'
+            break;
+        }
+        case "item1_2":{
+            url = './images/item1_2.png'
+            break;
+        }
+        case "item1_3":{
+            url = './images/item1_3.png'
+            break;
+        }
+        case "item1_4":{
+            url = './images/item1_4.png'
+            break;
+        }
+		case "item1_5":{
+            url = './images/item1_5.jpg'
+            break;
+        }
+        case "item2_1":{
+            message = '关于设计改造，可添加微信：sm278118152 或 tina7640 沟通：）'
+            break;
+        }
         case "item2_2":{
-            url = './images/wanshang.jpg'
-            break;
-        }
-		case "item2_3":{
-            url = './images/kecheng.jpg'
-            break;
-        }
-        case "item2_4":{
-            url = './images/traffic.jpg'
+            // message = '关于民宿合作，可添加微信：sm278118152 或 tina7640 沟通：）'
+			url = './images/item2_2.png'
             break;
         }
         case "item3_1":{
-            message = '️☎详询更多，可致电客服：19859263629'
-            break;
-        }
-        case "item3_2":{
-            url = './images/join.jpg'
+            url = './images/item3_1.png'
             break;
         }
         case "item3_4":{
-            url = './images/load.jpg'
+            message = '简历邮箱：oneday830@163.com\n' +
+                '服务投诉：oneday830@163.com'
+            break;
+        }
+        case "item3_5":{
+            url = './images/item3_5.jpg'
             break;
         }
         default:

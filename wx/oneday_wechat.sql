@@ -10,10 +10,48 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-09-05 15:28:30
+Date: 2020-11-02 12:01:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) NOT NULL COMMENT '点击触发：click， 小程序：miniprogram， 网页：view',
+  `name` varchar(255) NOT NULL,
+  `key` varchar(255) NOT NULL COMMENT 'click等点击类型必须',
+  `parent_button_id` int(11) NOT NULL COMMENT '二级菜单对应的父按钮id，二级菜单用sub_button',
+  `url` varchar(255) NOT NULL COMMENT '微信旧版本不适配小程序，用于跳转网页 view、miniprogram类型必须',
+  `miniappid` varchar(255) NOT NULL COMMENT '小程序appid(获取数据后字段应转为appid）  miniprogram类型必须',
+  `pagepath` varchar(255) NOT NULL COMMENT '小程序路径 miniprogram类型必须',
+  `sort` int(12) NOT NULL COMMENT '菜单排序， 不同菜单组 自己比较',
+  `appid` varchar(255) NOT NULL COMMENT '对应的微信公众号appid',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for menu_click
+-- ----------------------------
+DROP TABLE IF EXISTS `menu_click`;
+CREATE TABLE `menu_click` (
+  `id` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL COMMENT '应进行encodeURIComponent 保证换行生效',
+  `message` varchar(255) NOT NULL,
+  `sort` int(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menu_click
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for subscribe_message
@@ -32,12 +70,12 @@ CREATE TABLE `subscribe_message` (
 -- ----------------------------
 -- Records of subscribe_message
 -- ----------------------------
-INSERT INTO `subscribe_message` VALUES ('1', 'hi  欢迎关注Jolly；），很开心与你相遇', 'wx9a7f04eeea0842be', '0', '2020-01-15 13:18:13');
-INSERT INTO `subscribe_message` VALUES ('2', '如果正巧你在Jolly可以连接我们的无线网络', 'wx9a7f04eeea0842be', '1', '2020-01-15 13:18:55');
-INSERT INTO `subscribe_message` VALUES ('3', '账户：oneday jolly2F/3F 密码：oneday830', 'wx9a7f04eeea0842be', '2', '2020-01-15 13:19:14');
-INSERT INTO `subscribe_message` VALUES ('4', 'Hi  感谢遇见，Enjoy a nice day with oneday ：）', 'wx21cf2922d0a597b4', '0', '2020-07-21 14:45:40');
-INSERT INTO `subscribe_message` VALUES ('5', '厦门店及大理店进入公众 “厦门oneday设计师民宿”，点击左下角   “民宿预定”', 'wx21cf2922d0a597b4', '1', '2020-07-21 14:45:40');
-INSERT INTO `subscribe_message` VALUES ('6', '点击   “XX店优惠订”  即可优惠价入住oneday民宿的设计型房间噢：）', 'wx21cf2922d0a597b4', '2', '2020-07-21 14:45:40');
+INSERT INTO `subscribe_message` VALUES ('1', '1', 'wx9a7f04eeea0842be', '0', '2020-01-15 13:18:13');
+INSERT INTO `subscribe_message` VALUES ('2', '1', 'wx9a7f04eeea0842be', '1', '2020-01-15 13:18:55');
+INSERT INTO `subscribe_message` VALUES ('3', '1', 'wx9a7f04eeea0842be', '2', '2020-01-15 13:19:14');
+INSERT INTO `subscribe_message` VALUES ('4', 'HELLO%20%E6%AC%A2%E8%BF%8E%E6%82%A8%E6%9D%A5Jolly%0A%E8%BF%99%E6%98%AF%E4%B8%80%E6%95%B4%E6%A0%8B%E7%8B%AC%E7%AB%8B%E8%80%8C%E5%B9%BD%E9%9D%99%E7%9A%84%E7%99%BD%E8%89%B2%E5%9F%8E%E5%A0%A1%0A%E6%BB%A1%E8%B6%B3%E6%82%A8%E5%AF%B9%E7%90%86%E6%83%B3%E7%94%9F%E6%B4%BB%E5%90%91%E5%BE%80%E7%9A%84%E2%80%9C%E6%83%AC%E6%84%8F%E2%80%9D%E4%B8%8E%E2%80%9C%E6%84%89%E6%82%A6%E2%80%9D%0A%20%0A%E6%88%91%E4%BB%AC%E6%9C%89%0ACafe%2BBrunch%2BShop%2BPlay%2BPhotography%0A%E7%AD%89%E5%A4%9A%E7%A7%8D%E5%88%86%E4%BA%AB%E6%96%B9%E5%BC%8F%E4%B8%BA%E4%B8%80%E4%BD%93%E7%9A%84%E5%85%A8%E6%96%B0%E7%BB%BC%E5%90%88%E7%BE%8E%E5%AD%A6%E7%A9%BA%E9%97%B4%0A%E5%B8%8C%E6%9C%9B%E9%80%9A%E8%BF%87%E6%96%B0%E6%97%A7%E4%BA%A4%E6%B1%87%EF%BC%8C%E7%BB%99%E6%82%A8%E6%97%B6%E7%A9%BA%E7%A2%B0%E6%92%9E%E7%9A%84%E5%A5%87%E5%A6%99%E6%84%9F%E5%8F%97%0A%E4%B8%80%E8%B5%B7%E6%8E%A2%E7%B4%A2%EF%BC%8C%E7%BE%8E%E5%A5%BD%E7%94%9F%E6%B4%BB%E5%90%A7%0A%20%0AEnjoy%20a%20nice%20day%20with%20Oneday', 'wx21cf2922d0a597b4', '0', '2020-07-21 14:45:40');
+INSERT INTO `subscribe_message` VALUES ('5', '%E5%A6%82%E6%9E%9C%E6%AD%A3%E5%B7%A7%E4%BD%A0%E5%9C%A8Jolly%E5%8F%AF%E4%BB%A5%E8%BF%9E%E6%8E%A5%E6%88%91%E4%BB%AC%E7%9A%84%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C%0A%20%0A%E8%B4%A6%E6%88%B7%EF%BC%9Aoneday%20jolly2F%2F3F%0A%E5%AF%86%E7%A0%81%EF%BC%9Aoneday830', 'wx21cf2922d0a597b4', '1', '2020-07-21 14:45:40');
+INSERT INTO `subscribe_message` VALUES ('6', 'Jolly8%E8%8B%B1%E5%AF%B8ins%E7%AE%80%E7%BA%A6%E6%97%A5%E5%BC%8F%E8%9B%8B%E7%B3%956.5%E6%8A%98%E4%B8%8A%E7%BA%BF%E4%B8%AD%EF%BC%8C%E5%8F%AF%E5%89%8D%E5%BE%80%E5%A4%A7%E4%BC%97%E7%82%B9%E8%AF%84%E4%B8%8B%E5%8D%95%E6%8A%A2%E8%B4%ADhttp%3A%2F%2Fm.dianping.com%2Fappshare%2Fshop%2Fk1k9t9HpNDlJop4A', 'wx21cf2922d0a597b4', '2', '2020-07-21 14:45:40');
 
 -- ----------------------------
 -- Table structure for wechat_access_token
@@ -54,7 +92,7 @@ CREATE TABLE `wechat_access_token` (
 -- Records of wechat_access_token
 -- ----------------------------
 INSERT INTO `wechat_access_token` VALUES ('wx21cf2922d0a597b4', '{\"accessToken\":\"36_J1yg-pKrzbQ5ElPUtIu_iq9cEuqKW09DGG30aA3L6RwGHoBa2I26M3ZmGC5R6gjHaVqgH8lcpOJNyrSyDL6iPglOM5vnwLdiGxJN6RfErIYcD7zfbFVcF_m5krR83Z1c-OQgf9dW1hNPe7wjZHDaAHAOWS\",\"expireTime\":1599292659227}');
-INSERT INTO `wechat_access_token` VALUES ('wx9a7f04eeea0842be', '{\"accessToken\":\"36_J1yg-pKrzbQ5ElPUtIu_iq9cEuqKW09DGG30aA3L6RwGHoBa2I26M3ZmGC5R6gjHaVqgH8lcpOJNyrSyDL6iPglOM5vnwLdiGxJN6RfErIYcD7zfbFVcF_m5krR83Z1c-OQgf9dW1hNPe7wjZHDaAHAOWS\",\"expireTime\":1599292659227}');
+INSERT INTO `wechat_access_token` VALUES ('wx9a7f04eeea0842be', '{\"accessToken\":\"37_eCx7RUJSVxuUuRunwK7VsFLr5JJNu3T8hRWbUOg6jSQ1kZ1UoJ00NBijpzp4pGs5xhIxdyQppiRrGvixG5xGbgULaoUZ-K1pScSbF-ALhNDHvq8yK_TJWx75ZuQGlbatOLvN6Ou7uVJ66fkKJMHiAIASVQ\",\"expireTime\":1599300832316}');
 
 -- ----------------------------
 -- Table structure for wechat_config
@@ -88,5 +126,5 @@ CREATE TABLE `wechat_ticket` (
 -- ----------------------------
 -- Records of wechat_ticket
 -- ----------------------------
-INSERT INTO `wechat_ticket` VALUES ('wx9a7f04eeea0842be', 'wx_card', '{\"ticket\":\"9KwiourQPRN3vx3Nn1c_icqspS1iqgVMXkf-YPzlceUlUYGqt8Cijwau1rRqxJxqWKfklTvFCTwFnVQDYwXRDA\",\"expireTime\":1581585923090}');
+INSERT INTO `wechat_ticket` VALUES ('wx9a7f04eeea0842be', 'wx_card', '{\"ticket\":\"9KwiourQPRN3vx3Nn1c_icqspS1iqgVMXkf-YPzlceWTHw_fu6e1vYflpVTCjTk5nvf5Aozfx5to0l6C59Qm2g\",\"expireTime\":1599304447692}');
 INSERT INTO `wechat_ticket` VALUES ('wx21cf2922d0a597b4', 'wx_card', '{\"ticket\":\"9KwiourQPRN3vx3Nn1c_icqspS1iqgVMXkf-YPzlceUlUYGqt8Cijwau1rRqxJxqWKfklTvFCTwFnVQDYwXRDA\",\"expireTime\":1581585923090}');

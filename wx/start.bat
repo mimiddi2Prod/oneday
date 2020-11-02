@@ -1,4 +1,4 @@
-title oneday_jolly_wechat
+title onedayonehome_wechat
 :start
-node main.js --port 9130
+node main.js --port 10001
 goto start

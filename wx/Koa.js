@@ -45,6 +45,26 @@ Koa.Init = function () {
         }
 
         Koa.app = new koa()
+
+        // Koa.app.use(async (ctx, next) => {
+        //     console.log(ctx.request.path + ':' + ctx.request.method);
+        //     await next();
+        // });
+
+        router.get('/apis/:apiName', async (ctx, next) => {
+            let apiName = ctx.params.apiName;
+            let params = ctx.query
+            // todo get处理
+            ctx.response.body = await Server.run(apiName, params)
+        });
+
+        router.post('/apis/:apiName', async (ctx, next) => {
+            let apiName = ctx.params.apiName;
+            let params = ctx.request.body
+            // todo post处理
+            ctx.response.body = await Server.run(apiName, params)
+        });
+
         const main = async function (ctx, next) {
             const params = Url.parse(ctx.req.url, true).query;
             const openid = params.openid
@@ -138,7 +158,8 @@ Koa.Init = function () {
                 ctx.body = '';
             }
         }
-        Koa.app.use(main);
+        // Koa.app.use(main);
+        router.post('/', main)
 
         Koa.app.use(bodyParser());
         Koa.app.use(router.routes());
