@@ -46,10 +46,10 @@ Koa.Init = function () {
 
         Koa.app = new koa()
 
-        // Koa.app.use(async (ctx, next) => {
-        //     console.log(ctx.request.path + ':' + ctx.request.method);
-        //     await next();
-        // });
+        Koa.app.use(async (ctx, next) => {
+            // console.log(ctx.request.path + ':' + ctx.request.method);
+            await next();
+        });
 
         router.get('/apis/:apiName', async (ctx, next) => {
             let apiName = ctx.params.apiName;

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2020-11-02 12:01:31
+Date: 2020-11-02 15:10:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,37 +21,58 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) NOT NULL COMMENT '点击触发：click， 小程序：miniprogram， 网页：view',
   `name` varchar(255) NOT NULL,
-  `key` varchar(255) NOT NULL COMMENT 'click等点击类型必须',
   `parent_button_id` int(11) NOT NULL COMMENT '二级菜单对应的父按钮id，二级菜单用sub_button',
+  `type` varchar(255) NOT NULL COMMENT '点击触发：click， 小程序：miniprogram， 网页：view',
+  `key` varchar(255) NOT NULL COMMENT 'click等点击类型必须',
   `url` varchar(255) NOT NULL COMMENT '微信旧版本不适配小程序，用于跳转网页 view、miniprogram类型必须',
   `miniappid` varchar(255) NOT NULL COMMENT '小程序appid(获取数据后字段应转为appid）  miniprogram类型必须',
   `pagepath` varchar(255) NOT NULL COMMENT '小程序路径 miniprogram类型必须',
   `sort` int(12) NOT NULL COMMENT '菜单排序， 不同菜单组 自己比较',
   `appid` varchar(255) NOT NULL COMMENT '对应的微信公众号appid',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
+INSERT INTO `menu` VALUES ('1', '民宿预定', '0', '', '', '', '', '', '1', 'wx21cf2922d0a597b4');
+INSERT INTO `menu` VALUES ('2', '设计咨询', '0', '', '', '', '', '', '2', 'wx21cf2922d0a597b4');
+INSERT INTO `menu` VALUES ('3', '更多关于', '0', '', '', '', '', '', '3', 'wx21cf2922d0a597b4');
+INSERT INTO `menu` VALUES ('4', '客房预定', '1', 'miniprogram', '', 'https://weibo.com/u/5576287865', 'wxba832bcb326b64f3', 'zh_jdgjb/pages/blank/blank', '1', 'wx21cf2922d0a597b4');
+INSERT INTO `menu` VALUES ('5', '民宿改造与合作', '2', 'click', 'item2_2', '', '', '', '1', 'wx21cf2922d0a597b4');
+INSERT INTO `menu` VALUES ('6', 'ONETE', '3', 'click', 'item3_1', '', '', '', '1', 'wx21cf2922d0a597b4');
+INSERT INTO `menu` VALUES ('7', 'ONEDAY品牌', '3', 'view', '', 'https://mp.weixin.qq.com/s/CTCDB647EWaNZzp2QwOlfg', '', '', '2', 'wx21cf2922d0a597b4');
+INSERT INTO `menu` VALUES ('8', 'ONEDAYJOLLY', '3', 'view', '', 'https://mp.weixin.qq.com/s/44MLQq5Sh4l824F_ht33DA', '', '', '3', 'wx21cf2922d0a597b4');
+INSERT INTO `menu` VALUES ('9', '招聘', '3', 'click', 'item3_4', '', '', '', '4', 'wx21cf2922d0a597b4');
 
 -- ----------------------------
 -- Table structure for menu_click
 -- ----------------------------
 DROP TABLE IF EXISTS `menu_click`;
 CREATE TABLE `menu_click` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) NOT NULL COMMENT '按钮的key',
   `image` varchar(255) NOT NULL COMMENT '应进行encodeURIComponent 保证换行生效',
   `message` varchar(255) NOT NULL,
   `sort` int(6) NOT NULL,
+  `appid` varchar(255) NOT NULL COMMENT '公众号appid',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu_click
 -- ----------------------------
+INSERT INTO `menu_click` VALUES ('1', 'item1_1', './images/item1_1.png', '', '0', 'wx21cf2922d0a597b4');
+INSERT INTO `menu_click` VALUES ('2', 'item1_2', './images/item1_2.png', '', '0', 'wx21cf2922d0a597b4');
+INSERT INTO `menu_click` VALUES ('3', 'item1_3', './images/item1_3.png', '', '0', 'wx21cf2922d0a597b4');
+INSERT INTO `menu_click` VALUES ('4', 'item1_4', './images/item1_4.png', '', '0', 'wx21cf2922d0a597b4');
+INSERT INTO `menu_click` VALUES ('5', 'item1_5', './images/item1_5.jpg', '', '0', 'wx21cf2922d0a597b4');
+INSERT INTO `menu_click` VALUES ('6', 'item2_1', '', '%E5%85%B3%E4%BA%8E%E8%AE%BE%E8%AE%A1%E6%94%B9%E9%80%A0%EF%BC%8C%E5%8F%AF%E6%B7%BB%E5%8A%A0%E5%BE%AE%E4%BF%A1%EF%BC%9Asm278118152%20%E6%88%96%20tina7640%20%E6%B2%9F%E9%80%9A%EF%BC%9A%EF%BC%89', '0', 'wx21cf2922d0a597b4');
+INSERT INTO `menu_click` VALUES ('7', 'item2_2', './images/item2_2.png', '', '0', 'wx21cf2922d0a597b4');
+INSERT INTO `menu_click` VALUES ('8', 'item3_1', './images/item3_1.png', '', '0', 'wx21cf2922d0a597b4');
+INSERT INTO `menu_click` VALUES ('9', 'item3_4', '', '%E7%AE%80%E5%8E%86%E9%82%AE%E7%AE%B1%EF%BC%9Aoneday830%40163.com%0A%E6%9C%8D%E5%8A%A1%E6%8A%95%E8%AF%89%EF%BC%9Aoneday830%40163.com', '0', 'wx21cf2922d0a597b4');
+INSERT INTO `menu_click` VALUES ('10', 'item3_5', './images/item3_5.jpg', '', '0', 'wx21cf2922d0a597b4');
 
 -- ----------------------------
 -- Table structure for subscribe_message
