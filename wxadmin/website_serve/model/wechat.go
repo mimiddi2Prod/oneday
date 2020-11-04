@@ -5,18 +5,25 @@ import (
 	"os"
 )
 
+type WechatMenuClick struct {
+	Key     string `json:"key"`
+	Image   string `json:"image"`
+	Message string `json:"message"`
+}
+
 //Wechat 微信公众号菜单
 type WechatMenu struct {
 	Id               int    `json:"id"`
 	Name             string `json:"name"`
 	Parent_button_id int    `json:"parent_button_id"`
 	Type             string `json:"type"`
-	Key              string `json:"key"`
 	Url              string `json:"url"`
 	Miniappid        string `json:"miniappid"`
 	PagePath         string `json:"pagepath"`
 	Sort             int    `json:"sort"`
 	Appid            string `json:"appid"`
+	//Key              string `json:"key"`
+	WechatMenuClick
 }
 
 type Button struct {
@@ -34,11 +41,29 @@ func (w *WechatMenu) GetWechatMenu(arr interface{}) (btn []Button, err error) {
 	//	fmt.Println(i,v)
 	//	//appid[i] =
 	//}
+	//获取 menu_click表数据
+	click := []WechatMenuClick{}
+	row, err := MysqlDb.Query("SELECT `key`,image,message FROM `menu_click` WHERE appid = ? order by sort", os.Getenv("WECHAT"))
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	//遍历写入
+	for row.Next() {
+		item := WechatMenuClick{}
+		err = row.Scan(&item.Key, &item.Image, &item.Message)
+		if err != nil {
+			fmt.Println(err)
+			return nil, err
+		}
+		click = append(click, item)
+	}
+	//将 menu_click表数据 添加到对应的菜单中
 
 	//list：一级菜单 subList：二级菜单
 	list := []WechatMenu{}
 	sub_button := []WechatMenu{}
-	row, err := MysqlDb.Query("SELECT * FROM `menu` WHERE appid = ? order by sort", os.Getenv("WECHAT"))
+	row, err = MysqlDb.Query("SELECT * FROM `menu` WHERE appid = ? order by sort", os.Getenv("WECHAT"))
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
@@ -52,6 +77,14 @@ func (w *WechatMenu) GetWechatMenu(arr interface{}) (btn []Button, err error) {
 			return nil, err
 		}
 		//fmt.Println(item)
+		if item.Key != "" {
+			for i := range click {
+				if item.Key == click[i].Key {
+					item.Image = click[i].Image
+					item.Message = click[i].Message
+				}
+			}
+		}
 		//对数据进行分组 list：一级菜单 subList：二级菜单
 		if item.Parent_button_id == 0 {
 			list = append(list, item)

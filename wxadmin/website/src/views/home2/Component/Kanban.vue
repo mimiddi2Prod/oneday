@@ -1,11 +1,12 @@
 <template>
   <div class="board-column">
+    <!--draggable -> v-model="list" 因为报错与 :list互斥，所以去掉-->
     <draggable
-      v-model="list"
       :list="list"
       v-bind="$attrs"
       class="board-column-content"
       :set-data="setData"
+      :move="onMove"
       @update="dragSameButton"
       @add="dragDiffButton"
     >
@@ -14,13 +15,19 @@
         :id="element.id"
         :key="element.id"
         class="board-item"
+        :class="element.id == chooseId ? 'choose-sub':''"
         @click="chooseSub(element.id, element.parent_button_id)"
       >
         {{ element.name }}
       </div>
+      <div
+        v-if="list.length < 5"
+        class="board-item add-sub"
+        @click="addSub()"
+      >+</div>
     </draggable>
-    <div class="board-column-header" :class="headerId == chooseId ? 'choose' : ''" @click="choose">
-      {{ headerText }} {{ chooseId }}
+    <div class="board-column-header" @click="choose">
+      {{ headerText }}
     </div>
   </div>
 </template>
@@ -78,6 +85,16 @@ export default {
     // 只针对不同数组位移
     dragDiffButton(e) {
       this.$emit('dragButton', e)
+    },
+    addSub() {
+      this.$emit('addSub', { 'headerId': this.headerId })
+    },
+    onMove(e, originalEvent) {
+      // 微信公众号二级菜单最多存放5个
+      if (e.relatedContext.list.length >= 5) {
+        return false
+      }
+      return true
     }
   }
 }
@@ -124,10 +141,16 @@ export default {
     box-sizing: border-box;
     box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.2);
   }
-  }
-  }
-  .choose{
+  .choose-sub {
     background: red;
+    color: #fff;
+  }
+  }
+  }
+  .add-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 </style>
 

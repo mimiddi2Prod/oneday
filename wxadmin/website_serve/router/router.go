@@ -35,6 +35,10 @@ func NewRouter() *gin.Engine {
 		{
 			wechat.GET("getMenu", api.GetWechatMenu)
 		}
+		qiniu := auth.Group("/qiniu")
+		{
+			qiniu.POST("upload/token", api.GetQiniuUploadToken)
+		}
 
 	}
 	return r
