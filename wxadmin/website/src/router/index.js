@@ -70,16 +70,29 @@ export const constantRoutes = [
     component: () => import('@/views/error-page/401'),
     hidden: true
   },
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/home',
+  //   children: [
+  //     {
+  //       path: 'home',
+  //       component: () => import('@/views/home/index'),
+  //       name: 'Home',
+  //       meta: { title: 'home', icon: 'dashboard', affix: true }
+  //     }
+  //   ]
+  // }
   {
     path: '/',
     component: Layout,
-    redirect: '/home',
+    redirect: '/home2',
     children: [
       {
-        path: 'home',
-        component: () => import('@/views/home/index'),
-        name: 'Home',
-        meta: { title: 'home', icon: 'dashboard', affix: true }
+        path: 'home2',
+        component: () => import('@/views/home2/index'),
+        name: 'Home2',
+        meta: { title: 'home2', icon: 'dashboard', affix: true }
       }
     ]
   }

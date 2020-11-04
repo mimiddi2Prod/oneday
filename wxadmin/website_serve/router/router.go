@@ -31,6 +31,10 @@ func NewRouter() *gin.Engine {
 			user.GET("/info", api.GetUserInfo)
 			user.POST("/logout", api.Logout)
 		}
+		wechat := auth.Group("wechat")
+		{
+			wechat.GET("getMenu", api.GetWechatMenu)
+		}
 
 	}
 	return r
