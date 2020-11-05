@@ -10,4 +10,5 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/gorilla/sessions v1.2.1 // indirect
 	github.com/joho/godotenv v1.3.0
+	github.com/qiniu/api.v7/v7 v7.6.0
 )
