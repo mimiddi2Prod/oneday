@@ -38,6 +38,7 @@ func NewRouter() *gin.Engine {
 		qiniu := auth.Group("/qiniu")
 		{
 			qiniu.POST("upload/token", api.GetQiniuUploadToken)
+			//qiniu.GET("upload/token", api.GetQiniuUploadToken)
 		}
 
 	}

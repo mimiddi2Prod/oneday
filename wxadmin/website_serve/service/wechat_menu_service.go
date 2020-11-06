@@ -16,7 +16,7 @@ type WechatInfo struct {
 	Name  string `json:"name"`
 }
 
-func (s WechatMenuService) GetWechatMenu(c *gin.Context) map[string]interface{} {
+func (s *WechatMenuService) GetWechatMenu(c *gin.Context) map[string]interface{} {
 	var appidList [1](*WechatInfo)
 	for i := range appidList {
 		appidList[i] = &WechatInfo{"wx21cf2922d0a597b4", "oneday设计师民宿"}

@@ -33,33 +33,57 @@
               </el-tab-pane>
               <el-tab-pane label="图片" name="image">
                 <!--七牛云上传图片-->
-                <div v-if="!edit.image.length">
-                  <!---->
+                <!--<div v-if="!edit.image.length">-->
+                <!--<el-upload-->
+                <!--ref="upload"-->
+                <!--class="upload-demo"-->
+                <!--drag-->
+                <!--:action="domain"-->
+                <!--accept="image/jpeg,image/gif,image/png"-->
+                <!--:auto-upload="autoUpload"-->
+                <!--:http-request="upqiniu"-->
+                <!--:limit="limit"-->
+                <!--:multiple="multiple"-->
+                <!--list-type="picture-card"-->
+                <!--:before-upload="beforeUpload"-->
+
+                <!--:file-list="fileList"-->
+                <!--:show-file-list="true"-->
+                <!--:on-remove="handleImageRemove"-->
+                <!--:on-success="handleImageSuccess"-->
+                <!--:data="qiniuDataObj"-->
+                <!--&gt;-->
+                <!--<i class="el-icon-upload" />-->
+                <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
+                <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+                <!--</el-upload>-->
+                <!--<i class="el-icon-upload" />-->
+                <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
+                <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+                <!--</el-upload>-->
+                <!--</div>-->
+                <di slot="tip" class="el-upload__tip">图片预览</di>
+                <el-image v-if="edit.image" :src="edit.image" />
+                <div>
                   <el-upload
-                    ref="upload"
                     class="upload-demo"
                     drag
                     :action="domain"
                     accept="image/jpeg,image/gif,image/png"
-                    :auto-upload="autoUpload"
-                    :http-request="upqiniu"
-                    :limit="limit"
-                    :multiple="multiple"
-                    list-type="picture-card"
                     :before-upload="beforeUpload"
-
-                    :file-list="fileList"
-                    :show-file-list="true"
-                    :on-remove="handleImageRemove"
                     :on-success="handleImageSuccess"
                     :data="qiniuDataObj"
+                    :show-file-list="true"
+                    list-type="picture"
+                    :limit="limit"
+                    :multiple="multiple"
+                    :on-remove="handleImageRemove"
                   >
                     <i class="el-icon-upload" />
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                    <div slot="tip" class="el-upload__tip">只能上传jpg/png/gif文件</div>
                   </el-upload>
                 </div>
-                <el-image v-else :src="edit.image" />
               </el-tab-pane>
             </el-tabs>
 
@@ -81,7 +105,7 @@
 </template>
 
 <script>
-import * as qiniu from 'qiniu-js'
+// import * as qiniu from 'qiniu-js'
 
 export default {
   name: 'HomeKanbanEditDemo',
@@ -95,34 +119,26 @@ export default {
   data() {
     return {
       domain: 'https://upload.qiniup.com/',
-      rootUrl: '',
-      fileUrl: '',
       qiniuDataObj: { token: '', key: '' }, // 上传到七牛的token
-      listObj: [],
-      fileList: [],
+      // fileList: [],
       limit: 1,
-      multiple: false,
-      autoUpload: true // 禁止自动上传
+      multiple: true,
+      // autoUpload: false, // 禁止自动上传
+      imgUrl: '' // 上传图片的地址
     }
   },
   methods: {
     handleClick() {
       this.$emit('handleClickKey')
     },
-    emitInput(val) {
-      this.$emit('input', val)
-    },
     handleImageRemove() {
-      console.info(111)
+      this.edit.image = ''
+      this.imgUrl = ''
     },
     handleImageSuccess(response, file, fileList) {
-      console.info(222222333, response, file, fileList)
-      this.emitInput(this.tempUrl)
+      this.edit.image = this.imgUrl
     },
-    upqiniu(e) {},
     beforeUpload(file) {
-      const _self = this
-      console.info(file)
       // const isPNG = file.type === 'image/png'
       // const isJPEG = file.type === 'image/jpeg'
       // const isJPG = file.type === 'image/jpg'
@@ -139,19 +155,29 @@ export default {
       // var randPrefix = this.getNum()
       // this.QiniuData.key = randPrefix + '_' + `${file.name}`
 
-      const fileUrl = this.$refs.upload.uploadFiles[0].url
+      // const fileUrl = this.$refs.upload.uploadFiles[0].url
+      // this.fileUrl = fileUrl
+
       this.qiniuDataObj.key = this.getKey() + `${file.name}`
-      // 请求 qiniu token
-      this.$store.dispatch('qiniu/getQiniuToken', this.qiniuDataObj).then(res => {
-        _self.qiniuDataObj = res.qiniuDataObj
-        _self.rootUrl = res.rootUrl
-        _self.fileUrl = fileUrl
-        _self.uploadImage(res => {
-          console.info(res, 3344777)
-          // _self.edit.image = _self.rootUrl + res.key
-          console.info(_self.rootUrl + res.key)
-        })
+      // 请求 qiniu get_token / post 覆盖上传凭证 需要key
+      return this.$store.dispatch('qiniu/getQiniuToken', this.qiniuDataObj).then(res => {
+        this.qiniuDataObj = res.qiniuDataObj
+        // _self.rootUrl = res.rootUrl
+        // console.info(_self.rootUrl + res.qiniuDataObj.key)
+        this.imgUrl = res.imgUrl
+        return true
+        // _self.uploadImage(res => {
+        //   console.info(res, 3344777)
+        //   // _self.edit.image = _self.rootUrl + res.key
+        //   console.info(_self.rootUrl + res.key)
+        // })
       })
+      // // 请求 qiniu get_token / get 简单上传凭证 不需要key
+      // this.$store.dispatch('qiniu/getQiniuToken').then(res => {
+      //   console.info(res)
+      //   _self.qiniuDataObj.token = res.token
+      //   _self.rootUrl = res.rootUrl
+      // })
     },
     getKey() {
       const time = new Date()
@@ -162,38 +188,6 @@ export default {
       const minutes = time.getMinutes() + '_'
       const seconds = time.getSeconds() + '_'
       return year + month + day + hours + minutes + seconds
-    },
-    uploadImage(callback) {
-      const key = this.qiniuDataObj.key
-      const token = this.qiniuDataObj.token
-      const file = this.fileUrl
-      console.info(file)
-      const putExtra = {
-        fname: key,
-        params: {},
-        mimeType: null
-      }
-
-      const observer = {
-        next(res) {
-          // ...
-        },
-        // error(err) {
-        //   // ...
-        // },
-        complete(res) {
-          // ...
-          // console.info(res)
-          return callback(res)
-        }
-      }
-      const config = {
-        useCdnDomain: true,
-        region: qiniu.region.z0
-      }
-      const observable = qiniu.upload(file, key, token, putExtra, config)
-      // const subscription = observable.subscribe(observer) // 上传开始
-      observable.subscribe(observer) // 上传开始
     }
   }
 }

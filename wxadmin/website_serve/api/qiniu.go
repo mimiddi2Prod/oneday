@@ -10,6 +10,7 @@ import (
 // 获取token所需材料：key：key自己生成 用于做上传图片的名称，文件在浏览器中的临时路径 tempFilePath
 func GetQiniuUploadToken(c *gin.Context) {
 	var s service.QiniuUploadTokenService
+	//post
 	if err := c.ShouldBindJSON(&s); err == nil {
 		res := s.GetQiniuUploadToken(c)
 		c.JSON(http.StatusOK, res)
@@ -19,4 +20,8 @@ func GetQiniuUploadToken(c *gin.Context) {
 			"message": "七牛key不存在",
 		})
 	}
+
+	////get
+	//res := s.GetQiniuUploadToken(c)
+	//c.JSON(http.StatusOK, res)
 }

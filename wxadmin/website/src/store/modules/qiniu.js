@@ -9,7 +9,7 @@ const state = {
 const mutations = {}
 
 const actions = {
-  // get qiniu token
+  // post qiniu token
   getQiniuToken({ commit }, qiniuDataObj) {
     return new Promise((resolve, reject) => {
       getQiniuToken(qiniuDataObj).then(response => {
@@ -20,6 +20,18 @@ const actions = {
       })
     })
   }
+
+  // // get qiniu token
+  // getQiniuToken({ commit }) {
+  //   return new Promise((resolve, reject) => {
+  //     getQiniuToken().then(response => {
+  //       const { data } = response
+  //       resolve(data)
+  //     }).catch(error => {
+  //       reject(error)
+  //     })
+  //   })
+  // }
 }
 
 export default {
