@@ -1,4 +1,4 @@
-import { getMenu } from '@/api/wechat'
+import { getMenu, saveMenu } from '@/api/wechat'
 import { getToken } from '@/utils/auth'
 // import router, { resetRouter } from '@/router'
 
@@ -13,6 +13,18 @@ const actions = {
   getMenu({ commit }) {
     return new Promise((resolve, reject) => {
       getMenu().then(response => {
+        const { data } = response
+        resolve(data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  // save保存菜单配置
+  saveMenu({ commit }, menuList) {
+    return new Promise((resolve, reject) => {
+      saveMenu(menuList).then(response => {
         const { data } = response
         resolve(data)
       }).catch(error => {

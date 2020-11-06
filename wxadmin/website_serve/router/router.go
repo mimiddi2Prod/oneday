@@ -34,6 +34,7 @@ func NewRouter() *gin.Engine {
 		wechat := auth.Group("wechat")
 		{
 			wechat.GET("getMenu", api.GetWechatMenu)
+			wechat.POST("saveMenu", api.SaveWechatMenu)
 		}
 		qiniu := auth.Group("/qiniu")
 		{

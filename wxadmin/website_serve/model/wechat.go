@@ -22,17 +22,17 @@ type WechatMenu struct {
 	PagePath         string `json:"pagepath"`
 	Sort             int    `json:"sort"`
 	Appid            string `json:"appid"`
-	//Key              string `json:"key"`
+	Key              string `json:"key"`
 	WechatMenuClick
 }
 
-type Button struct {
+type Button []struct {
 	WechatMenu
 	Sub_button []WechatMenu `json:"sub_button"`
 }
 
 //appidList []struct{}
-func (w *WechatMenu) GetWechatMenu(arr interface{}) (btn []Button, err error) {
+func (w *WechatMenu) GetWechatMenu(arr interface{}) (btn Button, err error) {
 	//todo 不知道把 interface 转 数组里面嵌 obj
 	//fmt.Println(arr, 222)
 	//appidList := arr.([]struct{}) //通过断言实现类型转换
@@ -94,7 +94,7 @@ func (w *WechatMenu) GetWechatMenu(arr interface{}) (btn []Button, err error) {
 	}
 
 	//二级菜单分到对应的一级菜单
-	button := []Button{}
+	button := Button{}
 	for i := range list {
 		temp := []WechatMenu{}
 		button = append(button, struct {
@@ -111,3 +111,15 @@ func (w *WechatMenu) GetWechatMenu(arr interface{}) (btn []Button, err error) {
 	}
 	return button, nil
 }
+
+//存数据
+//func (w *WechatMenu) SaveWechatMenu(list interface{}) (err error) {
+//	MysqlDb.Query("DELETE FROM `menu` where appid = ?", os.Getenv("WECHAT"))
+//	for i := range list {
+//		fmt.Println(list[i])
+//		//row, err = MysqlDb.Query("SELECT * FROM `menu` WHERE appid = ? order by sort", os.Getenv("WECHAT"))
+//	}
+//
+//
+//	return nil
+//}

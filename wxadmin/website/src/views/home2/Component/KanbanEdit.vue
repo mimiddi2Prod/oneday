@@ -4,7 +4,8 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>{{ edit.name }}</span>
-        <el-button style="float: right; padding: 3px 0" type="text">删除菜单</el-button>
+        <!--目前仅做二级菜单删除-->
+        <el-button v-if="edit.parent_button_id !== 0" style="float: right; padding: 3px 0" type="text" @click="deleteSub">删除菜单</el-button>
       </div>
       <!--菜单内容-->
       <el-form ref="form" :model="edit" label-width="80px">
@@ -128,16 +129,20 @@ export default {
     }
   },
   methods: {
+    deleteSub() {
+      this.$emit('deleteSub', { 'id': this.edit.id })
+    },
+    // 目前没用
     handleClick() {
       this.$emit('handleClickKey')
     },
     handleImageRemove() {
-      this.edit.image = ''
       this.imgUrl = ''
     },
     handleImageSuccess(response, file, fileList) {
       this.edit.image = this.imgUrl
     },
+    // 七牛云上传图片
     beforeUpload(file) {
       // const isPNG = file.type === 'image/png'
       // const isJPEG = file.type === 'image/jpeg'

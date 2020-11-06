@@ -7,3 +7,11 @@ export function getMenu() {
   })
 }
 
+export function saveMenu(data) {
+  return request({
+    url: '/v1/wechat/saveMenu',
+    method: 'post',
+    data
+  })
+}
+

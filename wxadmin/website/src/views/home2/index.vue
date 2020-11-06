@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="btw-container">
+      {{ appidList[0].name }}
       <div class="components-container board">
         <!--<Kanban :key="1" :list="list1" :group="group" class="kanban todo" header-text="Todo" />-->
         <!--<Kanban :key="2" :list="list2" :group="group" class="kanban working" header-text="Working" />-->
@@ -26,11 +27,13 @@
         v-if="edit.id"
         :edit="edit"
         @handleClickKey="handleClickKey"
+        @deleteSub="deleteSub"
       />
     </div>
     <div class="form-submit">
       <aside>
-        当前仅提供二级菜单定制选择，一级菜单只能改名称。一级菜单最多3个，二级菜单最多5个，
+        当前仅提供二级菜单定制选择，一级菜单只能改名称。一级菜单最多3个，二级菜单最多5个。
+        应保证每个一级菜单的二级菜单都至少有一个。
         有疑问可拨打 10000 / 10010 / 10086 查询话费，并用力将手机砸向地面打开前往四次元空间，来到作者身边
       </aside>
       <el-form>
@@ -88,10 +91,10 @@ export default {
       //   { name: 'Mission', id: 9 },
       //   { name: 'Mission', id: 10 }
       // ],
-      // appidList: [{
-      //   appid: 'wx21cf2922d0a597b4',
-      //   name: 'oneday设计师民宿'
-      // }]
+      appidList: [{
+        appid: 'wx21cf2922d0a597b4',
+        name: 'oneday设计师民宿'
+      }],
       list: [],
       chooseId: 0,
       edit: {},
@@ -162,7 +165,11 @@ export default {
     },
     onSubmit() {
       // console.log('submit!')
-      // console.info(this.edit.message)
+      console.info(this.list)
+      this.$store.dispatch('wechat/saveMenu', this.list).then(res => {
+        console.info(res)
+      })
+      // 提交前，先对数据进行判断是否有漏填
     },
     cancleSubmit() {
       this.list = []
@@ -186,6 +193,16 @@ export default {
             })
           this.counterId++
           break
+        }
+      }
+    },
+    deleteSub({ id }) {
+      // 当前只做二级菜单
+      for (const i in this.list) {
+        for (const j in this.list[i].sub_button) {
+          if (this.list[i].sub_button[j].id === Number(id)) {
+            this.list[i].sub_button.splice(j, 1)
+          }
         }
       }
     }
