@@ -530,3 +530,10 @@ button[plain]{
 .gray{
   color:#CBCBCB
 }
+
+.original-price{
+  margin: 0 10rpx;
+  text-decoration: line-through;
+  font-size:24rpx;
+  color:#999
+}

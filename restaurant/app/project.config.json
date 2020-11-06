@@ -72,7 +72,7 @@
           "id": 0,
           "name": "公众号进入过期时间2050-01-01，桌号666",
           "pathName": "pages/blank/blank",
-          "query": "expire_time= 2524579200000&id=666",
+          "query": "expire_time= 2524579200000&id=9",
           "scene": null
         },
         {
