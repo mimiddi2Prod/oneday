@@ -103,7 +103,7 @@ Page({
       wx.removeStorageSync('order_expire_time')
       oet = ""
     }
-    if ((!oet.toString().length && Number(this.data.restaurantTableName) <= 8 && this.data.totalPrice < 160) ||
+    if ((!oet.toString().length && Number(this.data.restaurantTableName) <= 9 && this.data.totalPrice < 160) ||
       (oet.toString().length && oet < new Date().getTime())) {
       wx.showModal({
         title: '',

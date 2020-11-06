@@ -81,20 +81,20 @@ function RestaurantWxPayNotify() {
                     }
 
                     // todo 推送银豹订单 微信支付时银豹不计算积分 需自行更新
-                    if (customerUid) {
-                        let updateCustomerData = {}
-                        updateCustomerData.customerUid = customerUid
-                        updateCustomerData.balanceIncrement = 0
-                        updateCustomerData.pointIncrement = totalPrice
-                        let updateCustomer = require('./yinbao_update_customer')
-                        let updateCustomerCall = await updateCustomer(updateCustomerData)
+                    // if (customerUid) {
+                        // let updateCustomerData = {}
+                        // updateCustomerData.customerUid = customerUid
+                        // updateCustomerData.balanceIncrement = 0
+                        // updateCustomerData.pointIncrement = totalPrice
+                        // let updateCustomer = require('./yinbao_update_customer')
+                        // let updateCustomerCall = await updateCustomer(updateCustomerData)
                         // todo 微信支付更新积分成功和失败的提醒 code:0 成功，1 失败
-                        if (updateCustomerCall.code == 0) {
+                        // if (updateCustomerCall.code == 0) {
 
-                        } else {
+                        // } else {
 
-                        }
-                    }
+                        // }
+                    // }
 
                     /**
                      * 如果有使用优惠券，就进行核销

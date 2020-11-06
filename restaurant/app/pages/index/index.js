@@ -106,7 +106,7 @@ Page({
     // 开门广告
     this.ad()
 
-    this.getCustomerByPhone()
+    // this.getCustomerByPhone()
   },
 
   ad: function () {
