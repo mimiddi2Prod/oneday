@@ -113,8 +113,16 @@ func (w *WechatMenu) GetWechatMenu(arr interface{}) (btn Button, err error) {
 	return button, nil
 }
 
+type ParentButtonIdList struct {
+	NewId int64 `json:"new_id"`
+	OldId int   `json:"old_id"`
+}
+
 //存数据
-func (w *WechatMenu) SaveWechatMenu(list interface{}) (err error) {
+func (w *WechatMenu) SaveWechatMenu(list interface{}, sub_list interface{}) (err error) {
+	p := []ParentButtonIdList{}
+
+	//一级菜单
 	if reflect.TypeOf(list).Kind() == reflect.Slice {
 		s := reflect.ValueOf(list)
 		MysqlDb.Query("DELETE FROM `menu` WHERE appid = ?", s.Index(0).Interface().(WechatMenu).Appid)
@@ -122,11 +130,41 @@ func (w *WechatMenu) SaveWechatMenu(list interface{}) (err error) {
 		for i := 0; i < s.Len(); i++ {
 			ele := s.Index(i)
 			v := ele.Interface().(WechatMenu)
-			row, err := MysqlDb.Query("INSERT INTO `menu`(`name`,parent_button_id,`type`,`key`,url,miniappid,pagepath,sort,appid) VALUES (?,?,?,?,?,?,?,?,?)", v.Name, v.Parent_button_id, v.Type, v.Key, v.Url, v.Miniappid, v.PagePath, v.Sort, v.Appid)
-			fmt.Println(row, err)
+			row, _ := MysqlDb.Exec("INSERT INTO `menu`(`name`,parent_button_id,`type`,`key`,url,miniappid,pagepath,sort,appid) VALUES (?,?,?,?,?,?,?,?,?)", v.Name, v.Parent_button_id, v.Type, v.Key, v.Url, v.Miniappid, v.PagePath, v.Sort, v.Appid)
+			lastid, _ := row.LastInsertId()
+			if v.Parent_button_id == 0 {
+				//一级菜单
+				p = append(p, ParentButtonIdList{
+					NewId: lastid,
+					OldId: v.Id,
+				})
+			}
+			if v.Key != "" {
+				row, err := MysqlDb.Query("INSERT INTO `menu_click`(`key`,image,message,appid) VALUES (?,?,?,?)", v.Key, v.Image, v.Message, v.Appid)
+				fmt.Println(row, err)
+			}
+		}
+	}
+
+	//二级菜单
+	if reflect.TypeOf(sub_list).Kind() == reflect.Slice {
+		s := reflect.ValueOf(sub_list)
+		for i := 0; i < s.Len(); i++ {
+			ele := s.Index(i)
+			v := ele.Interface().(WechatMenu)
+
+			var parent_button_id int64
+			for j := range p {
+				if v.Parent_button_id == p[j].OldId {
+					parent_button_id = p[j].NewId
+				}
+			}
+			row, _ := MysqlDb.Exec("INSERT INTO `menu`(`name`,parent_button_id,`type`,`key`,url,miniappid,pagepath,sort,appid) VALUES (?,?,?,?,?,?,?,?,?)", v.Name, parent_button_id, v.Type, v.Key, v.Url, v.Miniappid, v.PagePath, v.Sort, v.Appid)
+			fmt.Println(row)
 
 			if v.Key != "" {
-				row, err = MysqlDb.Query("INSERT INTO `menu_click`(`key`,image,message,appid) VALUES (?,?,?,?)", v.Key, v.Image, v.Message, v.Appid)
+				row, err := MysqlDb.Query("INSERT INTO `menu_click`(`key`,image,message,appid) VALUES (?,?,?,?)", v.Key, v.Image, v.Message, v.Appid)
+				fmt.Println(row, err)
 			}
 		}
 	}

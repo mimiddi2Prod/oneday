@@ -109,12 +109,12 @@ func (s *Button) SaveWechatMenu(c *gin.Context) map[string]interface{} {
 				button[i].Sub_button[j].Key = "item" + strconv.Itoa(i) + "_" + strconv.Itoa(j)
 			}
 			sub_list = append(sub_list, button[i].Sub_button[j])
-			list = append(list, button[i].Sub_button[j])
+			//list = append(list, button[i].Sub_button[j])
 		}
 	}
 	//将数据添加到数据库中
 	i := model.WechatMenu{}
-	err := i.SaveWechatMenu(list)
+	err := i.SaveWechatMenu(list, sub_list)
 	if err != nil {
 		fmt.Println(err)
 		return nil
