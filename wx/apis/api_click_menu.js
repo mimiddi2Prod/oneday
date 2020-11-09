@@ -1,5 +1,7 @@
 var db = require("./../utils/dba");
 var wechatApi = require("./../utils/wechat_api")
+var axios = require("axios")
+var fs = require("fs")
 
 exports.run = async function (params) {
     return new Promise(async function (resolve, reject) {
@@ -95,9 +97,30 @@ async function sendText(openid, message) {
 }
 
 async function sendImage(openid, url) {
-    await wechatApi.api.uploadMedia(url, 'image', function (err, result) {
-        return wechatApi.api.sendImage(openid, result.media_id, function (err, result) {
-            return true
+    let patt = new RegExp("http")
+    if (patt.test(url)) {
+        // 先请求网络图片流
+        // 获取远端图片
+        axios({
+            method: 'get',
+            url: url,
+            responseType: 'stream'
+        }).then(async function (response) {
+            const name = "./images/" + url.split("http://onedayqiniu.minidope.com/")[1]
+            response.data.pipe(fs.createWriteStream(name))
+            setTimeout(async () => {
+                await wechatApi.api.uploadMedia(name, 'image', function (err, result) {
+                    return wechatApi.api.sendImage(openid, result.media_id, function (err, result) {
+                        return true
+                    });
+                });
+            },2000)
         });
-    });
+    } else {
+        await wechatApi.api.uploadMedia(url, 'image', function (err, result) {
+            return wechatApi.api.sendImage(openid, result.media_id, function (err, result) {
+                return true
+            });
+        });
+    }
 }

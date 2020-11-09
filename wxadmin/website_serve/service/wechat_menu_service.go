@@ -96,6 +96,7 @@ func (s *Button) SaveWechatMenu(c *gin.Context) map[string]interface{} {
 				button[i].Key,
 				button[i].Image,
 				button[i].Message,
+				button[i].KeyType,
 			},})
 		//二级菜单
 		for j := range button[i].Sub_button {
@@ -107,6 +108,11 @@ func (s *Button) SaveWechatMenu(c *gin.Context) map[string]interface{} {
 			}
 			if (len(button[i].Sub_button[j].Message) != 0 || len(button[i].Sub_button[j].Image) != 0) {
 				button[i].Sub_button[j].Key = "item" + strconv.Itoa(i) + "_" + strconv.Itoa(j)
+			}
+			if button[i].Sub_button[j].KeyType == "message" {
+				button[i].Sub_button[j].Image = ""
+			} else if button[i].Sub_button[j].KeyType == "image" {
+				button[i].Sub_button[j].Message = ""
 			}
 			sub_list = append(sub_list, button[i].Sub_button[j])
 			//list = append(list, button[i].Sub_button[j])

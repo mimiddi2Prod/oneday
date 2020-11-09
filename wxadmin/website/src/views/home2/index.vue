@@ -1,7 +1,7 @@
 <template>
   <div>
+    {{ appidList[0].name }}
     <div class="btw-container">
-      {{ appidList[0].name }}
       <div class="components-container board">
         <!--<Kanban :key="1" :list="list1" :group="group" class="kanban todo" header-text="Todo" />-->
         <!--<Kanban :key="2" :list="list2" :group="group" class="kanban working" header-text="Working" />-->
@@ -217,7 +217,8 @@ export default {
     margin: 30px;
   }
   .board {
-    width: 1000px;
+    /*width: 1000px;*/
+    width: 600px;
     margin-left: 20px;
     display: flex;
     justify-content: space-around;

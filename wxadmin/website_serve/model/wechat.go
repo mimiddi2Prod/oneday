@@ -10,6 +10,7 @@ type WechatMenuClick struct {
 	Key     string `json:"key"`
 	Image   string `json:"image"`
 	Message string `json:"message"`
+	KeyType string `json:"keyType"`
 }
 
 //Wechat 微信公众号菜单
