@@ -189,14 +189,14 @@
   <view class="header_left">
     桌号：{{number}}
   </view>
-  <view class="header-middle">
+  <!-- <view class="header-middle">
     <navigator url="../customer/customer" hover-class='none' wx:if="{{!isCustomer}}">
       会员登录
     </navigator>
     <navigator url="../customer/customer" hover-class='none' wx:if="{{isCustomer}}" style="font-size:26rpx">
       余额{{balance}}，积分{{point}}
     </navigator>
-  </view>
+  </view> -->
   <view class="header_right">
     <view bindtap='showSearch'>
       <image class="header-icon" src="/images/search.png"></image>
@@ -208,9 +208,9 @@
 </view>
 <image class="banner" src="/images/banner.png" mode="widthFix"></image>
 <!-- 跳转会员界面 -->
-<navigator url="../customer/customer" hover-class='none'>
+<!-- <navigator url="../customer/customer" hover-class='none'>
   <image class="banner" style="padding-top:0" src="/images/card.png" mode="widthFix"></image>
-</navigator>
+</navigator> -->
 
 <!-- 内容 -->
 <view class="content" style="height:{{winHeight}}rpx">
@@ -246,7 +246,7 @@
               <text style="color:{{goods.tag.color}};background-color:{{goods.tag.background}};border-radius:10rpx;padding:4rpx 6rpx;font-size:24rpx" space="true" wx:if="{{goods.tag}}">{{goods.tag.text}}</text> 
             </view>
             <!-- <text class="original-price">{{goods.original_price}}</text> -->
-            <text class='goodsPrice' style="padding-bottom:6rpx">￥{{goods.min_price}} <text style="font-size:24rpx">{{goods.stock < 10 ? '剩余 '+goods.stock+' 份' : ''}}</text></text>
+            <text class='goodsPrice' style="padding-bottom:6rpx"><text>￥{{goods.min_price}}</text> <text class="original-price">{{goods.tag.original_price}}</text><text style="font-size:24rpx">{{goods.stock < 10 ? '剩余 '+goods.stock+' 份' : ''}}</text></text>
           </view>
           <view class="goods-add">
             <!-- 有库存正常显示 没库存显示售罄不可选择 -->
