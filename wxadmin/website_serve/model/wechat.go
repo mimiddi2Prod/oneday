@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"os"
+	"reflect"
 )
 
 type WechatMenuClick struct {
@@ -113,13 +114,22 @@ func (w *WechatMenu) GetWechatMenu(arr interface{}) (btn Button, err error) {
 }
 
 //存数据
-//func (w *WechatMenu) SaveWechatMenu(list interface{}) (err error) {
-//	MysqlDb.Query("DELETE FROM `menu` where appid = ?", os.Getenv("WECHAT"))
-//	for i := range list {
-//		fmt.Println(list[i])
-//		//row, err = MysqlDb.Query("SELECT * FROM `menu` WHERE appid = ? order by sort", os.Getenv("WECHAT"))
-//	}
-//
-//
-//	return nil
-//}
+func (w *WechatMenu) SaveWechatMenu(list interface{}) (err error) {
+	if reflect.TypeOf(list).Kind() == reflect.Slice {
+		s := reflect.ValueOf(list)
+		MysqlDb.Query("DELETE FROM `menu` WHERE appid = ?", s.Index(0).Interface().(WechatMenu).Appid)
+		MysqlDb.Query("DELETE FROM `menu_click` WHERE appid = ?", s.Index(0).Interface().(WechatMenu).Appid)
+		for i := 0; i < s.Len(); i++ {
+			ele := s.Index(i)
+			v := ele.Interface().(WechatMenu)
+			row, err := MysqlDb.Query("INSERT INTO `menu`(`name`,parent_button_id,`type`,`key`,url,miniappid,pagepath,sort,appid) VALUES (?,?,?,?,?,?,?,?,?)", v.Name, v.Parent_button_id, v.Type, v.Key, v.Url, v.Miniappid, v.PagePath, v.Sort, v.Appid)
+			fmt.Println(row, err)
+
+			if v.Key != "" {
+				row, err = MysqlDb.Query("INSERT INTO `menu_click`(`key`,image,message,appid) VALUES (?,?,?,?)", v.Key, v.Image, v.Message, v.Appid)
+			}
+		}
+	}
+
+	return nil
+}

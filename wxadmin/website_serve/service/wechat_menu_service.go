@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/ginS"
 	"net/url"
 	"strconv"
 	"strings"
@@ -45,42 +46,42 @@ func (s *WechatMenuService) GetWechatMenu(c *gin.Context) map[string]interface{}
 	}
 }
 
-type WechatMenuClick struct {
-	Key     string `json:"key"`
-	Image   string `json:"image"`
-	Message string `json:"message"`
-}
+//type WechatMenuClick struct {
+//	Key     string `json:"key"`
+//	Image   string `json:"image"`
+//	Message string `json:"message"`
+//}
 
 //Wechat 微信公众号菜单
-type WechatMenu struct {
-	Id               int    `json:"id"`
-	Name             string `json:"name"`
-	Parent_button_id int    `json:"parent_button_id"`
-	Type             string `json:"type"`
-	Url              string `json:"url"`
-	Miniappid        string `json:"miniappid"`
-	PagePath         string `json:"pagepath"`
-	Sort             int    `json:"sort"`
-	Appid            string `json:"appid"`
-	Key              string `json:"key"`
-	WechatMenuClick
-}
+//type WechatMenu struct {
+//	Id               int    `json:"id"`
+//	Name             string `json:"name"`
+//	Parent_button_id int    `json:"parent_button_id"`
+//	Type             string `json:"type"`
+//	Url              string `json:"url"`
+//	Miniappid        string `json:"miniappid"`
+//	PagePath         string `json:"pagepath"`
+//	Sort             int    `json:"sort"`
+//	Appid            string `json:"appid"`
+//	Key              string `json:"key"`
+//	WechatMenuClick
+//}
 
 type Button []struct {
-	WechatMenu
-	Sub_button []WechatMenu `json:"sub_button"`
+	model.WechatMenu
+	Sub_button []model.WechatMenu `json:"sub_button"`
 }
 
 func (s *Button) SaveWechatMenu(c *gin.Context) map[string]interface{} {
 	//进行数据存储
 	button := *s
 
-	list := []WechatMenu{}
-	sub_list := []WechatMenu{}
+	list := []model.WechatMenu{}
+	sub_list := []model.WechatMenu{}
 
 	for i := range button {
 		//一级菜单
-		list = append(list, WechatMenu{
+		list = append(list, model.WechatMenu{
 			button[i].Id,
 			button[i].Name,
 			button[i].Parent_button_id,
@@ -91,7 +92,7 @@ func (s *Button) SaveWechatMenu(c *gin.Context) map[string]interface{} {
 			i,
 			button[i].Appid,
 			"",
-			WechatMenuClick{
+			model.WechatMenuClick{
 				button[i].Key,
 				button[i].Image,
 				button[i].Message,
@@ -108,21 +109,25 @@ func (s *Button) SaveWechatMenu(c *gin.Context) map[string]interface{} {
 				button[i].Sub_button[j].Key = "item" + strconv.Itoa(i) + "_" + strconv.Itoa(j)
 			}
 			sub_list = append(sub_list, button[i].Sub_button[j])
+			list = append(list, button[i].Sub_button[j])
 		}
 	}
 	//将数据添加到数据库中
-	//i := model.WechatMenu{}
-	//err := i.SaveWechatMenu(list)
-	//fmt.Println(223345455,err)
+	i := model.WechatMenu{}
+	err := i.SaveWechatMenu(list)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
 
 	//发送消息给公众号service 使其创建菜单
 	//onedayonehome
-	//res := ginS.GET("http://localhost:10001/apis/create_menu")
-	//fmt.Println(res)
+	res := ginS.GET("http://localhost:10001/apis/create_menu")
+	fmt.Println(res)
 
 	return gin.H{
 		"code": 20000,
-		"data": s,
+		"data": sub_list,
 	}
 }
 
