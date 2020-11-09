@@ -11,7 +11,7 @@ func main() {
 
 	// 创建路由
 	r := router.NewRouter()
-	r.Run(":40003")
+	r.Run(":12001")
 }
 
 //func HandleGetAllData(c *gin.Context) {

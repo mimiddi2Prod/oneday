@@ -44,7 +44,7 @@ module.exports = {
     // 跨域
     proxy: {
       'api': {
-        target: 'http://localhost:40003', // 要请求的地址
+        target: 'http://localhost:12001', // 要请求的地址
         ws: true,
         changeOrigin: true,
         pathRewrite: {
@@ -53,6 +53,24 @@ module.exports = {
       }
     }
   },
+  // devServer: {
+  //   open: true,
+  //   port: port,
+  //   overlay: {
+  //     warnings: false,
+  //     errors: true
+  //   },
+  //   // 跨域
+  //   proxy: {
+  //     [process.env.VUE_APP_BASE_API]: {
+  //       target: `localhost:12001`, // 修改后台接口地址
+  //       changeOrigin: true,
+  //       pathRewrite: {
+  //         ['^' + process.env.VUE_APP_BASE_API]: ''
+  //       }
+  //     }
+  //   }
+  // },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.

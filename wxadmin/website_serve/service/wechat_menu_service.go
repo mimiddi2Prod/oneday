@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/ginS"
+	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
@@ -122,7 +122,7 @@ func (s *Button) SaveWechatMenu(c *gin.Context) map[string]interface{} {
 
 	//发送消息给公众号service 使其创建菜单
 	//onedayonehome
-	res := ginS.GET("http://localhost:10001/apis/create_menu")
+	res, _ := http.Get("http://localhost:10001/apis/create_menu")
 	fmt.Println(res)
 
 	return gin.H{

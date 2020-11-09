@@ -16,8 +16,8 @@ func NewRouter() *gin.Engine {
 	//r.Use(middleware.CurrentUser())
 
 	//路由分组
-	v1 := r.Group("/dev-api/v1") // 开发环境
-	//v1 := r.Group("/prod-api/v1") // 生产环境
+	//v1 := r.Group("/dev-api/v1") // 开发环境
+	v1 := r.Group("/prod-api/v1") // 生产环境
 	{
 		//用户登录部分
 		v1.GET("/user/getPubKey", api.GetPubKey)
