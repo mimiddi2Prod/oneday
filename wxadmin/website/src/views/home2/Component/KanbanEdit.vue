@@ -64,26 +64,44 @@
                 <!--</el-upload>-->
                 <!--</div>-->
                 <di slot="tip" class="el-upload__tip">图片预览</di>
-                <el-image v-if="edit.image" :src="edit.image" />
+                <el-image v-if="edit.image" :src="edit.image + '?imageView2/2/w/200/h/200'" />
                 <div>
+                  <!--<el-upload-->
+                  <!--class="upload-demo"-->
+                  <!--drag-->
+                  <!--:action="domain"-->
+                  <!--accept="image/jpeg,image/gif,image/png"-->
+                  <!--:before-upload="beforeUpload"-->
+                  <!--:on-success="handleImageSuccess"-->
+                  <!--:data="qiniuDataObj"-->
+                  <!--:show-file-list="true"-->
+                  <!--list-type="picture"-->
+                  <!--:limit="limit"-->
+                  <!--:multiple="multiple"-->
+                  <!--:on-remove="handleImageRemove"-->
+                  <!--&gt;-->
+                  <!--<i class="el-icon-upload" />-->
+                  <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
+                  <!--<div slot="tip" class="el-upload__tip">只能上传jpg/png/gif文件</div>-->
+                  <!--</el-upload>-->
                   <el-upload
-                    class="upload-demo"
-                    drag
                     :action="domain"
                     accept="image/jpeg,image/gif,image/png"
                     :before-upload="beforeUpload"
                     :on-success="handleImageSuccess"
                     :data="qiniuDataObj"
                     :show-file-list="true"
-                    list-type="picture"
+                    list-type="picture-card"
                     :limit="limit"
                     :multiple="multiple"
+                    :on-preview="handlePictureCardPreview"
                     :on-remove="handleImageRemove"
                   >
-                    <i class="el-icon-upload" />
-                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    <div slot="tip" class="el-upload__tip">只能上传jpg/png/gif文件</div>
+                    <i class="el-icon-plus" />
                   </el-upload>
+                  <el-dialog :visible.sync="dialogVisible">
+                    <img width="100%" :src="dialogImageUrl" alt="">
+                  </el-dialog>
                 </div>
               </el-tab-pane>
             </el-tabs>
@@ -125,7 +143,9 @@ export default {
       limit: 1,
       multiple: true,
       // autoUpload: false, // 禁止自动上传
-      imgUrl: '' // 上传图片的地址
+      imgUrl: '', // 上传图片的地址
+      dialogImageUrl: '',
+      dialogVisible: false
     }
   },
   methods: {
@@ -141,6 +161,10 @@ export default {
     },
     handleImageSuccess(response, file, fileList) {
       this.edit.image = this.imgUrl
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
     },
     // 七牛云上传图片
     beforeUpload(file) {

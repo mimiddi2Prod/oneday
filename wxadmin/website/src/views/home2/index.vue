@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin: 20px">
     {{ appidList[0].name }}
     <div class="btw-container">
       <div class="components-container board">
@@ -106,9 +106,14 @@ export default {
     this.getMenu()
   },
   methods: {
+    initData() {
+      this.list = []
+      this.chooseId = 0
+      this.edit = {}
+    },
     getMenu() {
+      this.initData()
       this.$store.dispatch('wechat/getMenu').then(res => {
-        console.info(res)
         this.list = res.map(val => {
           this.counterId = val.id >= this.counterId ? val.id + 1 : this.counterId
           val.sub_button.forEach(m => {
@@ -165,17 +170,14 @@ export default {
     },
     onSubmit() {
       // console.log('submit!')
-      console.info(this.list)
+      this.fullscreenLoading = true
       this.$store.dispatch('wechat/saveMenu', this.list).then(res => {
-        console.info(res)
+        // console.info(res)
+        this.getMenu()
       })
       // 提交前，先对数据进行判断是否有漏填
     },
     cancleSubmit() {
-      this.list = []
-      this.chooseId = 0
-      this.edit = {}
-
       this.fullscreenLoading = true
       this.getMenu()
     },
@@ -202,6 +204,7 @@ export default {
         for (const j in this.list[i].sub_button) {
           if (this.list[i].sub_button[j].id === Number(id)) {
             this.list[i].sub_button.splice(j, 1)
+            this.edit = {}
           }
         }
       }
@@ -218,13 +221,16 @@ export default {
   }
   .board {
     /*width: 1000px;*/
-    width: 600px;
-    margin-left: 20px;
+    /*width: 600px;*/
+    width: 30%;
+    /*margin-left: 20px;*/
+    margin: 0;
     display: flex;
     justify-content: space-around;
     flex-direction: row;
     /*align-items: flex-start;*/
     align-items: flex-end;
+    height: 500px;
   }
   .kanban {
   &.todo {

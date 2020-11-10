@@ -90,8 +90,12 @@ export default {
       this.$emit('addSub', { 'headerId': this.headerId })
     },
     onMove(e, originalEvent) {
+      // 相同list可拖拽排序
+      const isInSameList = e.relatedContext.list.some(val => {
+        return val.id === e.draggedContext.element.id
+      })
       // 微信公众号二级菜单最多存放5个
-      if (e.relatedContext.list.length >= 5) {
+      if (e.relatedContext.list.length >= 5 && !isInSameList) {
         return false
       }
       return true
@@ -102,7 +106,7 @@ export default {
 <style lang="scss" scoped>
   .board-column {
     /*min-width: 300px;*/
-    min-width: 200px;
+    flex: 1;
     min-height: 100px;
     height: auto;
     overflow: hidden;
