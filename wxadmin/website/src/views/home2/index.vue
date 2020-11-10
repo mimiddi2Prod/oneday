@@ -1,47 +1,52 @@
 <template>
   <div style="margin: 20px">
-    {{ appidList[0].name }}
-    <div class="btw-container">
-      <div class="components-container board">
-        <!--<Kanban :key="1" :list="list1" :group="group" class="kanban todo" header-text="Todo" />-->
-        <!--<Kanban :key="2" :list="list2" :group="group" class="kanban working" header-text="Working" />-->
-        <!--<Kanban :key="3" :list="list3" :group="group" class="kanban done" header-text="Done" />-->
+    <el-radio-group v-model="radio">
+      <el-radio-button v-for="sgl in appidList" :key="sgl.appid" :label="sgl.appid">{{ sgl.name }}</el-radio-button>
+    </el-radio-group>
+    <div>
+      {{ list.name }}
+      <div class="btw-container">
+        <div class="components-container board">
+          <!--<Kanban :key="1" :list="list1" :group="group" class="kanban todo" header-text="Todo" />-->
+          <!--<Kanban :key="2" :list="list2" :group="group" class="kanban working" header-text="Working" />-->
+          <!--<Kanban :key="3" :list="list3" :group="group" class="kanban done" header-text="Done" />-->
 
-        <Kanban
-          v-for="item in list"
-          :key="item.id"
-          :list="item.sub_button"
-          :group="group"
-          class="kanban"
-          :class="chooseId == item.id ? 'choose' : 'done'"
-          :header-text="item.name"
-          :header-id="item.id"
-          :choose-id="chooseId"
-          @choose="choose"
-          @chooseSub="chooseSub"
-          @dragButton="dragButton"
-          @addSub="addSub"
+          <Kanban
+            v-for="item in list"
+            :key="item.id"
+            :list="item.sub_button"
+            :group="group"
+            class="kanban"
+            :class="chooseId == item.id ? 'choose' : 'done'"
+            :header-text="item.name"
+            :header-id="item.id"
+            :choose-id="chooseId"
+            @choose="choose"
+            @chooseSub="chooseSub"
+            @dragButton="dragButton"
+            @addSub="addSub"
+          />
+        </div>
+        <KanbanEdit
+          v-if="edit.id"
+          :edit="edit"
+          @handleClickKey="handleClickKey"
+          @deleteSub="deleteSub"
         />
       </div>
-      <KanbanEdit
-        v-if="edit.id"
-        :edit="edit"
-        @handleClickKey="handleClickKey"
-        @deleteSub="deleteSub"
-      />
-    </div>
-    <div class="form-submit">
-      <aside>
-        当前仅提供二级菜单定制选择，一级菜单只能改名称。一级菜单最多3个，二级菜单最多5个。
-        应保证每个一级菜单的二级菜单都至少有一个。
-        有疑问可拨打 10000 / 10010 / 10086 查询话费，并用力将手机砸向地面打开前往四次元空间，来到作者身边
-      </aside>
-      <el-form>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">保存并发布</el-button>
-          <el-button v-loading.fullscreen.lock="fullscreenLoading" @click="cancleSubmit">取消</el-button>
-        </el-form-item>
-      </el-form>
+      <div class="form-submit">
+        <aside>
+          当前仅提供二级菜单定制选择，一级菜单只能改名称。一级菜单最多3个，二级菜单最多5个。
+          应保证每个一级菜单的二级菜单都至少有一个。
+          有疑问可拨打 10000 / 10010 / 10086 查询话费，并用力将手机砸向地面打开前往四次元空间，来到作者身边
+        </aside>
+        <el-form>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">保存并发布</el-button>
+            <el-button v-loading.fullscreen.lock="fullscreenLoading" @click="cancleSubmit">取消</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
@@ -91,9 +96,11 @@ export default {
       //   { name: 'Mission', id: 9 },
       //   { name: 'Mission', id: 10 }
       // ],
+      radio: '',
       appidList: [{
         appid: 'wx21cf2922d0a597b4',
-        name: 'oneday设计师民宿'
+        name: 'oneday设计师民宿',
+        button: []
       }],
       list: [],
       chooseId: 0,
@@ -102,11 +109,21 @@ export default {
       counterId: 0 // 用于对新增sub的id的赋值，初始可通过获取最高id值+1
     }
   },
+  watch: {
+    radio(newval) {
+      this.list = this.appidList.filter(val => {
+        return newval === val.appid
+      })[0].button
+      this.chooseId = 0
+      this.edit = {}
+    }
+  },
   mounted() {
     this.getMenu()
   },
   methods: {
     initData() {
+      this.appidList = []
       this.list = []
       this.chooseId = 0
       this.edit = {}
@@ -114,19 +131,39 @@ export default {
     getMenu() {
       this.initData()
       this.$store.dispatch('wechat/getMenu').then(res => {
-        this.list = res.map(val => {
-          this.counterId = val.id >= this.counterId ? val.id + 1 : this.counterId
-          val.sub_button.forEach(m => {
-            this.counterId = m.id >= this.counterId ? m.id + 1 : this.counterId
-            if (m.image) {
-              m.keyType = 'image'
-            } else {
-              m.message = decodeURIComponent(m.message)
-              m.keyType = 'message'
-            }
+        // console.info(res)
+        // this.list = res.map(val => {
+        //   this.counterId = val.id >= this.counterId ? val.id + 1 : this.counterId
+        //   val.sub_button.forEach(m => {
+        //     this.counterId = m.id >= this.counterId ? m.id + 1 : this.counterId
+        //     if (m.image) {
+        //       m.keyType = 'image'
+        //     } else {
+        //       m.message = decodeURIComponent(m.message)
+        //       m.keyType = 'message'
+        //     }
+        //   })
+        //   return val
+        // })
+        this.appidList = res.map(val => {
+          val.button.forEach(n => {
+            this.counterId = n.id >= this.counterId ? n.id + 1 : this.counterId
+            n.sub_button.forEach(m => {
+              this.counterId = m.id >= this.counterId ? m.id + 1 : this.counterId
+              if (m.image) {
+                m.keyType = 'image'
+              } else {
+                m.message = decodeURIComponent(m.message)
+                m.keyType = 'message'
+              }
+            })
           })
           return val
         })
+        this.radio = this.radio || this.appidList[0].appid
+        this.list = this.appidList.filter(val => {
+          return this.radio === val.appid
+        })[0].button
         setTimeout(_ => {
           this.fullscreenLoading = false
         }, 1000)

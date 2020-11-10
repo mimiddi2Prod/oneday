@@ -1,10 +1,12 @@
 package service
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"website_serve/model"
@@ -16,16 +18,30 @@ import (
 //}
 type WechatMenuService struct{}
 
-type WechatInfo struct {
-	Appid string `json:"appid"`
-	Name  string `json:"name"`
-}
+//type WechatInfo struct {
+//	Appid string `json:"appid"`
+//	Name  string `json:"name"`
+//}
+
+//type WechatList struct {
+//	Appid  string `json:"appid"`
+//	Name   string `json:"name"`
+//	Button Button `json:"button"`
+//}
 
 func (s *WechatMenuService) GetWechatMenu(c *gin.Context) map[string]interface{} {
-	var appidList [1](*WechatInfo)
-	for i := range appidList {
-		appidList[i] = &WechatInfo{"wx21cf2922d0a597b4", "oneday设计师民宿"}
+	//var appidList [1](*WechatInfo)
+	//for i := range appidList {
+	//	appidList[i] = &WechatInfo{"wx21cf2922d0a597b4", "oneday设计师民宿"}
+	//}
+	str := os.Getenv("WECHAT")
+	//appidList := []WechatInfo{}
+	appidList := []model.WechatList{}
+	err := json.Unmarshal([]byte(str), &appidList)
+	if err != nil {
+		fmt.Printf("err=%v", err)
 	}
+
 	i := model.WechatMenu{}
 	is, err := i.GetWechatMenu(appidList)
 	if err != nil {
