@@ -109,6 +109,9 @@
             <el-form-item v-if="edit.type=='miniprogram'" label="跳转小程序">
               <el-input v-model="edit.miniappid" />
             </el-form-item>
+            <el-form-item v-if="edit.type=='miniprogram'" label="小程序页面路径">
+              <el-input v-model="edit.pagepath" />
+            </el-form-item>
             <el-form-item v-if="edit.type=='view'||edit.type=='miniprogram'" :label="edit.type=='view'?'跳转网页':'备用网页'">
               <el-input v-model="edit.url" />
             </el-form-item>

@@ -230,8 +230,8 @@ func (w *WechatMenu) SaveWechatMenu(list interface{}, sub_list interface{}) (err
 				})
 			}
 			if v.Key != "" {
-				row, err := MysqlDb.Query("INSERT INTO `menu_click`(`key`,image,message,appid) VALUES (?,?,?,?)", v.Key, v.Image, v.Message, v.Appid)
-				fmt.Println(row, err)
+				MysqlDb.Query("INSERT INTO `menu_click`(`key`,image,message,appid) VALUES (?,?,?,?)", v.Key, v.Image, v.Message, v.Appid)
+				//fmt.Println(row, err)
 			}
 		}
 	}
@@ -249,12 +249,12 @@ func (w *WechatMenu) SaveWechatMenu(list interface{}, sub_list interface{}) (err
 					parent_button_id = p[j].NewId
 				}
 			}
-			row, _ := MysqlDb.Exec("INSERT INTO `menu`(`name`,parent_button_id,`type`,`key`,url,miniappid,pagepath,sort,appid) VALUES (?,?,?,?,?,?,?,?,?)", v.Name, parent_button_id, v.Type, v.Key, v.Url, v.Miniappid, v.PagePath, v.Sort, v.Appid)
-			fmt.Println(row)
+			MysqlDb.Exec("INSERT INTO `menu`(`name`,parent_button_id,`type`,`key`,url,miniappid,pagepath,sort,appid) VALUES (?,?,?,?,?,?,?,?,?)", v.Name, parent_button_id, v.Type, v.Key, v.Url, v.Miniappid, v.PagePath, v.Sort, v.Appid)
+			//fmt.Println(row)
 
 			if v.Key != "" {
-				row, err := MysqlDb.Query("INSERT INTO `menu_click`(`key`,image,message,appid) VALUES (?,?,?,?)", v.Key, v.Image, v.Message, v.Appid)
-				fmt.Println(row, err)
+				MysqlDb.Query("INSERT INTO `menu_click`(`key`,image,message,appid) VALUES (?,?,?,?)", v.Key, v.Image, v.Message, v.Appid)
+				//fmt.Println(row, err)
 			}
 		}
 	}

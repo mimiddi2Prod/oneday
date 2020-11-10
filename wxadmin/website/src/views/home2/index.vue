@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 20px">
+  <div v-loading.fullscreen.lock="fullscreenLoading" style="margin: 20px">
     <el-radio-group v-model="radio">
       <el-radio-button v-for="sgl in appidList" :key="sgl.appid" :label="sgl.appid">{{ sgl.name }}</el-radio-button>
     </el-radio-group>
@@ -43,7 +43,7 @@
         <el-form>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">保存并发布</el-button>
-            <el-button v-loading.fullscreen.lock="fullscreenLoading" @click="cancleSubmit">取消</el-button>
+            <el-button @click="cancleSubmit">取消</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -130,6 +130,7 @@ export default {
     },
     getMenu() {
       this.initData()
+      const self = this
       this.$store.dispatch('wechat/getMenu').then(res => {
         // console.info(res)
         // this.list = res.map(val => {
@@ -145,11 +146,11 @@ export default {
         //   })
         //   return val
         // })
-        this.appidList = res.map(val => {
+        self.appidList = res.map(val => {
           val.button.forEach(n => {
-            this.counterId = n.id >= this.counterId ? n.id + 1 : this.counterId
+            self.counterId = n.id >= self.counterId ? n.id + 1 : self.counterId
             n.sub_button.forEach(m => {
-              this.counterId = m.id >= this.counterId ? m.id + 1 : this.counterId
+              self.counterId = m.id >= self.counterId ? m.id + 1 : self.counterId
               if (m.image) {
                 m.keyType = 'image'
               } else {
@@ -160,12 +161,12 @@ export default {
           })
           return val
         })
-        this.radio = this.radio || this.appidList[0].appid
-        this.list = this.appidList.filter(val => {
-          return this.radio === val.appid
+        self.radio = self.radio || self.appidList[0].appid
+        self.list = self.appidList.filter(val => {
+          return self.radio === val.appid
         })[0].button
-        setTimeout(_ => {
-          this.fullscreenLoading = false
+        setTimeout(() => {
+          self.fullscreenLoading = false
         }, 1000)
       })
     },

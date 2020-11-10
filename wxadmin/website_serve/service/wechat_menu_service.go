@@ -144,12 +144,17 @@ func (s *Button) SaveWechatMenu(c *gin.Context) map[string]interface{} {
 
 	//发送消息给公众号service 使其创建菜单
 	//onedayonehome
-	res, _ := http.Get("http://localhost:10001/apis/create_menu")
-	fmt.Println(res)
+	if list[0].Appid == "wx21cf2922d0a597b4" {
+		res, _ := http.Get("http://localhost:10001/apis/create_menu")
+		fmt.Println(res)
+	} else if list[0].Appid == "wx9a7f04eeea0842be" {
+		res, _ := http.Get("http://localhost:9130/apis/create_menu")
+		fmt.Println(res)
+	}
 
 	return gin.H{
 		"code": 20000,
-		"data": sub_list,
+		"message": "success",
 	}
 }
 

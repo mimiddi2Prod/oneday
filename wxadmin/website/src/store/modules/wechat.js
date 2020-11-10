@@ -25,8 +25,8 @@ const actions = {
   saveMenu({ commit }, menuList) {
     return new Promise((resolve, reject) => {
       saveMenu(menuList).then(response => {
-        const { data } = response
-        resolve(data)
+        // const { data } = response
+        resolve()
       }).catch(error => {
         reject(error)
       })
