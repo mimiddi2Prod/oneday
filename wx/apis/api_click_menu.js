@@ -104,17 +104,18 @@ async function sendImage(openid, url) {
         axios({
             method: 'get',
             url: url,
-            responseType: 'stream'
+            responseType: 'arraybuffer'
         }).then(async function (response) {
             const name = "./images/" + url.split("http://onedayqiniu.minidope.com/")[1]
-            response.data.pipe(fs.createWriteStream(name))
-            setTimeout(async () => {
-                await wechatApi.api.uploadMedia(name, 'image', function (err, result) {
+            // response.data.pipe(fs.createWriteStream(name))
+            fs.writeFile(name, response.data, (err) => {
+                if (err) throw err
+                wechatApi.api.uploadMedia(name, 'image', function (err, result) {
                     return wechatApi.api.sendImage(openid, result.media_id, function (err, result) {
                         return true
                     });
                 });
-            },2000)
+            })
         });
     } else {
         await wechatApi.api.uploadMedia(url, 'image', function (err, result) {
