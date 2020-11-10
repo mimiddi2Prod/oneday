@@ -114,7 +114,7 @@ function buttonType(val) {
                     "type": val.type,
                     "url": val.url,
                     "appid": val.miniappid,  // onedayonehome小程序
-                    "pagepath": "zh_jdgjb/pages/blank/blank"
+                    "pagepath": val.pagepath
                 }
                 break;
             }
