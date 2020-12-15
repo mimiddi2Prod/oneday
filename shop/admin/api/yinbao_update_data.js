@@ -143,6 +143,9 @@ function yinbaoUpdateData() {
             // 先清除原有的数据
             sql = "delete from restaurant_goods_sku"
             row = await db.Query(sql)
+            // 先清除原有的数据
+            sql = "delete from restaurant_goods_image"
+            row = await db.Query(sql)
             for (let k in littleCateUidList) {
                 // 2.更新商品列表
                 let ProductResult = ""
@@ -333,6 +336,7 @@ async function getYinBaoImg(postData) {
             })
         })
         db.BulkUpdate("restaurant_goods", sql_data)
+        db.BulkInsert("restaurant_goods_image", ProductImgResult)
     }
     if (e.data.result.length >= 100) {
         postData.postBackParameter = e.data.postBackParameter

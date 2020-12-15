@@ -21,10 +21,27 @@ function RestaurantGetCategoryByLocationCode() {
                     data.category = row
                 }
 
+                // 新增 从 restaurant_goods_image 获取一件商品的多张图片
+                sql = "select * from restaurant_goods_image"
+                const imgList = await query(sql)
+
                 sql = "select id,`name`,img,`describe`,min_price,category_id,stock,tag from restaurant_goods where location_code = ? and status = ? order by sort desc";
                 row = await query(sql, [param['location_code'], 1]);
                 if (row.length > 0) {
                     data.goods = row
+
+                    // 新增 开始 多图片
+                    data.goods = data.goods.map(val => {
+                        val.imageList = []
+                        imgList.forEach(m => {
+                            if (val.id == m.productUid) {
+                                val.imageList.push(m.imageUrl)
+                            }
+                        })
+                        return val
+                    })
+                    // 新增 结束
+
                     for (let i in data.goods) {
                         sql = "select id,stock,price,param from restaurant_goods_sku where goods_id = ?";
                         row = await query(sql, data.goods[i].id);

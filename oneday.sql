@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 3306
-Source Server Version : 100125
+Source Server Version : 100119
 Source Host           : localhost:3306
 Source Database       : oneday
 
 Target Server Type    : MYSQL
-Target Server Version : 100125
+Target Server Version : 100119
 File Encoding         : 65001
 
-Date: 2020-10-20 14:58:46
+Date: 2020-12-15 20:27:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -63,7 +63,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-10-20 11:33:13', '0', null, 'a383da37-1705-486b-9417-82641e37f767', '2020-10-20 23:33:13', null, null, null, null, null, null);
+INSERT INTO `admin` VALUES ('1', 'admin', 'youyueadmin', null, '2019-05-14 13:58:38', '2020-12-15 19:57:32', '0', null, 'a83d9659-f2b4-48ef-9351-54c922a54777', '2020-12-16 07:57:32', null, null, null, null, null, null);
 INSERT INTO `admin` VALUES ('3', 'test11', 'test11', null, '2019-09-12 15:07:48', '2020-09-03 16:11:54', '2', null, 'df6ba934-63c5-43ed-9f00-d84f640215a1', '2020-09-04 04:11:54', null, null, null, null, null, null);
 INSERT INTO `admin` VALUES ('8', 'admin', 'admin', null, '0000-00-00 00:00:00', '2020-07-01 11:01:07', '0', null, '6dc5d6f3-4ea8-4a7d-9d42-0fce4c408c7b', '2020-07-01 23:01:07', null, null, null, null, null, null);
 INSERT INTO `admin` VALUES ('9', 'test', 'onedaytest', null, '2019-09-18 13:18:59', '2020-09-05 11:43:53', '0', null, 'bb7f1803-22ad-4ca4-9c20-7250e329a0ee', '2020-09-05 23:43:53', null, null, null, null, null, null);
@@ -562,20 +562,20 @@ CREATE TABLE `restaurant_category` (
 -- ----------------------------
 -- Records of restaurant_category
 -- ----------------------------
-INSERT INTO `restaurant_category` VALUES ('1568275399601392239', '甜品', 'xmspw', '13', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1568279585429681103', '苏打', 'xmspw', '12', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1568298367465952365', 'Brunch早午餐', 'xmspw', '3', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1569869512395692333', '下单前必看', 'xmspw', '15', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1578710652581467865', '意式咖啡', 'xmspw', '9', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1578710715068922686', '手冲咖啡', 'xmspw', '8', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1578711812465842988', 'All Day全天供应', 'xmspw', '2', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1578727942468338965', '冰酿', 'xmspw', '6', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1579447782571865752', '酒水', 'xmspw', '4', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1588180137523421765', '夏季限定', 'xmspw', '10', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1588180180862946560', '果茶', 'xmspw', '11', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1588180185064710012', '热饮', 'xmspw', '5', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1593231144526239701', '咖啡特调', 'xmspw', '7', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_category` VALUES ('1594283188415108183', '全日套餐', 'xmspw', '14', '2020-09-23 14:11:26', '0');
+INSERT INTO `restaurant_category` VALUES ('1568275399601392239', '甜品', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1568279585429681103', '苏打', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1568298367465952365', 'Brunch早午餐', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1569869512395692333', '下单前必看', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1578710652581467865', '意式咖啡', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1578710715068922686', '手冲咖啡', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1578711812465842988', 'All Day全天供应', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1578727942468338965', '冰酿', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1579447782571865752', '酒水', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1588180137523421765', '夏季限定', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1588180180862946560', '果茶', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1588180185064710012', '热饮', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1593231144526239701', '咖啡特调', 'xmspw', '0', '2020-12-15 20:01:54', '0');
+INSERT INTO `restaurant_category` VALUES ('1594283188415108183', '全日套餐', 'xmspw', '0', '2020-12-15 20:01:54', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_category_copy
@@ -628,113 +628,6 @@ CREATE TABLE `restaurant_goods` (
 -- ----------------------------
 -- Records of restaurant_goods
 -- ----------------------------
-INSERT INTO `restaurant_goods` VALUES ('1130958241033482240', '蜜桃杯子', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/5003d18e-6511-42bf-938f-7483b03e43d1.jpg', '', '42.00', 'xmspw', '1568275399601392239', '7', '1', '0', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('726951810119202927', '蓝莓伯爵戚风切件', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/741d8e1d-26d6-46bc-8273-6385225a68da.jpg', '', '38.00', 'xmspw', '1568275399601392239', '5', '1', '3', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('449494096439567143', '玫珑蜜瓜草莓戚风切件', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/c3739643-0f10-4442-97a6-ec1e0bfd50e6.jpg', '', '38.00', 'xmspw', '1568275399601392239', '8', '1', '1', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('420307402084045069', '蜜桃香草戚风切件', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/81e84223-f7e9-4309-9126-2b76c979e174.jpg', '', '38.00', 'xmspw', '1568275399601392239', '5', '1', '2', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('661748108456499286', '甜品正在制作中 持续更新 请耐心等待；)', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/19aa1505-49c3-4b50-8b38-b98f8e130ce5.jpeg', '', '0.00', 'xmspw', '1568275399601392239', '99983', '1', '0', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('1070284309030115708', '提拉米苏', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/8ad3891a-9ad6-4246-b1a9-7fa4a089f51e.JPG', '', '42.00', 'xmspw', '1568275399601392239', '0', '0', '0', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('12377169101486600', '椰子凤梨慕斯（椰子，凤梨，芒果））', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/dcf52808-8fa7-482e-b80b-497416549400.JPG', '', '46.00', 'xmspw', '1568275399601392239', '4', '1', '10', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('806274077877840914', '甜品台', null, '', '3800.00', 'xmspw', '1568275399601392239', '0', '0', '0', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('379456314221576205', '..', null, '', '0.00', 'xmspw', '1568275399601392239', '0', '0', '0', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('959548871062869175', '小四寸', null, '', '68.00', 'xmspw', '1568275399601392239', '0', '0', '0', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('25711476737274534', '茉莉蜜桃慕斯', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/b6f310ea-af55-42d8-91fa-75fc69a75e13.JPG', '', '42.00', 'xmspw', '1568275399601392239', '7', '1', '9', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('793754212135623461', '芝士厚金烧', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/6cac6d50-59b5-48a4-b81f-d2fbb12f86b2.jpg', '', '45.00', 'xmspw', '1568275399601392239', '8', '1', '6', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('427951686568657093', '海盐香草千层', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/69d7a703-7ffa-4703-b9a9-55fcddbfdf0c.jpg', '', '42.00', 'xmspw', '1568275399601392239', '8', '1', '5', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('745674056686339531', '芋泥白金沙卷', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/9a2b1a06-f15a-401b-b69b-6e572eebb5b6.jpg', '', '42.00', 'xmspw', '1568275399601392239', '7', '1', '11', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('564181841317951506', '青柚满满小日式', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/38e3f83e-4ce2-4e61-aaee-961b34dab11c.jpg', '', '58.00', 'xmspw', '1568275399601392239', '1', '1', '50', '2020-09-23 14:11:26', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('640388187251561373', '蒙布朗', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2f3df93a-8864-4c39-9017-ffedc317cdb6.jpg', '', '46.00', 'xmspw', '1568275399601392239', '2', '1', '8', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('708287511345793547', '无花果满满', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/a40a9d56-11e0-48aa-b2d4-a6d5442af647.jpg', '', '42.00', 'xmspw', '1568275399601392239', '0', '1', '7', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('803408297783822731', '帕芭娜戚风切件', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/1826493d-657d-4244-9e9a-d240f72f2e81.jpg', '', '38.00', 'xmspw', '1568275399601392239', '0', '1', '50', '2020-09-23 14:11:26', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('557119912618538439', '莓果果肉苏打', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/79411460-f672-4de9-812d-3e15cfd84030.jpg', '', '36.00', 'xmspw', '1568279585429681103', '99912', '1', '50', '2020-09-23 14:11:26', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('587969064043780805', '蜜桃百香莫吉托', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/4ea54a65-ec1c-4fd9-900f-b6e9b7c04671.jpg', '', '36.00', 'xmspw', '1568279585429681103', '99887', '1', '0', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('26214276675178338', '西柚优格苏打', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/01e66e67-dfe6-4185-a8f1-6de9e5a54b83.jpg', '', '36.00', 'xmspw', '1568279585429681103', '99919', '1', '0', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('425673949654196476', '芒果果肉苏打', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/c6c74afd-7d36-482e-9d61-ed0bad9abf47.png', '', '36.00', 'xmspw', '1568279585429681103', '88882', '1', '0', '2020-09-23 14:11:26', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('256466455631857302', '大虾果泥可颂', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/e9af80ea-5dc3-4dab-8fb9-e95f56d6d0a7.jpg', '', '48.00', 'xmspw', '1568298367465952365', '1', '0', '3', '2020-09-23 14:11:27', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('142572163614065663', '仅在此时间段供应：10:00-15:00（其余时间请勿下单）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/728663ae-f3bf-4f42-bdce-129e2e85d1a6.jpeg', '', '0.00', 'xmspw', '1568298367465952365', '0', '1', '6', '2020-09-23 14:11:27', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('998625480313732729', '牛油果鸡肉三明治', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/fffb167c-0862-4c1e-9b1c-784b63cc19e2.jpg', '', '46.00', 'xmspw', '1568298367465952365', '4', '1', '50', '2020-09-23 14:11:27', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('109373313794091363', '大孔烟熏牛肉三明治', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/c8977f6c-67ea-413b-8917-a79797382249.jpg', '', '46.00', 'xmspw', '1568298367465952365', '5', '1', '4', '2020-09-23 14:11:27', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('793140320757659031', 'Jolly晨餐拼盘', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/1a46c87c-04be-4ba6-822c-53301254eb8b.jpg', '', '72.00', 'xmspw', '1568298367465952365', '5', '1', '50', '2020-09-23 14:11:27', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('669072000672892224', 'NYC美式全餐', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/a76cdf3b-bcf3-4d94-b023-4190740137d2.jpg', '', '58.00', 'xmspw', '1568298367465952365', '0', '1', '1', '2020-09-23 14:11:27', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('468167754891967283', '现金消费请至吧台点单', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/a415dcf4-d4aa-4008-a1c7-1ea1eac082a2.jpg', '', '0.00', 'xmspw', '1569869512395692333', '999986', '1', '0', '2020-09-23 14:11:27', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('24735648429953810', '营业时间', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/4ec47649-eeae-4bc2-9a7c-be2ec857e4bb.jpg', '', '0.00', 'xmspw', '1569869512395692333', '999985', '1', '0', '2020-09-23 14:11:27', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('503255535241873565', '确认订单后不可换桌，不可取消， 不可退换', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/5a2a873a-7fdc-4d59-8afe-3a8c1e5ada65.jpg', '', '0.00', 'xmspw', '1569869512395692333', '999974', '1', '0', '2020-09-23 14:11:27', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('437230147526211713', 'Jolly手提杯袋', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/afe0aaf2-acf3-47c7-899b-4d3003f5adb0.jpeg', '', '12.00', 'xmspw', '1569869512395692333', '99942', '1', '0', '2020-09-23 14:11:27', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('65460050624044672', '挂耳咖啡—曼特宁*6包', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/dc5ecb44-87f9-45b6-94b9-079859d16869.jpg', '', '99.00', 'xmspw', '1569869512395692333', '0', '0', '0', '2020-09-23 14:11:27', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('352652499058460535', '挂耳咖啡—孔佳*6包', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/61378a5a-1fef-47fd-ad7d-1bfb50f8f737.jpg', '', '99.00', 'xmspw', '1569869512395692333', '0', '0', '0', '2020-09-23 14:11:27', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('532150225893652954', '美式咖啡', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/852ec159-a288-4c49-b473-e84c00168c4e.jpg', '', '30.00', 'xmspw', '1578710652581467865', '666474', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('191907944318180113', '拿铁', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/b3c66ff4-2314-4e1d-ad15-ce5cc8a9be71.jpg', '', '36.00', 'xmspw', '1578710652581467865', '666543', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('568340052712528116', '焦糖拿铁', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/5824c9f6-7a06-4f69-947e-c7987365897e.jpg', '', '38.00', 'xmspw', '1578710652581467865', '666624', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('836626783013168023', '香草拿铁', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/77951620-fedf-4ae1-9ff3-e4b242727d21.jpg', '', '38.00', 'xmspw', '1578710652581467865', '666603', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('552225148938128533', '肉桂拿铁', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7e60f821-c003-4b81-ad54-ceff501f20ff.jpg', '', '38.00', 'xmspw', '1578710652581467865', '666613', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('44622525384847981', '卡布奇诺', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/be7f0f03-50bf-4003-9bb5-a8ec2cef7805.jpg', '', '36.00', 'xmspw', '1578710652581467865', '666619', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('866405725994896826', '摩卡', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/38cd22aa-2b6e-4f9e-86b7-d8b54949f87e.jpg', '', '38.00', 'xmspw', '1578710652581467865', '5957', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('660124314993008345', '澳白', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/e18dab05-a230-4a50-b66a-b34922226f9c.jpg', '', '32.00', 'xmspw', '1578710652581467865', '88878', '1', '50', '2020-09-23 14:11:29', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('303130193713462836', 'Dirty（脏）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/347157bd-08e7-4fb5-a57f-2d7f2a4a1e7f.jpg', '', '32.00', 'xmspw', '1578710652581467865', '88830', '1', '50', '2020-09-23 14:11:29', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('162812088842714559', '焦糖玛奇朵', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/29a2c8d5-9886-4739-a7c1-1259e5a5250d.jpg', '', '38.00', 'xmspw', '1578710652581467865', '88878', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('547172858489177198', '印度尼西亚-老虎曼（风味：焦糖、奶油、苹果派）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/d586139e-97a0-4d0f-aa08-3aa55eea4b1b.jpg', '', '38.00', 'xmspw', '1578710715068922686', '88828', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('1133853638786027785', '肯尼亚（风味：乌梅，果汁感）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/94793339-64e7-4e74-9bf5-1107885deaa7.jpg', '', '38.00', 'xmspw', '1578710715068922686', '867', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('881466773291165393', '埃塞尔比亚-孔佳（风味：花香，莓果，果酱）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/6c0fc786-a127-4e2b-bc9e-525c4727dc47.jpg', '', '48.00', 'xmspw', '1578710715068922686', '875', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('198602235551275973', '哥伦比亚-大嘴鸟庄园（风味：黑醋栗，小红莓，果汁感）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/4175c634-4992-4ade-8a91-9aa8deb1d03c.jpg', '', '48.00', 'xmspw', '1578710715068922686', '88859', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('774331071748373773', '哥斯达黎加-巴哈（风味：莓果，枫糖，红酒）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/3f1b72f6-008b-4a81-99e8-0497a03272f7.jpg', '', '58.00', 'xmspw', '1578710715068922686', '88872', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('2411678338638128', '埃塞尔比亚-维西之密（风味：佛手柑，红茶，热带水果）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/7cbfd14e-3ca1-482a-a8bf-df860853c341.jpg', '', '58.00', 'xmspw', '1578710715068922686', '88862', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('209536030023392732', '西班牙腊肠意面', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/1c24e3dc-6e34-4530-bc0d-87870c8a5280.jpg', '', '52.00', 'xmspw', '1578711812465842988', '2996', '1', '6', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('550689646130726242', '芝士焗土豆泥', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/8d41a9fa-4f15-4c6d-9465-df532f5f5feb.jpeg', '', '38.00', 'xmspw', '1578711812465842988', '0', '1', '10', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('532404376922409451', '南瓜汤', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/94a31f2e-02b7-4a3a-b109-eda71a842cf8.jpeg', '', '32.00', 'xmspw', '1578711812465842988', '20', '1', '8', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('643482110478801929', '奶油蘑菇培根意面', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/282910c3-c7a1-4353-acc0-b52cafd4a6b7.jpg', '', '48.00', 'xmspw', '1578711812465842988', '2994', '1', '50', '2020-09-23 14:11:29', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('450281766656918224', '澳洲西冷牛排', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/077bdeca-6a7f-4f17-9b45-3e51aa28ba64.jpg', '', '168.00', 'xmspw', '1578711812465842988', '0', '1', '1', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('224703276326795529', '香橙烟熏鸭胸', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/81e50489-2304-4dd2-bebb-11c8b9f40a62.jpg', '', '68.00', 'xmspw', '1578711812465842988', '4', '1', '2', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('650236888243196486', '香草红酱&饺子皮塔', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/0bf27433-c01e-4fc3-a998-e4019f67c6dd.jpg', '', '42.00', 'xmspw', '1578711812465842988', '0', '0', '12', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('291683855611484982', '避风坞炒鸡翼', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/26cc2d1b-a9fd-442d-a8a9-df3607ce2452.jpg', '', '48.00', 'xmspw', '1578711812465842988', '0', '1', '15', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('418325911221297918', '菌菇三重奏', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/ce2b1f59-bf8c-4359-974c-a13146b367f2.jpg', '', '42.00', 'xmspw', '1578711812465842988', '0', '1', '11', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('129874439416762940', '手撕烤鸡沙拉', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/c8ca12c3-7df4-460c-ad93-df8a09dc1082.jpg', '', '58.00', 'xmspw', '1578711812465842988', '3', '1', '21', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('757616444300307308', '夏季青豆汤', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/32b2acd8-1ad0-4e40-bcab-d9750e007e60.jpg', '', '35.00', 'xmspw', '1578711812465842988', '4', '1', '9', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('306999084164279433', '松露薯条', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/33695e0f-c3bb-40af-a34d-bf520365a617.jpg', '', '36.00', 'xmspw', '1578711812465842988', '19', '1', '18', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('902111287311878834', '咸趣薯饼', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/237f1579-73f2-45a2-9653-a512783e62a8.jpg', '', '36.00', 'xmspw', '1578711812465842988', '14', '1', '17', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('337762552693468090', '意式水牛沙拉', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/ff390f49-c34f-4fe8-9efe-d9efcdc6a8db.jpg', '', '48.00', 'xmspw', '1578711812465842988', '4', '1', '20', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('911839928765882294', '薄荷炸鱼柳', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/f0521f8a-d8bd-47c4-87d9-d1f9b4e81cd5.jpg', '', '38.00', 'xmspw', '1578711812465842988', '4', '1', '16', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('230432389977709617', '辣拌海鲜&小卷饼', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/e89a93f6-de11-4020-a702-edec2ef82fe9.jpg', '', '48.00', 'xmspw', '1578711812465842988', '0', '0', '13', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('508989480258753434', '猪颈肉豆子拌饭', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/5756318c-e454-4cd5-bf25-ee92d9a1f12f.jpg', '', '52.00', 'xmspw', '1578711812465842988', '0', '1', '4', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('1015851675819903097', '明太子辣味薯条', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/6ee24511-fe6b-4eec-9c46-a5c60ee8af27.jpg', '', '36.00', 'xmspw', '1578711812465842988', '7', '1', '50', '2020-09-23 14:11:29', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('94121285767260865', '手制汉堡咖哩饭', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/2f4257c8-7381-40f4-9ca5-51dd6956920e.jpg', '', '58.00', 'xmspw', '1578711812465842988', '0', '1', '3', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('932249682490606085', '香煎羊排&红咖喱酱', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/f3164491-61ee-49a1-9c5c-6e6ea7285f73.jpg', '', '138.00', 'xmspw', '1578711812465842988', '2', '1', '50', '2020-09-23 14:11:29', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('777149778285204766', 'Jolly法式烤鸡', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/3fce1ba8-56b2-4516-baf6-1962bec0cf20.jpg', '', '148.00', 'xmspw', '1578711812465842988', '0', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('328293467698860860', '青芥牛肉沙拉', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/bf4eb7f0-d3ed-4d19-9da5-a54fca558cc9.jpg', '', '68.00', 'xmspw', '1578711812465842988', '0', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('559729234681597193', '酒香冰酿咖啡（风味：红酒，雪莉酒）（不含酒精）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/079becef-fd32-48b3-a535-2d044e7b5e4e.jpeg', '风味描述：浓郁且丰富的酒香发酵感，每一次入口带来的都是不一样的酒香体验。入口是一股浓郁的红酒的酸甜酒香，细细品尝后会发现一股淡淡的雪莉酒的风味。', '58.00', 'xmspw', '1578727942468338965', '2', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('325626549266364202', '果香冰酿咖啡（风味：白桃，西梅，红茶）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/80e5ce61-4adf-4ffc-a3a1-c38f87b3619e.jpeg', '风味描述:浓郁的白桃的香甜和浓郁的西梅风味，带着淡淡的红茶尾韵', '48.00', 'xmspw', '1578727942468338965', '-1', '1', '0', '2020-09-23 14:11:29', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('161807980433547707', '野荔荔水果酒 （整瓶出售）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/8cbc1d0c-3460-478b-b80c-865449d2334a.jpeg', '', '69.00', 'xmspw', '1579447782571865752', '0', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('499055502501827755', '野奶桃水果酒（整瓶出售）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/05f3c5e8-2d59-4a6f-84ba-06d454153f47.jpeg', '', '69.00', 'xmspw', '1579447782571865752', '0', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('995070760628161560', '野青梅水果酒（整瓶出售）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/943cecae-bd0d-46c3-a568-84d149de40ad.jpeg', '', '69.00', 'xmspw', '1579447782571865752', '0', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('635718245384768327', 'MEOW白猫甜白起泡酒', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/4a93dfe9-ade0-417a-b6a3-386f5e9fdaf8.jpeg', '', '79.00', 'xmspw', '1579447782571865752', '0', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('1034772590516588698', '蓝风铃甜白葡萄酒', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/78c22911-37a7-40a3-8925-49bc497e9f8b.jpeg', '', '159.00', 'xmspw', '1579447782571865752', '2', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('477894736383129089', '漂浮之岛白葡萄酒', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/f0c887fe-d325-482e-8c85-4ffcc87cf21c.jpeg', '', '169.00', 'xmspw', '1579447782571865752', '2', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('320228891419065638', 'MEOW粉猫甜起泡酒', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/16f96519-215c-4114-a757-377fb5263b77.jpeg', '', '79.00', 'xmspw', '1579447782571865752', '-1', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('660425033684228489', 'MEOW桃红微气泡酒', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/e43ce936-1568-4b0e-99c0-bca999c0e31b.jpeg', '', '79.00', 'xmspw', '1579447782571865752', '0', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('405219495114909862', '日本梅酒威士忌', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/66dfebdd-b3a5-4e72-aaa5-7310f822fa5a.jpeg', '', '198.00', 'xmspw', '1579447782571865752', '0', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('249316197843371660', '芒果冰沙', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/76e6b1d7-47e4-4b78-af66-fab23b3e933d.jpg', '', '38.00', 'xmspw', '1588180137523421765', '88881', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('823000178543320922', '凤梨芝芝（冰）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/10201790-2bca-497d-8c3e-6b7a37cb00f0.jpg', '', '36.00', 'xmspw', '1588180137523421765', '88868', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('50964992851422625', '仲夏的雪', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/b9201d2d-72dc-4e65-86af-3fb17418bcbc.jpeg', '', '38.00', 'xmspw', '1588180137523421765', '6677', '1', '50', '2020-09-23 14:11:30', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('660206879761057326', '樱花绵绵冰', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/5f454678-8563-41b3-8fff-f3604b8e9f37.jpeg', '', '38.00', 'xmspw', '1588180137523421765', '717', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('120981039472987190', '咖啡燕麦绵绵冰', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/5b1bd6bf-0825-4c35-807b-f7706184b090.jpeg', '', '38.00', 'xmspw', '1588180137523421765', '0', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('247706543377357984', '奶茶波波冰', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/d16607d1-f12d-4ab8-9e88-70b6ace1281d.jpeg', '', '38.00', 'xmspw', '1588180137523421765', '88788', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('297326456220397946', '桃子绿茶', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/b32ed988-efd4-43c5-9eaa-3f01b12cafe1.jpg', '', '36.00', 'xmspw', '1588180180862946560', '99511', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('1120362965424597600', '芒果绿茶', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/866fab7c-28a8-4749-9145-ca5787a47de9.jpg', '', '36.00', 'xmspw', '1588180180862946560', '88884', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('379546668354496281', '莓橙鲜果茶', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/63344499-f818-4d6c-ae80-3d4be52a29de.jpg', '', '36.00', 'xmspw', '1588180180862946560', '99562', '1', '50', '2020-09-23 14:11:30', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('836304711439705583', '金桔柠檬茶', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/125e06b0-aaa6-4651-8721-8b9fcf58d25f.jpg', '', '36.00', 'xmspw', '1588180180862946560', '666666', '0', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('701036508767257571', '抹茶拿铁（无咖啡因）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/45f9dd4d-0432-4007-bd09-2136ef50a7a9.jpg', '', '40.00', 'xmspw', '1588180185064710012', '537', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('774087837519763686', '百香凤梨乌龙茶', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/f8481421-1a2c-447b-950e-79f5795bb241.jpeg', '', '38.00', 'xmspw', '1588180185064710012', '88879', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('320192666426577624', '紫薯拿铁（不含咖啡因）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/b2c9a24e-e3ed-45bf-b354-84ce47490794.jpeg', '', '32.00', 'xmspw', '1588180185064710012', '-1', '0', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('281236623133603655', '热纯茶—山行（小赤甘）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/13b5e75e-15ff-4faa-83b1-6f9264decdf1.jpeg', '', '68.00', 'xmspw', '1588180185064710012', '688803', '1', '-1', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('445713372098142248', '热纯茶—竹林（烟小种）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/6b91e3ba-b65b-4a4b-8ae9-ca877e284f43.jpeg', '', '68.00', 'xmspw', '1588180185064710012', '688848', '1', '-1', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('701462197040064722', '牛奶', null, '', '25.00', 'xmspw', '1588180185064710012', '0', '0', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('1045025720982099575', '热可可', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/682faeca-3563-43f0-8f4e-c29b8ad330d7.jpg', '', '38.00', 'xmspw', '1588180185064710012', '876', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('336679766343744911', '黑糖拿铁', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/5de6ae40-4a1b-4840-82d5-756f535c5653.jpg', '', '38.00', 'xmspw', '1588180185064710012', '880', '1', '50', '2020-09-23 14:11:30', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('668933267518262177', '栗栗朗姆（含酒精和咖啡因）', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/e2682dc6-f4e0-4d5f-8fbf-4e0ebdb63502.jpg', '', '48.00', 'xmspw', '1593231144526239701', '0', '0', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('164726519522856576', '泡沫冰美式', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/91decc52-3d44-4477-b1db-36e2486d6b94.jpg', '', '32.00', 'xmspw', '1593231144526239701', '849', '1', '0', '2020-09-23 14:11:30', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('1048862091337190581', '冰橙黑咖', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/f0822e07-2953-4c6d-88e5-ea64387b7753.jpg', '', '38.00', 'xmspw', '1593231144526239701', '848', '1', '50', '2020-09-23 14:11:30', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
-INSERT INTO `restaurant_goods` VALUES ('437812332229929900', '68元下午茶套餐', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/fe8fb39c-46a2-42c6-a95f-c03000c427db.png', '', '68.00', 'xmspw', '1594283188415108183', '39', '1', '0', '2020-09-23 14:11:31', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('770733141849353601', 'Jolly拼盘+咖啡', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/3edff721-6f91-4605-a54d-50cf278739bc.jpg', '', '72.00', 'xmspw', '1594283188415108183', '0', '1', '0', '2020-09-23 14:11:31', '0', '');
-INSERT INTO `restaurant_goods` VALUES ('825780101831397651', 'Jolly全日双人餐', 'http://pospalstoreimg.area8.pospal.cn:80/productImages/3286726/5c3f2aac-7e94-4572-a938-b794b2349a53.jpg', '套餐包含：1：意式水牛沙拉、2：牛油果鸡肉三明治、3：奶油菌菇培根意面、4：明太子辣味薯条、5：夏季青豆汤', '168.00', 'xmspw', '1594283188415108183', '4', '1', '50', '2020-09-23 14:11:31', '0', '{\"text\":\"店长推荐\",\"background\":\"#90A691\",\"color\":\"#FFFFFF\"}');
 
 -- ----------------------------
 -- Table structure for restaurant_goods_copy
@@ -773,6 +666,21 @@ INSERT INTO `restaurant_goods_copy` VALUES ('11', '阿文', 'http://notwastingqi
 INSERT INTO `restaurant_goods_copy` VALUES ('12', '他说他', 'http://notwastingqiniu.minidope.com/goods_2019_7_30_18_19_12_0.png', '特舒服', '3.00', 'xmspw', '3', '2443', '1', '3', '2019-07-30 18:19:45', '1');
 INSERT INTO `restaurant_goods_copy` VALUES ('13', 'tet', 'http://notwastingqiniu.minidope.com/goods_2019_8_2_14_55_35_0.png', 'tet', '2.00', 'xmspw', '1', '2147483647', '0', '3', '2019-08-02 14:55:56', '1');
 INSERT INTO `restaurant_goods_copy` VALUES ('14', '2', 'http://notwastingqiniu.minidope.com/goods_2019_8_3_10_31_42_0.png', '33', '3.00', 'xmspw', '1', '6784', '1', '3', '2019-08-03 10:32:09', '1');
+
+-- ----------------------------
+-- Table structure for restaurant_goods_image
+-- ----------------------------
+DROP TABLE IF EXISTS `restaurant_goods_image`;
+CREATE TABLE `restaurant_goods_image` (
+  `productUid` varchar(255) NOT NULL,
+  `productName` varchar(255) NOT NULL,
+  `productBarcode` varchar(255) NOT NULL,
+  `imageUrl` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of restaurant_goods_image
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for restaurant_goods_order
@@ -833,71 +741,77 @@ CREATE TABLE `restaurant_goods_sku` (
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(12) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=298442 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=298706 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of restaurant_goods_sku
 -- ----------------------------
-INSERT INTO `restaurant_goods_sku` VALUES ('298382', '99912', '36.00', '557119912618538439', '{\"温度\":\"少冰\"}', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298383', '99912', '36.00', '557119912618538439', '{\"温度\":\"正常冰\"}', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298384', '99887', '36.00', '587969064043780805', '{\"温度\":\"冰\"}', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298385', '99887', '36.00', '587969064043780805', '{\"温度\":\"少冰\"}', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298386', '99919', '36.00', '26214276675178338', '{\"温度\":\"少冰\"}', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298387', '99919', '36.00', '26214276675178338', '{\"温度\":\"正常冰\"}', '2020-09-23 14:11:26', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298388', '666474', '30.00', '532150225893652954', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298389', '666474', '30.00', '532150225893652954', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298390', '666543', '36.00', '191907944318180113', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298391', '666543', '36.00', '191907944318180113', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298392', '666624', '38.00', '568340052712528116', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298393', '666624', '38.00', '568340052712528116', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298394', '666603', '38.00', '836626783013168023', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298395', '666603', '38.00', '836626783013168023', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298396', '666613', '38.00', '552225148938128533', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298397', '666613', '38.00', '552225148938128533', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298398', '666619', '36.00', '44622525384847981', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298399', '5957', '38.00', '866405725994896826', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298400', '5957', '38.00', '866405725994896826', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298401', '88878', '32.00', '660124314993008345', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298402', '88830', '32.00', '303130193713462836', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298403', '88878', '38.00', '162812088842714559', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298404', '88878', '38.00', '162812088842714559', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298405', '88828', '38.00', '547172858489177198', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298406', '88828', '38.00', '547172858489177198', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298407', '867', '38.00', '1133853638786027785', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298408', '867', '38.00', '1133853638786027785', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298409', '875', '48.00', '881466773291165393', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298410', '875', '48.00', '881466773291165393', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298411', '88859', '48.00', '198602235551275973', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298412', '88859', '48.00', '198602235551275973', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298413', '88872', '58.00', '774331071748373773', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298414', '88872', '58.00', '774331071748373773', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298415', '88862', '58.00', '2411678338638128', '{\"温度\":\"冰\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298416', '88862', '58.00', '2411678338638128', '{\"温度\":\"热\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298417', '0', '168.00', '450281766656918224', '{\"熟度\":\"3分熟\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298418', '0', '168.00', '450281766656918224', '{\"熟度\":\"5分熟\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298419', '0', '168.00', '450281766656918224', '{\"熟度\":\"7分熟\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298420', '0', '168.00', '450281766656918224', '{\"熟度\":\"全熟\"}', '2020-09-23 14:11:29', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298421', '88881', '38.00', '249316197843371660', '{\"温度\":\"少冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298422', '88881', '38.00', '249316197843371660', '{\"温度\":\"正常冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298423', '99511', '36.00', '297326456220397946', '{\"温度\":\"少冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298424', '99511', '36.00', '297326456220397946', '{\"温度\":\"正常冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298425', '88884', '36.00', '1120362965424597600', '{\"温度\":\"少冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298426', '88884', '36.00', '1120362965424597600', '{\"温度\":\"正常冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298427', '99562', '36.00', '379546668354496281', '{\"温度\":\"冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298428', '99562', '36.00', '379546668354496281', '{\"温度\":\"少冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298429', '537', '40.00', '701036508767257571', '{\"温度\":\"冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298430', '537', '40.00', '701036508767257571', '{\"温度\":\"热\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298431', '88879', '38.00', '774087837519763686', '{\"温度\":\"热\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298432', '0', '48.00', '668933267518262177', '{\"温度\":\"冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298433', '849', '32.00', '164726519522856576', '{\"温度\":\"冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298434', '848', '38.00', '1048862091337190581', '{\"温度\":\"正常冰\"}', '2020-09-23 14:11:30', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298435', '39', '68.00', '437812332229929900', '{\"奶油切件\":\"奶油切件\",\"饮品\":\"莓橙鲜果茶\"}', '2020-09-23 14:11:31', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298436', '39', '68.00', '437812332229929900', '{\"奶油切件\":\"奶油切件\",\"饮品\":\"莓果果肉苏打\"}', '2020-09-23 14:11:31', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298437', '0', '72.00', '770733141849353601', '{\"饮品\":\"美式咖啡（热）\"}', '2020-09-23 14:11:31', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298438', '0', '72.00', '770733141849353601', '{\"饮品\":\"美式咖啡（冰）\"}', '2020-09-23 14:11:31', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298439', '0', '72.00', '770733141849353601', '{\"饮品\":\"拿铁（热）\"}', '2020-09-23 14:11:31', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298440', '0', '72.00', '770733141849353601', '{\"饮品\":\"拿铁（冰）\"}', '2020-09-23 14:11:31', '0');
-INSERT INTO `restaurant_goods_sku` VALUES ('298441', '0', '72.00', '770733141849353601', '{\"饮品\":\"热水牛\"}', '2020-09-23 14:11:31', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298640', '99758', '36.00', '557119912618538439', '{\"温度\":\"少冰\"}', '2020-12-15 20:01:55', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298641', '99758', '36.00', '557119912618538439', '{\"温度\":\"正常冰\"}', '2020-12-15 20:01:55', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298642', '99463', '36.00', '587969064043780805', '{\"温度\":\"冰\"}', '2020-12-15 20:01:55', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298643', '99463', '36.00', '587969064043780805', '{\"温度\":\"少冰\"}', '2020-12-15 20:01:55', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298644', '99361', '36.00', '26214276675178338', '{\"温度\":\"少冰\"}', '2020-12-15 20:01:55', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298645', '99361', '36.00', '26214276675178338', '{\"温度\":\"正常冰\"}', '2020-12-15 20:01:55', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298646', '1773', '30.00', '532150225893652954', '{\"温度\":\"冰\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298647', '1773', '30.00', '532150225893652954', '{\"温度\":\"热\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298648', '99740', '36.00', '191907944318180113', '{\"温度\":\"冰\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298649', '99740', '36.00', '191907944318180113', '{\"温度\":\"热\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298650', '99874', '38.00', '568340052712528116', '{\"温度\":\"冰\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298651', '99874', '38.00', '568340052712528116', '{\"温度\":\"热\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298652', '864', '38.00', '836626783013168023', '{\"温度\":\"冰\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298653', '864', '38.00', '836626783013168023', '{\"温度\":\"热\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298654', '898', '38.00', '552225148938128533', '{\"温度\":\"冰\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298655', '898', '38.00', '552225148938128533', '{\"温度\":\"热\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298656', '910', '36.00', '44622525384847981', '{\"温度\":\"热\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298657', '926', '38.00', '866405725994896826', '{\"温度\":\"冰\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298658', '926', '38.00', '866405725994896826', '{\"温度\":\"热\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298659', '-1', '32.00', '660124314993008345', '{\"温度\":\"热\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298660', '524', '32.00', '303130193713462836', '{\"温度\":\"冰\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298661', '964', '38.00', '162812088842714559', '{\"温度\":\"冰\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298662', '964', '38.00', '162812088842714559', '{\"温度\":\"热\"}', '2020-12-15 20:01:56', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298663', '190', '48.00', '547172858489177198', '{\"温度\":\"热\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298664', '190', '48.00', '547172858489177198', '{\"温度\":\"冰\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298665', '205', '48.00', '1133853638786027785', '{\"温度\":\"热\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298666', '205', '48.00', '1133853638786027785', '{\"温度\":\"冰\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298667', '989', '48.00', '881466773291165393', '{\"温度\":\"热\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298668', '989', '48.00', '881466773291165393', '{\"温度\":\"冰\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298669', '206', '48.00', '198602235551275973', '{\"温度\":\"热\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298670', '206', '48.00', '198602235551275973', '{\"温度\":\"冰\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298671', '196', '58.00', '774331071748373773', '{\"温度\":\"热\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298672', '196', '58.00', '774331071748373773', '{\"温度\":\"冰\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298673', '1200', '58.00', '2411678338638128', '{\"温度\":\"热\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298674', '1200', '58.00', '2411678338638128', '{\"温度\":\"冰\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298675', '18', '58.00', '906431205672165718', '{\"温度\":\"热\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298676', '18', '58.00', '906431205672165718', '{\"温度\":\"冰\"}', '2020-12-15 20:01:57', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298677', '96', '168.00', '450281766656918224', '{\"熟度\":\"3分熟\"}', '2020-12-15 20:01:58', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298678', '96', '168.00', '450281766656918224', '{\"熟度\":\"5分熟\"}', '2020-12-15 20:01:58', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298679', '96', '168.00', '450281766656918224', '{\"熟度\":\"7分熟\"}', '2020-12-15 20:01:58', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298680', '96', '168.00', '450281766656918224', '{\"熟度\":\"全熟\"}', '2020-12-15 20:01:58', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298681', '656', '38.00', '249316197843371660', '{\"温度\":\"少冰\"}', '2020-12-15 20:01:59', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298682', '656', '38.00', '249316197843371660', '{\"温度\":\"正常冰\"}', '2020-12-15 20:01:59', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298683', '163', '36.00', '297326456220397946', '{\"温度\":\"少冰\"}', '2020-12-15 20:02:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298684', '163', '36.00', '297326456220397946', '{\"温度\":\"正常冰\"}', '2020-12-15 20:02:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298685', '199', '36.00', '1120362965424597600', '{\"温度\":\"少冰\"}', '2020-12-15 20:02:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298686', '199', '36.00', '1120362965424597600', '{\"温度\":\"正常冰\"}', '2020-12-15 20:02:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298687', '99608', '36.00', '379546668354496281', '{\"温度\":\"冰\"}', '2020-12-15 20:02:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298688', '99608', '36.00', '379546668354496281', '{\"温度\":\"少冰\"}', '2020-12-15 20:02:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298689', '247', '40.00', '701036508767257571', '{\"温度\":\"冰\"}', '2020-12-15 20:02:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298690', '247', '40.00', '701036508767257571', '{\"温度\":\"热\"}', '2020-12-15 20:02:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298691', '286', '38.00', '774087837519763686', '{\"温度\":\"热\"}', '2020-12-15 20:02:00', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298692', '0', '48.00', '668933267518262177', '{\"温度\":\"冰\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298693', '99940', '32.00', '164726519522856576', '{\"温度\":\"冰\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298694', '99965', '38.00', '1048862091337190581', '{\"温度\":\"正常冰\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298695', '959', '68.00', '437812332229929900', '{\"奶油切件\":\"奶油切件\",\"饮品\":\"莓橙鲜果茶\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298696', '959', '68.00', '437812332229929900', '{\"奶油切件\":\"奶油切件\",\"饮品\":\"莓果果肉苏打\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298697', '0', '72.00', '770733141849353601', '{\"饮品\":\"美式咖啡（热）\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298698', '0', '72.00', '770733141849353601', '{\"饮品\":\"美式咖啡（冰）\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298699', '0', '72.00', '770733141849353601', '{\"饮品\":\"拿铁（热）\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298700', '0', '72.00', '770733141849353601', '{\"饮品\":\"拿铁（冰）\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298701', '0', '72.00', '770733141849353601', '{\"饮品\":\"热水牛\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298702', '8', '198.00', '436611300565350024', '{\"4寸可2选1\":\"提拉米苏\",\"JOLLY炸物拼盘\":\"薯饼/香肠/鸡翅/薯格\",\"饮品\":\"莓果苏打（冰）& 纯热茶\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298703', '8', '198.00', '436611300565350024', '{\"4寸可2选1\":\"芝士厚金烧\",\"JOLLY炸物拼盘\":\"薯饼/香肠/鸡翅/薯格\",\"饮品\":\"莓果苏打（冰）& 纯热茶\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298704', '10', '252.00', '490181911190002831', '{\"餐前\":\"香草黄油面包\",\"沙拉\":\"Jolly花环水果沙拉\",\"主食\":\"甜橙鸭胸& 红酱意式土豆球&香煎三文鱼&柠檬鱼子酱\",\"甜品\":\"圣诞主题蛋糕\",\"酒\":\"干白葡萄酒（187ml）\"}', '2020-12-15 20:02:01', '0');
+INSERT INTO `restaurant_goods_sku` VALUES ('298705', '10', '252.00', '490181911190002831', '{\"餐前\":\"香草黄油面包\",\"沙拉\":\"Jolly花环水果沙拉\",\"主食\":\"甜橙鸭胸& 红酱意式土豆球&香煎三文鱼&柠檬鱼子酱\",\"甜品\":\"圣诞主题蛋糕\",\"酒\":\"干红葡萄酒（187ml）\"}', '2020-12-15 20:02:01', '0');
 
 -- ----------------------------
 -- Table structure for restaurant_search_history
@@ -954,7 +868,7 @@ CREATE TABLE `restaurant_user` (
 -- ----------------------------
 -- Records of restaurant_user
 -- ----------------------------
-INSERT INTO `restaurant_user` VALUES ('41444', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '', null, null, '2020-09-16 11:18:05', 'oi35lDTc6c7BKl3K9Q4y5Q==', '2020-09-23 09:43:40', null, '0', '13055257913', '2020-09-16 11:41:20');
+INSERT INTO `restaurant_user` VALUES ('41444', 'oVSyv4gm5CHUKH7O8MOYkX7ssVhI', '', null, null, '2020-09-16 11:18:05', 'GSruXdNDHrGprwb90QRS4Q==', '2020-12-15 20:23:02', null, '0', '13055257913', '2020-09-16 11:41:20');
 
 -- ----------------------------
 -- Table structure for review
@@ -1297,7 +1211,7 @@ CREATE TABLE `yinbao_sort` (
   `sort` int(6) NOT NULL,
   `type` varchar(10) NOT NULL COMMENT '分类 || 商品',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of yinbao_sort
