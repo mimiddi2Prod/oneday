@@ -128,6 +128,8 @@ function yinbaoUpdateData() {
                     subCateSort.forEach(m => {
                         if (val.name == m.name) {
                             val.sort = m.sort
+                        } else {
+                            val.sort = 0
                         }
                     })
                     return val
