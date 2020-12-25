@@ -80,6 +80,8 @@ function yinbaoUpdateData() {
         try {
             const subCateSort = await db.Query("select * from yinbao_sort where `type` = ? order by sort desc", ["分类"])
             const goods = await db.Query("select * from yinbao_sort where `type` = ? order by sort desc", ["商品"])
+            const subCateHot = await db.Query("select * from restaurant_category_hot")
+            const goodsHot = await db.Query("select * from restaurant_goods_hot")
 
             // 1.更新分类
             let postData = {
@@ -123,13 +125,24 @@ function yinbaoUpdateData() {
                 //     sql = "insert into restaurant_category(`name`,id,location_code,create_time) values (?,?,?,current_timestamp )"
                 //     row = await db.Query(sql, [littleCateUidList[i].name, littleCateUidList[i].uid, "xmspw"])
                 // }
+                // 新增2.0 精选top 10
+                if (subCateHot.length) {
+                    InsertCategory = InsertCategory.concat(subCateHot.map(val => {
+                        return {
+                            "name": val.name,
+                            "id": val.id,
+                            "location_code": "xmspw",
+                            "create_time": new Date()
+                        }
+                    }))
+                }
+
                 // 新增
                 InsertCategory = InsertCategory.map(val => {
+                    val.sort = 0
                     subCateSort.forEach(m => {
                         if (val.name == m.name) {
                             val.sort = m.sort
-                        } else {
-                            val.sort = 0
                         }
                     })
                     return val
@@ -201,7 +214,33 @@ function yinbaoUpdateData() {
                             "tag": val.attribute3
                         }
                     })
-                    await db.BulkInsert("restaurant_goods", DATA)
+                    // 改 2.0
+                    if (goodsHot.length) {
+                        let TEMP = [].concat(DATA)
+                        for (let m in goodsHot) {
+                            for (let n in DATA) {
+                                if (goodsHot[m].id == DATA[n].id) {
+                                    TEMP.push({
+                                        "name": DATA[n].name,
+                                        "id": DATA[n].id,
+                                        "describe": DATA[n].describe,
+                                        "min_price": DATA[n].min_price,
+                                        "category_id": goodsHot[m].category_id,
+                                        "stock": DATA[n].stock,
+                                        "status": DATA[n].status,
+                                        "location_code": DATA[n].location_code,
+                                        "create_time": new Date(),
+                                        "sort": DATA[n].sort,
+                                        "tag": DATA[n].tag
+                                    })
+                                }
+                            }
+                        }
+                        await db.BulkInsert("restaurant_goods", TEMP)
+                    } else {
+                        await db.BulkInsert("restaurant_goods", DATA)
+                    }
+
                     // console.info(ProductResult)
 
                     // 将备注里的数据格式 放到参数表上

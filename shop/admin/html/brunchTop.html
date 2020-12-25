@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--适配移动端 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <title>银豹相关</title>
+    <script type="text/javascript" src="../node_modules/vue/dist/vue.min.js"></script>
+    <script type="text/javascript" src="../jquery-3.3.1/jquery-3.3.1.min.js"></script>
+    <!--<link rel="stylesheet" type="text/css"-->
+    <!--href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../layDate-v5.0.9/laydate/laydate.js"></script> <!--时间控件-->
+    <script type="text/javascript" src="../js/utils/apis.js"></script>
+    <script type="text/javascript" src="../js/utils/http.js"></script> <!--封装接口请求-->
+    <script type="text/javascript" src="../js/utils/formatTime.js"></script> <!--时间格式化-->
+    <!--<script type="text/javascript" src='https://unpkg.com/qiniu-js@2.5.3/dist/qiniu.min.js'></script> &lt;!&ndash;七牛云图片上传所需&ndash;&gt;-->
+    <script type="text/javascript" src="../js/utils/qiniuUpload.js"></script> <!--封装的七牛云图片上传-->
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/menu.css" rel="stylesheet">
+    <link href="../css/brunchTop.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="LoadMenu" class="left">
+    <load-menu></load-menu>
+</div>
+
+
+<div class="right">
+    <div class="jumbotron" id="brunchTop">
+        <!-- 银豹 -->
+        <div class="title item">
+            <h4>餐品TOP</h4>
+        </div>
+
+        <!--排序相关-->
+        <div class="addSort">
+            <!--<span style="font-size: 20px">(排序从大到小,商品在每个分类中的排序独立)</span>-->
+            <button type="button" class="btn btn-danger addSort" data-toggle="modal" data-target="#myModals"
+                    v-on:click="addCateHot()">添加TOP分类
+            </button>
+        </div>
+        <pre>提示：添加完的分类和商品并不会立刻同步到菜单中，而是在“更新brunch商品列表”时才同步</pre>
+        <pre>删除分类名，则与该分类关联的商品将不再与该分类关联</pre>
+        <ul class="nav nav-tabs">
+            <li v-bind:class="(index == navId ? 'active' : '')" v-for="item,index in navList" @click="navId = index">
+                <a href="javascript:;">{{item}}</a>
+            </li>
+            <div v-if="navId === 1" class="sort row-center">
+                <div class="item">
+                    <div class="select">
+                        <form role="form">
+                            <!--<div class="form-group">-->
+                                <select class="form-control" v-model="subCateHot_select">
+                                    <option disabled="" value="" selected="selected">请选择分类</option>
+                                    <option v-for="item in goodsList.subCateHot" v-bind:value="item.id">{{item.name}}</option>
+                                </select>
+                            <!--</div>-->
+                        </form>
+                    </div>
+                </div>
+                <input type="text" class="form-control" type="text" name=""
+                       v-model="new_goods_hot" style="margin-bottom: 6px" placeholder="商品名"/>
+                <button v-if="current_cate_id" type="button" class="btn btn-danger addSort"
+                        v-on:click="addGoodsHot()">给该分类添加商品
+                </button>
+            </div>
+        </ul>
+        <div class="goods">
+            <!-- 商品标题 -->
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="item">
+                    <span class="second-title have-border column-center">{{navId == 0 ? '分类名' : '商品名'}}</span>
+                    <span class="second-title have-border column-center" v-if="navId === 0">新分类名</span>
+                    <span class="second-title column-center">操作</span>
+                </div>
+            </nav>
+
+            <!-- 商品详情 -->
+            <div class="goods-container" v-if="navId === 0" v-for="item,index in goodsList.subCateHot">
+                <div class="m">
+                    <div class="second-title">
+                        <span>{{item.name}}</span>
+                    </div>
+                    <div class="second-title column-center">
+                        <input class="form-control" v-bind:value="item.new_name"
+                               v-model="item.new_name" style="min-width: 70px"/>
+                    </div>
+                    <div class="second-title column-center">
+                        <div class="row-center">
+                            <button type="button" class="btn btn-link" v-on:click="updateCateHotName(item.id)">
+                                确定
+                            </button>
+                            <button type="button" class="btn btn-link" v-on:click="delCateHot(item.id)">
+                                删除
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="goods-container" v-if="navId === 1" v-for="item,index in current_goods_list">
+                <div class="m">
+                    <div class="second-title">
+                        <span>{{item.name}}</span>
+                    </div>
+                    <!--<div class="second-title column-center">-->
+                        <!--<input class="form-control" v-bind:value="item.new_name"-->
+                               <!--v-model="item.new_name" style="min-width: 70px"/>-->
+                    <!--</div>-->
+                    <div class="second-title column-center">
+                        <div class="row-center">
+                            <!--<button type="button" class="btn btn-link" v-on:click="updateCateHotName(item.id)">-->
+                                <!--确定-->
+                            <!--</button>-->
+                            <button type="button" class="btn btn-link" v-on:click="delGoodsHot(item.id)">
+                                删除
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--<div class="sort row-center">-->
+                        <!--<div class="item">-->
+                        <!--<div class="select">-->
+                        <!--<form role="form">-->
+                        <!--<div class="form-group">-->
+                        <!--<select class="form-control" v-model="type_select">-->
+                        <!--<option disabled="" value="" selected="selected">请选择分类或商品</option>-->
+                        <!--<option v-for="item in Type" v-bind:value="item">{{item}}</option>-->
+                        <!--</select>-->
+                        <!--</div>-->
+                        <!--</form>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <input type="text" class="form-control" id="sortModalText" type="text" name=""
+                               v-model="ModalName" style="margin-bottom: 6px" placeholder="分类名"/>
+                        <!--<input type="text" class="form-control" id="sortModalSort" type="text" name=""-->
+                        <!--v-model="ModalSort" style="margin-bottom: 6px" placeholder="排序"/>-->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" v-on:click="submitSortBtn()">确定</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" data-keyboard="false"
+     data-backdrop="static" data-role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="loading" class="loading">更新中...</div>
+</div>
+
+<script type="text/javascript" src="../js/menu.js"></script>
+<script type="text/javascript" src="../js/brunchTop.js"></script>
+</body>
+</html>

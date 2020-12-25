@@ -383,6 +383,30 @@ function Router() {
                 var YinbaoDelDefaultSort = require("./api/yinbao_del_default_sort.js");
                 baseApi = new YinbaoDelDefaultSort;
                 break;
+            case "yinbao_get_category_hot":
+                var YinbaoGetCategoryHot = require("./api/yinbao_get_category_hot.js");
+                baseApi = new YinbaoGetCategoryHot;
+                break;
+            case "yinbao_set_category_hot":
+                var YinbaoSetCategoryHot = require("./api/yinbao_set_category_hot.js");
+                baseApi = new YinbaoSetCategoryHot;
+                break;
+            case "yinbao_del_category_hot":
+                var YinbaoDelCategoryHot = require("./api/yinbao_del_category_hot.js");
+                baseApi = new YinbaoDelCategoryHot;
+                break;
+            case "yinbao_set_cate_hot_name":
+                var YinbaoSetCateHotName = require("./api/yinbao_set_cate_hot_name.js");
+                baseApi = new YinbaoSetCateHotName;
+                break;
+            case "yinbao_set_goods_hot":
+                var YinbaoSetGoodsHot = require("./api/yinbao_set_goods_hot.js");
+                baseApi = new YinbaoSetGoodsHot;
+                break;
+            case "yinbao_del_goods_hot":
+                var YinbaoDelGoodsHot = require("./api/yinbao_del_goods_hot.js");
+                baseApi = new YinbaoDelGoodsHot;
+                break;
             default:
                 callback({code: 4, data: {}, error: "api错误"});
                 return;

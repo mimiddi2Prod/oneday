@@ -165,6 +165,8 @@ app.use(function (req, res, next) {
                     showPaper('html/addPosition.html');
                 } else if (type[1] == 'yinbao') {
                     showPaper('html/yinbao.html');
+                } else if (type[1] == 'brunchTop') {
+                    showPaper('html/brunchTop.html');
                 } else if (type[1] == 'brunchBanner') {
                     showPaper('html/brunchBanner.html');
                 } else if (type[1] == 'addBrunchBanner') {
@@ -209,6 +211,8 @@ app.use(function (req, res, next) {
                     showPaper('index.html')
                 } else if (type[1] == 'yinbao') {
                     showPaper('html/yinbao.html');
+                } else if (type[1] == 'brunchTop') {
+                    showPaper('html/brunchTop.html');
                 } else if (type[1] == 'brunchBanner') {
                     showPaper('html/brunchBanner.html');
                 } else if (type[1] == 'addBrunchBanner') {
