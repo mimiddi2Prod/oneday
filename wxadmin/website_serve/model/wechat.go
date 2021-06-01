@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"net/url"
 	"reflect"
 )
 
@@ -159,6 +160,7 @@ func (w *WechatMenu) GetWechatMenu(arr interface{}) (list []WechatList, err erro
 					for i := range click {
 						if item.Key == click[i].Key {
 							item.Image = click[i].Image
+							//item.Message = decodeURIComponent(click[i].Message)
 							item.Message = click[i].Message
 						}
 					}
@@ -260,4 +262,10 @@ func (w *WechatMenu) SaveWechatMenu(list interface{}, sub_list interface{}) (err
 	}
 
 	return nil
+}
+
+func decodeURIComponent(str string) string {
+	r, _ := url.QueryUnescape(str)
+	//r = strings.Replace(r, "+", "%20", -1)
+	return r
 }

@@ -120,7 +120,8 @@ func (s *Button) SaveWechatMenu(c *gin.Context) map[string]interface{} {
 			button[i].Sub_button[j].Parent_button_id = list[i].Id
 			//message 转码
 			if (len(button[i].Sub_button[j].Message) != 0) {
-				button[i].Sub_button[j].Message = encodeURIComponent(button[i].Sub_button[j].Message)
+				//button[i].Sub_button[j].Message = encodeURIComponent(button[i].Sub_button[j].Message)
+				button[i].Sub_button[j].Message = button[i].Sub_button[j].Message
 			}
 			if (len(button[i].Sub_button[j].Message) != 0 || len(button[i].Sub_button[j].Image) != 0) {
 				button[i].Sub_button[j].Key = "item" + strconv.Itoa(i) + "_" + strconv.Itoa(j)
@@ -149,6 +150,9 @@ func (s *Button) SaveWechatMenu(c *gin.Context) map[string]interface{} {
 		fmt.Println(res)
 	} else if list[0].Appid == "wx9a7f04eeea0842be" {
 		res, _ := http.Get("http://localhost:9130/apis/create_menu")
+		fmt.Println(res)
+	} else if list[0].Appid == "wxda2d0b5daac88c79" {
+		res, _ := http.Get("http://localhost:13000/apis/create_menu")
 		fmt.Println(res)
 	}
 

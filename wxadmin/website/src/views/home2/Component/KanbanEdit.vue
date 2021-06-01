@@ -190,7 +190,8 @@ export default {
       // const fileUrl = this.$refs.upload.uploadFiles[0].url
       // this.fileUrl = fileUrl
 
-      this.qiniuDataObj.key = this.getKey() + `${file.name}`
+      // this.qiniuDataObj.key = this.getKey() + `${file.name}`
+      this.qiniuDataObj.key = this.getKey() + '.' + file.name.split('.')[1]
       // 请求 qiniu get_token / post 覆盖上传凭证 需要key
       return this.$store.dispatch('qiniu/getQiniuToken', this.qiniuDataObj).then(res => {
         this.qiniuDataObj = res.qiniuDataObj

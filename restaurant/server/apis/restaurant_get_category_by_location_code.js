@@ -59,6 +59,17 @@ function RestaurantGetCategoryByLocationCode() {
                         //     }
                         // }
                     }
+
+                    // let temp = []
+                    // // 测试 将商品添加到不同分类上
+                    // for (let i in data.goods) {
+                    //     if (data.goods[i].id === '425673949654196476') {
+                    //         let a = Object.assign({},data.goods[i])
+                    //         a.category_id = "1608817248056290823"
+                    //         temp.push(a)
+                    //     }
+                    // }
+                    // data.goods = data.goods.concat(temp)
                 }
 
             } catch (err) {
