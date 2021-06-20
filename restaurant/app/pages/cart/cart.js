@@ -107,7 +107,7 @@ Page({
       (oet.toString().length && oet < new Date().getTime())) {
       wx.showModal({
         title: '',
-        content: '您现在就坐的是Oneday Jolly最美景观区，为美买单，低消160元/桌',
+        content: '您现在就坐是景观区，如单点不足160元，将收取160元/桌的服务费哦～如有疑问，请咨询身边的服务员～感谢您的支持～',
         showCancel: false
       })
       return;
